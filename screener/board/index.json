@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-25T18:04:11Z",
+  "generated_at": "2026-09-25T18:18:31Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260925-350",
+      "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process regarding Post facto intimation of the 8th (Eighth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_25092026230058_IntimationofOutcomeof8thCOCMeeting25092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T17:31:21Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "India Power Corporation Limited is undergoing a corporate insolvency resolution process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "India Power Corporation Limited is undergoing a corporate insolvency resolution process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "India Power Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260925-335",
       "headline": "CFTC Charges Cash FX Group S.A., and CEO; Three Others With $950 Million Fraud Scheme",
@@ -940,6 +989,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-354",
+      "headline": "National Bank Of Canada To Buy Back Up To $2.25 Bln Shares",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/national-bank-canada-buy-back-225-bln-shares",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T17:32:40Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "National Bank of Canada announced a share buyback program of up to $2.25 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "National Bank of Canada announced a share buyback program of up to $2.25 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Bank of Canada",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-357",
+      "headline": "UK's Pinewood Technologies shareholders approve $721 million Ridgeview takeover",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/uks-pinewood-technologies-shareholders-approve-721-million-ridgeview-takeover-2026-09-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T17:07:10Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Shareholders approved a $721 million takeover of Pinewood Technologies by Ridgeview.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shareholders approved a $721 million takeover of Pinewood Technologies by Ridgeview.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pinewood Technologies",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-347",
       "headline": "France's Rexel to buy US distributor GCG for $1.4 billion",
       "headline_en": null,
@@ -1858,153 +2005,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-152",
-      "headline": "HelloFresh Sees Q3 Adj. EBITDA, Revenue Below Market View; Cuts FY26 Outlook",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/hellofresh-sees-q3-adj-ebitda-revenue-below-market-view-cuts-fy26-outlook",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T05:08:47Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Company cut FY26 outlook and reported Q3 metrics below market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company cut FY26 outlook and reported Q3 metrics below market expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HelloFresh",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-121",
-      "headline": "PB Fintech shares fall another 4% after HSBC downgrade; Targets cut by nearly 50%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/pb-fintech-share-price-downgrades-target-cut-listing-price-earnings-risk-irdai-draft-paper-impact-19998220.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T03:41:38Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "PB Fintech shares fell 4% following an HSBC downgrade that cut price targets by nearly 50%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PB Fintech shares fell 4% following an HSBC downgrade that cut price targets by nearly 50%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PB Fintech",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-126",
-      "headline": "Florida’s Private Train Brightline Goes Bankrupt Overrun by Debt",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-25/florida-s-private-train-brightline-goes-bankrupt-overrun-by-debt",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T03:40:11Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Brightline has filed for bankruptcy due to debt issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brightline has filed for bankruptcy due to debt issues.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brightline",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -139071,77 +139071,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-befd8c2661c5",
-      "idea_version": "IDEAV-feecea063b9556bc",
-      "idea_version_started_at": "2026-09-24T22:39:26Z",
-      "ticker": "PEN",
-      "company": "Peninsula Energy",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The announcement of a non-cash impairment charge negatively impacts the company's book value and reflects potential asset valuation issues.",
-      "why_now": "The impairment disclosure was filed on 2026-09-24.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2027c8aeb26c"
-      ],
-      "primary_source_event_id": "EVT-2027c8aeb26c",
-      "source_headlines": [
-        "PEN: Non-Cash Impairment [price-sensitive]"
-      ],
-      "source_headline": "PEN: Non-Cash Impairment [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PEN?key=2924-03139395-6A1345458",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-24T06:11:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-24T22:39:26Z",
-      "updated_at": "2026-09-24T22:39:26Z",
-      "decay_at": "2026-09-25T18:11:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5cafd3edd0bd",
       "idea_version": "IDEAV-bea16d395573f816",
       "idea_version_started_at": "2026-09-24T22:18:36Z",
@@ -140478,6 +140407,77 @@
       "surfaced_at": "2026-09-24T23:14:04Z",
       "updated_at": "2026-09-24T23:14:04Z",
       "decay_at": "2026-09-25T15:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-befd8c2661c5",
+      "idea_version": "IDEAV-feecea063b9556bc",
+      "idea_version_started_at": "2026-09-24T22:39:26Z",
+      "ticker": "PEN",
+      "company": "Peninsula Energy",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The announcement of a non-cash impairment charge negatively impacts the company's book value and reflects potential asset valuation issues.",
+      "why_now": "The impairment disclosure was filed on 2026-09-24.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2027c8aeb26c"
+      ],
+      "primary_source_event_id": "EVT-2027c8aeb26c",
+      "source_headlines": [
+        "PEN: Non-Cash Impairment [price-sensitive]"
+      ],
+      "source_headline": "PEN: Non-Cash Impairment [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PEN?key=2924-03139395-6A1345458",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-24T06:11:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-24T22:39:26Z",
+      "updated_at": "2026-09-24T22:39:26Z",
+      "decay_at": "2026-09-25T18:11:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -142931,9 +142931,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 551,
     "shown_count": 500,
-    "hidden_count": 50,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
         "total_count": 283,
@@ -142941,9 +142941,9 @@
         "hidden_count": 33
       },
       "short": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       }
     },
     "retention": {
@@ -142962,6 +142962,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-befd8c2661c5",
+        "idea_version": "IDEAV-feecea063b9556bc",
+        "idea_version_started_at": "2026-09-24T22:39:26Z",
+        "ticker": "PEN",
+        "company": "Peninsula Energy",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The announcement of a non-cash impairment charge negatively impacts the company's book value and reflects potential asset valuation issues.",
+        "why_now": "The impairment disclosure was filed on 2026-09-24.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2027c8aeb26c"
+        ],
+        "primary_source_event_id": "EVT-2027c8aeb26c",
+        "source_headlines": [
+          "PEN: Non-Cash Impairment [price-sensitive]"
+        ],
+        "source_headline": "PEN: Non-Cash Impairment [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PEN?key=2924-03139395-6A1345458",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-24T06:11:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-24T22:39:26Z",
+        "updated_at": "2026-09-24T22:39:26Z",
+        "decay_at": "2026-09-25T18:11:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-25T18:11:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7c03452ec8b3",
         "idea_version": "IDEAV-4d6e8f54402e0a83",
@@ -180023,88 +180097,12 @@
         "archived_at": "2026-09-03T04:55:41Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-279942e1dba3",
-        "idea_version": "IDEAV-c5b6b612f37e1397",
-        "idea_version_started_at": "2026-08-31T05:42:48Z",
-        "ticker": "HDFCBANK",
-        "company": "HDFC Bank Ltd",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The resignation of CEO Sashidhar Jagdishan, despite a temporary share price rise, introduces leadership uncertainty that could negatively impact HDFC Bank's strategic direction and investor confidence over time.",
-        "why_now": "The CEO's resignation is a fresh event that creates leadership uncertainty, which often leads to a re-evaluation of the company's future prospects.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5a52b961eabb"
-        ],
-        "primary_source_event_id": "EVT-5a52b961eabb",
-        "source_headlines": [
-          "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns"
-        ],
-        "source_headline": "HDFC Bank share price rises 2% even as CEO Sashidhar Jagdishan resigns",
-        "source_url": "https://www.livemint.com/market/stock-market-news/hdfc-bank-share-price-unimpacted-by-ceo-succession-news-stock-jumps-2-despite-weak-market-sentiment-11788147897030.html",
-        "source_name": "Mint",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T03:59:52Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-29T15:13:07Z",
-        "updated_at": "2026-08-31T05:42:48Z",
-        "decay_at": "2026-09-01T15:59:52Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T04:55:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1024,
-    "live_count": 14,
+    "live_count": 13,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -180123,9 +180121,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4308500,
-    "news_picked_today": 764,
-    "news_dropped_today": 20860
+    "news_seen_today": 4344428,
+    "news_picked_today": 780,
+    "news_dropped_today": 21108
   },
   "book_momentum": {
     "live_count": 8,
