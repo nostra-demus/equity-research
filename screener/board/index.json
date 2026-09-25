@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T03:04:22Z",
+  "generated_at": "2026-09-25T03:15:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-097",
+      "headline": "BONJOUR HOLD (00653): INSIDE INFORMATION POSITIVE PROFIT ALERT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401977.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T12:05:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The company issued a positive profit alert, indicating improved financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a positive profit alert, indicating improved financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BONJOUR HOLD",
+          "ticker": "00653",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -740,6 +789,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-101",
+      "headline": "KONTA CHINA (01312): NOTIFICATION LETTER TO NON-REGISTERED SHAREHOLDERS AND REQUEST FORM - NOTIFICATION OF PUBLICATION OF THE CIRCULAR OF MAJOR TRANSACTION IN RELATION TO RENEWAL OF LEASE FOR FITNESS AND YOGA CENTRE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401955.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T11:58:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The company announced a major transaction regarding a lease renewal for a fitness and yoga centre.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The company announced a major transaction regarding a lease renewal for a fitness and yoga centre.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KONTA CHINA",
+          "ticker": "01312",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-092",
       "headline": "Meesho share price could fall 28%, Nomura warns citing these key risks",
       "headline_en": null,
@@ -1026,6 +1124,55 @@
           "name": "Pacific Nickel Mines",
           "ticker": "PC2",
           "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-098",
+      "headline": "Primo Chemicals Limited: Primo Chemicals Limited has informed regarding Disclosure of material issue",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PRIMO607_24092026173204_Agreement_with_NFL_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T12:03:32Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The company disclosed a material issue, which typically implies regulatory or operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The company disclosed a material issue, which typically implies regulatory or operational risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Primo Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -1811,155 +1958,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-037",
-      "headline": "JLMAG B3008 JLMAG (05834 06680): ADJUSTMENT TO THE CONVERSION PRICE OF U.S.$117,500,000 1.75 PER CENT. GUARANTEED CONVERTIBLE BONDS DUE 2030",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500023.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T23:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Convertible bond conversion-price adjustment on US$117.5M facility disclosed; magnitude and direction of adjustment not stated.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Convertible bond conversion-price adjustment on US$117.5M facility disclosed; magnitude and direction of adjustment not stated.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JLMAG",
-          "ticker": null,
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-026",
-      "headline": "XH NEWS MEDIA (00309): (1) RESIGNATION OF INDEPENDENT NON-EXECUTIVE DIRECTOR; (2) CHANGE IN COMPOSITION OF BOARD COMMITTEES; (3) NON-COMPLIANCE WITH THE REQUIREMENTS UNDER RULE 3.21 AND 3.25 OF THE LISTING RULES; AND (4) WITHDRAWAL OF ORDINARY RESOLUTION NO. 2(g) AT THE AGM",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500015.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T22:11:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Company reports non-compliance with listing rules regarding board committee composition following a director resignation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "Company reports non-compliance with listing rules regarding board committee composition following a director resignation.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XH NEWS MEDIA",
-          "ticker": "00309",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-021",
-      "headline": "Brigade Enterprises Limited: Brigade Enterprises Limited has informed the Exchange about Show Cause Notice Received from GST Authority",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BRIGADE_24092026191121_SEIntimationforSCN24092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T13:41:40Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "GST authority issued show-cause notice to Brigade Enterprises; alleged violation and exposure unspecified, flagging regulatory/compliance risk but without quantified impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "GST authority issued show-cause notice to Brigade Enterprises; alleged violation and exposure unspecified, flagging regulatory/compliance risk but without quantified impact.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brigade Enterprises Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -179651,9 +179649,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 785524,
-    "news_picked_today": 116,
-    "news_dropped_today": 3484
+    "news_seen_today": 815310,
+    "news_picked_today": 121,
+    "news_dropped_today": 3599
   },
   "book_momentum": {
     "live_count": 8,
