@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T03:50:55Z",
+  "generated_at": "2026-09-25T03:56:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-121",
+      "headline": "PB Fintech shares fall another 4% after HSBC downgrade; Targets cut by nearly 50%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/pb-fintech-share-price-downgrades-target-cut-listing-price-earnings-risk-irdai-draft-paper-impact-19998220.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T03:41:38Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "PB Fintech shares fell 4% following an HSBC downgrade that cut price targets by nearly 50%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PB Fintech shares fell 4% following an HSBC downgrade that cut price targets by nearly 50%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PB Fintech",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1912,50 +1961,6 @@
           "listing_country": "JP"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-028",
-      "headline": "UAE bars Iranian airlines as US sanctions squeeze Iran’s aviation sector",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/economy/2026/9/25/uae-bars-iranian-airlines-as-us-sanctions-squeeze-irans-aviation-sector?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-09-25T00:24:47Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "UAE ban on Iranian airlines due to US sanctions represents a significant geopolitical and operational supply shock to the regional aviation sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "UAE ban on Iranian airlines due to US sanctions represents a significant geopolitical and operational supply shock to the regional aviation sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -179646,9 +179651,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 947202,
-    "news_picked_today": 151,
-    "news_dropped_today": 4241
+    "news_seen_today": 961452,
+    "news_picked_today": 153,
+    "news_dropped_today": 4263
   },
   "book_momentum": {
     "live_count": 8,
