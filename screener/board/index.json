@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T09:23:28Z",
+  "generated_at": "2026-09-25T09:29:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-184",
@@ -741,6 +741,55 @@
           "name": "SKIL Infrastructure Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-195",
+      "headline": "PARKSON GROUP (03368): Major Transaction",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500649.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T09:07:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Major transaction meeting HKEX regulatory threshold (typically exceeds 25% of consolidated metrics), but deal structure, counterparty, and terms not disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Major transaction meeting HKEX regulatory threshold (typically exceeds 25% of consolidated metrics), but deal structure, counterparty, and terms not disclosed.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Parkson Group",
+          "ticker": "03368",
+          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -1925,55 +1974,6 @@
           "name": "Radiant",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-176",
-      "headline": "[TSE]Designation of Securities Under Supervision (Confirmation): SANKEI REAL ESTATE Inc.",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/news/1023/20260925-11.html",
-      "source_name": "Japan Exchange Group (JPX) — Market News",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T06:40:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Sankei Real Estate securities formally designated for exchange supervision, confirming governance, compliance, or financial concerns; signals material listing and solvency risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Sankei Real Estate securities formally designated for exchange supervision, confirming governance, compliance, or financial concerns; signals material listing and solvency risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 57,
-      "rank_factors": {
-        "materiality": 57,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 13,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sankei Real Estate Inc.",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "unknown",
@@ -180096,9 +180096,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2343232,
-    "news_picked_today": 320,
-    "news_dropped_today": 12280
+    "news_seen_today": 2373001,
+    "news_picked_today": 324,
+    "news_dropped_today": 12420
   },
   "book_momentum": {
     "live_count": 8,
