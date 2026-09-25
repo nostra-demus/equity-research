@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T19:44:11Z",
+  "generated_at": "2026-09-25T19:54:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-358",
@@ -1038,6 +1038,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-415",
+      "headline": "Actis merges 11 India road assets into $1 billion trust",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/economy/infrastructure/actis-merges-11-india-road-assets-into-1-billion-trust/articleshow/134491827.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T19:21:03Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Actis merges 11 road assets into a $1 billion trust.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Actis merges 11 road assets into a $1 billion trust.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Actis",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-386",
       "headline": "Nigeria's Amni, TotalEnergies approve $800 million offshore gas project",
       "headline_en": null,
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-236",
-      "headline": "Actis Merges India Road Assets Into $1 Billion Trust",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-25/actis-merges-india-road-assets-into-1-billion-trust",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T10:18:27Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Merger of road assets into a $1 billion trust is a significant capital structure and asset management event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Merger of road assets into a $1 billion trust is a significant capital structure and asset management event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Actis",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180101,9 +180101,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4492061,
-    "news_picked_today": 984,
-    "news_dropped_today": 21960
+    "news_seen_today": 4503951,
+    "news_picked_today": 994,
+    "news_dropped_today": 22430
   },
   "book_momentum": {
     "live_count": 8,
