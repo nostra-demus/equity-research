@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T03:28:25Z",
+  "generated_at": "2026-09-25T03:32:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -1477,6 +1477,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-110",
+      "headline": "Artists, game designers and producers hit hard as Microsoft cuts 277 jobs in Washington state",
+      "headline_en": null,
+      "url": "https://www.geekwire.com/2026/artists-game-designers-and-producers-hit-hard-as-microsoft-cuts-277-jobs-in-washington-state/",
+      "source_name": "GeekWire",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T03:05:08Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Microsoft is cutting 277 jobs in Washington state.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Microsoft is cutting 277 jobs in Washington state.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-033",
       "headline": "Adarx Pharmaceuticals Raises $446.3 Million in Upsized US IPO",
       "headline_en": null,
@@ -1906,55 +1955,6 @@
           "name": "RUI Holdings Inc",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-031",
-      "headline": "Bitget CEO suspects North Korea behind $352M hack, citing IP clues",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/bitget-ceo-suspects-north-korea-behind-352m-hack-citing-ip-clues?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T00:32:46Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Bitget CEO suspects North Korean involvement in a $352 million hack, indicating a major security breach.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Bitget CEO suspects North Korean involvement in a $352 million hack, indicating a major security breach.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bitget",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -179649,9 +179649,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 874333,
-    "news_picked_today": 133,
-    "news_dropped_today": 3851
+    "news_seen_today": 903660,
+    "news_picked_today": 137,
+    "news_dropped_today": 3871
   },
   "book_momentum": {
     "live_count": 8,
