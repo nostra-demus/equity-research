@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-25T09:06:54Z",
+  "generated_at": "2026-09-25T09:23:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260925-184",
+      "headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TVVISION_25092026142923_Intimation_of_CoC_Meeting_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T08:59:31Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "TV Vision Limited has informed the exchange it entered Corporate Insolvency Resolution Process, which extinguishes or materially dilutes equity value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TV Vision Limited has informed the exchange it entered Corporate Insolvency Resolution Process, which extinguishes or materially dilutes equity value.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TV Vision Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260925-169",
       "headline": "Suspension of Trading in Debt Securities of IL&FS Financial Services Limited",
@@ -1195,6 +1244,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-190",
+      "headline": "Singapore judge raises doubts iron ore trader Radiant World is owed over $1.3b",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/singapore-judge-raises-doubts-iron-ore-trader-radiant-world-is-owed-us1b",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T09:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Singapore court judge expressed skepticism that iron ore trader Radiant World is owed $1.3 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Singapore court judge expressed skepticism that iron ore trader Radiant World is owed $1.3 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Radiant World",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-183",
       "headline": "POWERLONG (01238): UPDATE ON THE HOLISTIC SOLUTION EXTENSION OF THE LONGSTOP DATE",
       "headline_en": null,
@@ -1786,6 +1884,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-191",
+      "headline": "Singapore Police Got Radiant Fraud Report Months Before Crisis",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-25/singapore-police-radiant-fraud-report-months-before-crisis-intesa-sanpaolo-spa",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T08:25:23Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Singapore Police received a fraud report about trader Radiant months before a reported crisis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Singapore Police received a fraud report about trader Radiant months before a reported crisis.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Radiant",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-176",
       "headline": "[TSE]Designation of Securities Under Supervision (Confirmation): SANKEI REAL ESTATE Inc.",
       "headline_en": null,
@@ -1827,153 +1974,6 @@
           "name": "Sankei Real Estate Inc.",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-053",
-      "headline": "GBR: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GBR?key=2924-03139885-6A1345691",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T00:54:37Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Company requested a trading halt pending a price-sensitive announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Company requested a trading halt pending a price-sensitive announcement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Great Boulder Resources",
-          "ticker": "GBR",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-101",
-      "headline": "KONTA CHINA (01312): NOTIFICATION LETTER TO NON-REGISTERED SHAREHOLDERS AND REQUEST FORM - NOTIFICATION OF PUBLICATION OF THE CIRCULAR OF MAJOR TRANSACTION IN RELATION TO RENEWAL OF LEASE FOR FITNESS AND YOGA CENTRE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401955.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T11:58:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "The company announced a major transaction regarding a lease renewal for a fitness and yoga centre.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The company announced a major transaction regarding a lease renewal for a fitness and yoga centre.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KONTA CHINA",
-          "ticker": "01312",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-092",
-      "headline": "Meesho share price could fall 28%, Nomura warns citing these key risks",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/meesho-share-price-could-fall-nomura-target-warns-citing-these-key-risks-19998212.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T02:09:42Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Tier-1 analyst downside warning of 28% loss potential, citing identified key risks to earnings/revenue, moves expectations materially.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Tier-1 analyst downside warning of 28% loss potential, citing identified key risks to earnings/revenue, moves expectations materially.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meesho",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -180096,9 +180096,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2282739,
-    "news_picked_today": 312,
-    "news_dropped_today": 11856
+    "news_seen_today": 2343232,
+    "news_picked_today": 320,
+    "news_dropped_today": 12280
   },
   "book_momentum": {
     "live_count": 8,
