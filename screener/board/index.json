@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T07:58:49Z",
+  "generated_at": "2026-09-25T08:16:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -552,6 +552,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-168",
+      "headline": "SKIL Infrastructure Limited: SKIL Infrastructure Limited has informed the Exchange about the Twelfth (12th) Committee of Creditors meeting to be held on Monday, September 28, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Skilinfra_25092026130455_SKIL_Letter_Intimation_12th_COC.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T07:35:21Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Company in formal corporate insolvency resolution proceedings (CIRP) under IBC, with the 12th Committee of Creditors meeting scheduled for 28 September 2026; active restructuring phase indicates imminent creditor/resolution decision affecting capital structure and equity value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Company in formal corporate insolvency resolution proceedings (CIRP) under IBC, with the 12th Committee of Creditors meeting scheduled for 28 September 2026; active restructuring phase indicates imminent creditor/resolution decision affecting capital structure and equity value.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SKIL Infrastructure Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-130",
       "headline": "HANG YICK HLDGS (01894): ANNOUNCEMENT IN RELATION TO PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER AND RESUMPTION OF TRADING",
       "headline_en": null,
@@ -1042,6 +1091,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-165",
+      "headline": "[TSE]Designation of Securities Under Supervision (Confirmation): HYUGA PRIMARY CARE Co.,Ltd.",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/news/1023/20260925-12.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T07:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "JPX designation of securities under supervision (confirmation); underlying regulatory concern not detailed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "JPX designation of securities under supervision (confirmation); underlying regulatory concern not detailed.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 18,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HYUGA PRIMARY CARE Co., Ltd.",
+          "ticker": "7133",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1878,104 +1976,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-098",
-      "headline": "Primo Chemicals Limited: Primo Chemicals Limited has informed regarding Disclosure of material issue",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PRIMO607_24092026173204_Agreement_with_NFL_Intimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T12:03:32Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "The company disclosed a material issue, which typically implies regulatory or operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The company disclosed a material issue, which typically implies regulatory or operational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Primo Chemicals Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-154",
-      "headline": "Bitget's $352 million hack happened via spoofed transfers, not private keys, CEO Gray Chen says",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/markets/2026/09/25/bitget-s-usd351-million-hack-happened-via-spoofed-transfers-not-private-keys-ceo-gray-chen-says",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T04:29:34Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Confirmed $352 million hack of a crypto exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Confirmed $352 million hack of a crypto exchange.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bitget",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180095,9 +180095,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1863200,
-    "news_picked_today": 273,
-    "news_dropped_today": 10839
+    "news_seen_today": 1972191,
+    "news_picked_today": 279,
+    "news_dropped_today": 11073
   },
   "book_momentum": {
     "live_count": 8,
