@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T04:34:45Z",
+  "generated_at": "2026-09-25T04:44:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -1476,6 +1476,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-133",
+      "headline": "Meesho shares can fall 28%, warns Nomura after initiating coverage with Reduce call. Here is why",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/meesho-shares-can-fall-28-warns-nomura-after-initiating-coverage-with-reduce-call-here-is-why/articleshow/134475002.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T04:19:50Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Nomura initiated coverage on Meesho with a Reduce rating, projecting a potential 28% decline in share value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Nomura initiated coverage on Meesho with a Reduce rating, projecting a potential 28% decline in share value.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meesho",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-052",
       "headline": "PC2: Diamond Drilling Extends High Grade Gold Mineralisation [price-sensitive]",
       "headline_en": null,
@@ -1908,55 +1957,6 @@
       "companies": [
         {
           "name": "Morgan Stanley",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-110",
-      "headline": "Artists, game designers and producers hit hard as Microsoft cuts 277 jobs in Washington state",
-      "headline_en": null,
-      "url": "https://www.geekwire.com/2026/artists-game-designers-and-producers-hit-hard-as-microsoft-cuts-277-jobs-in-washington-state/",
-      "source_name": "GeekWire",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T03:05:08Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Microsoft is cutting 277 jobs in Washington state.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Microsoft is cutting 277 jobs in Washington state.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
           "ticker": null,
           "listing_country": "US"
         }
@@ -179791,9 +179791,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1090654,
-    "news_picked_today": 172,
-    "news_dropped_today": 5060
+    "news_seen_today": 1105122,
+    "news_picked_today": 175,
+    "news_dropped_today": 5585
   },
   "book_momentum": {
     "live_count": 8,
