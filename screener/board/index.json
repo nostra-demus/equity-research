@@ -1,6 +1,441 @@
 {
-  "generated_at": "2026-09-25T00:05:53Z",
+  "generated_at": "2026-09-25T00:13:39Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260925-003",
+      "headline": "UM1: Funding Secured to Drill Out O'Phlay & Ngot Gold Discoveries [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.UM1?key=2924-03139849-6A1345641",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T23:52:17Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "UM1 secured funding to drill named gold discoveries O'Phlay and Ngot; funding amount not disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "UM1 secured funding to drill named gold discoveries O'Phlay and Ngot; funding amount not disclosed in headline.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UM1",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-006",
+      "headline": "Gravita India Limited: Gravita India Limited has informed the Exchange about Credit Rating",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GRAVITA_24092026200349_CreditRatingFinal24092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T14:35:48Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Gravita India disclosed a credit rating action to NSE/BSE; direction (upgrade vs downgrade) and magnitude unstated, but rating moves affect cost of capital and refinancing risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Gravita India disclosed a credit rating action to NSE/BSE; direction (upgrade vs downgrade) and magnitude unstated, but rating moves affect cost of capital and refinancing risk.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "credit_rating_downgrade",
+        "credit_rating_upgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gravita India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-009",
+      "headline": "424B2 - TORONTO DOMINION BANK (0000947263) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/947263/000114036126037523/0001140361-26-037523-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-24T14:30:21Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Toronto Dominion Bank filed a prospectus for a shelf takedown, indicating potential debt issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Toronto Dominion Bank filed a prospectus for a shelf takedown, indicating potential debt issuance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toronto Dominion Bank",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-008",
+      "headline": "424B5 - REPUBLIC OF TURKEY (0000869687) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/869687/000119312526400421/0001193125-26-400421-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-24T14:32:23Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The Republic of Turkey filed a final prospectus for a shelf offering, indicating potential upcoming debt issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "The Republic of Turkey filed a final prospectus for a shelf offering, indicating potential upcoming debt issuance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Republic of Turkey",
+          "ticker": null,
+          "listing_country": "TR"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-004",
+      "headline": "STN: Application for quotation of securities - STN",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.STN?key=2924-03139846-6A1345674",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T23:49:07Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "STN applied for ASX quotation of new securities; no issuance amount or terms disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "STN applied for ASX quotation of new securities; no issuance amount or terms disclosed.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "STN",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-007",
+      "headline": "Wanbury Limited: Wanbury Limited has informed the Exchange about change in Management",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/WANBURY_24092026200347_CIM.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T14:35:46Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Wanbury Limited disclosed a management change to NSE/BSE; seniority, identity of individual, and reason not stated; materiality hinges on whether it is a senior officer departure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Wanbury Limited disclosed a management change to NSE/BSE; seniority, identity of individual, and reason not stated; materiality hinges on whether it is a senior officer departure.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wanbury Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-002",
+      "headline": "HONA Investors Have Opportunity to Lead Honeywell Aerospace Inc. Securities Fraud Lawsuit with SBS Law",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260924216080/en/HONA-Investors-Have-Opportunity-to-Lead-Honeywell-Aerospace-Inc.-Securities-Fraud-Lawsuit-with-SBS-Law/?feedref=JjAwJuNHiystnCoBq_hl-adS5VAKkf1zsgyV8tTPInVcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTVXw2Oldt-3VQjUwU4Zj5HZBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Lawsuit News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-24T23:47:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Law firm announces class-action securities fraud lawsuit against Honeywell Aerospace Inc., creating litigation exposure with no quantified damages or settlement amount.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Law firm announces class-action securities fraud lawsuit against Honeywell Aerospace Inc., creating litigation exposure with no quantified damages or settlement amount.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 18,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honeywell Aerospace Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-001",
+      "headline": "Americas Uranium Corp. Acquires 100% Interest in Treeline Uranium Project, Located in New Mexico, USA | ASRFF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/ASRFF/americas-uranium-corp-acquires-100-interest-in-treeline-uranium-8w15c5a73chj.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-24T23:53:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Americas Uranium Corp. acquires 100% interest in Treeline Uranium Project in New Mexico, a capital deployment event with no disclosed deal valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Americas Uranium Corp. acquires 100% interest in Treeline Uranium Project in New Mexico, a capital deployment event with no disclosed deal valuation.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Americas Uranium Corp.",
+          "ticker": "ASRFF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-005",
+      "headline": "Saurashtra Cement Limited: Saurashtra Cement Limited has informed the Exchange regarding 'Disclosure petaining to Regulation 29(1) of SEBI (SAST) Regulations 2011'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Saurashtra_24092026200459_Reg_29__1__MFT_ACQ__1_.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T14:36:48Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "not material",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "not material",
+      "region": "IN",
+      "relevance": "irrelevant",
+      "materiality_pre_score": 38,
+      "rank_factors": {
+        "materiality": 38,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260924-684",
       "headline": "HLS: Agreement to sell Agilex Biolabs to Novotech [price-sensitive]",
@@ -136563,76 +136998,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-028c0d923343",
-      "idea_version": "IDEAV-91b4668b8fd3875d",
-      "idea_version_started_at": "2026-09-23T19:44:02Z",
-      "ticker": "CBRL",
-      "company": "Cracker Barrel Old Country Store",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company outperformed Wall Street earnings expectations for fiscal Q4 2026, signaling better-than-anticipated operational efficiency or consumer demand.",
-      "why_now": "The earnings beat was reported today, September 23, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fa4f45bfb9bd"
-      ],
-      "primary_source_event_id": "EVT-fa4f45bfb9bd",
-      "source_headlines": [
-        "Cracker Barrel Q4 fiscal 2026 earnings beat Wall Street estimates"
-      ],
-      "source_headline": "Cracker Barrel Q4 fiscal 2026 earnings beat Wall Street estimates",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/cracker-barrel-q4-fiscal-2026-120720287.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-23T12:07:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-23T19:44:02Z",
-      "updated_at": "2026-09-23T19:44:02Z",
-      "decay_at": "2026-09-25T00:07:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9b9da68e2936",
       "idea_version": "IDEAV-deab95414339fee7",
       "idea_version_started_at": "2026-09-24T23:14:04Z",
@@ -138400,6 +138765,76 @@
       "surfaced_at": "2026-09-22T13:43:31Z",
       "updated_at": "2026-09-22T13:43:31Z",
       "decay_at": "2026-09-23T23:59:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-028c0d923343",
+      "idea_version": "IDEAV-91b4668b8fd3875d",
+      "idea_version_started_at": "2026-09-23T19:44:02Z",
+      "ticker": "CBRL",
+      "company": "Cracker Barrel Old Country Store",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company outperformed Wall Street earnings expectations for fiscal Q4 2026, signaling better-than-anticipated operational efficiency or consumer demand.",
+      "why_now": "The earnings beat was reported today, September 23, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fa4f45bfb9bd"
+      ],
+      "primary_source_event_id": "EVT-fa4f45bfb9bd",
+      "source_headlines": [
+        "Cracker Barrel Q4 fiscal 2026 earnings beat Wall Street estimates"
+      ],
+      "source_headline": "Cracker Barrel Q4 fiscal 2026 earnings beat Wall Street estimates",
+      "source_url": "https://finance.yahoo.com/markets/stocks/articles/cracker-barrel-q4-fiscal-2026-120720287.html",
+      "source_name": "Yahoo Finance",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-23T12:07:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-23T19:44:02Z",
+      "updated_at": "2026-09-23T19:44:02Z",
+      "decay_at": "2026-09-25T00:07:20Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -140493,14 +140928,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 540,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 263,
@@ -140524,6 +140959,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-028c0d923343",
+        "idea_version": "IDEAV-91b4668b8fd3875d",
+        "idea_version_started_at": "2026-09-23T19:44:02Z",
+        "ticker": "CBRL",
+        "company": "Cracker Barrel Old Country Store",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company outperformed Wall Street earnings expectations for fiscal Q4 2026, signaling better-than-anticipated operational efficiency or consumer demand.",
+        "why_now": "The earnings beat was reported today, September 23, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 64,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-fa4f45bfb9bd"
+        ],
+        "primary_source_event_id": "EVT-fa4f45bfb9bd",
+        "source_headlines": [
+          "Cracker Barrel Q4 fiscal 2026 earnings beat Wall Street estimates"
+        ],
+        "source_headline": "Cracker Barrel Q4 fiscal 2026 earnings beat Wall Street estimates",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/cracker-barrel-q4-fiscal-2026-120720287.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-23T12:07:20Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-23T19:44:02Z",
+        "updated_at": "2026-09-23T19:44:02Z",
+        "decay_at": "2026-09-25T00:07:20Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-25T00:07:20Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-04234caf33c0",
         "idea_version": "IDEAV-cf3f432b08b6b8b4",
@@ -170505,81 +171013,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-928e6eaf3aa8",
-        "idea_version": "IDEAV-9ca873ed4165e171",
-        "idea_version_started_at": "2026-09-08T05:19:17Z",
-        "ticker": "HBH",
-        "company": "HORNBACH Holding",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Preliminary Q2 net sales growth of 7.3% and the reaffirmation of the full-year outlook indicate resilient demand in the home improvement sector despite broader macro headwinds.",
-        "why_now": "The preliminary results were released on September 8, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-745e2a452f55"
-        ],
-        "primary_source_event_id": "EVT-745e2a452f55",
-        "source_headlines": [
-          "HORNBACH Holding Q2 Preliminary Net Sales Up 7.3%; Backs FY Outlook"
-        ],
-        "source_headline": "HORNBACH Holding Q2 Preliminary Net Sales Up 7.3%; Backs FY Outlook",
-        "source_url": "https://www.nasdaq.com/articles/hornbach-holding-q2-preliminary-net-sales-73-backs-fy-outlook",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-08T03:24:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-08T05:19:17Z",
-        "updated_at": "2026-09-08T05:19:17Z",
-        "decay_at": "2026-09-09T15:24:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T03:30:04Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-841758969e76",
         "idea_version": "IDEAV-d59e7b53b8401bd6",
         "idea_version_started_at": "2026-09-08T03:57:59Z",
@@ -177675,7 +178108,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1017,
-    "live_count": 19,
+    "live_count": 18,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -177685,7 +178118,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2807,
+    "inbox_unconsumed": 2816,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -177694,9 +178127,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 18176,
+    "news_picked_today": 9,
+    "news_dropped_today": 87
   },
   "book_momentum": {
     "live_count": 8,
