@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-25T11:12:20Z",
+  "generated_at": "2026-09-25T11:15:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260925-240",
+      "headline": "CHAMPION TECH (00092): SUPPLEMENTAL ANNOUNCEMENT - PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092501017.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T11:04:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Champion Tech issued a supplemental profit warning, indicating deteriorating financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Champion Tech issued a supplemental profit warning, indicating deteriorating financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Champion Technology Holdings Limited",
+          "ticker": "00092",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260925-229",
       "headline": "ZO FUTURE GROUP (02309): INSIDE INFORMATION POSITIVE PROFIT ALERT",
@@ -291,6 +340,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-243",
+      "headline": "New Jersey hits Microsoft-linked AI data center with record fine for 62 unpermitted power generators, issues 45-day shutdown deadline",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/data-centers/new-jersey-fines-data-center-for-using-unpermitted-power-generators-microsoft-linked-site-also-in-trouble-with-community-for-noise-pollution-other-issues",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Microsoft-linked AI data center faces a record fine and a 45-day shutdown order due to unpermitted power generators.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Microsoft-linked AI data center faces a record fine and a 45-day shutdown order due to unpermitted power generators.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1889,109 +1988,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-214",
-      "headline": "Card Firms to Pay Uncollected Funds after Zentoshin Bankruptcy",
-      "headline_en": null,
-      "url": "https://www.nippon.com/en/news/yjj2026092500706/",
-      "source_name": "nippon.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T10:10:20Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Zentoshin bankruptcy forces card firms to cover uncollected funds, creating a direct financial liability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Zentoshin bankruptcy forces card firms to cover uncollected funds, creating a direct financial liability.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zentoshin",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-218",
-      "headline": "Cochin Shipyard signs agreement to acquire 23% stake in Dutch firm Conoship",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/cochin-shipyard-signs-agreement-to-acquire-23-stake-in-dutch-firm-conoship/article71508024.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T09:30:24Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Cochin Shipyard is expanding its footprint through the acquisition of a 23% stake in Conoship.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Cochin Shipyard is expanding its footprint through the acquisition of a 23% stake in Conoship.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cochin Shipyard",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Conoship",
-          "ticker": null,
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180111,9 +180107,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2648586,
-    "news_picked_today": 381,
-    "news_dropped_today": 14931
+    "news_seen_today": 2692512,
+    "news_picked_today": 406,
+    "news_dropped_today": 15026
   },
   "book_momentum": {
     "live_count": 8,
