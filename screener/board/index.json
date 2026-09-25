@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-25T16:08:19Z",
+  "generated_at": "2026-09-25T16:38:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260925-335",
+      "headline": "CFTC Charges Cash FX Group S.A., and CEO; Three Others With $950 Million Fraud Scheme",
+      "headline_en": null,
+      "url": "https://www.cftc.gov/PressRoom/PressReleases/9304-26",
+      "source_name": "CFTC (Enforcement Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-25T16:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The CFTC charged Cash FX Group S.A. and its CEO with a $950 million fraud scheme.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The CFTC charged Cash FX Group S.A. and its CEO with a $950 million fraud scheme.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cash FX Group S.A.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260925-332",
       "headline": "25-NSE - PETROBRAS - PETROLEO BRASILEIRO SA (0001119639) (Subject)",
@@ -886,6 +935,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-347",
+      "headline": "France's Rexel to buy US distributor GCG for $1.4 billion",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/frances-rexel-buy-us-distributor-gcg-14-billion-2026-09-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T16:22:17Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Rexel is acquiring GCG for $1.4 billion, a significant expansion of its US distribution footprint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rexel is acquiring GCG for $1.4 billion, a significant expansion of its US distribution footprint.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rexel",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-348",
+      "headline": "Florida's Brightline railroad lines up $490 million for bankruptcy restructuring",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/floridas-brightline-railroad-lines-up-490-million-bankruptcy-restructuring-2026-09-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T16:07:48Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Brightline is restructuring $490 million in debt, indicating significant financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brightline is restructuring $490 million in debt, indicating significant financial distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brightline",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1858,154 +2005,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-128",
-      "headline": "PB Fintech Faces Upto 45% Target Price Cuts As Brokerages Assess New Insurance Commission Rules — Check Ratings",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/pb-fintech-target-prices-slashed-after-irdai-insurance-commission-shock-what-hsbc-bofa-jefferies-say-12095253#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T02:54:47Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "PB Fintech faces significant target price cuts of up to 45% following regulatory changes to insurance commission rules.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PB Fintech faces significant target price cuts of up to 45% following regulatory changes to insurance commission rules.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PB Fintech",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-094",
-      "headline": "Winery older than the Civil War files Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/moon-dancer-winery-files-chapter-11-bankruptcy-after-closing",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T01:46:07Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "A winery has filed for Chapter 11 bankruptcy, indicating a total default/distress event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A winery has filed for Chapter 11 bankruptcy, indicating a total default/distress event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Winery",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-049",
-      "headline": "‘The Housing Supply Just Isn’t There’: Buffett Bought 10% of Lennar the Day After It Cut Guidance",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/09/24/the-housing-supply-just-isnt-there-buffett-bought-10-of-lennar-the-day-after-it-cut-guidance/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T01:00:47Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Lennar cut full-year guidance and Berkshire Hathaway acquired approximately 10% of the company the day after, signaling contrarian confidence despite near-term pressure in housing supply.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lennar cut full-year guidance and Berkshire Hathaway acquired approximately 10% of the company the day after, signaling contrarian confidence despite near-term pressure in housing supply.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lennar",
-          "ticker": "LEN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180123,9 +180122,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3915823,
-    "news_picked_today": 613,
-    "news_dropped_today": 19379
+    "news_seen_today": 4069213,
+    "news_picked_today": 629,
+    "news_dropped_today": 19915
   },
   "book_momentum": {
     "live_count": 8,
