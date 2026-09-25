@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T19:16:32Z",
+  "generated_at": "2026-09-25T19:25:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-358",
@@ -1332,6 +1332,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-408",
+      "headline": "PC Jeweller becomes debt free, clears dues of all 14 consortium banks",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/pc-jeweller-becomes-debt-free-clears-dues-of-all-14-consortium-banks-19998927.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T15:20:33Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Company has cleared all debt to 14 consortium banks, significantly improving its balance sheet.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company has cleared all debt to 14 consortium banks, significantly improving its balance sheet.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PC Jeweller",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-327",
       "headline": "Air Baltic Cuts Barf Bags, Crew Perks After Chapter 11 Filing",
       "headline_en": null,
@@ -1936,55 +1985,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-213",
-      "headline": "HouseCanary bankruptcy gets first day court approval",
-      "headline_en": null,
-      "url": "https://www.housingwire.com/articles/housecanary-bankruptcy-court-approval/",
-      "source_name": "HousingWire",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T09:46:44Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Court approval for first day of bankruptcy proceedings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Court approval for first day of bankruptcy proceedings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HouseCanary",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180101,9 +180101,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4458281,
-    "news_picked_today": 913,
-    "news_dropped_today": 21671
+    "news_seen_today": 4469286,
+    "news_picked_today": 938,
+    "news_dropped_today": 21790
   },
   "book_momentum": {
     "live_count": 8,
