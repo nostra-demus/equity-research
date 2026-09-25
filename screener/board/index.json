@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T09:39:21Z",
+  "generated_at": "2026-09-25T10:38:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-184",
@@ -242,6 +242,114 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-213",
+      "headline": "HouseCanary bankruptcy gets first day court approval",
+      "headline_en": null,
+      "url": "https://www.housingwire.com/articles/housecanary-bankruptcy-court-approval/",
+      "source_name": "HousingWire",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T09:46:44Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Court approval for first day of bankruptcy proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Court approval for first day of bankruptcy proceedings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HouseCanary",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-217",
+      "headline": "Genel Energy raises Capricorn offer to $436 million, outbidding Norway's DNO",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/genel-energy-capricorn-agree-terms-higher-436-million-deal-topping-rival-dno-bid-2026-09-25/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T09:37:45Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Genel Energy increased its acquisition offer to $436 million, escalating a competitive bidding process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Genel Energy increased its acquisition offer to $436 million, escalating a competitive bidding process.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Genel Energy",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Capricorn Energy",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "DNO",
+          "ticker": null,
+          "listing_country": "NO"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1049,6 +1157,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-215",
+      "headline": "Italy's IFIS replaces CEO after central bank audit finds issues, shares sink",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/finance/italys-ifis-replaces-ceo-after-central-bank-audit-finds-issues-shares-sink-2026-09-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T10:13:50Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Banca IFIS replaced its CEO following a central bank audit that identified operational issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Banca IFIS replaced its CEO following a central bank audit that identified operational issues.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "executive_exit",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banca IFIS",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-203",
       "headline": "RISECOMM GP (01679): CLARIFICATION ANNOUNCEMENT IN RELATION TO (1) CONNECTED TRANSACTIONS IN RELATION TO ISSUE OF CAPITALISATION SHARES AND CONVERTIBLE BONDS UNDER SPECIFIC MANDATE; AND (2) PLACING OF NEW SHARES UNDER SPECIFIC MANDATE",
       "headline_en": null,
@@ -1139,6 +1297,56 @@
         {
           "name": "HATCHER GROUP",
           "ticker": "08365",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-207",
+      "headline": "HANHUA HOLDING (03903): (1) SUPPLEMENTAL INFORMATION IN RELATION TO RESIGNATION OF AUDITOR; (2) SUPPLEMENTAL INFORMATION IN RELATION TO CHANGE OF INTERAL CONTROL CONSULTANT; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500855.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T09:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Continued trading suspension and supplemental info regarding auditor resignation and internal control changes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Continued trading suspension and supplemental info regarding auditor resignation and internal control changes.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HANHUA HOLDING",
+          "ticker": null,
           "listing_country": "CN"
         }
       ],
@@ -1447,6 +1655,163 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-214",
+      "headline": "Card Firms to Pay Uncollected Funds after Zentoshin Bankruptcy",
+      "headline_en": null,
+      "url": "https://www.nippon.com/en/news/yjj2026092500706/",
+      "source_name": "nippon.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T10:10:20Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Zentoshin bankruptcy forces card firms to cover uncollected funds, creating a direct financial liability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Zentoshin bankruptcy forces card firms to cover uncollected funds, creating a direct financial liability.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zentoshin",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-218",
+      "headline": "Cochin Shipyard signs agreement to acquire 23% stake in Dutch firm Conoship",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/cochin-shipyard-signs-agreement-to-acquire-23-stake-in-dutch-firm-conoship/article71508024.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T09:30:24Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Cochin Shipyard is expanding its footprint through the acquisition of a 23% stake in Conoship.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Cochin Shipyard is expanding its footprint through the acquisition of a 23% stake in Conoship.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cochin Shipyard",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Conoship",
+          "ticker": null,
+          "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-225",
+      "headline": "Gamma suitor Epiris in talks to buy TalkTalk wholesale arm PXC for £200m",
+      "headline_en": null,
+      "url": "https://news.sky.com/story/gamma-suitor-epiris-in-talks-to-buy-talktalk-wholesale-arm-pxc-for-200m-13591705",
+      "source_name": "Sky News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T09:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Epiris is in talks to acquire PXC for £200 million, indicating consolidation in the wholesale telecom sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Epiris is in talks to acquire PXC for £200 million, indicating consolidation in the wholesale telecom sector.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Epiris",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "TalkTalk",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-190",
       "headline": "Singapore judge raises doubts iron ore trader Radiant World is owed over $1.3b",
       "headline_en": null,
@@ -1638,351 +2003,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-182",
-      "headline": "IDBI Bank Limited: IDBI Bank Limited has informed the Exchange regarding 'Notice of proposed Bank strike'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/MANESHJ_25092026135700_NoticeofStrike_25092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T08:29:56Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "IDBI Bank has received a notice of a proposed bank strike, which may impact operational continuity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "IDBI Bank has received a notice of a proposed bank strike, which may impact operational continuity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IDBI Bank Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-165",
-      "headline": "[TSE]Designation of Securities Under Supervision (Confirmation): HYUGA PRIMARY CARE Co.,Ltd.",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/news/1023/20260925-12.html",
-      "source_name": "Japan Exchange Group (JPX) — Market News",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T07:40:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "JPX designation of securities under supervision (confirmation); underlying regulatory concern not detailed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "JPX designation of securities under supervision (confirmation); underlying regulatory concern not detailed.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 18,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HYUGA PRIMARY CARE Co., Ltd.",
-          "ticker": "7133",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-164",
-      "headline": "Kalpataru Limited: Kalpataru Limited has informed the Exchange about show cause notice received from GST Department by the wholly-owned subsidiary Ananta Landmarks Private Limited",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ravi_sah_25092026124703_Reg_30_Disclosure_SCN_Ananta_Landmarks.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T07:17:42Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Wholly-owned subsidiary received GST show-cause notice from the Department; potential for material penalties, though the magnitude is not quantified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Wholly-owned subsidiary received GST show-cause notice from the Department; potential for material penalties, though the magnitude is not quantified.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kalpataru Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-051",
-      "headline": "MAT: Receipt of $10M Deposit from AngloGold Ashanti [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAT?key=2924-03139891-6A1345689",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T01:06:07Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Company received a $10M deposit from AngloGold Ashanti, indicating progress on a commercial agreement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Company received a $10M deposit from AngloGold Ashanti, indicating progress on a commercial agreement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Matador Mining",
-          "ticker": "MAT",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-042",
-      "headline": "ZNC: Gold Mineralisation In All Six Initial Dulcie Central Holes [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ZNC?key=2924-03139865-6A1345682",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T00:20:52Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "ZNC confirms gold mineralisation in all six initial exploration holes at Dulcie Central; validates the deposit and economic viability of the project—company-marked price-sensitive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "ZNC confirms gold mineralisation in all six initial exploration holes at Dulcie Central; validates the deposit and economic viability of the project—company-marked price-sensitive.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "operations",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ZNC",
-          "ticker": "ZNC",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-055",
-      "headline": "SC TO-I/A - BEACON TOPCO, INC. (0002094256) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2094256/000110465926110240/0001104659-26-110240-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-24T13:18:12Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Schedule TO (tender offer) amendment filed with SEC for BEACON TOPCO as subject company; form type signals M&A event but offer price, deal size, and bidder name not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Schedule TO (tender offer) amendment filed with SEC for BEACON TOPCO as subject company; form type signals M&A event but offer price, deal size, and bidder name not disclosed in headline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BEACON TOPCO, INC.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-068",
-      "headline": "DEFM14A - Archimedes Tech SPAC Partners II Co. (0002028516) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2028516/000110465926110234/0001104659-26-110234-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-24T13:01:27Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "A DEFM14A filing indicates a definitive proxy statement for a merger or acquisition, signaling a pending deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "A DEFM14A filing indicates a definitive proxy statement for a merger or acquisition, signaling a pending deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Archimedes Tech SPAC Partners II Co.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180102,9 +180122,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2387742,
-    "news_picked_today": 333,
-    "news_dropped_today": 12675
+    "news_seen_today": 2549770,
+    "news_picked_today": 356,
+    "news_dropped_today": 14572
   },
   "book_momentum": {
     "live_count": 8,
