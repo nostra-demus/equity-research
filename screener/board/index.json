@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T03:56:15Z",
+  "generated_at": "2026-09-25T03:57:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -1869,6 +1869,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-122",
+      "headline": "UNITED LAB (03933): THE GROUP'S PRODUCT INSULIN DEGLUDEC AND LIRAGLUTIDE INJECTION MARKETING REGISTRATION APPLICATION BEEN ACCEPTED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401885.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T11:23:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The company's marketing registration application for a new insulin injection product has been accepted by regulators.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The company's marketing registration application for a new insulin injection product has been accepted by regulators.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "United Laboratories International Holdings Ltd",
+          "ticker": "03933",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-091",
       "headline": "PB Fintech shares downgraded, price target cut by nearly 50% on core earnings risk",
       "headline_en": null,
@@ -1910,55 +1959,6 @@
           "name": "PB Fintech",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-093",
-      "headline": "Kobayashi in ¥500 billion buyout talks after red-yeast case",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/09/25/companies/kobayashi-buyout-talks/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T02:24:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Kobayashi in ¥500 billion buyout talks following red-yeast product case.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Kobayashi in ¥500 billion buyout talks following red-yeast product case.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 67,
-      "rank_factors": {
-        "materiality": 67,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kobayashi",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "unknown",
@@ -179651,9 +179651,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 961452,
-    "news_picked_today": 153,
-    "news_dropped_today": 4263
+    "news_seen_today": 975663,
+    "news_picked_today": 154,
+    "news_dropped_today": 4286
   },
   "book_momentum": {
     "live_count": 8,
