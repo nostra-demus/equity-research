@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T21:23:47Z",
+  "generated_at": "2026-09-25T21:34:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-358",
@@ -1038,6 +1038,158 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-447",
+      "headline": "Northrop Grumman Receives Long-Lead Funding for 67 APG-85 Radars for F-35s",
+      "headline_en": null,
+      "url": "https://www.defensedaily.com/northrop-grumman-receives-long-lead-funding-for-67-apg-85-radars-for-f-35s/air-force/",
+      "source_name": "Defense Daily",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T20:37:37Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Northrop Grumman receives long-lead funding for 67 APG-85 Radars for F-35s, indicating a significant contract award and future revenue stream.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Northrop Grumman receives long-lead funding for 67 APG-85 Radars for F-35s, indicating a significant contract award and future revenue stream.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Northrop Grumman",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-454",
+      "headline": "Potash giant Canpotex investing $500-million in Vancouver port terminal to increase exports",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-canpotex-investing-500-million-vancouver-port-terminal-potash-exports/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T20:23:29Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Canpotex is investing $500 million in a Vancouver port terminal to expand export capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Canpotex is investing $500 million in a Vancouver port terminal to expand export capacity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Canpotex",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-474",
+      "headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
+      "headline_en": "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T19:41:40Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "BASF is working on an acquisition of Evonik, a major M&A event in the chemical sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BASF is working on an acquisition of Evonik, a major M&A event in the chemical sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BASF",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Evonik",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-415",
       "headline": "Actis merges 11 India road assets into $1 billion trust",
       "headline_en": null,
@@ -1825,158 +1977,6 @@
           "name": "Volkswagen",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-274",
-      "headline": "BASF approaches rival Evonik with merger proposal, FT reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/basf-approaches-rival-evonik-with-merger-proposal-ft-reports-2026-09-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T12:09:31Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "BASF has approached Evonik with a merger proposal, representing a major potential consolidation in the chemical sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BASF has approached Evonik with a merger proposal, representing a major potential consolidation in the chemical sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BASF SE",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Evonik Industries AG",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-261",
-      "headline": "Signature Global acquires 194-acre land for Gurugram housing project; eyes Rs 6,000 crore revenue",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/signature-global-acquires-194-acre-land-for-gurugram-housing-project-eyes-rs-6000-crore-revenue/articleshow/134483932.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T11:45:05Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Company acquired 194 acres of land for a project with 60 billion INR revenue potential.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company acquired 194 acres of land for a project with 60 billion INR revenue potential.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Signature Global",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-260",
-      "headline": "Eaton to acquire Italy's grid equipment maker COL Group for €810 million to expand in Europe",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/eaton-acquire-italys-grid-equipment-maker-col-group-810-million-expand-europe-2026-09-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T11:35:12Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Eaton is acquiring COL Group for 810 million EUR to expand European grid presence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Eaton is acquiring COL Group for 810 million EUR to expand European grid presence.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eaton",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -178604,9 +178604,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4624940,
-    "news_picked_today": 1096,
-    "news_dropped_today": 24824
+    "news_seen_today": 4635197,
+    "news_picked_today": 1151,
+    "news_dropped_today": 25009
   },
   "book_momentum": {
     "live_count": 8,
