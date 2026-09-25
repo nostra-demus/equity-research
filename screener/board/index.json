@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T08:43:25Z",
+  "generated_at": "2026-09-25T08:44:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-169",
@@ -601,6 +601,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-178",
+      "headline": "HUABAO INTL (00336): CONNECTED TRANSACTION ACQUISITION OF EQUITY INTERESTS IN THE TARGET COMPANY, TERMINATION OF EXISTING CONTINUING CONNECTED TRANSACTIONS AND ENTERING INTO NEW CONTINUING CONNECTED TRANSACTIONS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500333.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T08:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The company is acquiring equity interests in a target company and restructuring its connected transactions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The company is acquiring equity interests in a target company and restructuring its connected transactions.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HUABAO INTL",
+          "ticker": "00336",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-168",
       "headline": "SKIL Infrastructure Limited: SKIL Infrastructure Limited has informed the Exchange about the Twelfth (12th) Committee of Creditors meeting to be held on Monday, September 28, 2026",
       "headline_en": null,
@@ -743,6 +793,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-180",
+      "headline": "HATCHER GROUP (08365): DISCLOSEABLE TRANSACTION ACQUISITION OF THE ENTIRE ISSUED SHARE CAPITAL OF THE TARGET COMPANY INVOLVING ISSUANCE OF PROMISSORY NOTES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0925/2026092500313.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T08:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The company is acquiring the entire issued share capital of a target company using promissory notes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The company is acquiring the entire issued share capital of a target company using promissory notes.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HATCHER GROUP",
+          "ticker": "08365",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1878,104 +1977,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-078",
-      "headline": "DFAN14A - Better Home & Finance Holding Co (0001835856) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1835856/000092189526002639/0000921895-26-002639-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-24T12:54:01Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Dissident proxy statement filed for Better Home & Finance Holding Co; proxy contest confirmed, with unconfirmed activist demands.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Dissident proxy statement filed for Better Home & Finance Holding Co; proxy contest confirmed, with unconfirmed activist demands.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Better Home & Finance Holding Co",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-162",
-      "headline": "Dabur’s Sesa Care merger gets NCLT approval",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/cons-products/fmcg/daburs-sesa-care-merger-gets-nclt-approval/articleshow/134478601.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T07:28:07Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "NCLT approval of Dabur's Sesa Care merger clears a regulatory gate required for transaction completion and moves the deal closer to closure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "NCLT approval of Dabur's Sesa Care merger clears a regulatory gate required for transaction completion and moves the deal closer to closure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dabur India Limited",
-          "ticker": "DABUR",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180095,9 +180096,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2113438,
-    "news_picked_today": 291,
-    "news_dropped_today": 11541
+    "news_seen_today": 2129041,
+    "news_picked_today": 298,
+    "news_dropped_today": 11558
   },
   "book_momentum": {
     "live_count": 8,
