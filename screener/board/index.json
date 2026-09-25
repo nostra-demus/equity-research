@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T05:36:20Z",
+  "generated_at": "2026-09-25T05:42:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -1820,6 +1820,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-138",
+      "headline": "Tecnimont breaks ground on Ruwais NGL train 5 project",
+      "headline_en": null,
+      "url": "https://www.meed.com/tecnimont-breaks-ground-on-ruwais-ngl-train-5-project",
+      "source_name": "MEED — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T05:08:41Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Tecnimont has broken ground on a major NGL project in Ruwais, representing significant capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Tecnimont has broken ground on a major NGL project in Ruwais, representing significant capital investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tecnimont",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-096",
       "headline": "Vascon Engineers Limited: Vascon Engineers Limited receives Letter of Intent for Development of Office Facility Ground + 12 Floors at Bengaluru by Multinational IT Company Qualcomm India Private Limited amounting to Rs. 660.79 Crore",
       "headline_en": null,
@@ -1914,55 +1963,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-030",
-      "headline": "RNAi drug specialist ADARx raises $446M IPO",
-      "headline_en": null,
-      "url": "https://www.biopharmadive.com/news/adarx-rnai-biotech-ipo-stock-pricing/831262/",
-      "source_name": "BioPharma Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T00:36:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "ADARx Pharmaceuticals raised $446 million in an IPO, providing significant capital for operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "ADARx Pharmaceuticals raised $446 million in an IPO, providing significant capital for operations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADARx",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -179792,9 +179792,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1320924,
-    "news_picked_today": 188,
-    "news_dropped_today": 6676
+    "news_seen_today": 1333833,
+    "news_picked_today": 190,
+    "news_dropped_today": 6794
   },
   "book_momentum": {
     "live_count": 8,
