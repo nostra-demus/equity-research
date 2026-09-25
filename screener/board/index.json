@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-25T15:09:12Z",
+  "generated_at": "2026-09-25T15:19:10Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260925-322",
+      "headline": "CARRIANNA (00126): MAJOR AND CONNECTED TRANSACTION DISPOSAL OF THE ENTIRE EQUITY INTEREST IN PROFIT SMART GROUP HOLDINGS LIMITED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092501289.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T14:40:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Disposal of entire equity interest in subsidiary, classified as major connected transaction by exchange, affects capital structure and earnings base.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Disposal of entire equity interest in subsidiary, classified as major connected transaction by exchange, affects capital structure and earnings base.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CARRIANNA",
+          "ticker": "00126",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260925-314",
       "headline": "RITAMIX (01936): JOINT ANNOUNCEMENT (I) SALE AND PURCHASE OF SHARES IN RITAMIX GLOBAL LIMITED; (II) POSSIBLE SPECIAL DIVIDEND AND PROPOSED CHANGE IN USE OF UNUTILISED NET PROCEEDS; (III) POSSIBLE UNCONDITIONAL MANDATORY GENERAL CASH OFFER BY SHANGGU SECURITIES LIMITED FOR AND ON BEHALF OF INNOVATION FORGE HOLDINGS LIMITED; AND (IV) RESUMPTION OF TRADING",
@@ -1953,55 +2002,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-168",
-      "headline": "SKIL Infrastructure Limited: SKIL Infrastructure Limited has informed the Exchange about the Twelfth (12th) Committee of Creditors meeting to be held on Monday, September 28, 2026",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/Skilinfra_25092026130455_SKIL_Letter_Intimation_12th_COC.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T07:35:21Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Company in formal corporate insolvency resolution proceedings (CIRP) under IBC, with the 12th Committee of Creditors meeting scheduled for 28 September 2026; active restructuring phase indicates imminent creditor/resolution decision affecting capital structure and equity value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Company in formal corporate insolvency resolution proceedings (CIRP) under IBC, with the 12th Committee of Creditors meeting scheduled for 28 September 2026; active restructuring phase indicates imminent creditor/resolution decision affecting capital structure and equity value.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SKIL Infrastructure Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180119,9 +180119,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3651102,
-    "news_picked_today": 581,
-    "news_dropped_today": 18619
+    "news_seen_today": 3678240,
+    "news_picked_today": 588,
+    "news_dropped_today": 18684
   },
   "book_momentum": {
     "live_count": 8,
