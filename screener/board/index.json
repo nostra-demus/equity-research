@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T00:24:06Z",
+  "generated_at": "2026-09-25T00:28:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-003",
@@ -243,6 +243,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-016",
+      "headline": "Arihant Superstructures Limited: Arihant Superstructures Limited has informed the Exchange about change in Management",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ARIHANTSUP_24092026194031_ASL_Changes_in_Management_24092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T14:10:38Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The company announced a change in management, which is a material corporate governance event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "The company announced a change in management, which is a material corporate governance event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arihant Superstructures Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -138221,77 +138270,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a8bdb182d6cd",
-      "idea_version": "IDEAV-999ebde2571da033",
-      "idea_version_started_at": "2026-09-23T12:51:32Z",
-      "ticker": "JAGSNPHARM",
-      "company": "Jagsonpal Pharmaceuticals Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Acquiring the wellness portfolio of Group Pharmaceuticals allows the company to immediately scale its consumer health segment and diversify its product revenue stream.",
-      "why_now": "The acquisition was formally disclosed to the exchange on 23 September 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3d33e57b1f45"
-      ],
-      "primary_source_event_id": "EVT-3d33e57b1f45",
-      "source_headlines": [
-        "Jagsonpal Pharmaceuticals Limited: Jagsonpal Pharmaceuticals Limited has informed the Exchange about the Acquisition of Wellness Portfolio of Group Pharmaceuticals Limited."
-      ],
-      "source_headline": "Jagsonpal Pharmaceuticals Limited: Jagsonpal Pharmaceuticals Limited has informed the Exchange about the Acquisition of Wellness Portfolio of Group Pharmaceuticals Limited.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/JAGSNPHARM_23092026175736_SignedIntimationofAcquisition.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-23T12:27:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-23T12:51:32Z",
-      "updated_at": "2026-09-23T12:51:32Z",
-      "decay_at": "2026-09-25T00:27:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b7d2ebf26308",
       "idea_version": "IDEAV-6d9f3e92bb8e9dc7",
       "idea_version_started_at": "2026-09-22T20:55:27Z",
@@ -140925,6 +140903,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-a8bdb182d6cd",
+      "idea_version": "IDEAV-999ebde2571da033",
+      "idea_version_started_at": "2026-09-23T12:51:32Z",
+      "ticker": "JAGSNPHARM",
+      "company": "Jagsonpal Pharmaceuticals Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Acquiring the wellness portfolio of Group Pharmaceuticals allows the company to immediately scale its consumer health segment and diversify its product revenue stream.",
+      "why_now": "The acquisition was formally disclosed to the exchange on 23 September 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3d33e57b1f45"
+      ],
+      "primary_source_event_id": "EVT-3d33e57b1f45",
+      "source_headlines": [
+        "Jagsonpal Pharmaceuticals Limited: Jagsonpal Pharmaceuticals Limited has informed the Exchange about the Acquisition of Wellness Portfolio of Group Pharmaceuticals Limited."
+      ],
+      "source_headline": "Jagsonpal Pharmaceuticals Limited: Jagsonpal Pharmaceuticals Limited has informed the Exchange about the Acquisition of Wellness Portfolio of Group Pharmaceuticals Limited.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/JAGSNPHARM_23092026175736_SignedIntimationofAcquisition.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-23T12:27:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-23T12:51:32Z",
+      "updated_at": "2026-09-23T12:51:32Z",
+      "decay_at": "2026-09-25T00:27:45Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-cdba0d2ebad5",
       "idea_version": "IDEAV-8c26e4a74a7ab38d",
       "idea_version_started_at": "2026-09-22T12:09:02Z",
@@ -141222,14 +141271,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 263,
@@ -141253,6 +141302,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a8bdb182d6cd",
+        "idea_version": "IDEAV-999ebde2571da033",
+        "idea_version_started_at": "2026-09-23T12:51:32Z",
+        "ticker": "JAGSNPHARM",
+        "company": "Jagsonpal Pharmaceuticals Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Acquiring the wellness portfolio of Group Pharmaceuticals allows the company to immediately scale its consumer health segment and diversify its product revenue stream.",
+        "why_now": "The acquisition was formally disclosed to the exchange on 23 September 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3d33e57b1f45"
+        ],
+        "primary_source_event_id": "EVT-3d33e57b1f45",
+        "source_headlines": [
+          "Jagsonpal Pharmaceuticals Limited: Jagsonpal Pharmaceuticals Limited has informed the Exchange about the Acquisition of Wellness Portfolio of Group Pharmaceuticals Limited."
+        ],
+        "source_headline": "Jagsonpal Pharmaceuticals Limited: Jagsonpal Pharmaceuticals Limited has informed the Exchange about the Acquisition of Wellness Portfolio of Group Pharmaceuticals Limited.",
+        "source_url": "https://nsearchives.nseindia.com/corporate/JAGSNPHARM_23092026175736_SignedIntimationofAcquisition.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 96,
+        "newest_source_at": "2026-09-23T12:27:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-23T12:51:32Z",
+        "updated_at": "2026-09-23T12:51:32Z",
+        "decay_at": "2026-09-25T00:27:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-25T00:27:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ec7259262268",
         "idea_version": "IDEAV-561e80c7dd71159f",
@@ -171233,81 +171356,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-78e2c3fff636",
-        "idea_version": "IDEAV-82ac7f09e7f3a740",
-        "idea_version_started_at": "2026-09-08T06:57:56Z",
-        "ticker": "011200",
-        "company": "HMM",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A 4.7 trillion won shipping contract with Vale provides a massive, multi-year revenue backlog that significantly improves the company's financial outlook.",
-        "why_now": "The contract was announced on September 08, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-27b1381e96cb"
-        ],
-        "primary_source_event_id": "EVT-27b1381e96cb",
-        "source_headlines": [
-          "HMM secures 4.7 tln-won shipping contract with Brazil's Vale"
-        ],
-        "source_headline": "HMM secures 4.7 tln-won shipping contract with Brazil's Vale",
-        "source_url": "https://en.yna.co.kr/view/AEN20260908005300320",
-        "source_name": "Yonhap News Agency — All News (English)",
-        "materiality_max": 98,
-        "newest_source_at": "2026-09-08T04:42:57Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-08T06:57:56Z",
-        "updated_at": "2026-09-08T06:57:56Z",
-        "decay_at": "2026-09-09T16:42:57Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T04:44:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-841758969e76",
         "idea_version": "IDEAV-d59e7b53b8401bd6",
         "idea_version_started_at": "2026-09-08T03:57:59Z",
@@ -178403,7 +178451,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1017,
-    "live_count": 17,
+    "live_count": 16,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -178413,7 +178461,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2822,
+    "inbox_unconsumed": 2823,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -178422,9 +178470,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 108103,
-    "news_picked_today": 16,
-    "news_dropped_today": 248
+    "news_seen_today": 125950,
+    "news_picked_today": 17,
+    "news_dropped_today": 271
   },
   "book_momentum": {
     "live_count": 8,
