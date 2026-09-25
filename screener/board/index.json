@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T05:14:15Z",
+  "generated_at": "2026-09-25T05:25:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -537,6 +537,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-136",
+      "headline": "Prism Johnson Limited: Prism Johnson Limited has informed the Exchange about Investment in KUS Renewable Private Limited, a Special Purpose Vehicle, for setting up 49.5 MW Captive Wind Power Plant for supply of Wind Power to the Cement Plant of the Company located at Satna, Madhya Pradesh.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PRSMJOHNSN_25092026101234_SEIntimationinKUS.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T04:44:51Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Prism Johnson invests in 49.5 MW captive wind power plant for its cement plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Prism Johnson invests in 49.5 MW captive wind power plant for its cement plant.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 12,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prism Johnson Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1623,6 +1672,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-135",
+      "headline": "Easy Trip Planners Limited: Easy Trip Planners Limited has informed the Exchange regarding a press release dated September 25, 2026, titled \"EaseMyTrip Advances Vision 2030 with EMTev Electric Buses Debuting in Bhopal, Targets Annual Manufacturing of 5,000 Buses Within Five Years\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/EASEMYTRIP_25092026101822_pr_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T04:48:53Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Easy Trip Planners announces electric bus launch targeting 5,000 buses/year within five years.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Easy Trip Planners announces electric bus launch targeting 5,000 buses/year within five years.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Easy Trip Planners Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-041",
       "headline": "INV: Notification of cessation of securities - INV",
       "headline_en": null,
@@ -1864,104 +1963,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-113",
-      "headline": "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - BIOLOGICS LICENSE APPLICATION OF RISVUTATUG REZETECAN FOR INJECTION (HS-20093) FOR OSTEOSARCOMA ACCEPTED BY THE NMPA",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092401893.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T11:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "NMPA accepted the Biologics License Application for a new drug, a positive regulatory milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "NMPA accepted the Biologics License Application for a new drug, a positive regulatory milestone.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hansoh Pharma",
-          "ticker": "03692",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-119",
-      "headline": "Morgan Stanley red-faced as banker mistakenly leaks internal deal list",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/asia/morgan-stanley-red-faced-after-employee-leaks-internal-deal-list-20260925-p610e7?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T03:07:39Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "A leak of an internal deal list by a Morgan Stanley banker represents a significant operational and reputational risk for the firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "A leak of an internal deal list by a Morgan Stanley banker represents a significant operational and reputational risk for the firm.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Morgan Stanley",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -139312,77 +139313,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-39795426b446",
-      "idea_version": "IDEAV-2b58782b6e536a32",
-      "idea_version_started_at": "2026-09-23T20:19:33Z",
-      "ticker": "WEBSOL",
-      "company": "Websol Energy System Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The allotment of land by the West Bengal government for a 4 GW solar facility provides a clear path for significant capacity expansion and long-term revenue growth.",
-      "why_now": "The press release regarding the land allotment was issued on 2026-09-23.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4c264d1bc86a"
-      ],
-      "primary_source_event_id": "EVT-4c264d1bc86a",
-      "source_headlines": [
-        "Websol Energy System Limited: Websol Energy System Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"West Bengal Government Allots Land to Websol for Greenfield 4 GW Solar Cell and Module Facility\"."
-      ],
-      "source_headline": "Websol Energy System Limited: Websol Energy System Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"West Bengal Government Allots Land to Websol for Greenfield 4 GW Solar Cell and Module Facility\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/WEBELSOLAR_23092026224345_Reg_30_-_Press_Release.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-23T17:14:45Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-23T20:19:33Z",
-      "updated_at": "2026-09-23T20:19:33Z",
-      "decay_at": "2026-09-25T05:14:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b7d2ebf26308",
       "idea_version": "IDEAV-6d9f3e92bb8e9dc7",
       "idea_version_started_at": "2026-09-22T20:55:27Z",
@@ -140718,6 +140648,77 @@
       "surfaced_at": "2026-09-23T20:19:33Z",
       "updated_at": "2026-09-23T20:19:33Z",
       "decay_at": "2026-09-25T04:18:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-39795426b446",
+      "idea_version": "IDEAV-2b58782b6e536a32",
+      "idea_version_started_at": "2026-09-23T20:19:33Z",
+      "ticker": "WEBSOL",
+      "company": "Websol Energy System Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The allotment of land by the West Bengal government for a 4 GW solar facility provides a clear path for significant capacity expansion and long-term revenue growth.",
+      "why_now": "The press release regarding the land allotment was issued on 2026-09-23.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4c264d1bc86a"
+      ],
+      "primary_source_event_id": "EVT-4c264d1bc86a",
+      "source_headlines": [
+        "Websol Energy System Limited: Websol Energy System Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"West Bengal Government Allots Land to Websol for Greenfield 4 GW Solar Cell and Module Facility\"."
+      ],
+      "source_headline": "Websol Energy System Limited: Websol Energy System Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"West Bengal Government Allots Land to Websol for Greenfield 4 GW Solar Cell and Module Facility\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/WEBELSOLAR_23092026224345_Reg_30_-_Press_Release.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-23T17:14:45Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-23T20:19:33Z",
+      "updated_at": "2026-09-23T20:19:33Z",
+      "decay_at": "2026-09-25T05:14:45Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -142598,14 +142599,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 546,
     "shown_count": 500,
-    "hidden_count": 45,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       },
       "short": {
         "total_count": 265,
@@ -142629,6 +142630,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-39795426b446",
+        "idea_version": "IDEAV-2b58782b6e536a32",
+        "idea_version_started_at": "2026-09-23T20:19:33Z",
+        "ticker": "WEBSOL",
+        "company": "Websol Energy System Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The allotment of land by the West Bengal government for a 4 GW solar facility provides a clear path for significant capacity expansion and long-term revenue growth.",
+        "why_now": "The press release regarding the land allotment was issued on 2026-09-23.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4c264d1bc86a"
+        ],
+        "primary_source_event_id": "EVT-4c264d1bc86a",
+        "source_headlines": [
+          "Websol Energy System Limited: Websol Energy System Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"West Bengal Government Allots Land to Websol for Greenfield 4 GW Solar Cell and Module Facility\"."
+        ],
+        "source_headline": "Websol Energy System Limited: Websol Energy System Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"West Bengal Government Allots Land to Websol for Greenfield 4 GW Solar Cell and Module Facility\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/WEBELSOLAR_23092026224345_Reg_30_-_Press_Release.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-23T17:14:45Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-23T20:19:33Z",
+        "updated_at": "2026-09-23T20:19:33Z",
+        "decay_at": "2026-09-25T05:14:45Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-25T05:14:45Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-384082b9e158",
         "idea_version": "IDEAV-3de5df10ff347fcc",
@@ -172682,80 +172757,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b15468d98102",
-        "idea_version": "IDEAV-0cb5f8ce6e5d2776",
-        "idea_version_started_at": "2026-09-08T09:47:09Z",
-        "ticker": "JUPITERWAG",
-        "company": "Jupiter Wagons Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured a new commercial order worth Rs. 97.66 crore from GATX India, providing a direct boost to its order book and revenue visibility.",
-        "why_now": "The order announcement was filed today, September 8, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5d206bf5ebfb"
-        ],
-        "primary_source_event_id": "EVT-5d206bf5ebfb",
-        "source_headlines": [
-          "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\"."
-        ],
-        "source_headline": "Jupiter Wagons Limited: Jupiter Wagons Limited has informed the Exchange regarding a press release dated September 08, 2026, titled \"Jupiter Wagons Bags Order Worth Over Rs. 97.66 Crore from GATX India Private Limited\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/CEBBCO_08092026133615_SEPRESSRELEASE08092026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-08T08:06:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-08T09:47:09Z",
-        "updated_at": "2026-09-08T09:47:09Z",
-        "decay_at": "2026-09-09T20:06:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T09:10:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d45c5c6a293c",
         "idea_version": "IDEAV-4c3423f52b003f7e",
         "idea_version_started_at": "2026-09-08T08:32:35Z",
@@ -179772,7 +179773,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1019,
-    "live_count": 15,
+    "live_count": 14,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -179791,9 +179792,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1253808,
-    "news_picked_today": 178,
-    "news_dropped_today": 6134
+    "news_seen_today": 1307708,
+    "news_picked_today": 184,
+    "news_dropped_today": 6392
   },
   "book_momentum": {
     "live_count": 8,
