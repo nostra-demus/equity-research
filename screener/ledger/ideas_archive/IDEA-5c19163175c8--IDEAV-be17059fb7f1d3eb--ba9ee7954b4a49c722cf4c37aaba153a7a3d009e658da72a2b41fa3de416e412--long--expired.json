@@ -1,13 +1,13 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-10T23:14:01Z",
+  "archived_at": "2026-09-25T20:29:34Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-4b86fb8ac7f1",
-    "idea_version": "IDEAV-cb8808d4da7aa5a9",
-    "idea_version_started_at": "2026-09-08T00:27:06Z",
-    "ticker": "01511",
-    "company": "UISEE Tech",
+    "idea_id": "IDEA-5c19163175c8",
+    "idea_version": "IDEAV-be17059fb7f1d3eb",
+    "idea_version_started_at": "2026-09-23T05:42:30Z",
+    "ticker": "01763",
+    "company": "China Isotope & Radiation Corporation",
     "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
@@ -15,15 +15,15 @@
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "Inclusion in the Stock Connect program increases liquidity and accessibility for mainland Chinese investors, typically leading to a valuation re-rating.",
-    "why_now": "The announcement was made on 2026-09-07, and the positive impact of increased institutional and retail access is usually realized over the following trading sessions.",
-    "conviction": 65,
+    "reason": "FDA filing clearance for the Lu-177 Drug Master File (DMF) is a critical regulatory milestone that enables the company to supply key radiopharmaceutical precursors to the U.S. market.",
+    "why_now": "The clearance was announced in a filing dated 2026-09-22.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 25,
-      "impact": 10,
+      "impact": 19,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -48,30 +48,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "liquidity_positioning",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-ea434ece6dbe"
+      "EVT-11cfcebdaa09"
     ],
-    "primary_source_event_id": "EVT-ea434ece6dbe",
+    "primary_source_event_id": "EVT-11cfcebdaa09",
     "source_headlines": [
-      "UISEE TECH (01511): VOLUNTARY ANNOUNCEMENT - INCLUSION IN THE LIST OF ELIGIBLE SECURITIES UNDER THE STOCK CONNECT"
+      "CIRC (01763): VOLUNTARY ANNOUNCEMENT - CNGT Lu-177 DMF SUCCESSFULLY OBTAINED U.S. FDA FILING CLEARANCE"
     ],
-    "source_headline": "UISEE TECH (01511): VOLUNTARY ANNOUNCEMENT - INCLUSION IN THE LIST OF ELIGIBLE SECURITIES UNDER THE STOCK CONNECT",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800001.pdf",
+    "source_headline": "CIRC (01763): VOLUNTARY ANNOUNCEMENT - CNGT Lu-177 DMF SUCCESSFULLY OBTAINED U.S. FDA FILING CLEARANCE",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201405.pdf",
     "source_name": "HKEXnews (HK Exchange Filing)",
-    "materiality_max": 63,
-    "newest_source_at": "2026-09-07T22:03:00Z",
+    "materiality_max": 91,
+    "newest_source_at": "2026-09-22T14:15:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-08T00:27:06Z",
-    "updated_at": "2026-09-08T00:27:06Z",
-    "decay_at": "2026-09-09T10:03:00Z",
+    "surfaced_at": "2026-09-23T05:42:30Z",
+    "updated_at": "2026-09-23T05:42:30Z",
+    "decay_at": "2026-09-24T02:15:00Z",
     "status": "live",
     "promoted_signal_id": null
   }

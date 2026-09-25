@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T20:29:13Z",
+  "generated_at": "2026-09-25T20:29:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-358",
@@ -139190,77 +139190,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b7d2ebf26308",
-      "idea_version": "IDEAV-6d9f3e92bb8e9dc7",
-      "idea_version_started_at": "2026-09-22T20:55:27Z",
-      "ticker": "CDLR",
-      "company": "Cadeler A/S",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The filing of an SC TO-T indicates a formal third-party tender offer, which typically establishes a floor price near the offer value and creates a premium opportunity for shareholders.",
-      "why_now": "The filing was submitted on 2026-09-22, making the tender offer active and actionable immediately.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1b953f882920",
-        "EVT-9e7614b966ea"
-      ],
-      "primary_source_event_id": "EVT-1b953f882920",
-      "source_headlines": [
-        "SC TO-T - Cadeler plc (0002063345) (Filed by)",
-        "SC TO-T - Cadeler A/S (0001978867) (Subject)"
-      ],
-      "source_headline": "SC TO-T - Cadeler plc (0002063345) (Filed by)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2063345/000110465926109516/0001104659-26-109516-index.htm",
-      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T14:52:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T20:55:27Z",
-      "updated_at": "2026-09-22T20:55:27Z",
-      "decay_at": "2026-09-24T02:52:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a85bb583dca8",
       "idea_version": "IDEAV-901fdab91d427bdb",
       "idea_version_started_at": "2026-09-24T16:36:19Z",
@@ -139403,76 +139332,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-49a2653dd307",
-      "idea_version": "IDEAV-080c1acc0dcc53da",
-      "idea_version_started_at": "2026-09-22T18:20:15Z",
-      "ticker": "VWAGY",
-      "company": "Volkswagen AG",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is initiating a significant restructuring and cost-cutting program following a profit warning, signaling severe margin pressure and operational inefficiency.",
-      "why_now": "The restructuring announcement was made on 2026-09-22, indicating immediate operational headwinds.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b2728203efc8"
-      ],
-      "primary_source_event_id": "EVT-b2728203efc8",
-      "source_headlines": [
-        "Volkswagen to ramp up restructuring after profit warning"
-      ],
-      "source_headline": "Volkswagen to ramp up restructuring after profit warning",
-      "source_url": "https://www.reuters.com/business/volkswagen-porsche-shares-extend-losses-following-profit-warning-2026-09-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T13:56:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T18:20:15Z",
-      "updated_at": "2026-09-22T18:20:15Z",
-      "decay_at": "2026-09-24T01:56:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d6b4116160c6",
       "idea_version": "IDEAV-aaefbdf309a083bd",
       "idea_version_started_at": "2026-09-23T05:05:14Z",
@@ -139537,426 +139396,6 @@
       "surfaced_at": "2026-09-23T05:05:14Z",
       "updated_at": "2026-09-23T05:05:14Z",
       "decay_at": "2026-09-24T10:31:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-790783c9f10a",
-      "idea_version": "IDEAV-e39509feb0c6c3a1",
-      "idea_version_started_at": "2026-09-22T11:39:38Z",
-      "ticker": "TLX",
-      "company": "Telix Pharmaceuticals",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $1.6 billion acquisition of ITM significantly expands Telix's radiopharmaceutical pipeline and market share in a high-growth oncology segment.",
-      "why_now": "The acquisition was announced on 2026-09-22.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1ba6260de758"
-      ],
-      "primary_source_event_id": "EVT-1ba6260de758",
-      "source_headlines": [
-        "Analysts ‘extremely bullish’ as Telix beams into Novartis’ territory with $1.6B ITM acquisition"
-      ],
-      "source_headline": "Analysts ‘extremely bullish’ as Telix beams into Novartis’ territory with $1.6B ITM acquisition",
-      "source_url": "https://www.fiercebiotech.com/biotech/analysts-extremely-bullish-telix-beams-novartis-territory-165b-itm-acquisition",
-      "source_name": "FierceBiotech",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T09:30:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-20T23:00:20Z",
-      "updated_at": "2026-09-22T11:39:38Z",
-      "decay_at": "2026-09-23T21:30:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-acf746e0f13b",
-      "idea_version": "IDEAV-31f5433301e62c0f",
-      "idea_version_started_at": "2026-09-23T00:45:47Z",
-      "ticker": "DASH",
-      "company": "DoorDash",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The $131.5 million settlement regarding NYC minimum-pay law compliance represents a direct hit to cash flow and sets a negative precedent for labor cost structures in other jurisdictions.",
-      "why_now": "The settlement was announced on 2026-09-22.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3966d4322bf2"
-      ],
-      "primary_source_event_id": "EVT-3966d4322bf2",
-      "source_headlines": [
-        "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance"
-      ],
-      "source_headline": "DoorDash to Pay $131.5 Million to Resolve NYC Investigation Into Minimum-Pay Law Compliance",
-      "source_url": "https://www.wsj.com/business/doordash-to-pay-131-5-million-to-resolve-nyc-investigation-into-minimum-pay-law-compliance-8237c60e?siteid=yhoof2&yptr=yahoo",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T16:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T13:09:09Z",
-      "updated_at": "2026-09-23T00:45:47Z",
-      "decay_at": "2026-09-24T04:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3ecdab15230a",
-      "idea_version": "IDEAV-59051ce1b2f90e2b",
-      "idea_version_started_at": "2026-09-22T18:20:15Z",
-      "ticker": "DLTR",
-      "company": "Dollar Tree",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its 2026 earnings outlook due to tariff refunds, which provides immediate capital for reinvestment and margin support.",
-      "why_now": "The guidance update was released on 2026-09-22, providing a fresh catalyst for earnings revisions.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fd7a8db8a08d"
-      ],
-      "primary_source_event_id": "EVT-fd7a8db8a08d",
-      "source_headlines": [
-        "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment"
-      ],
-      "source_headline": "DLTR Lifts 2026 Earnings Outlook as Tariff Refunds Fund Reinvestment",
-      "source_url": "https://www.nasdaq.com/articles/dltr-lifts-2026-earnings-outlook-tariff-refunds-fund-reinvestment",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T16:14:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T18:20:15Z",
-      "updated_at": "2026-09-22T18:20:15Z",
-      "decay_at": "2026-09-24T04:14:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-53ee18f2f113",
-      "idea_version": "IDEAV-bcbd56917907a554",
-      "idea_version_started_at": "2026-09-22T18:04:49Z",
-      "ticker": "ONON",
-      "company": "On Holding",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company announced an ambitious sales target and a $1 billion share buyback program, which provides a direct catalyst for earnings per share growth and capital return.",
-      "why_now": "The announcement was made during the Investor Day event on September 22, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d6908f96546a"
-      ],
-      "primary_source_event_id": "EVT-d6908f96546a",
-      "source_headlines": [
-        "On Holding Surges 13% as Investor Day Sets Ambitious Sales Target and $1B Buyback; Nike Ticks Up 2%"
-      ],
-      "source_headline": "On Holding Surges 13% as Investor Day Sets Ambitious Sales Target and $1B Buyback; Nike Ticks Up 2%",
-      "source_url": "https://247wallst.com/investing/2026/09/22/on-holding-surges-13-as-investor-day-sets-ambitious-sales-target-and-1b-buyback-nike-ticks-up-2/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T13:53:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T11:39:38Z",
-      "updated_at": "2026-09-22T18:04:49Z",
-      "decay_at": "2026-09-24T01:53:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5dab7ab65aa0",
-      "idea_version": "IDEAV-986e35ef32672b50",
-      "idea_version_started_at": "2026-09-22T13:59:06Z",
-      "ticker": "MLKN",
-      "company": "MillerKnoll",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Surpassing Q1 earnings estimates suggests better-than-expected operational efficiency and demand recovery in the office furniture segment.",
-      "why_now": "The earnings results were released today, September 22, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3a5616d14ef2"
-      ],
-      "primary_source_event_id": "EVT-3a5616d14ef2",
-      "source_headlines": [
-        "MillerKnoll (MLKN) Surpasses Q1 Earnings Estimates"
-      ],
-      "source_headline": "MillerKnoll (MLKN) Surpasses Q1 Earnings Estimates",
-      "source_url": "https://www.nasdaq.com/articles/millerknoll-mlkn-surpasses-q1-earnings-estimates",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T12:15:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T13:59:06Z",
-      "updated_at": "2026-09-22T13:59:06Z",
-      "decay_at": "2026-09-24T00:15:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ad4134269029",
-      "idea_version": "IDEAV-cab3d395714a14d7",
-      "idea_version_started_at": "2026-09-22T13:43:31Z",
-      "ticker": "CGNX",
-      "company": "Cognex Corporation",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $500 million acquisition of RealSense accelerates Cognex's expansion into 3D vision and sensor technologies, enhancing its industrial automation portfolio.",
-      "why_now": "The deal was announced today, September 22, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e4045051d43e"
-      ],
-      "primary_source_event_id": "EVT-e4045051d43e",
-      "source_headlines": [
-        "Cognex To Buy RealSense For $500 Mln"
-      ],
-      "source_headline": "Cognex To Buy RealSense For $500 Mln",
-      "source_url": "https://www.nasdaq.com/articles/cognex-buy-realsense-500-mln",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T11:59:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T13:43:31Z",
-      "updated_at": "2026-09-22T13:43:31Z",
-      "decay_at": "2026-09-23T23:59:42Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -140097,148 +139536,6 @@
       "surfaced_at": "2026-09-23T12:24:49Z",
       "updated_at": "2026-09-23T12:24:49Z",
       "decay_at": "2026-09-24T20:28:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3a6081c35649",
-      "idea_version": "IDEAV-95502f06ea22c3a9",
-      "idea_version_started_at": "2026-09-22T13:43:31Z",
-      "ticker": "THO",
-      "company": "Thor Industries",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Thor Industries reported Q4 earnings that missed analyst estimates, signaling potential demand weakness or margin pressure in the recreational vehicle market.",
-      "why_now": "The earnings miss was reported today, September 22, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-99affd9b18c2"
-      ],
-      "primary_source_event_id": "EVT-99affd9b18c2",
-      "source_headlines": [
-        "Thor Industries (THO) Q4 Earnings Lag Estimates"
-      ],
-      "source_headline": "Thor Industries (THO) Q4 Earnings Lag Estimates",
-      "source_url": "https://www.nasdaq.com/articles/thor-industries-tho-q4-earnings-lag-estimates",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T11:40:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T13:43:31Z",
-      "updated_at": "2026-09-22T13:43:31Z",
-      "decay_at": "2026-09-23T23:40:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-458483bd964f",
-      "idea_version": "IDEAV-1b5d0cc33fde6895",
-      "idea_version_started_at": "2026-09-22T12:49:23Z",
-      "ticker": "VICR",
-      "company": "Vicor",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its third-quarter revenue outlook, suggesting improved demand for its power module products.",
-      "why_now": "The outlook increase was reported on September 22, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b5ef6df896a0"
-      ],
-      "primary_source_event_id": "EVT-b5ef6df896a0",
-      "source_headlines": [
-        "Vicor Shares Jump Nearly 9.9% After Company Raises Third-Quarter Revenue Outlook"
-      ],
-      "source_headline": "Vicor Shares Jump Nearly 9.9% After Company Raises Third-Quarter Revenue Outlook",
-      "source_url": "https://finance.yahoo.com/markets/stocks/articles/vicor-shares-jump-nearly-9-104938912.html",
-      "source_name": "Yahoo Finance",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T10:49:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T12:49:23Z",
-      "updated_at": "2026-09-22T12:49:23Z",
-      "decay_at": "2026-09-23T22:49:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -141964,580 +141261,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-3da66d652109",
-      "idea_version": "IDEAV-bc3049636df69e58",
-      "idea_version_started_at": "2026-09-22T13:59:06Z",
-      "ticker": "00660",
-      "company": "Wai Chun Biotec",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The potential delay in annual results and possible trading suspension signal severe financial instability and governance risks.",
-      "why_now": "The filing was released today, September 22, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-00c449153aee"
-      ],
-      "primary_source_event_id": "EVT-00c449153aee",
-      "source_headlines": [
-        "WAI CHUN BIOTEC (00660): (I) INSIDE INFORMATION; (II) POSSIBLE DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 30 JUNE 2026; AND (III) POSSIBLE SUSPENSION OF TRADING"
-      ],
-      "source_headline": "WAI CHUN BIOTEC (00660): (I) INSIDE INFORMATION; (II) POSSIBLE DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 30 JUNE 2026; AND (III) POSSIBLE SUSPENSION OF TRADING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201345.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T13:29:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T13:59:06Z",
-      "updated_at": "2026-09-22T13:59:06Z",
-      "decay_at": "2026-09-24T01:29:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-bc1afe69b269",
-      "idea_version": "IDEAV-0f1ae1ba40fd5c38",
-      "idea_version_started_at": "2026-09-22T13:59:06Z",
-      "ticker": "PERSISTENT",
-      "company": "Persistent Systems Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The successful takeover offer for Nagarro expands Persistent's service capabilities and market share in the digital engineering space.",
-      "why_now": "The additional acceptance period for the offer is active from September 23, 2026, to October 6, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a62090cbb413"
-      ],
-      "primary_source_event_id": "EVT-a62090cbb413",
-      "source_headlines": [
-        "Persistent Systems Limited: Persistent Systems Limited has informed the Exchange regarding a press release dated September 22, 2026, titled \"Persistent s Takeover Offer for Nagarro Successful - Additional Acceptance Period to run from September 23, 2026 to October 6, 2026\"."
-      ],
-      "source_headline": "Persistent Systems Limited: Persistent Systems Limited has informed the Exchange regarding a press release dated September 22, 2026, titled \"Persistent s Takeover Offer for Nagarro Successful - Additional Acceptance Period to run from September 23, 2026 to October 6, 2026\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/PERSISTENTUSER1_22092026172325_SEIntimationUpdateonVoluntaryPublicOfferofNagarro-signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T11:53:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T13:59:06Z",
-      "updated_at": "2026-09-22T13:59:06Z",
-      "decay_at": "2026-09-23T23:53:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7ac3e4916a5f",
-      "idea_version": "IDEAV-0f5af128a1c53fe0",
-      "idea_version_started_at": "2026-09-22T13:43:31Z",
-      "ticker": "PSYS",
-      "company": "Persistent Systems Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The successful takeover of Nagarro expands Persistent Systems' service capabilities and market footprint in digital engineering.",
-      "why_now": "The additional acceptance period for the takeover offer is active from September 23, 2026, to October 6, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a62090cbb413"
-      ],
-      "primary_source_event_id": "EVT-a62090cbb413",
-      "source_headlines": [
-        "Persistent Systems Limited: Persistent Systems Limited has informed the Exchange regarding a press release dated September 22, 2026, titled \"Persistent s Takeover Offer for Nagarro Successful - Additional Acceptance Period to run from September 23, 2026 to October 6, 2026\"."
-      ],
-      "source_headline": "Persistent Systems Limited: Persistent Systems Limited has informed the Exchange regarding a press release dated September 22, 2026, titled \"Persistent s Takeover Offer for Nagarro Successful - Additional Acceptance Period to run from September 23, 2026 to October 6, 2026\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/PERSISTENTUSER1_22092026172325_SEIntimationUpdateonVoluntaryPublicOfferofNagarro-signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T11:53:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T13:43:31Z",
-      "updated_at": "2026-09-22T13:43:31Z",
-      "decay_at": "2026-09-23T23:53:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c2636ae09eff",
-      "idea_version": "IDEAV-5b4fa2d680f48148",
-      "idea_version_started_at": "2026-09-22T12:49:23Z",
-      "ticker": "02033",
-      "company": "Time Watch",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a material deterioration in earnings performance compared to prior periods.",
-      "why_now": "The profit warning was filed on September 22, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8ef823bffd19"
-      ],
-      "primary_source_event_id": "EVT-8ef823bffd19",
-      "source_headlines": [
-        "TIME WATCH (02033): PROFIT WARNING"
-      ],
-      "source_headline": "TIME WATCH (02033): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092200949.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T10:26:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T12:49:23Z",
-      "updated_at": "2026-09-22T12:49:23Z",
-      "decay_at": "2026-09-23T22:26:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b42aec634684",
-      "idea_version": "IDEAV-f18d01fb22419729",
-      "idea_version_started_at": "2026-09-22T11:39:38Z",
-      "ticker": "IEL",
-      "company": "IDP Education",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The rejection of Blackstone's takeover offer removes the immediate M&A premium from the stock price, leaving the shares vulnerable to underlying fundamental headwinds.",
-      "why_now": "The rejection was reported on 2026-09-22.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-70007d55d740"
-      ],
-      "primary_source_event_id": "EVT-70007d55d740",
-      "source_headlines": [
-        "IDP rejects Blackstone's improved takeover offer"
-      ],
-      "source_headline": "IDP rejects Blackstone's improved takeover offer",
-      "source_url": "https://www.reuters.com/world/asia-pacific/australias-idp-rejects-blackstones-494-million-takeover-offer-2026-09-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T09:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T11:39:38Z",
-      "updated_at": "2026-09-22T11:39:38Z",
-      "decay_at": "2026-09-23T21:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e58eef671b2a",
-      "idea_version": "IDEAV-c6525c4f260793b1",
-      "idea_version_started_at": "2026-09-22T11:39:38Z",
-      "ticker": "KGF",
-      "company": "Kingfisher",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its annual profit outlook following a strong first-half performance, indicating better-than-expected margin resilience in the home improvement sector.",
-      "why_now": "The guidance upgrade was announced on 2026-09-22.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-db701ee903bf"
-      ],
-      "primary_source_event_id": "EVT-db701ee903bf",
-      "source_headlines": [
-        "Kingfisher raises annual profit outlook after strong first half"
-      ],
-      "source_headline": "Kingfisher raises annual profit outlook after strong first half",
-      "source_url": "https://www.reuters.com/business/kingfisher-raises-annual-profit-outlook-after-strong-first-half-2026-09-22/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T09:00:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T10:45:27Z",
-      "updated_at": "2026-09-22T11:39:38Z",
-      "decay_at": "2026-09-23T21:00:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-4f6945fae7ef",
-      "idea_version": "IDEAV-e30578dbfdb72aca",
-      "idea_version_started_at": "2026-09-22T10:45:27Z",
-      "ticker": "LUCE",
-      "company": "Luceco",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Profit growth is accelerating due to strong demand for electric vehicle charging infrastructure, allowing the company to raise its forward guidance.",
-      "why_now": "The guidance hike was reported on September 22, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e285f6d0f0f1"
-      ],
-      "primary_source_event_id": "EVT-e285f6d0f0f1",
-      "source_headlines": [
-        "Luceco raises guidance as EV charger sales power profit growth"
-      ],
-      "source_headline": "Luceco raises guidance as EV charger sales power profit growth",
-      "source_url": "https://ukinvestormagazine.co.uk/luceco-raises-guidance-as-ev-charger-sales-power-profit-growth/",
-      "source_name": "UK Investor Magazine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T08:33:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T10:45:27Z",
-      "updated_at": "2026-09-22T10:45:27Z",
-      "decay_at": "2026-09-23T20:33:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-8f3d3ce427f6",
-      "idea_version": "IDEAV-91ad205de5a7a2b6",
-      "idea_version_started_at": "2026-09-22T10:45:27Z",
-      "ticker": "STEM",
-      "company": "SThree",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its annual pretax profit forecast following successful cost-cutting initiatives and resilient performance in the U.S. market.",
-      "why_now": "The profit forecast upgrade was released on September 22, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-548946fefd7e"
-      ],
-      "primary_source_event_id": "EVT-548946fefd7e",
-      "source_headlines": [
-        "UK's SThree raises annual pretax profit forecast after cost cuts, strength in U.S. market"
-      ],
-      "source_headline": "UK's SThree raises annual pretax profit forecast after cost cuts, strength in U.S. market",
-      "source_url": "https://www.reuters.com/business/uks-sthree-raises-annual-profit-forecast-after-cost-cutting-measures-2026-09-22/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-22T07:54:24Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T10:45:27Z",
-      "updated_at": "2026-09-22T10:45:27Z",
-      "decay_at": "2026-09-23T19:54:24Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a8bdb182d6cd",
       "idea_version": "IDEAV-999ebde2571da033",
       "idea_version_started_at": "2026-09-23T12:51:32Z",
@@ -142603,151 +141326,6 @@
       "surfaced_at": "2026-09-23T12:51:32Z",
       "updated_at": "2026-09-23T12:51:32Z",
       "decay_at": "2026-09-25T00:27:45Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-cdba0d2ebad5",
-      "idea_version": "IDEAV-8c26e4a74a7ab38d",
-      "idea_version_started_at": "2026-09-22T12:09:02Z",
-      "ticker": "SMIN",
-      "company": "Smiths Group",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is streamlining its portfolio through £3.3bn in disposals and returning capital to shareholders via increased buybacks, which should improve return on invested capital.",
-      "why_now": "The strategic update was released today, September 22, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8fab082b8576"
-      ],
-      "primary_source_event_id": "EVT-8fab082b8576",
-      "source_headlines": [
-        "Smiths Group refocuses after £3.3bn disposals, steps up buybacks"
-      ],
-      "source_headline": "Smiths Group refocuses after £3.3bn disposals, steps up buybacks",
-      "source_url": "https://ukinvestormagazine.co.uk/smiths-group-refocuses-after-3-3bn-disposals-steps-up-buybacks/",
-      "source_name": "UK Investor Magazine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-22T08:42:26Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T12:09:02Z",
-      "updated_at": "2026-09-22T12:09:02Z",
-      "decay_at": "2026-09-23T20:42:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d3af8c4fdac2",
-      "idea_version": "IDEAV-1193904252dc4864",
-      "idea_version_started_at": "2026-09-22T11:39:38Z",
-      "ticker": "BORORENEW",
-      "company": "Borosil Renewables",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Increased expansion costs of ₹150 crore due to supply chain disruptions in West Asia will compress margins and delay the return on capital for new projects.",
-      "why_now": "The cost increase was reported on 2026-09-22.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cef63f99722b"
-      ],
-      "primary_source_event_id": "EVT-cef63f99722b",
-      "source_headlines": [
-        "Borosil Renewables raises expansion cost by ₹150 crore as West Asia conflict hits supply chains"
-      ],
-      "source_headline": "Borosil Renewables raises expansion cost by ₹150 crore as West Asia conflict hits supply chains",
-      "source_url": "https://www.cnbctv18.com/market/borosil-renewables-share-price-expansion-cost-raised-west-asia-conflict-19995652.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-22T07:33:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-22T11:39:38Z",
-      "updated_at": "2026-09-22T11:39:38Z",
-      "decay_at": "2026-09-23T19:33:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -142823,77 +141401,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-5c19163175c8",
-      "idea_version": "IDEAV-be17059fb7f1d3eb",
-      "idea_version_started_at": "2026-09-23T05:42:30Z",
-      "ticker": "01763",
-      "company": "China Isotope & Radiation Corporation",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "FDA filing clearance for the Lu-177 Drug Master File (DMF) is a critical regulatory milestone that enables the company to supply key radiopharmaceutical precursors to the U.S. market.",
-      "why_now": "The clearance was announced in a filing dated 2026-09-22.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-11cfcebdaa09"
-      ],
-      "primary_source_event_id": "EVT-11cfcebdaa09",
-      "source_headlines": [
-        "CIRC (01763): VOLUNTARY ANNOUNCEMENT - CNGT Lu-177 DMF SUCCESSFULLY OBTAINED U.S. FDA FILING CLEARANCE"
-      ],
-      "source_headline": "CIRC (01763): VOLUNTARY ANNOUNCEMENT - CNGT Lu-177 DMF SUCCESSFULLY OBTAINED U.S. FDA FILING CLEARANCE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0922/2026092201405.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 91,
-      "newest_source_at": "2026-09-22T14:15:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-23T05:42:30Z",
-      "updated_at": "2026-09-23T05:42:30Z",
-      "decay_at": "2026-09-24T02:15:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -142906,33 +141413,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 552,
+    "total_count": 531,
     "shown_count": 500,
-    "hidden_count": 52,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
-        "total_count": 284,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 34
+        "hidden_count": 20
       },
       "short": {
-        "total_count": 268,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 11
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 459,
-      "oldest_retained_at": "2026-08-31T20:48:01Z",
+      "evicted_count": 480,
+      "oldest_retained_at": "2026-09-01T06:27:01Z",
       "side_counts": {
         "long": {
-          "evicted_count": 305,
-          "oldest_retained_at": "2026-09-09T01:42:46Z"
+          "evicted_count": 319,
+          "oldest_retained_at": "2026-09-09T12:53:20Z"
         },
         "short": {
-          "evicted_count": 154,
-          "oldest_retained_at": "2026-08-31T20:48:01Z"
+          "evicted_count": 161,
+          "oldest_retained_at": "2026-09-01T06:27:01Z"
         }
       }
     },
@@ -145312,8 +143819,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-24T04:36:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -145385,8 +143892,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-24T04:14:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -145459,8 +143966,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-24T02:52:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -145533,8 +144040,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-24T02:15:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -145606,8 +144113,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-24T01:56:06Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -145679,8 +144186,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-24T01:53:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -145753,8 +144260,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-24T01:29:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -145826,8 +144333,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-24T00:15:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -145899,8 +144406,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-23T23:59:42Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -145973,8 +144480,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-23T23:53:38Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146047,8 +144554,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-23T23:53:38Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146121,8 +144628,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-23T23:40:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146195,8 +144702,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-23T22:49:38Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146270,8 +144777,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-23T22:26:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146343,8 +144850,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-23T21:30:30Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146419,8 +144926,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-23T21:06:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146494,8 +145001,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-23T21:00:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146570,8 +145077,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-23T20:42:26Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146645,8 +145152,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-23T20:33:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146720,8 +145227,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-23T19:54:24Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -146795,8 +145302,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-23T19:33:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-25T20:29:34Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {

@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-10T23:14:01Z",
+  "archived_at": "2026-09-25T20:29:34Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-24262cdd95f2",
-    "idea_version": "IDEAV-f25fe8fb0faa22c1",
-    "idea_version_started_at": "2026-09-07T23:01:43Z",
-    "ticker": "GCI",
-    "company": "GCI",
+    "idea_id": "IDEA-b42aec634684",
+    "idea_version": "IDEAV-f18d01fb22419729",
+    "idea_version_started_at": "2026-09-22T11:39:38Z",
+    "ticker": "IEL",
+    "company": "IDP Education",
     "exchange": "ASX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "GCI has completed an $86.25 million wholesale placement, strengthening its capital position for future operations or growth initiatives.",
-    "why_now": "The completion of the capital raise was announced via an ASX filing on September 7, 2026.",
-    "conviction": 60,
+    "reason": "The rejection of Blackstone's takeover offer removes the immediate M&A premium from the stock price, leaving the shares vulnerable to underlying fundamental headwinds.",
+    "why_now": "The rejection was reported on 2026-09-22.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 19,
+      "evidence": 14,
+      "impact": 21,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,8 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -47,31 +49,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-815b42714107"
+      "EVT-70007d55d740"
     ],
-    "primary_source_event_id": "EVT-815b42714107",
+    "primary_source_event_id": "EVT-70007d55d740",
     "source_headlines": [
-      "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]"
+      "IDP rejects Blackstone's improved takeover offer"
     ],
-    "source_headline": "GCI: GCI ANNOUNCES COMPLETION OF $86.25M WHOLESALE PLACEMENT [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GCI?key=2924-03132903-2A1696001",
-    "source_name": "ASX (Australia Exchange Filing)",
+    "source_headline": "IDP rejects Blackstone's improved takeover offer",
+    "source_url": "https://www.reuters.com/world/asia-pacific/australias-idp-rejects-blackstones-494-million-takeover-offer-2026-09-22/",
+    "source_name": "Reuters — Latest (news sitemap)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-07T22:42:24Z",
+    "newest_source_at": "2026-09-22T09:06:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-07T23:01:43Z",
-    "updated_at": "2026-09-07T23:01:43Z",
-    "decay_at": "2026-09-09T10:42:24Z",
+    "surfaced_at": "2026-09-22T11:39:38Z",
+    "updated_at": "2026-09-22T11:39:38Z",
+    "decay_at": "2026-09-23T21:06:00Z",
     "status": "live",
     "promoted_signal_id": null
   }

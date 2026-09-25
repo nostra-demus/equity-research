@@ -1,32 +1,32 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-10T16:53:06Z",
+  "archived_at": "2026-09-25T20:29:34Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-df5674b1722e",
-    "idea_version": "IDEAV-00c36aa7aaa8ed4a",
-    "idea_version_started_at": "2026-09-07T21:35:59Z",
-    "ticker": "NTAP",
-    "company": "NetApp",
-    "exchange": "NASDAQ",
+    "idea_id": "IDEA-49a2653dd307",
+    "idea_version": "IDEAV-080c1acc0dcc53da",
+    "idea_version_started_at": "2026-09-22T18:20:15Z",
+    "ticker": "VWAGY",
+    "company": "Volkswagen AG",
+    "exchange": "OTC Markets",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "NetApp's Q1 earnings beat and raised guidance indicate stronger-than-expected demand for its AI storage solutions, which should drive revenue and margin growth.",
-    "why_now": "The company reported its Q1 earnings and raised guidance on September 7, 2026, providing a fresh catalyst for the stock.",
+    "reason": "The company is initiating a significant restructuring and cost-cutting program following a profit warning, signaling severe margin pressure and operational inefficiency.",
+    "why_now": "The restructuring announcement was made on 2026-09-22, indicating immediate operational headwinds.",
     "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 62,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score": 67,
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 21,
       "specificity": 15,
       "timing": 10,
-      "expression": 6,
+      "expression": 7,
       "corroboration": 0,
       "learning_adjustment": 0
     },
@@ -51,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-6bf4c45272f7"
+      "EVT-b2728203efc8"
     ],
-    "primary_source_event_id": "EVT-6bf4c45272f7",
+    "primary_source_event_id": "EVT-b2728203efc8",
     "source_headlines": [
-      "NetApp Q1 Beat and Raised Guidance Put AI Storage Growth in Focus"
+      "Volkswagen to ramp up restructuring after profit warning"
     ],
-    "source_headline": "NetApp Q1 Beat and Raised Guidance Put AI Storage Growth in Focus",
-    "source_url": "https://www.nasdaq.com/articles/netapp-q1-beat-and-raised-guidance-put-ai-storage-growth-focus",
-    "source_name": "Nasdaq",
+    "source_headline": "Volkswagen to ramp up restructuring after profit warning",
+    "source_url": "https://www.reuters.com/business/volkswagen-porsche-shares-extend-losses-following-profit-warning-2026-09-21/",
+    "source_name": "Reuters — Latest (news sitemap)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-07T16:36:00Z",
+    "newest_source_at": "2026-09-22T13:56:06Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-07T21:35:59Z",
-    "updated_at": "2026-09-07T21:35:59Z",
-    "decay_at": "2026-09-09T04:36:00Z",
+    "surfaced_at": "2026-09-22T18:20:15Z",
+    "updated_at": "2026-09-22T18:20:15Z",
+    "decay_at": "2026-09-24T01:56:06Z",
     "status": "live",
     "promoted_signal_id": null
   }
