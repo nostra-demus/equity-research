@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T00:37:57Z",
+  "generated_at": "2026-09-25T00:42:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-017",
@@ -587,6 +587,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-019",
+      "headline": "Network People Services Technologies Limited: Network People Services Technologies Limited has informed the Exchange about General Updates - ESG rating of the Company for the FY 2025-26",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/NPST_24092026192133_SE_intimation_ESG_report_2026_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-24T13:51:54Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "The company disclosed its ESG rating for the fiscal year, which is a routine disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "The company disclosed its ESG rating for the fiscal year, which is a routine disclosure.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Network People Services Technologies Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -178559,7 +178608,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2825,
+    "inbox_unconsumed": 2826,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -178568,9 +178617,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 179325,
-    "news_picked_today": 18,
-    "news_dropped_today": 342
+    "news_seen_today": 232124,
+    "news_picked_today": 20,
+    "news_dropped_today": 532
   },
   "book_momentum": {
     "live_count": 8,
