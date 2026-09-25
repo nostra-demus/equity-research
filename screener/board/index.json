@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T07:35:35Z",
+  "generated_at": "2026-09-25T07:58:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -1047,6 +1047,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-164",
+      "headline": "Kalpataru Limited: Kalpataru Limited has informed the Exchange about show cause notice received from GST Department by the wholly-owned subsidiary Ananta Landmarks Private Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ravi_sah_25092026124703_Reg_30_Disclosure_SCN_Ananta_Landmarks.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-25T07:17:42Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Wholly-owned subsidiary received GST show-cause notice from the Department; potential for material penalties, though the magnitude is not quantified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Wholly-owned subsidiary received GST show-cause notice from the Department; potential for material penalties, though the magnitude is not quantified.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kalpataru Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-051",
       "headline": "MAT: Receipt of $10M Deposit from AngloGold Ashanti [price-sensitive]",
       "headline_en": null,
@@ -1687,31 +1736,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260925-157",
-      "headline": "Dabur gets NCLT approval for Sesa Care merger",
+      "inbox_id": "INB-20260925-162",
+      "headline": "Dabur’s Sesa Care merger gets NCLT approval",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/dabur-gets-nclt-approval-for-sesa-care-merger/article71507571.ece",
-      "source_name": "The Hindu BusinessLine",
+      "url": "https://economictimes.indiatimes.com/industry/cons-products/fmcg/daburs-sesa-care-merger-gets-nclt-approval/articleshow/134478601.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-09-25T07:12:55Z",
+      "found_at": "2026-09-25T07:28:07Z",
       "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Dabur receives NCLT approval to merge Sesa Care subsidiary, clearing the major regulatory gate for the acquisition to proceed.",
+      "prelim_note": "NCLT approval of Dabur's Sesa Care merger clears a regulatory gate required for transaction completion and moves the deal closer to closure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 91,
-      "triage_reason": "Dabur receives NCLT approval to merge Sesa Care subsidiary, clearing the major regulatory gate for the acquisition to proceed.",
+      "triage_reason": "NCLT approval of Dabur's Sesa Care merger clears a regulatory gate required for transaction completion and moves the deal closer to closure.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 65,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -1725,8 +1774,8 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Dabur India",
-          "ticker": null,
+          "name": "Dabur India Limited",
+          "ticker": "DABUR",
           "listing_country": "IN"
         }
       ],
@@ -1927,55 +1976,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-156",
-      "headline": "Natco Pharma Limited: Natco Pharma Limited has informed the Exchange that Board of Directors at its meeting held on September 25, 2026, has decided to issue equity shares on rights basis in the ratio of 2 : 21, i.e 2 Equity Shares for every 21 Equity Shares held at an Issue Price of Rs. 750 per share (including a premium of ₹ 748/- (Rupees Seven Hundred and Forty Eight only) per Rights Equity Share)",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/NATCOPHARM_25092026111109_OutcomeofBM_25092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T05:47:44Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Board-approved rights issue (2:21 ratio, ₹750/share) announced 2026-09-25 dilutes shareholders and raises capital.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Board-approved rights issue (2:21 ratio, ₹750/share) announced 2026-09-25 dilutes shareholders and raises capital.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Natco Pharma Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180095,9 +180095,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1706607,
-    "news_picked_today": 268,
-    "news_dropped_today": 10700
+    "news_seen_today": 1863200,
+    "news_picked_today": 273,
+    "news_dropped_today": 10839
   },
   "book_momentum": {
     "live_count": 8,
