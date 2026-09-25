@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T06:06:28Z",
+  "generated_at": "2026-09-25T06:19:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260925-090",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-152",
+      "headline": "HelloFresh Sees Q3 Adj. EBITDA, Revenue Below Market View; Cuts FY26 Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/hellofresh-sees-q3-adj-ebitda-revenue-below-market-view-cuts-fy26-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T05:08:47Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Company cut FY26 outlook and reported Q3 metrics below market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company cut FY26 outlook and reported Q3 metrics below market expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HelloFresh",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -586,6 +635,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260925-140",
+      "headline": "5E SVM Railway Company, LLC-Acquisition and Operation Exemption-Assets of Trona Railway Company LLC",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/09/25/2026-19627/5e-svm-railway-company-llc-acquisition-and-operation-exemption-assets-of-trona-railway-company-llc",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-25T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "5E SVM Railway Company is acquiring assets of Trona Railway Company, representing a change in operational scope.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "5E SVM Railway Company is acquiring assets of Trona Railway Company, representing a change in operational scope.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "5E SVM Railway Company",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Trona Railway Company",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1672,6 +1775,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260925-154",
+      "headline": "Bitget's $352 million hack happened via spoofed transfers, not private keys, CEO Gray Chen says",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/markets/2026/09/25/bitget-s-usd351-million-hack-happened-via-spoofed-transfers-not-private-keys-ceo-gray-chen-says",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T04:29:34Z",
+      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
+      "prelim_note": "Confirmed $352 million hack of a crypto exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Confirmed $352 million hack of a crypto exchange.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bitget",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260925-135",
       "headline": "Easy Trip Planners Limited: Easy Trip Planners Limited has informed the Exchange regarding a press release dated September 25, 2026, titled \"EaseMyTrip Advances Vision 2030 with EMTev Electric Buses Debuting in Bhopal, Targets Annual Manufacturing of 5,000 Buses Within Five Years\".",
       "headline_en": null,
@@ -1815,154 +1967,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-138",
-      "headline": "Tecnimont breaks ground on Ruwais NGL train 5 project",
-      "headline_en": null,
-      "url": "https://www.meed.com/tecnimont-breaks-ground-on-ruwais-ngl-train-5-project",
-      "source_name": "MEED — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T05:08:41Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Tecnimont has broken ground on a major NGL project in Ruwais, representing significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Tecnimont has broken ground on a major NGL project in Ruwais, representing significant capital investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tecnimont",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-096",
-      "headline": "Vascon Engineers Limited: Vascon Engineers Limited receives Letter of Intent for Development of Office Facility Ground + 12 Floors at Bengaluru by Multinational IT Company Qualcomm India Private Limited amounting to Rs. 660.79 Crore",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/VASCONEQ_25092026073623_24092026LetterofIntent_V3_Changes_Sd.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-25T02:06:41Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Vascon Engineers receives Letter of Intent from Qualcomm India for ₹660.79 crore office-development project; non-binding but signaling material revenue opportunity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Vascon Engineers receives Letter of Intent from Qualcomm India for ₹660.79 crore office-development project; non-binding but signaling material revenue opportunity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vascon Engineers Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260925-044",
-      "headline": "HANHUA HOLDING (03903): (1) UPDATE ON RESUMPTION PROGRESS; AND (2) CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402123.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-24T13:31:00Z",
-      "sweep_file": "screener/inbox/2026-09-25_sweep.json",
-      "prelim_note": "Hanhua Holding's trading suspension persists; a continued suspension materially impairs liquidity and capital-raising ability, signaling unresolved operational or regulatory distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Hanhua Holding's trading suspension persists; a continued suspension materially impairs liquidity and capital-raising ability, signaling unresolved operational or regulatory distress.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hanhua Holding",
-          "ticker": "03903",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180082,9 +180086,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1406233,
-    "news_picked_today": 207,
-    "news_dropped_today": 7281
+    "news_seen_today": 1452952,
+    "news_picked_today": 223,
+    "news_dropped_today": 7673
   },
   "book_momentum": {
     "live_count": 8,
