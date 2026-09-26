@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T00:11:50Z",
+  "generated_at": "2026-09-26T00:19:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-025",
@@ -47,6 +47,66 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-051",
+      "headline": "Akamai Surges 15% on $11.6B Anthropic Cloud Deal; CoreWeave and Cloudflare Tick Up",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/09/25/akamai-surges-15-on-11-6b-anthropic-cloud-deal-coreweave-and-cloudflare-tick-up/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T12:59:08Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Akamai announced a major $11.6B cloud deal with Anthropic, significantly impacting its revenue outlook and market position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Akamai announced a major $11.6B cloud deal with Anthropic, significantly impacting its revenue outlook and market position.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Akamai",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "CoreWeave",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -146,6 +206,109 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-046",
+      "headline": "Aramco Restores East-West Pipeline as War Risk Closes In on Yanbu",
+      "headline_en": null,
+      "url": "https://oilprice.com/Energy/Energy-General/Aramco-Restores-East-West-Pipeline-as-War-Risk-Closes-In-on-Yanbu.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Aramco pipeline restoration is overshadowed by escalating war risks near critical infrastructure in Yanbu.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Aramco pipeline restoration is overshadowed by escalating war risks near critical infrastructure in Yanbu.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-036",
+      "headline": "Keppel, StarHub confirm talks over M1 deal in Singapore",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/keppel-starhub-confirm-talks-over-m1-deal-in-singapore/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:09:13Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Keppel and StarHub have confirmed ongoing discussions regarding a potential deal involving M1, a significant corporate transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Keppel and StarHub have confirmed ongoing discussions regarding a potential deal involving M1, a significant corporate transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Keppel",
+          "ticker": null,
+          "listing_country": "SG"
+        },
+        {
+          "name": "StarHub",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -293,6 +456,103 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-050",
+      "headline": "Once-trendy drink chain closes 130 locations",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/national-beverage-chain-jamba-closed-130-locations",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T12:58:41Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "A chain closing 130 locations indicates significant operational downsizing and potential financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "A chain closing 130 locations indicates significant operational downsizing and potential financial distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-034",
+      "headline": "Trump Tells OpenAI, Anthropic to Withhold Models From UK Agency",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-25/trump-tells-openai-anthropic-to-withhold-models-from-uk-agency",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:04:43Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Trump administration directive to withhold AI models from a UK agency creates significant regulatory and operational friction for OpenAI and Anthropic.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Trump administration directive to withhold AI models from a UK agency creates significant regulatory and operational friction for OpenAI and Anthropic.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -640,6 +900,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-058",
+      "headline": "flydubai - Air India deal: What it means for UAE, Indian travellers",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/aviation/air-india-flydubai-deal-what-it-means-for-uae-indian-travellers-1.500687842",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T12:55:04Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Air India and flydubai confirm commercial partnership affecting India-UAE route capacity, competitive positioning, and service integration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Air India and flydubai confirm commercial partnership affecting India-UAE route capacity, competitive positioning, and service integration.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air India",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-002",
       "headline": "Karnataka announces Rs 2,500 input subsidy for drought-hit farmers: Dy CM Parameshwara",
       "headline_en": null,
@@ -668,6 +982,142 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-052",
+      "headline": "Refex Industries commences Ready-Mix Concrete business at Pune facilty",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/refex-industries-commences-ready-mix-concrete-business-at-pune-facilty/article71508720.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T12:57:57Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Refex Industries is expanding operations by commencing a new ready-mix concrete business in Pune.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Refex Industries is expanding operations by commencing a new ready-mix concrete business in Pune.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Refex Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-054",
+      "headline": "Ataques russos paralisam maior siderúrgica da Ucrânia",
+      "headline_en": "Russian attacks paralyse Ukraine's largest steel mill",
+      "url": "https://www.reuters.com/pt/mundo/CRB25I7RC5JUDK7ZY5Z7JOZ7KM-2026-09-25/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T12:57:51Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Russian military attack paralyses Ukraine's largest steel mill, disrupting global steel supply and raising geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Russian military attack paralyses Ukraine's largest steel mill, disrupting global steel supply and raising geopolitical risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 2,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-045",
+      "headline": "WTI Whipsaws as Hormuz Hopes Collide With Diesel Crunch",
+      "headline_en": null,
+      "url": "https://oilprice.com/Energy/Energy-General/WTI-Whipsaws-as-Hormuz-Hopes-Collide-With-Diesel-Crunch.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Geopolitical tension in the Strait of Hormuz creates significant supply chain and energy price volatility risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Geopolitical tension in the Strait of Hormuz creates significant supply chain and energy price volatility risks.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
         "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
@@ -732,6 +1182,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-042",
+      "headline": "Removal of 760,000 people from ACA marketplace could undermine US health system",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/us-news/2026/sep/25/trump-aca-health-insurance",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:00:50Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "The potential removal of 760,000 people from the ACA marketplace poses a risk to the stability of the US health insurance system.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "The potential removal of 760,000 people from the ACA marketplace poses a risk to the stability of the US health insurance system.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-001",
       "headline": "Walmart, CVS, and Family Dollar face retail theft scam",
       "headline_en": null,
@@ -783,6 +1276,55 @@
           "name": "Family Dollar",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-044",
+      "headline": "Ingram Micro steps up India expansion as AI, data centres drive tech demand",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/ingram-micro-steps-up-india-expansion-as-ai-data-centres-drive-tech-demand/article71508737.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:01:44Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Ingram Micro is expanding its footprint in India to meet rising demand for AI and data center infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Ingram Micro is expanding its footprint in India to meet rising demand for AI and data center infrastructure.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingram Micro",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -884,6 +1426,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-039",
+      "headline": "One-fourth of cars sold by Tata Motors Passenger Vehicles are now EVs",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/auto/story/one-fourth-of-cars-sold-by-tata-motors-passenger-vehicles-are-now-evs-557940-2026-09-25?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:04:50Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Tata Motors reports that 25% of its passenger vehicle sales are now EVs, indicating a successful shift in product mix.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Tata Motors reports that 25% of its passenger vehicle sales are now EVs, indicating a successful shift in product mix.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1061,6 +1652,185 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-037",
+      "headline": "Thailand set to finalize new data center regulations by mid-October - report",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/thailand-set-to-finalize-new-data-center-regulations-by-mid-october-report/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:06:00Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Thailand's upcoming data center regulations by mid-October will impact operational compliance for firms operating in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Thailand's upcoming data center regulations by mid-October will impact operational compliance for firms operating in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-047",
+      "headline": "EU Pressures UK to Match Its Tariffs on Chinese-Made Cars",
+      "headline_en": null,
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/EU-Pressures-UK-to-Match-Its-Tariffs-on-Chinese-Made-Cars.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Potential EU-UK trade friction regarding Chinese-made vehicle tariffs could impact automotive supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Potential EU-UK trade friction regarding Chinese-made vehicle tariffs could impact automotive supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-055",
+      "headline": "Tesla Expands South India Presence With New Experience, Collision Centres In Chennai",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/tesla-expands-south-india-presence-with-new-experience-collision-centres-in-chennai-12097902#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T12:55:35Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Tesla opens experience and collision centres in Chennai, incremental India market expansion with no quantified investment or strategic scale.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Tesla opens experience and collision centres in Chennai, incremental India market expansion with no quantified investment or strategic scale.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": "TSLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-057",
+      "headline": "Federal judge rolls back landmark disability protections",
+      "headline_en": null,
+      "url": "https://www.statnews.com/2026/09/25/health-news-federal-judge-rolls-back-landmark-disability-protections/?utm_campaign=rss",
+      "source_name": "STAT News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T12:53:55Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "US federal judge voids landmark disability protections, altering compliance and litigation risk across employers, but without company or quantified impact specified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "US federal judge voids landmark disability protections, altering compliance and litigation risk across employers, but without company or quantified impact specified.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-031",
       "headline": "Ramokgopa extends Nyati’s term as Eskom board chair",
       "headline_en": null,
@@ -1148,433 +1918,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-026",
-      "headline": "Morgan Stanley Joins NEXTPredict as Prediction Markets Bet on 'More Institutional' Play",
-      "headline_en": null,
-      "url": "https://decrypt.co/379218/morgan-stanley-joins-nextpredict-as-prediction-markets-bet-on-more-institutional-play",
-      "source_name": "Decrypt — Crypto News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:16:03Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Morgan Stanley is joining a prediction market platform, signaling further institutional adoption of crypto-adjacent financial products.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Morgan Stanley is joining a prediction market platform, signaling further institutional adoption of crypto-adjacent financial products.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Morgan Stanley",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-010",
-      "headline": "Lumen Technologies to move stock listing to Nasdaq",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/media-telecom/lumen-technologies-move-stock-listing-nasdaq-2026-09-25/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:25:44Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Lumen Technologies is moving its stock listing to the Nasdaq exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Lumen Technologies is moving its stock listing to the Nasdaq exchange.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lumen Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-019",
-      "headline": "ALDI makes new move to win shoppers from Walmart and Kroger",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/aldi-ready-made-meals-walmart-kroger-competition",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:17:00Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "ALDI is intensifying competition against major retailers Walmart and Kroger.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "ALDI is intensifying competition against major retailers Walmart and Kroger.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "ALDI",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Walmart",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Kroger",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-014",
-      "headline": "Dubai records 2,395 construction and occupancy breaches after more than 16,000 inspections",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/news/uae/2026/09/25/dubai-records-2395-construction-and-occupancy-breaches-after-more-than-16000-inspections/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:20:37Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Dubai recorded 2,395 construction and occupancy breaches, highlighting regulatory enforcement in the local real estate sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Dubai recorded 2,395 construction and occupancy breaches, highlighting regulatory enforcement in the local real estate sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-033",
-      "headline": "Dhanuka Agritech launches ‘Polin’ fungicide for paddy crop",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/agri-business/dhanuka-agritech-launches-polin-fungicide-for-paddy-crop/article71507916.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:08:57Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Dhanuka Agritech launches a new fungicide product for paddy crops.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Dhanuka Agritech launches a new fungicide product for paddy crops.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dhanuka Agritech",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-005",
-      "headline": "Gas topped the equivalent of $12 a gallon in parts of Europe—and consumers are spending an extra $231 million a day on diesel",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/09/25/europe-gas-diesel-fuel-prices/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:41:25Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Significant energy cost inflation reported in Europe with consumers spending an extra $231 million a day on diesel.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Significant energy cost inflation reported in Europe with consumers spending an extra $231 million a day on diesel.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-007",
-      "headline": "North Korean hackers suspected in $351M crypto theft, the largest so far this year",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/09/25/north-korean-hackers-suspected-in-351m-crypto-theft-the-largest-so-far-this-year/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:24:34Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "A $351 million crypto theft highlights significant cybersecurity risks within the digital asset sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "A $351 million crypto theft highlights significant cybersecurity risks within the digital asset sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-013",
-      "headline": "Nifty 50 posts biggest weekly drop in 6 years amid crude surge, rising global yields. Can bulls roar back?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/nifty-50-posts-biggest-weekly-drop-in-six-years-amid-crude-surge-rising-global-yields-can-bulls-roar-back-11790340140172.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:21:23Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "The Nifty 50 index experienced its largest weekly drop in 6 years, signaling significant market stress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "The Nifty 50 index experienced its largest weekly drop in 6 years, signaling significant market stress.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-032",
-      "headline": "Toyota’s Boring Corolla Is About To Get A Radical Rethink",
-      "headline_en": null,
-      "url": "https://www.carscoops.com/2026/09/2028-toyota-corolla-rumors/",
-      "source_name": "Carscoops",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Toyota planning a redesign for the Corolla model.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Toyota planning a redesign for the Corolla model.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toyota",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180032,7 +180375,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2880,
+    "inbox_unconsumed": 2887,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -180041,9 +180384,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16320,
-    "news_picked_today": 33,
-    "news_dropped_today": 63
+    "news_seen_today": 24619,
+    "news_picked_today": 58,
+    "news_dropped_today": 134
   },
   "book_momentum": {
     "live_count": 8,
