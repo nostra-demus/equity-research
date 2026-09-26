@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T05:09:01Z",
+  "generated_at": "2026-09-26T05:16:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-429",
@@ -1418,6 +1418,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-515",
+      "headline": "Amazon bets $3 bn on India’s fast-delivery boom",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/255823/business/amazon-bets-3-bn-on-indias-fast-delivery-boom",
+      "source_name": "Qatar Tribune — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T21:28:00Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Amazon commits $3 billion to India fast-delivery infrastructure, signaling major capital redeployment and high-growth market entry.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Amazon commits $3 billion to India fast-delivery infrastructure, signaling major capital redeployment and high-growth market entry.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": "AMZN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-012",
       "headline": "Airbus finds quality defect affecting around 500 A321neo jets",
       "headline_en": null,
@@ -1942,49 +1991,6 @@
       },
       "event_types": [
         "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-354",
-      "headline": "Pakistani forces kill several Afghan Taliban fighters in border clash amid escalating tensions",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/pakistan/pakistani-forces-kill-several-afghan-taliban-fighters-in-border-clash-amid-escalating-tensions-4159113",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T07:48:23Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Escalating border clashes between Pakistani forces and Afghan Taliban fighters represent a regional security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Escalating border clashes between Pakistani forces and Afghan Taliban fighters represent a regional security risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -180311,9 +180317,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 452495,
-    "news_picked_today": 903,
-    "news_dropped_today": 3033
+    "news_seen_today": 462148,
+    "news_picked_today": 924,
+    "news_dropped_today": 3108
   },
   "book_momentum": {
     "live_count": 8,
