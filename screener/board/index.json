@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T15:19:33Z",
+  "generated_at": "2026-09-26T15:19:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-856",
@@ -140359,6 +140359,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-301c9958417a",
+      "idea_version": "IDEAV-ce099f2135153b22",
+      "idea_version_started_at": "2026-09-26T15:19:48Z",
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A New Mexico jury verdict finding 43 million violations of consumer protection law creates a massive potential liability that could reach $200 billion, threatening the company's balance sheet and cash reserves.",
+      "why_now": "The verdict was delivered on 2026-09-26, creating immediate legal and financial uncertainty.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-05a5ca8f3d6e"
+      ],
+      "primary_source_event_id": "EVT-05a5ca8f3d6e",
+      "source_headlines": [
+        "New Mexico jury finds Facebook liable for over 43 million violations of consumer protection law—and Meta could owe over $200 billion in penalties"
+      ],
+      "source_headline": "New Mexico jury finds Facebook liable for over 43 million violations of consumer protection law—and Meta could owe over $200 billion in penalties",
+      "source_url": "https://fortune.com/2026/09/26/facebook-liable-violations-new-mexico-consumer-protection-lawand-meta-200-billion-penalties/",
+      "source_name": "Fortune",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-26T14:25:57Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/META_2026-08-31",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-26T15:19:48Z",
+      "updated_at": "2026-09-26T15:19:48Z",
+      "decay_at": "2026-09-28T02:25:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9107e0bd5461",
       "idea_version": "IDEAV-8eef803092a42069",
       "idea_version_started_at": "2026-09-26T13:43:44Z",
@@ -140423,6 +140493,76 @@
       "surfaced_at": "2026-09-26T13:43:44Z",
       "updated_at": "2026-09-26T13:43:44Z",
       "decay_at": "2026-09-27T02:14:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0448efa62005",
+      "idea_version": "IDEAV-ddc417f779926d1c",
+      "idea_version_started_at": "2026-09-26T15:19:48Z",
+      "ticker": "AAPL",
+      "company": "Apple",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A $5.7 billion patent infringement verdict regarding haptic technology in iPhones and Apple Watches represents a direct hit to net income and potential future royalty obligations.",
+      "why_now": "The verdict was reported on 2026-09-26, initiating a period of legal overhang and potential appeals.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-70b0676c218e"
+      ],
+      "primary_source_event_id": "EVT-70b0676c218e",
+      "source_headlines": [
+        "Apple faces $5.7 billion patent infringement verdict over iPhone and Apple Watch haptics"
+      ],
+      "source_headline": "Apple faces $5.7 billion patent infringement verdict over iPhone and Apple Watch haptics",
+      "source_url": "https://www.cnbc.com/2026/09/26/apple-taction-technology-patent-infringement-verdict.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-26T14:55:59Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T15:19:48Z",
+      "updated_at": "2026-09-26T15:19:48Z",
+      "decay_at": "2026-09-28T02:55:59Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -179748,8 +179888,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1033,
-    "live_count": 9,
+    "surfaced_total": 1035,
+    "live_count": 11,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
