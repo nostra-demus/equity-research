@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T03:32:02Z",
+  "generated_at": "2026-09-26T03:40:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-241",
@@ -1603,6 +1603,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-426",
+      "headline": "ESDS Software Solutions shares in 5% lower circuit after Q1 profit more than halves, revenue down 20%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/esds-software-solutions-share-price-in-lower-circuit-q1-results-profit-more-than-halves-revenue-down-20-19998303.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T04:10:12Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "ESDS Software Solutions reported a Q1 profit decline of over 50% and a 20% revenue drop, triggering a lower circuit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "ESDS Software Solutions reported a Q1 profit decline of over 50% and a 20% revenue drop, triggering a lower circuit.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ESDS Software Solutions",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-354",
       "headline": "Pakistani forces kill several Afghan Taliban fighters in border clash amid escalating tensions",
       "headline_en": null,
@@ -1934,55 +1983,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-405",
-      "headline": "Welspun Corp shares gain after US arm wins record $412.5 million contract; Order book at new high",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/welspun-corp-share-price-us-arm-wins-record-contract-value-timeline-order-book-at-new-high-45000-crore-hfiw-pipes-19998264.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T05:48:36Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Welspun Corp won a record $412.5 million contract for its US arm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Welspun Corp won a record $412.5 million contract for its US arm.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Welspun Corp",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180305,9 +180305,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 319976,
-    "news_picked_today": 633,
-    "news_dropped_today": 2031
+    "news_seen_today": 325901,
+    "news_picked_today": 670,
+    "news_dropped_today": 2138
   },
   "book_momentum": {
     "live_count": 8,
