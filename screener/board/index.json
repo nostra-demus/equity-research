@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T02:49:57Z",
+  "generated_at": "2026-09-26T02:52:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-241",
@@ -652,6 +652,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-359",
+      "headline": "ArcelorMittal schreibt nach Angriffen auf Werk in Ukraine eine Milliarde Dollar ab",
+      "headline_en": "ArcelorMittal writes off one billion dollars after attacks on plant in Ukraine",
+      "url": "https://www.reuters.com/de/firma/arcelormittal-schreibt-nach-angriffen-auf-werk-ukraine-eine-milliarde-dollar-ab-2026-09-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T08:25:43Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "ArcelorMittal is taking a $1 billion write-off due to attacks on its Ukrainian facility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ArcelorMittal is taking a $1 billion write-off due to attacks on its Ukrainian facility.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ArcelorMittal",
+          "ticker": null,
+          "listing_country": "LU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,60 +1974,6 @@
           "name": "JSW Energy",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-220",
-      "headline": "JSW Group seeks $1.4 billion tax liability cover from Volkswagen: Report",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/jsw-group-seeks-1-4-billion-tax-liability-cover-from-volkswagen-report-557881-2026-09-25?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T10:49:24Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "JSW Group is seeking a $1.4 billion liability cover from Volkswagen regarding a tax dispute.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "JSW Group is seeking a $1.4 billion liability cover from Volkswagen regarding a tax dispute.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JSW Group",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -180302,9 +180297,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 269120,
-    "news_picked_today": 456,
-    "news_dropped_today": 1512
+    "news_seen_today": 275741,
+    "news_picked_today": 462,
+    "news_dropped_today": 1530
   },
   "book_momentum": {
     "live_count": 8,
