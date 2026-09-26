@@ -29,8 +29,7 @@ from __future__ import annotations
 import argparse
 import ast
 import collections
-import contextlib
-import io
+import json
 import os
 import shutil
 import subprocess
@@ -38,7 +37,7 @@ import sys
 import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from research_check import ap_failures, run_eval, status_of, suite_contract_failures  # noqa: E402
+from research_check import ap_failures, status_of, suite_contract_failures  # noqa: E402
 
 SUITE = "(suite)"
 
@@ -64,13 +63,45 @@ def undecoded_suite_gates(root="."):
         return [f"scripts/eval.py could not be parsed ({error})"]
     parent = {child: node for node in ast.walk(tree) for child in ast.iter_child_nodes(node)}
     found = collections.Counter()
+    # Every write of the name, in any form (=, &=, :=, a tuple target, a for/with/except target, del, global).
+    # Only a plain `suite_pass = <value>` is matched against the known list; any other form is unnamed -> strict.
     for node in ast.walk(tree):
-        if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "suite_pass" for t in node.targets):
-            up = parent.get(node)
+        if isinstance(node, ast.Global) and "suite_pass" in node.names:
+            found[f"global suite_pass (line {node.lineno})"] += 1
+        if not (isinstance(node, ast.Name) and node.id == "suite_pass" and isinstance(node.ctx, (ast.Store, ast.Del))):
+            continue
+        stmt = parent.get(node)
+        if isinstance(stmt, ast.Assign) and len(stmt.targets) == 1 and stmt.targets[0] is node:
+            up = parent.get(stmt)
             context = ast.unparse(up.test) if isinstance(up, ast.If) else type(up).__name__
-            found[f"{context} -> {ast.unparse(node.value)}"] += 1
+            found[f"{context} -> {ast.unparse(stmt.value)}"] += 1
+        else:
+            found[f"{type(stmt).__name__} write to suite_pass (line {node.lineno})"] += 1
     return sorted((found - DECODED_SUITE_GATES).elements())
 
+
+def run_harness(root=".", quiet=False):
+    """Run `scripts/eval.py all` in root and return its report, refusing one that cannot be trusted.
+
+    The report must carry a boolean suite_pass that agrees with the harness's own exit status (eval.py exits
+    0 exactly when suite_pass is true). A missing, non-boolean, or contradicting suite_pass raises: the key
+    comparison is only sound on a report whose overall verdict is known.
+    """
+    result = subprocess.run([sys.executable, "scripts/eval.py", "all"], cwd=root, capture_output=True, text=True)
+    if not quiet:
+        sys.stdout.write(result.stdout)
+        sys.stderr.write(result.stderr)
+    wrote = [line for line in result.stdout.splitlines() if line.startswith("WROTE ")]
+    if not wrote:
+        raise RuntimeError(f"the eval harness wrote no report (exit {result.returncode})")
+    with open(os.path.join(root, wrote[-1][len("WROTE "):].strip()), encoding="utf-8") as handle:
+        report = json.load(handle)
+    verdict = report.get("suite_pass")
+    if not isinstance(verdict, bool):
+        raise RuntimeError(f"the eval report has no boolean suite_pass (got {verdict!r})")
+    if verdict != (result.returncode == 0):
+        raise RuntimeError(f"the eval report says suite_pass={verdict} but the harness exited {result.returncode}")
+    return report
 
 def failure_keys(report, root="."):
     """Every hard failure in an eval report as (run, check) pairs; suite-level failures use run '(suite)'.
@@ -118,8 +149,7 @@ def base_failure_keys(base, root="."):
             return None, f"could not check out base {base}: {add.stderr.strip()[:200]}"
         added = True
         try:
-            with contextlib.redirect_stdout(io.StringIO()):
-                report = run_eval(worktree)
+            report = run_harness(worktree, quiet=True)
         except Exception as error:  # the base's own harness crashed or wrote nothing
             return None, f"the eval harness on base {base} produced no report ({error})"
         return failure_keys(report, worktree), None
@@ -146,7 +176,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
 
     try:
-        head_keys = failure_keys(run_eval(args.root), args.root)
+        head_keys = failure_keys(run_harness(args.root), args.root)
     except Exception as error:
         print(f"::error::the eval harness produced no report for this change ({error})")
         return 2
