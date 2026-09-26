@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T01:40:51Z",
+  "generated_at": "2026-09-26T01:46:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-101",
@@ -901,6 +901,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-233",
+      "headline": "Risiko Lenkungsausfal: Volkswagen-Konzern ruft fast vier Millionen Autos zürück – Weitere Konzernmarken neben VW betroffen",
+      "headline_en": "Risk steering failure: Volkswagen Group recalls almost 4 million cars – further group brands affected.",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/volkswagen-vw-ruft-millionen-autos-zurueck-weitere-konzernmarken-betroffen/100257392.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T10:36:05Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Volkswagen Group recalls approximately 4 million vehicles across multiple brands due to steering defect, raising warranty costs and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Volkswagen Group recalls approximately 4 million vehicles across multiple brands due to steering defect, raising warranty costs and regulatory risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations",
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen AG",
+          "ticker": "VOW",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-146",
       "headline": "JSW Energy Secures Equipment For 3,200 MW Salboni Project, Places 1,600 MW Phase-II Order With Toshiba JSW",
       "headline_en": null,
@@ -1259,6 +1310,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-222",
+      "headline": "Iran war drives UK diesel price to near record high, and making UK interest rate rise ‘hard to avoid’ – business live",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/business/live/2026/sep/25/uk-consumer-confidence-burnham-bounce-bank-of-england-oil-inflation-stock-markets-bonds-latest-news-updates",
+      "source_name": "The Guardian — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T10:43:54Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Geopolitical escalation in Iran is driving energy supply shocks and inflationary pressure on UK interest rates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Geopolitical escalation in Iran is driving energy supply shocks and inflationary pressure on UK interest rates.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,99 +2013,6 @@
           "name": "Tata Motors",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-216",
-      "headline": "Trump declares $1B canceled in ‘pocket rescission’ affront to Congress’ funding power",
-      "headline_en": null,
-      "url": "https://www.politico.com/news/2026/09/25/trump-declares-1b-canceled-in-pocket-rescission-in-another-affront-to-congress-funding-power-01093960",
-      "source_name": "POLITICO — Congress",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T23:56:05Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "The executive branch is unilaterally canceling $1B in congressionally appropriated funds, creating a constitutional and fiscal conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "The executive branch is unilaterally canceling $1B in congressionally appropriated funds, creating a constitutional and fiscal conflict.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-125",
-      "headline": "Suzuki to cut vehicle development time by half by 2030; India capacity target at 4 million",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/auto/auto-news/suzuki-to-cut-vehicle-development-time-by-half-by-2030-india-capacity-target-at-4-million/articleshow/134484879.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T12:11:16Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Suzuki plans to cut development time by half and targets 4 million units capacity in India by 2030.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Suzuki plans to cut development time by half and targets 4 million units capacity in India by 2030.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suzuki",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -140780,77 +140781,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2ae207956495",
-      "idea_version": "IDEAV-1c81b4a70efb53f5",
-      "idea_version_started_at": "2026-09-25T05:48:29Z",
-      "ticker": "02465",
-      "company": "LOPAL TECH",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "LOPAL TECH is investing in the construction of its global headquarters and a new innovation center, signaling expansion and future growth potential.",
-      "why_now": "The investment announcement was made via an exchange filing on September 24, 2026.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a76b81837acb"
-      ],
-      "primary_source_event_id": "EVT-a76b81837acb",
-      "source_headlines": [
-        "LOPAL TECH (02465): ANNOUNCEMENT IN RELATION TO THE INVESTMENT IN THE CONSTRUCTION OF THE GLOBAL HEADQUARTERS AND THE NEW ENERGY, NEW MATERIALS AND ARTIFICIAL INTELLIGENCE SMART INNOVATION CENTRE AND CUMULATIVE OUTWARD INVESTMENTS"
-      ],
-      "source_headline": "LOPAL TECH (02465): ANNOUNCEMENT IN RELATION TO THE INVESTMENT IN THE CONSTRUCTION OF THE GLOBAL HEADQUARTERS AND THE NEW ENERGY, NEW MATERIALS AND ARTIFICIAL INTELLIGENCE SMART INNOVATION CENTRE AND CUMULATIVE OUTWARD INVESTMENTS",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402161.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-24T13:41:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-25T05:48:29Z",
-      "updated_at": "2026-09-25T05:48:29Z",
-      "decay_at": "2026-09-26T01:41:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-619361061ae1",
       "idea_version": "IDEAV-c4434260af074150",
       "idea_version_started_at": "2026-09-25T05:48:29Z",
@@ -141270,6 +141200,77 @@
       "surfaced_at": "2026-09-23T12:24:49Z",
       "updated_at": "2026-09-23T12:24:49Z",
       "decay_at": "2026-09-24T20:28:18Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2ae207956495",
+      "idea_version": "IDEAV-1c81b4a70efb53f5",
+      "idea_version_started_at": "2026-09-25T05:48:29Z",
+      "ticker": "02465",
+      "company": "LOPAL TECH",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "LOPAL TECH is investing in the construction of its global headquarters and a new innovation center, signaling expansion and future growth potential.",
+      "why_now": "The investment announcement was made via an exchange filing on September 24, 2026.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a76b81837acb"
+      ],
+      "primary_source_event_id": "EVT-a76b81837acb",
+      "source_headlines": [
+        "LOPAL TECH (02465): ANNOUNCEMENT IN RELATION TO THE INVESTMENT IN THE CONSTRUCTION OF THE GLOBAL HEADQUARTERS AND THE NEW ENERGY, NEW MATERIALS AND ARTIFICIAL INTELLIGENCE SMART INNOVATION CENTRE AND CUMULATIVE OUTWARD INVESTMENTS"
+      ],
+      "source_headline": "LOPAL TECH (02465): ANNOUNCEMENT IN RELATION TO THE INVESTMENT IN THE CONSTRUCTION OF THE GLOBAL HEADQUARTERS AND THE NEW ENERGY, NEW MATERIALS AND ARTIFICIAL INTELLIGENCE SMART INNOVATION CENTRE AND CUMULATIVE OUTWARD INVESTMENTS",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402161.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-24T13:41:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-25T05:48:29Z",
+      "updated_at": "2026-09-25T05:48:29Z",
+      "decay_at": "2026-09-26T01:41:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -143145,14 +143146,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 531,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       },
       "short": {
         "total_count": 261,
@@ -143176,6 +143177,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2ae207956495",
+        "idea_version": "IDEAV-1c81b4a70efb53f5",
+        "idea_version_started_at": "2026-09-25T05:48:29Z",
+        "ticker": "02465",
+        "company": "LOPAL TECH",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "LOPAL TECH is investing in the construction of its global headquarters and a new innovation center, signaling expansion and future growth potential.",
+        "why_now": "The investment announcement was made via an exchange filing on September 24, 2026.",
+        "conviction": 45,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a76b81837acb"
+        ],
+        "primary_source_event_id": "EVT-a76b81837acb",
+        "source_headlines": [
+          "LOPAL TECH (02465): ANNOUNCEMENT IN RELATION TO THE INVESTMENT IN THE CONSTRUCTION OF THE GLOBAL HEADQUARTERS AND THE NEW ENERGY, NEW MATERIALS AND ARTIFICIAL INTELLIGENCE SMART INNOVATION CENTRE AND CUMULATIVE OUTWARD INVESTMENTS"
+        ],
+        "source_headline": "LOPAL TECH (02465): ANNOUNCEMENT IN RELATION TO THE INVESTMENT IN THE CONSTRUCTION OF THE GLOBAL HEADQUARTERS AND THE NEW ENERGY, NEW MATERIALS AND ARTIFICIAL INTELLIGENCE SMART INNOVATION CENTRE AND CUMULATIVE OUTWARD INVESTMENTS",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402161.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-24T13:41:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-25T05:48:29Z",
+        "updated_at": "2026-09-25T05:48:29Z",
+        "decay_at": "2026-09-26T01:41:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-26T01:41:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9b9da68e2936",
         "idea_version": "IDEAV-deab95414339fee7",
@@ -173527,80 +173602,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-40f545e93472",
-        "idea_version": "IDEAV-f59cb62e9b4409e3",
-        "idea_version_started_at": "2026-09-08T14:12:29Z",
-        "ticker": "00626",
-        "company": "Public Financial Holdings Limited",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Public Bank Berhad has proposed to privatize Public Financial Holdings Limited via a scheme of arrangement, leading to a withdrawal of its listing.",
-        "why_now": "Trading in the shares is resuming following the joint privatization announcement on September 8, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3b12b1395622"
-        ],
-        "primary_source_event_id": "EVT-3b12b1395622",
-        "source_headlines": [
-          "PUBLIC FIN HOLD (00626): JOINT ANNOUNCEMENT (1) PROPOSED PRIVATISATION OF PUBLIC FINANCIAL HOLDINGS LIMITED BY PUBLIC BANK BERHAD BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT 1981 OF BERMUDA (AS AMENDED FROM TIME TO TIME); (2) PROPOSED WITHDRAWAL OF LISTING OF SHARES OF PUBLIC FINANCIAL HOLDINGS LIMITED; AND (3) RESUMPTION OF TRADING IN THE SHARES"
-        ],
-        "source_headline": "PUBLIC FIN HOLD (00626): JOINT ANNOUNCEMENT (1) PROPOSED PRIVATISATION OF PUBLIC FINANCIAL HOLDINGS LIMITED BY PUBLIC BANK BERHAD BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT 1981 OF BERMUDA (AS AMENDED FROM TIME TO TIME); (2) PROPOSED WITHDRAWAL OF LISTING OF SHARES OF PUBLIC FINANCIAL HOLDINGS LIMITED; AND (3) RESUMPTION OF TRADING IN THE SHARES",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800612.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-08T09:54:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-08T14:12:29Z",
-        "updated_at": "2026-09-08T14:12:29Z",
-        "decay_at": "2026-09-09T21:54:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T10:50:34Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-85129948d8af",
         "idea_version": "IDEAV-e15ec643a0a42a39",
         "idea_version_started_at": "2026-09-08T09:47:09Z",
@@ -180317,7 +180318,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1024,
-    "live_count": 9,
+    "live_count": 8,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -180336,9 +180337,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 155412,
-    "news_picked_today": 258,
-    "news_dropped_today": 894
+    "news_seen_today": 162797,
+    "news_picked_today": 278,
+    "news_dropped_today": 946
   },
   "book_momentum": {
     "live_count": 8,
