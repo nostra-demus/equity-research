@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-9437e2f30b3e",
-  "idea_version": "IDEAV-5e086d71b3704404",
-  "idea_version_started_at": "2026-09-26T16:10:26Z",
+  "idea_version": "IDEAV-610fed0bcd46f411",
+  "idea_version_started_at": "2026-09-26T19:19:42Z",
   "ticker": "AKAM",
   "company": "Akamai Technologies",
   "exchange": "NASDAQ",
@@ -11,17 +11,17 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "The company secured an $11.6 billion cloud services contract with Anthropic, providing a massive, multi-year revenue tailwind.",
-  "why_now": "The deal was announced today, September 25, 2026, and the market is still digesting the scale of the contract relative to Akamai's market cap.",
+  "reason": "The company secured a massive $11.6 billion seven-year cloud services contract with AI firm Anthropic, representing a significant expansion of its compute revenue base.",
+  "why_now": "The deal was confirmed on September 25, 2026, providing a multi-year revenue catalyst that the market is currently reacting to.",
   "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 74,
+  "trade_score": 60,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
     "impact": 21,
     "specificity": 15,
-    "timing": 10,
+    "timing": 6,
     "expression": 7,
     "corroboration": 7,
     "learning_adjustment": 0
@@ -30,6 +30,7 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "priced-in risk",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -41,22 +42,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "priced",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-5c6e9c678dd3",
-    "EVT-1915a5a69a9e"
+    "EVT-1915a5a69a9e",
+    "EVT-5c6e9c678dd3"
   ],
-  "primary_source_event_id": "EVT-5c6e9c678dd3",
+  "primary_source_event_id": "EVT-1915a5a69a9e",
   "source_headlines": [
-    "Anthropic to pay Akamai $11.6 billion over seven years in cloud deal",
-    "Akamai Surges 15% on $11.6B Anthropic Cloud Deal; CoreWeave and Cloudflare Tick Up"
+    "Akamai Surges 15% on $11.6B Anthropic Cloud Deal; CoreWeave and Cloudflare Tick Up",
+    "Anthropic to pay Akamai $11.6 billion over seven years in cloud deal"
   ],
-  "source_headline": "Anthropic to pay Akamai $11.6 billion over seven years in cloud deal",
-  "source_url": "https://techcrunch.com/2026/09/25/anthropic-to-pay-akamai-11-6-billion-over-seven-years-in-cloud-deal/",
-  "source_name": "TechCrunch",
+  "source_headline": "Akamai Surges 15% on $11.6B Anthropic Cloud Deal; CoreWeave and Cloudflare Tick Up",
+  "source_url": "https://247wallst.com/investing/2026/09/25/akamai-surges-15-on-11-6b-anthropic-cloud-deal-coreweave-and-cloudflare-tick-up/",
+  "source_name": "24/7 Wall St.",
   "materiality_max": 100,
   "newest_source_at": "2026-09-25T19:13:38Z",
   "prior_coverage": {
@@ -66,7 +67,7 @@
     "data_pool_present": true
   },
   "surfaced_at": "2026-09-26T16:10:26Z",
-  "updated_at": "2026-09-26T16:10:26Z",
+  "updated_at": "2026-09-26T19:19:42Z",
   "decay_at": "2026-09-27T07:13:38Z",
   "status": "live",
   "promoted_signal_id": null
