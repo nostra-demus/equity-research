@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T02:33:54Z",
+  "generated_at": "2026-09-26T02:40:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-241",
@@ -603,6 +603,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-326",
+      "headline": "Pharmaunternehmen: Novo Nordisk zahlt Milliarden für schwedische Depot-Technologie",
+      "headline_en": "Pharma companies: Novo Nordisk pays billions for Swedish depot technology",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/pharmaunternehmen-novo-nordisk-zahlt-milliarden-fuer-schwedische-depot-technologie/100257397.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T08:34:15Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Novo Nordisk is acquiring a Swedish depot-technology company for billions, a significant strategic investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novo Nordisk is acquiring a Swedish depot-technology company for billions, a significant strategic investment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novo Nordisk",
+          "ticker": null,
+          "listing_country": "DK"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1949,55 +1998,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-082",
-      "headline": "SEBI bans Omaxe, 5 others for violating minimum public shareholding norms",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/sebi-bans-omaxe-5-others-for-violating-minimum-public-shareholding-norms-19998810.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T12:46:52Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "SEBI banned Omaxe and 5 others for violating minimum public shareholding norms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "SEBI banned Omaxe and 5 others for violating minimum public shareholding norms.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Omaxe",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180318,9 +180318,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 248777,
-    "news_picked_today": 415,
-    "news_dropped_today": 1361
+    "news_seen_today": 262355,
+    "news_picked_today": 428,
+    "news_dropped_today": 1396
   },
   "book_momentum": {
     "live_count": 8,
