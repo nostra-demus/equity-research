@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T00:46:55Z",
+  "generated_at": "2026-09-26T00:53:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-101",
@@ -824,6 +824,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-121",
+      "headline": "\"FT\": BASF arbeitet an Übernahme Evoniks",
+      "headline_en": "BASF is working on acquiring Evonik",
+      "url": "https://www.reuters.com/de/firma/ft-basf-arbeitet-an-bernahme-evoniks-2026-09-25/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T12:15:44Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Reuters/FT reports BASF working on acquisition of Evonik, a potential large German chemical-sector M&A with no deal value yet disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Reuters/FT reports BASF working on acquisition of Evonik, a potential large German chemical-sector M&A with no deal value yet disclosed.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BASF",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Evonik",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-107",
       "headline": "Open AI Models May Have Interfered With Government Sites",
       "headline_en": null,
@@ -976,6 +1030,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-125",
+      "headline": "Suzuki to cut vehicle development time by half by 2030; India capacity target at 4 million",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/auto/auto-news/suzuki-to-cut-vehicle-development-time-by-half-by-2030-india-capacity-target-at-4-million/articleshow/134484879.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T12:11:16Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Suzuki plans to cut development time by half and targets 4 million units capacity in India by 2030.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Suzuki plans to cut development time by half and targets 4 million units capacity in India by 2030.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Suzuki",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-085",
       "headline": "US court rules against Kalshi, says states can regulate prediction markets",
       "headline_en": null,
@@ -1115,6 +1219,55 @@
           "name": "RHI Magnesita",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-131",
+      "headline": "Officer's Choice Whisky Founders Are Said To Consider ABD Sale",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/officers-choice-whisky-founders-are-said-to-consider-abd-sale-12097579#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:59:13Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Founders are considering a sale of Allied Blenders and Distillers (ABD), signaling a potential M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Founders are considering a sale of Allied Blenders and Distillers (ABD), signaling a potential M&A event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allied Blenders and Distillers",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1551,6 +1704,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-130",
+      "headline": "Govt approves voluntary retirement of MD Dinesh Pant; shares edge higher",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/govt-approves-voluntary-retirement-of-md-dinesh-pant-shares-edge-higher-11790336161690.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:59:17Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "The voluntary retirement of the Managing Director is a significant leadership change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The voluntary retirement of the Managing Director is a significant leadership change.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dinesh Pant",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-100",
       "headline": "Trump’s ban on Canadian alcohol starts Tuesday, but these brands will avoid it",
       "headline_en": null,
@@ -1791,201 +1993,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-017",
-      "headline": "Novo pursues long-acting obesity drugs; Acadia slumps on Alzheimer’s data",
-      "headline_en": null,
-      "url": "https://www.biopharmadive.com/news/novo-nanexa-acadia-remlifanserin-nektar-lilly-onswik-welireg/831346/",
-      "source_name": "BioPharma Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:21:00Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Novo Nordisk is expanding its obesity drug pipeline while Acadia Pharmaceuticals faces negative clinical data for its Alzheimer's treatment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Novo Nordisk is expanding its obesity drug pipeline while Acadia Pharmaceuticals faces negative clinical data for its Alzheimer's treatment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novo Nordisk",
-          "ticker": null,
-          "listing_country": "DK"
-        },
-        {
-          "name": "Acadia Pharmaceuticals",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-027",
-      "headline": "Veidekke Wins NOK 190 Mln Contract To Build 51 Apartments In Arendal",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/veidekke-wins-nok-190-mln-contract-build-51-apartments-arendal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:15:42Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Veidekke secured a construction contract worth NOK 190 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Veidekke secured a construction contract worth NOK 190 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Veidekke",
-          "ticker": null,
-          "listing_country": "NO"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-011",
-      "headline": "Prestige Hospitality Ventures withdraws IPO draft papers amid uncertain market conditions",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/prestige-estates-share-price-prestige-hospitality-ventures-withdraws-ipo-draft-papers-amid-uncertain-market-conditions-19998833.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:22:20Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Prestige Hospitality Ventures has withdrawn its IPO draft papers due to market uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Prestige Hospitality Ventures has withdrawn its IPO draft papers due to market uncertainty.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prestige Hospitality Ventures",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-029",
-      "headline": "Northern Virginia's Prince William County puts controls on new data center projects",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/northern-virginias-prince-william-county-puts-controls-on-new-data-center-projects/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:12:00Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Local regulatory restrictions on data center projects in a key hub may impact sector expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Local regulatory restrictions on data center projects in a key hub may impact sector expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180307,9 +180314,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 56798,
-    "news_picked_today": 126,
-    "news_dropped_today": 450
+    "news_seen_today": 64654,
+    "news_picked_today": 148,
+    "news_dropped_today": 548
   },
   "book_momentum": {
     "live_count": 8,
