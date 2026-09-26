@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T05:16:06Z",
+  "generated_at": "2026-09-26T05:24:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-429",
@@ -1369,6 +1369,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-536",
+      "headline": "India's Akasa in talks with Boeing to order 200 737 MAX aircraft, Bloomberg News reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/indias-akasa-talks-with-boeing-order-200-737-max-aircraft-bloomberg-news-reports-2026-09-24/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T20:49:07Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Akasa Air is in talks to order 200 Boeing 737 MAX aircraft, representing a significant commercial contract.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Akasa Air is in talks to order 200 Boeing 737 MAX aircraft, representing a significant commercial contract.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Akasa Air",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Boeing",
+          "ticker": "BA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-141",
       "headline": "Signature Global signs pact to develop 194-acre land in Gurugram, targets Rs 5,500–6,000 crore GDV",
       "headline_en": null,
@@ -1952,49 +2006,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-435",
-      "headline": "Trump rescinds nearly $1B in federal funding, bypassing congressional approval",
-      "headline_en": null,
-      "url": "https://thehill.com/homenews/administration/6112779-trump-cancels-billion-federal-funding/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-26T01:50:22Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "The rescission of nearly $1B in federal funding represents a significant shift in fiscal policy and executive-legislative relations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The rescission of nearly $1B in federal funding represents a significant shift in fiscal policy and executive-legislative relations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180317,9 +180328,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 462148,
-    "news_picked_today": 924,
-    "news_dropped_today": 3108
+    "news_seen_today": 467214,
+    "news_picked_today": 948,
+    "news_dropped_today": 3180
   },
   "book_momentum": {
     "live_count": 8,
