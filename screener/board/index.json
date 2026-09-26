@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T13:09:16Z",
+  "generated_at": "2026-09-26T13:13:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-856",
@@ -51,6 +51,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-916",
+      "headline": "Monzo negocia su venta a Nubank por valoración de unos 10.000 millones de libras: Sky News",
+      "headline_en": "Monzo negotiates its sale to Nubank for a valuation of about 10 billion pounds: Sky News",
+      "url": "https://www.reuters.com/es/negocio/RHC4BXRGZZMK7ECDSAJJNESI4E-2026-09-26/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-26T13:03:45Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Monzo is reportedly in talks to be acquired by Nubank for approximately 10 billion pounds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Monzo is reportedly in talks to be acquired by Nubank for approximately 10 billion pounds.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Monzo",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Nubank",
+          "ticker": "NU",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1970,55 +2024,6 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-877",
-      "headline": "Lego to invest $400 million, create 1,300 jobs in northern Mexico",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/lego-invest-400-million-create-1300-jobs-northern-mexico-2026-09-24/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T14:11:24Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Lego announced an investment of $400 million and the creation of 1,300 jobs in northern Mexico, indicating significant capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lego announced an investment of $400 million and the creation of 1,300 jobs in northern Mexico, indicating significant capacity expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lego",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -179912,9 +179917,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 737509,
-    "news_picked_today": 2050,
-    "news_dropped_today": 9143
+    "news_seen_today": 737559,
+    "news_picked_today": 2054,
+    "news_dropped_today": 9189
   },
   "book_momentum": {
     "live_count": 8,
