@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T03:14:57Z",
+  "generated_at": "2026-09-26T03:23:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-241",
@@ -1010,6 +1010,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-375",
+      "headline": "Genel Energy and Capricorn agree terms to higher $436 million deal, topping rival DNO bid",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/genel-energy-capricorn-agree-terms-higher-436-million-deal-topping-rival-dno-bid-2026-09-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T06:21:52Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Genel Energy and Capricorn agreed to a $436 million acquisition deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Genel Energy and Capricorn agreed to a $436 million acquisition deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Genel Energy",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Capricorn Energy",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-402",
+      "headline": "Renault invertirá 600 millones de euros en España para iniciar la producción de vehículos eléctricos",
+      "headline_en": "Renault will invest 600 million euros in Spain to start production of electric vehicles",
+      "url": "https://www.reuters.com/es/negocio/GC75UA2WJVKMRO34LA77QQMTCY-2026-09-25/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T05:51:43Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Renault is investing 600 million euros in Spain to start electric vehicle production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Renault is investing 600 million euros in Spain to start electric vehicle production.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Renault",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-141",
       "headline": "Signature Global signs pact to develop 194-acre land in Gurugram, targets Rs 5,500–6,000 crore GDV",
       "headline_en": null,
@@ -1836,150 +1939,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260926-187",
-      "headline": "Signature Global announces 194-acre Farrukhnagar project with ₹5,500-6,000 crore GDV",
+      "inbox_id": "INB-20260926-405",
+      "headline": "Welspun Corp shares gain after US arm wins record $412.5 million contract; Order book at new high",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/signature-global-india-share-price-announces-194-acre-farrukhnagar-project-with-rs-5500-6000-crore-gdv-19998721.htm",
+      "url": "https://www.cnbctv18.com/market/welspun-corp-share-price-us-arm-wins-record-contract-value-timeline-order-book-at-new-high-45000-crore-hfiw-pipes-19998264.htm",
       "source_name": "CNBC-TV18",
       "input_nature": "news_headline",
-      "found_at": "2026-09-25T11:15:35Z",
+      "found_at": "2026-09-25T05:48:36Z",
       "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Signature Global announces 194-acre Farrukhnagar project with ₹5,500–6,000 crore GDV, a quantified major capex commitment signaling material pipeline expansion.",
+      "prelim_note": "Welspun Corp won a record $412.5 million contract for its US arm.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Signature Global announces 194-acre Farrukhnagar project with ₹5,500–6,000 crore GDV, a quantified major capex commitment signaling material pipeline expansion.",
+      "triage_score": 93,
+      "triage_reason": "Welspun Corp won a record $412.5 million contract for its US arm.",
       "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Signature Global",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-233",
-      "headline": "Risiko Lenkungsausfal: Volkswagen-Konzern ruft fast vier Millionen Autos zürück – Weitere Konzernmarken neben VW betroffen",
-      "headline_en": "Risk steering failure: Volkswagen Group recalls almost 4 million cars – further group brands affected.",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/volkswagen-vw-ruft-millionen-autos-zurueck-weitere-konzernmarken-betroffen/100257392.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T10:36:05Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Volkswagen Group recalls approximately 4 million vehicles across multiple brands due to steering defect, raising warranty costs and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Volkswagen Group recalls approximately 4 million vehicles across multiple brands due to steering defect, raising warranty costs and regulatory risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations",
-        "regulatory",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen AG",
-          "ticker": "VOW",
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-234",
-      "headline": "Another regional airline stops all ticket sales",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/travel/russian-airline-yakutia-stops-all-ticket-sales",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T10:27:57Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "A regional airline stopping all ticket sales indicates a potential cessation of operations or insolvency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "A regional airline stopping all ticket sales indicates a potential cessation of operations or insolvency.",
-      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
         "scope": 6,
-        "event": 9,
-        "size": 0,
+        "event": 0,
+        "size": 1,
         "recency": 1,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
+        "event_id": null,
+        "size_bucket": "mid"
       },
       "event_types": [
-        "default_distress"
+        "commercial"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Regional Airline",
+          "name": "Welspun Corp",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180302,9 +180305,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 301601,
-    "news_picked_today": 540,
-    "news_dropped_today": 1740
+    "news_seen_today": 307910,
+    "news_picked_today": 577,
+    "news_dropped_today": 1871
   },
   "book_momentum": {
     "live_count": 8,
