@@ -420,6 +420,8 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §18/§13 module verdict-lock caps — a balance-sheet-survival "Distress risk" or management-governance "Serious governance concerns" or business-model "Low-quality business" synthesis verdict capping the headline at Watchlist or lower (checks AA/AB, via `scripts/rating_caps.py`) — the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation, the Decision Audit Trail structural check, and red-flag severity reconciliation (checks AI/AJ/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
+The §19 / DECISION_LEDGER §6 forecast-resolvability check also verifies that every `forecast_ledger[]` row is mechanically settleable — a pinned numeric bar or a named settleable document, triggers that actually partition the outcome space, and at least one near-term (≤90-day) proof point (check AO, via `scripts/scenario_integrity_checks.py`).
+
 The §18 Phase 6 calibration-feedback gate also verifies that decision_record.json carries calibration_feedback consistent with the as-of calibration_summary.json and that an applied haircut reaches confidence_inputs.calibration_haircut (check AG, via scripts/calibration_gate_checks.py). Fresh publication requires valid confidence_inputs for an applied haircut; retrospective legacy tolerance does not apply.
 
 ```bash
@@ -903,6 +905,22 @@ viol.extend(sic.eval_ba_kill_criteria_trigger_test(_live_date, d.get("kill_crite
 # first decided.
 viol.extend(sic.eval_am_bear_case_sanity(_live_date, dec, scen, d.get("entry_price")) or [])
 viol.extend(sic.eval_ar_short_bull_case_sanity(_live_date, dec, scen, d.get("entry_price")) or [])
+# check AO — §19 / DECISION_LEDGER §6 forecast RESOLVABILITY (live pre-publish; mirrors eval.py
+# check AO via the same scenario_integrity_checks.py module as AT/AU/AV/BC/BA/AM/AR above). CLAUDE.md
+# §19: "a forecast that cannot be checked later is not a forecast." check AO has graded committed
+# runs retrospectively since 2026-07-18, but — like BA/AM/AR before this same live-gate family was
+# built out — it was defined only inside scripts/eval.py, so the live gate could never call it: a
+# forecast_ledger row with an unpinned "beats consensus" trigger, identical confirmation/falsification
+# text, or a ledger with zero near-term (<=90-day) proof point could ship live, print `GATE: PASS`,
+# and commit straight to `main` (CLAUDE.md §25/§28), undetected until a later manual `/research:eval`
+# run. That silently starves the AG calibration-feedback gate immediately below: AG makes sure a
+# computed haircut reaches the scorer, but nothing upstream of it made sure the forecasts feeding
+# that calibration were ever mechanically checkable in the first place. Moving the function into
+# scenario_integrity_checks.py (see that module) closes the same hole already closed for
+# §24/§13/AI/AK/AP/§10/HARD GATE 11/13/§8 above, for the one remaining forecast-ledger check that
+# had it. Uses `_live_date` for the same reason AT/AU/AV/BC/BA/AM/AR do (a rerun re-checks what SHIPS
+# on this execution, not when the thesis was first decided).
+viol.extend(sic.eval_ao_forecast_resolvability(_live_date, d.get("forecast_ledger")) or [])
 # check AG — §18 Phase 6 calibration-feedback gate (live pre-publish; mirrors eval.py check AG via
 # scripts/calibration_gate_checks.py, the same shared-detection-module pattern as rating_caps.py /
 # headline_checks.py / valuation_summary_checks.py / scenario_integrity_checks.py above). Until this
@@ -934,7 +952,7 @@ if viol:
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §18/§13 module verdict-lock caps (BSS/MG/BM), §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), Decision Audit Trail structural check (§8/§22), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, and HARD GATE 11 kill-criteria presence + trigger-test schema and the §18 Phase 6 calibration-feedback gate all satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §18/§13 module verdict-lock caps (BSS/MG/BM), §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), Decision Audit Trail structural check (§8/§22), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, HARD GATE 11 kill-criteria presence + trigger-test schema, §19 forecast-ledger resolvability, and the §18 Phase 6 calibration-feedback gate all satisfied")
 PY
 ```
 
