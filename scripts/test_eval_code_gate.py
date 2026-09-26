@@ -88,6 +88,18 @@ check("every way the real scripts/eval.py can fail the suite is one this gate ca
       undecoded_suite_gates(_repo) == [], undecoded_suite_gates(_repo))
 
 
+for label, body in (("augmented `suite_pass &= ok`", "suite_pass = True\nsuite_pass &= ok\n"),
+                    ("walrus `(suite_pass := False)`", "suite_pass = True\n(suite_pass := False)\n"),
+                    ("tuple target `suite_pass, x = False, 1`", "suite_pass = True\nsuite_pass, x = False, 1\n"),
+                    ("`global suite_pass` in a function", "def f():\n    global suite_pass\n")):
+    _d = tempfile.mkdtemp(prefix="gate-ast-")
+    os.makedirs(os.path.join(_d, "scripts"))
+    open(os.path.join(_d, "scripts", "eval.py"), "w").write(body)
+    check(f"an unnamed write form to suite_pass is caught: {label}", undecoded_suite_gates(_d) != [],
+          undecoded_suite_gates(_d))
+    shutil.rmtree(_d, ignore_errors=True)
+
+
 # ---- end to end: real main(), real git worktree, stand-in harness ---------------------------------------
 FAKE_EVAL = r'''
 import json, os, sys
@@ -97,7 +109,7 @@ if state.get("crash"):
 os.makedirs("analyses/eval", exist_ok=True)
 json.dump(state["report"], open("analyses/eval/r.json", "w"))
 print("WROTE analyses/eval/r.json")
-sys.exit(0 if state["report"].get("suite_pass") else 1)
+sys.exit(state["rc"] if "rc" in state else (0 if state["report"].get("suite_pass") else 1))
 '''
 
 
@@ -164,6 +176,18 @@ open(os.path.join(root3, "scripts", "eval.py"), "a").write("\nif os.environ.get(
 rc, out = gate(root3, BASE_STATE, sha3)
 check("e2e: eval.py gains a suite failure the gate cannot name -> strict, the inherited failure still gates",
       rc == 1 and "cannot name" in out, out[-400:])
+
+_no_verdict = {k: v for k, v in BASE.items() if k != "suite_pass"}
+rc, out = gate(root, {"report": _no_verdict, "rc": 1}, sha)
+check("e2e: a report with no boolean suite_pass is refused (fails), never read as 'nothing failed'",
+      rc == 2 and "no boolean suite_pass" in out, out[-400:])
+rc, out = gate(root, {"report": dict(BASE, suite_pass=True), "rc": 1}, sha)
+check("e2e: a report whose suite_pass contradicts the harness exit status is refused",
+      rc == 2 and "disagree" not in out and "but the harness exited 1" in out, out[-400:])
+root4, sha4 = sandbox({"report": _no_verdict, "rc": 1})
+rc, out = gate(root4, BASE_STATE, sha4)
+check("e2e: an untrustworthy BASE report -> strict, the inherited failure still gates",
+      rc == 1 and "strict" in out, out[-400:])
 
 rc, out = gate(root, {"report": report({"OK_2026-09-01": run_entry()})}, sha)
 check("e2e: a clean corpus -> PASS", rc == 0, out[-400:])
