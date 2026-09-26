@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-26T03:52:56Z",
+  "generated_at": "2026-09-26T03:56:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260926-429",
+      "headline": "TikTok settles lawsuit over youth safety concerns for at least $100 million",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/news/tiktok-alabama-youth-safety-lawsuit-settlement/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-26T02:09:16Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "TikTok settled a lawsuit regarding youth safety for at least $100 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TikTok settled a lawsuit regarding youth safety for at least $100 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TikTok",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260926-241",
       "headline": "TikTok settles lawsuit with Alabama for at least US$100m, to apply safety steps",
@@ -1934,55 +1983,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-329",
-      "headline": "India Seeks Comfort on Tata’s $14 Billion Chip Plans Amid Boardroom Battle",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-25/india-seeks-comfort-on-tata-s-14-billion-chip-plans-amid-boardroom-battle",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T08:19:27Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Tata announces $14 billion semiconductor capex plan; boardroom battle and India seeking government 'comfort' raise execution and governance risks on major capital commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Tata announces $14 billion semiconductor capex plan; boardroom battle and India seeking government 'comfort' raise execution and governance risks on major capital commitment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180305,9 +180305,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 343395,
-    "news_picked_today": 681,
-    "news_dropped_today": 2199
+    "news_seen_today": 355307,
+    "news_picked_today": 686,
+    "news_dropped_today": 2218
   },
   "book_momentum": {
     "live_count": 8,
