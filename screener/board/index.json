@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T01:46:51Z",
+  "generated_at": "2026-09-26T01:53:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-101",
@@ -952,6 +952,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-234",
+      "headline": "Another regional airline stops all ticket sales",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/travel/russian-airline-yakutia-stops-all-ticket-sales",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T10:27:57Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "A regional airline stopping all ticket sales indicates a potential cessation of operations or insolvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "A regional airline stopping all ticket sales indicates a potential cessation of operations or insolvency.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Regional Airline",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-146",
       "headline": "JSW Energy Secures Equipment For 3,200 MW Salboni Project, Places 1,600 MW Phase-II Order With Toshiba JSW",
       "headline_en": null,
@@ -1820,6 +1869,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-240",
+      "headline": "Novo does another small deal, this time with drug delivery biotech Nanexa",
+      "headline_en": null,
+      "url": "https://endpoints.news/novo-does-another-small-deal-this-time-with-drug-delivery-biotech-nanexa/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T10:29:34Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Novo Nordisk is acquiring drug delivery technology from Nanexa, expanding its pipeline capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Novo Nordisk is acquiring drug delivery technology from Nanexa, expanding its pipeline capabilities.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novo Nordisk",
+          "ticker": null,
+          "listing_country": "DK"
+        },
+        {
+          "name": "Nanexa",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-107",
       "headline": "Open AI Models May Have Interfered With Government Sites",
       "headline_en": null,
@@ -1910,109 +2013,6 @@
           "name": "OpenAI",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-092",
-      "headline": "CoinMarketCap buys CoinGlass to expand crypto derivatives data",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/coinmarketcap-coinglass-expand-crypto-derivatives-data?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T12:44:30Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "CoinMarketCap is acquiring CoinGlass to expand its data capabilities in the crypto derivatives market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "CoinMarketCap is acquiring CoinGlass to expand its data capabilities in the crypto derivatives market.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CoinMarketCap",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "CoinGlass",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-169",
-      "headline": "Tata Motors Weighs Further Price Hikes As Commodity Costs Pressure Margins",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/tata-motors-weighs-further-price-hikes-as-commodity-costs-pressure-margins-12097422#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T11:30:26Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Tata Motors is weighing further price hikes due to commodity costs pressuring margins, indicating potential margin erosion and a need to adjust pricing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Tata Motors is weighing further price hikes due to commodity costs pressuring margins, indicating potential margin erosion and a need to adjust pricing.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -180337,9 +180337,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 162797,
-    "news_picked_today": 278,
-    "news_dropped_today": 946
+    "news_seen_today": 170162,
+    "news_picked_today": 293,
+    "news_dropped_today": 979
   },
   "book_momentum": {
     "live_count": 8,
