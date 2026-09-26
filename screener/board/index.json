@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T11:28:15Z",
+  "generated_at": "2026-09-26T11:38:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-856",
@@ -51,6 +51,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-913",
+      "headline": "Monzo in talks over £10bn sale to Nubank in blow to IPO hopes",
+      "headline_en": null,
+      "url": "https://www.cityam.com/monzo-in-talks-over-10bn-sale-to-nubank-in-blow-to-ipo-hopes/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-26T10:47:53Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Monzo in talks for a £10bn sale, impacting IPO plans.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Monzo in talks for a £10bn sale, impacting IPO plans.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Monzo",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Nubank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1966,60 +2020,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-900",
-      "headline": "US stocks: MGM Resorts shares plunge 10% as Diller’s IAC drops $18 billion bid",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/mgm-resorts-shares-tumble-10-after-dillers-people-withdraws-18-billion-bid/articleshow/134464362.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T13:57:02Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "MGM Resorts shares dropped 10% following the withdrawal of an $18 billion acquisition bid.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "MGM Resorts shares dropped 10% following the withdrawal of an $18 billion acquisition bid.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MGM Resorts",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "IAC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -179556,9 +179556,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 731997,
-    "news_picked_today": 1892,
-    "news_dropped_today": 7828
+    "news_seen_today": 732857,
+    "news_picked_today": 1917,
+    "news_dropped_today": 7995
   },
   "book_momentum": {
     "live_count": 8,
