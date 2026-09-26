@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T16:04:31Z",
+  "generated_at": "2026-09-26T16:09:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-856",
@@ -101,6 +101,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-939",
+      "headline": "McDonald's Sell-Off Hits 30% As Big Mac Inflation Spurs Pushback",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/mcdonalds-sell-off-hits-30-as-big-mac-inflation-spurs-pushback-12102529#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-26T15:10:13Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "McDonald's is experiencing a 30% sell-off in sales volume due to inflation-driven consumer pushback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "McDonald's is experiencing a 30% sell-off in sales volume due to inflation-driven consumer pushback.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McDonald's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -400,55 +449,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-922",
-      "headline": "McDonald’s Sell-Off Hits 30% as Big Mac Inflation Spurs Pushback",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-26/mcdonald-s-sell-off-hits-30-as-big-mac-inflation-spurs-pushback",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-26T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "McDonald's is experiencing a 30% sell-off driven by consumer pushback against inflation, indicating a material impact on revenue and market valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "McDonald's is experiencing a 30% sell-off driven by consumer pushback against inflation, indicating a material impact on revenue and market valuation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "McDonald's",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -179833,9 +179833,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 738532,
-    "news_picked_today": 2166,
-    "news_dropped_today": 10039
+    "news_seen_today": 738560,
+    "news_picked_today": 2175,
+    "news_dropped_today": 10058
   },
   "book_momentum": {
     "live_count": 8,
