@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T00:20:22Z",
+  "generated_at": "2026-09-26T00:31:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-025",
@@ -260,6 +260,114 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-066",
+      "headline": "Press Release: Sunwest Bank Assumes All Deposits and Certain Assets of Nano Banc, Irvine, California",
+      "headline_en": null,
+      "url": "https://content.govdelivery.com/accounts/USFDIC/bulletins/42c8901",
+      "source_name": "FDIC (Press Releases, via GovDelivery)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-25T23:09:49Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Nano Banc enters FDIC-assisted resolution with all deposits and certain assets assumed by Sunwest Bank, confirming a regional bank failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Nano Banc enters FDIC-assisted resolution with all deposits and certain assets assumed by Sunwest Bank, confirming a regional bank failure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Nano Banc",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Sunwest Bank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-063",
+      "headline": "Vitol told Deutsche Bank AG that Radiant World contracts with CFO’s signature were fake",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/companies-markets/vitol-told-deutsche-bank-ag-that-radiant-world-contracts-with-cfos-signature-were-fake",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T23:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Vitol reported that contracts with Deutsche Bank, bearing the CFO's signature, were fraudulent.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Vitol reported that contracts with Deutsche Bank, bearing the CFO's signature, were fraudulent.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vitol",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Deutsche Bank AG",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-036",
       "headline": "Keppel, StarHub confirm talks over M1 deal in Singapore",
       "headline_en": null,
@@ -407,6 +515,60 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-064",
+      "headline": "Bombardier in advanced talks to build Saab surveillance aircraft in Canada, CEO says",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-bombardier-in-advanced-talks-to-build-saab-surveillance-aircraft-in/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T23:57:21Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Bombardier is in advanced talks to build surveillance aircraft for Saab in Canada.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Bombardier is in advanced talks to build surveillance aircraft for Saab in Canada.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bombardier",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Saab",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -997,6 +1159,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-065",
+      "headline": "Automattic has a new board after failed attempt to put CEO on leave",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/09/25/automattic-has-a-new-board-after-failed-attempt-to-put-ceo-on-leave/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T23:04:34Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Automattic has restructured its board following internal governance friction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Automattic has restructured its board following internal governance friction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Automattic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-052",
       "headline": "Refex Industries commences Ready-Mix Concrete business at Pune facilty",
       "headline_en": null,
@@ -1084,6 +1295,105 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-062",
+      "headline": "OpenAI investigating 'dozens' of instances of agents acting improperly",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cw62jje658dlo?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — World",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-26T00:09:45Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "OpenAI is investigating reports of its AI agents acting improperly, posing potential operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "OpenAI is investigating reports of its AI agents acting improperly, posing potential operational and reputational risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-067",
+      "headline": "QuinStreet's 2026 Outlook: AI-Driven Marketing Platform Sees Strong Revenue Growth",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/moneyball/2026/09/25/quinstreet-s-2026-outlook-ai-driven-marketing-platform-sees-strong-revenue-growth/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T23:29:41Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Company cites 2026 outlook of strong revenue growth from AI-driven platform but lacks quantified targets and is reported via secondary source.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Company cites 2026 outlook of strong revenue growth from AI-driven platform but lacks quantified targets and is reported via secondary source.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 47,
+      "rank_factors": {
+        "materiality": 47,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QuinStreet",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1643,277 +1953,6 @@
       },
       "event_types": [
         "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-037",
-      "headline": "Thailand set to finalize new data center regulations by mid-October - report",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/thailand-set-to-finalize-new-data-center-regulations-by-mid-october-report/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:06:00Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Thailand's upcoming data center regulations by mid-October will impact operational compliance for firms operating in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Thailand's upcoming data center regulations by mid-October will impact operational compliance for firms operating in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-047",
-      "headline": "EU Pressures UK to Match Its Tariffs on Chinese-Made Cars",
-      "headline_en": null,
-      "url": "https://oilprice.com/Latest-Energy-News/World-News/EU-Pressures-UK-to-Match-Its-Tariffs-on-Chinese-Made-Cars.html",
-      "source_name": "OilPrice.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Potential EU-UK trade friction regarding Chinese-made vehicle tariffs could impact automotive supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Potential EU-UK trade friction regarding Chinese-made vehicle tariffs could impact automotive supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-055",
-      "headline": "Tesla Expands South India Presence With New Experience, Collision Centres In Chennai",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/tesla-expands-south-india-presence-with-new-experience-collision-centres-in-chennai-12097902#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T12:55:35Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Tesla opens experience and collision centres in Chennai, incremental India market expansion with no quantified investment or strategic scale.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Tesla opens experience and collision centres in Chennai, incremental India market expansion with no quantified investment or strategic scale.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": "TSLA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-057",
-      "headline": "Federal judge rolls back landmark disability protections",
-      "headline_en": null,
-      "url": "https://www.statnews.com/2026/09/25/health-news-federal-judge-rolls-back-landmark-disability-protections/?utm_campaign=rss",
-      "source_name": "STAT News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T12:53:55Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "US federal judge voids landmark disability protections, altering compliance and litigation risk across employers, but without company or quantified impact specified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "US federal judge voids landmark disability protections, altering compliance and litigation risk across employers, but without company or quantified impact specified.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-031",
-      "headline": "Ramokgopa extends Nyati’s term as Eskom board chair",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/south-africa/ramokgopa-extends-nyatis-term-as-eskom-board-chair/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:13:08Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Eskom board chair term extended, maintaining management continuity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Eskom board chair term extended, maintaining management continuity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eskom",
-          "ticker": null,
-          "listing_country": "ZA"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-015",
-      "headline": "How the global oil crisis could turn into a $200-a-barrel recession shock",
-      "headline_en": null,
-      "url": "https://economymiddleeast.com/news/how-the-global-oil-crisis-could-turn-into-a-200-a-barrel-recession-shock/?utm_source=rss&utm_medium=rss&utm_campaign=how-the-global-oil-crisis-could-turn-into-a-200-a-barrel-recession-shock",
-      "source_name": "Economy Middle East",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:19:41Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "A potential oil price shock to $200 per barrel would trigger a global recessionary environment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "A potential oil price shock to $200 per barrel would trigger a global recessionary environment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -180239,9 +180278,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 24619,
-    "news_picked_today": 58,
-    "news_dropped_today": 134
+    "news_seen_today": 32822,
+    "news_picked_today": 67,
+    "news_dropped_today": 245
   },
   "book_momentum": {
     "live_count": 8,
