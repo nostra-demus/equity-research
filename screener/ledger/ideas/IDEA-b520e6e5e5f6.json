@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-b520e6e5e5f6",
+  "idea_version": "IDEAV-b528e92838fca2d3",
+  "idea_version_started_at": "2026-09-26T16:28:04Z",
+  "ticker": "SBUX",
+  "company": "Starbucks",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The closure of 250 North American stores indicates a significant contraction in the company's physical footprint and a potential decline in revenue growth expectations.",
+  "why_now": "The restructuring announcement was made on 2026-09-26 and represents an immediate operational pivot.",
+  "conviction": 70,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 65,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-07077758c60e"
+  ],
+  "primary_source_event_id": "EVT-07077758c60e",
+  "source_headlines": [
+    "Major coffee chain is closing 250 stores across North America"
+  ],
+  "source_headline": "Major coffee chain is closing 250 stores across North America",
+  "source_url": "https://www.thestreet.com/restaurants/starbucks-closing-250-stores",
+  "source_name": "TheStreet",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-26T16:13:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-26T16:28:04Z",
+  "updated_at": "2026-09-26T16:28:04Z",
+  "decay_at": "2026-09-28T04:13:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

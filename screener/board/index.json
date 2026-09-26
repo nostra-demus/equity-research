@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T16:24:38Z",
+  "generated_at": "2026-09-26T16:28:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-856",
@@ -140701,6 +140701,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b520e6e5e5f6",
+      "idea_version": "IDEAV-b528e92838fca2d3",
+      "idea_version_started_at": "2026-09-26T16:28:04Z",
+      "ticker": "SBUX",
+      "company": "Starbucks",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The closure of 250 North American stores indicates a significant contraction in the company's physical footprint and a potential decline in revenue growth expectations.",
+      "why_now": "The restructuring announcement was made on 2026-09-26 and represents an immediate operational pivot.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-07077758c60e"
+      ],
+      "primary_source_event_id": "EVT-07077758c60e",
+      "source_headlines": [
+        "Major coffee chain is closing 250 stores across North America"
+      ],
+      "source_headline": "Major coffee chain is closing 250 stores across North America",
+      "source_url": "https://www.thestreet.com/restaurants/starbucks-closing-250-stores",
+      "source_name": "TheStreet",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-26T16:13:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T16:28:04Z",
+      "updated_at": "2026-09-26T16:28:04Z",
+      "decay_at": "2026-09-28T04:13:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-190511cb49a3",
       "idea_version": "IDEAV-2bfa6015794f315b",
       "idea_version_started_at": "2026-09-26T11:48:12Z",
@@ -142768,78 +142838,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-384082b9e158",
-      "idea_version": "IDEAV-3de5df10ff347fcc",
-      "idea_version_started_at": "2026-09-23T20:19:33Z",
-      "ticker": "AST",
-      "company": "Ashtead Technology",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has received a $660 million takeover proposal, which typically sets a floor for the stock price and creates a potential arbitrage opportunity if the deal proceeds.",
-      "why_now": "The takeover proposal was reported on 2026-09-23.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e60a0376da7e"
-      ],
-      "primary_source_event_id": "EVT-e60a0376da7e",
-      "source_headlines": [
-        "Ashtead Technology receives $660 million takeover proposal from Ember"
-      ],
-      "source_headline": "Ashtead Technology receives $660 million takeover proposal from Ember",
-      "source_url": "https://www.reuters.com/legal/transactional/ashtead-technology-receives-660-million-takeover-proposal-ember-2026-09-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-23T16:18:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-23T20:19:33Z",
-      "updated_at": "2026-09-23T20:19:33Z",
-      "decay_at": "2026-09-25T04:18:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-39795426b446",
       "idea_version": "IDEAV-2b58782b6e536a32",
       "idea_version_started_at": "2026-09-23T20:19:33Z",
@@ -142921,14 +142919,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 521,
+    "total_count": 520,
     "shown_count": 500,
-    "hidden_count": 21,
+    "hidden_count": 20,
     "side_counts": {
       "long": {
-        "total_count": 261,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 10
       },
       "short": {
         "total_count": 260,
@@ -142938,12 +142936,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 502,
+      "evicted_count": 503,
       "oldest_retained_at": "2026-09-01T14:22:01Z",
       "side_counts": {
         "long": {
-          "evicted_count": 333,
-          "oldest_retained_at": "2026-09-09T19:14:21Z"
+          "evicted_count": 334,
+          "oldest_retained_at": "2026-09-09T20:06:23Z"
         },
         "short": {
           "evicted_count": 169,
@@ -144509,8 +144507,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-25T04:18:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-26T16:28:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -180094,8 +180092,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1039,
-    "live_count": 15,
+    "surfaced_total": 1040,
+    "live_count": 16,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -180114,9 +180112,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 738610,
+    "news_seen_today": 738636,
     "news_picked_today": 2180,
-    "news_dropped_today": 10103
+    "news_dropped_today": 10129
   },
   "book_momentum": {
     "live_count": 8,
