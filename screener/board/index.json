@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T21:34:26Z",
+  "generated_at": "2026-09-26T21:35:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-856",
@@ -140335,6 +140335,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-9437e2f30b3e",
+      "idea_version": "IDEAV-711b0c9e251ec561",
+      "idea_version_started_at": "2026-09-26T21:35:18Z",
+      "ticker": "AKAM",
+      "company": "Akamai Technologies",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Akamai secured an $11.6 billion cloud deal over seven years with Anthropic, significantly boosting its revenue outlook.",
+      "why_now": "The news of the $11.6 billion deal with Anthropic was reported on September 25, 2026, and has already led to a 15% surge in Akamai's stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 70,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1915a5a69a9e",
+        "EVT-5c6e9c678dd3"
+      ],
+      "primary_source_event_id": "EVT-1915a5a69a9e",
+      "source_headlines": [
+        "Akamai Surges 15% on $11.6B Anthropic Cloud Deal; CoreWeave and Cloudflare Tick Up",
+        "Anthropic to pay Akamai $11.6 billion over seven years in cloud deal"
+      ],
+      "source_headline": "Akamai Surges 15% on $11.6B Anthropic Cloud Deal; CoreWeave and Cloudflare Tick Up",
+      "source_url": "https://247wallst.com/investing/2026/09/25/akamai-surges-15-on-11-6b-anthropic-cloud-deal-coreweave-and-cloudflare-tick-up/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T19:13:38Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/AKAM_2026-09-15",
+        "latest_decision": "Avoid",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-26T16:10:26Z",
+      "updated_at": "2026-09-26T21:35:18Z",
+      "decay_at": "2026-09-27T07:13:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e74e5f60c4af",
       "idea_version": "IDEAV-ed624332a594f306",
       "idea_version_started_at": "2026-09-26T20:03:15Z",
@@ -140615,23 +140686,23 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ae01fb457408",
-      "idea_version": "IDEAV-56cfea4ba0625e4d",
-      "idea_version_started_at": "2026-09-26T13:43:44Z",
-      "ticker": "BASFY",
-      "company": "BASF",
-      "exchange": "OQX",
-      "direction": "long",
+      "idea_id": "IDEA-6a5a69a1366b",
+      "idea_version": "IDEAV-d4cbc43e591ded73",
+      "idea_version_started_at": "2026-09-26T21:35:18Z",
+      "ticker": "MCD",
+      "company": "McDonald's Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
       "pair_with": null,
-      "reason": "BASF is pursuing an acquisition of Evonik, which typically creates a spread between the acquirer and target as the market prices in the deal premium and integration risks.",
-      "why_now": "News of the acquisition talks broke on 2026-09-25, creating an immediate arbitrage or event-driven opportunity.",
+      "reason": "McDonald's is experiencing a 30% sell-off due to consumer pushback against 'Big Mac inflation', indicating potential negative impact on sales and margins.",
+      "why_now": "The sell-off and consumer pushback are current, with the news reported on September 26, 2026.",
       "conviction": 60,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
+      "trade_score": 65,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 20,
+        "impact": 19,
         "specificity": 15,
         "timing": 10,
         "expression": 7,
@@ -140655,30 +140726,30 @@
         "evidenceIds": []
       },
       "priced_in": "room",
-      "thesis_type": "pair_trade",
+      "thesis_type": "company_specific",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-46e2e3a8d65a"
+        "EVT-1f45a7acd2f7"
       ],
-      "primary_source_event_id": "EVT-46e2e3a8d65a",
+      "primary_source_event_id": "EVT-1f45a7acd2f7",
       "source_headlines": [
-        "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
+        "McDonald's Sell-Off Hits 30% As Big Mac Inflation Spurs Pushback"
       ],
-      "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
-      "source_name": "Handelsblatt",
+      "source_headline": "McDonald's Sell-Off Hits 30% As Big Mac Inflation Spurs Pushback",
+      "source_url": "https://www.ndtvprofit.com/markets/mcdonalds-sell-off-hits-30-as-big-mac-inflation-spurs-pushback-12102529#publisher=newsstand",
+      "source_name": "NDTV Profit",
       "materiality_max": 100,
-      "newest_source_at": "2026-09-25T19:41:40Z",
+      "newest_source_at": "2026-09-26T15:10:13Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-09-26T13:43:44Z",
-      "updated_at": "2026-09-26T13:43:44Z",
-      "decay_at": "2026-09-27T07:41:40Z",
+      "surfaced_at": "2026-09-26T16:10:26Z",
+      "updated_at": "2026-09-26T21:35:18Z",
+      "decay_at": "2026-09-28T03:10:13Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -140755,25 +140826,25 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-144e3c4da420",
-      "idea_version": "IDEAV-00c0e745fbc4aa93",
-      "idea_version_started_at": "2026-09-26T19:19:42Z",
-      "ticker": "NOC",
-      "company": "Northrop Grumman",
-      "exchange": "NYSE",
+      "idea_id": "IDEA-ae01fb457408",
+      "idea_version": "IDEAV-d4aa05ccec8dbcdb",
+      "idea_version_started_at": "2026-09-26T21:35:18Z",
+      "ticker": "BASFY",
+      "company": "BASF SE",
+      "exchange": "OQX",
       "direction": "long",
       "pair_with": null,
-      "reason": "The receipt of long-lead funding for 67 APG-85 radars for the F-35 program secures high-visibility, long-term defense hardware revenue.",
-      "why_now": "The funding award on September 25, 2026, provides concrete backlog support for the company's mission systems segment.",
+      "reason": "BASF is reportedly working on the acquisition of Evonik, which could expand its market share and operational synergies in the chemicals sector.",
+      "why_now": "News of the potential acquisition broke on September 25, 2026, causing a significant reaction in shares.",
       "conviction": 55,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
+      "trade_score": 62,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 18,
+        "impact": 20,
         "specificity": 15,
-        "timing": 10,
+        "timing": 6,
         "expression": 7,
         "corroboration": 0,
         "learning_adjustment": 0
@@ -140799,17 +140870,17 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-267ff94a3682"
+        "EVT-46e2e3a8d65a"
       ],
-      "primary_source_event_id": "EVT-267ff94a3682",
+      "primary_source_event_id": "EVT-46e2e3a8d65a",
       "source_headlines": [
-        "Northrop Grumman Receives Long-Lead Funding for 67 APG-85 Radars for F-35s"
+        "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
       ],
-      "source_headline": "Northrop Grumman Receives Long-Lead Funding for 67 APG-85 Radars for F-35s",
-      "source_url": "https://www.defensedaily.com/northrop-grumman-receives-long-lead-funding-for-67-apg-85-radars-for-f-35s/air-force/",
-      "source_name": "Defense Daily",
+      "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
+      "source_name": "Handelsblatt",
       "materiality_max": 100,
-      "newest_source_at": "2026-09-25T20:37:37Z",
+      "newest_source_at": "2026-09-25T19:41:40Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -140817,8 +140888,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-09-26T13:43:44Z",
-      "updated_at": "2026-09-26T19:19:42Z",
-      "decay_at": "2026-09-27T08:37:37Z",
+      "updated_at": "2026-09-26T21:35:18Z",
+      "decay_at": "2026-09-27T07:41:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -140895,6 +140966,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-144e3c4da420",
+      "idea_version": "IDEAV-af27fc5a7e34fb6c",
+      "idea_version_started_at": "2026-09-26T21:35:18Z",
+      "ticker": "NOC",
+      "company": "Northrop Grumman Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Northrop Grumman received long-lead funding for 67 APG-85 radars for F-35s, securing future revenue from a key defense program.",
+      "why_now": "The funding was received on September 25, 2026, providing a fresh catalyst for the stock.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-267ff94a3682"
+      ],
+      "primary_source_event_id": "EVT-267ff94a3682",
+      "source_headlines": [
+        "Northrop Grumman Receives Long-Lead Funding for 67 APG-85 Radars for F-35s"
+      ],
+      "source_headline": "Northrop Grumman Receives Long-Lead Funding for 67 APG-85 Radars for F-35s",
+      "source_url": "https://www.defensedaily.com/northrop-grumman-receives-long-lead-funding-for-67-apg-85-radars-for-f-35s/air-force/",
+      "source_name": "Defense Daily",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T20:37:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T13:43:44Z",
+      "updated_at": "2026-09-26T21:35:18Z",
+      "decay_at": "2026-09-27T08:37:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-6b1ba26f5d8e",
       "idea_version": "IDEAV-a46f02c3a72e41a3",
       "idea_version_started_at": "2026-09-26T19:43:33Z",
@@ -140959,149 +141100,6 @@
       "surfaced_at": "2026-09-26T11:48:12Z",
       "updated_at": "2026-09-26T19:43:33Z",
       "decay_at": "2026-09-27T05:32:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-6a5a69a1366b",
-      "idea_version": "IDEAV-51408a1aa3323587",
-      "idea_version_started_at": "2026-09-26T19:19:42Z",
-      "ticker": "MCD",
-      "company": "McDonald's",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Significant consumer pushback against price increases is leading to a 30% sell-off as the company's value proposition erodes and margins face pressure from declining traffic.",
-      "why_now": "The report on September 26, 2026, highlights a critical inflection point in consumer behavior that threatens near-term earnings guidance.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1f45a7acd2f7"
-      ],
-      "primary_source_event_id": "EVT-1f45a7acd2f7",
-      "source_headlines": [
-        "McDonald's Sell-Off Hits 30% As Big Mac Inflation Spurs Pushback"
-      ],
-      "source_headline": "McDonald's Sell-Off Hits 30% As Big Mac Inflation Spurs Pushback",
-      "source_url": "https://www.ndtvprofit.com/markets/mcdonalds-sell-off-hits-30-as-big-mac-inflation-spurs-pushback-12102529#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-26T15:10:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T16:10:26Z",
-      "updated_at": "2026-09-26T19:19:42Z",
-      "decay_at": "2026-09-28T03:10:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9437e2f30b3e",
-      "idea_version": "IDEAV-610fed0bcd46f411",
-      "idea_version_started_at": "2026-09-26T19:19:42Z",
-      "ticker": "AKAM",
-      "company": "Akamai Technologies",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a massive $11.6 billion seven-year cloud services contract with AI firm Anthropic, representing a significant expansion of its compute revenue base.",
-      "why_now": "The deal was confirmed on September 25, 2026, providing a multi-year revenue catalyst that the market is currently reacting to.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1915a5a69a9e",
-        "EVT-5c6e9c678dd3"
-      ],
-      "primary_source_event_id": "EVT-1915a5a69a9e",
-      "source_headlines": [
-        "Akamai Surges 15% on $11.6B Anthropic Cloud Deal; CoreWeave and Cloudflare Tick Up",
-        "Anthropic to pay Akamai $11.6 billion over seven years in cloud deal"
-      ],
-      "source_headline": "Akamai Surges 15% on $11.6B Anthropic Cloud Deal; CoreWeave and Cloudflare Tick Up",
-      "source_url": "https://247wallst.com/investing/2026/09/25/akamai-surges-15-on-11-6b-anthropic-cloud-deal-coreweave-and-cloudflare-tick-up/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T19:13:38Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/AKAM_2026-09-15",
-        "latest_decision": "Avoid",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-26T16:10:26Z",
-      "updated_at": "2026-09-26T19:19:42Z",
-      "decay_at": "2026-09-27T07:13:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
