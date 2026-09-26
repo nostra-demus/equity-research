@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T01:00:00Z",
+  "generated_at": "2026-09-26T01:03:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-101",
@@ -254,6 +254,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-166",
+      "headline": "UK national security alert as TalkTalk threatened with administration",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/talktalk-sale-insolvency-opus-broadband-administration-b3056297.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:31:47Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "TalkTalk is threatened with administration, which implies a potential default or bankruptcy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TalkTalk is threatened with administration, which implies a potential default or bankruptcy.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TalkTalk",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-173",
+      "headline": "What is OpenEvidence, the ‘ChatGPT for doctors’ valued at $15 billion in a new funding round?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/what-is-openevidence-the-chatgpt-for-doctors-valued-at-15-billion-in-a-new-funding-round-11790333618550.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:26:14Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "OpenEvidence, a 'ChatGPT for doctors', valued at $15 billion in a new funding round, represents a significant investment and valuation in the AI healthcare sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OpenEvidence, a 'ChatGPT for doctors', valued at $15 billion in a new funding round, represents a significant investment and valuation in the AI healthcare sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenEvidence",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1079,6 +1177,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-149",
+      "headline": "IDBI Bank Disinvestment On Track, Govt Evaluating Financial Bids At 'Steady Pace': Sources",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/idbi-bank-disinvestment-on-track-govt-evaluating-financial-bids-at-steady-pace-sources-12097482#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:41:08Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "The government is actively evaluating financial bids for the IDBI Bank disinvestment, signaling progress on a major privatization effort.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The government is actively evaluating financial bids for the IDBI Bank disinvestment, signaling progress on a major privatization effort.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDBI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-165",
+      "headline": "SpaceX Bought xAI for $250 Billion. That Division Now Supposedly Has a $26.5 Trillion Total Addressable Market.",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/25/spacex-bought-xai-for-250-billion-that-division-no/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "SpaceX reportedly bought xAI for $250 billion, and that division now supposedly has a $26.5 trillion total addressable market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "SpaceX reportedly bought xAI for $250 billion, and that division now supposedly has a $26.5 trillion total addressable market.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "xAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-107",
       "headline": "Open AI Models May Have Interfered With Government Sites",
       "headline_en": null,
@@ -1231,6 +1432,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-169",
+      "headline": "Tata Motors Weighs Further Price Hikes As Commodity Costs Pressure Margins",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/tata-motors-weighs-further-price-hikes-as-commodity-costs-pressure-margins-12097422#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:30:26Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Tata Motors is weighing further price hikes due to commodity costs pressuring margins, indicating potential margin erosion and a need to adjust pricing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Tata Motors is weighing further price hikes due to commodity costs pressuring margins, indicating potential margin erosion and a need to adjust pricing.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-125",
       "headline": "Suzuki to cut vehicle development time by half by 2030; India capacity target at 4 million",
       "headline_en": null,
@@ -1273,6 +1523,55 @@
           "name": "Suzuki",
           "ticker": null,
           "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-152",
+      "headline": "WEG amplia aportes e capacidade produtiva prevista para nova fábrica de baterias em SC",
+      "headline_en": "WEG expands investments and planned production capacity for new battery factory in SC",
+      "url": "https://www.reuters.com/pt/negocio/WX5TH7TWXROUHG7CJANKGLLDGE-2026-09-25/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:39:26Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "WEG is increasing investment and production capacity for a new battery factory in Santa Catarina.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "WEG is increasing investment and production capacity for a new battery factory in Santa Catarina.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WEG",
+          "ticker": null,
+          "listing_country": "BR"
         }
       ],
       "size_bucket": "large",
@@ -1477,6 +1776,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-177",
+      "headline": "Prestige Estates expects Rs 2,850 crore revenue from 2 new housing projects in Bengaluru",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/prestige-estates-expects-rs-2850-crore-revenue-from-2-new-housing-projects-in-bengaluru/articleshow/134483741.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:20:06Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Prestige Estates expects Rs 2,850 crore in revenue from two new housing projects.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Prestige Estates expects Rs 2,850 crore in revenue from two new housing projects.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prestige Estates",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-180",
+      "headline": "Signatureglobal announces 194-acre Farrukhnagar project with ₹5,500-6,000 crore GDV",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/signature-global-india-share-price-announces-194-acre-farrukhnagar-project-with-rs-5500-6000-crore-gdv-19998721.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:17:39Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Signatureglobal announced a 194-acre project with a gross development value of ₹5,500-6,000 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Signatureglobal announced a 194-acre project with a gross development value of ₹5,500-6,000 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Signatureglobal",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-131",
       "headline": "Officer's Choice Whisky Founders Are Said To Consider ABD Sale",
       "headline_en": null,
@@ -1518,6 +1915,60 @@
           "name": "Allied Blenders and Distillers",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-179",
+      "headline": "Akasa Air eyes billion-dollar 200+ Boeing 737 MAX order for fleet expansion, decision expected early 2027: Report",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/akasa-air-eyes-billion-dollar-200-boeing-737-max-order-for-fleet-expansion-decision-expected-early-2027-report-11790330099654.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:18:20Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Akasa Air is considering a billion-dollar order for 200+ Boeing 737 MAX aircraft.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Akasa Air is considering a billion-dollar order for 200+ Boeing 737 MAX aircraft.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Akasa Air",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Boeing",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1575,429 +2026,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-028",
-      "headline": "Volkswagen delays production at St. Thomas, Ont., EV plant",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-volkswagen-delays-production-at-st-thomas-ont-ev-plant/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:11:34Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Volkswagen is delaying production at its new EV plant in Canada, impacting operational timelines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Volkswagen is delaying production at its new EV plant in Canada, impacting operational timelines.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-050",
-      "headline": "Once-trendy drink chain closes 130 locations",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/national-beverage-chain-jamba-closed-130-locations",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T12:58:41Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "A chain closing 130 locations indicates significant operational downsizing and potential financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "A chain closing 130 locations indicates significant operational downsizing and potential financial distress.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-074",
-      "headline": "Risiko Lenkungsausfall: Volkswagen-Konzern ruft Millionen Autos zurück – Weitere Konzernmarken neben VW und Audi betroffen",
-      "headline_en": "Risk of steering failure: Volkswagen Group recalls millions of cars - Other group brands besides VW and Audi affected",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/volkswagen-vw-ruft-millionen-autos-zurueck-weitere-konzernmarken-betroffen/100257392.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T12:52:23Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Volkswagen is recalling millions of vehicles due to steering failure risks, impacting multiple brands.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Volkswagen is recalling millions of vehicles due to steering failure risks, impacting multiple brands.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-109",
-      "headline": "Governo Lula proíbe bets no Brasil e estipula prazo para fechamento de sites",
-      "headline_en": "Lula Government Bans Bets in Brazil and Sets Deadline for Site Closures",
-      "url": "https://www.reuters.com/pt/domestico/N7EEKCQJYJNG3ECH6JTWWSNFHI-2026-09-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-26T00:21:25Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Brazil government bans betting and sets mandatory closure deadline for betting sites; confirmed regulatory action eliminating a revenue stream and altering capital structure for any betting-operator exposure to Brazil.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Brazil government bans betting and sets mandatory closure deadline for betting sites; confirmed regulatory action eliminating a revenue stream and altering capital structure for any betting-operator exposure to Brazil.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 68,
-      "rank_factors": {
-        "materiality": 68,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 2,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-087",
-      "headline": "Trump declares $1B canceled in ‘pocket rescission’ in another affront to Congress’ funding power",
-      "headline_en": null,
-      "url": "https://www.politico.com/news/2026/09/25/trump-declares-1b-canceled-in-pocket-rescission-in-another-affront-to-congress-funding-power-01093960",
-      "source_name": "POLITICO — Congress",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T23:56:05Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Trump declared $1B in funding canceled, creating a conflict over Congressional funding power.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Trump declared $1B in funding canceled, creating a conflict over Congressional funding power.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-111",
-      "headline": "Indian biscuit maker Anmol Industries files for $188 million IPO",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indian-biscuit-maker-anmol-industries-files-188-million-ipo-2026-09-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T23:24:31Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Anmol Industries, Indian biscuit maker, files for $188 million IPO—a confirmed capital-market event with named issuer and quantified size.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Anmol Industries, Indian biscuit maker, files for $188 million IPO—a confirmed capital-market event with named issuer and quantified size.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anmol Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-099",
-      "headline": "17-year-old fashion retailer closing all stores",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/fast-fashion-retail-chain-rhapsodielle-closing-all-locations",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T23:02:35Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "A 17-year-old fashion retailer is closing all stores, indicating severe financial distress and potential bankruptcy that affects employees, landlords, and suppliers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A 17-year-old fashion retailer is closing all stores, indicating severe financial distress and potential bankruptcy that affects employees, landlords, and suppliers.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-034",
-      "headline": "Trump Tells OpenAI, Anthropic to Withhold Models From UK Agency",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-25/trump-tells-openai-anthropic-to-withhold-models-from-uk-agency",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:04:43Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Trump administration directive to withhold AI models from a UK agency creates significant regulatory and operational friction for OpenAI and Anthropic.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Trump administration directive to withhold AI models from a UK agency creates significant regulatory and operational friction for OpenAI and Anthropic.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-130",
-      "headline": "Govt approves voluntary retirement of MD Dinesh Pant; shares edge higher",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/govt-approves-voluntary-retirement-of-md-dinesh-pant-shares-edge-higher-11790336161690.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T11:59:17Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "The voluntary retirement of the Managing Director is a significant leadership change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The voluntary retirement of the Managing Director is a significant leadership change.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dinesh Pant",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180319,9 +180347,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 80054,
-    "news_picked_today": 163,
-    "news_dropped_today": 605
+    "news_seen_today": 95286,
+    "news_picked_today": 200,
+    "news_dropped_today": 664
   },
   "book_momentum": {
     "live_count": 8,
