@@ -618,72 +618,14 @@ from valuation_summary_checks import (
     eval_ap_valuation_summary_integrity, scan_committed, _selftest as _vs_selftest,
 )
 
-# ── Check AN (§4a supersession-integrity) — module-level so `eval.py selftest` drives it fixture-free ──
-def _an_valid_sidecar(run_dir):
-    """A run's corrections sidecar, but ONLY if it passes the schema gate the resolver applies
-    (schema == 'corrections/v1'); else {} — so AN honors exactly the sidecars ledger_records honors."""
-    try:
-        with open(os.path.join(run_dir, "corrections.json")) as f:
-            c = json.load(f)
-        return c if (isinstance(c, dict) and c.get("schema") == "corrections/v1") else {}
-    except Exception:
-        return {}
-
-def _an_terminal_replacement_violations(run_root, source_run_root=None):
-    """Return why a supersession target is not a complete published correction.
-
-    A targeted correction is not a second full run, so it does not invent RUN_METADATA or rebuilt
-    module tiers. It must, however, carry every terminal user-facing artifact plus valid runtime
-    provenance before it is allowed to retire the prior standing call.
-    """
-    if not source_run_root:
-        return ["supersession source run root is unavailable"]
-    return [f"supersession target {run_root!r} is not a valid terminal publication: {error}"
-            for error in supersession_target_violations(source_run_root, run_root)]
-
-def eval_an_supersession_integrity(corrections, source_run_root=None):
-    """Check AN: an append-only corrections.json that declares `superseded_by` (DECISION_LEDGER §4a)
-    must point at a real, existing run folder carrying a decision record, AND the supersession CHAIN
-    from it must terminate on a LIVE (non-superseded) record — a dangling, circular (A→B→A), or
-    chain-ends-on-another-superseded-run supersession would silently drop every call in the chain
-    from the standing set with no live replacement. Returns None (no sidecar / no supersession → N/A)
-    or a list of violations (empty = valid)."""
-    if not isinstance(corrections, dict):
-        return None
-    sup = corrections.get("superseded_by")
-    if not isinstance(sup, dict):
-        return None
-    tgt = sup.get("run_root")
-    if not (isinstance(tgt, str) and tgt.strip()):
-        return ["superseded_by present but carries no run_root"]
-    tgt = tgt.strip()
-    if not os.path.isdir(tgt):
-        return [f"superseded_by.run_root {tgt!r} does not exist"]
-    if not os.path.exists(os.path.join(tgt, "decision_record.json")):
-        return [f"superseded_by target {tgt!r} has no decision_record.json"]
-    # walk the chain to its terminal live record, detecting cycles
-    seen, cur = set(), tgt
-    while True:
-        if cur in seen:
-            return [f"supersession chain is circular at {cur!r} — no live replacement record"]
-        seen.add(cur)
-        nxt_sup = _an_valid_sidecar(cur).get("superseded_by")
-        nxt = nxt_sup.get("run_root") if isinstance(nxt_sup, dict) else None
-        if not (isinstance(nxt, str) and nxt.strip()):
-            return _an_terminal_replacement_violations(cur, source_run_root)
-        nxt = nxt.strip()
-        if not (os.path.isdir(nxt) and os.path.exists(os.path.join(nxt, "decision_record.json"))):
-            return [f"supersession chain: {cur!r} is superseded by {nxt!r} which does not exist"]
-        cur = nxt
-
-def eval_release_gate_eligible(has_run_metadata, supersession_result):
-    """Only a complete standing run gates releases; valid corrected-away runs remain advisory.
-
-    `supersession_result` is exactly eval_an_supersession_integrity's result: [] means a valid chain,
-    None means no supersession, and a non-empty list is malformed authority that must fail closed.
-    """
-    valid_supersession = isinstance(supersession_result, list) and len(supersession_result) == 0
-    return bool(has_run_metadata) and not valid_supersession
+# ── Check AN (§4a supersession-integrity) ──
+# Detection logic extracted to scripts/supersession_integrity_checks.py — see that module's docstring.
+# Same rationale as the AP/AI/AK imports above: live pre-commit gate (scripts/corrections_prewrite_gate.py,
+# called from commit-run.sh) + retrospective eval, one source of detection logic, imported by both callers.
+from supersession_integrity_checks import (
+    _an_valid_sidecar, _an_terminal_replacement_violations,
+    eval_an_supersession_integrity, eval_release_gate_eligible,
+)
 
 # ── Checks AM/AR (§8 bear-case / bull-case sanity) — detection logic moved to
 # scripts/scenario_integrity_checks.py, imported further below alongside AT/AU/AV/BA/BC, so the

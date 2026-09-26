@@ -169,6 +169,10 @@ Source and target tickers must match and the target decision must be newer. A de
 retire a call.
 A malformed, incomplete, dangling, or circular supersession fails closed and remains release-gating. The evaluator also
 validates that a Selected/Short call is never left standing with a corrected-away twin.
+This same check (`scripts/supersession_integrity_checks.py`, shared with `scripts/eval.py`'s retrospective
+check AN) also runs live, BEFORE commit: `scripts/commit-run.sh` refuses to stage a `corrections.json` whose
+`superseded_by` claim is dangling, wrong-ticker, incomplete, or circular (`scripts/corrections_prewrite_gate.py`),
+so an invalid supersession can no longer reach `main` and silently drop a run from the standing set undetected.
 
 This layer only corrects **integrity defects** — a duplicate, a scale, a sign, a self-contradiction
 the record already proves. It is **not** a channel for changing a decision with hindsight (that is
