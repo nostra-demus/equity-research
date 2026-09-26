@@ -706,17 +706,36 @@ viol.extend(rc.eval_be_driver_attribution_residual(_live_date, _e02_txt, _e03_tx
 # check AQ — §13 cross-module forensic-mosaic conviction cap (live pre-publish; mirrors eval.py check
 # AQ via scripts/rating_caps.py, same shared detection module as AC/AD/AE/AF above). Mechanizes
 # synthesizer.md Pre-Write Gate step 4B's "3+ distinct forensic tags across 2+ modules compound into
-# a single High accounting-integrity flag" mosaic check for the earnings, balance-sheet-survival, and
-# management-governance modules (RF-EQ-001/002, RF-OBS-001, RF-DISC-001/002, RF-REG-002).
+# a single High accounting-integrity flag" mosaic check across ALL FOUR owning modules — earnings,
+# balance-sheet-survival, management-governance, business-model (RF-EQ-001/002, RF-OBS-001,
+# RF-DISC-001/002, RF-REG-002, RF-DISQ-001, RF-RFS-001) — exactly as synthesizer.md 4B and eval.py's
+# own AQ block already document. business-model was missing here entirely until this fix: this live
+# gate could never see RF-DISQ-001/RF-RFS-001 or business-model's contribution to the mosaic, the exact
+# "shipped to main undetected" hole this whole live-gate block exists to close (see the AA/AB block
+# comment above) — it just hadn't been closed for two of the eight tags. business-model contributes two
+# tags from two different specialists (01_disqualifier-scan, 12_red-flags-sweep), concatenated, mirroring
+# eval.py's `_bm_spec_combined_aq`. management-governance's RF-REG-002 has the same two-specialist shape:
+# MODULE_RULES.md names 12_regulatory-legal-and-compliance (not 06) as A7-01's owner, and 12 fires
+# RF-REG-002 from its own compliance-hygiene sweep independently of 06's candor read, so its specialist
+# text is likewise the concatenation of both (rating_caps.py FORENSIC_TAGS note; eval.py's own AQ block
+# mirrors this identically).
+_bm_disq_spec_aq = _read_orb("business-model", "01_*.md")
+_bm_rfs_spec_aq = _read_orb("business-model", "12_*.md")
+_bm_spec_combined_aq = "\n\n".join(t for t in (_bm_disq_spec_aq, _bm_rfs_spec_aq) if t) or None
+_mg_candor_spec_aq = _read_orb("management-governance", "06_*.md")
+_mg_reg_spec_aq = _read_orb("management-governance", "12_*.md")
+_mg_spec_combined_aq = "\n\n".join(t for t in (_mg_candor_spec_aq, _mg_reg_spec_aq) if t) or None
 _aq_synth = {
     "earnings": _read_orb("earnings", "99_*-synthesis.md"),
     "balance-sheet-survival": _bss_txt,  # already read above (check AA); same file, avoid a duplicate glob/read
     "management-governance": _mg_txt,  # already read above; same file, avoid a duplicate glob/read
+    "business-model": _bm_txt,  # already read above; same file, avoid a duplicate glob/read
 }
 _aq_spec = {
     "earnings": _read_orb("earnings", "06_*.md"),
     "balance-sheet-survival": _read_orb("balance-sheet-survival", "05_*.md"),
-    "management-governance": _read_orb("management-governance", "06_*.md"),
+    "management-governance": _mg_spec_combined_aq,
+    "business-model": _bm_spec_combined_aq,
 }
 viol.extend(rc.eval_aq_forensic_mosaic_cap(dec, ddte, _aq_synth, _aq_spec) or [])
 # checks AI/AK — Headline Scorecard reconciliation + red-flag severity reconciliation (live

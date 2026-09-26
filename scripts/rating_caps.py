@@ -527,7 +527,8 @@ def eval_af_filter1_integrity_cap(decision, decision_date, mg_txt, track_txt=Non
 #   RF-OBS-001  — contingent-liability spike                       (balance-sheet-survival/05_off-balance-sheet-and-contingencies.md)
 #   RF-DISC-001 — commentary contradicting the numbers              (management-governance/06_candor-and-disclosure-quality.md)
 #   RF-DISC-002 — recurring "one-off" / aggressive non-GAAP add-backs (management-governance/06_candor-and-disclosure-quality.md)
-#   RF-REG-002  — delayed results / material-disclosure timeliness (management-governance/06_candor-and-disclosure-quality.md)
+#   RF-REG-002  — delayed results / material-disclosure timeliness (management-governance/06_candor-and-disclosure-quality.md
+#                 OR management-governance/12_regulatory-legal-and-compliance.md — see note below)
 #   RF-DISQ-001 — multiple sub-threshold disqualifier near-misses  (business-model/01_disqualifier-scan.md)
 #   RF-RFS-001  — aggressive accounting practice pattern           (business-model/12_red-flags-sweep.md)
 # Each module synthesis (earnings/99, balance-sheet-survival/99, management-governance/99,
@@ -539,6 +540,18 @@ def eval_af_filter1_integrity_cap(decision, decision_date, mg_txt, track_txt=Non
 # (RF-DISQ-001 requires ≥2 near-misses; RF-RFS-001 requires severity ≥50), so it counts as ONE distinct
 # forensic signal here, same as any other module's tag — this does not lower the bar, it closes the
 # blind spot in the module coverage.
+#
+# RF-REG-002 has TWO possible source specialists, not one: management-governance/MODULE_RULES.md names
+# `12_regulatory-legal-and-compliance` — not `06_candor-and-disclosure-quality` — as the owner of A7-01
+# (disclosure timeliness & completeness), and `12`'s own report structure fires RF-REG-002 for exactly
+# the same A7-01 trigger ("delayed results (RF-REG-002), listing fines for late filings, chronic late
+# disclosures"). Both specialists can independently originate a genuine RF-REG-002 finding — `06` from
+# its own candor/disclosure-quality read, `12` from the dedicated compliance-hygiene sweep — so the
+# caller must read `06` and `12` TOGETHER (concatenated, same pattern as business-model's `01`+`12`
+# combination below) for the "management-governance" key's specialist-level text, not `06` alone. Before
+# this fix, `12` fired the tag only in prose (no standalone-line emission instruction existed there, and
+# the callers never read `12`'s text for AQ at all) — a delayed-disclosure signal caught by the
+# dedicated compliance specialist could never reach the mosaic cap.
 #
 # Threshold (deliberately narrower than a bare "3 tags anywhere"): fires only when BOTH (a) three or
 # more DISTINCT tags are fired, AND (b) those tags span two or more DISTINCT modules. A single module
@@ -568,7 +581,7 @@ FORENSIC_TAGS = {
     "RF-OBS-001":  ("balance-sheet-survival", "05_", "contingent-liability spike"),
     "RF-DISC-001": ("management-governance", "06_", "commentary contradicting the numbers"),
     "RF-DISC-002": ("management-governance", "06_", "recurring \"one-off\" / aggressive non-GAAP add-backs"),
-    "RF-REG-002":  ("management-governance", "06_", "delayed results / material-disclosure timeliness"),
+    "RF-REG-002":  ("management-governance", "06_/12_", "delayed results / material-disclosure timeliness"),
     "RF-DISQ-001": ("business-model", "01_", "multiple sub-threshold disqualifier near-misses"),
     "RF-RFS-001":  ("business-model", "12_", "aggressive accounting practice pattern"),
 }

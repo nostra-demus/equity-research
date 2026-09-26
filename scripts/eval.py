@@ -1785,6 +1785,7 @@ if scope=="selftest":
     BM_SYNTH_NEG = "RF-DISQ-001 not triggered — fewer than 2 disqualifiers in the near-miss band."
     BM_SYNTH_CLEAN = "Business-model synthesis: clean, no forensic flags."
     BM_SPEC_BOTH = "Disqualifier-scan + red-flags-sweep specialists (combined).\nRF-DISQ-001 (multiple sub-threshold disqualifier near-misses)\n\nRF-RFS-001 (aggressive accounting practice pattern)"
+    MG_SPEC_REG2_ONLY = "Candor specialist (06): clean.\n\nRegulatory-legal-and-compliance specialist (12).\nRF-REG-002 (delayed results / material-disclosure timeliness)\nResults filed late in 5 of the last 12 quarters."
     aqcases=[  # (decision, decision_date, module_synth_txt, module_specialist_txt, expect: None|[]|[tags])
         # pre-gate: always None (N/A), regardless of how many tags would otherwise fire
         ("Strong Buy","2026-07-23",{"earnings":EQ_SYNTH_BOTH,"balance-sheet-survival":OBS_SYNTH_1},{},None),
@@ -1850,6 +1851,15 @@ if scope=="selftest":
         ("Strong Buy","2026-07-24",
          {"earnings":EQ_SYNTH_CLEAN,"balance-sheet-survival":OBS_SYNTH_CLEAN,"management-governance":MG_SYNTH_CLEAN},
          {},[]),
+        # management-governance's RF-REG-002 sourced ONLY from the 12_regulatory-legal-and-compliance
+        # specialist (12 owns A7-01, per MODULE_RULES.md — not 06), with the MG synthesis clean: proves
+        # the 06+12 combined-specialist-text caller wiring reaches this tag even when only 12 fired it.
+        # Paired with earnings' two tags to cross the 2-module threshold (mirrors the BM combined-spec
+        # case above, same reasoning: source-only propagation must still count, CLAUDE.md §11).
+        ("Buy","2026-07-24",
+         {"earnings":EQ_SYNTH_CLEAN,"management-governance":MG_SYNTH_CLEAN},
+         {"earnings":EQ_SPEC_BOTH,"management-governance":MG_SPEC_REG2_ONLY},
+         ["RF-EQ-001","RF-EQ-002","RF-REG-002"]),
     ]
     aqbad=0
     for dec_,dt_,synth_,spec_,exp in aqcases:
@@ -4412,7 +4422,10 @@ for drp in runs:
     #   + RF-REG-002 management-governance, RF-DISQ-001 + RF-RFS-001 business-model); see
     #   scripts/rating_caps.py for the full detection rationale. business-model contributes two tags
     #   from two different specialists (01_disqualifier-scan, 12_red-flags-sweep), so its specialist
-    #   text is the concatenation of both.
+    #   text is the concatenation of both. management-governance's RF-REG-002 has the same two-specialist
+    #   shape: MODULE_RULES.md names 12_regulatory-legal-and-compliance (not 06) as A7-01's owner, and 12
+    #   fires RF-REG-002 from its own compliance-hygiene sweep independently of 06's candor read — so its
+    #   specialist text is likewise the concatenation of both (rating_caps.py FORENSIC_TAGS note).
     #   _read_synth_text / _read_specialist_text are defined in the AD/AE blocks above; AQ_DATE > AF_DATE
     #   > AE_DATE > AD_DATE so both are always available here, and bm_txt_ae (business-model synthesis)
     #   was already read in the AE block — reuse it, avoid a duplicate glob/read.
@@ -4420,6 +4433,9 @@ for drp in runs:
         _bm_disq_spec_aq=_read_specialist_text("business-model","01_")
         _bm_rfs_spec_aq=_read_specialist_text("business-model","12_")
         _bm_spec_combined_aq="\n\n".join(t for t in (_bm_disq_spec_aq,_bm_rfs_spec_aq) if t) or None
+        _mg_candor_spec_aq=_read_specialist_text("management-governance","06_")
+        _mg_reg_spec_aq=_read_specialist_text("management-governance","12_")
+        _mg_spec_combined_aq="\n\n".join(t for t in (_mg_candor_spec_aq,_mg_reg_spec_aq) if t) or None
         _aq_synth={
             "earnings":_read_synth_text("earnings"),
             "balance-sheet-survival":_read_synth_text("balance-sheet-survival"),
@@ -4429,7 +4445,7 @@ for drp in runs:
         _aq_spec={
             "earnings":_read_specialist_text("earnings","06_"),
             "balance-sheet-survival":_read_specialist_text("balance-sheet-survival","05_"),
-            "management-governance":_read_specialist_text("management-governance","06_"),
+            "management-governance":_mg_spec_combined_aq,
             "business-model":_bm_spec_combined_aq,
         }
         aqresult=eval_aq_forensic_mosaic_cap(dec,ddte,_aq_synth,_aq_spec)
