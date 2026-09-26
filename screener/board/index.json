@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T04:04:05Z",
+  "generated_at": "2026-09-26T04:13:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-429",
@@ -140311,76 +140311,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-fedbe5f5da3b",
-      "idea_version": "IDEAV-a214476d7e13f703",
-      "idea_version_started_at": "2026-09-25T04:16:09Z",
-      "ticker": "MGM",
-      "company": "MGM Resorts",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The rescission of the takeover offer removes the acquisition premium that was supporting the stock price, leading to a valuation reset.",
-      "why_now": "The offer was officially rescinded today, September 24, 2026, triggering an immediate market reaction.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 69,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7de28ca62c26"
-      ],
-      "primary_source_event_id": "EVT-7de28ca62c26",
-      "source_headlines": [
-        "MGM Resorts shares sink 9% after Barry Diller's People Inc. rescinds takeover offer"
-      ],
-      "source_headline": "MGM Resorts shares sink 9% after Barry Diller's People Inc. rescinds takeover offer",
-      "source_url": "https://www.cnbc.com/2026/09/24/barry-diller-people-mgm-resorts.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-24T16:06:00Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/MGM_2026-07-03",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-24T03:15:08Z",
-      "updated_at": "2026-09-25T04:16:09Z",
-      "decay_at": "2026-09-26T04:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-97418df6dd12",
       "idea_version": "IDEAV-a46c9b8af5a1f499",
       "idea_version_started_at": "2026-09-25T04:16:09Z",
@@ -140803,6 +140733,76 @@
       "surfaced_at": "2026-09-23T11:48:13Z",
       "updated_at": "2026-09-23T11:48:13Z",
       "decay_at": "2026-09-24T17:36:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-fedbe5f5da3b",
+      "idea_version": "IDEAV-a214476d7e13f703",
+      "idea_version_started_at": "2026-09-25T04:16:09Z",
+      "ticker": "MGM",
+      "company": "MGM Resorts",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The rescission of the takeover offer removes the acquisition premium that was supporting the stock price, leading to a valuation reset.",
+      "why_now": "The offer was officially rescinded today, September 24, 2026, triggering an immediate market reaction.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 69,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7de28ca62c26"
+      ],
+      "primary_source_event_id": "EVT-7de28ca62c26",
+      "source_headlines": [
+        "MGM Resorts shares sink 9% after Barry Diller's People Inc. rescinds takeover offer"
+      ],
+      "source_headline": "MGM Resorts shares sink 9% after Barry Diller's People Inc. rescinds takeover offer",
+      "source_url": "https://www.cnbc.com/2026/09/24/barry-diller-people-mgm-resorts.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-24T16:06:00Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/MGM_2026-07-03",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-24T03:15:08Z",
+      "updated_at": "2026-09-25T04:16:09Z",
+      "decay_at": "2026-09-26T04:06:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -143102,9 +143102,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 500,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -143112,9 +143112,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -143133,6 +143133,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fedbe5f5da3b",
+        "idea_version": "IDEAV-a214476d7e13f703",
+        "idea_version_started_at": "2026-09-25T04:16:09Z",
+        "ticker": "MGM",
+        "company": "MGM Resorts",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The rescission of the takeover offer removes the acquisition premium that was supporting the stock price, leading to a valuation reset.",
+        "why_now": "The offer was officially rescinded today, September 24, 2026, triggering an immediate market reaction.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 69,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7de28ca62c26"
+        ],
+        "primary_source_event_id": "EVT-7de28ca62c26",
+        "source_headlines": [
+          "MGM Resorts shares sink 9% after Barry Diller's People Inc. rescinds takeover offer"
+        ],
+        "source_headline": "MGM Resorts shares sink 9% after Barry Diller's People Inc. rescinds takeover offer",
+        "source_url": "https://www.cnbc.com/2026/09/24/barry-diller-people-mgm-resorts.html",
+        "source_name": "CNBC",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-24T16:06:00Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/MGM_2026-07-03",
+          "latest_decision": null,
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-09-24T03:15:08Z",
+        "updated_at": "2026-09-25T04:16:09Z",
+        "decay_at": "2026-09-26T04:06:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-26T04:06:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c5e832af6e4a",
         "idea_version": "IDEAV-ffffe22aed34dbc3",
@@ -180197,85 +180270,12 @@
         "archived_at": "2026-09-03T05:43:56Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-260979e3048f",
-        "idea_version": "IDEAV-55ba713513c579ba",
-        "idea_version_started_at": "2026-08-31T07:32:07Z",
-        "ticker": "601111.SS",
-        "company": "Air China Ltd",
-        "exchange": "Shanghai",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "China's big three airlines posted heavy H1 2026 losses as jet fuel costs surged ~30% YoY while domestic yield recovery lagged, compressing margins structurally.",
-        "why_now": "H1 results published 2026-08-31; fuel hedge roll-off and winter schedule capacity decisions create Q3/Q4 catalyst path.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "commodity_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6426a2384a95"
-        ],
-        "primary_source_event_id": "EVT-6426a2384a95",
-        "source_headlines": [
-          "China’s three biggest airlines post heavy first-half losses as fuel shock bites"
-        ],
-        "source_headline": "China’s three biggest airlines post heavy first-half losses as fuel shock bites",
-        "source_url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/chinas-three-biggest-airlines-post-heavy-first-half-losses-fuel-shock-bites",
-        "source_name": "The Business Times (Singapore)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T05:01:16Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T07:32:07Z",
-        "updated_at": "2026-08-31T07:32:07Z",
-        "decay_at": "2026-09-01T17:01:16Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T05:43:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1024,
-    "live_count": 5,
+    "live_count": 4,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -180294,9 +180294,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 361277,
-    "news_picked_today": 700,
-    "news_dropped_today": 2324
+    "news_seen_today": 378779,
+    "news_picked_today": 707,
+    "news_dropped_today": 2389
   },
   "book_momentum": {
     "live_count": 8,
