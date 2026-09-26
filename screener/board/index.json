@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T03:09:01Z",
+  "generated_at": "2026-09-26T03:14:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-241",
@@ -961,6 +961,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-371",
+      "headline": "ArcelorMittal to book $1 billion charge after missile strikes in Ukraine",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/arcelormittal-book-1-billion-charge-after-missile-strikes-ukraine-2026-09-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T06:53:26Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "ArcelorMittal will book a $1 billion charge due to missile strikes in Ukraine.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ArcelorMittal will book a $1 billion charge due to missile strikes in Ukraine.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ArcelorMittal",
+          "ticker": null,
+          "listing_country": "LU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-141",
       "headline": "Signature Global signs pact to develop 194-acre land in Gurugram, targets Rs 5,500–6,000 crore GDV",
       "headline_en": null,
@@ -1005,55 +1054,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-313",
-      "headline": "ArcelorMittal to book $1 billion charge as Russian strikes shutter Ukraine plant",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/arcelormittal-book-1-billion-charge-after-missile-strikes-ukraine-2026-09-25/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T08:56:55Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "ArcelorMittal will book a $1 billion charge as Russian strikes shutter its Ukraine plant.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "ArcelorMittal will book a $1 billion charge as Russian strikes shutter its Ukraine plant.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ArcelorMittal",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180302,9 +180302,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 295220,
-    "news_picked_today": 517,
-    "news_dropped_today": 1691
+    "news_seen_today": 301601,
+    "news_picked_today": 540,
+    "news_dropped_today": 1740
   },
   "book_momentum": {
     "live_count": 8,
