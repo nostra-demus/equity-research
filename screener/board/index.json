@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T00:06:50Z",
+  "generated_at": "2026-09-26T00:11:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-025",
@@ -249,6 +249,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-028",
+      "headline": "Volkswagen delays production at St. Thomas, Ont., EV plant",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-volkswagen-delays-production-at-st-thomas-ont-ev-plant/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:11:34Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Volkswagen is delaying production at its new EV plant in Canada, impacting operational timelines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Volkswagen is delaying production at its new EV plant in Canada, impacting operational timelines.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-030",
+      "headline": "Petrobras and ENH forge oil & gas partnership",
+      "headline_en": null,
+      "url": "https://www.offshore-energy.biz/petrobras-and-enh-forge-oil-gas-partnership/",
+      "source_name": "Offshore Energy",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:14:10Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Petrobras and ENH form a partnership for oil and gas operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Petrobras and ENH form a partnership for oil and gas operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Petrobras",
+          "ticker": null,
+          "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-017",
       "headline": "Novo pursues long-acting obesity drugs; Acadia slumps on Alzheimer’s data",
       "headline_en": null,
@@ -303,6 +401,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-027",
+      "headline": "Veidekke Wins NOK 190 Mln Contract To Build 51 Apartments In Arendal",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/veidekke-wins-nok-190-mln-contract-build-51-apartments-arendal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:15:42Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Veidekke secured a construction contract worth NOK 190 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "Veidekke secured a construction contract worth NOK 190 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Veidekke",
+          "ticker": null,
+          "listing_country": "NO"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-011",
       "headline": "Prestige Hospitality Ventures withdraws IPO draft papers amid uncertain market conditions",
       "headline_en": null,
@@ -346,6 +493,49 @@
           "listing_country": "IN"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-029",
+      "headline": "Northern Virginia's Prince William County puts controls on new data center projects",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/northern-virginias-prince-william-county-puts-controls-on-new-data-center-projects/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:12:00Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Local regulatory restrictions on data center projects in a key hub may impact sector expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "Local regulatory restrictions on data center projects in a key hub may impact sector expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -871,6 +1061,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-031",
+      "headline": "Ramokgopa extends Nyati’s term as Eskom board chair",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/south-africa/ramokgopa-extends-nyatis-term-as-eskom-board-chair/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:13:08Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Eskom board chair term extended, maintaining management continuity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Eskom board chair term extended, maintaining management continuity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eskom",
+          "ticker": null,
+          "listing_country": "ZA"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-015",
       "headline": "How the global oil crisis could turn into a $200-a-barrel recession shock",
       "headline_en": null,
@@ -1114,6 +1353,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-033",
+      "headline": "Dhanuka Agritech launches ‘Polin’ fungicide for paddy crop",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/agri-business/dhanuka-agritech-launches-polin-fungicide-for-paddy-crop/article71507916.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:08:57Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Dhanuka Agritech launches a new fungicide product for paddy crops.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Dhanuka Agritech launches a new fungicide product for paddy crops.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dhanuka Agritech",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-005",
       "headline": "Gas topped the equivalent of $12 a gallon in parts of Europe—and consumers are spending an extra $231 million a day on diesel",
       "headline_en": null,
@@ -1238,6 +1526,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-032",
+      "headline": "Toyota’s Boring Corolla Is About To Get A Radical Rethink",
+      "headline_en": null,
+      "url": "https://www.carscoops.com/2026/09/2028-toyota-corolla-rumors/",
+      "source_name": "Carscoops",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T13:10:00Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Toyota planning a redesign for the Corolla model.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Toyota planning a redesign for the Corolla model.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -179695,7 +180032,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2873,
+    "inbox_unconsumed": 2880,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -179704,9 +180041,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8196,
-    "news_picked_today": 26,
-    "news_dropped_today": 46
+    "news_seen_today": 16320,
+    "news_picked_today": 33,
+    "news_dropped_today": 63
   },
   "book_momentum": {
     "live_count": 8,
