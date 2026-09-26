@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T01:18:34Z",
+  "generated_at": "2026-09-26T01:28:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-101",
@@ -1210,6 +1210,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-210",
+      "headline": "SK Hynix's Solidigm weighs IPO that could value the unit at up to US$150 billion, sources say",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/sk-hynixs-solidigm-weighs-ipo-could-value-unit-us150-billion-sources-say",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-26T01:06:08Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Solidigm is weighing an IPO that could value the unit at up to $150 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Solidigm is weighing an IPO that could value the unit at up to $150 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Solidigm",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-205",
+      "headline": "TikTok settles for over $100 million in mental health lawsuit, Alabama AG says",
+      "headline_en": null,
+      "url": "https://thehill.com/regulation/court-battles/6112693-tiktok-alabama-lawsuit-settlement/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-26T00:31:47Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "TikTok agreed to a $100 million settlement regarding mental health litigation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "TikTok agreed to a $100 million settlement regarding mental health litigation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TikTok",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-018",
       "headline": "Bericht: Volkswagen vor größtem Rückruf seit Dieselskandal",
       "headline_en": "Report: Volkswagen faces largest recall since diesel scandal",
@@ -1912,104 +2015,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-004",
-      "headline": "EASA: Keine unmittelbare Gefahr durch Qualitätsmangel bei Airbus A321neo",
-      "headline_en": "EASA: No immediate danger due to quality defect in Airbus A321neo",
-      "url": "https://www.reuters.com/de/firma/easa-keine-unmittelbare-gefahr-durch-qualittsmangel-bei-airbus-a321neo-2026-09-25/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:39:56Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "EASA confirms no immediate safety risk from quality issues in A321neo.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "EASA confirms no immediate safety risk from quality issues in A321neo.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Airbus",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-119",
-      "headline": "RHI Magnesita expands India capabilities with local R&D, robotic automation",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/rhi-magnesita-expands-india-capabilities-with-local-rd-robotic-automation/article71508611.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T12:29:05Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "RHI Magnesita is expanding its Indian operations with new R&D and automation capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "RHI Magnesita is expanding its Indian operations with new R&D and automation capabilities.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RHI Magnesita",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180331,9 +180336,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 117943,
-    "news_picked_today": 235,
-    "news_dropped_today": 773
+    "news_seen_today": 132993,
+    "news_picked_today": 242,
+    "news_dropped_today": 790
   },
   "book_momentum": {
     "live_count": 8,
