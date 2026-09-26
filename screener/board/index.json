@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T01:34:51Z",
+  "generated_at": "2026-09-26T01:40:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-101",
@@ -950,6 +950,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-220",
+      "headline": "JSW Group seeks $1.4 billion tax liability cover from Volkswagen: Report",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/jsw-group-seeks-1-4-billion-tax-liability-cover-from-volkswagen-report-557881-2026-09-25?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T10:49:24Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "JSW Group is seeking a $1.4 billion liability cover from Volkswagen regarding a tax dispute.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "JSW Group is seeking a $1.4 billion liability cover from Volkswagen regarding a tax dispute.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JSW Group",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-063",
       "headline": "Vitol told Deutsche Bank AG that Radiant World contracts with CFO’s signature were fake",
       "headline_en": null,
@@ -1873,6 +1927,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-216",
+      "headline": "Trump declares $1B canceled in ‘pocket rescission’ affront to Congress’ funding power",
+      "headline_en": null,
+      "url": "https://www.politico.com/news/2026/09/25/trump-declares-1b-canceled-in-pocket-rescission-in-another-affront-to-congress-funding-power-01093960",
+      "source_name": "POLITICO — Congress",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T23:56:05Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "The executive branch is unilaterally canceling $1B in congressionally appropriated funds, creating a constitutional and fiscal conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "The executive branch is unilaterally canceling $1B in congressionally appropriated funds, creating a constitutional and fiscal conflict.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-125",
       "headline": "Suzuki to cut vehicle development time by half by 2030; India capacity target at 4 million",
       "headline_en": null,
@@ -1915,104 +2012,6 @@
           "name": "Suzuki",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-152",
-      "headline": "WEG amplia aportes e capacidade produtiva prevista para nova fábrica de baterias em SC",
-      "headline_en": "WEG expands investments and planned production capacity for new battery factory in SC",
-      "url": "https://www.reuters.com/pt/negocio/WX5TH7TWXROUHG7CJANKGLLDGE-2026-09-25/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T11:39:26Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "WEG is increasing investment and production capacity for a new battery factory in Santa Catarina.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "WEG is increasing investment and production capacity for a new battery factory in Santa Catarina.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WEG",
-          "ticker": null,
-          "listing_country": "BR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-189",
-      "headline": "Banken: UBS einigt sich in Greensill-Milliardenklage mit Versicherer IAG",
-      "headline_en": "Banks: UBS settles Greensill billion-dollar lawsuit with insurer IAG",
-      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/banken/banken-ubs-einigt-sich-in-greensill-milliardenklage-mit-versicherer-iag/100257437.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T11:10:31Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "UBS reached a settlement in the Greensill billion-dollar lawsuit, reducing legal uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "UBS reached a settlement in the Greensill billion-dollar lawsuit, reducing legal uncertainty.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UBS",
-          "ticker": null,
-          "listing_country": "CH"
         }
       ],
       "size_bucket": "large",
@@ -180337,9 +180336,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 147979,
-    "news_picked_today": 249,
-    "news_dropped_today": 855
+    "news_seen_today": 155412,
+    "news_picked_today": 258,
+    "news_dropped_today": 894
   },
   "book_momentum": {
     "live_count": 8,
