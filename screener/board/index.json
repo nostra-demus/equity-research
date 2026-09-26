@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T02:23:54Z",
+  "generated_at": "2026-09-26T02:30:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-241",
@@ -510,6 +510,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-303",
+      "headline": "Suzuki targets 4 million units annual India production by FY30, unveils 10-year technology strategy",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/auto/auto-news/suzuki-targets-4-million-units-annual-india-production-by-fy30-unveils-10-year-technology-strategy/articleshow/134480366.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T09:00:05Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Suzuki announced a major capacity expansion target of 4 million units annually by FY30, supported by a 10-year technology strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Suzuki announced a major capacity expansion target of 4 million units annually by FY30, supported by a 10-year technology strategy.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Suzuki Motor",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-315",
+      "headline": "Akamai stock is rallying on a $12 billion cloud deal with Anthropic",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=66674bed-bb2d-4fa2-910f-88e6acd22f88&mod=mw_rss_bulletins",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T08:49:12Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Akamai announced a significant $12 billion cloud deal with Anthropic, which is a major revenue-impacting event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Akamai announced a significant $12 billion cloud deal with Anthropic, which is a major revenue-impacting event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Akamai",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-141",
       "headline": "Signature Global signs pact to develop 194-acre land in Gurugram, targets Rs 5,500–6,000 crore GDV",
       "headline_en": null,
@@ -554,6 +652,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-312",
+      "headline": "ArcelorMittal prévoit une charge de $1 md après des frappes sur son aciérie de Kryvyi Rih en Ukraine",
+      "headline_en": "ArcelorMittal expects a $1 billion charge after strikes on its steel plant in Kryvyi Rih, Ukraine",
+      "url": "https://www.reuters.com/fr/affaires/arcelormittal-prvoit-une-charge-de-1-md-aprs-des-frappes-sur-son-acirie-de-2026-09-25/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T08:57:47Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "ArcelorMittal will book a $1 billion charge due to Russian strikes damaging its Ukraine plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "ArcelorMittal will book a $1 billion charge due to Russian strikes damaging its Ukraine plant.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ArcelorMittal",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-313",
+      "headline": "ArcelorMittal to book $1 billion charge as Russian strikes shutter Ukraine plant",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/arcelormittal-book-1-billion-charge-after-missile-strikes-ukraine-2026-09-25/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T08:56:55Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "ArcelorMittal will book a $1 billion charge as Russian strikes shutter its Ukraine plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "ArcelorMittal will book a $1 billion charge as Russian strikes shutter its Ukraine plant.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ArcelorMittal",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1393,6 +1589,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-308",
+      "headline": "TalkTalk in ‘final stages’ of deals to sell divisions amid administration threat",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/business/business-news/talktalk-britain-government-b1298355.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T08:57:56Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "TalkTalk faces administration (insolvency) threat while in final-stage talks to sell divisions, signaling material going-concern and restructuring risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "TalkTalk faces administration (insolvency) threat while in final-stage talks to sell divisions, signaling material going-concern and restructuring risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 73,
+      "rank_factors": {
+        "materiality": 73,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress",
+        "strategic_review",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TalkTalk",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-146",
       "headline": "JSW Energy Secures Equipment For 3,200 MW Salboni Project, Places 1,600 MW Phase-II Order With Toshiba JSW",
       "headline_en": null,
@@ -1751,256 +1998,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-103",
-      "headline": "BASF, Evonik in contact over possible deal, source says",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/basf-approaches-rival-evonik-with-merger-proposal-ft-reports-2026-09-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T12:41:44Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "BASF and Evonik are in contact regarding a potential M&A transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "BASF and Evonik are in contact regarding a potential M&A transaction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BASF",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Evonik",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-222",
-      "headline": "Iran war drives UK diesel price to near record high, and making UK interest rate rise ‘hard to avoid’ – business live",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/live/2026/sep/25/uk-consumer-confidence-burnham-bounce-bank-of-england-oil-inflation-stock-markets-bonds-latest-news-updates",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T10:43:54Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Geopolitical escalation in Iran is driving energy supply shocks and inflationary pressure on UK interest rates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Geopolitical escalation in Iran is driving energy supply shocks and inflationary pressure on UK interest rates.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-213",
-      "headline": "Report: UAE-owned Manchester City found guilty of financial rules breach",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/news/report-uae-owned-manchester-city-found-guilty-financial-rules-breach",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-26T01:10:42Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Manchester City has been found guilty of financial rules breaches, which poses significant reputational and potential regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Manchester City has been found guilty of financial rules breaches, which poses significant reputational and potential regulatory risk.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Manchester City",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-210",
-      "headline": "SK Hynix's Solidigm weighs IPO that could value the unit at up to US$150 billion, sources say",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/sk-hynixs-solidigm-weighs-ipo-could-value-unit-us150-billion-sources-say",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-26T01:06:08Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Solidigm is weighing an IPO that could value the unit at up to $150 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Solidigm is weighing an IPO that could value the unit at up to $150 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Solidigm",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-215",
-      "headline": "TikTok reaches first state settlement over teen safety claims, agrees to user limits",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/us/first-us-trial-against-tiktok-test-claims-platform-fueled-teen-mental-health-2026-09-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-26T00:36:27Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "TikTok has reached a settlement regarding teen safety claims, indicating ongoing regulatory and legal pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "TikTok has reached a settlement regarding teen safety claims, indicating ongoing regulatory and legal pressure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TikTok",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -140696,77 +140693,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-619361061ae1",
-      "idea_version": "IDEAV-c4434260af074150",
-      "idea_version_started_at": "2026-09-25T05:48:29Z",
-      "ticker": "01787",
-      "company": "Shandong Gold Mining Co., Ltd.",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Shandong Gold Mining Co., Ltd. announced an adjustment to its production and operation plan for 2026, which is expected to negatively impact its output and revenue.",
-      "why_now": "The announcement was made via an exchange filing on September 24, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-413340365bf9"
-      ],
-      "primary_source_event_id": "EVT-413340365bf9",
-      "source_headlines": [
-        "SD GOLD (01787): INSIDE INFORMATION ANNOUNCEMENT ON ADJUSTMENT TO THE COMPANY'S PRODUCTION AND OPERATION PLAN FOR 2026"
-      ],
-      "source_headline": "SD GOLD (01787): INSIDE INFORMATION ANNOUNCEMENT ON ADJUSTMENT TO THE COMPANY'S PRODUCTION AND OPERATION PLAN FOR 2026",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402267.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-24T14:29:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-25T05:48:29Z",
-      "updated_at": "2026-09-25T05:48:29Z",
-      "decay_at": "2026-09-26T02:29:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c5e832af6e4a",
       "idea_version": "IDEAV-ffffe22aed34dbc3",
       "idea_version_started_at": "2026-09-25T05:48:29Z",
@@ -141256,6 +141182,77 @@
       "surfaced_at": "2026-09-25T05:48:29Z",
       "updated_at": "2026-09-25T05:48:29Z",
       "decay_at": "2026-09-26T01:41:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-619361061ae1",
+      "idea_version": "IDEAV-c4434260af074150",
+      "idea_version_started_at": "2026-09-25T05:48:29Z",
+      "ticker": "01787",
+      "company": "Shandong Gold Mining Co., Ltd.",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Shandong Gold Mining Co., Ltd. announced an adjustment to its production and operation plan for 2026, which is expected to negatively impact its output and revenue.",
+      "why_now": "The announcement was made via an exchange filing on September 24, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-413340365bf9"
+      ],
+      "primary_source_event_id": "EVT-413340365bf9",
+      "source_headlines": [
+        "SD GOLD (01787): INSIDE INFORMATION ANNOUNCEMENT ON ADJUSTMENT TO THE COMPANY'S PRODUCTION AND OPERATION PLAN FOR 2026"
+      ],
+      "source_headline": "SD GOLD (01787): INSIDE INFORMATION ANNOUNCEMENT ON ADJUSTMENT TO THE COMPANY'S PRODUCTION AND OPERATION PLAN FOR 2026",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402267.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-24T14:29:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-25T05:48:29Z",
+      "updated_at": "2026-09-25T05:48:29Z",
+      "decay_at": "2026-09-26T02:29:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -143131,9 +143128,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 533,
     "shown_count": 500,
-    "hidden_count": 32,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
         "total_count": 270,
@@ -143141,9 +143138,9 @@
         "hidden_count": 20
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -143162,6 +143159,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-619361061ae1",
+        "idea_version": "IDEAV-c4434260af074150",
+        "idea_version_started_at": "2026-09-25T05:48:29Z",
+        "ticker": "01787",
+        "company": "Shandong Gold Mining Co., Ltd.",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Shandong Gold Mining Co., Ltd. announced an adjustment to its production and operation plan for 2026, which is expected to negatively impact its output and revenue.",
+        "why_now": "The announcement was made via an exchange filing on September 24, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-413340365bf9"
+        ],
+        "primary_source_event_id": "EVT-413340365bf9",
+        "source_headlines": [
+          "SD GOLD (01787): INSIDE INFORMATION ANNOUNCEMENT ON ADJUSTMENT TO THE COMPANY'S PRODUCTION AND OPERATION PLAN FOR 2026"
+        ],
+        "source_headline": "SD GOLD (01787): INSIDE INFORMATION ANNOUNCEMENT ON ADJUSTMENT TO THE COMPANY'S PRODUCTION AND OPERATION PLAN FOR 2026",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402267.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-24T14:29:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-25T05:48:29Z",
+        "updated_at": "2026-09-25T05:48:29Z",
+        "decay_at": "2026-09-26T02:29:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-26T02:29:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-092d032f4795",
         "idea_version": "IDEAV-a17714b587321d36",
@@ -180223,85 +180294,12 @@
         "archived_at": "2026-09-03T05:43:56Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-469f8bb37879",
-        "idea_version": "IDEAV-07c6013012025517",
-        "idea_version_started_at": "2026-08-31T07:32:07Z",
-        "ticker": "300274.SZ",
-        "company": "Sungrow Power Supply Co Ltd",
-        "exchange": "Shenzhen",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Net profit fell ~33% YoY in H1 2026, driven by inverter price erosion and channel inventory buildup, signaling structural margin pressure in solar.",
-        "why_now": "Earnings released 2026-08-31; guidance cut risk and inventory destocking cycle are live catalysts.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "commodity_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-80c71a597bcd"
-        ],
-        "primary_source_event_id": "EVT-80c71a597bcd",
-        "source_headlines": [
-          "Sungrow Shares Slump After Profit Tumbles by Almost a Third"
-        ],
-        "source_headline": "Sungrow Shares Slump After Profit Tumbles by Almost a Third",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-08-31/sungrow-shares-slump-after-profit-tumbles-by-almost-a-third",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T04:29:04Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T07:32:07Z",
-        "updated_at": "2026-08-31T07:32:07Z",
-        "decay_at": "2026-09-01T16:29:04Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T04:55:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1024,
-    "live_count": 7,
+    "live_count": 6,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -180320,9 +180318,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 228146,
-    "news_picked_today": 382,
-    "news_dropped_today": 1274
+    "news_seen_today": 235079,
+    "news_picked_today": 400,
+    "news_dropped_today": 1328
   },
   "book_momentum": {
     "live_count": 8,
