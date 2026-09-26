@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T04:39:01Z",
+  "generated_at": "2026-09-26T04:44:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-429",
@@ -1211,6 +1211,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-474",
+      "headline": "Akamai signs $14.8 billion cloud deal with Anthropic, grants warrant for up to 5% stake",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/akamai-signs-14-8-billion-cloud-deal-with-anthropic-grants-warrant-for-up-to-5-stake",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T00:42:00Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Major $14.8 billion cloud infrastructure deal and equity stake acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Major $14.8 billion cloud infrastructure deal and equity stake acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Akamai",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-141",
       "headline": "Signature Global signs pact to develop 194-acre land in Gurugram, targets Rs 5,500–6,000 crore GDV",
       "headline_en": null,
@@ -1926,55 +1981,6 @@
           "name": "TikTok",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-279",
-      "headline": "Pharma stock soars 150% on injectables deal with Wegovy maker Novo",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/25/wegovy-novo-nordisk-obesity-drugs.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T09:58:27Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "A 150% stock surge following a deal with a major partner like Novo Nordisk indicates a material change in the company's commercial outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "A 150% stock surge following a deal with a major partner like Novo Nordisk indicates a material change in the company's commercial outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novo Nordisk",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -180300,9 +180306,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 401411,
-    "news_picked_today": 803,
-    "news_dropped_today": 2749
+    "news_seen_today": 406733,
+    "news_picked_today": 829,
+    "news_dropped_today": 2795
   },
   "book_momentum": {
     "live_count": 8,
