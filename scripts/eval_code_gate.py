@@ -77,11 +77,13 @@ def base_failure_keys(base, root="."):
         return None, f"base {base!r} is not a commit in this checkout"
     tmp = tempfile.mkdtemp(prefix="eval-code-gate-")
     worktree = os.path.join(tmp, "base")
+    added = False
     try:
         add = subprocess.run(["git", "worktree", "add", "--detach", worktree, probe.stdout.strip()],
                              cwd=root, capture_output=True, text=True)
         if add.returncode != 0:
             return None, f"could not check out base {base}: {add.stderr.strip()[:200]}"
+        added = True
         try:
             with contextlib.redirect_stdout(io.StringIO()):
                 report = run_eval(worktree)
@@ -89,9 +91,12 @@ def base_failure_keys(base, root="."):
             return None, f"the eval harness on base {base} produced no report ({error})"
         return failure_keys(report, worktree), None
     finally:
-        subprocess.run(["git", "worktree", "remove", "--force", worktree], cwd=root, capture_output=True)
-        subprocess.run(["git", "worktree", "prune"], cwd=root, capture_output=True)
+        if added:
+            subprocess.run(["git", "worktree", "remove", "--force", worktree], cwd=root, capture_output=True)
         shutil.rmtree(tmp, ignore_errors=True)
+        if added:
+            # After the directory is gone, so a failed `remove` above cannot leave a dangling worktree entry.
+            subprocess.run(["git", "worktree", "prune"], cwd=root, capture_output=True)
 
 
 def _fmt(keys):

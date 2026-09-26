@@ -20,6 +20,7 @@ import contextlib
 import io
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -91,8 +92,12 @@ def git(root, *args):
     return subprocess.run(["git", *args], cwd=root, capture_output=True, text=True, check=True).stdout.strip()
 
 
+_sandboxes = []
+
+
 def sandbox(base_state):
     root = tempfile.mkdtemp(prefix="gate-test-")
+    _sandboxes.append(root)
     os.makedirs(os.path.join(root, "scripts"))
     open(os.path.join(root, "scripts", "eval.py"), "w").write(FAKE_EVAL)
     json.dump(base_state, open(os.path.join(root, "state.json"), "w"))
@@ -145,6 +150,8 @@ rc, out = gate(root, {"report": report({"OK_2026-09-01": run_entry()})}, sha)
 check("e2e: a clean corpus -> PASS", rc == 0, out[-400:])
 
 print()
+for _root in _sandboxes:
+    shutil.rmtree(_root, ignore_errors=True)
 if _fails:
     print(f"EVAL CODE GATE TESTS FAILED: {len(_fails)}")
     sys.exit(1)
