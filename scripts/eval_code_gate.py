@@ -27,6 +27,8 @@ all still fail it. What it stops doing is failing a change for someone else's re
 from __future__ import annotations
 
 import argparse
+import ast
+import collections
 import contextlib
 import io
 import os
@@ -40,6 +42,35 @@ from research_check import ap_failures, run_eval, status_of, suite_contract_fail
 
 SUITE = "(suite)"
 
+# Every statement by which scripts/eval.py sets suite_pass, keyed "<controlling test> -> <assigned value>", and
+# the reader above that names the failure it records. The comparison below is only sound if every way the
+# harness can fail the suite is named: an unnamed one would hide behind any failure the base already has
+# (suite_pass is a single bool). So if eval.py grows a site not listed here, the gate goes strict until this
+# list and the readers learn it.
+DECODED_SUITE_GATES = collections.Counter({
+    "Module -> True": 1,                                    # the initial value
+    "not warn_only -> suite_pass and run_pass": 1,          # a gating run             -> status_of()
+    "ExceptHandler -> False": 1, "jmiss -> False": 1,       # §24 framework contracts -> suite_contract_failures()
+    "azfails -> False": 1,                                  # AZ                      -> suite_contract_failures()
+    "apfailures -> False": 1,                               # AP                      -> ap_failures()/status_of()
+})
+
+
+def undecoded_suite_gates(root="."):
+    """suite_pass assignments in <root>/scripts/eval.py that this gate does not know how to name."""
+    try:
+        tree = ast.parse(open(os.path.join(root, "scripts", "eval.py"), encoding="utf-8").read())
+    except (OSError, SyntaxError) as error:
+        return [f"scripts/eval.py could not be parsed ({error})"]
+    parent = {child: node for node in ast.walk(tree) for child in ast.iter_child_nodes(node)}
+    found = collections.Counter()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == "suite_pass" for t in node.targets):
+            up = parent.get(node)
+            context = ast.unparse(up.test) if isinstance(up, ast.If) else type(up).__name__
+            found[f"{context} -> {ast.unparse(node.value)}"] += 1
+    return sorted((found - DECODED_SUITE_GATES).elements())
+
 
 def failure_keys(report, root="."):
     """Every hard failure in an eval report as (run, check) pairs; suite-level failures use run '(suite)'.
@@ -51,7 +82,9 @@ def failure_keys(report, root="."):
     for run in set((report.get("runs") or {}).keys()) | set(ap_failures(report).keys()):
         status, fails = status_of(report, run, root)
         if status == "FAIL":
-            keys |= {(run, check) for check in fails} or {(run, "FAIL")}
+            # Key by the check's name only: an AP failure arrives as "AP_valuation_summary_integrity: <text>", and
+            # a reworded diagnostic must not turn a failure the base already has into a "new" one.
+            keys |= {(run, check.split(":", 1)[0].strip()) for check in fails} or {(run, "FAIL")}
     for item in suite_contract_failures(report):
         keys.add((SUITE, item["name"]))
     if report.get("suite_pass") is False and not keys:
@@ -118,7 +151,12 @@ def main(argv=None):
         print(f"::error::the eval harness produced no report for this change ({error})")
         return 2
 
-    base_keys, why_strict = base_failure_keys(args.base, args.root)
+    unnamed = undecoded_suite_gates(args.root)
+    if unnamed:
+        base_keys, why_strict = None, ("scripts/eval.py can fail the suite in a way this gate cannot name ("
+                                       + "; ".join(unnamed) + ") — teach DECODED_SUITE_GATES and its readers")
+    else:
+        base_keys, why_strict = base_failure_keys(args.base, args.root)
     new, inherited = split(head_keys, base_keys)
 
     print()
