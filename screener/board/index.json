@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T05:08:01Z",
+  "generated_at": "2026-09-26T05:09:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-429",
@@ -1320,6 +1320,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-505",
+      "headline": "MGM Resorts Is Discussing Making a Bid for People: WSJ",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-24/mgm-resorts-is-discussing-making-a-bid-for-people-wsj",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T21:53:59Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "MGM Resorts is reportedly discussing a bid for a company, signaling potential M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MGM Resorts is reportedly discussing a bid for a company, signaling potential M&A activity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MGM Resorts",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-141",
       "headline": "Signature Global signs pact to develop 194-acre land in Gurugram, targets Rs 5,500–6,000 crore GDV",
       "headline_en": null,
@@ -1939,55 +1988,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-468",
-      "headline": "Crypto Exchange Bitget Halts Withdrawals After $352 Million Hack",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/technology/crypto-exchange-bitget-halts-withdrawals-after-352-million-dollar-hack-12095210#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T02:34:57Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "$352 million hack and withdrawal halt is a critical operational and financial event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "$352 million hack and withdrawal halt is a critical operational and financial event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bitget",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -180311,9 +180311,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 447533,
-    "news_picked_today": 896,
-    "news_dropped_today": 3016
+    "news_seen_today": 452495,
+    "news_picked_today": 903,
+    "news_dropped_today": 3033
   },
   "book_momentum": {
     "live_count": 8,
