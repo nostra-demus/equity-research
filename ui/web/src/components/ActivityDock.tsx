@@ -31,7 +31,7 @@ function readStoredWidth(): number {
   catch { return DEFAULT_W }
 }
 
-export function ActivityDock() {
+export function ActivityDock({ escapeEnabled = true }: { escapeEnabled?: boolean }) {
   const open = useStore((s) => s.activityOpen)
   const openActivity = useStore((s) => s.openActivity)
   const closeActivity = useStore((s) => s.closeActivity)
@@ -63,11 +63,11 @@ export function ActivityDock() {
   useEffect(() => { if (live && !open) openActivity() }, [live, open, openActivity])
   // Esc closes — but never out from under a live run, which would hide the progress it just opened for.
   useEffect(() => {
-    if (!open) return
+    if (!open || !escapeEnabled) return
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape' && !live) closeActivity() }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [open, live, closeActivity])
+  }, [open, live, closeActivity, escapeEnabled])
 
   // ---- width: dragged, persisted, and clamped to the viewport ----
   const [width, setWidth] = useState(readStoredWidth)

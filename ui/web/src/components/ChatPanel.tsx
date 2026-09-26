@@ -46,7 +46,7 @@ export function ChatErrorNotice({ error, retryText, onRetry, staticMessage }: { 
   )
 }
 
-export function ChatPanel() {
+export function ChatPanel({ visible = true, focused = true }: { visible?: boolean; focused?: boolean }) {
   const reduce = useReducedMotion()
   const dismiss = useStore((s) => s.closeChat)
   const scope = useStore((s) => s.chatScope)
@@ -125,20 +125,23 @@ export function ChatPanel() {
 
   // Focus the composer when it can accept input. If the output is not ready (or this is the static
   // showcase), focus the drawer's Close control instead of silently targeting a disabled textarea.
-  useEffect(() => { (present && !staticMode ? inputRef.current : closeRef.current)?.focus() }, [])
+  useLayoutEffect(() => {
+    if (visible && focused) (present && !staticMode ? inputRef.current : closeRef.current)?.focus()
+  }, [visible, focused, present, staticMode])
   // Esc closes (also aborts any in-flight stream via closeChat). When the History panel is open ON TOP of
   // this one, it owns Escape — ignore it here so one keypress doesn't close both.
   useEffect(() => {
+    if (!visible) return
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { if (scopeMenu || modelMenu || styleMenu || memoryMenu) { setScopeMenu(false); setModelMenu(false); setStyleMenu(false); setMemoryMenu(false) } else if (!historyOpen) close() } }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [close, scopeMenu, modelMenu, styleMenu, memoryMenu, historyOpen])
+  }, [visible, close, scopeMenu, modelMenu, styleMenu, memoryMenu, historyOpen])
 
   // auto-scroll to the newest token while locked; lock releases when the user scrolls up
   useLayoutEffect(() => {
     const el = threadRef.current
-    if (el && lockedRef.current) el.scrollTop = el.scrollHeight
-  }, [messages, streaming])
+    if (visible && el && lockedRef.current) el.scrollTop = el.scrollHeight
+  }, [messages, streaming, visible])
   const onThreadScroll = () => {
     const el = threadRef.current
     if (!el) return
@@ -183,7 +186,7 @@ export function ChatPanel() {
       aria-label="Chat with your data"
     >
       <div className="chatpanel__head">
-        <div style={{ minWidth: 0 }}>
+        <div className="chatpanel__heading">
           <div className="chatpanel__title">
             <span className="chatpanel__badge">Ask</span>
             <span className="chatpanel__titletext">{title}</span>
@@ -195,7 +198,8 @@ export function ChatPanel() {
             {messages.some((m) => m.role === 'assistant' && m.computed?.some((c) => c.kind === 'scenario')) && <span className="chatpanel__source-modeled"> · modeled with the sensitivity engine</span>}
           </div>
         </div>
-        <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
+        <button ref={closeRef} data-ask-close="true" className="btn btn--ghost chatpanel__close" style={{ height: 30 }} onClick={close} aria-label="Close chat">Close ✕</button>
+        <div className="chatpanel__actions">
           {/* source routing is optional. Auto is the default; no choice is required before asking. */}
           <div style={{ position: 'relative' }}>
             <button className="btn" style={{ height: 30 }} aria-expanded={memoryMenu} onClick={() => { setMemoryMenu((o) => !o); setScopeMenu(false); setModelMenu(false); setStyleMenu(false) }} title="Optional source override; Auto normally decides">
@@ -266,7 +270,6 @@ export function ChatPanel() {
           </div>
           <button className="btn btn--ghost" style={{ height: 30 }} onClick={openHistory} title="View and reopen saved conversations">History</button>
           {messages.length > 0 && <button className="btn btn--ghost" style={{ height: 30 }} onClick={clear} title="Start a new conversation (this one stays saved in History)">New</button>}
-          <button ref={closeRef} data-ask-close="true" className="btn btn--ghost" style={{ height: 30 }} onClick={close}>Close ✕</button>
         </div>
       </div>
 

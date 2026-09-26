@@ -493,7 +493,7 @@ try {
     useStore.setState({
       staticMode: false, health: 'online', activeSwarm: 'research', constellationSwarm: 'research',
       selectedTicker: 'AAA', selectToken: 1061, warp: null, graph, nodesByKey: new Map([[orb.key, orb]]),
-      nodeRuntime: {}, activeRuns: {}, activityOpen: false, runProvider: row.provider,
+      nodeRuntime: {}, activeRuns: {}, activityOpen: true, workspaceView: 'report', runProvider: row.provider,
       providers: {
         claude: { provider: 'claude', enabled: true, available: true, checked: true, status: 'available', profile: claudeProfile },
         codex: { provider: 'codex', enabled: true, available: true, checked: true, status: 'available', profile: CODEX_PROFILE },
@@ -508,6 +508,7 @@ try {
     assert.equal(submitted?.selection.provider, row.provider)
     assert.equal(useStore.getState().activeRuns[runId]?.provider, row.provider)
     assert.equal(useStore.getState().activityOpen, true, `${row.provider} admitted run opens Activity immediately`)
+    assert.equal(useStore.getState().workspaceView, 'activity', `${row.provider} admission reveals an already-open Activity pane`)
   }
 
   // Changing the model inside a confirmation is a new spend decision: discard the old capability,

@@ -174,6 +174,23 @@ and chat-first; the rules that keep it that way:
   desktop's floating "Mobile view" pill (coarse ≤820px only — the topbar never wraps, so it cannot
   host the way back) clears it.
 
+## 9. Workspace panels
+
+- The command bar owns its row. Panels and full-screen tools live below it, including when the bar wraps.
+- `Workspace` owns the stage, report, chat, and Activity geometry. At readable widths, report and chat
+  tile beside each other; narrower desktops select one pane through the workspace navigation. The
+  constellation gets a usable canvas or a locally pannable canvas, never a clipped sliver under the rail.
+- Switching a pane preserves its draft and scroll position. Returning to a following chat reveals replies
+  completed while hidden; a reader who scrolled up keeps their place. Hidden panes cannot handle Escape.
+- Titles and Close have their own header row; actions wrap below them. Dropdowns stay within their pane.
+  Bodies scroll independently, the composer stays visible, and wide tables scroll within the document.
+- Launch admission and new required attention reveal Activity even if it was already open behind another
+  pane. Routine polling does not change the selected view. Opening a tool brings that destination forward;
+  opening its document brings the shared reader forward without discarding the tool.
+- Browser regressions use the real App with mocked APIs, covering compact/wide screens, both themes,
+  derived swarm accents, retained drafts, scrolling, menus, and destination handoffs. Never use paid runs
+  or production mutations to test layout.
+
 ---
 
 *This document is linked from `ui/README.md` and its zero-touch swarm rule is CLAUDE.md §26.
