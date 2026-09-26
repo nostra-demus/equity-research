@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T15:08:03Z",
+  "generated_at": "2026-09-26T15:12:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-856",
@@ -96,6 +96,55 @@
         {
           "name": "Apple",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-933",
+      "headline": "New Mexico jury finds Facebook liable for over 43 million violations of consumer protection law—and Meta could owe over $200 billion in penalties",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/09/26/facebook-liable-violations-new-mexico-consumer-protection-lawand-meta-200-billion-penalties/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-26T14:25:57Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "A jury found Meta liable for over 43 million violations, with potential penalties exceeding $200 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A jury found Meta liable for over 43 million violations, with potential penalties exceeding $200 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": "META",
           "listing_country": "US"
         }
       ],
@@ -1971,60 +2020,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-584",
-      "headline": "Akamai Surges on $12 Billion Anthropic AI Computing Deal | Closing Bell",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-09-24/akamai-surges-on-anthropic-ai-deal-closing-bell-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T20:22:32Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Akamai has secured a $12 billion deal with Anthropic for AI computing, a significant revenue-generating event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Akamai has secured a $12 billion deal with Anthropic for AI computing, a significant revenue-generating event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Akamai",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -179773,9 +179768,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 738280,
-    "news_picked_today": 2132,
-    "news_dropped_today": 9821
+    "news_seen_today": 738299,
+    "news_picked_today": 2135,
+    "news_dropped_today": 9837
   },
   "book_momentum": {
     "live_count": 8,
