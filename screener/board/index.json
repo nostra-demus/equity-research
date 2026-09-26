@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T02:14:57Z",
+  "generated_at": "2026-09-26T02:23:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-241",
@@ -1092,6 +1092,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-298",
+      "headline": "Rückruf: Risiko Lenkungsausfall – VW ruft eine Million Autos zurück",
+      "headline_en": "Recall: Steering failure risk – VW recalls one million cars",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/rueckruf-risiko-lenkungsausfall-vw-ruft-eine-million-autos-zurueck/100257392.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T09:19:58Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Volkswagen is recalling one million vehicles due to a steering failure risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Volkswagen is recalling one million vehicles due to a steering failure risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-118",
       "headline": "Turkish Airlines seals record 150-jet Boeing 737 MAX order",
       "headline_en": null,
@@ -1138,6 +1187,55 @@
           "name": "Turkish Airlines",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-297",
+      "headline": "Applied Digital reveals $3.2bn Delta Forge 2 AI data center will be built in Alabama",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/applied-digital-reveals-32bn-delta-forge-2-ai-data-center-will-be-built-in-alabama/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T09:24:00Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Applied Digital announces $3.2 billion capex commitment for Delta Forge 2 AI data center in Alabama; quantified major capacity expansion affecting cash deployment and growth trajectory.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Applied Digital announces $3.2 billion capex commitment for Delta Forge 2 AI data center in Alabama; quantified major capacity expansion affecting cash deployment and growth trajectory.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Applied Digital Holding Corp.",
+          "ticker": "APLD",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1903,104 +2001,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-205",
-      "headline": "TikTok settles for over $100 million in mental health lawsuit, Alabama AG says",
-      "headline_en": null,
-      "url": "https://thehill.com/regulation/court-battles/6112693-tiktok-alabama-lawsuit-settlement/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-26T00:31:47Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "TikTok agreed to a $100 million settlement regarding mental health litigation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "TikTok agreed to a $100 million settlement regarding mental health litigation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TikTok",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-018",
-      "headline": "Bericht: Volkswagen vor größtem Rückruf seit Dieselskandal",
-      "headline_en": "Report: Volkswagen faces largest recall since diesel scandal",
-      "url": "https://www.reuters.com/de/firma/bericht-volkswagen-vor-grtem-rckruf-seit-dieselskandal-2026-09-25/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T13:17:44Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Volkswagen is reportedly facing its largest recall since the Dieselgate scandal, implying significant operational and financial risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Volkswagen is reportedly facing its largest recall since the Dieselgate scandal, implying significant operational and financial risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Volkswagen",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -140552,76 +140552,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-092d032f4795",
-      "idea_version": "IDEAV-a17714b587321d36",
-      "idea_version_started_at": "2026-09-25T04:16:09Z",
-      "ticker": "DRI",
-      "company": "Darden Restaurants",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Rising food and labor costs are compressing operating margins, which directly impacts earnings per share in a low-margin restaurant business model.",
-      "why_now": "The earnings report highlighting these cost pressures was released today, September 24, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-78ba8e651768"
-      ],
-      "primary_source_event_id": "EVT-78ba8e651768",
-      "source_headlines": [
-        "Darden Restaurants’ Earnings Hit by Higher Food and Labor Costs"
-      ],
-      "source_headline": "Darden Restaurants’ Earnings Hit by Higher Food and Labor Costs",
-      "source_url": "https://www.wsj.com/business/earnings/darden-restaurants-posts-sales-gains-but-profit-slips-on-higher-expenses-3d85eef6?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-24T14:22:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-25T04:16:09Z",
-      "updated_at": "2026-09-25T04:16:09Z",
-      "decay_at": "2026-09-26T02:22:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d8fab6669b2a",
       "idea_version": "IDEAV-b8175cb05e09fc26",
       "idea_version_started_at": "2026-09-25T06:06:13Z",
@@ -141045,6 +140975,76 @@
       "surfaced_at": "2026-09-23T11:48:13Z",
       "updated_at": "2026-09-23T11:48:13Z",
       "decay_at": "2026-09-24T17:36:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-092d032f4795",
+      "idea_version": "IDEAV-a17714b587321d36",
+      "idea_version_started_at": "2026-09-25T04:16:09Z",
+      "ticker": "DRI",
+      "company": "Darden Restaurants",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Rising food and labor costs are compressing operating margins, which directly impacts earnings per share in a low-margin restaurant business model.",
+      "why_now": "The earnings report highlighting these cost pressures was released today, September 24, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-78ba8e651768"
+      ],
+      "primary_source_event_id": "EVT-78ba8e651768",
+      "source_headlines": [
+        "Darden Restaurants’ Earnings Hit by Higher Food and Labor Costs"
+      ],
+      "source_headline": "Darden Restaurants’ Earnings Hit by Higher Food and Labor Costs",
+      "source_url": "https://www.wsj.com/business/earnings/darden-restaurants-posts-sales-gains-but-profit-slips-on-higher-expenses-3d85eef6?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-24T14:22:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-25T04:16:09Z",
+      "updated_at": "2026-09-25T04:16:09Z",
+      "decay_at": "2026-09-26T02:22:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -143131,9 +143131,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 531,
+    "total_count": 532,
     "shown_count": 500,
-    "hidden_count": 31,
+    "hidden_count": 32,
     "side_counts": {
       "long": {
         "total_count": 270,
@@ -143141,9 +143141,9 @@
         "hidden_count": 20
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -143162,6 +143162,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-092d032f4795",
+        "idea_version": "IDEAV-a17714b587321d36",
+        "idea_version_started_at": "2026-09-25T04:16:09Z",
+        "ticker": "DRI",
+        "company": "Darden Restaurants",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Rising food and labor costs are compressing operating margins, which directly impacts earnings per share in a low-margin restaurant business model.",
+        "why_now": "The earnings report highlighting these cost pressures was released today, September 24, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 64,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-78ba8e651768"
+        ],
+        "primary_source_event_id": "EVT-78ba8e651768",
+        "source_headlines": [
+          "Darden Restaurants’ Earnings Hit by Higher Food and Labor Costs"
+        ],
+        "source_headline": "Darden Restaurants’ Earnings Hit by Higher Food and Labor Costs",
+        "source_url": "https://www.wsj.com/business/earnings/darden-restaurants-posts-sales-gains-but-profit-slips-on-higher-expenses-3d85eef6?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-24T14:22:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-25T04:16:09Z",
+        "updated_at": "2026-09-25T04:16:09Z",
+        "decay_at": "2026-09-26T02:22:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-26T02:22:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2ae207956495",
         "idea_version": "IDEAV-1c81b4a70efb53f5",
@@ -180223,87 +180296,12 @@
         "archived_at": "2026-09-03T04:55:41Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-f2156a973feb",
-        "idea_version": "IDEAV-7e13ee5618504518",
-        "idea_version_started_at": "2026-08-31T06:07:14Z",
-        "ticker": "300274",
-        "company": "Sungrow Power Supply Co., Ltd.",
-        "exchange": "SZSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Sungrow's profit has tumbled by almost a third, signaling severe margin compression in the solar inverter and energy storage sector.",
-        "why_now": "The shares are slumping on August 31, 2026, following the immediate release of these weak financial results.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-80c71a597bcd"
-        ],
-        "primary_source_event_id": "EVT-80c71a597bcd",
-        "source_headlines": [
-          "Sungrow Shares Slump After Profit Tumbles by Almost a Third"
-        ],
-        "source_headline": "Sungrow Shares Slump After Profit Tumbles by Almost a Third",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-08-31/sungrow-shares-slump-after-profit-tumbles-by-almost-a-third",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T04:29:04Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T06:07:14Z",
-        "updated_at": "2026-08-31T06:07:14Z",
-        "decay_at": "2026-09-01T16:29:04Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T04:55:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1024,
-    "live_count": 8,
+    "live_count": 7,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -180322,9 +180320,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 221069,
-    "news_picked_today": 354,
-    "news_dropped_today": 1158
+    "news_seen_today": 228146,
+    "news_picked_today": 382,
+    "news_dropped_today": 1274
   },
   "book_momentum": {
     "live_count": 8,
