@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T10:00:16Z",
+  "generated_at": "2026-09-26T10:08:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-856",
@@ -51,6 +51,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-910",
+      "headline": "Russia’s Ilsky Oil Refinery Ablaze After Drone Strike That Leaves Three Dead",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-26/russia-s-ilsky-oil-refinery-ablaze-after-drone-strike-that-leaves-three-dead",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-26T08:18:45Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "A drone strike on the Ilsky Oil Refinery represents a supply shock to regional energy infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A drone strike on the Ilsky Oil Refinery represents a supply shock to regional energy infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 2,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1972,55 +2015,6 @@
         },
         {
           "name": "IAC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-902",
-      "headline": "MGM Resorts shares tumble 10% after Diller's People withdraws $18 billion bid",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/mgm-resorts-shares-tumble-10-after-dillers-people-withdraws-18-billion-bid/articleshow/134464362.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T13:57:02Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "MGM Resorts shares tumbled 10% after the withdrawal of an $18 billion bid.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "MGM Resorts shares tumbled 10% after the withdrawal of an $18 billion bid.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MGM Resorts",
           "ticker": null,
           "listing_country": "US"
         }
@@ -179563,9 +179557,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 702606,
-    "news_picked_today": 1682,
-    "news_dropped_today": 6742
+    "news_seen_today": 704019,
+    "news_picked_today": 1705,
+    "news_dropped_today": 6815
   },
   "book_momentum": {
     "live_count": 8,
