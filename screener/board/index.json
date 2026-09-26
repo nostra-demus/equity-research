@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T23:43:16Z",
+  "generated_at": "2026-09-26T23:48:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-856",
@@ -140335,6 +140335,144 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-8de17383cf37",
+      "idea_version": "IDEAV-74a12c000379f819",
+      "idea_version_started_at": "2026-09-26T23:48:13Z",
+      "ticker": "WEAV",
+      "company": "Weave Communications, Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Weave Communications, Inc. is involved in an M&A event, which often results in a premium for the target company's shares.",
+      "why_now": "The filing of DEFM14A on September 25, 2026, indicates an active M&A process is underway.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 73,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b3966646ec4e"
+      ],
+      "primary_source_event_id": "EVT-b3966646ec4e",
+      "source_headlines": [
+        "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)"
+      ],
+      "source_headline": "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1609151/000114036126037628/0001140361-26-037628-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T12:55:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T23:48:13Z",
+      "updated_at": "2026-09-26T23:48:13Z",
+      "decay_at": "2026-09-27T00:55:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-d671baced956",
+      "idea_version": "IDEAV-0216b9fe43f0f579",
+      "idea_version_started_at": "2026-09-26T23:48:13Z",
+      "ticker": "IPEX",
+      "company": "Inflection Point Acquisition Corp. V",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Inflection Point Acquisition Corp. V has completed a business combination with GOWell Energy Technology, which could unlock value for shareholders of the SPAC.",
+      "why_now": "The business combination was updated as 'Closed' on September 25, 2026, making this a current event.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 72,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fa37effcea40"
+      ],
+      "primary_source_event_id": "EVT-fa37effcea40",
+      "source_headlines": [
+        "ECA2026-685 - (UPDATED: Closed) Information Regarding the Business Combination of Inflection Point Acquisition Corp. V (IPEX/R/U) & GOWell Energy Technology"
+      ],
+      "source_headline": "ECA2026-685 - (UPDATED: Closed) Information Regarding the Business Combination of Inflection Point Acquisition Corp. V (IPEX/R/U) & GOWell Energy Technology",
+      "source_url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-685",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T21:00:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T23:48:13Z",
+      "updated_at": "2026-09-26T23:48:13Z",
+      "decay_at": "2026-09-27T09:00:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9437e2f30b3e",
       "idea_version": "IDEAV-711b0c9e251ec561",
       "idea_version_started_at": "2026-09-26T21:35:18Z",
@@ -141100,6 +141238,77 @@
       "surfaced_at": "2026-09-26T11:48:12Z",
       "updated_at": "2026-09-26T19:43:33Z",
       "decay_at": "2026-09-27T05:32:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1f810c85967e",
+      "idea_version": "IDEAV-eed2861005428187",
+      "idea_version_started_at": "2026-09-26T23:48:13Z",
+      "ticker": "01936",
+      "company": "Ritamix Global Limited",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Ritamix Global Limited is undergoing a sale of shares, which could lead to a possible special dividend and a mandatory general cash offer, indicating a potential return of capital to shareholders.",
+      "why_now": "The announcement of the share sale, possible special dividend, and cash offer, along with the resumption of trading, makes this a live catalyst as of September 25, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-95a28e51820e"
+      ],
+      "primary_source_event_id": "EVT-95a28e51820e",
+      "source_headlines": [
+        "RITAMIX (01936): JOINT ANNOUNCEMENT (I) SALE AND PURCHASE OF SHARES IN RITAMIX GLOBAL LIMITED; (II) POSSIBLE SPECIAL DIVIDEND AND PROPOSED CHANGE IN USE OF UNUTILISED NET PROCEEDS; (III) POSSIBLE UNCONDITIONAL MANDATORY GENERAL CASH OFFER BY SHANGGU SECURITIES LIMITED FOR AND ON BEHALF OF INNOVATION FORGE HOLDINGS LIMITED; AND (IV) RESUMPTION OF TRADING"
+      ],
+      "source_headline": "RITAMIX (01936): JOINT ANNOUNCEMENT (I) SALE AND PURCHASE OF SHARES IN RITAMIX GLOBAL LIMITED; (II) POSSIBLE SPECIAL DIVIDEND AND PROPOSED CHANGE IN USE OF UNUTILISED NET PROCEEDS; (III) POSSIBLE UNCONDITIONAL MANDATORY GENERAL CASH OFFER BY SHANGGU SECURITIES LIMITED FOR AND ON BEHALF OF INNOVATION FORGE HOLDINGS LIMITED; AND (IV) RESUMPTION OF TRADING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092501223.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T13:56:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T23:48:13Z",
+      "updated_at": "2026-09-26T23:48:13Z",
+      "decay_at": "2026-09-27T01:56:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -143175,78 +143384,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-0931a29b975f",
-      "idea_version": "IDEAV-6137d43ad605c205",
-      "idea_version_started_at": "2026-09-24T04:13:22Z",
-      "ticker": "SWRK",
-      "company": "Smurfit Westrock",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of CMPC's corrugated business in Chile for $420 million expands Smurfit Westrock's footprint in the Latin American packaging market, likely driving long-term synergies and scale.",
-      "why_now": "The deal was announced on 2026-09-23, providing a clear catalyst for market re-rating of the combined entity's regional capacity.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a973a5165c53"
-      ],
-      "primary_source_event_id": "EVT-a973a5165c53",
-      "source_headlines": [
-        "CMPC sells corrugated business in Chile to Smurfit Westrock for $420 million"
-      ],
-      "source_headline": "CMPC vende negocio de corrugados en Chile a Smurfit Westrock por 420 millones de dólares",
-      "source_url": "https://www.reuters.com/es/negocio/FBLXGFTMIRJITBHLLMSAOGTXQE-2026-09-23/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-23T23:27:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-24T04:13:22Z",
-      "updated_at": "2026-09-24T04:13:22Z",
-      "decay_at": "2026-09-25T11:27:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -143259,14 +143396,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 522,
+    "total_count": 521,
     "shown_count": 500,
-    "hidden_count": 22,
+    "hidden_count": 21,
     "side_counts": {
       "long": {
-        "total_count": 262,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 11
       },
       "short": {
         "total_count": 260,
@@ -143276,12 +143413,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 504,
+      "evicted_count": 505,
       "oldest_retained_at": "2026-09-01T14:22:01Z",
       "side_counts": {
         "long": {
-          "evicted_count": 335,
-          "oldest_retained_at": "2026-09-09T20:06:23Z"
+          "evicted_count": 336,
+          "oldest_retained_at": "2026-09-09T20:51:50Z"
         },
         "short": {
           "evicted_count": 169,
@@ -144920,8 +145057,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-25T11:27:43Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-26T23:48:21Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -180433,8 +180570,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1046,
-    "live_count": 19,
+    "surfaced_total": 1049,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -180453,9 +180590,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 739500,
+    "news_seen_today": 739503,
     "news_picked_today": 2329,
-    "news_dropped_today": 10844
+    "news_dropped_today": 10847
   },
   "book_momentum": {
     "live_count": 8,

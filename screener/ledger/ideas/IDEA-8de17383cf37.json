@@ -1,0 +1,71 @@
+{
+  "idea_id": "IDEA-8de17383cf37",
+  "idea_version": "IDEAV-74a12c000379f819",
+  "idea_version_started_at": "2026-09-26T23:48:13Z",
+  "ticker": "WEAV",
+  "company": "Weave Communications, Inc.",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "Weave Communications, Inc. is involved in an M&A event, which often results in a premium for the target company's shares.",
+  "why_now": "The filing of DEFM14A on September 25, 2026, indicates an active M&A process is underway.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 73,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 20,
+    "specificity": 15,
+    "timing": 6,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-b3966646ec4e"
+  ],
+  "primary_source_event_id": "EVT-b3966646ec4e",
+  "source_headlines": [
+    "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)"
+  ],
+  "source_headline": "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1609151/000114036126037628/0001140361-26-037628-index.htm",
+  "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-25T12:55:01Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-26T23:48:13Z",
+  "updated_at": "2026-09-26T23:48:13Z",
+  "decay_at": "2026-09-27T00:55:01Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
