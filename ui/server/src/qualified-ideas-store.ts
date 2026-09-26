@@ -5,6 +5,8 @@
 // evaluates every gate through qualified-ideas.ts, and keeps only the newest standing directional call
 // per listing. It never promotes the news skim and never trusts a stored "qualified" flag.
 
+import { PARITY_CANARY_RUN_ROOT_RE } from './provider-parity-path'
+import { researchAuditsReconciled } from './research-audit-outcome'
 import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
@@ -337,17 +339,27 @@ interface ValidatedProjectionManifest {
   audits: BoundAudits
 }
 
+function analyticalDecisionDigest(decision: Record<string, any>): string {
+  const value = { ...decision }
+  delete value.execution_provenance
+  return digest(value)
+}
+
 /** Runtime mirror of create_idea_projection_manifest.py's complete trust boundary. */
-function validateProjectionManifest(runAbs: string, expectedRoot: string): ValidatedProjectionManifest | null {
+export function validateProjectionManifest(runAbs: string, expectedRoot: string): ValidatedProjectionManifest | null {
   try {
-    const runIdentity = /^([-A-Z0-9.]{1,24})_(\d{4}-\d{2}-\d{2})$/.exec(path.posix.basename(expectedRoot))
+    const flat = /^analyses\/[-A-Z0-9.]{1,24}_\d{4}-\d{2}-\d{2}$/.test(expectedRoot)
+    const parity = PARITY_CANARY_RUN_ROOT_RE.test(expectedRoot)
+    if (!flat && !parity) return null
+    const runIdentity = /^([-A-Z0-9.]{1,24})_(\d{4}-\d{2}-\d{2})(?:__attempt-[a-f0-9]{8,32})?$/.exec(path.posix.basename(expectedRoot))
     if (!runIdentity) return null
     const expectedTicker = runIdentity[1]
     const expectedDate = runIdentity[2]
+    if (parity && expectedRoot.split('/')[2] !== expectedDate) return null
     const expectedDateMs = Date.parse(`${expectedDate}T00:00:00Z`)
     if (!Number.isFinite(expectedDateMs) || new Date(expectedDateMs).toISOString().slice(0, 10) !== expectedDate) return null
     const manifest = JSON.parse(fs.readFileSync(path.join(runAbs, 'idea_projection_manifest.json'), 'utf8'))
-    if (!record(manifest) || manifest.schema_version !== 'idea-projection-manifest/v1' || manifest.run_root !== expectedRoot) return null
+    if (!record(manifest) || !['idea-projection-manifest/v1', 'idea-projection-manifest/v2'].includes(manifest.schema_version) || manifest.run_root !== expectedRoot) return null
     const manifestPayload = { ...manifest }
     delete manifestPayload.manifest_sha256
     if (!/^[a-f0-9]{64}$/.test(String(manifest.manifest_sha256 || '')) || manifest.manifest_sha256 !== digest(manifestPayload)) return null
@@ -369,7 +381,10 @@ function validateProjectionManifest(runAbs: string, expectedRoot: string): Valid
       const rel = item.path
       if (typeof rel !== 'string' || path.basename(rel) !== rel || !/^[A-Za-z0-9_.-]+$/.test(rel) || rel !== expectedPaths[name]) return null
       const absolute = path.join(runAbs, rel)
-      if (!fs.statSync(absolute).isFile() || item.sha256 !== fileDigest(absolute)) return null
+      if (!fs.statSync(absolute).isFile() || fs.lstatSync(absolute).isSymbolicLink()) return null
+      const expectedSha = name === 'decision_record' && manifest.schema_version === 'idea-projection-manifest/v2'
+        ? analyticalDecisionDigest(JSON.parse(fs.readFileSync(absolute, 'utf8'))) : fileDigest(absolute)
+      if (item.sha256 !== expectedSha) return null
       paths[name] = absolute
     }
     const decision = JSON.parse(fs.readFileSync(paths.decision_record, 'utf8'))
@@ -387,8 +402,10 @@ function validateProjectionManifest(runAbs: string, expectedRoot: string): Valid
       if (
         !record(audit) || audit.schema_version !== '1.0' || audit.ticker !== decision.ticker || audit.run_root !== expectedRoot ||
         audit.final_thesis_path !== expectedThesis || audit.decision_record_path !== expectedDecision ||
-        audit.final_thesis_sha256 !== thesisSha || audit.decision_record_sha256 !== decisionSha
+        audit.final_thesis_sha256 !== thesisSha || audit.decision_record_sha256 !== (audit.decision_record_hash_basis === 'research-analytical-json/v1' ? analyticalDecisionDigest(decision) : decisionSha)
       ) return null
+      if (audit.decision_record_hash_basis !== undefined && audit.decision_record_hash_basis !== 'research-analytical-json/v1') return null
+      if (manifest.schema_version === 'idea-projection-manifest/v2' && audit.decision_record_hash_basis !== 'research-analytical-json/v1') return null
       audits[name] = audit
     }
     const verification = audits.verification
@@ -423,6 +440,8 @@ function validateProjectionManifest(runAbs: string, expectedRoot: string): Valid
       (['None', 'Weak'].includes(expectations.variant_perception_quality) && expectations.is_exploitable) ||
       (!expectations.is_exploitable && expectations.edge_score >= 50)
     ) return null
+    if (manifest.schema_version === 'idea-projection-manifest/v2'
+      && !researchAuditsReconciled(decision, fs.readFileSync(paths.final_thesis, 'utf8'), audits)) return null
     return { manifest, decision, audits }
   } catch {
     return null

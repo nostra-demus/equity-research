@@ -35,7 +35,7 @@ import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT, STATE_DIR } from './config'
 import {
   assertProviderAvailable, checkProviderUsage, finalDeliverablesPresent, launch, launchFullChained,
-  subjectChainActive, durableFrozenGenerationSummaryForRun,
+  subjectChainActive, durableFrozenGenerationSummaryForRun, researchAuditRecoveryBlocked,
 } from './launcher'
 import { hasRunMarker, readRunMarker } from './outputs'
 import { listRuns } from './registry'
@@ -48,7 +48,7 @@ import {
   hasProvenLegacyClaudeLineage, readLastProviderSelection, readProviderInterruptionAuthority,
   readProviderPublicationAuthority,
 } from './execution-provenance'
-import { autoResumeDue, requiresManualResume } from './resume-policy'
+import { autoResumeDue, requiresManualResume, PUBLICATION_REFUSED_REASON } from './resume-policy'
 import { listResumableRuns } from './resumable'
 import {
   admitExactSavedRunContinuation, automaticContinuationRequestId, reviewExactSavedRunContinuation,
@@ -374,7 +374,7 @@ export function listResumableResearchRuns(liveSubjects: Set<string>, now: number
     const provider: RunProvider | undefined = markerConflicts ? undefined : selected?.provider
     out.push({
       kind: markerModule ? 'module' : 'full', swarm: 'research', subject: ticker,
-      ...(markerModule ? { module: markerModule } : {}), reason: marker.reason,
+      ...(markerModule ? { module: markerModule } : {}), reason: researchAuditRecoveryBlocked(runRoot) ? PUBLICATION_REFUSED_REASON : marker.reason,
       resetsAt: typeof marker.resetsAt === 'number' ? marker.resetsAt : undefined,
       runRoot, provider,
       model: markerConflicts ? undefined : selected?.model,
@@ -878,6 +878,7 @@ export type RecoverableChainDispatchOutcome = DeferredPreSpendDispatchOutcome | 
  * is provider-writable and therefore never AUTHORIZES anything; here it can only hold a paid continuation,
  * which is the fail-closed direction. A missing or unreadable marker holds nothing. */
 function recordedInterruptionReason(record: RecoverableChainIntentRecord): string | undefined {
+  if (researchAuditRecoveryBlocked(record.targetRunRoot)) return PUBLICATION_REFUSED_REASON
   const reason = readRunMarker(record.targetRunRoot, '.interrupted')?.reason
   return typeof reason === 'string' ? reason : undefined
 }

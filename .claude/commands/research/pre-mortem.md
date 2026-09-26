@@ -4,6 +4,11 @@ argument-hint: RUN_OR_TICKER
 allowed-tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 ---
 
+**Confidence baseline:** `original_confidence` is always the numeric `decision_record.json.confidence_score`
+from the original synthesis, never `post_review_confidence_score`, a prior auditor's recommendation, or
+the thesis's Final audit outcome summary. Judge the total haircut from that fixed baseline; do not charge
+an already identified weakness again merely because this is a second read-only audit of changed bytes.
+
 You are the **red-team / devil's advocate** for a finished research run. Your single job is to find every reason the thesis is **WRONG** — before real money rides on it. You assume the decision has already failed and work backwards to the most plausible cause (the *pre-mortem* technique: Klein/Kahneman), you *invert* (Munger: "tell me where I'm going to die so I'll never go there"), and you reason downside-first (Klarman/Marks: risk is permanent loss of capital).
 
 You operationalize the root `CLAUDE.md` **§8 Disconfirmation Standard** — which already requires every thesis to state its strongest bear case, strongest bull case, the single killer risk, the disconfirming evidence already visible, what data would change the conclusion, and what would force a downgrade. This command turns that doctrine into a mechanical adversarial gate. You also apply §7 (variant perception — is the edge real or already priced?), §9 (base rates / outside view), §12 (scoring), and §13 (red-flag severity).
@@ -68,7 +73,7 @@ Produce each of the following, grounded in the dossier + data pool (and, only wh
   - **Does not survive — downgrade** — the bear case dominates or the edge is not real; recommend a lower rating cap (e.g., Buy → Watchlist).
   - **Thesis broken** — a kill criterion is effectively already triggered or the core claim fails; recommend Avoid / Refuse To Rate.
 - **`confidence_haircut`** (number ≥ 0) and **`recommended_confidence`** = `max(0, original_confidence − haircut)`. The haircut is **never negative** (rule 1).
-- **`recommended_rating_cap`** — the most restrictive cap the pre-mortem justifies (e.g., "cap at Watchlist"), or "" if none beyond what the run already applied. Never recommend a less restrictive cap than the run's.
+- **`recommended_rating_cap`** — the most restrictive cap the pre-mortem justifies (e.g., "cap at Watchlist"), or "" if none beyond what the run already applied. Never recommend a less restrictive cap than the run's. For deterministic finalization, use exactly one of `Strong Buy`, `Buy`, `Starter Position Only`, `Watchlist`, `Avoid`, or `Insufficient Data — Refuse To Rate` (the legacy prefix `cap at ` is also accepted); put explanations in the narrative, never in this field. A cap cannot change a short or pair thesis into a long thesis: use a non-actionable cap when that directional thesis fails.
 
 Sizing the haircut (guidance, not a formula to fake precision): a partway-triggered kill criterion, an unproven/absent edge, or a forecast far outside its base rate each warrant a meaningful haircut; a well-disconfirmed, already-cautious, low-confidence call warrants little or none.
 
@@ -87,6 +92,7 @@ Write `<RUN_ROOT>/pre_mortem.json`. If it exists, do NOT overwrite — use `pre_
   "decision_record_path": "",
   "final_thesis_sha256": "",
   "decision_record_sha256": "",
+  "decision_record_hash_basis": "research-analytical-json/v1",
   "original_decision": "",
   "original_confidence": null,
   "adversarial_direction": "",
@@ -109,6 +115,16 @@ Write `<RUN_ROOT>/pre_mortem.json`. If it exists, do NOT overwrite — use `pre_
   "notes": ""
 }
 ```
+
+**Canonical hash basis (supersedes the raw decision-file hash instruction below):** immediately before
+writing a new audit, run `python3 scripts/research_audit_outcome.py <RUN_ROOT> --hashes` and copy its
+three fields verbatim. The thesis hash binds exact bytes. The decision hash binds canonical JSON of
+ALL analytical fields, excluding only the supervisor-owned `execution_provenance` object, which is
+stamped after provider exit and independently validated. This exclusion never covers a score, rating,
+cap, integrity status, edge, forecast, or any other analytical field. Never calculate a substitute hash,
+modify a prior audit hash, or edit the runtime provenance. If hashing fails, stop visibly.
+
+
 
 `kill_criteria_attack[]` element: `{ "criterion": "", "closeness_to_trigger": "", "disconfirming_evidence_now": "", "severity": "" }`.
 `variant_perception_attack` object: `{ "claimed_edge": "", "already_priced": null, "is_provably_different": null, "what_would_prove_not_different": "" }`.

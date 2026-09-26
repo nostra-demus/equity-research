@@ -212,6 +212,7 @@ Write to `<RUN_ROOT>/verification_report.json`. If it already exists, DO NOT ove
   "decision_record_path": "",
   "final_thesis_sha256": "",
   "decision_record_sha256": "",
+  "decision_record_hash_basis": "research-analytical-json/v1",
   "claims_checked": null,
   "claim_checks": [],
   "math_checks": [],
@@ -224,6 +225,16 @@ Write to `<RUN_ROOT>/verification_report.json`. If it already exists, DO NOT ove
   "notes": ""
 }
 ```
+
+**Canonical hash basis (supersedes the raw decision-file hash instruction below):** immediately before
+writing a new audit, run `python3 scripts/research_audit_outcome.py <RUN_ROOT> --hashes` and copy its
+three fields verbatim. The thesis hash binds exact bytes. The decision hash binds canonical JSON of
+ALL analytical fields, excluding only the supervisor-owned `execution_provenance` object, which is
+stamped after provider exit and independently validated. This exclusion never covers a score, rating,
+cap, integrity status, edge, forecast, or any other analytical field. Never calculate a substitute hash,
+modify a prior audit hash, or edit the runtime provenance. If hashing fails, stop visibly.
+
+
 
 `claim_checks[]` element: `{ "claim": "", "citation": "", "source_checked": "", "status": "", "evidence": "", "severity": "" }`.
 `math_checks[]` element: `{ "quantity": "", "reported": "", "recomputed": "", "ties": null, "detail": "" }`.
