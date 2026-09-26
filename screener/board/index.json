@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T05:24:36Z",
+  "generated_at": "2026-09-26T05:26:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-429",
@@ -1810,6 +1810,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-538",
+      "headline": "Tata Chemicals Limited: Tata Chemicals Limited has informed the Exchange about Change in Statutory Auditor in Material Subsidiaries of the Company in the UK",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TATACHEMYS_26092026092952_SEDisclosure_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-26T04:03:08Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Change in statutory auditor for material subsidiaries is a governance red flag.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Change in statutory auditor for material subsidiaries is a governance red flag.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-066",
       "headline": "Press Release: Sunwest Bank Assumes All Deposits and Certain Assets of Nano Banc, Irvine, California",
       "headline_en": null,
@@ -1864,6 +1913,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-544",
+      "headline": "Apax nears deal to buy Warburg Pincus out of €6.5bn telecoms group Odido",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/ee4f58dd-a3bb-4d14-b28f-74da126e1002?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-26T04:00:41Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Apax is nearing a deal to acquire a stake in the €6.5bn telecoms group Odido.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Apax is nearing a deal to acquire a stake in the €6.5bn telecoms group Odido.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Odido",
+          "ticker": null,
+          "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-181",
       "headline": "Russian strikes shut Ukraine's biggest steelmaker",
       "headline_en": null,
@@ -1908,104 +2006,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-202",
-      "headline": "Crypto exchange Bitget pauses withdrawals after $449 million stolen in hack",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/crypto-exchange-bitget-pauses-withdrawals-after-449-million-stolen-in-hack",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T10:55:49Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Bitget reported a $449 million theft, representing a major operational and financial risk event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Bitget reported a $449 million theft, representing a major operational and financial risk event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bitget",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-426",
-      "headline": "ESDS Software Solutions shares in 5% lower circuit after Q1 profit more than halves, revenue down 20%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/esds-software-solutions-share-price-in-lower-circuit-q1-results-profit-more-than-halves-revenue-down-20-19998303.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T04:10:12Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "ESDS Software Solutions reported a Q1 profit decline of over 50% and a 20% revenue drop, triggering a lower circuit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "ESDS Software Solutions reported a Q1 profit decline of over 50% and a 20% revenue drop, triggering a lower circuit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ESDS Software Solutions",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180328,9 +180328,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 467214,
-    "news_picked_today": 948,
-    "news_dropped_today": 3180
+    "news_seen_today": 472184,
+    "news_picked_today": 957,
+    "news_dropped_today": 3195
   },
   "book_momentum": {
     "live_count": 8,
