@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T09:20:13Z",
+  "generated_at": "2026-09-26T09:32:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-856",
@@ -1879,21 +1879,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260926-141",
-      "headline": "Signature Global signs pact to develop 194-acre land in Gurugram, targets Rs 5,500–6,000 crore GDV",
+      "inbox_id": "INB-20260926-877",
+      "headline": "Lego to invest $400 million, create 1,300 jobs in northern Mexico",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/services/property-/-cstruction/signature-global-signs-pact-to-develop-194-acre-land-in-gurugram-targets-rs-55006000-crore-gdv/articleshow/134483932.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.reuters.com/business/lego-invest-400-million-create-1300-jobs-northern-mexico-2026-09-24/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-09-25T11:45:05Z",
+      "found_at": "2026-09-24T14:11:24Z",
       "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Signature Global announced a major development project with a gross development value of Rs 5,500–6,000 crore.",
+      "prelim_note": "Lego announced an investment of $400 million and the creation of 1,300 jobs in northern Mexico, indicating significant capacity expansion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Signature Global announced a major development project with a gross development value of Rs 5,500–6,000 crore.",
-      "region": "IN",
+      "triage_score": 100,
+      "triage_reason": "Lego announced an investment of $400 million and the creation of 1,300 jobs in northern Mexico, indicating significant capacity expansion.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
@@ -1901,64 +1901,15 @@
         "source_tier": 0,
         "scope": 6,
         "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Signature Global",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-515",
-      "headline": "Amazon bets $3 bn on India’s fast-delivery boom",
-      "headline_en": null,
-      "url": "https://www.qatar-tribune.com/article/255823/business/amazon-bets-3-bn-on-indias-fast-delivery-boom",
-      "source_name": "Qatar Tribune — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T21:28:00Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Amazon commits $3 billion to India fast-delivery infrastructure, signaling major capital redeployment and high-growth market entry.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Amazon commits $3 billion to India fast-delivery infrastructure, signaling major capital redeployment and high-growth market entry.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
+        "size": 0,
         "recency": 0,
-        "materiality_label_floor": 13,
-        "quantified": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "capex",
-        "size_bucket": "mega"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "capex"
@@ -1966,32 +1917,32 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Amazon",
-          "ticker": "AMZN",
-          "listing_country": "US"
+          "name": "Lego",
+          "ticker": null,
+          "listing_country": null
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260926-854",
-      "headline": "IPO in Mumbai: Stresstest für Indiens Aktienmarkt: Weltgrößte Derivatebörse NSE geht selbst an die Börse",
+      "inbox_id": "INB-20260926-900",
+      "headline": "US stocks: MGM Resorts shares plunge 10% as Diller’s IAC drops $18 billion bid",
       "headline_en": null,
-      "url": "https://www.handelsblatt.com/finanzen/maerkte/aktien/ipo-weltgroesste-derivateboerse-geht-selbst-an-die-boerse/100256487.html",
-      "source_name": "Handelsblatt",
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/mgm-resorts-shares-tumble-10-after-dillers-people-withdraws-18-billion-bid/articleshow/134464362.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-09-24T14:48:46Z",
+      "found_at": "2026-09-24T13:57:02Z",
       "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "The world's largest derivatives exchange, NSE, going public is a significant IPO event that could stress the Indian stock market.",
+      "prelim_note": "MGM Resorts shares dropped 10% following the withdrawal of an $18 billion acquisition bid.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The world's largest derivatives exchange, NSE, going public is a significant IPO event that could stress the Indian stock market.",
-      "region": "IN",
+      "triage_score": 100,
+      "triage_reason": "MGM Resorts shares dropped 10% following the withdrawal of an $18 billion acquisition bid.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -1999,7 +1950,7 @@
         "source_tier": 0,
         "scope": 5,
         "event": 9,
-        "size": 0,
+        "size": 2,
         "recency": 0,
         "materiality_label_floor": 10,
         "quantified": 0,
@@ -2007,7 +1958,7 @@
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "unknown"
+        "size_bucket": "large"
       },
       "event_types": [
         "mna"
@@ -2015,12 +1966,66 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "NSE",
+          "name": "MGM Resorts",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "US"
+        },
+        {
+          "name": "IAC",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-902",
+      "headline": "MGM Resorts shares tumble 10% after Diller's People withdraws $18 billion bid",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/mgm-resorts-shares-tumble-10-after-dillers-people-withdraws-18-billion-bid/articleshow/134464362.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-24T13:57:02Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "MGM Resorts shares tumbled 10% after the withdrawal of an $18 billion bid.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MGM Resorts shares tumbled 10% after the withdrawal of an $18 billion bid.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MGM Resorts",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180341,9 +180346,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 686900,
-    "news_picked_today": 1573,
-    "news_dropped_today": 6131
+    "news_seen_today": 688743,
+    "news_picked_today": 1633,
+    "news_dropped_today": 6311
   },
   "book_momentum": {
     "live_count": 8,
