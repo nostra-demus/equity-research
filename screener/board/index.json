@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T21:12:53Z",
+  "generated_at": "2026-09-26T21:13:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-856",
@@ -141113,6 +141113,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0ac73bfe9db7",
+      "idea_version": "IDEAV-57498380e155af6c",
+      "idea_version_started_at": "2026-09-26T21:13:12Z",
+      "ticker": "09626",
+      "company": "Bilibili",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company announced a proposed off-market share buy-back, which typically signals management confidence and provides immediate price support through reduced share count.",
+      "why_now": "The filing was released on 2026-09-25; the impact is immediate as the market reacts to the capital return program.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4169b2f0aa4b"
+      ],
+      "primary_source_event_id": "EVT-4169b2f0aa4b",
+      "source_headlines": [
+        "BILIBILI-W (09626): (1) PROPOSED OFF-MARKET SHARE BUY-BACK; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING"
+      ],
+      "source_headline": "BILIBILI-W (09626): (1) PROPOSED OFF-MARKET SHARE BUY-BACK; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500895.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T10:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T09:49:52Z",
+      "updated_at": "2026-09-26T21:13:12Z",
+      "decay_at": "2026-09-26T22:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-50ad10500f80",
       "idea_version": "IDEAV-bd16cd3574fbcbaf",
       "idea_version_started_at": "2026-09-26T19:43:33Z",
@@ -141824,77 +141895,6 @@
       "surfaced_at": "2026-09-26T16:10:26Z",
       "updated_at": "2026-09-26T16:10:26Z",
       "decay_at": "2026-09-27T02:14:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0ac73bfe9db7",
-      "idea_version": "IDEAV-d9b26de878147520",
-      "idea_version_started_at": "2026-09-26T09:49:52Z",
-      "ticker": "09626",
-      "company": "Bilibili",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is initiating an off-market share buy-back, which reduces the share count and signals management's confidence in the valuation.",
-      "why_now": "The filing was released on 2026-09-25, and the buy-back is subject to an upcoming Extraordinary General Meeting.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4169b2f0aa4b"
-      ],
-      "primary_source_event_id": "EVT-4169b2f0aa4b",
-      "source_headlines": [
-        "BILIBILI-W (09626): (1) PROPOSED OFF-MARKET SHARE BUY-BACK; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING"
-      ],
-      "source_headline": "BILIBILI-W (09626): (1) PROPOSED OFF-MARKET SHARE BUY-BACK; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500895.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T10:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T09:49:52Z",
-      "updated_at": "2026-09-26T09:49:52Z",
-      "decay_at": "2026-09-26T22:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
