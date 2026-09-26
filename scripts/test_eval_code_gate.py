@@ -26,7 +26,7 @@ import sys
 import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from eval_code_gate import SUITE, failure_keys, main, split  # noqa: E402
+from eval_code_gate import SUITE, failure_keys, main, split, undecoded_suite_gates  # noqa: E402
 
 _fails = []
 
@@ -73,6 +73,19 @@ new, _ = split(failure_keys(report(head)), failure_keys(BASE))
 check("a NEW failing check on an already-failing run is new", new == {("V_2026-09-23", "Z_new")})
 new, inh = split(failure_keys(BASE), None)
 check("no base -> strict: every failure is new", len(new) == 2 and not inh)
+
+
+check("an AP failure is keyed by its check name, never its diagnostic text",
+      failure_keys(dict(report({}), valuation_summary_integrity={"checked": 1, "failures": [
+          {"run": "R_2026-09-01", "violations": ["bull level 100 < base level 120"]}]}))
+      == {("R_2026-09-01", "AP_valuation_summary_integrity")})
+_ap = lambda text: dict(report({}), valuation_summary_integrity={"checked": 1, "failures": [
+    {"run": "R_2026-09-01", "violations": [text]}]})
+new, inh = split(failure_keys(_ap("bull 100 is below base 120")), failure_keys(_ap("bull level 100 < base level 120")))
+check("a reworded AP diagnostic on a run the base already fails is inherited, not new", not new and len(inh) == 1)
+_repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+check("every way the real scripts/eval.py can fail the suite is one this gate can name",
+      undecoded_suite_gates(_repo) == [], undecoded_suite_gates(_repo))
 
 
 # ---- end to end: real main(), real git worktree, stand-in harness ---------------------------------------
@@ -145,6 +158,12 @@ check("e2e: no report for the change itself -> the gate fails", rc == 2, out[-40
 root2, sha2 = sandbox({"crash": True})
 rc, out = gate(root2, BASE_STATE, sha2)
 check("e2e: the base's harness crashed -> strict, the inherited failure still gates", rc == 1 and "strict" in out)
+
+root3, sha3 = sandbox(BASE_STATE)
+open(os.path.join(root3, "scripts", "eval.py"), "a").write("\nif os.environ.get('X'):\n    suite_pass = False\n")
+rc, out = gate(root3, BASE_STATE, sha3)
+check("e2e: eval.py gains a suite failure the gate cannot name -> strict, the inherited failure still gates",
+      rc == 1 and "cannot name" in out, out[-400:])
 
 rc, out = gate(root, {"report": report({"OK_2026-09-01": run_entry()})}, sha)
 check("e2e: a clean corpus -> PASS", rc == 0, out[-400:])
