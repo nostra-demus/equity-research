@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T14:13:22Z",
+  "generated_at": "2026-09-26T14:19:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-856",
@@ -51,6 +51,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-930",
+      "headline": "US jury says Apple owes record $5.7 billion in haptic technology patent case",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/us-jury-says-apple-owes-record-57-billion-haptic-technology-patent-case-2026-09-26/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-26T14:12:09Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "A jury verdict ordering a $5.7 billion payment for patent infringement is a significant financial hit and legal risk for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A jury verdict ordering a $5.7 billion payment for patent infringement is a significant financial hit and legal risk for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": "AAPL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1982,55 +2031,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-638",
-      "headline": "Edge planeja terminal terrestre de GNL no RS com investimento de até R$1 bi",
-      "headline_en": "Edge plans land-based LNG terminal in RS with investment of up to R$1 billion",
-      "url": "https://www.reuters.com/pt/negocio/5EBBCBC7DRLBLE25XMTE2QOXEM-2026-09-24/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T16:39:44Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Edge plans a land-based LNG terminal in RS with an investment of up to R$1 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Edge plans a land-based LNG terminal in RS with an investment of up to R$1 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Edge",
-          "ticker": null,
-          "listing_country": "BR"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -179850,9 +179850,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 737978,
-    "news_picked_today": 2096,
-    "news_dropped_today": 9555
+    "news_seen_today": 737995,
+    "news_picked_today": 2099,
+    "news_dropped_today": 9569
   },
   "book_momentum": {
     "live_count": 8,
