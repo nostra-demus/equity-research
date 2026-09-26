@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T02:10:54Z",
+  "generated_at": "2026-09-26T02:14:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-241",
@@ -1049,6 +1049,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-284",
+      "headline": "Cyberbetrug: „Operation Herakles“: Behörden gelingt massiver Schlag gegen Anlagebetrüger",
+      "headline_en": "Cyber fraud: 'Operation Herakles': Authorities achieve massive blow against investment fraudsters",
+      "url": "https://www.handelsblatt.com/politik/deutschland/cyberbetrug-behoerden-gelingt-massiver-schlag-gegen-anlagebetrueger/100257386.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T09:55:00Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Authorities' successful strike against investment fraudsters ('Operation Herakles') indicates enforcement actions that could affect companies in the financial sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Authorities' successful strike against investment fraudsters ('Operation Herakles') indicates enforcement actions that could affect companies in the financial sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-118",
       "headline": "Turkish Airlines seals record 150-jet Boeing 737 MAX order",
       "headline_en": null,
@@ -1958,60 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-121",
-      "headline": "\"FT\": BASF arbeitet an Übernahme Evoniks",
-      "headline_en": "BASF is working on acquiring Evonik",
-      "url": "https://www.reuters.com/de/firma/ft-basf-arbeitet-an-bernahme-evoniks-2026-09-25/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T12:15:44Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Reuters/FT reports BASF working on acquisition of Evonik, a potential large German chemical-sector M&A with no deal value yet disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Reuters/FT reports BASF working on acquisition of Evonik, a potential large German chemical-sector M&A with no deal value yet disclosed.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BASF",
-          "ticker": null,
-          "listing_country": "DE"
-        },
-        {
-          "name": "Evonik",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180333,9 +180322,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 213920,
-    "news_picked_today": 338,
-    "news_dropped_today": 1102
+    "news_seen_today": 221069,
+    "news_picked_today": 354,
+    "news_dropped_today": 1158
   },
   "book_momentum": {
     "live_count": 8,
