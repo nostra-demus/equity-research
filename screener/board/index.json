@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T17:08:07Z",
+  "generated_at": "2026-09-26T17:19:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-856",
@@ -51,6 +51,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-950",
+      "headline": "Apple Owes $5.7 Billion After US Jury Finds Taptic Engine Infringed Patents",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/technology/apple-owes-5-7-billion-after-us-jury-finds-taptic-engine-infringed-patents-12102772#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-26T17:07:50Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Apple faces a $5.7 billion liability following a patent infringement verdict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apple faces a $5.7 billion liability following a patent infringement verdict.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1957,55 +2006,6 @@
         },
         {
           "name": "People Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-505",
-      "headline": "MGM Resorts Is Discussing Making a Bid for People: WSJ",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-24/mgm-resorts-is-discussing-making-a-bid-for-people-wsj",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-24T21:53:59Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "MGM Resorts is reportedly discussing a bid for a company, signaling potential M&A activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "MGM Resorts is reportedly discussing a bid for a company, signaling potential M&A activity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MGM Resorts",
           "ticker": null,
           "listing_country": "US"
         }
@@ -180112,9 +180112,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 738759,
-    "news_picked_today": 2207,
-    "news_dropped_today": 10225
+    "news_seen_today": 738800,
+    "news_picked_today": 2217,
+    "news_dropped_today": 10256
   },
   "book_momentum": {
     "live_count": 8,
