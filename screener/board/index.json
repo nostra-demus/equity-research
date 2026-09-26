@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T01:03:58Z",
+  "generated_at": "2026-09-26T01:11:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260926-101",
@@ -657,6 +657,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-181",
+      "headline": "Russian strikes shut Ukraine's biggest steelmaker",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/europe/russian-drone-hits-central-kyiv-killing-child-injuring-least-seven-people-2026-09-25/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:25:59Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Russian strikes have shut down Ukraine's largest steelmaker, impacting production and supply.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Russian strikes have shut down Ukraine's largest steelmaker, impacting production and supply.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ArcelorMittal Kryvyi Rih",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-118",
       "headline": "Turkish Airlines seals record 150-jet Boeing 737 MAX order",
       "headline_en": null,
@@ -706,6 +755,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260926-187",
+      "headline": "Signature Global announces 194-acre Farrukhnagar project with ₹5,500-6,000 crore GDV",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/signature-global-india-share-price-announces-194-acre-farrukhnagar-project-with-rs-5500-6000-crore-gdv-19998721.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:15:35Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Signature Global announces 194-acre Farrukhnagar project with ₹5,500–6,000 crore GDV, a quantified major capex commitment signaling material pipeline expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Signature Global announces 194-acre Farrukhnagar project with ₹5,500–6,000 crore GDV, a quantified major capex commitment signaling material pipeline expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Signature Global",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1580,6 +1678,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-189",
+      "headline": "Banken: UBS einigt sich in Greensill-Milliardenklage mit Versicherer IAG",
+      "headline_en": "Banks: UBS settles Greensill billion-dollar lawsuit with insurer IAG",
+      "url": "https://www.handelsblatt.com/finanzen/banken-versicherungen/banken/banken-ubs-einigt-sich-in-greensill-milliardenklage-mit-versicherer-iag/100257437.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:10:31Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "UBS reached a settlement in the Greensill billion-dollar lawsuit, reducing legal uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "UBS reached a settlement in the Greensill billion-dollar lawsuit, reducing legal uncertainty.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UBS",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-085",
       "headline": "US court rules against Kalshi, says states can regulate prediction markets",
       "headline_en": null,
@@ -1776,6 +1923,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260926-182",
+      "headline": "BOURSE Airbus recule après un défaut de qualité sur des A321neo",
+      "headline_en": "Airbus falls after quality defect on A321neo",
+      "url": "https://www.reuters.com/fr/affaires/bourse-airbus-recule-aprs-un-dfaut-de-qualit-sur-des-a321neo-2026-09-25/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-25T11:25:43Z",
+      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
+      "prelim_note": "Airbus shares fell following a quality defect report on A321neo aircraft.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Airbus shares fell following a quality defect report on A321neo aircraft.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Airbus",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260926-177",
       "headline": "Prestige Estates expects Rs 2,850 crore revenue from 2 new housing projects in Bengaluru",
       "headline_en": null,
@@ -1817,212 +2013,6 @@
           "name": "Prestige Estates",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-180",
-      "headline": "Signatureglobal announces 194-acre Farrukhnagar project with ₹5,500-6,000 crore GDV",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/signature-global-india-share-price-announces-194-acre-farrukhnagar-project-with-rs-5500-6000-crore-gdv-19998721.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T11:17:39Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Signatureglobal announced a 194-acre project with a gross development value of ₹5,500-6,000 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Signatureglobal announced a 194-acre project with a gross development value of ₹5,500-6,000 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Signatureglobal",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-131",
-      "headline": "Officer's Choice Whisky Founders Are Said To Consider ABD Sale",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/officers-choice-whisky-founders-are-said-to-consider-abd-sale-12097579#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T11:59:13Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Founders are considering a sale of Allied Blenders and Distillers (ABD), signaling a potential M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Founders are considering a sale of Allied Blenders and Distillers (ABD), signaling a potential M&A event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Allied Blenders and Distillers",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-179",
-      "headline": "Akasa Air eyes billion-dollar 200+ Boeing 737 MAX order for fleet expansion, decision expected early 2027: Report",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/akasa-air-eyes-billion-dollar-200-boeing-737-max-order-for-fleet-expansion-decision-expected-early-2027-report-11790330099654.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T11:18:20Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Akasa Air is considering a billion-dollar order for 200+ Boeing 737 MAX aircraft.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Akasa Air is considering a billion-dollar order for 200+ Boeing 737 MAX aircraft.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Akasa Air",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Boeing",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260926-064",
-      "headline": "Bombardier in advanced talks to build Saab surveillance aircraft in Canada, CEO says",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-bombardier-in-advanced-talks-to-build-saab-surveillance-aircraft-in/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-25T23:57:21Z",
-      "sweep_file": "screener/inbox/2026-09-26_sweep.json",
-      "prelim_note": "Bombardier is in advanced talks to build surveillance aircraft for Saab in Canada.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Bombardier is in advanced talks to build surveillance aircraft for Saab in Canada.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bombardier",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Saab",
-          "ticker": null,
-          "listing_country": "SE"
         }
       ],
       "size_bucket": "large",
@@ -180347,9 +180337,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 95286,
-    "news_picked_today": 200,
-    "news_dropped_today": 664
+    "news_seen_today": 110350,
+    "news_picked_today": 216,
+    "news_dropped_today": 720
   },
   "book_momentum": {
     "live_count": 8,
