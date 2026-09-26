@@ -129,6 +129,13 @@ must never cancel a code workflow, and `ci.yml` must keep exactly the five relea
 `scripts/ops/deploy-authorization.py` verifies. It never runs on a pull request, so a research failure is
 reported to whoever owns the research instead of being charged to the next code change.
 
+The code lane follows the same rule. The `eval-contracts` job runs the harness through
+`scripts/eval_code_gate.py`, which evaluates both the change and the exact base it merges onto and fails only on
+failures the change introduces — a run it breaks, a check that newly fails, a failing run it adds, or a suite
+contract it breaks. A run already failing on the base is printed as a warning and left to its research-check
+issue. With no usable base (none, not a commit, or the base's harness crashed) the gate is strict: every failure
+gates, exactly as the bare `python3 scripts/eval.py all` did.
+
 The manual receipt command is break-glass/bootstrap only and requires separate explicit production authority:
 
 ```sh

@@ -107,8 +107,33 @@ jobs:
           fi
           exit $rc
 
-      - name: Run eval harness (all committed runs + J framework-contract checks)
-        run: python3 scripts/eval.py all
+      # The harness scores every committed run, but research lands on main straight from the engine, so a run
+      # that fails its contract checks is already on the base before any code PR opens. That failure belongs to
+      # research-check.yml (one issue per failing run), not to the next unrelated code change — running the bare
+      # harness here blocked every open code PR on it (AKAM_2026-09-14, then V_2026-09-23). The gate runs the
+      # same harness on this change AND on the exact base it merges onto, and fails only on failures this change
+      # introduces (a run it breaks, a check that newly fails, a failing run it adds, a suite contract it breaks).
+      # With no usable base it is strict — every failure gates, exactly as `eval.py all` did.
+      - name: Run eval harness (all committed runs + J framework-contract checks) — gate on failures this change introduces
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          MERGE_GROUP_BASE_SHA: ${{ github.event.merge_group.base_sha }}
+          PUSH_BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          case "$EVENT_NAME" in
+            # actions/checkout builds the PR's merge commit; its first parent is the exact main it merges onto.
+            pull_request)
+              if git rev-parse -q --verify HEAD^2 >/dev/null; then base="$(git rev-parse HEAD^1)"; else base="$PR_BASE_SHA"; fi ;;
+            merge_group) base="$MERGE_GROUP_BASE_SHA" ;;
+            push) base="$PUSH_BEFORE_SHA" ;;
+            *) base="" ;;
+          esac
+          case "$base" in ""|0000000000000000000000000000000000000000) base=none ;; esac
+          python3 scripts/eval_code_gate.py --base "$base"
+
+      - name: Eval code-gate tests (a base-branch research failure never blocks a code change; a new one always does)
+        run: python3 scripts/test_eval_code_gate.py
 
       - name: Check W + X + Y selftest (sector-valuation + evidence-integrity + data-sufficiency gates — fixture-free)
         run: python3 scripts/eval.py selftest
