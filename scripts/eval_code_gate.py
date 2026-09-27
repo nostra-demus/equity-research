@@ -37,7 +37,7 @@ import sys
 import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from research_check import ap_failures, status_of, suite_contract_failures  # noqa: E402
+from research_check import ap_failures, status_of  # noqa: E402
 
 SUITE = "(suite)"
 
@@ -113,15 +113,49 @@ def failure_keys(report, root="."):
     for run in set((report.get("runs") or {}).keys()) | set(ap_failures(report).keys()):
         status, fails = status_of(report, run, root)
         if status == "FAIL":
-            # Key by the check's name only: an AP failure arrives as "AP_valuation_summary_integrity: <text>", and
-            # a reworded diagnostic must not turn a failure the base already has into a "new" one.
-            keys |= {(run, check.split(":", 1)[0].strip()) for check in fails} or {(run, "FAIL")}
-    for item in suite_contract_failures(report):
-        keys.add((SUITE, item["name"]))
+            # Key by the check's NAME (drop the ":<text>" diagnostic), so a reworded diagnostic does not turn a
+            # failure the base already has into a "new" one. But keep per-OCCURRENCE identity: an AP scan emits
+            # one "AP_valuation_summary_integrity: <text>" entry per violation, so N violations on one run share
+            # a name — keying by name alone collapsed them to a single key and let an ADDITIONAL violation on a
+            # run the base already fails read as inherited. First occurrence unsuffixed (so a single failure is
+            # unchanged and a reword stays inherited), each extra occurrence #2, #3, … (so a genuinely new one
+            # gates). This keeps the gate "never weaker than the bare harness on anything this change touches".
+            seen = collections.Counter()
+            for check in (fails or ["FAIL"]):
+                name = check.split(":", 1)[0].strip()
+                seen[name] += 1
+                keys.add((run, name if seen[name] == 1 else f"{name}#{seen[name]}"))
+    # Suite-level contract failures keyed one-per-missing-anchor / per-AZ-correspondence-failure by its own
+    # stable identity — not one per file/check. suite_contract_failures() names the item "framework contract:
+    # <file>" and packs the missing anchors into its joined `detail`, which a single per-file key discarded:
+    # a change deleting an ADDITIONAL protected anchor from a file the base already fails then collapsed into
+    # the same key and read as inherited, permitting further prompt-program damage precisely while the check
+    # is already red (forbidden by CLAUDE.md §2/§23/§28; AGENTS.md L29). Per-anchor identity also does not
+    # over-gate: restoring one anchor while another stays missing is not a new key.
+    for element in _suite_contract_elements(report):
+        keys.add((SUITE, element))
     if report.get("suite_pass") is False and not keys:
         # eval.py failed the suite for a reason none of the readers above name: never let that pass silently.
         keys.add((SUITE, "suite_pass=False"))
     return keys
+
+
+def _suite_contract_elements(report):
+    """Suite-level (framework-contract + AZ correspondence) failures, one identity PER missing anchor / per AZ
+    failure rather than one per file/check, so an ADDITIONAL suite-contract violation on top of one the base
+    already has is a distinct key that gates. Mirrors research_check.suite_contract_failures()'s naming but
+    reads the raw `missing`/`failures` lists (which that helper joins into a single `detail` string) so each
+    element keeps its own key. An empty list falls back to the bare check name (never silently dropped)."""
+    out = []
+    for j in report.get("source_contracts_s24") or []:
+        if j.get("status") == "FAIL":
+            name = f"framework contract: {j.get('file')}"
+            out += [f"{name}: {anchor}" for anchor in (j.get("missing") or [])] or [name]
+    az = report.get("governance_flag_cap_correspondence") or {}
+    if az and not az.get("pass", True):
+        name = "governance flag/cap correspondence (AZ)"
+        out += [f"{name}: {failure}" for failure in (az.get("failures") or [])] or [name]
+    return out
 
 
 def split(head_keys, base_keys):

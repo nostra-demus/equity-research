@@ -59,8 +59,8 @@ check("a failing run yields one key per failing check",
       failure_keys(BASE) == {("V_2026-09-23", "S_haircut_propagated"), ("V_2026-09-23", "AY_fixture_integrity")})
 check("a WARN run (superseded / no RUN_METADATA) is not a failure, as in eval.py",
       not any(run == "OLD_2026-07-03" for run, _ in failure_keys(BASE)))
-check("a suite-level contract failure is keyed under (suite)",
-      failure_keys(report({}, contracts=["CLAUDE.md"])) == {(SUITE, "framework contract: CLAUDE.md")})
+check("a suite-level contract failure is keyed under (suite), one key per missing anchor",
+      failure_keys(report({}, contracts=["CLAUDE.md"])) == {(SUITE, "framework contract: CLAUDE.md: x")})
 check("suite_pass=False with nothing else named is never silently passed",
       failure_keys(report({}, suite_pass=False)) == {(SUITE, "suite_pass=False")})
 new, inh = split(failure_keys(BASE), failure_keys(BASE))
@@ -83,6 +83,30 @@ _ap = lambda text: dict(report({}), valuation_summary_integrity={"checked": 1, "
     {"run": "R_2026-09-01", "violations": [text]}]})
 new, inh = split(failure_keys(_ap("bull 100 is below base 120")), failure_keys(_ap("bull level 100 < base level 120")))
 check("a reworded AP diagnostic on a run the base already fails is inherited, not new", not new and len(inh) == 1)
+
+# An ADDITIONAL violation of a check the base ALREADY fails must gate — keying by check-name/file alone
+# collapsed it into the base's key and read it as inherited, permitting further damage precisely while the
+# check is red. The gate's own contract: "never weaker than the bare harness on anything this change touches
+# … a check it adds or tightens that newly fails an existing run … all still fail it" (eval_code_gate.py
+# module docstring); CLAUDE.md §2/§23/§28 forbid shortening the prompt-program, AGENTS.md L29. A pure reword
+# (same COUNT) must still stay inherited — the two cases below pin both directions.
+_contracts = lambda missing: dict(report({}), source_contracts_s24=[{"file": "CLAUDE.md", "status": "FAIL", "missing": missing}])
+new, _ = split(failure_keys(_contracts(["§24 Filter 6 anchor", "§23 module-compat anchor"])),
+               failure_keys(_contracts(["§24 Filter 6 anchor"])))
+check("deleting an ADDITIONAL protected anchor from a file the base already fails is new (gates)",
+      new == {(SUITE, "framework contract: CLAUDE.md: §23 module-compat anchor")}, sorted(new))
+new, _ = split(failure_keys(_contracts(["§24 Filter 6 anchor"])),
+               failure_keys(_contracts(["§24 Filter 6 anchor", "§23 module-compat anchor"])))
+check("restoring one missing anchor while another stays missing is NOT over-gated (inherited)", not new, sorted(new))
+_apN = lambda vs: dict(report({}), valuation_summary_integrity={"checked": 1, "failures": [
+    {"run": "R_2026-09-01", "violations": vs}]})
+new, _ = split(failure_keys(_apN(["bull 100 < base 120", "bear 90 > base 120 (a second, new defect)"])),
+               failure_keys(_apN(["bull 100 < base 120"])))
+check("an ADDITIONAL AP violation on a run the base already fails is new (gates)",
+      new == {("R_2026-09-01", "AP_valuation_summary_integrity#2")}, sorted(new))
+new, _ = split(failure_keys(_apN(["reworded a", "reworded b"])), failure_keys(_apN(["orig a", "orig b"])))
+check("two AP violations reworded (same count) on an already-failing run stay inherited, not new", not new, sorted(new))
+
 _repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 check("every way the real scripts/eval.py can fail the suite is one this gate can name",
       undecoded_suite_gates(_repo) == [], undecoded_suite_gates(_repo))
