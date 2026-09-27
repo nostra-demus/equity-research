@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T04:34:56Z",
+  "generated_at": "2026-09-27T04:44:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-065",
@@ -142,6 +142,66 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-075",
+      "headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T04:30:17Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Armani is reportedly initiating talks for a potential stake sale to major luxury conglomerates LVMH and L'Oreal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Armani is reportedly initiating talks for a potential stake sale to major luxury conglomerates LVMH and L'Oreal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Giorgio Armani",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "LVMH",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "L'Oreal",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
       "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
@@ -1354,6 +1414,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-076",
+      "headline": "OpenAI, Anthropic CEOs called to appear at Australian AI probe",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/openai-anthropic-ceos-called-appear-australian-ai-probe-2026-09-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T04:27:44Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "CEOs of major AI firms are being summoned for a government probe in Australia, indicating increased regulatory scrutiny.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "CEOs of major AI firms are being summoned for a government probe in Australia, indicating increased regulatory scrutiny.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-062",
       "headline": "WATCH: Rohit Sharma, Virat Kohli And Team India Arrive At Muthoot FinCorp Event As BCCI Announces New Title Sponsor",
       "headline_en": null,
@@ -1824,92 +1938,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-031",
-      "headline": "Insurance commission cuts: Will lower payouts make policies cheaper—or simply hurt distributors?",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/personal-finance/story/insurance-commission-cuts-will-lower-payouts-make-policies-cheaper-or-simply-hurt-distributors-558048-2026-09-27?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T01:40:03Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Potential regulatory changes to insurance commission structures in India affecting distributor margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Potential regulatory changes to insurance commission structures in India affecting distributor margins.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-016",
-      "headline": "ASIA WATCH: Australia, China clash over Darwin port lease",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/86038",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T00:36:00Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Ongoing geopolitical tension regarding the Darwin port lease remains a point of friction between Australia and China.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Ongoing geopolitical tension regarding the Darwin port lease remains a point of friction between Australia and China.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -182860,9 +182888,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 455,
-    "news_picked_today": 82,
-    "news_dropped_today": 373
+    "news_seen_today": 466,
+    "news_picked_today": 84,
+    "news_dropped_today": 382
   },
   "book_momentum": {
     "live_count": 8,
