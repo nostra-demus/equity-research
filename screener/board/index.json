@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T07:59:14Z",
+  "generated_at": "2026-09-27T08:03:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-110",
@@ -1194,6 +1194,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-148",
+      "headline": "Police declare major incident at UK's Fairford air base, used by US air forces",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/uk/security-increased-us-fairford-air-base-england-2026-09-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T07:52:49Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Police declaration of a major incident at a key military air base used by US forces is a significant security event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Police declaration of a major incident at a key military air base used by US forces is a significant security event.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-061",
       "headline": "OpenAI sandbox failure allows AI agent to gain Internet access",
       "headline_en": null,
@@ -1933,55 +1976,6 @@
           "name": "Anthropic",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-120",
-      "headline": "Mehli Mistry Exits Tata Medical Centre Trust, Skips Re-election",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/mehli-mistry-exits-tata-medical-centre-trust-skips-re-election",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T05:17:22Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "The departure of a key figure associated with the Tata group from a major trust is a notable governance development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "The departure of a key figure associated with the Tata group from a major trust is a notable governance development.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Medical Centre Trust",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -183584,9 +183578,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 930,
-    "news_picked_today": 192,
-    "news_dropped_today": 738
+    "news_seen_today": 954,
+    "news_picked_today": 197,
+    "news_dropped_today": 757
   },
   "book_momentum": {
     "live_count": 8,
