@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T21:17:01Z",
+  "generated_at": "2026-09-27T21:21:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-197",
@@ -150,6 +150,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-249",
+      "headline": "GE Aerospace Is Spending $12 Billion on an Acquisition. Is It Still the Best Aerospace Stock to Own?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ge-aerospace-spending-12-billion-acquisition-it-still-best-aerospace-stock-own",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T20:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "GE Aerospace is committing $12 billion to an acquisition, representing a major capital allocation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE Aerospace is committing $12 billion to an acquisition, representing a major capital allocation event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE Aerospace",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-246",
       "headline": "Greenbriar Nears $1.8 billion Spectrum Control Purchase",
       "headline_en": null,
@@ -194,55 +243,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-247",
-      "headline": "GE Aerospace Is Spending $12 Billion on an Acquisition. Is It Still the Best Aerospace Stock to Own?",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/27/ge-aerospace-is-spending-12-billion-on-an-acquisit/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T20:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "GE Aerospace is committing $12 billion to an acquisition, which is a major capital allocation event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE Aerospace is committing $12 billion to an acquisition, which is a major capital allocation event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE Aerospace",
-          "ticker": "GE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -184356,9 +184356,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3309,
-    "news_picked_today": 622,
-    "news_dropped_today": 2687
+    "news_seen_today": 3325,
+    "news_picked_today": 625,
+    "news_dropped_today": 2700
   },
   "book_momentum": {
     "live_count": 8,
