@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T10:29:57Z",
+  "generated_at": "2026-09-27T10:34:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-173",
@@ -1625,6 +1625,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-178",
+      "headline": "Micron Guided to an 86% Gross Margin. No Memory Maker Has Ever Held a Number Like That for Long.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/micron-guided-86-gross-margin-no-memory-maker-has-ever-held-number-long",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T10:01:02Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Micron provided guidance for an 86% gross margin, which is a significant outlier for the memory sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Micron provided guidance for an 86% gross margin, which is a significant outlier for the memory sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Micron Technology",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-158",
       "headline": "Fortis defends itself after Supreme Court allows forensic audit, says it was \"complete stranger\" to Daiichi-Singh Brothers dispute",
       "headline_en": null,
@@ -1905,60 +1954,6 @@
       "companies": [
         {
           "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-140",
-      "headline": "How Trump could wrest Citgo from Elliott Management and hand it back to Venezuela",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/09/27/trump-citgo-elliott-management-venezuela/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T07:11:00Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Potential seizure of Citgo assets from Elliott Management creates significant legal and financial risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Potential seizure of Citgo assets from Elliott Management creates significant legal and financial risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Citgo",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Elliott Management",
           "ticker": null,
           "listing_country": null
         }
@@ -183917,9 +183912,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1406,
-    "news_picked_today": 279,
-    "news_dropped_today": 1127
+    "news_seen_today": 1432,
+    "news_picked_today": 282,
+    "news_dropped_today": 1150
   },
   "book_momentum": {
     "live_count": 8,
