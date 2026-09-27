@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T16:14:46Z",
+  "generated_at": "2026-09-27T16:15:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-197",
@@ -143274,6 +143274,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0cef461e2830",
+      "idea_version": "IDEAV-c6e6eab23717338f",
+      "idea_version_started_at": "2026-09-27T16:15:45Z",
+      "ticker": "EVPR",
+      "company": "Everpure",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company issued a $7 billion revenue forecast that significantly exceeds consensus analyst expectations, suggesting a fundamental step-change in growth.",
+      "why_now": "The guidance update was released on September 27, 2026, creating an immediate valuation gap relative to previous estimates.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ca9cafde9b29"
+      ],
+      "primary_source_event_id": "EVT-ca9cafde9b29",
+      "source_headlines": [
+        "Everpure’s $7 Billion Forecast Just Blew Past Wall Street’s Numbers"
+      ],
+      "source_headline": "Everpure’s $7 Billion Forecast Just Blew Past Wall Street’s Numbers",
+      "source_url": "https://247wallst.com/investing/2026/09/27/everpures-7-billion-forecast-just-blew-past-wall-streets-numbers/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T15:45:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T16:15:45Z",
+      "updated_at": "2026-09-27T16:15:45Z",
+      "decay_at": "2026-09-29T03:45:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9f7e74ae9645",
       "idea_version": "IDEAV-50e86a06577a3cc4",
       "idea_version_started_at": "2026-09-27T15:35:26Z",
@@ -145355,76 +145427,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-fedbe5f5da3b",
-      "idea_version": "IDEAV-a214476d7e13f703",
-      "idea_version_started_at": "2026-09-25T04:16:09Z",
-      "ticker": "MGM",
-      "company": "MGM Resorts",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The rescission of the takeover offer removes the acquisition premium that was supporting the stock price, leading to a valuation reset.",
-      "why_now": "The offer was officially rescinded today, September 24, 2026, triggering an immediate market reaction.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 69,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7de28ca62c26"
-      ],
-      "primary_source_event_id": "EVT-7de28ca62c26",
-      "source_headlines": [
-        "MGM Resorts shares sink 9% after Barry Diller's People Inc. rescinds takeover offer"
-      ],
-      "source_headline": "MGM Resorts shares sink 9% after Barry Diller's People Inc. rescinds takeover offer",
-      "source_url": "https://www.cnbc.com/2026/09/24/barry-diller-people-mgm-resorts.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-24T16:06:00Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/MGM_2026-07-03",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-24T03:15:08Z",
-      "updated_at": "2026-09-25T04:16:09Z",
-      "decay_at": "2026-09-26T04:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-9107e0bd5461",
       "idea_version": "IDEAV-8eef803092a42069",
       "idea_version_started_at": "2026-09-26T13:43:44Z",
@@ -146858,9 +146860,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 523,
     "shown_count": 500,
-    "hidden_count": 24,
+    "hidden_count": 23,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -146868,23 +146870,23 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 253,
+        "total_count": 252,
         "shown_count": 250,
-        "hidden_count": 3
+        "hidden_count": 2
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 518,
-      "oldest_retained_at": "2026-09-01T17:01:16Z",
+      "evicted_count": 519,
+      "oldest_retained_at": "2026-09-01T17:36:15Z",
       "side_counts": {
         "long": {
           "evicted_count": 342,
           "oldest_retained_at": "2026-09-09T22:45:17Z"
         },
         "short": {
-          "evicted_count": 176,
-          "oldest_retained_at": "2026-09-01T17:01:16Z"
+          "evicted_count": 177,
+          "oldest_retained_at": "2026-09-01T17:36:15Z"
         }
       }
     },
@@ -148659,8 +148661,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-26T04:06:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-27T16:15:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -184027,8 +184029,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1083,
-    "live_count": 40,
+    "surfaced_total": 1084,
+    "live_count": 41,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
