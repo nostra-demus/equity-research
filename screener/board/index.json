@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-27T03:49:33Z",
+  "generated_at": "2026-09-27T03:58:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260927-065",
+      "headline": "Apple asked to pay $5.7 bn to Taction for alleged infringement of its technology; tech giant to challenge ruling",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/apple-asked-to-pay-5-7-bn-to-taction-for-alleged-infringement-of-its-technology-tech-giant-to-challenge-ruling-11790480427118.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T03:49:04Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Apple faces a $5.7 billion legal judgment for alleged technology infringement, which is a significant financial risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apple faces a $5.7 billion legal judgment for alleged technology infringement, which is a significant financial risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260927-059",
       "headline": "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in",
@@ -1152,6 +1201,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-066",
+      "headline": "Sollfege Smart Electronics IPO to raise ₹21.7 cr, open on Sep 30",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/sollfege-smart-electronics-ipo-to-raise-217-cr-open-on-sep-30/article71515167.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T03:47:03Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Sollfege Smart Electronics announced an IPO to raise 21.7 crore INR.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Sollfege Smart Electronics announced an IPO to raise 21.7 crore INR.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sollfege Smart Electronics",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-045",
       "headline": "Redcape sells Townsville pubs to fund venue upgrades",
       "headline_en": null,
@@ -1818,98 +1916,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-052",
-      "headline": "Australia Home Auction Clearances Hit 10-Week Low as Rate Hike Looms",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-27/australia-home-auction-clearances-hit-10-week-low-as-rate-hike-looms",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T02:50:12Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Auction clearance rates are a lagging indicator of housing market sentiment in Australia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Auction clearance rates are a lagging indicator of housing market sentiment in Australia.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-037",
-      "headline": "Mehli Mistry to leave Tata Med Centre Trust, his 6th such exit",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/mehli-mistry-to-leave-tata-med-centre-trust-his-6th-such-exit/articleshow/134513458.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T01:50:46Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "The departure of a board member from a charitable trust is unlikely to impact the financial performance of the Tata Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "The departure of a board member from a charitable trust is unlikely to impact the financial performance of the Tata Group.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -182788,9 +182794,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 375,
-    "news_picked_today": 67,
-    "news_dropped_today": 308
+    "news_seen_today": 383,
+    "news_picked_today": 71,
+    "news_dropped_today": 312
   },
   "book_momentum": {
     "live_count": 8,
