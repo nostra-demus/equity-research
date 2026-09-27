@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-759cf3b531e6",
+  "idea_version": "IDEAV-a1be9d10a405ae28",
+  "idea_version_started_at": "2026-09-27T04:44:42Z",
+  "ticker": "AMZN",
+  "company": "Amazon.com, Inc.",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Amazon was fined ₹10 lakh by the CCPA for selling unregistered herbicides, indicating regulatory scrutiny.",
+  "why_now": "The fine was reported on September 27, 2026.",
+  "conviction": 45,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 14,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "price and market expectations",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "unknown",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-7bc774b61636"
+  ],
+  "primary_source_event_id": "EVT-7bc774b61636",
+  "source_headlines": [
+    "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales"
+  ],
+  "source_headline": "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales",
+  "source_url": "https://www.thehindubusinessline.com/companies/ccpa-slaps-10-lakh-fine-on-amazon-flipkart-5-lakh-on-jiomart-over-unregistered-herbicide-sales/article71515152.ece",
+  "source_name": "The Hindu BusinessLine",
+  "materiality_max": 94,
+  "newest_source_at": "2026-09-27T03:24:37Z",
+  "prior_coverage": {
+    "has_run": true,
+    "latest_run": "analyses/AMZN_2026-07-20",
+    "latest_decision": null,
+    "data_pool_present": true
+  },
+  "surfaced_at": "2026-09-27T04:44:42Z",
+  "updated_at": "2026-09-27T04:44:42Z",
+  "decay_at": "2026-09-28T15:24:37Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

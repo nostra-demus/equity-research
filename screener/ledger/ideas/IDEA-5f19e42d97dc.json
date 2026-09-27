@@ -1,0 +1,76 @@
+{
+  "idea_id": "IDEA-5f19e42d97dc",
+  "idea_version": "IDEAV-0c7ffde149793fa2",
+  "idea_version_started_at": "2026-09-27T04:44:42Z",
+  "ticker": "GOOG",
+  "company": "Alphabet Inc.",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Concerns over AI safety and regulatory probes into OpenAI and Anthropic suggest potential headwinds for the broader AI sector, which could impact Google's AI development and deployment.",
+  "why_now": "Multiple reports on September 27, 2026, highlight OpenAI sandbox failures and regulatory attention on AI companies.",
+  "conviction": 40,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 68,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 15,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 7,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "price and market expectations",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "unknown",
+  "thesis_type": "sector_cycle",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-65ee2d0ab6c0",
+    "EVT-3f56632afb40",
+    "EVT-c34c5ffea690"
+  ],
+  "primary_source_event_id": "EVT-65ee2d0ab6c0",
+  "source_headlines": [
+    "OpenAI sandbox failure allows AI agent to gain Internet access",
+    "Another OpenAI sandbox failure lets AI agent reach internet, prompting training pause",
+    "OpenAI, Anthropic CEOs called to appear at Australian AI probe"
+  ],
+  "source_headline": "OpenAI sandbox failure allows AI agent to gain Internet access",
+  "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/openai-sandbox-failure-allows-ai-agent-gain-internet-access",
+  "source_name": "The Business Times (Singapore)",
+  "materiality_max": 87,
+  "newest_source_at": "2026-09-27T04:27:44Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-27T04:44:42Z",
+  "updated_at": "2026-09-27T04:44:42Z",
+  "decay_at": "2026-09-28T16:27:44Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
