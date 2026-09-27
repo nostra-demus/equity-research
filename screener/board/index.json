@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T01:24:55Z",
+  "generated_at": "2026-09-27T01:44:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-015",
@@ -46,6 +46,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-028",
+      "headline": "Hamas leader says Israel to use ‘blood’ of Palestinians as fuel for election",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/world/middle-east/article/3368926/hamas-leader-says-israel-use-blood-palestinians-fuel-election?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T01:31:33Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Escalating geopolitical rhetoric regarding the Israel-Palestine conflict increases regional instability risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Escalating geopolitical rhetoric regarding the Israel-Palestine conflict increases regional instability risks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -294,6 +337,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-029",
+      "headline": "Boeing flags 737 MAX software glitch affecting landing navigation feature: report",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/boeing-flags-737-max-software-glitch-affecting-landing-navigation-feature-report",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T01:39:45Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Boeing has identified a software glitch in the 737 MAX affecting landing navigation, posing operational and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Boeing has identified a software glitch in the 737 MAX affecting landing navigation, posing operational and regulatory risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-026",
+      "headline": "OpenAI halts training of latest models as reports mount of AI agents going rogue",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/technology/2026/sep/27/openai-halts-training-of-latest-models-as-reports-mount-of-ai-agents-going-rogue",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T01:10:21Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "OpenAI has halted training of its latest models due to reports of AI agent instability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "OpenAI has halted training of its latest models due to reports of AI agent instability.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-020",
       "headline": "Amazon wades into India’s fast delivery battleground: ‘DoorDash on steroids’",
       "headline_en": null,
@@ -343,55 +484,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260927-018",
-      "headline": "Boeing flags 737 MAX software glitch affecting landing navigation feature: Report",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/rest-of-world/boeing-flags-737-max-software-glitch-affecting-landing-navigation-feature-report-4161209",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T00:44:30Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Boeing identified a software glitch in the 737 MAX affecting landing navigation, posing a potential operational and safety risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Boeing identified a software glitch in the 737 MAX affecting landing navigation, posing a potential operational and safety risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260927-017",
       "headline": "Mumbai Crime: DRI Busts Gold Smuggling Syndicate; 318 Kg Worth ₹475 Crore Moved Through Courier Network, 11 Arrested",
       "headline_en": null,
@@ -426,6 +518,50 @@
       },
       "event_types": [
         "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-030",
+      "headline": "Nearly 4 in 10 S. Korean industrial technology leaks involve semiconductors: data",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260927000800320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T01:27:52Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "High frequency of industrial technology leaks in the semiconductor sector poses a material risk to intellectual property and competitive advantage for Korean firms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "High frequency of industrial technology leaks in the semiconductor sector poses a material risk to intellectual property and competitive advantage for Korean firms.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "cybersecurity"
       ],
       "issuer_linkage": "sector",
       "companies": [],
@@ -575,19 +711,19 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260927-013",
+      "inbox_id": "INB-20260927-025",
       "headline": "Sprinklr CEO Sells 145,865 Shares for $810,000 Amid a 35% One-Year Stock Price Decline",
       "headline_en": null,
-      "url": "https://www.fool.com/coverage/filings/2026/09/26/sprinklr-ceo-sells-145-865-shares-for-usd810-000-amid-a-35-one-year-stock-price-decline/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.nasdaq.com/articles/sprinklr-ceo-sells-145865-shares-810000-amid-35-one-year-stock-price-decline",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-09-27T00:30:59Z",
+      "found_at": "2026-09-27T00:50:59Z",
       "sweep_file": "screener/inbox/2026-09-27_sweep.json",
       "prelim_note": "CEO sold 145,865 shares worth $810,000 following a 35% decline in stock price.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 59,
+      "triage_score": 60,
       "triage_reason": "CEO sold 145,865 shares worth $810,000 following a 35% decline in stock price.",
       "region": "US",
       "relevance": "material",
@@ -597,7 +733,7 @@
         "source_tier": 0,
         "scope": 6,
         "event": 2,
-        "size": 1,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
@@ -605,7 +741,7 @@
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "insider_transaction",
-        "size_bucket": "mid"
+        "size_bucket": "large"
       },
       "event_types": [
         "insider_transaction"
@@ -614,11 +750,65 @@
       "companies": [
         {
           "name": "Sprinklr",
-          "ticker": "CXM",
-          "listing_country": "US"
+          "ticker": null,
+          "listing_country": null
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-027",
+      "headline": "Google tests buying from Walmart-owned Flipkart through Gemini and AI Mode in India",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/09/26/google-tests-buying-from-walmart-owned-flipkart-through-gemini-and-ai-mode-in-india/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T01:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Google is testing integration with Flipkart to facilitate direct purchases via Gemini AI in India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Google is testing integration with Flipkart to facilitate direct purchases via Gemini AI in India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Google",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Flipkart",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -803,6 +993,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-024",
+      "headline": "MEDIMPACT DATA BREACH: Edelson Lechtzin LLP Launches Investigation Into Exposure of Social Security Numbers and Health Information",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/medimpact-data-breach-edelson-lechtzin-llp-launches-investigation-into-exposure-of-social-security-numbers-and-health-information-302890807.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-27T01:21:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "A law firm is investigating a data breach at MedImpact involving sensitive health and social security information.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "A law firm is investigating a data breach at MedImpact involving sensitive health and social security information.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MedImpact",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -181676,7 +181915,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2909,
+    "inbox_unconsumed": 2914,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -181685,9 +181924,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 116,
-    "news_picked_today": 24,
-    "news_dropped_today": 92
+    "news_seen_today": 148,
+    "news_picked_today": 31,
+    "news_dropped_today": 117
   },
   "book_momentum": {
     "live_count": 8,
