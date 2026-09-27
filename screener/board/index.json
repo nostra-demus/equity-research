@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T02:19:37Z",
+  "generated_at": "2026-09-27T02:20:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-015",
@@ -143290,31 +143290,33 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a85bb583dca8",
-      "idea_version": "IDEAV-901fdab91d427bdb",
-      "idea_version_started_at": "2026-09-24T16:36:19Z",
-      "ticker": "9984.T",
-      "company": "SoftBank Group",
-      "exchange": "Tokyo Stock Exchange",
-      "direction": "long",
+      "idea_id": "IDEA-3a5e2b5bb8c5",
+      "idea_version": "IDEAV-267198f9d0786948",
+      "idea_version_started_at": "2026-09-27T02:19:51Z",
+      "ticker": "TATACHEM",
+      "company": "Tata Group",
+      "exchange": "NSE",
+      "direction": "short",
       "pair_with": null,
-      "reason": "SoftBank Group is raising $11.1 billion through bond issuance to fund its investment in OpenAI, which is expected to boost its strategic positioning.",
-      "why_now": "The bond issuance and funding plan were reported on September 24, 2026.",
-      "conviction": 70,
+      "reason": "Significant infighting within the Tata Group and key management exits, including from Tata Med Centre Trust, suggest internal instability that could negatively impact business operations and value.",
+      "why_now": "Reports of infighting and management exits are current as of September 27, 2026.",
+      "conviction": 50,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
+      "trade_score": 45,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
+        "impact": 16,
+        "specificity": 7,
         "timing": 10,
-        "expression": 7,
+        "expression": 0,
         "corroboration": 7,
         "learning_adjustment": 0
       },
-      "trade_readiness": "needs_data",
+      "trade_readiness": "watch_only",
       "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
         "live liquidity",
         "dated catalyst",
         "live price, liquidity, and consensus"
@@ -143333,32 +143335,249 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-1704c2896411",
-        "EVT-40e63e4ca332"
+        "EVT-04e199dd1935",
+        "EVT-899675b2388d"
       ],
-      "primary_source_event_id": "EVT-1704c2896411",
+      "primary_source_event_id": "EVT-04e199dd1935",
       "source_headlines": [
-        "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
-        "BREAKING NEWS: SoftBank Group to raise $11.1 bil. to fund OpenAI investment"
+        "A Storied Indian Business Empire Is Being Torn Apart by Infighting",
+        "Mehli Mistry to leave Tata Med Centre Trust, his 6th such exit"
       ],
-      "source_headline": "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
-      "source_url": "https://www.fiercebiotech.com/biotech/fierce-biotech-layoff-tracker-2026",
-      "source_name": "FierceBiotech",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-24T02:10:50Z",
+      "source_headline": "A Storied Indian Business Empire Is Being Torn Apart by Infighting",
+      "source_url": "https://www.wsj.com/world/a-storied-indian-business-empire-is-being-torn-apart-by-infighting-2c5c843c?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 85,
+      "newest_source_at": "2026-09-27T02:00:00Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-09-24T16:36:19Z",
-      "updated_at": "2026-09-24T16:36:19Z",
-      "decay_at": "2026-09-25T14:10:50Z",
+      "surfaced_at": "2026-09-27T02:19:51Z",
+      "updated_at": "2026-09-27T02:19:51Z",
+      "decay_at": "2026-09-28T14:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
-      "stale": true
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ba09629655b3",
+      "idea_version": "IDEAV-02952a5f76c2d683",
+      "idea_version_started_at": "2026-09-27T02:19:51Z",
+      "ticker": "MPX",
+      "company": "MedImpact",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "MedImpact is under investigation for a data breach exposing sensitive personal and health information, which could lead to significant litigation and regulatory penalties.",
+      "why_now": "An investigation was launched on September 27, 2026, following the data breach.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 18,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-85e7c548e500"
+      ],
+      "primary_source_event_id": "EVT-85e7c548e500",
+      "source_headlines": [
+        "MEDIMPACT DATA BREACH: Edelson Lechtzin LLP Launches Investigation Into Exposure of Social Security Numbers and Health Information"
+      ],
+      "source_headline": "MEDIMPACT DATA BREACH: Edelson Lechtzin LLP Launches Investigation Into Exposure of Social Security Numbers and Health Information",
+      "source_url": "https://www.prnewswire.com/news-releases/medimpact-data-breach-edelson-lechtzin-llp-launches-investigation-into-exposure-of-social-security-numbers-and-health-information-302890807.html",
+      "source_name": "PR Newswire — All News Releases",
+      "materiality_max": 51,
+      "newest_source_at": "2026-09-27T01:21:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T02:19:51Z",
+      "updated_at": "2026-09-27T02:19:51Z",
+      "decay_at": "2026-09-28T13:21:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-c94f295d604d",
+      "idea_version": "IDEAV-529e871fa575fc38",
+      "idea_version_started_at": "2026-09-27T02:19:51Z",
+      "ticker": "CCRN",
+      "company": "Sprinklr",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The CEO of Sprinklr sold a significant number of shares, indicating potential lack of confidence in the company's future performance, especially given the stock's recent decline.",
+      "why_now": "The CEO's stock sale occurred on September 27, 2026, following a 35% stock price decline over the past year.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 42,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 11,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4b587740bb9d"
+      ],
+      "primary_source_event_id": "EVT-4b587740bb9d",
+      "source_headlines": [
+        "Sprinklr CEO Sells 145,865 Shares for $810,000 Amid a 35% One-Year Stock Price Decline"
+      ],
+      "source_headline": "Sprinklr CEO Sells 145,865 Shares for $810,000 Amid a 35% One-Year Stock Price Decline",
+      "source_url": "https://www.nasdaq.com/articles/sprinklr-ceo-sells-145865-shares-810000-amid-35-one-year-stock-price-decline",
+      "source_name": "Nasdaq",
+      "materiality_max": 60,
+      "newest_source_at": "2026-09-27T00:50:59Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T02:19:51Z",
+      "updated_at": "2026-09-27T02:19:51Z",
+      "decay_at": "2026-09-28T12:50:59Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0c529d942ea8",
+      "idea_version": "IDEAV-127ebbb4b1924ada",
+      "idea_version_started_at": "2026-09-27T02:19:51Z",
+      "ticker": "GOOGL",
+      "company": "Google",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Google is testing integration with Walmart-owned Flipkart for e-commerce in India, which could expand Google's reach and revenue streams in a key market.",
+      "why_now": "The testing of this integration is happening now, as reported on September 27, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 42,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 11,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f69dc8e1ee6c"
+      ],
+      "primary_source_event_id": "EVT-f69dc8e1ee6c",
+      "source_headlines": [
+        "Google tests buying from Walmart-owned Flipkart through Gemini and AI Mode in India"
+      ],
+      "source_headline": "Google tests buying from Walmart-owned Flipkart through Gemini and AI Mode in India",
+      "source_url": "https://techcrunch.com/2026/09/26/google-tests-buying-from-walmart-owned-flipkart-through-gemini-and-ai-mode-in-india/",
+      "source_name": "TechCrunch",
+      "materiality_max": 57,
+      "newest_source_at": "2026-09-27T01:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T02:19:51Z",
+      "updated_at": "2026-09-27T02:19:51Z",
+      "decay_at": "2026-09-28T13:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
     },
     {
       "idea_id": "IDEA-8de17383cf37",
@@ -145221,14 +145440,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 527,
+    "total_count": 526,
     "shown_count": 500,
-    "hidden_count": 27,
+    "hidden_count": 26,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 16
       },
       "short": {
         "total_count": 260,
@@ -145238,12 +145457,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 505,
+      "evicted_count": 506,
       "oldest_retained_at": "2026-09-01T14:22:01Z",
       "side_counts": {
         "long": {
-          "evicted_count": 336,
-          "oldest_retained_at": "2026-09-09T20:51:50Z"
+          "evicted_count": 337,
+          "oldest_retained_at": "2026-09-09T21:21:11Z"
         },
         "short": {
           "evicted_count": 169,
@@ -147250,8 +147469,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-25T14:10:50Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-27T02:20:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -182391,8 +182610,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1051,
-    "live_count": 18,
+    "surfaced_total": 1055,
+    "live_count": 22,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
