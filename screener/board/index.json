@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T05:09:34Z",
+  "generated_at": "2026-09-27T05:19:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-091",
@@ -41,6 +41,55 @@
       "companies": [
         {
           "name": "Westview",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-093",
+      "headline": "US consulate builder in Milan to pay $35 million over labour probe, document shows",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/us-consulate-builder-milan-pay-35-million-over-labour-probe-document-shows-2026-09-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T05:03:44Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "A company will pay a $35 million settlement following a labor probe.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A company will pay a $35 million settlement following a labor probe.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "US consulate builder",
           "ticker": null,
           "listing_country": null
         }
@@ -1891,55 +1940,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-082",
-      "headline": "Piper Sandler revamps Meta stock price target after cutting it 3 weeks ago",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/stocks/piper-sandler-revamps-meta-stock-price-target-after-cutting-it-3-weeks-ago",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T04:58:00Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Piper Sandler adjusted its price target for Meta, reflecting a change in analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Piper Sandler adjusted its price target for Meta, reflecting a change in analyst expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta Platforms",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -183466,9 +183466,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 521,
-    "news_picked_today": 100,
-    "news_dropped_today": 421
+    "news_seen_today": 546,
+    "news_picked_today": 102,
+    "news_dropped_today": 444
   },
   "book_momentum": {
     "live_count": 8,
