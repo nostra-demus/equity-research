@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-27T00:34:33Z",
+  "generated_at": "2026-09-27T00:39:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260927-012",
+      "headline": "Boeing identifies 737 Max navigation software glitch that may delay new jet models",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/boeing-identifies-737-max-navigation-software-glitch-that-may-delay-new-jet-models/article71515076.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T00:34:56Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Boeing identified a software glitch in the 737 Max that could delay the delivery of new jet models.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Boeing identified a software glitch in the 737 Max that could delay the delivery of new jet models.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260927-003",
       "headline": "OpenAI pauses training of latest models after dozens’ of hacks",
@@ -181048,7 +181098,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2897,
+    "inbox_unconsumed": 2898,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -181057,9 +181107,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 59,
-    "news_picked_today": 12,
-    "news_dropped_today": 47
+    "news_seen_today": 63,
+    "news_picked_today": 13,
+    "news_dropped_today": 50
   },
   "book_momentum": {
     "live_count": 8,
