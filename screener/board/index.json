@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T00:39:29Z",
+  "generated_at": "2026-09-27T00:59:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-012",
@@ -97,6 +97,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-014",
+      "headline": "OpenAI agentic AI system breaches sandbox, gains unauthorised access to public internet",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/openai-agentic-ai-system-breaches-sandbox-gains-unauthorised-access-to-public-internet/article71515078.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T00:44:30Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "OpenAI's agentic AI system breached its sandbox environment, posing potential operational and security risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "OpenAI's agentic AI system breached its sandbox environment, posing potential operational and security risks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -287,6 +336,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-013",
+      "headline": "Sprinklr CEO Sells 145,865 Shares for $810,000 Amid a 35% One-Year Stock Price Decline",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/filings/2026/09/26/sprinklr-ceo-sells-145-865-shares-for-usd810-000-amid-a-35-one-year-stock-price-decline/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T00:30:59Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "CEO sold 145,865 shares worth $810,000 following a 35% decline in stock price.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "CEO sold 145,865 shares worth $810,000 following a 35% decline in stock price.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sprinklr",
+          "ticker": "CXM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -140852,75 +140950,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-8de17383cf37",
-      "idea_version": "IDEAV-74a12c000379f819",
-      "idea_version_started_at": "2026-09-26T23:48:13Z",
-      "ticker": "WEAV",
-      "company": "Weave Communications, Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Weave Communications, Inc. is involved in an M&A event, which often results in a premium for the target company's shares.",
-      "why_now": "The filing of DEFM14A on September 25, 2026, indicates an active M&A process is underway.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 73,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b3966646ec4e"
-      ],
-      "primary_source_event_id": "EVT-b3966646ec4e",
-      "source_headlines": [
-        "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)"
-      ],
-      "source_headline": "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1609151/000114036126037628/0001140361-26-037628-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T12:55:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T23:48:13Z",
-      "updated_at": "2026-09-26T23:48:13Z",
-      "decay_at": "2026-09-27T00:55:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d671baced956",
       "idea_version": "IDEAV-0216b9fe43f0f579",
       "idea_version_started_at": "2026-09-26T23:48:13Z",
@@ -142478,6 +142507,75 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-8de17383cf37",
+      "idea_version": "IDEAV-74a12c000379f819",
+      "idea_version_started_at": "2026-09-26T23:48:13Z",
+      "ticker": "WEAV",
+      "company": "Weave Communications, Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Weave Communications, Inc. is involved in an M&A event, which often results in a premium for the target company's shares.",
+      "why_now": "The filing of DEFM14A on September 25, 2026, indicates an active M&A process is underway.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 73,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b3966646ec4e"
+      ],
+      "primary_source_event_id": "EVT-b3966646ec4e",
+      "source_headlines": [
+        "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)"
+      ],
+      "source_headline": "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1609151/000114036126037628/0001140361-26-037628-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T12:55:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T23:48:13Z",
+      "updated_at": "2026-09-26T23:48:13Z",
+      "decay_at": "2026-09-27T00:55:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-fedbe5f5da3b",
       "idea_version": "IDEAV-a214476d7e13f703",
       "idea_version_started_at": "2026-09-25T04:16:09Z",
@@ -143913,14 +144011,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 521,
+    "total_count": 522,
     "shown_count": 500,
-    "hidden_count": 21,
+    "hidden_count": 22,
     "side_counts": {
       "long": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       },
       "short": {
         "total_count": 260,
@@ -143944,6 +144042,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8de17383cf37",
+        "idea_version": "IDEAV-74a12c000379f819",
+        "idea_version_started_at": "2026-09-26T23:48:13Z",
+        "ticker": "WEAV",
+        "company": "Weave Communications, Inc.",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Weave Communications, Inc. is involved in an M&A event, which often results in a premium for the target company's shares.",
+        "why_now": "The filing of DEFM14A on September 25, 2026, indicates an active M&A process is underway.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 73,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b3966646ec4e"
+        ],
+        "primary_source_event_id": "EVT-b3966646ec4e",
+        "source_headlines": [
+          "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)"
+        ],
+        "source_headline": "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1609151/000114036126037628/0001140361-26-037628-index.htm",
+        "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-25T12:55:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-26T23:48:13Z",
+        "updated_at": "2026-09-26T23:48:13Z",
+        "decay_at": "2026-09-27T00:55:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-27T00:55:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b4c40d311f62",
         "idea_version": "IDEAV-498376c33123426a",
@@ -174369,80 +174539,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e6d0f288bbe0",
-        "idea_version": "IDEAV-e4a4ee598890e8e4",
-        "idea_version_started_at": "2026-09-08T21:38:42Z",
-        "ticker": "QCOM",
-        "company": "Qualcomm",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The strategic AI chip partnership with Amazon validates Qualcomm's data center AI roadmap and provides a significant long-term demand anchor.",
-        "why_now": "The deal and warrant issuance were announced on September 8, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d70f3ebe20b1",
-          "EVT-f9f898574fcb"
-        ],
-        "primary_source_event_id": "EVT-d70f3ebe20b1",
-        "source_headlines": [
-          "Qualcomm strikes AI chip deal with Amazon, offers right to buy about $4 billion in stock",
-          "Qualcomm issues warrants to Amazon to acquire $4 billion worth of chipmaker's stock as part of AI infrastructure deal"
-        ],
-        "source_headline": "Qualcomm strikes AI chip deal with Amazon, offers right to buy about $4 billion in stock",
-        "source_url": "https://www.khaleejtimes.com/business/qualcomm-strikes-ai-chip-deal-with-amazon-offers-right-to-buy-about-4-billion-in-stock",
-        "source_name": "Khaleej Times — Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-08T17:54:07Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-08T20:12:32Z",
-        "updated_at": "2026-09-08T21:38:42Z",
-        "decay_at": "2026-09-10T05:54:07Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T18:09:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-aae3ef159f69",
         "idea_version": "IDEAV-2951d7ef1c34c735",
         "idea_version_started_at": "2026-09-09T01:08:50Z",
@@ -181088,7 +181184,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1049,
-    "live_count": 22,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -181098,7 +181194,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2898,
+    "inbox_unconsumed": 2900,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -181107,9 +181203,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 63,
-    "news_picked_today": 13,
-    "news_dropped_today": 50
+    "news_seen_today": 78,
+    "news_picked_today": 15,
+    "news_dropped_today": 63
   },
   "book_momentum": {
     "live_count": 8,
