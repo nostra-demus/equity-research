@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T22:27:02Z",
+  "generated_at": "2026-09-27T22:32:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-261",
@@ -1760,6 +1760,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-262",
+      "headline": "FWD: Resignation of Chief Financial Officer",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FWD?key=2924-03140374-6A1345937",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-27T22:25:44Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "The resignation of a Chief Financial Officer is a significant management change that can impact investor confidence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The resignation of a Chief Financial Officer is a significant management change that can impact investor confidence.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FWD",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-252",
       "headline": "Speciality Restaurants Limited: Speciality Restaurants Limited has informed the Exchange about Action(s) taken or orders passed",
       "headline_en": null,
@@ -1907,65 +1956,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-057",
-      "headline": "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/ccpa-slaps-10-lakh-fine-on-amazon-flipkart-5-lakh-on-jiomart-over-unregistered-herbicide-sales/article71515152.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T03:24:37Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "The CCPA imposed fines of ₹10 lakh on Amazon and Flipkart and ₹5 lakh on JioMart for selling unregistered herbicides.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The CCPA imposed fines of ₹10 lakh on Amazon and Flipkart and ₹5 lakh on JioMart for selling unregistered herbicides.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Flipkart",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "JioMart",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
