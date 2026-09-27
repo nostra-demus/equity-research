@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-27T10:24:34Z",
+  "generated_at": "2026-09-27T10:29:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260927-173",
+      "headline": "GOODBABY INTL (01086): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF GOODBABY INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL IN RELATION TO THE ROLLOVER ARRANGEMENT AND (4) ESTABLISHMENT OF INDEPENDENT BOARD COMMITTEE AND APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700021.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-27T10:25:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Goodbaby International announced a privatization proposal and withdrawal of listing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Goodbaby International announced a privatization proposal and withdrawal of listing.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Goodbaby International",
+          "ticker": "01086",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260927-163",
       "headline": "‎ACIG receives decision to suspend new motor policy issuance",
@@ -1231,6 +1280,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-177",
+      "headline": "‎SIB issues $500M sukuk",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1939282",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T13:19:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Sharjah Islamic Bank issued $500 million in sukuk, impacting its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Sharjah Islamic Bank issued $500 million in sukuk, impacting its capital structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sharjah Islamic Bank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-134",
       "headline": "‎ADNOC XRG advances with Absheron expansion",
       "headline_en": null,
@@ -1866,100 +1964,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-114",
-      "headline": "Boeing 737 MAX Software Glitch Raises Fresh Safety Questions; Issue Being Reviewed By FAA",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/world/boeing-737-max-software-glitch-raises-fresh-safety-questions-issue-being-reviewed-by-faa",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T06:17:28Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "A software glitch in the Boeing 737 MAX raises safety questions, which could lead to regulatory scrutiny and operational disruptions for the aircraft and potentially other Boeing models.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "A software glitch in the Boeing 737 MAX raises safety questions, which could lead to regulatory scrutiny and operational disruptions for the aircraft and potentially other Boeing models.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations",
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Boeing 737 MAX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-101",
-      "headline": "Saudi Arabia Nuclear Deal Under US Scrutiny After Intelligence Assessment Raises Weapons Concerns",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/world/saudi-arabia-nuclear-deal-under-us-scrutiny-after-intelligence-assessment-raises-weapons-concerns",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T05:39:08Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "US scrutiny of a Saudi nuclear deal due to weapons concerns introduces significant geopolitical and regulatory risk for regional energy and defense sectors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "US scrutiny of a Saudi nuclear deal due to weapons concerns introduces significant geopolitical and regulatory risk for regional energy and defense sectors.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -183842,9 +183846,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1398,
-    "news_picked_today": 274,
-    "news_dropped_today": 1124
+    "news_seen_today": 1406,
+    "news_picked_today": 279,
+    "news_dropped_today": 1127
   },
   "book_momentum": {
     "live_count": 8,
