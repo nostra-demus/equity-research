@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T02:57:52Z",
+  "generated_at": "2026-09-27T03:03:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-050",
@@ -717,6 +717,49 @@
         "litigation_enforcement"
       ],
       "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-051",
+      "headline": "Protesters march on Labour conference, call for ending arms sale to Israel",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/protesters-march-labour-conference-call-ending-arms-sale-israel",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T02:59:34Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Public and political pressure to restrict arms sales to Israel creates potential regulatory and operational risk for defense contractors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Public and political pressure to restrict arms sales to Israel creates potential regulatory and operational risk for defense contractors.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1827,55 +1870,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-002",
-      "headline": "Instacart's Chief Accounting Officer Sells Over 3,000 Shares After the Stock Falls from a One-Year High",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/instacarts-chief-accounting-officer-sells-over-3000-shares-after-stock-falls-one-year-high",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-26T23:41:52Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Small volume insider sale by a CAO is not material to the company's financial outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "Small volume insider sale by a CAO is not material to the company's financial outlook.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Instacart",
-          "ticker": "CART",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -182752,9 +182746,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 303,
-    "news_picked_today": 52,
-    "news_dropped_today": 251
+    "news_seen_today": 308,
+    "news_picked_today": 53,
+    "news_dropped_today": 255
   },
   "book_momentum": {
     "live_count": 8,
