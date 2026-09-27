@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T06:55:05Z",
+  "generated_at": "2026-09-27T07:04:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-110",
@@ -997,6 +997,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-136",
+      "headline": "NCLAT dismisses Affle 3i's plea against insolvency of Talent Unlimited Online Services",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/nclat-dismisses-affle-3is-plea-against-insolvency-of-talent-unlimited-online-services/articleshow/134515994.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T06:46:46Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "The NCLAT dismissed a plea against the insolvency of Talent Unlimited Online Services, confirming the insolvency process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "The NCLAT dismissed a plea against the insolvency of Talent Unlimited Online Services, confirming the insolvency process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Talent Unlimited Online Services",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-094",
       "headline": "WOI India acquires SwiftSeed Ventures; appoints founder Amar Dixit as CEO",
       "headline_en": null,
@@ -1938,55 +1987,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-026",
-      "headline": "OpenAI halts training of latest models as reports mount of AI agents going rogue",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/technology/2026/sep/27/openai-halts-training-of-latest-models-as-reports-mount-of-ai-agents-going-rogue",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T01:10:21Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "OpenAI has halted training of its latest models due to reports of AI agent instability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "OpenAI has halted training of its latest models due to reports of AI agent instability.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -183512,9 +183512,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 761,
-    "news_picked_today": 156,
-    "news_dropped_today": 605
+    "news_seen_today": 793,
+    "news_picked_today": 161,
+    "news_dropped_today": 632
   },
   "book_momentum": {
     "live_count": 8,
