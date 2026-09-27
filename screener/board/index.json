@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-27T11:53:02Z",
+  "generated_at": "2026-09-27T12:04:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260927-197",
+      "headline": "RAFFLESINTERIOR (01376): RESIGNATION OF AUDITOR AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700117.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-27T11:58:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "The resignation of an auditor combined with a continued suspension of trading is a severe governance and liquidity risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The resignation of an auditor combined with a continued suspension of trading is a severe governance and liquidity risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Raffles Interior",
+          "ticker": "01376",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260927-196",
       "headline": "TESSON HOLDINGS (01201): MAJOR TRANSACTION (1) THE ACQUISITION OF AND SUBSCRIPTION FOR SHARES OF THE HK TARGET COMPANY INVOLVING THE ALLOTMENT AND ISSUANCE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROVISION OF FINANCIAL ASSISTANCE; AND (3) PROPOSED APPOINTMENT OF EXECUTIVE DIRECTOR",
@@ -1908,49 +1957,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-189",
-      "headline": "‎Phase 4 of Mohammed bin Rashid Al Maktoum Solar Park refinanced for $2.7B",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1939254",
-      "source_name": "Argaam — UAE Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T12:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Refinancing of a major infrastructure project for $2.7B indicates significant capital structure activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Refinancing of a major infrastructure project for $2.7B indicates significant capital structure activity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -183833,9 +183839,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1672,
-    "news_picked_today": 333,
-    "news_dropped_today": 1339
+    "news_seen_today": 1718,
+    "news_picked_today": 340,
+    "news_dropped_today": 1378
   },
   "book_momentum": {
     "live_count": 8,
