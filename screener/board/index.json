@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T10:13:12Z",
+  "generated_at": "2026-09-27T10:13:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-163",
@@ -142938,6 +142938,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-888b01b644ef",
+      "idea_version": "IDEAV-2b246912960862a3",
+      "idea_version_started_at": "2026-09-27T10:13:26Z",
+      "ticker": "RIOT",
+      "company": "Riot Platforms",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Repaying $200 million in debt and releasing collateral improves the company's balance sheet flexibility and reduces interest expense, lowering its financial risk profile.",
+      "why_now": "The debt repayment was confirmed on 2026-09-27, signaling an immediate improvement in liquidity.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7298605bbe21"
+      ],
+      "primary_source_event_id": "EVT-7298605bbe21",
+      "source_headlines": [
+        "Riot Platforms repays $200M credit facility, releases collateral"
+      ],
+      "source_headline": "Riot Platforms repays $200M credit facility, releases collateral",
+      "source_url": "https://cointelegraph.com/news/riot-platforms-repays-200m-credit-facility-releases-collateral?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "materiality_max": 89,
+      "newest_source_at": "2026-09-27T09:57:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T10:13:26Z",
+      "updated_at": "2026-09-27T10:13:26Z",
+      "decay_at": "2026-09-28T21:57:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-cdeaf43845fc",
       "idea_version": "IDEAV-e1623c92fe297fa6",
       "idea_version_started_at": "2026-09-27T09:33:20Z",
@@ -143504,6 +143574,77 @@
       "surfaced_at": "2026-09-27T03:19:50Z",
       "updated_at": "2026-09-27T03:19:50Z",
       "decay_at": "2026-09-28T14:53:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-481a4b3ef631",
+      "idea_version": "IDEAV-6cfbf2b9657e3199",
+      "idea_version_started_at": "2026-09-27T10:13:26Z",
+      "ticker": "03692",
+      "company": "Hansoh Pharmaceutical Group",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company received positive regulatory updates regarding the marketing authorization of Aumolertinib in the EU, which expands the addressable market for its core oncology product.",
+      "why_now": "The voluntary announcement was filed on 2026-09-27, providing immediate clarity on the product's European commercialization timeline.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bce6f755c270"
+      ],
+      "primary_source_event_id": "EVT-bce6f755c270",
+      "source_headlines": [
+        "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE MARKETING AUTHORIZATION STATUS OF AUMOLERTINIB IN THE EU"
+      ],
+      "source_headline": "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE MARKETING AUTHORIZATION STATUS OF AUMOLERTINIB IN THE EU",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 95,
+      "newest_source_at": "2026-09-27T10:08:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T10:13:26Z",
+      "updated_at": "2026-09-27T10:13:26Z",
+      "decay_at": "2026-09-28T22:08:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -183687,8 +183828,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1072,
-    "live_count": 28,
+    "surfaced_total": 1074,
+    "live_count": 30,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
