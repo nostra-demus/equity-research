@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T14:30:01Z",
+  "generated_at": "2026-09-27T14:49:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-197",
@@ -145,6 +145,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-215",
+      "headline": "Russia hits Ukraine's largest mobile provider, strikes data centres",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/aerospace-defense/russia-hits-ukraines-largest-mobile-provider-strikes-data-centres-2026-09-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T14:25:43Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Russian strike on Ukraine's largest mobile provider and data centers constitutes a major infrastructure and operational shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Russian strike on Ukraine's largest mobile provider and data centers constitutes a major infrastructure and operational shock.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "cybersecurity",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kyivstar",
+          "ticker": null,
+          "listing_country": "UA"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1709,6 +1759,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-214",
+      "headline": "Barrick Mining reaches deal with unions at Mali gold mine, easing strike threat",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/africa/barrick-mining-reaches-deal-with-mali-gold-unions-bloomberg-news-reports-2026-09-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T14:33:54Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Barrick Gold reached a deal with unions at its Mali mine, removing a significant operational disruption risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Barrick Gold reached a deal with unions at its Mali mine, removing a significant operational disruption risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Barrick Gold",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-195",
       "headline": "Bank of America cuts Carnival stock target as key cost surges",
       "headline_en": null,
@@ -1852,109 +1951,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-199",
-      "headline": "Greg Abel Deployed $10 Billion Into Alphabet's Private Placement, Building a $38 Billion Stake That's Now Berkshire Hathaway's Third-Largest Holding. Is Alphabet Becoming Berkshire's New Apple?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/greg-abel-deployed-10-billion-alphabets-private-placement-building-38-billion-stake-thats",
-      "source_name": "Nasdaq.com (per-symbol RSS)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Berkshire Hathaway has disclosed a significant $38 billion stake in Alphabet, indicating a major capital allocation shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Berkshire Hathaway has disclosed a significant $38 billion stake in Alphabet, indicating a major capital allocation shift.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Alphabet",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-134",
-      "headline": "‎ADNOC XRG advances with Absheron expansion",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1939220",
-      "source_name": "Argaam — UAE Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T10:49:00Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "ADNOC XRG is advancing the Absheron expansion project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "ADNOC XRG is advancing the Absheron expansion project.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADNOC",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -183981,9 +183977,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2202,
-    "news_picked_today": 431,
-    "news_dropped_today": 1771
+    "news_seen_today": 2262,
+    "news_picked_today": 444,
+    "news_dropped_today": 1818
   },
   "book_momentum": {
     "live_count": 8,
