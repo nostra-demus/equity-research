@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-27T05:05:15Z",
+  "generated_at": "2026-09-27T05:09:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260927-091",
+      "headline": "Westview seeks partners for $1b steel plant amid construction boom",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/infrastructure/westview-seeks-partners-for-1b-steel-plant-amid-construction-boom-20260927-p6105z?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T05:04:06Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Westview is seeking partners for a $1 billion steel plant project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Westview is seeking partners for a $1 billion steel plant project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Westview",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260927-065",
       "headline": "Apple asked to pay $5.7 bn to Taction for alleged infringement of its technology; tech giant to challenge ruling",
@@ -1749,6 +1798,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-092",
+      "headline": "‎Jeddah Airports launches phased operations at terminal 4",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1939186",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T08:06:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Jeddah Airports has launched phased operations at terminal 4, increasing capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Jeddah Airports has launched phased operations at terminal 4, increasing capacity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jeddah Airports",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-087",
       "headline": "Aberdeen boxes clever: How a data centre punt and restoring vowels helped revive ailing fund manager",
       "headline_en": null,
@@ -1842,109 +1940,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-062",
-      "headline": "WATCH: Rohit Sharma, Virat Kohli And Team India Arrive At Muthoot FinCorp Event As BCCI Announces New Title Sponsor",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/sports/watch-rohit-sharma-virat-kohli-and-team-india-arrive-at-muthoot-fincorp-event-as-bcci-announces-new-title-sponsor",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T03:07:16Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Muthoot FinCorp has secured a new title sponsorship deal with the BCCI, impacting marketing spend and brand visibility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Muthoot FinCorp has secured a new title sponsorship deal with the BCCI, impacting marketing spend and brand visibility.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Muthoot FinCorp",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-009",
-      "headline": "Mass market automakers gaining ground in the premium segment; Mercedes, BMW work out different strategies to drive growth",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/auto/auto-news/mass-market-automakers-gaining-ground-in-the-premium-segment-mercedes-bmw-work-out-different-strategies-to-drive-growth/articleshow/134509179.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Increased competition in the premium automotive segment from mass-market players impacts the strategic outlook for luxury manufacturers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Increased competition in the premium automotive segment from mass-market players impacts the strategic outlook for luxury manufacturers.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Mercedes-Benz",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "BMW",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -143550,78 +143545,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c4a3209a2ac2",
-      "idea_version": "IDEAV-e6b89be53d36cb05",
-      "idea_version_started_at": "2026-09-26T19:43:33Z",
-      "ticker": "PINE",
-      "company": "Pinewood Technologies",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Pinewood Technologies shareholders have approved a $721 million takeover by Ridgeview, which will likely result in a premium payout for existing shareholders.",
-      "why_now": "Shareholders approved the takeover today, September 25, 2026, making the deal imminent.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-83e1e676c945"
-      ],
-      "primary_source_event_id": "EVT-83e1e676c945",
-      "source_headlines": [
-        "UK's Pinewood Technologies shareholders approve $721 million Ridgeview takeover"
-      ],
-      "source_headline": "UK's Pinewood Technologies shareholders approve $721 million Ridgeview takeover",
-      "source_url": "https://www.reuters.com/business/uks-pinewood-technologies-shareholders-approve-721-million-ridgeview-takeover-2026-09-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T17:07:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T11:48:12Z",
-      "updated_at": "2026-09-26T19:43:33Z",
-      "decay_at": "2026-09-27T05:07:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9330e3eb3a1d",
       "idea_version": "IDEAV-55d214a7366173e2",
       "idea_version_started_at": "2026-09-26T19:19:42Z",
@@ -145052,6 +144975,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c4a3209a2ac2",
+      "idea_version": "IDEAV-e6b89be53d36cb05",
+      "idea_version_started_at": "2026-09-26T19:43:33Z",
+      "ticker": "PINE",
+      "company": "Pinewood Technologies",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Pinewood Technologies shareholders have approved a $721 million takeover by Ridgeview, which will likely result in a premium payout for existing shareholders.",
+      "why_now": "Shareholders approved the takeover today, September 25, 2026, making the deal imminent.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-83e1e676c945"
+      ],
+      "primary_source_event_id": "EVT-83e1e676c945",
+      "source_headlines": [
+        "UK's Pinewood Technologies shareholders approve $721 million Ridgeview takeover"
+      ],
+      "source_headline": "UK's Pinewood Technologies shareholders approve $721 million Ridgeview takeover",
+      "source_url": "https://www.reuters.com/business/uks-pinewood-technologies-shareholders-approve-721-million-ridgeview-takeover-2026-09-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T17:07:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T11:48:12Z",
+      "updated_at": "2026-09-26T19:43:33Z",
+      "decay_at": "2026-09-27T05:07:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-e5a33fd56bcc",
       "idea_version": "IDEAV-3c2f4bb2c40f8421",
       "idea_version_started_at": "2026-09-26T19:43:33Z",
@@ -146278,14 +146273,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 526,
+    "total_count": 527,
     "shown_count": 500,
-    "hidden_count": 26,
+    "hidden_count": 27,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       },
       "short": {
         "total_count": 259,
@@ -146309,6 +146304,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c4a3209a2ac2",
+        "idea_version": "IDEAV-e6b89be53d36cb05",
+        "idea_version_started_at": "2026-09-26T19:43:33Z",
+        "ticker": "PINE",
+        "company": "Pinewood Technologies",
+        "exchange": "LSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Pinewood Technologies shareholders have approved a $721 million takeover by Ridgeview, which will likely result in a premium payout for existing shareholders.",
+        "why_now": "Shareholders approved the takeover today, September 25, 2026, making the deal imminent.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-83e1e676c945"
+        ],
+        "primary_source_event_id": "EVT-83e1e676c945",
+        "source_headlines": [
+          "UK's Pinewood Technologies shareholders approve $721 million Ridgeview takeover"
+        ],
+        "source_headline": "UK's Pinewood Technologies shareholders approve $721 million Ridgeview takeover",
+        "source_url": "https://www.reuters.com/business/uks-pinewood-technologies-shareholders-approve-721-million-ridgeview-takeover-2026-09-25/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-25T17:07:10Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-26T11:48:12Z",
+        "updated_at": "2026-09-26T19:43:33Z",
+        "decay_at": "2026-09-27T05:07:10Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-27T05:07:10Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9f7e74ae9645",
         "idea_version": "IDEAV-876a78df1c0bf677",
@@ -176066,79 +176136,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-822f1593587e",
-        "idea_version": "IDEAV-446a7090aedcb397",
-        "idea_version_started_at": "2026-09-09T14:52:59Z",
-        "ticker": "SIG",
-        "company": "Signet Jewelers",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a return to profitability and raised its forward outlook, suggesting improved operational efficiency and consumer demand.",
-        "why_now": "The announcement was made today, September 9, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-075c60ad478b"
-        ],
-        "primary_source_event_id": "EVT-075c60ad478b",
-        "source_headlines": [
-          "Signet Jewelers Raises Outlook After Swinging to Quarterly Profit"
-        ],
-        "source_headline": "Signet Jewelers Raises Outlook After Swinging to Quarterly Profit",
-        "source_url": "https://www.wsj.com/business/earnings/signet-jewelers-raises-outlook-after-swinging-to-quarterly-profit-7bb4038d?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-09T11:14:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-09T14:52:59Z",
-        "updated_at": "2026-09-09T14:52:59Z",
-        "decay_at": "2026-09-10T23:14:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-12T12:40:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-ab31901fa897",
         "idea_version": "IDEAV-7614be235044d7a8",
         "idea_version_started_at": "2026-09-09T14:52:59Z",
@@ -183450,7 +183447,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1065,
-    "live_count": 30,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -183469,9 +183466,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 509,
-    "news_picked_today": 98,
-    "news_dropped_today": 411
+    "news_seen_today": 521,
+    "news_picked_today": 100,
+    "news_dropped_today": 421
   },
   "book_momentum": {
     "live_count": 8,
