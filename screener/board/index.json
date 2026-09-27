@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T06:03:38Z",
+  "generated_at": "2026-09-27T06:08:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-091",
@@ -1287,6 +1287,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-108",
+      "headline": "‎ACIG receives decision to suspend new comprehensive motor policy issuance; renewals continue",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1939204",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T09:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "ACIG received a regulatory suspension on issuing new motor policies, which will directly impact revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "ACIG received a regulatory suspension on issuing new motor policies, which will directly impact revenue.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ACIG",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-105",
       "headline": "Kansai airport eyes more int'l flights, resume India, Indonesia routes",
       "headline_en": null,
@@ -1896,55 +1945,6 @@
       "companies": [
         {
           "name": "Arete 22",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-066",
-      "headline": "Sollfege Smart Electronics IPO to raise ₹21.7 cr, open on Sep 30",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/sollfege-smart-electronics-ipo-to-raise-217-cr-open-on-sep-30/article71515167.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T03:47:03Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Sollfege Smart Electronics announced an IPO to raise 21.7 crore INR.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Sollfege Smart Electronics announced an IPO to raise 21.7 crore INR.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sollfege Smart Electronics",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -183619,9 +183619,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 650,
-    "news_picked_today": 123,
-    "news_dropped_today": 527
+    "news_seen_today": 658,
+    "news_picked_today": 126,
+    "news_dropped_today": 532
   },
   "book_momentum": {
     "live_count": 8,
