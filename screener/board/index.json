@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T21:21:52Z",
+  "generated_at": "2026-09-27T21:30:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-197",
@@ -1711,6 +1711,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-252",
+      "headline": "Speciality Restaurants Limited: Speciality Restaurants Limited has informed the Exchange about Action(s) taken or orders passed",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SPECIALITY_28092026025159_BSENSELETTERDATED28092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-27T21:22:17Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Speciality Restaurants Limited has received an order or enforcement action from a regulatory body.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Speciality Restaurants Limited has received an order or enforcement action from a regulatory body.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Speciality Restaurants Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-200",
       "headline": "M TEK COPPER LIMITED: M TEK COPPER LIMITED has informed the Exchange regarding 'Disclosure under Regulation 29(2) of SEBI(SAST) Regulation, 2015'.",
       "headline_en": null,
@@ -1917,55 +1966,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-109",
-      "headline": "‎Saudi Aramco reportedly hires adviser to set up gas unit",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1939206",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T09:16:00Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Saudi Aramco is reportedly hiring an adviser to set up a new gas unit, indicating a potential strategic shift or expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Saudi Aramco is reportedly hiring an adviser to set up a new gas unit, indicating a potential strategic shift or expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -184356,9 +184356,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3325,
-    "news_picked_today": 625,
-    "news_dropped_today": 2700
+    "news_seen_today": 3355,
+    "news_picked_today": 634,
+    "news_dropped_today": 2721
   },
   "book_momentum": {
     "live_count": 8,
