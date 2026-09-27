@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T06:24:44Z",
+  "generated_at": "2026-09-27T06:30:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-110",
@@ -1093,6 +1093,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-114",
+      "headline": "Boeing 737 MAX Software Glitch Raises Fresh Safety Questions; Issue Being Reviewed By FAA",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/world/boeing-737-max-software-glitch-raises-fresh-safety-questions-issue-being-reviewed-by-faa",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T06:17:28Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "A software glitch in the Boeing 737 MAX raises safety questions, which could lead to regulatory scrutiny and operational disruptions for the aircraft and potentially other Boeing models.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "A software glitch in the Boeing 737 MAX raises safety questions, which could lead to regulatory scrutiny and operational disruptions for the aircraft and potentially other Boeing models.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Boeing 737 MAX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-101",
       "headline": "Saudi Arabia Nuclear Deal Under US Scrutiny After Intelligence Assessment Raises Weapons Concerns",
       "headline_en": null,
@@ -1592,6 +1642,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-115",
+      "headline": "Toyota 100% Ethanol Innova To Launch In October; Gadkari Says Fuel Cost Could Drop To ₹25 Per Litre Equivalent",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/toyota-100-ethanol-innova-to-launch-in-october-gadkari-says-fuel-cost-could-drop-to-25-per-litre-equivalent",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T06:04:45Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Toyota's launch of a 100% ethanol Innova and the potential for significantly lower fuel costs could impact the automotive sector and energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Toyota's launch of a 100% ethanol Innova and the potential for significantly lower fuel costs could impact the automotive sector and energy markets.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product",
+        "operations",
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toyota",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-041",
       "headline": "Could Boeing 737 MAX software glitch disrupt navigation feature? Here's what company says on automated flight guidance",
       "headline_en": null,
@@ -1865,93 +1966,6 @@
       },
       "event_types": [
         "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-051",
-      "headline": "Protesters march on Labour conference, call for ending arms sale to Israel",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/protesters-march-labour-conference-call-ending-arms-sale-israel",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T02:59:34Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Public and political pressure to restrict arms sales to Israel creates potential regulatory and operational risk for defense contractors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Public and political pressure to restrict arms sales to Israel creates potential regulatory and operational risk for defense contractors.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-030",
-      "headline": "Nearly 4 in 10 S. Korean industrial technology leaks involve semiconductors: data",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20260927000800320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T01:27:52Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "High frequency of industrial technology leaks in the semiconductor sector poses a material risk to intellectual property and competitive advantage for Korean firms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "High frequency of industrial technology leaks in the semiconductor sector poses a material risk to intellectual property and competitive advantage for Korean firms.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "cybersecurity"
       ],
       "issuer_linkage": "sector",
       "companies": [],
@@ -183481,9 +183495,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 683,
-    "news_picked_today": 131,
-    "news_dropped_today": 552
+    "news_seen_today": 697,
+    "news_picked_today": 135,
+    "news_dropped_today": 562
   },
   "book_momentum": {
     "live_count": 8,
