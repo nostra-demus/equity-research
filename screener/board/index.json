@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-27T08:24:30Z",
+  "generated_at": "2026-09-27T08:34:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260927-152",
+      "headline": "Perennial, Ords-backed RedEarth Energy collapses into administration",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/perennial-ords-backed-redearth-energy-collapses-into-administration-20260927-p610uz?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T08:31:35Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "RedEarth Energy has collapsed into administration, representing a total loss of equity value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RedEarth Energy has collapsed into administration, representing a total loss of equity value.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RedEarth Energy",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260927-110",
       "headline": "Fujiyama Power Systems setting up 1.2 GW solar cell plant in Maha to strengthen value chain",
@@ -1925,55 +1974,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-105",
-      "headline": "Kansai airport eyes more int'l flights, resume India, Indonesia routes",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20260927/p2g/00m/0bu/016000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T06:00:05Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Kansai International Airport plans to expand international flight capacity and resume routes to India and Indonesia, signaling increased operational activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Kansai International Airport plans to expand international flight capacity and resume routes to India and Indonesia, signaling increased operational activity.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kansai Airports",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
