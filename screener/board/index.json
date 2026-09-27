@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T10:39:53Z",
+  "generated_at": "2026-09-27T10:48:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-173",
@@ -428,6 +428,49 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-179",
+      "headline": "China and US agree to tariff cuts on $30 billion in goods and AI dialogue",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/economy/2026/09/27/china-and-us-agree-to-tariff-cuts-on-30-billion-in-goods-and-ai-dialogue/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T10:34:51Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "China and the US agreed to tariff cuts on $30 billion in goods, representing a significant de-escalation in trade tensions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "China and the US agreed to tariff cuts on $30 billion in goods, representing a significant de-escalation in trade tensions.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
         "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
@@ -991,6 +1034,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-180",
+      "headline": "Capacity scale-ups to drive Epigral's ₹5,000 crore target by FY31: CMD Maulik Patel",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/capacity-scale-ups-to-drive-epigrals-5000-crore-target-by-fy31-cmd-maulik-patel/article71515749.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T10:38:36Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Epigral announced a capacity expansion plan targeting 5,000 crore revenue by FY31.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Epigral announced a capacity expansion plan targeting 5,000 crore revenue by FY31.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Epigral",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1848,106 +1940,6 @@
         "size_bucket": "large"
       },
       "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-038",
-      "headline": "Greens call on Altman to front Senate hearing; OpenAI pauses training",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/trump-rejects-iran-proposal-on-hormuz-as-houthis-target-riyadh-20260927-p610rk?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T02:06:01Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "OpenAI pausing model training due to regulatory and safety scrutiny represents an operational delay for a key industry player.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "OpenAI pausing model training due to regulatory and safety scrutiny represents an operational delay for a key industry player.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-003",
-      "headline": "OpenAI pauses training of latest models after dozens’ of hacks",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/trump-rejects-iran-proposal-on-hormuz-as-houthis-target-riyadh-20260927-p610rk?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T00:04:34Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Operational pause in model training due to security breaches impacts the company's product development timeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Operational pause in model training due to security breaches impacts the company's product development timeline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
         "cybersecurity"
       ],
       "issuer_linkage": "primary",
@@ -183912,9 +183904,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1452,
-    "news_picked_today": 287,
-    "news_dropped_today": 1165
+    "news_seen_today": 1482,
+    "news_picked_today": 293,
+    "news_dropped_today": 1189
   },
   "book_momentum": {
     "live_count": 8,
