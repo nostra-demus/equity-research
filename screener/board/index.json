@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T06:13:39Z",
+  "generated_at": "2026-09-27T06:18:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-091",
@@ -507,6 +507,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-109",
+      "headline": "‎Saudi Aramco reportedly hires adviser to set up gas unit",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1939206",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T09:16:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Saudi Aramco is reportedly hiring an adviser to set up a new gas unit, indicating a potential strategic shift or expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Saudi Aramco is reportedly hiring an adviser to set up a new gas unit, indicating a potential strategic shift or expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1896,55 +1945,6 @@
       "companies": [
         {
           "name": "Eventions",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-085",
-      "headline": "Arete 22 Files For Rs 440 Crore IPO, Funds To Support Working Capital And Debt Repayment",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/arete-22-files-for-rs-440-crore-ipo-funds-to-support-working-capital-and-debt-repayment",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T04:20:31Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Arete 22 filed for an IPO to raise 440 crore rupees for working capital and debt repayment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Arete 22 filed for an IPO to raise 440 crore rupees for working capital and debt repayment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arete 22",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -183477,9 +183477,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 666,
-    "news_picked_today": 126,
-    "news_dropped_today": 540
+    "news_seen_today": 672,
+    "news_picked_today": 127,
+    "news_dropped_today": 545
   },
   "book_momentum": {
     "live_count": 8,
