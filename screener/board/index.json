@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T02:09:34Z",
+  "generated_at": "2026-09-27T02:19:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-015",
@@ -322,6 +322,56 @@
       "event_types": [
         "operations",
         "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-040",
+      "headline": "Greens call Altman to front Senate hearing; OpenAI pauses training",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/trump-rejects-iran-proposal-on-hormuz-as-houthis-target-riyadh-20260927-p610rk?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T02:06:01Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "OpenAI faces increased regulatory scrutiny and a pause in model training, which impacts operational timelines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "OpenAI faces increased regulatory scrutiny and a pause in model training, which impacts operational timelines.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1344,6 +1394,49 @@
       "launched_signal_id": null,
       "triage_score": 47,
       "triage_reason": "Escalation in North Korean military capabilities and testing of swarm attack tactics increases geopolitical risk in the region.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-039",
+      "headline": "Did the biggest week of diplomacy make headway in ending the US-Iran war?",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/9/27/did-the-biggest-week-of-diplomacy-make-headway-in-ending-the-us-iran-war?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-27T01:59:17Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Geopolitical conflict escalation involving the US and Iran poses significant risks to global energy markets and trade.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical conflict escalation involving the US and Iran poses significant risks to global energy markets and trade.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -142207,76 +142300,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9107e0bd5461",
-      "idea_version": "IDEAV-8eef803092a42069",
-      "idea_version_started_at": "2026-09-26T13:43:44Z",
-      "ticker": "NVO",
-      "company": "Novo Nordisk",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company entered a €1.17 billion deal for Nanexa's injection technology, which enhances their drug delivery capabilities and long-term competitive moat in the GLP-1 market.",
-      "why_now": "The deal was announced on 2026-09-25, signaling a strategic expansion of their delivery platform.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b4fe3f9e718f"
-      ],
-      "primary_source_event_id": "EVT-b4fe3f9e718f",
-      "source_headlines": [
-        "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology"
-      ],
-      "source_headline": "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology",
-      "source_url": "https://www.reuters.com/legal/transactional/nanexa-shares-soar-117-billion-novo-nordisk-deal-injection-technology-2026-09-25/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T14:14:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T13:43:44Z",
-      "updated_at": "2026-09-26T13:43:44Z",
-      "decay_at": "2026-09-27T02:14:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0448efa62005",
       "idea_version": "IDEAV-ddc417f779926d1c",
       "idea_version_started_at": "2026-09-26T15:19:48Z",
@@ -142907,78 +142930,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-50ad10500f80",
-      "idea_version": "IDEAV-bd16cd3574fbcbaf",
-      "idea_version_started_at": "2026-09-26T19:43:33Z",
-      "ticker": "NNXAS",
-      "company": "Nanexa",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Nanexa's shares are soaring due to a €1.17 billion deal with Novo Nordisk for its injection technology, which represents a significant revenue and validation event.",
-      "why_now": "The deal with Novo Nordisk was announced today, September 25, 2026, causing an immediate and material positive impact on the stock.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b4fe3f9e718f"
-      ],
-      "primary_source_event_id": "EVT-b4fe3f9e718f",
-      "source_headlines": [
-        "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology"
-      ],
-      "source_headline": "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology",
-      "source_url": "https://www.reuters.com/legal/transactional/nanexa-shares-soar-117-billion-novo-nordisk-deal-injection-technology-2026-09-25/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T14:14:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T19:43:33Z",
-      "updated_at": "2026-09-26T19:43:33Z",
-      "decay_at": "2026-09-27T02:14:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c4a3209a2ac2",
       "idea_version": "IDEAV-e6b89be53d36cb05",
       "idea_version_started_at": "2026-09-26T19:43:33Z",
@@ -143339,78 +143290,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b88a5ed7a4c4",
-      "idea_version": "IDEAV-16bf894fe90a241b",
-      "idea_version_started_at": "2026-09-26T16:10:26Z",
-      "ticker": "NNX",
-      "company": "Nanexa AB",
-      "exchange": "STO",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company signed a €1.17 billion deal with Novo Nordisk for its proprietary injection technology, validating its platform and providing a massive cash injection.",
-      "why_now": "The deal was announced today, September 25, 2026, and the market is repricing the company based on the significant licensing revenue.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b4fe3f9e718f"
-      ],
-      "primary_source_event_id": "EVT-b4fe3f9e718f",
-      "source_headlines": [
-        "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology"
-      ],
-      "source_headline": "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology",
-      "source_url": "https://www.reuters.com/legal/transactional/nanexa-shares-soar-117-billion-novo-nordisk-deal-injection-technology-2026-09-25/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T14:14:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T16:10:26Z",
-      "updated_at": "2026-09-26T16:10:26Z",
-      "decay_at": "2026-09-27T02:14:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a85bb583dca8",
       "idea_version": "IDEAV-901fdab91d427bdb",
       "idea_version_started_at": "2026-09-24T16:36:19Z",
@@ -143615,6 +143494,76 @@
       "surfaced_at": "2026-09-24T03:15:08Z",
       "updated_at": "2026-09-25T04:16:09Z",
       "decay_at": "2026-09-26T04:06:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9107e0bd5461",
+      "idea_version": "IDEAV-8eef803092a42069",
+      "idea_version_started_at": "2026-09-26T13:43:44Z",
+      "ticker": "NVO",
+      "company": "Novo Nordisk",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company entered a €1.17 billion deal for Nanexa's injection technology, which enhances their drug delivery capabilities and long-term competitive moat in the GLP-1 market.",
+      "why_now": "The deal was announced on 2026-09-25, signaling a strategic expansion of their delivery platform.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b4fe3f9e718f"
+      ],
+      "primary_source_event_id": "EVT-b4fe3f9e718f",
+      "source_headlines": [
+        "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology"
+      ],
+      "source_headline": "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology",
+      "source_url": "https://www.reuters.com/legal/transactional/nanexa-shares-soar-117-billion-novo-nordisk-deal-injection-technology-2026-09-25/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T14:14:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T13:43:44Z",
+      "updated_at": "2026-09-26T13:43:44Z",
+      "decay_at": "2026-09-27T02:14:46Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -143975,6 +143924,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-50ad10500f80",
+      "idea_version": "IDEAV-bd16cd3574fbcbaf",
+      "idea_version_started_at": "2026-09-26T19:43:33Z",
+      "ticker": "NNXAS",
+      "company": "Nanexa",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Nanexa's shares are soaring due to a €1.17 billion deal with Novo Nordisk for its injection technology, which represents a significant revenue and validation event.",
+      "why_now": "The deal with Novo Nordisk was announced today, September 25, 2026, causing an immediate and material positive impact on the stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b4fe3f9e718f"
+      ],
+      "primary_source_event_id": "EVT-b4fe3f9e718f",
+      "source_headlines": [
+        "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology"
+      ],
+      "source_headline": "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology",
+      "source_url": "https://www.reuters.com/legal/transactional/nanexa-shares-soar-117-billion-novo-nordisk-deal-injection-technology-2026-09-25/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T14:14:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T19:43:33Z",
+      "updated_at": "2026-09-26T19:43:33Z",
+      "decay_at": "2026-09-27T02:14:46Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-0452735f01ae",
       "idea_version": "IDEAV-4a5ff7ae5f4224a1",
       "idea_version_started_at": "2026-09-26T19:03:28Z",
@@ -144182,6 +144203,78 @@
       "surfaced_at": "2026-09-26T19:03:28Z",
       "updated_at": "2026-09-26T19:03:28Z",
       "decay_at": "2026-09-26T23:24:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b88a5ed7a4c4",
+      "idea_version": "IDEAV-16bf894fe90a241b",
+      "idea_version_started_at": "2026-09-26T16:10:26Z",
+      "ticker": "NNX",
+      "company": "Nanexa AB",
+      "exchange": "STO",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company signed a €1.17 billion deal with Novo Nordisk for its proprietary injection technology, validating its platform and providing a massive cash injection.",
+      "why_now": "The deal was announced today, September 25, 2026, and the market is repricing the company based on the significant licensing revenue.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b4fe3f9e718f"
+      ],
+      "primary_source_event_id": "EVT-b4fe3f9e718f",
+      "source_headlines": [
+        "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology"
+      ],
+      "source_headline": "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology",
+      "source_url": "https://www.reuters.com/legal/transactional/nanexa-shares-soar-117-billion-novo-nordisk-deal-injection-technology-2026-09-25/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T14:14:46Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T16:10:26Z",
+      "updated_at": "2026-09-26T16:10:26Z",
+      "decay_at": "2026-09-27T02:14:46Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -145128,14 +145221,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 527,
     "shown_count": 500,
-    "hidden_count": 24,
+    "hidden_count": 27,
     "side_counts": {
       "long": {
-        "total_count": 264,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 17
       },
       "short": {
         "total_count": 260,
@@ -145159,6 +145252,229 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9107e0bd5461",
+        "idea_version": "IDEAV-8eef803092a42069",
+        "idea_version_started_at": "2026-09-26T13:43:44Z",
+        "ticker": "NVO",
+        "company": "Novo Nordisk",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company entered a €1.17 billion deal for Nanexa's injection technology, which enhances their drug delivery capabilities and long-term competitive moat in the GLP-1 market.",
+        "why_now": "The deal was announced on 2026-09-25, signaling a strategic expansion of their delivery platform.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b4fe3f9e718f"
+        ],
+        "primary_source_event_id": "EVT-b4fe3f9e718f",
+        "source_headlines": [
+          "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology"
+        ],
+        "source_headline": "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology",
+        "source_url": "https://www.reuters.com/legal/transactional/nanexa-shares-soar-117-billion-novo-nordisk-deal-injection-technology-2026-09-25/",
+        "source_name": "Reuters — Latest, next page (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-25T14:14:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-26T13:43:44Z",
+        "updated_at": "2026-09-26T13:43:44Z",
+        "decay_at": "2026-09-27T02:14:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-27T02:14:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-50ad10500f80",
+        "idea_version": "IDEAV-bd16cd3574fbcbaf",
+        "idea_version_started_at": "2026-09-26T19:43:33Z",
+        "ticker": "NNXAS",
+        "company": "Nanexa",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Nanexa's shares are soaring due to a €1.17 billion deal with Novo Nordisk for its injection technology, which represents a significant revenue and validation event.",
+        "why_now": "The deal with Novo Nordisk was announced today, September 25, 2026, causing an immediate and material positive impact on the stock.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b4fe3f9e718f"
+        ],
+        "primary_source_event_id": "EVT-b4fe3f9e718f",
+        "source_headlines": [
+          "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology"
+        ],
+        "source_headline": "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology",
+        "source_url": "https://www.reuters.com/legal/transactional/nanexa-shares-soar-117-billion-novo-nordisk-deal-injection-technology-2026-09-25/",
+        "source_name": "Reuters — Latest, next page (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-25T14:14:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-26T19:43:33Z",
+        "updated_at": "2026-09-26T19:43:33Z",
+        "decay_at": "2026-09-27T02:14:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-27T02:14:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-b88a5ed7a4c4",
+        "idea_version": "IDEAV-16bf894fe90a241b",
+        "idea_version_started_at": "2026-09-26T16:10:26Z",
+        "ticker": "NNX",
+        "company": "Nanexa AB",
+        "exchange": "STO",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company signed a €1.17 billion deal with Novo Nordisk for its proprietary injection technology, validating its platform and providing a massive cash injection.",
+        "why_now": "The deal was announced today, September 25, 2026, and the market is repricing the company based on the significant licensing revenue.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b4fe3f9e718f"
+        ],
+        "primary_source_event_id": "EVT-b4fe3f9e718f",
+        "source_headlines": [
+          "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology"
+        ],
+        "source_headline": "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology",
+        "source_url": "https://www.reuters.com/legal/transactional/nanexa-shares-soar-117-billion-novo-nordisk-deal-injection-technology-2026-09-25/",
+        "source_name": "Reuters — Latest, next page (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-25T14:14:46Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-26T16:10:26Z",
+        "updated_at": "2026-09-26T16:10:26Z",
+        "decay_at": "2026-09-27T02:14:46Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-27T02:14:46Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0452735f01ae",
         "idea_version": "IDEAV-4a5ff7ae5f4224a1",
@@ -175063,84 +175379,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-02a4be5bb1f3",
-        "idea_version": "IDEAV-714f5fa0fffa79d5",
-        "idea_version_started_at": "2026-09-09T11:02:00Z",
-        "ticker": "ADANIENT",
-        "company": "Adani Enterprises",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The successful $1 billion primary equity raise for the airports subsidiary strengthens the parent company's balance sheet and validates the valuation of its infrastructure portfolio.",
-        "why_now": "The official exchange filing confirming the capital raise was released on September 09, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4f7efff9fd8a",
-          "EVT-333052e5e9a5",
-          "EVT-9c0024a04486"
-        ],
-        "primary_source_event_id": "EVT-333052e5e9a5",
-        "source_headlines": [
-          "Adani Enterprises Limited: Adani Enterprises Limited has informed the Exchange regarding a press release dated September 09, 2026, titled \"Adani Airports to raise USD 1 billion of primary equity from marquee global investors\".",
-          "Adani Airports To Raise $1 Billion Of Primary Equity From Marquee Global Investors",
-          "Adani group sells 5.5% stake in airports business, raises $1 billion"
-        ],
-        "source_headline": "Adani Enterprises Limited: Adani Enterprises Limited has informed the Exchange regarding a press release dated September 09, 2026, titled \"Adani Airports to raise USD 1 billion of primary equity from marquee global investors\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/nishant_joshi_adani_com_09092026090527_AELIntimationMediaRelease09092026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-09T04:13:06Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-09T11:02:00Z",
-        "updated_at": "2026-09-09T11:02:00Z",
-        "decay_at": "2026-09-10T16:13:06Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-12T05:10:41Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-9512c5197cc0",
         "idea_version": "IDEAV-895dd45d9843d7ae",
         "idea_version_started_at": "2026-09-09T05:11:41Z",
@@ -175280,154 +175518,6 @@
         "surfaced_at": "2026-09-09T03:36:02Z",
         "updated_at": "2026-09-09T03:36:02Z",
         "decay_at": "2026-09-10T13:00:28Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-12T01:49:14Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-ea37e26917fc",
-        "idea_version": "IDEAV-a04d1019e4aeab03",
-        "idea_version_started_at": "2026-09-09T03:36:02Z",
-        "ticker": "WGX",
-        "company": "Westgold Resources",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company released its FY27 guidance and a three-year outlook, providing investors with increased visibility into production growth and cost structures.",
-        "why_now": "The guidance was published on 2026-09-09, providing a fresh catalyst for re-rating based on updated production targets.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-41c3ce1cc890"
-        ],
-        "primary_source_event_id": "EVT-41c3ce1cc890",
-        "source_headlines": [
-          "WGX: FY27 Guidance and Three-Year Outlook Presentation"
-        ],
-        "source_headline": "WGX: FY27 Guidance and Three-Year Outlook Presentation",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WGX?key=2924-03133557-6A1342962",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-09T00:58:19Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-09T03:36:02Z",
-        "updated_at": "2026-09-09T03:36:02Z",
-        "decay_at": "2026-09-10T12:58:19Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-12T01:49:14Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a6b4b796e78e",
-        "idea_version": "IDEAV-913d93eb2dce0907",
-        "idea_version_started_at": "2026-09-09T03:36:02Z",
-        "ticker": "ASB",
-        "company": "Austal",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Austal has received a non-binding indicative offer from Wildcat for its US operations, which provides a clear valuation floor and potential premium for shareholders.",
-        "why_now": "The announcement was filed on 2026-09-09, making the potential acquisition process live immediately.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-976beaeea30f"
-        ],
-        "primary_source_event_id": "EVT-976beaeea30f",
-        "source_headlines": [
-          "ASB: Austal NBIO from Wildcat for Austal USA [price-sensitive]"
-        ],
-        "source_headline": "ASB: Austal NBIO from Wildcat for Austal USA [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ASB?key=2924-03133552-6A1342958",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-09T00:42:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T03:45:17Z",
-        "updated_at": "2026-09-09T03:36:02Z",
-        "decay_at": "2026-09-10T12:42:49Z",
         "status": "expired",
         "promoted_signal_id": null,
         "feedback": null,
@@ -182302,7 +182392,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1051,
-    "live_count": 21,
+    "live_count": 18,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -182312,7 +182402,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2921,
+    "inbox_unconsumed": 2923,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -182321,9 +182411,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 198,
-    "news_picked_today": 39,
-    "news_dropped_today": 159
+    "news_seen_today": 213,
+    "news_picked_today": 41,
+    "news_dropped_today": 172
   },
   "book_momentum": {
     "live_count": 8,
