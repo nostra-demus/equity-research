@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-27T23:10:17Z",
+  "generated_at": "2026-09-27T23:15:21Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260927-279",
+      "headline": "OCT: Acquisition of Historic Fluorspar Project and Capital Raise [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OCT?key=2924-03140460-3A702607",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-27T23:10:34Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Octanex announced the acquisition of a fluorspar project and a concurrent capital raise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Octanex announced the acquisition of a fluorspar project and a concurrent capital raise.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Octanex",
+          "ticker": "OCT",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260927-263",
       "headline": "KAR: SPS-92 electrical fault, 2026 guidance update [price-sensitive]",
@@ -1904,55 +1954,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-117",
-      "headline": "Tata Motors PV eyes 15% market share soon, targets 20% by FY31, says MD Shailesh Chandra",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/auto/cars-uvs/tata-motors-pv-eyes-15-market-share-soon-targets-20-by-fy31-says-md-shailesh-chandra/articleshow/134515725.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T06:18:43Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Tata Motors PV aims for 15% market share soon and targets 20% by FY31.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Tata Motors PV aims for 15% market share soon and targets 20% by FY31.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -184484,9 +184485,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3704,
-    "news_picked_today": 757,
-    "news_dropped_today": 2947
+    "news_seen_today": 3727,
+    "news_picked_today": 766,
+    "news_dropped_today": 2961
   },
   "book_momentum": {
     "live_count": 8,
