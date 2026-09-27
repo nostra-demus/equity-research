@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-27T21:30:52Z",
+  "generated_at": "2026-09-27T21:40:30Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260927-261",
+      "headline": "SM1: Synlait reports FY26 result [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SM1?key=2924-03140273-2A1699616",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-27T21:30:19Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Synlait reported its FY26 results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Synlait reported its FY26 results.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Synlait Milk",
+          "ticker": "SM1",
+          "listing_country": "NZ"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260927-197",
       "headline": "RAFFLESINTERIOR (01376): RESIGNATION OF AUDITOR AND CONTINUED SUSPENSION OF TRADING",
@@ -1917,55 +1966,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-015",
-      "headline": "NCLT Approves ₹17.75-Crore Resolution Plan For Zicom, Ending Insolvency Proceedings",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/nclt-approves-1775-crore-resolution-plan-for-zicom-ending-insolvency-proceedings",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T00:23:08Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "The NCLT approved a 17.75 crore resolution plan for Zicom, concluding its insolvency proceedings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The NCLT approved a 17.75 crore resolution plan for Zicom, concluding its insolvency proceedings.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zicom Electronic Security Systems",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -184356,9 +184356,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3355,
-    "news_picked_today": 634,
-    "news_dropped_today": 2721
+    "news_seen_today": 3399,
+    "news_picked_today": 648,
+    "news_dropped_today": 2751
   },
   "book_momentum": {
     "live_count": 8,
