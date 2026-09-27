@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T13:48:58Z",
+  "generated_at": "2026-09-27T13:53:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-197",
@@ -142,6 +142,55 @@
           "name": "Goodbaby International",
           "ticker": "01086",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-201",
+      "headline": "Only US private passenger train files Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/travel/brightline-passenger-train-company-files-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T13:47:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Brightline West operator files for Chapter 11 bankruptcy protection.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brightline West operator files for Chapter 11 bankruptcy protection.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brightline",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1913,55 +1962,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-136",
-      "headline": "NCLAT dismisses Affle 3i's plea against insolvency of Talent Unlimited Online Services",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/nclat-dismisses-affle-3is-plea-against-insolvency-of-talent-unlimited-online-services/articleshow/134515994.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T06:46:46Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "The NCLAT dismissed a plea against the insolvency of Talent Unlimited Online Services, confirming the insolvency process.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The NCLAT dismissed a plea against the insolvency of Talent Unlimited Online Services, confirming the insolvency process.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Talent Unlimited Online Services",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -184127,9 +184127,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2068,
-    "news_picked_today": 408,
-    "news_dropped_today": 1660
+    "news_seen_today": 2082,
+    "news_picked_today": 410,
+    "news_dropped_today": 1672
   },
   "book_momentum": {
     "live_count": 8,
