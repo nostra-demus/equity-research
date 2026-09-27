@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-11T15:04:19Z",
+  "archived_at": "2026-09-27T22:52:41Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-6b01e61cc52b",
-    "idea_version": "IDEAV-04aef4d99ccab1e9",
-    "idea_version_started_at": "2026-09-08T20:12:32Z",
-    "ticker": "TVX",
-    "company": "Tamarack Valley Energy Ltd.",
-    "exchange": "TSE",
+    "idea_id": "IDEA-d8fab6669b2a",
+    "idea_version": "IDEAV-b8175cb05e09fc26",
+    "idea_version_started_at": "2026-09-25T06:06:13Z",
+    "ticker": "HLS",
+    "company": "Healius Limited",
+    "exchange": "ASX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "Tamarack Valley Energy is merging with Headwater Exploration in a $7.2 billion all-stock deal, which could create synergies and enhance its market position.",
-    "why_now": "The agreement for the all-stock merger was announced today, September 8, 2026.",
-    "conviction": 65,
+    "reason": "The sale of the Agilex Biolabs unit provides a liquidity event that allows the company to pay down debt and focus on its core diagnostic business.",
+    "why_now": "The agreement was announced via an official exchange filing on 2026-09-24.",
+    "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 21,
+      "evidence": 25,
+      "impact": 19,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-98ac15ba6114"
+      "EVT-189722952451"
     ],
-    "primary_source_event_id": "EVT-98ac15ba6114",
+    "primary_source_event_id": "EVT-189722952451",
     "source_headlines": [
-      "Tamarack Valley, Headwater Exploration agree $7.2bn all-stock merger"
+      "HLS: Agreement to sell Agilex Biolabs to Novotech [price-sensitive]"
     ],
-    "source_headline": "Tamarack Valley, Headwater Exploration agree $7.2bn all-stock merger",
-    "source_url": "https://finance.yahoo.com/energy/articles/tamarack-valley-headwater-exploration-agree-143534074.html",
-    "source_name": "Yahoo Finance",
+    "source_headline": "HLS: Agreement to sell Agilex Biolabs to Novotech [price-sensitive]",
+    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HLS?key=2924-03139740-2A1699182",
+    "source_name": "ASX (Australia Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-08T14:35:34Z",
+    "newest_source_at": "2026-09-24T22:49:16Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-08T20:12:32Z",
-    "updated_at": "2026-09-08T20:12:32Z",
-    "decay_at": "2026-09-10T02:35:34Z",
+    "surfaced_at": "2026-09-25T06:06:13Z",
+    "updated_at": "2026-09-25T06:06:13Z",
+    "decay_at": "2026-09-26T10:49:16Z",
     "status": "live",
     "promoted_signal_id": null
   }
