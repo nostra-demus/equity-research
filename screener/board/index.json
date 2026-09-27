@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T00:08:38Z",
+  "generated_at": "2026-09-27T00:13:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-003",
@@ -77,6 +77,49 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-007",
+      "headline": "Niti Aayog to review export SOPs amid evolving global trade order",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/economy/foreign-trade/niti-aayog-to-review-export-sops-amid-evolving-global-trade-order/articleshow/134509282.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "A government policy review is a routine administrative process that does not yet imply a change in trade outcomes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "A government policy review is a routine administrative process that does not yet imply a change in trade outcomes.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -180815,7 +180858,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2892,
+    "inbox_unconsumed": 2893,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -180824,9 +180867,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 18,
-    "news_picked_today": 6,
-    "news_dropped_today": 12
+    "news_seen_today": 23,
+    "news_picked_today": 8,
+    "news_dropped_today": 15
   },
   "book_momentum": {
     "live_count": 8,
