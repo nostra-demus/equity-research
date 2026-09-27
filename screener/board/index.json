@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T05:19:34Z",
+  "generated_at": "2026-09-27T05:27:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-091",
@@ -693,6 +693,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-094",
+      "headline": "WOI India acquires SwiftSeed Ventures; appoints founder Amar Dixit as CEO",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/woi-india-acquires-swiftseed-ventures-appoints-founder-amar-dixit-as-ceo/article71515191.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T05:21:17Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "WOI India acquired SwiftSeed Ventures and appointed a new CEO, indicating a strategic expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "WOI India acquired SwiftSeed Ventures and appointed a new CEO, indicating a strategic expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WOI India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1891,55 +1941,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-087",
-      "headline": "Aberdeen boxes clever: How a data centre punt and restoring vowels helped revive ailing fund manager",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16162249/Aberdeen-boxes-clever-data-centre-punt-restoring-vowels-helped-revive-ailing-fund-manager.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T05:01:05Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Aberdeen is undergoing a strategic pivot involving data center investments to revive its fund management business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Aberdeen is undergoing a strategic pivot involving data center investments to revive its fund management business.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aberdeen",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -183466,9 +183467,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 546,
-    "news_picked_today": 102,
-    "news_dropped_today": 444
+    "news_seen_today": 559,
+    "news_picked_today": 106,
+    "news_dropped_today": 453
   },
   "book_momentum": {
     "live_count": 8,
