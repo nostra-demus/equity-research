@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T06:31:15Z",
+  "generated_at": "2026-09-27T06:34:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-110",
@@ -445,6 +445,55 @@
           "name": "Transurban",
           "ticker": null,
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-117",
+      "headline": "Tata Motors PV eyes 15% market share soon, targets 20% by FY31, says MD Shailesh Chandra",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/auto/cars-uvs/tata-motors-pv-eyes-15-market-share-soon-targets-20-by-fy31-says-md-shailesh-chandra/articleshow/134515725.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T06:18:43Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Tata Motors PV aims for 15% market share soon and targets 20% by FY31.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Tata Motors PV aims for 15% market share soon and targets 20% by FY31.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1926,49 +1975,6 @@
           "listing_country": "SA"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-089",
-      "headline": "Fears for piers over 'devastating' hikes in gambling taxes",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16162297/Fears-piers-devastating-hikes-gambling-taxes.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T05:00:49Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Potential tax hikes on gambling operators in the UK could negatively impact margins for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Potential tax hikes on gambling operators in the UK could negatively impact margins for the sector.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -183495,9 +183501,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 697,
-    "news_picked_today": 135,
-    "news_dropped_today": 562
+    "news_seen_today": 708,
+    "news_picked_today": 137,
+    "news_dropped_today": 571
   },
   "book_momentum": {
     "live_count": 8,
