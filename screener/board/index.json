@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T14:50:11Z",
+  "generated_at": "2026-09-27T15:09:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-197",
@@ -1704,6 +1704,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-223",
+      "headline": "Paramount Warner Deal Tests Hollywood’s Future",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-27/paramount-warner-deal-tests-hollywood-s-future-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T14:52:56Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Potential M&A between Paramount and Warner Bros. Discovery would be a major industry consolidation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Potential M&A between Paramount and Warner Bros. Discovery would be a major industry consolidation event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-067",
       "headline": "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week",
       "headline_en": null,
@@ -1902,55 +1956,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-177",
-      "headline": "‎SIB issues $500M sukuk",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1939282",
-      "source_name": "Argaam — UAE Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T13:19:00Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Sharjah Islamic Bank issued $500 million in sukuk, impacting its capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Sharjah Islamic Bank issued $500 million in sukuk, impacting its capital structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sharjah Islamic Bank",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -184049,9 +184054,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2262,
-    "news_picked_today": 444,
-    "news_dropped_today": 1818
+    "news_seen_today": 2321,
+    "news_picked_today": 455,
+    "news_dropped_today": 1866
   },
   "book_momentum": {
     "live_count": 8,
