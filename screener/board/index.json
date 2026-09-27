@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T02:04:29Z",
+  "generated_at": "2026-09-27T02:09:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-015",
@@ -232,6 +232,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-038",
+      "headline": "Greens call on Altman to front Senate hearing; OpenAI pauses training",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/trump-rejects-iran-proposal-on-hormuz-as-houthis-target-riyadh-20260927-p610rk?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T02:06:01Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "OpenAI pausing model training due to regulatory and safety scrutiny represents an operational delay for a key industry player.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "OpenAI pausing model training due to regulatory and safety scrutiny represents an operational delay for a key industry player.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1134,6 +1184,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-037",
+      "headline": "Mehli Mistry to leave Tata Med Centre Trust, his 6th such exit",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/mehli-mistry-to-leave-tata-med-centre-trust-his-6th-such-exit/articleshow/134513458.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T01:50:46Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "The departure of a board member from a charitable trust is unlikely to impact the financial performance of the Tata Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "The departure of a board member from a charitable trust is unlikely to impact the financial performance of the Tata Group.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -182213,7 +182312,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2919,
+    "inbox_unconsumed": 2921,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -182222,9 +182321,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 193,
-    "news_picked_today": 37,
-    "news_dropped_today": 156
+    "news_seen_today": 198,
+    "news_picked_today": 39,
+    "news_dropped_today": 159
   },
   "book_momentum": {
     "live_count": 8,
