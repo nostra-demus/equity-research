@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T14:13:01Z",
+  "generated_at": "2026-09-27T14:14:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-197",
@@ -143279,6 +143279,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-e683a5bffde6",
+      "idea_version": "IDEAV-86256c14ae0599cd",
+      "idea_version_started_at": "2026-09-27T14:13:08Z",
+      "ticker": "BRIGHTLINE",
+      "company": "Brightline",
+      "exchange": "OTC",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Brightline has filed for Chapter 11 bankruptcy, indicating severe financial distress and a high likelihood of equity value destruction.",
+      "why_now": "The company has officially filed for bankruptcy protection as of September 27, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7f2bcd6911cd"
+      ],
+      "primary_source_event_id": "EVT-7f2bcd6911cd",
+      "source_headlines": [
+        "Only US private passenger train files Chapter 11 bankruptcy"
+      ],
+      "source_headline": "Only US private passenger train files Chapter 11 bankruptcy",
+      "source_url": "https://www.thestreet.com/travel/brightline-passenger-train-company-files-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T13:47:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T14:13:08Z",
+      "updated_at": "2026-09-27T14:13:08Z",
+      "decay_at": "2026-09-29T01:47:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3d659333c5c4",
       "idea_version": "IDEAV-660bf2a694598018",
       "idea_version_started_at": "2026-09-27T12:04:57Z",
@@ -184029,8 +184102,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1080,
-    "live_count": 36,
+    "surfaced_total": 1081,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
