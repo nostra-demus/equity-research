@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T11:38:53Z",
+  "generated_at": "2026-09-27T11:43:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-173",
@@ -1420,6 +1420,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-195",
+      "headline": "Bank of America cuts Carnival stock target as key cost surges",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/bank-of-america-cuts-carnival-stock-target-as-key-cost-surges",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T11:37:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Bank of America lowered its price target for Carnival due to rising costs, signaling potential margin pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Bank of America lowered its price target for Carnival due to rising costs, signaling potential margin pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carnival Corporation",
+          "ticker": "CCL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-012",
       "headline": "Boeing identifies 737 Max navigation software glitch that may delay new jet models",
       "headline_en": null,
@@ -1902,55 +1951,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-158",
-      "headline": "Fortis defends itself after Supreme Court allows forensic audit, says it was \"complete stranger\" to Daiichi-Singh Brothers dispute",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/healthcare/fortis-defends-itself-after-supreme-court-allows-forensic-audit-says-it-was-complete-stranger-to-daiichi-singh-brothers-dispute/articleshow/134517489.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T08:58:36Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Supreme Court-ordered forensic audit of Fortis Healthcare increases legal and governance risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Supreme Court-ordered forensic audit of Fortis Healthcare increases legal and governance risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fortis Healthcare",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -183832,9 +183832,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1641,
-    "news_picked_today": 324,
-    "news_dropped_today": 1317
+    "news_seen_today": 1654,
+    "news_picked_today": 328,
+    "news_dropped_today": 1326
   },
   "book_momentum": {
     "live_count": 8,
