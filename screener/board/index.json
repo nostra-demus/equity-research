@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T05:55:38Z",
+  "generated_at": "2026-09-27T05:58:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-091",
@@ -995,6 +995,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-101",
+      "headline": "Saudi Arabia Nuclear Deal Under US Scrutiny After Intelligence Assessment Raises Weapons Concerns",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/world/saudi-arabia-nuclear-deal-under-us-scrutiny-after-intelligence-assessment-raises-weapons-concerns",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T05:39:08Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "US scrutiny of a Saudi nuclear deal due to weapons concerns introduces significant geopolitical and regulatory risk for regional energy and defense sectors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "US scrutiny of a Saudi nuclear deal due to weapons concerns introduces significant geopolitical and regulatory risk for regional energy and defense sectors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-096",
       "headline": "OpenAI pauses training of latest AI after agentic models gains unauthorised access to US government sites",
       "headline_en": null,
@@ -1715,6 +1759,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-102",
+      "headline": "Eventions Sets Rs 38.12 Crore IPO, Subscription Opens September 30 At Rs 112–118",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/eventions-sets-rs-3812-crore-ipo-subscription-opens-september-30-at-rs-112118",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T05:30:27Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Eventions is launching an IPO to raise Rs 38.12 crore, representing a new capital market entry.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Eventions is launching an IPO to raise Rs 38.12 crore, representing a new capital market entry.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eventions",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-085",
       "headline": "Arete 22 Files For Rs 440 Crore IPO, Funds To Support Working Capital And Debt Repayment",
       "headline_en": null,
@@ -1851,104 +1944,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-100",
-      "headline": "Fortis Healthcare Limited: Fortis Healthcare Limited has informed the Exchange about update on Special Leave Petition ('SLP') filed by the Company before The Hon'ble Supreme Court of India",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/FORTIS_27092026110926_FHL-_Intimation-_HC_Order-_Update-Clean.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-27T05:41:07Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Update on ongoing legal proceedings regarding a Special Leave Petition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "Update on ongoing legal proceedings regarding a Special Leave Petition.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fortis Healthcare",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-045",
-      "headline": "Redcape sells Townsville pubs to fund venue upgrades",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/commercial/redcape-sells-townsville-pubs-to-fund-venue-upgrades-20260927-p6102v?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T02:34:33Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Redcape is selling assets to fund capital improvements, representing a shift in asset allocation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Redcape is selling assets to fund capital improvements, representing a shift in asset allocation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Redcape Hotel Group",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -183618,9 +183613,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 625,
-    "news_picked_today": 118,
-    "news_dropped_today": 507
+    "news_seen_today": 639,
+    "news_picked_today": 120,
+    "news_dropped_today": 519
   },
   "book_momentum": {
     "live_count": 8,
