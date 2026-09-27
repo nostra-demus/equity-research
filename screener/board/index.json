@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T18:25:31Z",
+  "generated_at": "2026-09-27T18:34:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-197",
@@ -1206,6 +1206,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-242",
+      "headline": "Giorgio Armani’s will requires the sale of a 15% stake in his empire within 18 months of his death. LVMH, L’Oréal and EssilorLuxottica may split it",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/09/27/giorgio-armani-15-percent-stake-sale-death-lvmh-loreal-essilorluxottica/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T18:18:28Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "The potential sale of a 15% stake in the Giorgio Armani empire creates significant M&A interest for major luxury conglomerates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The potential sale of a 15% stake in the Giorgio Armani empire creates significant M&A interest for major luxury conglomerates.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "LVMH",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "L'Oreal",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "EssilorLuxottica",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-075",
       "headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
       "headline_en": null,
@@ -1884,50 +1943,6 @@
         "size_bucket": "unknown"
       },
       "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-022",
-      "headline": "China, US agree to AI dialogue, tariff cuts on US$30 billion in goods during Xi visit",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/global/china-us-agree-ai-dialogue-tariff-cuts-us30-billion-goods-during-xi-visit",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T01:17:23Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "The agreement to cut tariffs on US$30 billion in goods represents a significant reduction in trade barriers between the world's two largest economies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The agreement to cut tariffs on US$30 billion in goods represents a significant reduction in trade barriers between the world's two largest economies.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
         "macro_sector"
       ],
       "issuer_linkage": "macro",
@@ -184105,9 +184120,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2904,
-    "news_picked_today": 549,
-    "news_dropped_today": 2355
+    "news_seen_today": 2920,
+    "news_picked_today": 551,
+    "news_dropped_today": 2369
   },
   "book_momentum": {
     "live_count": 8,
