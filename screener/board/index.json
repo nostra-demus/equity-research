@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T15:39:25Z",
+  "generated_at": "2026-09-27T15:49:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-197",
@@ -145,6 +145,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-228",
+      "headline": "Everpure’s $7 Billion Forecast Just Blew Past Wall Street’s Numbers",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/09/27/everpures-7-billion-forecast-just-blew-past-wall-streets-numbers/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T15:45:36Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Everpure issued a $7 billion forecast that exceeded analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Everpure issued a $7 billion forecast that exceeded analyst expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Everpure",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1903,55 +1952,6 @@
           "name": "Barrick Gold",
           "ticker": null,
           "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-195",
-      "headline": "Bank of America cuts Carnival stock target as key cost surges",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/bank-of-america-cuts-carnival-stock-target-as-key-cost-surges",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T11:37:00Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Bank of America lowered its price target for Carnival due to rising costs, signaling potential margin pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Bank of America lowered its price target for Carnival due to rising costs, signaling potential margin pressure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carnival Corporation",
-          "ticker": "CCL",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -184052,9 +184052,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2442,
-    "news_picked_today": 479,
-    "news_dropped_today": 1963
+    "news_seen_today": 2465,
+    "news_picked_today": 483,
+    "news_dropped_today": 1982
   },
   "book_momentum": {
     "live_count": 8,
