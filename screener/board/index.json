@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-27T11:47:57Z",
+  "generated_at": "2026-09-27T11:52:57Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260927-196",
+      "headline": "TESSON HOLDINGS (01201): MAJOR TRANSACTION (1) THE ACQUISITION OF AND SUBSCRIPTION FOR SHARES OF THE HK TARGET COMPANY INVOLVING THE ALLOTMENT AND ISSUANCE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROVISION OF FINANCIAL ASSISTANCE; AND (3) PROPOSED APPOINTMENT OF EXECUTIVE DIRECTOR",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700115.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-27T11:46:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Tesson Holdings announced a major acquisition and share issuance, which significantly alters its capital structure and operational scope.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tesson Holdings announced a major acquisition and share issuance, which significantly alters its capital structure and operational scope.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesson Holdings",
+          "ticker": "01201",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260927-173",
       "headline": "GOODBABY INTL (01086): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF GOODBABY INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL IN RELATION TO THE ROLLOVER ARRANGEMENT AND (4) ESTABLISHMENT OF INDEPENDENT BOARD COMMITTEE AND APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER",
@@ -1902,55 +1952,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-178",
-      "headline": "Micron Guided to an 86% Gross Margin. No Memory Maker Has Ever Held a Number Like That for Long.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/micron-guided-86-gross-margin-no-memory-maker-has-ever-held-number-long",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T10:01:02Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Micron provided guidance for an 86% gross margin, which is a significant outlier for the memory sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Micron provided guidance for an 86% gross margin, which is a significant outlier for the memory sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Micron Technology",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -183832,9 +183833,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1663,
-    "news_picked_today": 329,
-    "news_dropped_today": 1334
+    "news_seen_today": 1672,
+    "news_picked_today": 333,
+    "news_dropped_today": 1339
   },
   "book_momentum": {
     "live_count": 8,
