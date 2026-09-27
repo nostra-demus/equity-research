@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T07:39:48Z",
+  "generated_at": "2026-09-27T07:58:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-110",
@@ -448,6 +448,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-138",
+      "headline": "Sharjah Islamic Bank raises $500m through 5-year sukuk",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/business/sharjah-islamic-bank-raises-500m-through-5-year-sukuk",
+      "source_name": "Khaleej Times — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T07:39:32Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Sharjah Islamic Bank successfully raised $500 million in capital through a 5-year sukuk issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Sharjah Islamic Bank successfully raised $500 million in capital through a 5-year sukuk issuance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sharjah Islamic Bank",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1294,6 +1343,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-140",
+      "headline": "How Trump could wrest Citgo from Elliott Management and hand it back to Venezuela",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/09/27/trump-citgo-elliott-management-venezuela/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T07:11:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Potential seizure of Citgo assets from Elliott Management creates significant legal and financial risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Potential seizure of Citgo assets from Elliott Management creates significant legal and financial risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Citgo",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Elliott Management",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-114",
       "headline": "Boeing 737 MAX Software Glitch Raises Fresh Safety Questions; Issue Being Reviewed By FAA",
       "headline_en": null,
@@ -1383,6 +1486,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-143",
+      "headline": "Heathrow third runway suffers four-year delay",
+      "headline_en": null,
+      "url": "https://www.cityam.com/heathrow-third-runway-suffers-four-year-delay/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T07:46:31Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Heathrow Airport faces a four-year delay on its third runway project, impacting long-term capacity growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Heathrow Airport faces a four-year delay on its third runway project, impacting long-term capacity growth.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Heathrow Airport",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1833,160 +1985,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-081",
-      "headline": "UAE flight update: Emirates, Etihad, flydubai and Air Arabia delays and cancellations; Iran routes halted, Ebola curbs lifted",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/aviation/uae-flight-update-emirates-etihad-flydubai-and-air-arabia-delays-and-cancellations-iran-routes-halted-ebola-curbs-lifted-1.500689298",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T04:18:41Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Regional flight cancellations and route halts due to geopolitical tensions impact airline operations and revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Regional flight cancellations and route halts due to geopolitical tensions impact airline operations and revenue.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Emirates",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Etihad Airways",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-115",
-      "headline": "Toyota 100% Ethanol Innova To Launch In October; Gadkari Says Fuel Cost Could Drop To ₹25 Per Litre Equivalent",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/toyota-100-ethanol-innova-to-launch-in-october-gadkari-says-fuel-cost-could-drop-to-25-per-litre-equivalent",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T06:04:45Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Toyota's launch of a 100% ethanol Innova and the potential for significantly lower fuel costs could impact the automotive sector and energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Toyota's launch of a 100% ethanol Innova and the potential for significantly lower fuel costs could impact the automotive sector and energy markets.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "operations",
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toyota",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-041",
-      "headline": "Could Boeing 737 MAX software glitch disrupt navigation feature? Here's what company says on automated flight guidance",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/could-boeing-737-max-software-glitch-disrupt-navigation-feature-heres-what-company-says-on-automated-flight-guidance-11790475449584.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T02:26:16Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Boeing is investigating a potential software glitch affecting flight guidance systems on the 737 MAX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Boeing is investigating a potential software glitch affecting flight guidance systems on the 737 MAX.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -143028,76 +143026,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ae01fb457408",
-      "idea_version": "IDEAV-d4aa05ccec8dbcdb",
-      "idea_version_started_at": "2026-09-26T21:35:18Z",
-      "ticker": "BASFY",
-      "company": "BASF SE",
-      "exchange": "OQX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BASF is reportedly working on the acquisition of Evonik, which could expand its market share and operational synergies in the chemicals sector.",
-      "why_now": "News of the potential acquisition broke on September 25, 2026, causing a significant reaction in shares.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-46e2e3a8d65a"
-      ],
-      "primary_source_event_id": "EVT-46e2e3a8d65a",
-      "source_headlines": [
-        "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
-      ],
-      "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T19:41:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T13:43:44Z",
-      "updated_at": "2026-09-26T21:35:18Z",
-      "decay_at": "2026-09-27T07:41:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-144e3c4da420",
       "idea_version": "IDEAV-af27fc5a7e34fb6c",
       "idea_version_started_at": "2026-09-26T21:35:18Z",
@@ -143375,150 +143303,6 @@
       "surfaced_at": "2026-09-27T03:59:15Z",
       "updated_at": "2026-09-27T03:59:15Z",
       "decay_at": "2026-09-28T15:28:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9330e3eb3a1d",
-      "idea_version": "IDEAV-55d214a7366173e2",
-      "idea_version_started_at": "2026-09-26T19:19:42Z",
-      "ticker": "EVK",
-      "company": "Evonik Industries",
-      "exchange": "FRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BASF is reportedly working on a potential acquisition of the specialty chemicals firm, which typically involves a significant premium for the target company's shareholders.",
-      "why_now": "News of the acquisition talks broke on September 25, 2026, creating immediate price volatility and a potential M&A arbitrage window.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-46e2e3a8d65a"
-      ],
-      "primary_source_event_id": "EVT-46e2e3a8d65a",
-      "source_headlines": [
-        "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
-      ],
-      "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T19:41:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T19:19:42Z",
-      "updated_at": "2026-09-26T19:19:42Z",
-      "decay_at": "2026-09-27T07:41:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-a567e40f8e5b",
-      "idea_version": "IDEAV-5c884adc21dc0d33",
-      "idea_version_started_at": "2026-09-26T16:10:26Z",
-      "ticker": "BAS",
-      "company": "BASF SE",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BASF is pursuing an acquisition of Evonik, which would allow for significant cost synergies and consolidation in the specialty chemicals market.",
-      "why_now": "News of the acquisition talks broke today, September 25, 2026, creating a classic merger arbitrage opportunity.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-46e2e3a8d65a"
-      ],
-      "primary_source_event_id": "EVT-46e2e3a8d65a",
-      "source_headlines": [
-        "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
-      ],
-      "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T19:41:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T16:10:26Z",
-      "updated_at": "2026-09-26T16:10:26Z",
-      "decay_at": "2026-09-27T07:41:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -144884,6 +144668,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-ae01fb457408",
+      "idea_version": "IDEAV-d4aa05ccec8dbcdb",
+      "idea_version_started_at": "2026-09-26T21:35:18Z",
+      "ticker": "BASFY",
+      "company": "BASF SE",
+      "exchange": "OQX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "BASF is reportedly working on the acquisition of Evonik, which could expand its market share and operational synergies in the chemicals sector.",
+      "why_now": "News of the potential acquisition broke on September 25, 2026, causing a significant reaction in shares.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-46e2e3a8d65a"
+      ],
+      "primary_source_event_id": "EVT-46e2e3a8d65a",
+      "source_headlines": [
+        "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
+      ],
+      "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T19:41:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T13:43:44Z",
+      "updated_at": "2026-09-26T21:35:18Z",
+      "decay_at": "2026-09-27T07:41:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-190511cb49a3",
       "idea_version": "IDEAV-65c1c38990d17650",
       "idea_version_started_at": "2026-09-26T19:43:33Z",
@@ -145382,6 +145236,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9330e3eb3a1d",
+      "idea_version": "IDEAV-55d214a7366173e2",
+      "idea_version_started_at": "2026-09-26T19:19:42Z",
+      "ticker": "EVK",
+      "company": "Evonik Industries",
+      "exchange": "FRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "BASF is reportedly working on a potential acquisition of the specialty chemicals firm, which typically involves a significant premium for the target company's shareholders.",
+      "why_now": "News of the acquisition talks broke on September 25, 2026, creating immediate price volatility and a potential M&A arbitrage window.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-46e2e3a8d65a"
+      ],
+      "primary_source_event_id": "EVT-46e2e3a8d65a",
+      "source_headlines": [
+        "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
+      ],
+      "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T19:41:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T19:19:42Z",
+      "updated_at": "2026-09-26T19:19:42Z",
+      "decay_at": "2026-09-27T07:41:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9f7e74ae9645",
       "idea_version": "IDEAV-876a78df1c0bf677",
       "idea_version_started_at": "2026-09-26T19:19:42Z",
@@ -145661,6 +145587,78 @@
       "surfaced_at": "2026-09-26T19:03:28Z",
       "updated_at": "2026-09-26T19:03:28Z",
       "decay_at": "2026-09-26T23:24:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a567e40f8e5b",
+      "idea_version": "IDEAV-5c884adc21dc0d33",
+      "idea_version_started_at": "2026-09-26T16:10:26Z",
+      "ticker": "BAS",
+      "company": "BASF SE",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "BASF is pursuing an acquisition of Evonik, which would allow for significant cost synergies and consolidation in the specialty chemicals market.",
+      "why_now": "News of the acquisition talks broke today, September 25, 2026, creating a classic merger arbitrage opportunity.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-46e2e3a8d65a"
+      ],
+      "primary_source_event_id": "EVT-46e2e3a8d65a",
+      "source_headlines": [
+        "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
+      ],
+      "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T19:41:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T16:10:26Z",
+      "updated_at": "2026-09-26T16:10:26Z",
+      "decay_at": "2026-09-27T07:41:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -146394,14 +146392,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 531,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
-        "total_count": 271,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 24
       },
       "short": {
         "total_count": 257,
@@ -146425,6 +146423,229 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ae01fb457408",
+        "idea_version": "IDEAV-d4aa05ccec8dbcdb",
+        "idea_version_started_at": "2026-09-26T21:35:18Z",
+        "ticker": "BASFY",
+        "company": "BASF SE",
+        "exchange": "OQX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "BASF is reportedly working on the acquisition of Evonik, which could expand its market share and operational synergies in the chemicals sector.",
+        "why_now": "News of the potential acquisition broke on September 25, 2026, causing a significant reaction in shares.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-46e2e3a8d65a"
+        ],
+        "primary_source_event_id": "EVT-46e2e3a8d65a",
+        "source_headlines": [
+          "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
+        ],
+        "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
+        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-25T19:41:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-26T13:43:44Z",
+        "updated_at": "2026-09-26T21:35:18Z",
+        "decay_at": "2026-09-27T07:41:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-27T07:41:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-9330e3eb3a1d",
+        "idea_version": "IDEAV-55d214a7366173e2",
+        "idea_version_started_at": "2026-09-26T19:19:42Z",
+        "ticker": "EVK",
+        "company": "Evonik Industries",
+        "exchange": "FRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "BASF is reportedly working on a potential acquisition of the specialty chemicals firm, which typically involves a significant premium for the target company's shareholders.",
+        "why_now": "News of the acquisition talks broke on September 25, 2026, creating immediate price volatility and a potential M&A arbitrage window.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-46e2e3a8d65a"
+        ],
+        "primary_source_event_id": "EVT-46e2e3a8d65a",
+        "source_headlines": [
+          "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
+        ],
+        "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
+        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-25T19:41:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-26T19:19:42Z",
+        "updated_at": "2026-09-26T19:19:42Z",
+        "decay_at": "2026-09-27T07:41:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-27T07:41:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-a567e40f8e5b",
+        "idea_version": "IDEAV-5c884adc21dc0d33",
+        "idea_version_started_at": "2026-09-26T16:10:26Z",
+        "ticker": "BAS",
+        "company": "BASF SE",
+        "exchange": "XETRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "BASF is pursuing an acquisition of Evonik, which would allow for significant cost synergies and consolidation in the specialty chemicals market.",
+        "why_now": "News of the acquisition talks broke today, September 25, 2026, creating a classic merger arbitrage opportunity.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "pair_trade",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-46e2e3a8d65a"
+        ],
+        "primary_source_event_id": "EVT-46e2e3a8d65a",
+        "source_headlines": [
+          "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
+        ],
+        "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
+        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-25T19:41:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-26T16:10:26Z",
+        "updated_at": "2026-09-26T16:10:26Z",
+        "decay_at": "2026-09-27T07:41:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-27T07:41:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9437e2f30b3e",
         "idea_version": "IDEAV-711b0c9e251ec561",
@@ -175958,228 +176179,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e715a11c3283",
-        "idea_version": "IDEAV-81b9b92650bd701e",
-        "idea_version_started_at": "2026-09-09T17:32:12Z",
-        "ticker": "ASO",
-        "company": "Academy Sports + Outdoors",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company raised its annual profit forecast due to successful cost discipline and e-commerce growth, signaling better-than-expected margin expansion.",
-        "why_now": "The guidance hike was announced on 2026-09-09, providing a fresh catalyst for valuation expansion.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e0cb3ce79b89"
-        ],
-        "primary_source_event_id": "EVT-e0cb3ce79b89",
-        "source_headlines": [
-          "Academy Sports + Outdoors raises annual profit forecast on cost discipline, e-commerce growth"
-        ],
-        "source_headline": "Academy Sports + Outdoors raises annual profit forecast on cost discipline, e-commerce growth",
-        "source_url": "https://finance.yahoo.com/markets/stocks/articles/academy-sports-outdoors-raises-annual-151200186.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-09T15:12:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-09T17:32:12Z",
-        "updated_at": "2026-09-09T17:32:12Z",
-        "decay_at": "2026-09-11T03:12:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-12T15:36:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-39d1aa3d7440",
-        "idea_version": "IDEAV-aa0326fffab0e08c",
-        "idea_version_started_at": "2026-09-09T16:42:21Z",
-        "ticker": "IRT",
-        "company": "Independence Realty Trust",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The merger with Centerspace creates a larger $8.1 billion REIT, likely driving cost synergies and increasing scale in the residential property market.",
-        "why_now": "The definitive merger agreement was announced today, September 9, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ed4d241e22bb"
-        ],
-        "primary_source_event_id": "EVT-ed4d241e22bb",
-        "source_headlines": [
-          "Independence Realty Trust To Buy Centerspace, Creating $8.1B REIT"
-        ],
-        "source_headline": "Independence Realty Trust To Buy Centerspace, Creating $8.1B REIT",
-        "source_url": "https://finance.yahoo.com/real-estate/articles/independence-realty-trust-buy-centerspace-145608519.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-09T14:56:08Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-09T16:42:21Z",
-        "updated_at": "2026-09-09T16:42:21Z",
-        "decay_at": "2026-09-11T02:56:08Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-12T15:36:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-9bc5698ee004",
-        "idea_version": "IDEAV-94128c57c00ac5fb",
-        "idea_version_started_at": "2026-09-09T16:42:21Z",
-        "ticker": "ADI",
-        "company": "Analog Devices",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of Alif Semiconductor for $1.35 billion expands Analog Devices' footprint in edge AI and low-power microcontrollers, enhancing their industrial and IoT product portfolio.",
-        "why_now": "The deal was announced today, September 9, 2026, providing an immediate catalyst for market repricing of the company's growth strategy.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-60e84f8334b1",
-          "EVT-839217fc24d5"
-        ],
-        "primary_source_event_id": "EVT-60e84f8334b1",
-        "source_headlines": [
-          "Analog Devices to Acquire Alif Semiconductor for $1.35 Billion",
-          "Analog Devices to acquire Alif Semiconductor for $1.35 billion"
-        ],
-        "source_headline": "Analog Devices to Acquire Alif Semiconductor for $1.35 Billion",
-        "source_url": "https://www.wsj.com/tech/analog-devices-to-acquire-alif-semiconductor-for-1-35-billion-1b31d6fe?mod=pls_whats_news_us_business_f",
-        "source_name": "The Wall Street Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-09T14:16:38Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-09T16:42:21Z",
-        "updated_at": "2026-09-09T16:42:21Z",
-        "decay_at": "2026-09-11T02:16:38Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-12T15:36:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-8fa29d98e3b9",
         "idea_version": "IDEAV-70217eed3ad33c79",
         "idea_version_started_at": "2026-09-09T16:42:21Z",
@@ -183566,7 +183565,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1068,
-    "live_count": 29,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -183585,9 +183584,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 876,
-    "news_picked_today": 182,
-    "news_dropped_today": 694
+    "news_seen_today": 930,
+    "news_picked_today": 192,
+    "news_dropped_today": 738
   },
   "book_momentum": {
     "live_count": 8,
