@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T00:13:26Z",
+  "generated_at": "2026-09-27T00:24:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-003",
@@ -52,6 +52,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-008",
+      "headline": "OpenAI Agents Used Aggressive Techniques to Access U.N. Website",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/ai/openai-agents-used-aggressive-techniques-to-access-u-n-website-522c70ff?mod=rss_Technology",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T00:14:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "OpenAI agents used aggressive techniques to access a U.N. website, raising potential regulatory and reputational risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "OpenAI agents used aggressive techniques to access a U.N. website, raising potential regulatory and reputational risks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-006",
       "headline": "Israel's attorney general orders postponement of E1 settlement tender, report says",
       "headline_en": null,
@@ -90,6 +140,103 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-010",
+      "headline": "Israel's attorney general orders postponement of E1 settlement tender",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israels-attorney-general-orders-postponement-e1-settlement-tender-report",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-26T23:57:12Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "The postponement of the E1 settlement tender reflects ongoing geopolitical and regulatory instability in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The postponement of the E1 settlement tender reflects ongoing geopolitical and regulatory instability in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-009",
+      "headline": "Mass market automakers gaining ground in the premium segment; Mercedes, BMW work out different strategies to drive growth",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/auto/auto-news/mass-market-automakers-gaining-ground-in-the-premium-segment-mercedes-bmw-work-out-different-strategies-to-drive-growth/articleshow/134509179.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Increased competition in the premium automotive segment from mass-market players impacts the strategic outlook for luxury manufacturers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Increased competition in the premium automotive segment from mass-market players impacts the strategic outlook for luxury manufacturers.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Mercedes-Benz",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "BMW",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -180858,7 +181005,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2893,
+    "inbox_unconsumed": 2896,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -180867,9 +181014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 23,
-    "news_picked_today": 8,
-    "news_dropped_today": 15
+    "news_seen_today": 44,
+    "news_picked_today": 11,
+    "news_dropped_today": 33
   },
   "book_momentum": {
     "live_count": 8,
