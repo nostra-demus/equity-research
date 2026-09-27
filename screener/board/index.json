@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-27T00:59:29Z",
+  "generated_at": "2026-09-27T01:04:23Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260927-015",
+      "headline": "NCLT Approves ₹17.75-Crore Resolution Plan For Zicom, Ending Insolvency Proceedings",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/nclt-approves-1775-crore-resolution-plan-for-zicom-ending-insolvency-proceedings",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T00:23:08Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "The NCLT approved a 17.75 crore resolution plan for Zicom, concluding its insolvency proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The NCLT approved a 17.75 crore resolution plan for Zicom, concluding its insolvency proceedings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zicom Electronic Security Systems",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260927-012",
       "headline": "Boeing identifies 737 Max navigation software glitch that may delay new jet models",
@@ -201,6 +250,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-018",
+      "headline": "Boeing flags 737 MAX software glitch affecting landing navigation feature: Report",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/rest-of-world/boeing-flags-737-max-software-glitch-affecting-landing-navigation-feature-report-4161209",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T00:44:30Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Boeing identified a software glitch in the 737 MAX affecting landing navigation, posing a potential operational and safety risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Boeing identified a software glitch in the 737 MAX affecting landing navigation, posing a potential operational and safety risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-017",
+      "headline": "Mumbai Crime: DRI Busts Gold Smuggling Syndicate; 318 Kg Worth ₹475 Crore Moved Through Courier Network, 11 Arrested",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/mumbai-crime-dri-busts-gold-smuggling-syndicate-318-kg-worth-475-crore-moved-through-courier-network-11-arrested",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T00:31:27Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "The DRI busted a gold smuggling syndicate involving 318 kg of gold valued at 475 crore, impacting logistics and regulatory oversight in the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The DRI busted a gold smuggling syndicate involving 318 kg of gold valued at 475 crore, impacting logistics and regulatory oversight in the sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-006",
       "headline": "Israel's attorney general orders postponement of E1 settlement tender, report says",
       "headline_en": null,
@@ -385,6 +526,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-016",
+      "headline": "ASIA WATCH: Australia, China clash over Darwin port lease",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/86038",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T00:36:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Ongoing geopolitical tension regarding the Darwin port lease remains a point of friction between Australia and China.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Ongoing geopolitical tension regarding the Darwin port lease remains a point of friction between Australia and China.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -181194,7 +181378,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2900,
+    "inbox_unconsumed": 2904,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -181203,9 +181387,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 78,
-    "news_picked_today": 15,
-    "news_dropped_today": 63
+    "news_seen_today": 94,
+    "news_picked_today": 19,
+    "news_dropped_today": 75
   },
   "book_momentum": {
     "live_count": 8,
