@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T06:39:54Z",
+  "generated_at": "2026-09-27T06:54:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-110",
@@ -502,6 +502,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-121",
+      "headline": "‎Knauf gets CMA approval to publish offer document for United Mining takeover",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1939221",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T09:50:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Knauf received regulatory approval to proceed with the takeover of United Mining.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Knauf received regulatory approval to proceed with the takeover of United Mining.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Knauf",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "United Mining",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-057",
       "headline": "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales",
       "headline_en": null,
@@ -886,6 +940,55 @@
           "name": "Boeing",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-134",
+      "headline": "‎ADNOC XRG advances with Absheron expansion",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1939220",
+      "source_name": "Argaam — UAE Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T10:49:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "ADNOC XRG is advancing the Absheron expansion project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "ADNOC XRG is advancing the Absheron expansion project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ADNOC",
+          "ticker": null,
+          "listing_country": "AE"
         }
       ],
       "size_bucket": "mega",
@@ -1883,98 +1986,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-020",
-      "headline": "Amazon wades into India’s fast delivery battleground: ‘DoorDash on steroids’",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/09cf09c4-c6e1-4560-a085-f8504bc74f58?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T01:00:08Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Amazon is expanding its fast-delivery operations into the Indian market, intensifying competition in the e-commerce sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Amazon is expanding its fast-delivery operations into the Indian market, intensifying competition in the e-commerce sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-017",
-      "headline": "Mumbai Crime: DRI Busts Gold Smuggling Syndicate; 318 Kg Worth ₹475 Crore Moved Through Courier Network, 11 Arrested",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/mumbai-crime-dri-busts-gold-smuggling-syndicate-318-kg-worth-475-crore-moved-through-courier-network-11-arrested",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T00:31:27Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "The DRI busted a gold smuggling syndicate involving 318 kg of gold valued at 475 crore, impacting logistics and regulatory oversight in the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "The DRI busted a gold smuggling syndicate involving 318 kg of gold valued at 475 crore, impacting logistics and regulatory oversight in the sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -183501,9 +183512,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 717,
-    "news_picked_today": 140,
-    "news_dropped_today": 577
+    "news_seen_today": 761,
+    "news_picked_today": 156,
+    "news_dropped_today": 605
   },
   "book_momentum": {
     "live_count": 8,
