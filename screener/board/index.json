@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T16:54:28Z",
+  "generated_at": "2026-09-27T17:04:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-197",
@@ -145,6 +145,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-241",
+      "headline": "Russia hits Ukraine's largest mobile provider, data centres",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/russia-hits-ukraines-largest-mobile-provider-data-centres",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T16:54:16Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "A major infrastructure attack on Ukraine's largest mobile provider and data centers constitutes a significant operational and supply shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major infrastructure attack on Ukraine's largest mobile provider and data centers constitutes a significant operational and supply shock.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kyivstar",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -336,56 +386,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-215",
-      "headline": "Russia hits Ukraine's largest mobile provider, strikes data centres",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/aerospace-defense/russia-hits-ukraines-largest-mobile-provider-strikes-data-centres-2026-09-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T14:25:43Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Russian strike on Ukraine's largest mobile provider and data centers constitutes a major infrastructure and operational shock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Russian strike on Ukraine's largest mobile provider and data centers constitutes a major infrastructure and operational shock.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "cybersecurity",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kyivstar",
-          "ticker": null,
-          "listing_country": "UA"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -184032,9 +184032,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2670,
-    "news_picked_today": 515,
-    "news_dropped_today": 2155
+    "news_seen_today": 2705,
+    "news_picked_today": 521,
+    "news_dropped_today": 2184
   },
   "book_momentum": {
     "live_count": 8,
