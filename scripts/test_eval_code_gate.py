@@ -75,14 +75,17 @@ new, inh = split(failure_keys(BASE), None)
 check("no base -> strict: every failure is new", len(new) == 2 and not inh)
 
 
-check("an AP failure is keyed by its check name, never its diagnostic text",
+check("an AP failure is keyed by its check name AND its full violation text",
       failure_keys(dict(report({}), valuation_summary_integrity={"checked": 1, "failures": [
           {"run": "R_2026-09-01", "violations": ["bull level 100 < base level 120"]}]}))
-      == {("R_2026-09-01", "AP_valuation_summary_integrity")})
+      == {("R_2026-09-01", "AP_valuation_summary_integrity: bull level 100 < base level 120")})
 _ap = lambda text: dict(report({}), valuation_summary_integrity={"checked": 1, "failures": [
     {"run": "R_2026-09-01", "violations": [text]}]})
 new, inh = split(failure_keys(_ap("bull 100 is below base 120")), failure_keys(_ap("bull level 100 < base level 120")))
-check("a reworded AP diagnostic on a run the base already fails is inherited, not new", not new and len(inh) == 1)
+# Deliberately conservative (CLAUDE.md §3/§23): a failure is inherited only if the base has EXACTLY it. A change
+# that rewords the message of a check a base run already fails gates — never the reverse, a hidden new failure.
+check("a reworded AP diagnostic on an already-failing run gates (conservative: only an identical failure is inherited)",
+      len(new) == 1 and not inh, sorted(new))
 
 # An ADDITIONAL violation of a check the base ALREADY fails must gate — keying by check-name/file alone
 # collapsed it into the base's key and read it as inherited, permitting further damage precisely while the
@@ -103,9 +106,30 @@ _apN = lambda vs: dict(report({}), valuation_summary_integrity={"checked": 1, "f
 new, _ = split(failure_keys(_apN(["bull 100 < base 120", "bear 90 > base 120 (a second, new defect)"])),
                failure_keys(_apN(["bull 100 < base 120"])))
 check("an ADDITIONAL AP violation on a run the base already fails is new (gates)",
-      new == {("R_2026-09-01", "AP_valuation_summary_integrity#2")}, sorted(new))
+      new == {("R_2026-09-01", "AP_valuation_summary_integrity: bear 90 > base 120 (a second, new defect)")}, sorted(new))
 new, _ = split(failure_keys(_apN(["reworded a", "reworded b"])), failure_keys(_apN(["orig a", "orig b"])))
-check("two AP violations reworded (same count) on an already-failing run stay inherited, not new", not new, sorted(new))
+check("two AP violations reworded (same count) on an already-failing run gate (only an identical failure is inherited)",
+      len(new) == 2, sorted(new))
+
+# Codex (#732): eval.py packs every violation of some checks into ONE detail string (S_haircut_propagated joins
+# them with "; "), so a second violation on a run the base already fails changed only the text and was keyed
+# identically. The full detail text is part of the identity, so it gates.
+_S = lambda detail: report({"V_2026-09-23": {"pass": False, "warn_only": False, "decision": "Watchlist",
+                                             "checks": [{"check": "S_haircut_propagated", "status": "FAIL", "detail": detail}]}})
+new, inh = split(failure_keys(_S("score=42 != 37; pre_mortem_verdict mismatch (a second, new violation)")),
+                 failure_keys(_S("score=42 != 37")))
+check("a second violation packed into an already-failing check's single detail string gates", len(new) == 1 and not inh,
+      sorted(new))
+new, inh = split(failure_keys(_S("score=42 != 37")), failure_keys(_S("score=42  !=\n 37")))
+check("an identical failure differing only in whitespace stays inherited", not new and len(inh) == 1, sorted(new))
+new, inh = split(failure_keys(_S(f"missing {os.path.abspath('.')}/analyses/V/memo.md"), "."),
+                 failure_keys(_S("missing /tmp/eval-code-gate-x/base/analyses/V/memo.md"), "/tmp/eval-code-gate-x/base"))
+check("the same failure read from the base worktree and from the change matches (checkout path normalized)",
+      not new and len(inh) == 1, sorted(new))
+_dup = lambda n: report({"R_2026-09-01": {"pass": False, "warn_only": False, "decision": "Watchlist",
+                                          "checks": [{"check": "Q", "status": "FAIL", "detail": "same"}] * n}})
+new, _ = split(failure_keys(_dup(2)), failure_keys(_dup(1)))
+check("an additional IDENTICAL failure is counted, so it gates", new == {("R_2026-09-01", "Q: same #2")}, sorted(new))
 
 _repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 check("every way the real scripts/eval.py can fail the suite is one this gate can name",

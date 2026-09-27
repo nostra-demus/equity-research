@@ -10,10 +10,10 @@ the research was fixed (AKAM_2026-09-14 blocked three PRs on 2026-09-15; V_2026-
 run as it lands and closes it when the run passes again.
 
 This gate runs the same harness twice — on the change (the working tree) and on the exact base it merges onto
-(a detached worktree) — and compares the failures, keyed (run, check):
+(a detached worktree) — and compares the failures, each identified by (run, check, full detail text):
 
   * a failure on the change that the base does not have            -> NEW, gates (exit 1)
-  * a failure the base already has                                  -> INHERITED, reported, does not gate
+  * a failure the base already has, word for word                   -> INHERITED, reported, does not gate
   * no usable base (none given, not a commit, or its eval crashed)  -> STRICT: every failure gates, exactly
                                                                        as the bare `eval.py all` did
 
@@ -103,37 +103,59 @@ def run_harness(root=".", quiet=False):
         raise RuntimeError(f"the eval report says suite_pass={verdict} but the harness exited {result.returncode}")
     return report
 
-def failure_keys(report, root="."):
-    """Every hard failure in an eval report as (run, check) pairs; suite-level failures use run '(suite)'.
+def _identity(check, detail, root):
+    """One failure's identity: its check name plus its FULL detail text (whitespace-normalized, and the checkout's
+    absolute path replaced by <root> so the same failure read from the base worktree and from the change matches)."""
+    text = " ".join(str(detail or "").split())
+    for prefix in {os.path.abspath(root), os.path.realpath(root)}:
+        text = text.replace(prefix, "<root>")
+    return f"{check}: {text}" if text else check
 
-    Reads the report exactly as research_check.py does (status_of / ap_failures / suite_contract_failures), so a
-    WARN run (superseded, or no RUN_METADATA) is not a failure here either, and an AP violation is.
+
+def failure_keys(report, root="."):
+    """Every hard failure in an eval report as (run, identity) pairs; suite-level failures use run '(suite)'.
+
+    Reads the report exactly as research_check.py does (status_of / ap_failures), so a WARN run (superseded, or no
+    RUN_METADATA) is not a failure here either, and an AP violation is.
+
+    The identity is the check name PLUS its full detail text, and identical repeats are counted (#2, #3, ...).
+    A failure is inherited only if the base has exactly the same one. Keying by check name alone — or per
+    occurrence, or per anchor — let a change make an already-red check fail WORSE and read as inherited: eval.py
+    packs every violation of some checks into ONE detail string (e.g. S_haircut_propagated joins them with
+    "; "), so a second violation changes only the text. Comparing the text closes that for every check at once.
+    The deliberate cost: a change that rewords the message of a check a run on the base already fails gates too
+    — the conservative side (CLAUDE.md §3/§23), never a hidden failure.
     """
     keys = set()
-    for run in set((report.get("runs") or {}).keys()) | set(ap_failures(report).keys()):
+    runs = report.get("runs") or {}
+    for run in set(runs.keys()) | set(ap_failures(report).keys()):
         status, fails = status_of(report, run, root)
-        if status == "FAIL":
-            # Key by the check's NAME (drop the ":<text>" diagnostic), so a reworded diagnostic does not turn a
-            # failure the base already has into a "new" one. But keep per-OCCURRENCE identity: an AP scan emits
-            # one "AP_valuation_summary_integrity: <text>" entry per violation, so N violations on one run share
-            # a name — keying by name alone collapsed them to a single key and let an ADDITIONAL violation on a
-            # run the base already fails read as inherited. First occurrence unsuffixed (so a single failure is
-            # unchanged and a reword stays inherited), each extra occurrence #2, #3, … (so a genuinely new one
-            # gates). This keeps the gate "never weaker than the bare harness on anything this change touches".
-            seen = collections.Counter()
-            for check in (fails or ["FAIL"]):
-                name = check.split(":", 1)[0].strip()
-                seen[name] += 1
-                keys.add((run, name if seen[name] == 1 else f"{name}#{seen[name]}"))
-    # Suite-level contract failures keyed one-per-missing-anchor / per-AZ-correspondence-failure by its own
-    # stable identity — not one per file/check. suite_contract_failures() names the item "framework contract:
-    # <file>" and packs the missing anchors into its joined `detail`, which a single per-file key discarded:
-    # a change deleting an ADDITIONAL protected anchor from a file the base already fails then collapsed into
-    # the same key and read as inherited, permitting further prompt-program damage precisely while the check
-    # is already red (forbidden by CLAUDE.md §2/§23/§28; AGENTS.md L29). Per-anchor identity also does not
-    # over-gate: restoring one anchor while another stays missing is not a new key.
+        if status != "FAIL":
+            continue
+        details = collections.defaultdict(list)
+        for entry in (runs.get(run) or {}).get("checks") or []:
+            if entry.get("status") == "FAIL":
+                details[entry.get("check")].append(entry.get("detail"))
+        seen = collections.Counter()
+        for failure in (fails or ["FAIL"]):
+            name, sep, text = failure.partition(":")
+            name = name.strip()
+            if sep:                                   # AP: "AP_valuation_summary_integrity: <violation>"
+                ident = _identity(name, text, root)
+            elif details.get(name):                   # a per-run check: its detail lives in the run's checks
+                ident = _identity(name, details[name].pop(0), root)
+            else:
+                ident = name
+            seen[ident] += 1
+            keys.add((run, ident if seen[ident] == 1 else f"{ident} #{seen[ident]}"))
+    # Suite-level contract failures: one identity per missing anchor / per AZ correspondence failure (see
+    # _suite_contract_elements), so deleting an ADDITIONAL protected anchor from a file the base already fails
+    # gates, while restoring one anchor as another stays missing does not over-gate.
+    seen = collections.Counter()
     for element in _suite_contract_elements(report):
-        keys.add((SUITE, element))
+        ident = " ".join(element.split())
+        seen[ident] += 1
+        keys.add((SUITE, ident if seen[ident] == 1 else f"{ident} #{seen[ident]}"))
     if report.get("suite_pass") is False and not keys:
         # eval.py failed the suite for a reason none of the readers above name: never let that pass silently.
         keys.add((SUITE, "suite_pass=False"))
