@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T09:47:58Z",
+  "generated_at": "2026-09-27T09:54:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-163",
@@ -143873,6 +143873,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-8b18351c452b",
+      "idea_version": "IDEAV-74cc105ed3b65696",
+      "idea_version_started_at": "2026-09-27T09:54:29Z",
+      "ticker": "9023",
+      "company": "Tokyo Metro Co., Ltd.",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The compromise of 59,000 customer email addresses creates immediate operational risk, potential regulatory fines, and reputational damage that will weigh on sentiment.",
+      "why_now": "The breach was reported today, September 27, 2026, and the market has not yet fully priced the potential remediation costs and loss of consumer trust.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c6eafa4a494c"
+      ],
+      "primary_source_event_id": "EVT-c6eafa4a494c",
+      "source_headlines": [
+        "BREAKING NEWS: Tokyo Metro says 59,000 customer email addresses may be compromised"
+      ],
+      "source_headline": "BREAKING NEWS: Tokyo Metro says 59,000 customer email addresses may be compromised",
+      "source_url": "https://english.kyodonews.net/articles/-/86475",
+      "source_name": "Kyodo News (Japan Wire)",
+      "materiality_max": 87,
+      "newest_source_at": "2026-09-27T09:19:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T09:54:29Z",
+      "updated_at": "2026-09-27T09:54:29Z",
+      "decay_at": "2026-09-28T21:19:24Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3a5e2b5bb8c5",
       "idea_version": "IDEAV-267198f9d0786948",
       "idea_version_started_at": "2026-09-27T02:19:51Z",
@@ -183617,8 +183689,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1071,
-    "live_count": 27,
+    "surfaced_total": 1072,
+    "live_count": 28,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -183637,9 +183709,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1288,
+    "news_seen_today": 1292,
     "news_picked_today": 257,
-    "news_dropped_today": 1031
+    "news_dropped_today": 1035
   },
   "book_momentum": {
     "live_count": 8,
