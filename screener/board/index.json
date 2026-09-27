@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T08:59:13Z",
+  "generated_at": "2026-09-27T09:03:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-152",
@@ -497,6 +497,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-155",
+      "headline": "Super giants in talks to sell $2b student accommodation player",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/super-giants-in-talks-to-sell-2b-student-accommodation-player-20260927-p610tw?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T08:56:58Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Superannuation funds are in talks to sell a student accommodation asset valued at $2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Superannuation funds are in talks to sell a student accommodation asset valued at $2 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1925,55 +1968,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-108",
-      "headline": "‎ACIG receives decision to suspend new comprehensive motor policy issuance; renewals continue",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1939204",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T09:03:00Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "ACIG received a regulatory suspension on issuing new motor policies, which will directly impact revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "ACIG received a regulatory suspension on issuing new motor policies, which will directly impact revenue.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ACIG",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -142312,75 +142306,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-d671baced956",
-      "idea_version": "IDEAV-0216b9fe43f0f579",
-      "idea_version_started_at": "2026-09-26T23:48:13Z",
-      "ticker": "IPEX",
-      "company": "Inflection Point Acquisition Corp. V",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Inflection Point Acquisition Corp. V has completed a business combination with GOWell Energy Technology, which could unlock value for shareholders of the SPAC.",
-      "why_now": "The business combination was updated as 'Closed' on September 25, 2026, making this a current event.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 72,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fa37effcea40"
-      ],
-      "primary_source_event_id": "EVT-fa37effcea40",
-      "source_headlines": [
-        "ECA2026-685 - (UPDATED: Closed) Information Regarding the Business Combination of Inflection Point Acquisition Corp. V (IPEX/R/U) & GOWell Energy Technology"
-      ],
-      "source_headline": "ECA2026-685 - (UPDATED: Closed) Information Regarding the Business Combination of Inflection Point Acquisition Corp. V (IPEX/R/U) & GOWell Energy Technology",
-      "source_url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-685",
-      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T21:00:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T23:48:13Z",
-      "updated_at": "2026-09-26T23:48:13Z",
-      "decay_at": "2026-09-27T09:00:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5f19e42d97dc",
       "idea_version": "IDEAV-0c7ffde149793fa2",
       "idea_version_started_at": "2026-09-27T04:44:42Z",
@@ -144230,6 +144155,75 @@
       "surfaced_at": "2026-09-26T23:48:13Z",
       "updated_at": "2026-09-26T23:48:13Z",
       "decay_at": "2026-09-27T00:55:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d671baced956",
+      "idea_version": "IDEAV-0216b9fe43f0f579",
+      "idea_version_started_at": "2026-09-26T23:48:13Z",
+      "ticker": "IPEX",
+      "company": "Inflection Point Acquisition Corp. V",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Inflection Point Acquisition Corp. V has completed a business combination with GOWell Energy Technology, which could unlock value for shareholders of the SPAC.",
+      "why_now": "The business combination was updated as 'Closed' on September 25, 2026, making this a current event.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 72,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fa37effcea40"
+      ],
+      "primary_source_event_id": "EVT-fa37effcea40",
+      "source_headlines": [
+        "ECA2026-685 - (UPDATED: Closed) Information Regarding the Business Combination of Inflection Point Acquisition Corp. V (IPEX/R/U) & GOWell Energy Technology"
+      ],
+      "source_headline": "ECA2026-685 - (UPDATED: Closed) Information Regarding the Business Combination of Inflection Point Acquisition Corp. V (IPEX/R/U) & GOWell Energy Technology",
+      "source_url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-685",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T21:00:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T23:48:13Z",
+      "updated_at": "2026-09-26T23:48:13Z",
+      "decay_at": "2026-09-27T09:00:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -146309,14 +146303,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 531,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       },
       "short": {
         "total_count": 256,
@@ -146340,6 +146334,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d671baced956",
+        "idea_version": "IDEAV-0216b9fe43f0f579",
+        "idea_version_started_at": "2026-09-26T23:48:13Z",
+        "ticker": "IPEX",
+        "company": "Inflection Point Acquisition Corp. V",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Inflection Point Acquisition Corp. V has completed a business combination with GOWell Energy Technology, which could unlock value for shareholders of the SPAC.",
+        "why_now": "The business combination was updated as 'Closed' on September 25, 2026, making this a current event.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 72,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-fa37effcea40"
+        ],
+        "primary_source_event_id": "EVT-fa37effcea40",
+        "source_headlines": [
+          "ECA2026-685 - (UPDATED: Closed) Information Regarding the Business Combination of Inflection Point Acquisition Corp. V (IPEX/R/U) & GOWell Energy Technology"
+        ],
+        "source_headline": "ECA2026-685 - (UPDATED: Closed) Information Regarding the Business Combination of Inflection Point Acquisition Corp. V (IPEX/R/U) & GOWell Energy Technology",
+        "source_url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-685",
+        "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-25T21:00:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-26T23:48:13Z",
+        "updated_at": "2026-09-26T23:48:13Z",
+        "decay_at": "2026-09-27T09:00:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-27T09:00:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-144e3c4da420",
         "idea_version": "IDEAV-af27fc5a7e34fb6c",
@@ -176023,79 +176089,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ddc523ea3e44",
-        "idea_version": "IDEAV-e78a1a89cd8f5a8e",
-        "idea_version_started_at": "2026-09-09T17:32:12Z",
-        "ticker": "UNFI",
-        "company": "United Natural Foods",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Q4 earnings beat estimates driven by tangible margin gains and cost savings, suggesting the company's turnaround efforts are yielding results.",
-        "why_now": "The earnings report was released on 2026-09-09, confirming the effectiveness of recent operational changes.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-493281f98b9d"
-        ],
-        "primary_source_event_id": "EVT-493281f98b9d",
-        "source_headlines": [
-          "UNFI Q4 Earnings Beat Estimates on Margin Gains and Cost Savings"
-        ],
-        "source_headline": "UNFI Q4 Earnings Beat Estimates on Margin Gains and Cost Savings",
-        "source_url": "https://www.nasdaq.com/articles/unfi-q4-earnings-beat-estimates-margin-gains-and-cost-savings",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-09T15:17:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-09T17:32:12Z",
-        "updated_at": "2026-09-09T17:32:12Z",
-        "decay_at": "2026-09-11T03:17:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-12T15:36:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-8fa29d98e3b9",
         "idea_version": "IDEAV-70217eed3ad33c79",
         "idea_version_started_at": "2026-09-09T16:42:21Z",
@@ -183482,7 +183475,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1069,
-    "live_count": 26,
+    "live_count": 25,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -183501,9 +183494,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1109,
-    "news_picked_today": 220,
-    "news_dropped_today": 889
+    "news_seen_today": 1138,
+    "news_picked_today": 225,
+    "news_dropped_today": 913
   },
   "book_momentum": {
     "live_count": 8,
