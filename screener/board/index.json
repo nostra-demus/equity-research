@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T06:34:29Z",
+  "generated_at": "2026-09-27T06:39:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-110",
@@ -1637,6 +1637,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-120",
+      "headline": "Mehli Mistry Exits Tata Medical Centre Trust, Skips Re-election",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/mehli-mistry-exits-tata-medical-centre-trust-skips-re-election",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T05:17:22Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "The departure of a key figure associated with the Tata group from a major trust is a notable governance development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "The departure of a key figure associated with the Tata group from a major trust is a notable governance development.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Medical Centre Trust",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-081",
       "headline": "UAE flight update: Emirates, Etihad, flydubai and Air Arabia delays and cancellations; Iran routes halted, Ebola curbs lifted",
       "headline_en": null,
@@ -1926,55 +1975,6 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-113",
-      "headline": "‎WSM plans public sukuk offering, listing on Tadawul",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1939207",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T09:19:00Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "WSM plans a public sukuk offering and listing on the Tadawul exchange, impacting its capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "WSM plans a public sukuk offering and listing on the Tadawul exchange, impacting its capital structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WSM",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
