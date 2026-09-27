@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T03:58:45Z",
+  "generated_at": "2026-09-27T03:59:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-065",
@@ -143164,6 +143164,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-84d3d160ac55",
+      "idea_version": "IDEAV-05d122e7e4dd5d3d",
+      "idea_version_started_at": "2026-09-27T03:59:15Z",
+      "ticker": "INA",
+      "company": "Ingenia Communities Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Warburg Pincus has launched a major takeover bid valuing the lifestyle community operator at over $3 billion.",
+      "why_now": "The bid has just been made public on September 27, 2026, creating an immediate valuation re-rating catalyst.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-33241580e6a7"
+      ],
+      "primary_source_event_id": "EVT-33241580e6a7",
+      "source_headlines": [
+        "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in"
+      ],
+      "source_headline": "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in",
+      "source_url": "https://www.afr.com/street-talk/warburg-pincus-slaps-ingenia-with-3b-plus-bid-di-pilla-weighs-in-20260927-p610tu?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T03:28:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T03:59:15Z",
+      "updated_at": "2026-09-27T03:59:15Z",
+      "decay_at": "2026-09-28T15:28:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c4a3209a2ac2",
       "idea_version": "IDEAV-e6b89be53d36cb05",
       "idea_version_started_at": "2026-09-26T19:43:33Z",
@@ -182774,8 +182846,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1056,
-    "live_count": 22,
+    "surfaced_total": 1057,
+    "live_count": 23,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
