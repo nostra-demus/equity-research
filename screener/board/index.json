@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T13:04:57Z",
+  "generated_at": "2026-09-27T13:14:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-197",
@@ -1123,6 +1123,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-200",
+      "headline": "M TEK COPPER LIMITED: M TEK COPPER LIMITED has informed the Exchange regarding 'Disclosure under Regulation 29(2) of SEBI(SAST) Regulation, 2015'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MCL_27092026183910_DisclosureUR29_2_SASTRajeshbhai.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-27T13:09:17Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Disclosure of shareholding change under SEBI SAST regulations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Disclosure of shareholding change under SEBI SAST regulations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "M TEK COPPER LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-121",
       "headline": "‎Knauf gets CMA approval to publish offer document for United Mining takeover",
       "headline_en": null,
@@ -1913,56 +1962,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-094",
-      "headline": "WOI India acquires SwiftSeed Ventures; appoints founder Amar Dixit as CEO",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/woi-india-acquires-swiftseed-ventures-appoints-founder-amar-dixit-as-ceo/article71515191.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T05:21:17Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "WOI India acquired SwiftSeed Ventures and appointed a new CEO, indicating a strategic expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "WOI India acquired SwiftSeed Ventures and appointed a new CEO, indicating a strategic expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WOI India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -184128,9 +184127,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1912,
-    "news_picked_today": 377,
-    "news_dropped_today": 1535
+    "news_seen_today": 1959,
+    "news_picked_today": 386,
+    "news_dropped_today": 1573
   },
   "book_momentum": {
     "live_count": 8,
