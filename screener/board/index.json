@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T11:24:36Z",
+  "generated_at": "2026-09-27T11:34:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-173",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-194",
+      "headline": "Capacity scale-ups to drive Epigral's Rs 5,000 crore target by FY31: CMD Maulik Patel",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/chem-/-fertilisers/capacity-scale-ups-to-drive-epigrals-rs-5000-crore-target-by-fy31-cmd-maulik-patel/articleshow/134518941.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T11:17:23Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "The company announced a specific capacity expansion plan targeting Rs 5,000 crore in revenue by FY31.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a specific capacity expansion plan targeting Rs 5,000 crore in revenue by FY31.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Epigral",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1132,55 +1181,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-180",
-      "headline": "Capacity scale-ups to drive Epigral's ₹5,000 crore target by FY31: CMD Maulik Patel",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/capacity-scale-ups-to-drive-epigrals-5000-crore-target-by-fy31-cmd-maulik-patel/article71515749.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T10:38:36Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Epigral announced a capacity expansion plan targeting 5,000 crore revenue by FY31.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Epigral announced a capacity expansion plan targeting 5,000 crore revenue by FY31.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Epigral",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -183904,9 +183904,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1593,
-    "news_picked_today": 314,
-    "news_dropped_today": 1279
+    "news_seen_today": 1627,
+    "news_picked_today": 321,
+    "news_dropped_today": 1306
   },
   "book_momentum": {
     "live_count": 8,
