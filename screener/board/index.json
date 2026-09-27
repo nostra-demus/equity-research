@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T10:19:31Z",
+  "generated_at": "2026-09-27T10:24:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-163",
@@ -346,6 +346,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-172",
+      "headline": "Several Palestinians wounded in Israeli occupation shelling on Gaza",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/734246/region/several-palestinians-wounded-in-israeli-occupation-shelling-on-gaza",
+      "source_name": "Gulf Times — Region",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T10:17:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Ongoing military conflict and shelling in the Gaza Strip represents a significant geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Ongoing military conflict and shelling in the Gaza Strip represents a significant geopolitical escalation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1917,55 +1960,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-143",
-      "headline": "Heathrow third runway suffers four-year delay",
-      "headline_en": null,
-      "url": "https://www.cityam.com/heathrow-third-runway-suffers-four-year-delay/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T07:46:31Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Heathrow Airport faces a four-year delay on its third runway project, impacting long-term capacity growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Heathrow Airport faces a four-year delay on its third runway project, impacting long-term capacity growth.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Heathrow Airport",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -183848,9 +183842,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1382,
-    "news_picked_today": 268,
-    "news_dropped_today": 1114
+    "news_seen_today": 1398,
+    "news_picked_today": 274,
+    "news_dropped_today": 1124
   },
   "book_momentum": {
     "live_count": 8,
