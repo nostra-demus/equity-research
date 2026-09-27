@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-27T06:18:25Z",
+  "generated_at": "2026-09-27T06:24:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260927-110",
+      "headline": "Fujiyama Power Systems setting up 1.2 GW solar cell plant in Maha to strengthen value chain",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/fujiyama-power-systems-setting-up-12-gw-solar-cell-plant-in-maha-to-strengthen-value-chain/article71515353.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T06:19:15Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Fujiyama Power Systems is investing in a 1.2 GW solar cell plant, representing a significant capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fujiyama Power Systems is investing in a 1.2 GW solar cell plant, representing a significant capacity expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fujiyama Power Systems",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260927-091",
       "headline": "Westview seeks partners for $1b steel plant amid construction boom",
@@ -1733,6 +1782,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-113",
+      "headline": "‎WSM plans public sukuk offering, listing on Tadawul",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1939207",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T09:19:00Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "WSM plans a public sukuk offering and listing on the Tadawul exchange, impacting its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "WSM plans a public sukuk offering and listing on the Tadawul exchange, impacting its capital structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WSM",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-089",
       "headline": "Fears for piers over 'devastating' hikes in gambling taxes",
       "headline_en": null,
@@ -1858,98 +1956,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-006",
-      "headline": "Israel's attorney general orders postponement of E1 settlement tender, report says",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israels-attorney-general-orders-postponement-e1-settlement-tender-report",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-26T23:57:12Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Postponement of settlement tenders in E1 area is a significant regulatory and political development in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Postponement of settlement tenders in E1 area is a significant regulatory and political development in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-102",
-      "headline": "Eventions Sets Rs 38.12 Crore IPO, Subscription Opens September 30 At Rs 112–118",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/eventions-sets-rs-3812-crore-ipo-subscription-opens-september-30-at-rs-112118",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T05:30:27Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Eventions is launching an IPO to raise Rs 38.12 crore, representing a new capital market entry.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Eventions is launching an IPO to raise Rs 38.12 crore, representing a new capital market entry.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eventions",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -143132,76 +143138,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-190511cb49a3",
-      "idea_version": "IDEAV-65c1c38990d17650",
-      "idea_version_started_at": "2026-09-26T19:43:33Z",
-      "ticker": "TTE",
-      "company": "TotalEnergies",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "TotalEnergies' approval of an $800 million offshore gas project in Nigeria is expected to boost its future production capacity and revenue.",
-      "why_now": "The project approval was announced today, September 25, 2026, signaling a new capital expenditure cycle.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-80b2d8b511c6"
-      ],
-      "primary_source_event_id": "EVT-80b2d8b511c6",
-      "source_headlines": [
-        "Nigeria's Amni, TotalEnergies approve $800 million offshore gas project"
-      ],
-      "source_headline": "Nigeria's Amni, TotalEnergies approve $800 million offshore gas project",
-      "source_url": "https://www.reuters.com/business/energy/nigerias-amni-totalenergies-approve-800-million-offshore-gas-project-2026-09-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T18:22:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T11:48:12Z",
-      "updated_at": "2026-09-26T19:43:33Z",
-      "decay_at": "2026-09-27T06:22:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-144e3c4da420",
       "idea_version": "IDEAV-af27fc5a7e34fb6c",
       "idea_version_started_at": "2026-09-26T21:35:18Z",
@@ -144845,6 +144781,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-190511cb49a3",
+      "idea_version": "IDEAV-65c1c38990d17650",
+      "idea_version_started_at": "2026-09-26T19:43:33Z",
+      "ticker": "TTE",
+      "company": "TotalEnergies",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "TotalEnergies' approval of an $800 million offshore gas project in Nigeria is expected to boost its future production capacity and revenue.",
+      "why_now": "The project approval was announced today, September 25, 2026, signaling a new capital expenditure cycle.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-80b2d8b511c6"
+      ],
+      "primary_source_event_id": "EVT-80b2d8b511c6",
+      "source_headlines": [
+        "Nigeria's Amni, TotalEnergies approve $800 million offshore gas project"
+      ],
+      "source_headline": "Nigeria's Amni, TotalEnergies approve $800 million offshore gas project",
+      "source_url": "https://www.reuters.com/business/energy/nigerias-amni-totalenergies-approve-800-million-offshore-gas-project-2026-09-25/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-25T18:22:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T11:48:12Z",
+      "updated_at": "2026-09-26T19:43:33Z",
+      "decay_at": "2026-09-27T06:22:10Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-6b1ba26f5d8e",
       "idea_version": "IDEAV-a46f02c3a72e41a3",
       "idea_version_started_at": "2026-09-26T19:43:33Z",
@@ -146285,14 +146291,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 526,
+    "total_count": 527,
     "shown_count": 500,
-    "hidden_count": 26,
+    "hidden_count": 27,
     "side_counts": {
       "long": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       },
       "short": {
         "total_count": 257,
@@ -146316,6 +146322,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-190511cb49a3",
+        "idea_version": "IDEAV-65c1c38990d17650",
+        "idea_version_started_at": "2026-09-26T19:43:33Z",
+        "ticker": "TTE",
+        "company": "TotalEnergies",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "TotalEnergies' approval of an $800 million offshore gas project in Nigeria is expected to boost its future production capacity and revenue.",
+        "why_now": "The project approval was announced today, September 25, 2026, signaling a new capital expenditure cycle.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-80b2d8b511c6"
+        ],
+        "primary_source_event_id": "EVT-80b2d8b511c6",
+        "source_headlines": [
+          "Nigeria's Amni, TotalEnergies approve $800 million offshore gas project"
+        ],
+        "source_headline": "Nigeria's Amni, TotalEnergies approve $800 million offshore gas project",
+        "source_url": "https://www.reuters.com/business/energy/nigerias-amni-totalenergies-approve-800-million-offshore-gas-project-2026-09-25/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-25T18:22:10Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-26T11:48:12Z",
+        "updated_at": "2026-09-26T19:43:33Z",
+        "decay_at": "2026-09-27T06:22:10Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-27T06:22:10Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6b1ba26f5d8e",
         "idea_version": "IDEAV-a46f02c3a72e41a3",
@@ -176072,81 +176151,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-488ad3e42649",
-        "idea_version": "IDEAV-f6e5f16dab3afcde",
-        "idea_version_started_at": "2026-09-09T16:22:05Z",
-        "ticker": "PVRINOX",
-        "company": "PVR INOX Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company has initiated a buyback program, which will reduce the share count and provide price support for the stock.",
-        "why_now": "The settlement schedule for the buyback was announced on September 9, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-674bb1413181"
-        ],
-        "primary_source_event_id": "EVT-674bb1413181",
-        "source_headlines": [
-          "Settlement Schedule Offer to Buy – Acquisition Window (Buyback) for PVR INOX LIMITED"
-        ],
-        "source_headline": "Settlement Schedule Offer to Buy – Acquisition Window (Buyback) for PVR INOX LIMITED",
-        "source_url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260909-19/20260909-19.pdf",
-        "source_name": "BSE India — Notices (RSS)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-09T11:54:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-09T16:22:05Z",
-        "updated_at": "2026-09-09T16:22:05Z",
-        "decay_at": "2026-09-10T23:54:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-12T12:40:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-ab31901fa897",
         "idea_version": "IDEAV-7614be235044d7a8",
         "idea_version_started_at": "2026-09-09T14:52:59Z",
@@ -183458,7 +183462,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1067,
-    "live_count": 30,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -183477,9 +183481,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 672,
-    "news_picked_today": 127,
-    "news_dropped_today": 545
+    "news_seen_today": 683,
+    "news_picked_today": 131,
+    "news_dropped_today": 552
   },
   "book_momentum": {
     "live_count": 8,
