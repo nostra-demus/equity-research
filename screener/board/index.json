@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T04:45:05Z",
+  "generated_at": "2026-09-27T04:54:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-065",
@@ -996,6 +996,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260927-081",
+      "headline": "UAE flight update: Emirates, Etihad, flydubai and Air Arabia delays and cancellations; Iran routes halted, Ebola curbs lifted",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/aviation/uae-flight-update-emirates-etihad-flydubai-and-air-arabia-delays-and-cancellations-iran-routes-halted-ebola-curbs-lifted-1.500689298",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T04:18:41Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Regional flight cancellations and route halts due to geopolitical tensions impact airline operations and revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Regional flight cancellations and route halts due to geopolitical tensions impact airline operations and revenue.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Emirates",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Etihad Airways",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260927-041",
       "headline": "Could Boeing 737 MAX software glitch disrupt navigation feature? Here's what company says on automated flight guidance",
       "headline_en": null,
@@ -1884,60 +1938,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-048",
-      "headline": "MST boss says star analyst’s relationship with CBA a ‘one-off’",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/mst-says-star-analyst-s-relationship-with-cba-a-one-off-20260927-p60zg7?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T02:35:28Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Commentary on an analyst's relationship is a reputational matter but lacks clear financial impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Commentary on an analyst's relationship is a reputational matter but lacks clear financial impact.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MST Financial",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Commonwealth Bank of Australia",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -183248,9 +183248,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 466,
-    "news_picked_today": 84,
-    "news_dropped_today": 382
+    "news_seen_today": 480,
+    "news_picked_today": 89,
+    "news_dropped_today": 391
   },
   "book_momentum": {
     "live_count": 8,
