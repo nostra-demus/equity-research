@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T23:15:48Z",
+  "generated_at": "2026-09-27T23:22:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-279",
@@ -294,6 +294,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-281",
+      "headline": "Presidente de Colombia anuncia que PepsiCo invertirá 1.000 millones de dólares en el país en próximos 5 años",
+      "headline_en": "President of Colombia announces that PepsiCo will invest 1 billion dollars in the country over the next 5 years",
+      "url": "https://www.reuters.com/es/mundo/2LCCFUXBXRPWNNTCUN2EDPLB2U-2026-09-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T23:13:44Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "PepsiCo announced a $1 billion investment in Colombia over the next 5 years.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PepsiCo announced a $1 billion investment in Colombia over the next 5 years.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PepsiCo",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1905,55 +1954,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-138",
-      "headline": "Sharjah Islamic Bank raises $500m through 5-year sukuk",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/sharjah-islamic-bank-raises-500m-through-5-year-sukuk",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T07:39:32Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Sharjah Islamic Bank successfully raised $500 million in capital through a 5-year sukuk issuance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Sharjah Islamic Bank successfully raised $500 million in capital through a 5-year sukuk issuance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sharjah Islamic Bank",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -184485,9 +184485,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3727,
-    "news_picked_today": 766,
-    "news_dropped_today": 2961
+    "news_seen_today": 3746,
+    "news_picked_today": 768,
+    "news_dropped_today": 2978
   },
   "book_momentum": {
     "live_count": 8,
