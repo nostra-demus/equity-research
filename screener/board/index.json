@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-27T15:24:33Z",
+  "generated_at": "2026-09-27T15:35:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260927-197",
@@ -145,6 +145,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260927-224",
+      "headline": "Rexel To Acquire U.S. Specialty Wire And Cable Firm GCG In $1.4 Bln Deal",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/rexel-acquire-us-specialty-wire-and-cable-firm-gcg-14-bln-deal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T14:56:39Z",
+      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
+      "prelim_note": "Rexel is acquiring GCG for $1.4 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rexel is acquiring GCG for $1.4 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rexel",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1906,56 +1955,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260927-012",
-      "headline": "Boeing identifies 737 Max navigation software glitch that may delay new jet models",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/boeing-identifies-737-max-navigation-software-glitch-that-may-delay-new-jet-models/article71515076.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T00:34:56Z",
-      "sweep_file": "screener/inbox/2026-09-27_sweep.json",
-      "prelim_note": "Boeing identified a software glitch in the 737 Max that could delay the delivery of new jet models.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Boeing identified a software glitch in the 737 Max that could delay the delivery of new jet models.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -183982,9 +183981,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2380,
-    "news_picked_today": 466,
-    "news_dropped_today": 1914
+    "news_seen_today": 2422,
+    "news_picked_today": 476,
+    "news_dropped_today": 1946
   },
   "book_momentum": {
     "live_count": 8,
