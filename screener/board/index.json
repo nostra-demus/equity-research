@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T23:26:14Z",
+  "generated_at": "2026-09-28T23:33:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-621",
@@ -1192,6 +1192,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-622",
+      "headline": "AMD to buy Fei-Fei Li's World Labs in $8.2 billion bet on 'physical AI'",
+      "headline_en": null,
+      "url": "https://www.reuters.com/technology/amd-acquire-fei-fei-lis-world-labs-82-billion-deal-2026-09-28/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T23:11:52Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "AMD announced the acquisition of World Labs for $8.2 billion to expand its AI capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMD announced the acquisition of World Labs for $8.2 billion to expand its AI capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Advanced Micro Devices",
+          "ticker": "AMD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-619",
       "headline": "ASX to rise; Megaport wins $1b worth of contracts, upgrades guidance",
       "headline_en": null,
@@ -1945,55 +1994,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-473",
-      "headline": "Honasa Consumer Block Deal: Peak XV, Sequoia, Redwood Trust to sell stake for up to ₹400 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/honasa-consumer-share-price-block-deal-peak-xv-sequoia-redwood-trust-to-sell-stake-for-up-to-rs-400-crore-20000374.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T16:29:01Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Peak XV, Sequoia, and Redwood Trust are selling a stake in Honasa Consumer for up to ₹400 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Peak XV, Sequoia, and Redwood Trust are selling a stake in Honasa Consumer for up to ₹400 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honasa Consumer",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -187309,9 +187309,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3002844,
-    "news_picked_today": 1446,
-    "news_dropped_today": 15131
+    "news_seen_today": 3048048,
+    "news_picked_today": 1459,
+    "news_dropped_today": 15358
   },
   "book_momentum": {
     "live_count": 8,
