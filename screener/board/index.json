@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T21:27:08Z",
+  "generated_at": "2026-09-28T21:32:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-453",
@@ -995,6 +995,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-586",
+      "headline": "AMD acquires World Labs in $8.2-billion deal to boost AI systems strategy",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-amd-world-labs-ai/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T21:07:39Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "AMD announced the acquisition of World Labs for $8.2 billion to enhance its AI strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMD announced the acquisition of World Labs for $8.2 billion to enhance its AI strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-575",
       "headline": "AMD acquiring Fei-Fei Li's World Labs AI firm in deal worth $8.2 billion",
       "headline_en": null,
@@ -1966,56 +2015,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-374",
-      "headline": "Interarch raises FY27–28 sales guidance to ₹2,700 crore as Andhra Pradesh plant begins production",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/interarch-arvind-nanda-andhra-pradesh-plant-guidance-2700-crore-19999161.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T10:48:10Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Interarch raised its FY27-28 sales guidance to ₹2,700 crore following the start of production at its new Andhra Pradesh plant.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Interarch raised its FY27-28 sales guidance to ₹2,700 crore following the start of production at its new Andhra Pradesh plant.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Interarch Building Products",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -187330,9 +187329,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2437769,
-    "news_picked_today": 1280,
-    "news_dropped_today": 13545
+    "news_seen_today": 2486729,
+    "news_picked_today": 1282,
+    "news_dropped_today": 13567
   },
   "book_momentum": {
     "live_count": 8,
