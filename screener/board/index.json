@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T01:22:01Z",
+  "generated_at": "2026-09-28T01:30:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-058",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-087",
+      "headline": "Northern Star shares pop as Australian gold miner rejects $27-billion takeover proposal",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/28/northern-star-shares-gold-fields-takeover-bid.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T01:19:23Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Northern Star Resources rejected a $27-billion takeover proposal, signaling potential for a higher bid or strategic shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Northern Star Resources rejected a $27-billion takeover proposal, signaling potential for a higher bid or strategic shift.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Northern Star Resources",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -701,6 +750,55 @@
       "companies": [
         {
           "name": "Ingenia",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-096",
+      "headline": "Metrics slashes value of ASX credit funds after audit intervention",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/metrics-warns-of-material-differences-after-private-credit-audit-20260928-p6110p?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T01:02:26Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Metrics Credit Partners is restating the value of its credit funds following regulatory intervention, impacting investor capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Metrics Credit Partners is restating the value of its credit funds following regulatory intervention, impacting investor capital.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Metrics Credit Partners",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -1902,98 +2000,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-084",
-      "headline": "SRIT India IPO opens today: Check price band, GMP, anchor book and other details",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/srit-india-ipo-subscription-opens-today-check-price-band-gmp-anchor-book-other-details-19999578.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T01:16:38Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "SRIT India is launching its IPO, providing new investment opportunities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "SRIT India is launching its IPO, providing new investment opportunities.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SRIT India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-081",
-      "headline": "IRDAI proposes sweeping changes to insurance distribution: Commissions, costs, mis-selling rules",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/wealth/insure/irdai-proposes-sweeping-changes-to-insurance-distribution-commissions-costs-mis-selling-rules/articleshow/134496661.cms",
-      "source_name": "The Economic Times Wealth",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Proposed regulatory changes to insurance distribution in India could impact margins and operational models for the insurance sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Proposed regulatory changes to insurance distribution in India could impact margins and operational models for the insurance sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -187128,9 +187134,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 388,
-    "news_picked_today": 93,
-    "news_dropped_today": 295
+    "news_seen_today": 422,
+    "news_picked_today": 103,
+    "news_dropped_today": 319
   },
   "book_momentum": {
     "live_count": 8,
