@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-28T08:44:45Z",
+  "generated_at": "2026-09-28T08:48:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260928-340",
+      "headline": "[TSE]Results of Examination of Substantial Survival (Ceasing to Be a Substantial Surviving Company) and Entry Into Grace Period: Wel-Dish.Incorporated",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/news/1023/20260928-14.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T08:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Wel-Dish Incorporated has entered a grace period due to substantial survival concerns, indicating potential delisting risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wel-Dish Incorporated has entered a grace period due to substantial survival concerns, indicating potential delisting risk.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wel-Dish Incorporated",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260928-138",
       "headline": "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"MICL unlocks ₹6,000+ Crores overall revenue potential from Marine Lines Project and Recoups ₹300+ Crores Investment through Landmark Collaboration with Godrej Properties Group \".",
@@ -1946,60 +1995,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-025",
-      "headline": "BREAKING: Geely to take 30% stake in Nio Power through battery swap assets and cash",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/09/28/geely-to-take-30-stake-in-nio-power/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T00:04:35Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Geely is taking a 30% stake in Nio Power, representing a significant strategic investment in battery swap infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Geely is taking a 30% stake in Nio Power, representing a significant strategic investment in battery swap infrastructure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Geely",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "Nio",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188210,9 +188205,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 31242,
-    "news_picked_today": 629,
-    "news_dropped_today": 9516
+    "news_seen_today": 35020,
+    "news_picked_today": 639,
+    "news_dropped_today": 9530
   },
   "book_momentum": {
     "live_count": 8,
