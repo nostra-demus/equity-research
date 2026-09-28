@@ -105,6 +105,31 @@ def _require_trusted_shape(report):
     az = report.get("governance_flag_cap_correspondence")
     if not isinstance(az, dict) or "pass" not in az or not isinstance(az.get("failures"), list):
         bad("'governance_flag_cap_correspondence' section is missing, not an object, or lacks its 'pass'/'failures' fields")
+    # Nested-field validation (Codex #732, r4117769431): the top-level shape checks above still let a malformed
+    # ENTRY evade the readers while the suite fails, invisibly whenever an unrelated inherited failure has already
+    # set `accounted`. Each field the readers actually match on is validated, so any drift raises here (change ->
+    # exit 2, base -> strict) instead of hiding a real regression:
+    #   * `pass` a truthy NON-bool (e.g. the string "false") makes `not az.get("pass", True)` False, hiding an AZ
+    #     failure (_suite_contract_elements);
+    #   * a source_contracts_s24 entry whose `status` is renamed/retyped away from PASS/FAIL (e.g. "ERROR") makes
+    #     `_suite_contract_elements` skip a failing framework contract — eval.py only ever emits PASS/FAIL there
+    #     (jchecks, scripts/eval.py);
+    #   * a non-dict valuation_summary_integrity failure entry makes `_unattributed_ap_failures`'s `.get()` reads
+    #     silently no-op.
+    if not isinstance(az.get("pass"), bool):
+        bad(f"'governance_flag_cap_correspondence.pass' is not a boolean (got {type(az.get('pass')).__name__}) — a "
+            "truthy non-boolean would read as passing and hide an AZ correspondence failure")
+    for i, entry in enumerate(report["source_contracts_s24"]):
+        if not isinstance(entry, dict):
+            bad(f"'source_contracts_s24[{i}]' is not an object (got {type(entry).__name__})")
+        if entry.get("status") not in ("PASS", "FAIL"):
+            bad(f"'source_contracts_s24[{i}].status' is {entry.get('status')!r}, not PASS/FAIL — a renamed status "
+                "would make a failing framework contract invisible to _suite_contract_elements")
+        if "missing" in entry and not isinstance(entry["missing"], list):
+            bad(f"'source_contracts_s24[{i}].missing' is not a list (got {type(entry['missing']).__name__})")
+    for i, entry in enumerate(vsi["failures"]):
+        if not isinstance(entry, dict):
+            bad(f"'valuation_summary_integrity.failures[{i}]' is not an object (got {type(entry).__name__})")
 
 
 def run_harness(root=".", quiet=False):

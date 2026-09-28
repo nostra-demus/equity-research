@@ -279,6 +279,23 @@ rc, out = gate(root, {"report": dict(report(dict(BASE["runs"])),
 check("e2e: renaming the governance-correspondence 'pass' field (whose default hides a failure) is refused",
       rc == 2 and "governance_flag_cap_correspondence" in out, out[-400:])
 
+# Codex (#732, r4117769431): a section can be present and correctly TYPED at the top level while a malformed
+# ENTRY still evades the reader with the suite failing — invisible behind the inherited V_2026-09-23 failure.
+# run_harness now validates the nested fields each reader keys off (change -> exit 2, base -> strict). Each case
+# carries the inherited V failure, so the malformed entry hides behind an already-explained one: red on the
+# pre-fix gate (rc 0, the hidden regression ships), green after (rc 2). Pinned to the gate's contract ("a
+# suite-level contract it breaks all still fail it") and CLAUDE.md §28, never to current behaviour.
+rc, out = gate(root, {"report": dict(report(dict(BASE["runs"])),
+                                     governance_flag_cap_correspondence={"pass": "false", "failures": ["AZ RF-NET mismatch"]}),
+                      "rc": 1}, sha)
+check("e2e: a governance-correspondence 'pass' that is a truthy non-boolean string is refused (would hide an AZ failure)",
+      rc == 2 and "governance_flag_cap_correspondence" in out, out[-400:])
+rc, out = gate(root, {"report": dict(report(dict(BASE["runs"])),
+                                     source_contracts_s24=[{"file": "CLAUDE.md", "status": "ERROR", "missing": ["§24 anchor"]}]),
+                      "rc": 1}, sha)
+check("e2e: a source_contracts_s24 entry with a status renamed away from PASS/FAIL is refused (would hide a J failure)",
+      rc == 2 and "source_contracts_s24" in out, out[-400:])
+
 rc, out = gate(root, {"report": report({"OK_2026-09-01": run_entry()})}, sha)
 check("e2e: a clean corpus -> PASS", rc == 0, out[-400:])
 
