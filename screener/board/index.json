@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T01:11:46Z",
+  "generated_at": "2026-09-28T01:16:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-058",
@@ -1890,6 +1890,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-082",
+      "headline": "HLS: Change in substantial holding",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HLS?key=2924-03140614-2A1699765",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T01:09:20Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "A change in substantial holding indicates a shift in major shareholder positioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "A change in substantial holding indicates a shift in major shareholder positioning.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HLS",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-011",
       "headline": "EXT: $3.2m Federal Government contract expansion [price-sensitive]",
       "headline_en": null,
@@ -1929,55 +1978,6 @@
       "companies": [
         {
           "name": "EXT",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-030",
-      "headline": "PNI: Metrics Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PNI?key=2924-03140578-2A1699739",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T00:09:59Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Metrics provides a business update, which is price-sensitive information for investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "Metrics provides a business update, which is price-sensitive information for investors.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Metrics",
           "ticker": null,
           "listing_country": null
         }
@@ -186973,9 +186973,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 363,
-    "news_picked_today": 86,
-    "news_dropped_today": 277
+    "news_seen_today": 378,
+    "news_picked_today": 89,
+    "news_dropped_today": 289
   },
   "book_momentum": {
     "live_count": 8,
