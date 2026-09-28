@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T03:31:56Z",
+  "generated_at": "2026-09-28T03:32:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-138",
@@ -144663,6 +144663,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0448efa62005",
+      "idea_version": "IDEAV-9e9db2598360c1ed",
+      "idea_version_started_at": "2026-09-28T03:32:24Z",
+      "ticker": "AAPL",
+      "company": "Apple",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Apple was reportedly ordered by a San Diego jury to pay Taction Technology more than $5.7 billion in a patent case, which will be a significant financial hit.",
+      "why_now": "The jury's reported award was announced on September 28, 2026, creating an immediate negative catalyst.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-503578612fbf"
+      ],
+      "primary_source_event_id": "EVT-503578612fbf",
+      "source_headlines": [
+        "San Diego Jury Reportedly Awards Taction Technology More Than $5.7 Bln In Apple Patent Case"
+      ],
+      "source_headline": "San Diego Jury Reportedly Awards Taction Technology More Than $5.7 Bln In Apple Patent Case",
+      "source_url": "https://www.nasdaq.com/articles/san-diego-jury-reportedly-awards-taction-technology-more-57-bln-apple-patent-case",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T02:36:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T15:19:48Z",
+      "updated_at": "2026-09-28T03:32:24Z",
+      "decay_at": "2026-09-29T14:36:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-a5b42c212a71",
       "idea_version": "IDEAV-1e0ad7888182d821",
       "idea_version_started_at": "2026-09-27T23:35:29Z",
@@ -145429,6 +145499,78 @@
       "surfaced_at": "2026-09-27T02:00:37Z",
       "updated_at": "2026-09-27T02:00:37Z",
       "decay_at": "2026-09-28T12:50:59Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-353ee6d92397",
+      "idea_version": "IDEAV-af94d9c89c45f066",
+      "idea_version_started_at": "2026-09-28T03:32:24Z",
+      "ticker": "PNJ",
+      "company": "Phu Nhuan Jewelry",
+      "exchange": "HOSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Phu Nhuan Jewelry (PNJ) is forecasting a loss following a diamond scandal, which will negatively impact its financial performance.",
+      "why_now": "The company's forecast for a loss was reported on September 28, 2026, providing a fresh catalyst for a potential price decline.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f4302708f46d"
+      ],
+      "primary_source_event_id": "EVT-f4302708f46d",
+      "source_headlines": [
+        "Vietnam Jeweler PNJ Forecasts Loss After Diamond Scandal"
+      ],
+      "source_headline": "Vietnam Jeweler PNJ Forecasts Loss After Diamond Scandal",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-28/vietnam-jewelry-giant-pnj-forecasts-loss-after-diamond-scandal",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T01:47:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T03:32:24Z",
+      "updated_at": "2026-09-28T03:32:24Z",
+      "decay_at": "2026-09-29T13:47:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -149094,76 +149236,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0448efa62005",
-      "idea_version": "IDEAV-ddc417f779926d1c",
-      "idea_version_started_at": "2026-09-26T15:19:48Z",
-      "ticker": "AAPL",
-      "company": "Apple",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A $5.7 billion patent infringement verdict regarding haptic technology in iPhones and Apple Watches represents a direct hit to net income and potential future royalty obligations.",
-      "why_now": "The verdict was reported on 2026-09-26, initiating a period of legal overhang and potential appeals.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-70b0676c218e"
-      ],
-      "primary_source_event_id": "EVT-70b0676c218e",
-      "source_headlines": [
-        "Apple faces $5.7 billion patent infringement verdict over iPhone and Apple Watch haptics"
-      ],
-      "source_headline": "Apple faces $5.7 billion patent infringement verdict over iPhone and Apple Watch haptics",
-      "source_url": "https://www.cnbc.com/2026/09/26/apple-taction-technology-patent-infringement-verdict.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-26T14:55:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T15:19:48Z",
-      "updated_at": "2026-09-26T15:19:48Z",
-      "decay_at": "2026-09-28T02:55:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-6a5a69a1366b",
       "idea_version": "IDEAV-d4cbc43e591ded73",
       "idea_version_started_at": "2026-09-26T21:35:18Z",
@@ -150311,9 +150383,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 522,
+    "total_count": 521,
     "shown_count": 500,
-    "hidden_count": 22,
+    "hidden_count": 21,
     "side_counts": {
       "long": {
         "total_count": 269,
@@ -150321,9 +150393,9 @@
         "hidden_count": 19
       },
       "short": {
-        "total_count": 253,
+        "total_count": 252,
         "shown_count": 250,
-        "hidden_count": 3
+        "hidden_count": 2
       }
     },
     "retention": {
@@ -150412,79 +150484,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-28T03:10:13Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0448efa62005",
-        "idea_version": "IDEAV-ddc417f779926d1c",
-        "idea_version_started_at": "2026-09-26T15:19:48Z",
-        "ticker": "AAPL",
-        "company": "Apple",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A $5.7 billion patent infringement verdict regarding haptic technology in iPhones and Apple Watches represents a direct hit to net income and potential future royalty obligations.",
-        "why_now": "The verdict was reported on 2026-09-26, initiating a period of legal overhang and potential appeals.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-70b0676c218e"
-        ],
-        "primary_source_event_id": "EVT-70b0676c218e",
-        "source_headlines": [
-          "Apple faces $5.7 billion patent infringement verdict over iPhone and Apple Watch haptics"
-        ],
-        "source_headline": "Apple faces $5.7 billion patent infringement verdict over iPhone and Apple Watch haptics",
-        "source_url": "https://www.cnbc.com/2026/09/26/apple-taction-technology-patent-infringement-verdict.html",
-        "source_name": "CNBC",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-26T14:55:59Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-26T15:19:48Z",
-        "updated_at": "2026-09-26T15:19:48Z",
-        "decay_at": "2026-09-28T02:55:59Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-28T02:55:59Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -187473,12 +187472,86 @@
         "archived_at": "2026-09-03T09:41:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-4d5dba24c3a6",
+        "idea_version": "IDEAV-3dbeceb77a40dd94",
+        "idea_version_started_at": "2026-08-31T14:38:32Z",
+        "ticker": "00333",
+        "company": "TOP FORM INTERNATIONAL",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, signaling weaker-than-expected financial results.",
+        "why_now": "The filing was released on 2026-08-31, providing a fresh catalyst for a downward move.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6c34f8902975"
+        ],
+        "primary_source_event_id": "EVT-6c34f8902975",
+        "source_headlines": [
+          "TOP FORM INT'L (00333): PROFIT WARNING"
+        ],
+        "source_headline": "TOP FORM INT'L (00333): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100934.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-31T09:16:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-31T14:38:32Z",
+        "updated_at": "2026-08-31T14:38:32Z",
+        "decay_at": "2026-09-01T21:16:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-03T09:41:54Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1108,
-    "live_count": 62,
+    "surfaced_total": 1109,
+    "live_count": 64,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
