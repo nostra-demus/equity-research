@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T09:22:49Z",
+  "generated_at": "2026-09-28T09:27:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-349",
@@ -395,6 +395,55 @@
         },
         {
           "name": "Euroports",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-357",
+      "headline": "Spar warns 2026 performance will lag 2025 as turnaround progresses",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/companies-and-deals/spar-warns-2026-performance-will-lag-2025-as-turnaround-progresses/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T08:38:19Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Spar warned that its 2026 performance will lag 2025.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Spar warned that its 2026 performance will lag 2025.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Spar",
           "ticker": null,
           "listing_country": null
         }
@@ -1950,55 +1999,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-137",
-      "headline": "Vietnam Jeweler PNJ Forecasts Loss After Diamond Scandal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-28/vietnam-jewelry-giant-pnj-forecasts-loss-after-diamond-scandal",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T01:47:23Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "PNJ has issued a profit warning forecasting a loss due to a diamond scandal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PNJ has issued a profit warning forecasting a loss due to a diamond scandal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Phu Nhuan Jewelry",
-          "ticker": null,
-          "listing_country": "VN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188209,9 +188209,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 53888,
-    "news_picked_today": 678,
-    "news_dropped_today": 9995
+    "news_seen_today": 56103,
+    "news_picked_today": 686,
+    "news_dropped_today": 10035
   },
   "book_momentum": {
     "live_count": 8,
