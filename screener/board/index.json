@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-28T14:38:10Z",
+  "generated_at": "2026-09-28T15:17:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260928-437",
+      "headline": "GAC GROUP (02238): INSIDE INFORMATION (1) POTENTIAL MAJOR AND CONNECTED TRANSACTION - PROPOSED ACQUISITION OF 50% EQUITY INTEREST IN THE TARGET COMPANY BY WAY OF ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROPOSED NON-PUBLIC ISSUANCE OF A SHARES UNDER SPECIFIC MANDATE TO RAISE SUPPORTING FUNDS; AND (3) RESUMPTION OF TRADING IN A SHARES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092802059.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T14:46:00Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "GAC Group announced a potential major acquisition of a 50% equity interest in a target company and a non-public issuance of A shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GAC Group announced a potential major acquisition of a 50% equity interest in a target company and a non-public issuance of A shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GAC GROUP",
+          "ticker": "02238",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260928-436",
       "headline": "Anupam Rasayan India Limited: Anupam Rasayan India Limited has informed the Exchange regarding a press release titled \"Anupam Rasayan Concludes Acquisition of Bliss GVS Pharma, Marks Third Strategic Step Towards Building an Integrated Global Pharma Platform\".",
@@ -1949,60 +1998,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-237",
-      "headline": "MICL transfers Marine Lines development rights to Godrej Properties in ₹6,000-crore revenue deal",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/real-estate/micl-transfers-marine-lines-development-rights-to-godrej-properties-in-6000-crore-revenue-deal/article71518363.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T04:55:13Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Godrej Properties acquired development rights in a deal valued at 6,000 crore INR in revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Godrej Properties acquired development rights in a deal valued at 6,000 crore INR in revenue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Godrej Properties",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Man Infraconstruction",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -147380,81 +147375,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-34170708f0d3",
-      "idea_version": "IDEAV-1fe75c6467913028",
-      "idea_version_started_at": "2026-09-27T20:17:32Z",
-      "ticker": "TCL",
-      "company": "Transurban Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The exit of pension fund backer La Caisse from the $33 billion WestConnex project creates an opportunity for Transurban, the existing operator, to consolidate its ownership of this core infrastructure asset.",
-      "why_now": "The stake was put up for sale on September 27, 2026, making Transurban the logical strategic buyer for the interest in Australia's largest road project.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7db9988e7ff4",
-        "EVT-487ec0759c5b"
-      ],
-      "primary_source_event_id": "EVT-7db9988e7ff4",
-      "source_headlines": [
-        "WestConnex pension fund backer puts big stake in $33b road up for sale",
-        "La Caisse to exit NSW’s $33b WestConnex toll road; eyes on Transurban"
-      ],
-      "source_headline": "WestConnex pension fund backer puts big stake in $33b road up for sale",
-      "source_url": "https://www.afr.com/street-talk/la-cassie-to-exit-nsw-s-33b-westconnex-toll-road-eyes-on-transurban-20260927-p610ss?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-27T02:53:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T03:19:50Z",
-      "updated_at": "2026-09-27T20:17:32Z",
-      "decay_at": "2026-09-28T14:53:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-318245f25356",
       "idea_version": "IDEAV-8fb4f408f3cda980",
       "idea_version_started_at": "2026-09-27T19:10:14Z",
@@ -150588,6 +150508,81 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-34170708f0d3",
+      "idea_version": "IDEAV-1fe75c6467913028",
+      "idea_version_started_at": "2026-09-27T20:17:32Z",
+      "ticker": "TCL",
+      "company": "Transurban Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The exit of pension fund backer La Caisse from the $33 billion WestConnex project creates an opportunity for Transurban, the existing operator, to consolidate its ownership of this core infrastructure asset.",
+      "why_now": "The stake was put up for sale on September 27, 2026, making Transurban the logical strategic buyer for the interest in Australia's largest road project.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7db9988e7ff4",
+        "EVT-487ec0759c5b"
+      ],
+      "primary_source_event_id": "EVT-7db9988e7ff4",
+      "source_headlines": [
+        "WestConnex pension fund backer puts big stake in $33b road up for sale",
+        "La Caisse to exit NSW’s $33b WestConnex toll road; eyes on Transurban"
+      ],
+      "source_headline": "WestConnex pension fund backer puts big stake in $33b road up for sale",
+      "source_url": "https://www.afr.com/street-talk/la-cassie-to-exit-nsw-s-33b-westconnex-toll-road-eyes-on-transurban-20260927-p610ss?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 97,
+      "newest_source_at": "2026-09-27T02:53:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T03:19:50Z",
+      "updated_at": "2026-09-27T20:17:32Z",
+      "decay_at": "2026-09-28T14:53:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3a5e2b5bb8c5",
       "idea_version": "IDEAV-267198f9d0786948",
       "idea_version_started_at": "2026-09-27T02:19:51Z",
@@ -150888,14 +150883,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 525,
+    "total_count": 526,
     "shown_count": 500,
-    "hidden_count": 25,
+    "hidden_count": 26,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       },
       "short": {
         "total_count": 258,
@@ -150919,6 +150914,84 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-34170708f0d3",
+        "idea_version": "IDEAV-1fe75c6467913028",
+        "idea_version_started_at": "2026-09-27T20:17:32Z",
+        "ticker": "TCL",
+        "company": "Transurban Group",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The exit of pension fund backer La Caisse from the $33 billion WestConnex project creates an opportunity for Transurban, the existing operator, to consolidate its ownership of this core infrastructure asset.",
+        "why_now": "The stake was put up for sale on September 27, 2026, making Transurban the logical strategic buyer for the interest in Australia's largest road project.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7db9988e7ff4",
+          "EVT-487ec0759c5b"
+        ],
+        "primary_source_event_id": "EVT-7db9988e7ff4",
+        "source_headlines": [
+          "WestConnex pension fund backer puts big stake in $33b road up for sale",
+          "La Caisse to exit NSW’s $33b WestConnex toll road; eyes on Transurban"
+        ],
+        "source_headline": "WestConnex pension fund backer puts big stake in $33b road up for sale",
+        "source_url": "https://www.afr.com/street-talk/la-cassie-to-exit-nsw-s-33b-westconnex-toll-road-eyes-on-transurban-20260927-p610ss?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 97,
+        "newest_source_at": "2026-09-27T02:53:31Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T03:19:50Z",
+        "updated_at": "2026-09-27T20:17:32Z",
+        "decay_at": "2026-09-28T14:53:31Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T14:53:31Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3a5e2b5bb8c5",
         "idea_version": "IDEAV-267198f9d0786948",
@@ -181118,80 +181191,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-7598308e07cb",
-        "idea_version": "IDEAV-8eb68c29636b2c41",
-        "idea_version_started_at": "2026-09-09T23:02:57Z",
-        "ticker": "ENB",
-        "company": "Enbridge",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Enbridge is expanding its midstream footprint by acquiring the Tallgrass crude oil business for $2.55 billion, which should be accretive to cash flow once integrated.",
-        "why_now": "The acquisition was announced on 2026-09-09, providing a clear catalyst for the stock as it scales its asset base.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d02fd2c9091c",
-          "EVT-881a5898c57b"
-        ],
-        "primary_source_event_id": "EVT-d02fd2c9091c",
-        "source_headlines": [
-          "Enbridge To Acquire Tallgrass Crude Business For $2.55 Bln",
-          "Enbridge to buy Tallgrass crude oil business for $2.55-billion"
-        ],
-        "source_headline": "Enbridge To Acquire Tallgrass Crude Business For $2.55 Bln",
-        "source_url": "https://www.nasdaq.com/articles/enbridge-acquire-tallgrass-crude-business-255-bln",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-09T20:49:52Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-09T23:02:57Z",
-        "updated_at": "2026-09-09T23:02:57Z",
-        "decay_at": "2026-09-11T08:49:52Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-12T21:36:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0e754328b539",
         "idea_version": "IDEAV-848eb9acfa328652",
         "idea_version_started_at": "2026-09-09T20:06:47Z",
@@ -188060,7 +188059,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1119,
-    "live_count": 67,
+    "live_count": 66,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -188079,9 +188078,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 698392,
-    "news_picked_today": 1003,
-    "news_dropped_today": 12358
+    "news_seen_today": 863605,
+    "news_picked_today": 1009,
+    "news_dropped_today": 12376
   },
   "book_momentum": {
     "live_count": 8,
