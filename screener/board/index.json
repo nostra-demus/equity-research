@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T21:07:11Z",
+  "generated_at": "2026-09-28T21:16:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-453",
@@ -1044,6 +1044,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-584",
+      "headline": "AMD to buy Fei-Fei Li’s AI start-up for $8bn",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/33344fa5-6a25-4d72-8934-528526dd89bd?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T20:45:12Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "AMD is acquiring an AI startup for $8bn.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMD is acquiring an AI startup for $8bn.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-578",
       "headline": "AMD will acquire Fei-Fei Li’s World Labs for $8.2 billion",
       "headline_en": null,
@@ -1967,55 +2016,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-370",
-      "headline": "Zymeworks Issues Updated 2026 Financial Guidance",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/zymeworks-issues-updated-2026-financial-guidance",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T10:36:59Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Company issued updated 2026 financial guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company issued updated 2026 financial guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zymeworks",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -147466,78 +147466,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-86d9ffa1d53a",
-      "idea_version": "IDEAV-593e260e415fa823",
-      "idea_version_started_at": "2026-09-27T09:14:56Z",
-      "ticker": "2222.SR",
-      "company": "Saudi Aramco",
-      "exchange": "Tadawul",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The creation of a dedicated gas unit signals a strategic pivot to capture higher margins from the growing global demand for liquefied natural gas and domestic industrial gas expansion.",
-      "why_now": "The report of hiring advisers indicates the formal initiation of the restructuring process as of September 27, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-37c18310533d"
-      ],
-      "primary_source_event_id": "EVT-37c18310533d",
-      "source_headlines": [
-        "‎Saudi Aramco reportedly hires adviser to set up gas unit"
-      ],
-      "source_headline": "‎Saudi Aramco reportedly hires adviser to set up gas unit",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1939206",
-      "source_name": "Argaam — Main News (English)",
-      "materiality_max": 93,
-      "newest_source_at": "2026-09-27T09:16:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T09:14:56Z",
-      "updated_at": "2026-09-27T09:14:56Z",
-      "decay_at": "2026-09-28T21:14:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-cd610332b346",
       "idea_version": "IDEAV-5a9a84931362fd33",
       "idea_version_started_at": "2026-09-28T03:56:13Z",
@@ -149606,6 +149534,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-86d9ffa1d53a",
+      "idea_version": "IDEAV-593e260e415fa823",
+      "idea_version_started_at": "2026-09-27T09:14:56Z",
+      "ticker": "2222.SR",
+      "company": "Saudi Aramco",
+      "exchange": "Tadawul",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The creation of a dedicated gas unit signals a strategic pivot to capture higher margins from the growing global demand for liquefied natural gas and domestic industrial gas expansion.",
+      "why_now": "The report of hiring advisers indicates the formal initiation of the restructuring process as of September 27, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-37c18310533d"
+      ],
+      "primary_source_event_id": "EVT-37c18310533d",
+      "source_headlines": [
+        "‎Saudi Aramco reportedly hires adviser to set up gas unit"
+      ],
+      "source_headline": "‎Saudi Aramco reportedly hires adviser to set up gas unit",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1939206",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 93,
+      "newest_source_at": "2026-09-27T09:16:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T09:14:56Z",
+      "updated_at": "2026-09-27T09:14:56Z",
+      "decay_at": "2026-09-28T21:14:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-095be317c3a2",
       "idea_version": "IDEAV-53344850a0822e27",
       "idea_version_started_at": "2026-09-27T05:04:56Z",
@@ -150122,14 +150122,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 529,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       },
       "short": {
         "total_count": 263,
@@ -150153,6 +150153,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-86d9ffa1d53a",
+        "idea_version": "IDEAV-593e260e415fa823",
+        "idea_version_started_at": "2026-09-27T09:14:56Z",
+        "ticker": "2222.SR",
+        "company": "Saudi Aramco",
+        "exchange": "Tadawul",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The creation of a dedicated gas unit signals a strategic pivot to capture higher margins from the growing global demand for liquefied natural gas and domestic industrial gas expansion.",
+        "why_now": "The report of hiring advisers indicates the formal initiation of the restructuring process as of September 27, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-37c18310533d"
+        ],
+        "primary_source_event_id": "EVT-37c18310533d",
+        "source_headlines": [
+          "‎Saudi Aramco reportedly hires adviser to set up gas unit"
+        ],
+        "source_headline": "‎Saudi Aramco reportedly hires adviser to set up gas unit",
+        "source_url": "https://www.argaam.com/en/article/articledetail/id/1939206",
+        "source_name": "Argaam — Main News (English)",
+        "materiality_max": 93,
+        "newest_source_at": "2026-09-27T09:16:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T09:14:56Z",
+        "updated_at": "2026-09-27T09:14:56Z",
+        "decay_at": "2026-09-28T21:14:56Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T21:14:56Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6c58cb4974e1",
         "idea_version": "IDEAV-79e979236eccb460",
@@ -180517,81 +180592,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-8f16db69a39a",
-        "idea_version": "IDEAV-0410155f4f26b31c",
-        "idea_version_started_at": "2026-09-10T11:30:54Z",
-        "ticker": "P911",
-        "company": "Porsche AG",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The sale of the Bugatti stake for €1 billion provides a direct cash infusion and allows for an upward revision of the company's cash flow guidance.",
-        "why_now": "The news of the stake sale and guidance upgrade broke on 2026-09-10.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-913e5412ec0c"
-        ],
-        "primary_source_event_id": "EVT-913e5412ec0c",
-        "source_headlines": [
-          "Porsche to generate €1 billion by selling Bugatti stake, raises cash flow forecast"
-        ],
-        "source_headline": "Porsche to generate €1 billion by selling Bugatti stake, raises cash flow forecast",
-        "source_url": "https://www.cnbctv18.com/business/companies/porsche-to-generate-e1-billion-by-selling-bugatti-stake-raises-cash-flow-forecast-19988476.htm",
-        "source_name": "CNBC-TV18",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-10T09:26:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T11:30:54Z",
-        "updated_at": "2026-09-10T11:30:54Z",
-        "decay_at": "2026-09-11T21:26:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T10:05:24Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-14e8a146693a",
         "idea_version": "IDEAV-75af08a2bada8d89",
         "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -187308,7 +187308,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1121,
-    "live_count": 53,
+    "live_count": 52,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -187327,9 +187327,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2376330,
-    "news_picked_today": 1244,
-    "news_dropped_today": 13293
+    "news_seen_today": 2400873,
+    "news_picked_today": 1251,
+    "news_dropped_today": 13406
   },
   "book_momentum": {
     "live_count": 8,
