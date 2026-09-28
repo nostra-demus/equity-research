@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T08:57:09Z",
+  "generated_at": "2026-09-28T09:02:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-340",
@@ -248,6 +248,109 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-341",
+      "headline": "Supermarket giant to open 40 new stores in £900 million investment despite earnings dip",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/aldi-new-stores-uk-investment-earnings-b3057434.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T08:43:26Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "A major retailer is committing to a 900 million GBP investment for 40 new stores.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A major retailer is committing to a 900 million GBP investment for 40 new stores.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Supermarket giant",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-346",
+      "headline": "A.P. Moller Capital to buy majority stake in ports operator Euroports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/ap-moller-capital-buy-majority-stake-ports-operator-euroports-2026-09-28/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T08:39:03Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "A.P. Moller Capital is acquiring a majority stake in Euroports, a major port operator.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A.P. Moller Capital is acquiring a majority stake in Euroports, a major port operator.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "A.P. Moller Capital",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Euroports",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1896,105 +1999,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-064",
-      "headline": "CDL to invest S$5 billion, target S$6 billion divestments under refreshed strategy",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/cdl-invest-s5-billion-target-s6-billion-divestments-under-refreshed-strategy",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T00:49:49Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "CDL announced a S$5 billion investment plan and S$6 billion divestment target as part of a refreshed strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CDL announced a S$5 billion investment plan and S$6 billion divestment target as part of a refreshed strategy.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "City Developments Limited",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-048",
-      "headline": "Aleksandar Vucic: Serbiens Präsident tritt zurück – Weg frei für Wechsel an Regierungsspitze",
-      "headline_en": "Aleksandar Vucic: Serbian President resigns – path clear for change in government leadership",
-      "url": "https://www.handelsblatt.com/politik/international/aleksandar-vucic-serbiens-praesident-tritt-zurueck-weg-frei-fuer-wechsel-an-regierungsspitze/100257779.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T00:22:13Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "The resignation of the Serbian President creates significant political instability and uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The resignation of the Serbian President creates significant political instability and uncertainty.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aleksandar Vucic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188205,9 +188209,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 37097,
-    "news_picked_today": 656,
-    "news_dropped_today": 9609
+    "news_seen_today": 42872,
+    "news_picked_today": 666,
+    "news_dropped_today": 9767
   },
   "book_momentum": {
     "live_count": 8,
