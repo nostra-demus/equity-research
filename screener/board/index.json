@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T00:57:26Z",
+  "generated_at": "2026-09-28T01:06:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-058",
@@ -1153,6 +1153,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-075",
+      "headline": "TOR: Growth drilling delivers high-grade hits at Ritz [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TOR?key=2924-03140605-6A1346007",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T00:59:44Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Torian Resources reported high-grade drilling results at its Ritz project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Torian Resources reported high-grade drilling results at its Ritz project.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Torian Resources",
+          "ticker": "TOR",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-015",
       "headline": "ESWIN COMPUTING (01256): GLOBAL OFFERING",
       "headline_en": null,
@@ -1202,20 +1251,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260928-044",
-      "headline": "Shein faces first public earnings test as growth woes mount",
+      "inbox_id": "INB-20260928-072",
+      "headline": "Metrics warns of ‘material differences’ after private credit audit",
       "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/shein-faces-first-public-earnings-test-growth-woes-mount",
-      "source_name": "The Business Times (Singapore)",
+      "url": "https://www.afr.com/companies/financial-services/metrics-warns-of-material-differences-after-private-credit-audit-20260928-p6110p?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-09-28T00:30:22Z",
+      "found_at": "2026-09-28T01:02:26Z",
       "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Shein is facing slowing growth as it prepares for potential public market scrutiny.",
+      "prelim_note": "Metrics reported material differences following a private credit audit, raising concerns about valuation accuracy.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "Shein is facing slowing growth as it prepares for potential public market scrutiny.",
+      "triage_reason": "Metrics reported material differences following a private credit audit, raising concerns about valuation accuracy.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -1223,10 +1272,59 @@
         "materiality": 60,
         "source_tier": 0,
         "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Metrics",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-071",
+      "headline": "Shein faces first public earnings test as growth woes mount",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/companies-markets/shein-faces-first-public-earnings-test-as-growth-woes-mount",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Shein faces scrutiny over growth concerns ahead of its first public earnings disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Shein faces scrutiny over growth concerns ahead of its first public earnings disclosure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
         "event": 5,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1338,6 +1436,114 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-079",
+      "headline": "Momenta and Stellantis' China JV with Dongfeng to co-develop intelligent driving technology",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/china/momenta-stellantis-china-jv-with-dongfeng-co-develop-intelligent-driving-2026-09-28/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T00:55:43Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Momenta and Stellantis are forming a joint venture with Dongfeng to develop intelligent driving technology.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Momenta and Stellantis are forming a joint venture with Dongfeng to develop intelligent driving technology.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stellantis",
+          "ticker": null,
+          "listing_country": "NL"
+        },
+        {
+          "name": "Dongfeng",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-077",
+      "headline": "LG Chem, Volkswagen to jointly develop sustainable mobility materials",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260928001900320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T00:50:28Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "LG Chem and Volkswagen are partnering to develop sustainable mobility materials, indicating a new commercial agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "LG Chem and Volkswagen are partnering to develop sustainable mobility materials, indicating a new commercial agreement.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LG Chem",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1739,218 +1945,28 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260928-032",
-      "headline": "STN: Change in substantial holding from LSX",
+      "inbox_id": "INB-20260928-074",
+      "headline": "RITAMIX (01936): EXCHANGE NOTICE - RESUMPTION OF TRADING",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.STN?key=2924-03140576-6A1346003",
-      "source_name": "ASX (Australia Exchange Filing)",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092800157.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T00:09:24Z",
+      "found_at": "2026-09-28T00:55:00Z",
       "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "A change in substantial holding by LSX in STN indicates a shift in ownership structure.",
+      "prelim_note": "Ritamix has resumed trading on the HKEX.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 70,
-      "triage_reason": "A change in substantial holding by LSX in STN indicates a shift in ownership structure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "STN",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-008",
-      "headline": "COB: Cobalt Blue contracted to undertake PEA for Glomar [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.COB?key=2924-03140567-2A1699738",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T00:03:44Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Cobalt Blue has been contracted to undertake a Preliminary Economic Assessment for Glomar, indicating new commercial activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Cobalt Blue has been contracted to undertake a Preliminary Economic Assessment for Glomar, indicating new commercial activity.",
-      "region": "OTHER",
+      "triage_reason": "Ritamix has resumed trading on the HKEX.",
+      "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 50,
       "rank_factors": {
         "materiality": 50,
         "source_tier": 8,
         "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cobalt Blue",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-010",
-      "headline": "NSM: $250,000 PLACEMENT [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NSM?key=2924-03140560-6A1345997",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T00:01:44Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "NSM announced a $250,000 placement, representing a capital raise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "NSM announced a $250,000 placement, representing a capital raise.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NSM",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-054",
-      "headline": "Delivery company closing southwest Ohio facility, laying off 179 workers",
-      "headline_en": null,
-      "url": "https://www.reddit.com/r/Layoffs/comments/1ws0bx4/delivery_company_closing_southwest_ohio_facility",
-      "source_name": "Reddit r/Layoffs",
-      "input_nature": "social_discussion",
-      "found_at": "2026-09-28T00:32:45Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "A delivery company is closing a facility and laying off 179 workers, indicating operational downsizing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "A delivery company is closing a facility and laying off 179 workers, indicating operational downsizing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -12,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "social",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-039",
-      "headline": "BDC: Distribution for month ending 30 September 2026 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BDC?key=2924-03140585-2A1699748",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T00:15:54Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "The company announced a monthly distribution payment for shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "The company announced a monthly distribution payment for shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
+        "event": 2,
         "size": -1,
         "recency": 5,
         "materiality_label_floor": 0,
@@ -1958,18 +1974,18 @@
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": null,
+        "event_id": "operations",
         "size_bucket": "small"
       },
       "event_types": [
-        "capital_actions"
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "BlackRock Debt Strategies Fund",
-          "ticker": "BDC",
-          "listing_country": "AU"
+          "name": "Ritamix",
+          "ticker": "01936",
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "small",
@@ -186963,9 +186979,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 287,
-    "news_picked_today": 73,
-    "news_dropped_today": 214
+    "news_seen_today": 328,
+    "news_picked_today": 82,
+    "news_dropped_today": 246
   },
   "book_momentum": {
     "live_count": 8,
