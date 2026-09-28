@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T03:06:51Z",
+  "generated_at": "2026-09-28T03:12:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-138",
@@ -199,6 +199,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-152",
+      "headline": "Watchdog to slap fines totaling 14.8 bln won on Korean barbecue chain operator",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260928005300320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T03:03:33Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "A Korean barbecue chain operator faces a quantified fine of 14.8 billion won from a regulatory watchdog.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Korean barbecue chain operator faces a quantified fine of 14.8 billion won from a regulatory watchdog.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Korean barbecue chain operator",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1950,55 +1999,6 @@
           "name": "Metrics Credit Partners",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-045",
-      "headline": "Why Byju’s Aakash stake matters to creditors—and why cashing out won’t be easy",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/byjus-aakash-institute-insolvency-dispute-11790322698608.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T00:21:17Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Creditors face significant hurdles in recovering value from Byju's Aakash stake.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Creditors face significant hurdles in recovering value from Byju's Aakash stake.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Byju's",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -144728,76 +144728,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6a5a69a1366b",
-      "idea_version": "IDEAV-d4cbc43e591ded73",
-      "idea_version_started_at": "2026-09-26T21:35:18Z",
-      "ticker": "MCD",
-      "company": "McDonald's Corporation",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "McDonald's is experiencing a 30% sell-off due to consumer pushback against 'Big Mac inflation', indicating potential negative impact on sales and margins.",
-      "why_now": "The sell-off and consumer pushback are current, with the news reported on September 26, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1f45a7acd2f7"
-      ],
-      "primary_source_event_id": "EVT-1f45a7acd2f7",
-      "source_headlines": [
-        "McDonald's Sell-Off Hits 30% As Big Mac Inflation Spurs Pushback"
-      ],
-      "source_headline": "McDonald's Sell-Off Hits 30% As Big Mac Inflation Spurs Pushback",
-      "source_url": "https://www.ndtvprofit.com/markets/mcdonalds-sell-off-hits-30-as-big-mac-inflation-spurs-pushback-12102529#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-26T15:10:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T16:10:26Z",
-      "updated_at": "2026-09-26T21:35:18Z",
-      "decay_at": "2026-09-28T03:10:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b520e6e5e5f6",
       "idea_version": "IDEAV-b528e92838fca2d3",
       "idea_version_started_at": "2026-09-26T16:28:04Z",
@@ -149158,6 +149088,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-6a5a69a1366b",
+      "idea_version": "IDEAV-d4cbc43e591ded73",
+      "idea_version_started_at": "2026-09-26T21:35:18Z",
+      "ticker": "MCD",
+      "company": "McDonald's Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "McDonald's is experiencing a 30% sell-off due to consumer pushback against 'Big Mac inflation', indicating potential negative impact on sales and margins.",
+      "why_now": "The sell-off and consumer pushback are current, with the news reported on September 26, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1f45a7acd2f7"
+      ],
+      "primary_source_event_id": "EVT-1f45a7acd2f7",
+      "source_headlines": [
+        "McDonald's Sell-Off Hits 30% As Big Mac Inflation Spurs Pushback"
+      ],
+      "source_headline": "McDonald's Sell-Off Hits 30% As Big Mac Inflation Spurs Pushback",
+      "source_url": "https://www.ndtvprofit.com/markets/mcdonalds-sell-off-hits-30-as-big-mac-inflation-spurs-pushback-12102529#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-26T15:10:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T16:10:26Z",
+      "updated_at": "2026-09-26T21:35:18Z",
+      "decay_at": "2026-09-28T03:10:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ae01fb457408",
       "idea_version": "IDEAV-d4aa05ccec8dbcdb",
       "idea_version_started_at": "2026-09-26T21:35:18Z",
@@ -150235,9 +150235,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 521,
+    "total_count": 522,
     "shown_count": 500,
-    "hidden_count": 21,
+    "hidden_count": 22,
     "side_counts": {
       "long": {
         "total_count": 269,
@@ -150245,9 +150245,9 @@
         "hidden_count": 19
       },
       "short": {
-        "total_count": 252,
+        "total_count": 253,
         "shown_count": 250,
-        "hidden_count": 2
+        "hidden_count": 3
       }
     },
     "retention": {
@@ -150266,6 +150266,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6a5a69a1366b",
+        "idea_version": "IDEAV-d4cbc43e591ded73",
+        "idea_version_started_at": "2026-09-26T21:35:18Z",
+        "ticker": "MCD",
+        "company": "McDonald's Corporation",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "McDonald's is experiencing a 30% sell-off due to consumer pushback against 'Big Mac inflation', indicating potential negative impact on sales and margins.",
+        "why_now": "The sell-off and consumer pushback are current, with the news reported on September 26, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1f45a7acd2f7"
+        ],
+        "primary_source_event_id": "EVT-1f45a7acd2f7",
+        "source_headlines": [
+          "McDonald's Sell-Off Hits 30% As Big Mac Inflation Spurs Pushback"
+        ],
+        "source_headline": "McDonald's Sell-Off Hits 30% As Big Mac Inflation Spurs Pushback",
+        "source_url": "https://www.ndtvprofit.com/markets/mcdonalds-sell-off-hits-30-as-big-mac-inflation-spurs-pushback-12102529#publisher=newsstand",
+        "source_name": "NDTV Profit",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-26T15:10:13Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-26T16:10:26Z",
+        "updated_at": "2026-09-26T21:35:18Z",
+        "decay_at": "2026-09-28T03:10:13Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T03:10:13Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0448efa62005",
         "idea_version": "IDEAV-ddc417f779926d1c",
@@ -187324,86 +187397,12 @@
         "archived_at": "2026-09-03T09:41:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-4d5dba24c3a6",
-        "idea_version": "IDEAV-3dbeceb77a40dd94",
-        "idea_version_started_at": "2026-08-31T14:38:32Z",
-        "ticker": "00333",
-        "company": "TOP FORM INTERNATIONAL",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning, signaling weaker-than-expected financial results.",
-        "why_now": "The filing was released on 2026-08-31, providing a fresh catalyst for a downward move.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6c34f8902975"
-        ],
-        "primary_source_event_id": "EVT-6c34f8902975",
-        "source_headlines": [
-          "TOP FORM INT'L (00333): PROFIT WARNING"
-        ],
-        "source_headline": "TOP FORM INT'L (00333): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100934.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T09:16:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T14:38:32Z",
-        "updated_at": "2026-08-31T14:38:32Z",
-        "decay_at": "2026-09-01T21:16:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T09:41:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1107,
-    "live_count": 62,
+    "live_count": 61,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -187422,9 +187421,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 833,
-    "news_picked_today": 197,
-    "news_dropped_today": 636
+    "news_seen_today": 870,
+    "news_picked_today": 207,
+    "news_dropped_today": 663
   },
   "book_momentum": {
     "live_count": 8,
