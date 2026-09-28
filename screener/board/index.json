@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T21:57:06Z",
+  "generated_at": "2026-09-28T22:04:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-453",
@@ -46,6 +46,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-600",
+      "headline": "Department of War and RTX Accelerate Advanced Medium-Range Air-to-Air Missile Production Through $20.7B Award",
+      "headline_en": null,
+      "url": "https://www.war.gov/News/Releases/Release/Article/4613107/department-of-war-and-rtx-accelerate-advanced-medium-range-air-to-air-missile-p/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-28T21:00:22Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "RTX received a $20.7B contract award to accelerate missile production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RTX received a $20.7B contract award to accelerate missile production.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RTX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -995,6 +1045,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-597",
+      "headline": "AAR to buy majority stake in aircraft maintenance firm MRO Holdings for $1.8 billion",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/aar-buy-majority-stake-aircraft-maintenance-firm-mro-holdings-18-billion-2026-09-28/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T21:39:54Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "AAR Corp announced the acquisition of a majority stake in MRO Holdings for $1.8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AAR Corp announced the acquisition of a majority stake in MRO Holdings for $1.8 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AAR Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-592",
+      "headline": "AMD makes a big bet on the next era of AI with World Labs acquisition",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/story/amd-makes-a-big-bet-on-the-next-era-of-ai-7f8a3b3c?mod=mw_rss_topstories",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T21:37:00Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "AMD is acquiring World Labs to expand its AI capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMD is acquiring World Labs to expand its AI capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-595",
+      "headline": "Maharashtra Approves ₹3,446 Crore For MahaHousing To Acquire Five MTNL Land Parcels In Borivali For Housing Projects",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/maharashtra-approves-3446-crore-for-mahahousing-to-acquire-five-mtnl-land-parcels-in-borivali-for-housing-projects",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T21:14:32Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Maharashtra government approved 3,446 crore INR for MahaHousing to acquire five land parcels from MTNL.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Maharashtra government approved 3,446 crore INR for MahaHousing to acquire five land parcels from MTNL.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahanagar Telephone Nigam Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-586",
       "headline": "AMD acquires World Labs in $8.2-billion deal to boost AI systems strategy",
       "headline_en": null,
@@ -1804,217 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-553",
-      "headline": "Slate Grocery REIT to be acquired by Brixmor, Everview Partners in deal valued at $2.3-billion",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-slate-grocery-reit-to-be-acquired-by-brixmor-everview-partners/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T14:09:49Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Slate Grocery REIT is being acquired in a deal valued at $2.3 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Slate Grocery REIT is being acquired in a deal valued at $2.3 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Slate Grocery REIT",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Brixmor",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-424",
-      "headline": "Slate Grocery REIT To Be Acquired By Brixmor, Everview Partners For $2.3 Bln In Cash",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/slate-grocery-reit-be-acquired-brixmor-everview-partners-23-bln-cash",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T12:35:03Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Slate Grocery REIT is being acquired for $2.3 billion in cash.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Slate Grocery REIT is being acquired for $2.3 billion in cash.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Slate Grocery REIT",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Brixmor",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-394",
-      "headline": "Valley National Bancorp To Acquire Bluevine For Total Consideration Of Approx. $340 Mln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/valley-national-bancorp-acquire-bluevine-total-consideration-approx-340-mln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T11:47:13Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Valley National Bancorp to acquire Bluevine for approximately $340 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Valley National Bancorp to acquire Bluevine for approximately $340 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Valley National Bancorp",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Bluevine",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-379",
-      "headline": "FTAI Infrastructure Unit To Buy Port Arthur Terminal, Alberta DRU Interest For $255 Mln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/ftai-infrastructure-unit-buy-port-arthur-terminal-alberta-dru-interest-255-mln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T11:06:55Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "FTAI Infrastructure unit to acquire assets for $255 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "FTAI Infrastructure unit to acquire assets for $255 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FTAI Infrastructure",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -144667,76 +144653,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-888b01b644ef",
-      "idea_version": "IDEAV-2b246912960862a3",
-      "idea_version_started_at": "2026-09-27T10:13:26Z",
-      "ticker": "RIOT",
-      "company": "Riot Platforms",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Repaying $200 million in debt and releasing collateral improves the company's balance sheet flexibility and reduces interest expense, lowering its financial risk profile.",
-      "why_now": "The debt repayment was confirmed on 2026-09-27, signaling an immediate improvement in liquidity.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7298605bbe21"
-      ],
-      "primary_source_event_id": "EVT-7298605bbe21",
-      "source_headlines": [
-        "Riot Platforms repays $200M credit facility, releases collateral"
-      ],
-      "source_headline": "Riot Platforms repays $200M credit facility, releases collateral",
-      "source_url": "https://cointelegraph.com/news/riot-platforms-repays-200m-credit-facility-releases-collateral?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "materiality_max": 89,
-      "newest_source_at": "2026-09-27T09:57:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T10:13:26Z",
-      "updated_at": "2026-09-27T10:13:26Z",
-      "decay_at": "2026-09-28T21:57:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2e0537f9d742",
       "idea_version": "IDEAV-085c966c2ec4c29f",
       "idea_version_started_at": "2026-09-28T00:37:06Z",
@@ -148599,6 +148515,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-888b01b644ef",
+      "idea_version": "IDEAV-2b246912960862a3",
+      "idea_version_started_at": "2026-09-27T10:13:26Z",
+      "ticker": "RIOT",
+      "company": "Riot Platforms",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Repaying $200 million in debt and releasing collateral improves the company's balance sheet flexibility and reduces interest expense, lowering its financial risk profile.",
+      "why_now": "The debt repayment was confirmed on 2026-09-27, signaling an immediate improvement in liquidity.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7298605bbe21"
+      ],
+      "primary_source_event_id": "EVT-7298605bbe21",
+      "source_headlines": [
+        "Riot Platforms repays $200M credit facility, releases collateral"
+      ],
+      "source_headline": "Riot Platforms repays $200M credit facility, releases collateral",
+      "source_url": "https://cointelegraph.com/news/riot-platforms-repays-200m-credit-facility-releases-collateral?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "materiality_max": 89,
+      "newest_source_at": "2026-09-27T09:57:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T10:13:26Z",
+      "updated_at": "2026-09-27T10:13:26Z",
+      "decay_at": "2026-09-28T21:57:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-cdeaf43845fc",
       "idea_version": "IDEAV-e1623c92fe297fa6",
       "idea_version_started_at": "2026-09-27T09:33:20Z",
@@ -150121,14 +150107,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 531,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       },
       "short": {
         "total_count": 264,
@@ -150152,6 +150138,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-888b01b644ef",
+        "idea_version": "IDEAV-2b246912960862a3",
+        "idea_version_started_at": "2026-09-27T10:13:26Z",
+        "ticker": "RIOT",
+        "company": "Riot Platforms",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Repaying $200 million in debt and releasing collateral improves the company's balance sheet flexibility and reduces interest expense, lowering its financial risk profile.",
+        "why_now": "The debt repayment was confirmed on 2026-09-27, signaling an immediate improvement in liquidity.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7298605bbe21"
+        ],
+        "primary_source_event_id": "EVT-7298605bbe21",
+        "source_headlines": [
+          "Riot Platforms repays $200M credit facility, releases collateral"
+        ],
+        "source_headline": "Riot Platforms repays $200M credit facility, releases collateral",
+        "source_url": "https://cointelegraph.com/news/riot-platforms-repays-200m-credit-facility-releases-collateral?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "source_name": "Cointelegraph",
+        "materiality_max": 89,
+        "newest_source_at": "2026-09-27T09:57:19Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T10:13:26Z",
+        "updated_at": "2026-09-27T10:13:26Z",
+        "decay_at": "2026-09-28T21:57:19Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T21:57:19Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8b18351c452b",
         "idea_version": "IDEAV-74cc105ed3b65696",
@@ -180592,80 +180651,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d053e3e206d2",
-        "idea_version": "IDEAV-459985086a659826",
-        "idea_version_started_at": "2026-09-10T12:37:06Z",
-        "ticker": "00491",
-        "company": "Emperor Culture Group Limited",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company issued a positive profit alert confirming a turnaround to net profit, signaling a material improvement in operational performance.",
-        "why_now": "The filing was released on 2026-09-10, making the earnings surprise actionable immediately.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e32318c449d8"
-        ],
-        "primary_source_event_id": "EVT-e32318c449d8",
-        "source_headlines": [
-          "EMPEROR CULTURE (00491): Positive Profit Alert - Turnaround to Net Profit"
-        ],
-        "source_headline": "EMPEROR CULTURE (00491): Positive Profit Alert - Turnaround to Net Profit",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091001011.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-10T10:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T12:37:06Z",
-        "updated_at": "2026-09-10T12:37:06Z",
-        "decay_at": "2026-09-11T22:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T10:05:24Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-14e8a146693a",
         "idea_version": "IDEAV-75af08a2bada8d89",
         "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -187310,7 +187295,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1121,
-    "live_count": 51,
+    "live_count": 50,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -187329,9 +187314,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2643911,
-    "news_picked_today": 1296,
-    "news_dropped_today": 14009
+    "news_seen_today": 2703725,
+    "news_picked_today": 1310,
+    "news_dropped_today": 14211
   },
   "book_momentum": {
     "live_count": 8,
