@@ -125,13 +125,22 @@ def failure_keys(report, root="."):
     "; "), so a second violation changes only the text. Comparing the text closes that for every check at once.
     The deliberate cost: a change that rewords the message of a check a run on the base already fails gates too
     — the conservative side (CLAUDE.md §3/§23), never a hidden failure.
+
+    `accounted` tracks whether we found a structurally-recognized cause for suite_pass=False, independent of
+    whether `keys` happens to be empty. Codex (#732): the previous guard only added the generic `suite_pass=False`
+    marker `if ... and not keys`, so a real cause our readers cannot name (e.g. an AP entry with no `run` — see
+    `_unattributed_ap_failures` — hard-fails the suite in eval.py but `ap_failures()` drops it) stayed invisible
+    whenever an UNRELATED, already-explained failure had already put something else in `keys`. Gating on
+    `accounted` instead means an unexplained cause is always surfaced, whether or not another cause is present.
     """
     keys = set()
+    accounted = False
     runs = report.get("runs") or {}
     for run in set(runs.keys()) | set(ap_failures(report).keys()):
         status, fails = status_of(report, run, root)
         if status != "FAIL":
             continue
+        accounted = True
         details = collections.defaultdict(list)
         for entry in (runs.get(run) or {}).get("checks") or []:
             if entry.get("status") == "FAIL":
@@ -148,18 +157,49 @@ def failure_keys(report, root="."):
                 ident = name
             seen[ident] += 1
             keys.add((run, ident if seen[ident] == 1 else f"{ident} #{seen[ident]}"))
+    # Raw AP violation entries with no (or a falsy) `run`: ap_failures() drops these entirely (`if run:`), so
+    # the per-run loop above never sees them — even though eval.py hard-fails the whole suite on their presence.
+    # Keyed under (suite) so an entry like this can never hide behind an unrelated already-explained failure.
+    unattributed = _unattributed_ap_failures(report, root)
+    if unattributed:
+        accounted = True
+        keys |= unattributed
     # Suite-level contract failures: one identity per missing anchor / per AZ correspondence failure (see
     # _suite_contract_elements), so deleting an ADDITIONAL protected anchor from a file the base already fails
     # gates, while restoring one anchor as another stays missing does not over-gate.
+    elements = _suite_contract_elements(report)
+    if elements:
+        accounted = True
     seen = collections.Counter()
-    for element in _suite_contract_elements(report):
+    for element in elements:
         ident = " ".join(element.split())
         seen[ident] += 1
         keys.add((SUITE, ident if seen[ident] == 1 else f"{ident} #{seen[ident]}"))
-    if report.get("suite_pass") is False and not keys:
-        # eval.py failed the suite for a reason none of the readers above name: never let that pass silently.
-        keys.add((SUITE, "suite_pass=False"))
+    if report.get("suite_pass") is False and not accounted:
+        # eval.py failed the suite for a reason none of the readers above name: never let that pass silently,
+        # regardless of whether some OTHER, already-explained failure already populated `keys`.
+        keys.add((SUITE, "suite_pass=False (unexplained by any known reader)"))
     return keys
+
+
+def _unattributed_ap_failures(report, root="."):
+    """Raw entries of report['valuation_summary_integrity']['failures'] whose `run` field is missing or falsy.
+
+    research_check.ap_failures() indexes this list by `run` and silently drops any entry without one
+    (`if run:`), so such an entry hard-fails the suite in eval.py (apfailures -> False) but is invisible to
+    both status_of() and the per-run loop above. One identity per violation, keyed under (suite) so it always
+    surfaces regardless of what else is already in `keys`."""
+    out = set()
+    seen = collections.Counter()
+    for entry in (report.get("valuation_summary_integrity") or {}).get("failures") or []:
+        if entry.get("run"):
+            continue  # has a run: already covered via ap_failures()/status_of() in the main loop
+        violations = entry.get("violations") or ["(unattributed AP failure: no run and no violations recorded)"]
+        for violation in violations:
+            ident = _identity("AP_valuation_summary_integrity (no run)", violation, root)
+            seen[ident] += 1
+            out.add((SUITE, ident if seen[ident] == 1 else f"{ident} #{seen[ident]}"))
+    return out
 
 
 def _suite_contract_elements(report):

@@ -62,7 +62,7 @@ check("a WARN run (superseded / no RUN_METADATA) is not a failure, as in eval.py
 check("a suite-level contract failure is keyed under (suite), one key per missing anchor",
       failure_keys(report({}, contracts=["CLAUDE.md"])) == {(SUITE, "framework contract: CLAUDE.md: x")})
 check("suite_pass=False with nothing else named is never silently passed",
-      failure_keys(report({}, suite_pass=False)) == {(SUITE, "suite_pass=False")})
+      failure_keys(report({}, suite_pass=False)) == {(SUITE, "suite_pass=False (unexplained by any known reader)")})
 new, inh = split(failure_keys(BASE), failure_keys(BASE))
 check("the identical failure on base and change is inherited, not new", not new and len(inh) == 2)
 head = dict(BASE["runs"], **{"OK_2026-09-01": run_entry(["O_integrity_gate"])})
@@ -130,6 +130,24 @@ _dup = lambda n: report({"R_2026-09-01": {"pass": False, "warn_only": False, "de
                                           "checks": [{"check": "Q", "status": "FAIL", "detail": "same"}] * n}})
 new, _ = split(failure_keys(_dup(2)), failure_keys(_dup(1)))
 check("an additional IDENTICAL failure is counted, so it gates", new == {("R_2026-09-01", "Q: same #2")}, sorted(new))
+
+# Codex (#732): confirmed defect — an AP failure entry with a missing/falsy `run` hard-fails the suite in
+# eval.py (apfailures -> False) but research_check.ap_failures() drops it (`if run:`), so it was invisible to
+# every reader here. Worse, the old guard only added the generic `suite_pass=False` marker `if ... and not
+# keys`, so whenever the base ALSO had some unrelated, already-explained failure (keys non-empty for a
+# different reason), the unattributed AP failure silently read as fully inherited even though the base has no
+# matching key for it at all — reproduced below, red before this fix, green after.
+_unattributed_ap = lambda violations, other_runs=None: dict(
+    report(other_runs or {}), valuation_summary_integrity={"checked": 1, "failures": [{"run": None, "violations": violations}]})
+new, inh = split(failure_keys(_unattributed_ap(["a new suite defect"], {"V_2026-09-23": run_entry(["S_haircut_propagated"])})),
+                 failure_keys(report({"V_2026-09-23": run_entry(["S_haircut_propagated"])})))
+check("an unattributed AP failure (no run) gates even while an unrelated run is already failing on the base",
+      new == {(SUITE, "AP_valuation_summary_integrity (no run): a new suite defect")} and len(inh) == 1, sorted(new))
+new, inh = split(failure_keys(_unattributed_ap(["same defect"])), failure_keys(_unattributed_ap(["same defect"])))
+check("an identical unattributed AP failure on base and change stays inherited", not new and len(inh) == 1, sorted(new))
+check("an unattributed AP failure with no violations list still yields a key, never silently dropped",
+      failure_keys(dict(report({}), valuation_summary_integrity={"checked": 1, "failures": [{"run": None}]}))
+      == {(SUITE, "AP_valuation_summary_integrity (no run): (unattributed AP failure: no run and no violations recorded)")})
 
 _repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 check("every way the real scripts/eval.py can fail the suite is one this gate can name",
