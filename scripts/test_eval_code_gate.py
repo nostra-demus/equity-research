@@ -9,7 +9,10 @@ code is gated by release CI — so a code change must be charged with what IT br
     run, a failing run the change adds, a suite-level contract the change breaks;
   * with no usable base (none, not a commit, or the base's harness crashed) the gate is STRICT — every failure
     gates, exactly as the bare `python3 scripts/eval.py all` did — so it is never weaker than before;
-  * if the harness produces no report for the change itself, the gate fails.
+  * if the harness produces no report for the change itself, the gate fails;
+  * the report's suite-level sections (runs, valuation_summary_integrity.failures, source_contracts_s24,
+    governance_flag_cap_correspondence.pass/failures) must be present and correctly typed, so a change that
+    renames or drops one cannot hide a still-failing suite contract behind an unrelated inherited failure.
 
 The end-to-end cases drive the real main() — real `git worktree` on a throwaway repository — with a stand-in
 scripts/eval.py that writes a report from a state file, so no committed research is read or written.
@@ -254,6 +257,27 @@ root4, sha4 = sandbox({"report": _no_verdict, "rc": 1})
 rc, out = gate(root4, BASE_STATE, sha4)
 check("e2e: an untrustworthy BASE report -> strict, the inherited failure still gates",
       rc == 1 and "strict" in out, out[-400:])
+
+# Codex (#732, finding 1): a code change that renames or drops a suite-level report SECTION while its contract
+# still fails must never slip past the gate. _suite_contract_elements()/_unattributed_ap_failures() read each
+# section with a benign default (`or {}` / `or []` / `.get("pass", True)`), so a renamed/absent one surfaces NO
+# key — and stays invisible whenever an unrelated, already-inherited run failure has set `accounted`.
+# run_harness now requires each such section to be present and correctly typed; a dropped/renamed one is refused
+# (change -> exit 2, base -> strict). Each case below carries the inherited V_2026-09-23 failure, so the section
+# is dropped BEHIND an already-explained failure — red on the pre-fix gate (rc 0: the hidden regression ships),
+# green after (rc 2). Expected values are pinned to the gate's own contract ("a suite-level contract it breaks
+# all still fail it", eval_code_gate.py docstring) and CLAUDE.md §28, never to current code behaviour.
+_drop = lambda section: {k: v for k, v in report(dict(BASE["runs"])).items() if k != section}
+for _section in ("governance_flag_cap_correspondence", "source_contracts_s24", "valuation_summary_integrity"):
+    rc, out = gate(root, {"report": _drop(_section), "rc": 1}, sha)
+    check(f"e2e: a report that drops/renames the {_section} section is refused, even behind an inherited failure",
+          rc == 2 and _section in out, out[-400:])
+# The section can be present but with the field the reader keys off renamed — its benign default ('pass' -> True)
+# then reads it as passing. run_harness requires the field, so this is refused too.
+rc, out = gate(root, {"report": dict(report(dict(BASE["runs"])),
+                                     governance_flag_cap_correspondence={"passed": True, "failures": []}), "rc": 1}, sha)
+check("e2e: renaming the governance-correspondence 'pass' field (whose default hides a failure) is refused",
+      rc == 2 and "governance_flag_cap_correspondence" in out, out[-400:])
 
 rc, out = gate(root, {"report": report({"OK_2026-09-01": run_entry()})}, sha)
 check("e2e: a clean corpus -> PASS", rc == 0, out[-400:])

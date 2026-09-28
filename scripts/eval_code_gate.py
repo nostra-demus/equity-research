@@ -80,12 +80,40 @@ def undecoded_suite_gates(root="."):
     return sorted((found - DECODED_SUITE_GATES).elements())
 
 
+def _require_trusted_shape(report):
+    """Refuse a report whose suite-level sections failure_keys() reads are missing or the wrong type.
+
+    eval.py always emits `runs`, `valuation_summary_integrity` (with a `failures` list), `source_contracts_s24`
+    (a list) and `governance_flag_cap_correspondence` (with a `pass` flag and a `failures` list) — see its report
+    dict. failure_keys()/_suite_contract_elements()/_unattributed_ap_failures() read each with a benign default
+    (`or {}` / `or []` / `.get("pass", True)`), so a code change that renames or drops one of these sections
+    while its contract STILL fails would surface no key at all — invisible whenever an unrelated inherited
+    failure had already set `accounted` (Codex #732, finding 1). A missing, wrong-typed, or field-renamed
+    section therefore raises here, exactly as a bad suite_pass does: on the change it becomes exit 2, on the
+    base it forces strict — never a silently-hidden regression.
+    """
+    def bad(what):
+        raise RuntimeError(f"the eval report's {what}; failure_keys() reads it to detect a suite-level failure, "
+                           f"so a renamed or dropped section could hide a real regression behind an inherited one")
+    if not isinstance(report.get("runs"), dict):
+        bad(f"'runs' section is missing or not an object (got {type(report.get('runs')).__name__})")
+    vsi = report.get("valuation_summary_integrity")
+    if not isinstance(vsi, dict) or not isinstance(vsi.get("failures"), list):
+        bad("'valuation_summary_integrity' section is missing, not an object, or lacks its 'failures' list")
+    if not isinstance(report.get("source_contracts_s24"), list):
+        bad(f"'source_contracts_s24' section is missing or not a list (got {type(report.get('source_contracts_s24')).__name__})")
+    az = report.get("governance_flag_cap_correspondence")
+    if not isinstance(az, dict) or "pass" not in az or not isinstance(az.get("failures"), list):
+        bad("'governance_flag_cap_correspondence' section is missing, not an object, or lacks its 'pass'/'failures' fields")
+
+
 def run_harness(root=".", quiet=False):
     """Run `scripts/eval.py all` in root and return its report, refusing one that cannot be trusted.
 
     The report must carry a boolean suite_pass that agrees with the harness's own exit status (eval.py exits
     0 exactly when suite_pass is true). A missing, non-boolean, or contradicting suite_pass raises: the key
-    comparison is only sound on a report whose overall verdict is known.
+    comparison is only sound on a report whose overall verdict is known. The suite-level sections
+    failure_keys() reads must likewise be present and correctly typed (_require_trusted_shape).
     """
     result = subprocess.run([sys.executable, "scripts/eval.py", "all"], cwd=root, capture_output=True, text=True)
     if not quiet:
@@ -101,6 +129,7 @@ def run_harness(root=".", quiet=False):
         raise RuntimeError(f"the eval report has no boolean suite_pass (got {verdict!r})")
     if verdict != (result.returncode == 0):
         raise RuntimeError(f"the eval report says suite_pass={verdict} but the harness exited {result.returncode}")
+    _require_trusted_shape(report)
     return report
 
 def _identity(check, detail, root):
