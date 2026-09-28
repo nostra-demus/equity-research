@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T06:57:01Z",
+  "generated_at": "2026-09-28T07:00:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-138",
@@ -199,6 +199,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-270",
+      "headline": "CVC drops Bodycote pursuit, clears path for Veritas' $2.5 billion takeover",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/cvc-drops-bodycote-pursuit-clears-path-veritas-25-billion-takeover-2026-09-28/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T06:48:28Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Veritas is proceeding with a $2.5 billion takeover of Bodycote after CVC dropped its pursuit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Veritas is proceeding with a $2.5 billion takeover of Bodycote after CVC dropped its pursuit.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bodycote",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "Veritas",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1558,6 +1612,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-265",
+      "headline": "Torrent Pharmaceuticals Limited: Torrent Pharmaceuticals Limited has informed the Exchange about Acquisition - Disclosure pursuant to Regulation 30 read with Schedule III of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations )",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TORNTPHARM_28092026120242_SE_intimation_reg_30.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T06:33:00Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "The company is disclosing an acquisition under SEBI regulations, which is a material corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The company is disclosing an acquisition under SEBI regulations, which is a material corporate event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Torrent Pharmaceuticals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-006",
       "headline": "NIO-SW (09866): INSIDE INFORMATION - DEFINITIVE AGREEMENTS FOR STRATEGIC TRANSACTION WITH GEELY HOLDING GROUP IN BATTERY SWAPPING AND CHARGING BUSINESSES",
       "headline_en": null,
@@ -1711,6 +1814,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-271",
+      "headline": "TotalEnergies increases Q4 share buybacks to $2.5 billion",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/totalenergies-increases-q4-share-buybacks-25-billion-2026-09-28/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T06:42:37Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "TotalEnergies is increasing its Q4 share buybacks to $2.5 billion, a significant capital return to shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "TotalEnergies is increasing its Q4 share buybacks to $2.5 billion, a significant capital return to shareholders.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TotalEnergies",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-257",
       "headline": "Arisinfra Solutions Limited: Arisinfra Solutions Limited has informed the Exchange about Acquisition of equity shares in Buildmex-Infra Private Limited, Material Subsidiary from its existing shareholder, Mr. Balavignesh Subramani.",
       "headline_en": null,
@@ -1853,147 +2005,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-130",
-      "headline": "US Releases Product Lists for $30 Billion China Tariff Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-28/us-releases-details-on-30-billion-of-goods-with-tariff-cuts",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T01:46:11Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "The US released product lists for $30 billion in tariffs on China, signaling a trade escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The US released product lists for $30 billion in tariffs on China, signaling a trade escalation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-136",
-      "headline": "CDL’s Kwek clan looks to invest US$3.9b in Singapore, China, Japan to raise confidence",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/asia/southeast-asia/article/3368989/cdls-kwek-clan-looks-invest-us39b-singapore-china-japan-raise-confidence?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T02:27:04Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Company announces a significant US$3.9 billion investment plan to boost confidence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Company announces a significant US$3.9 billion investment plan to boost confidence.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CDL",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-004",
-      "headline": "Ingenia Board to Review Higher Takeover Bid from Warburg Pincus",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-27/ingenia-board-to-review-higher-takeover-bid-from-warburg-pincus",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T23:26:03Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "The board is reviewing a higher takeover bid, indicating potential for a premium acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The board is reviewing a higher takeover bid, indicating potential for a premium acquisition.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188204,9 +188215,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13013,
-    "news_picked_today": 472,
-    "news_dropped_today": 7205
+    "news_seen_today": 13825,
+    "news_picked_today": 480,
+    "news_dropped_today": 7293
   },
   "book_momentum": {
     "live_count": 8,
