@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-28T12:07:03Z",
+  "generated_at": "2026-09-28T12:10:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260928-380",
+      "headline": "InterestMe Financial Planning Limited (IMFP) and the appointed representative InterestMe Advisers Limited (IMA) enter administration",
+      "headline_en": null,
+      "url": "https://www.fca.org.uk/news/news-stories/imfp-appointed-representative-ima-enter-administration",
+      "source_name": "UK Financial Conduct Authority (FCA) — News",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-28T11:49:45Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "InterestMe Financial Planning Limited and its representative have entered administration, representing a total business failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "InterestMe Financial Planning Limited and its representative have entered administration, representing a total business failure.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "InterestMe Financial Planning Limited",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260928-365",
       "headline": "JIU RONG HOLD (02358): INSIDE INFORMATION - (1) DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS; (2) POSSIBLE DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; (3) POSTPONEMENT OF BOARD MEETING; AND (4) POSSIBLE SUSPENSION OF TRADING",
@@ -1938,55 +1987,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-160",
-      "headline": "PepsiCo To Invest $1 Bln In Colombia Over Next Five Years",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/pepsico-invest-1-bln-colombia-over-next-five-years",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T03:07:18Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "PepsiCo announced a $1 billion investment in Colombia over the next five years.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PepsiCo announced a $1 billion investment in Colombia over the next five years.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PepsiCo",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188058,9 +188058,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 267738,
-    "news_picked_today": 842,
-    "news_dropped_today": 11967
+    "news_seen_today": 281094,
+    "news_picked_today": 843,
+    "news_dropped_today": 11990
   },
   "book_momentum": {
     "live_count": 8,
