@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T00:47:46Z",
+  "generated_at": "2026-09-28T00:56:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-058",
@@ -144,6 +144,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-064",
+      "headline": "CDL to invest S$5 billion, target S$6 billion divestments under refreshed strategy",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/cdl-invest-s5-billion-target-s6-billion-divestments-under-refreshed-strategy",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T00:49:49Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "CDL announced a S$5 billion investment plan and S$6 billion divestment target as part of a refreshed strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CDL announced a S$5 billion investment plan and S$6 billion divestment target as part of a refreshed strategy.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "City Developments Limited",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -416,6 +466,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-066",
+      "headline": "HRE: Security Class Suspension from Quotation - HREO [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HRE?key=2924-03140601-3A702656",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T00:46:09Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Suspension of security class from quotation indicates potential distress or regulatory issue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Suspension of security class from quotation indicates potential distress or regulatory issue.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HRE",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-031",
       "headline": "MRE: Suspension from Quotation [price-sensitive]",
       "headline_en": null,
@@ -465,20 +564,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260928-057",
-      "headline": "MRE: Disclosure of circumstances affecting Appendix 4E",
+      "inbox_id": "INB-20260928-068",
+      "headline": "MXT: Disclosure of circumstances affecting Appendix 4E",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MRE?key=2924-03140593-2A1699747",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MXT?key=2924-03140597-2A1699742",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T00:36:39Z",
+      "found_at": "2026-09-28T00:43:24Z",
       "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Disclosure of circumstances affecting financial reporting (Appendix 4E) suggests potential accounting or operational issues.",
+      "prelim_note": "Disclosure of circumstances affecting a financial filing (Appendix 4E) indicates potential accounting or reporting issues.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Disclosure of circumstances affecting financial reporting (Appendix 4E) suggests potential accounting or operational issues.",
+      "triage_score": 96,
+      "triage_reason": "Disclosure of circumstances affecting a financial filing (Appendix 4E) indicates potential accounting or reporting issues.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 60,
@@ -487,7 +586,7 @@
         "source_tier": 8,
         "scope": 6,
         "event": 7,
-        "size": -1,
+        "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
@@ -495,7 +594,7 @@
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": "accounting_restatement",
-        "size_bucket": "small"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "accounting_restatement"
@@ -503,12 +602,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "MRE",
+          "name": "MXT",
           "ticker": null,
           "listing_country": "AU"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1352,6 +1451,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-065",
+      "headline": "CDL to unlock hidden empire worth $6b for growth, targets dividend payout of over 35%",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/cdl-to-unlock-hidden-empire-worth-6b-to-deploy-into-better-yielding-assets",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T23:52:44Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "CDL targets a dividend payout of over 35% as part of a plan to unlock S$6 billion in value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "CDL targets a dividend payout of over 35% as part of a plan to unlock S$6 billion in value.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "City Developments Limited",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-026",
       "headline": "Nebius Is Raising the Price of Its AI Compute on Oct. 1. Here's What That Says About the Shortage.",
       "headline_en": null,
@@ -1396,6 +1544,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-070",
+      "headline": "Oiltek submits application for secondary listing on Bursa Malaysia’s main market",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/oiltek-submits-application-secondary-listing-bursa-malaysias-main-market",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T00:50:39Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Oiltek is seeking a secondary listing on Bursa Malaysia, which may improve liquidity and capital access.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Oiltek is seeking a secondary listing on Bursa Malaysia, which may improve liquidity and capital access.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oiltek",
+          "ticker": null,
+          "listing_country": "MY"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1776,185 +1973,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-001",
-      "headline": "GUOEN HOLDINGS (08121): RESULTS OF THE RIGHTS ISSUE ON THE BASIS OF FOUR (4) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0928/2026092800117.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T00:02:00Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "The company completed a rights issue, which impacts the capital structure and share count.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "The company completed a rights issue, which impacts the capital structure and share count.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Guoen Holdings",
-          "ticker": "08121",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-022",
-      "headline": "Eight PSU banks lack non-executive chairmen, raising governance concerns",
-      "headline_en": null,
-      "url": "https://www.livemint.com/industry/banking/public-sector-banks-without-chairman-in-india-11790503837757.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T00:00:36Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Governance concerns regarding the lack of non-executive chairmen at eight PSU banks pose operational and regulatory risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Governance concerns regarding the lack of non-executive chairmen at eight PSU banks pose operational and regulatory risks.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-020",
-      "headline": "Oil gains over 1% as Trump rejects Iranian proposal to reopen Hormuz Strait",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/28/oil-price-today-wti-brent-trump-iran.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T23:58:57Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Geopolitical tension regarding the Hormuz Strait is a major supply shock risk for global oil markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Geopolitical tension regarding the Hormuz Strait is a major supply shock risk for global oil markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-043",
-      "headline": "Insurance mis-selling is arising because upfront commissions are too high: IRDAI chairman Ajay Seth",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/insure/insurance-mis-selling-is-arising-because-upfront-commissions-are-too-high-irdai-chairman-ajay-seth/articleshow/134524622.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "The insurance regulator's comments suggest potential future policy changes regarding commission structures, impacting the insurance sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "The insurance regulator's comments suggest potential future policy changes regarding commission structures, impacting the insurance sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -186945,9 +186963,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 245,
-    "news_picked_today": 63,
-    "news_dropped_today": 182
+    "news_seen_today": 287,
+    "news_picked_today": 73,
+    "news_dropped_today": 214
   },
   "book_momentum": {
     "live_count": 8,
