@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T00:16:53Z",
+  "generated_at": "2026-09-28T00:21:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-007",
@@ -357,6 +357,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-040",
+      "headline": "TER: Trading Halt [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TER?key=2924-03140583-2A1699745",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T00:13:39Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "The company has entered a trading halt pending an announcement, which is a material event for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The company has entered a trading halt pending an announcement, which is a material event for investors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Terramin Australia",
+          "ticker": "TER",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1135,6 +1184,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-039",
+      "headline": "BDC: Distribution for month ending 30 September 2026 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BDC?key=2924-03140585-2A1699748",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T00:15:54Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "The company announced a monthly distribution payment for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "The company announced a monthly distribution payment for shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BlackRock Debt Strategies Fund",
+          "ticker": "BDC",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-001",
       "headline": "GUOEN HOLDINGS (08121): RESULTS OF THE RIGHTS ISSUE ON THE BASIS OF FOUR (4) RIGHTS SHARES FOR EVERY ONE (1) SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS",
       "headline_en": null,
@@ -1271,6 +1369,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-043",
+      "headline": "Insurance mis-selling is arising because upfront commissions are too high: IRDAI chairman Ajay Seth",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/insure/insurance-mis-selling-is-arising-because-upfront-commissions-are-too-high-irdai-chairman-ajay-seth/articleshow/134524622.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "The insurance regulator's comments suggest potential future policy changes regarding commission structures, impacting the insurance sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "The insurance regulator's comments suggest potential future policy changes regarding commission structures, impacting the insurance sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-013",
       "headline": "EGR: EcoGraf HFfree South Korea Patent",
       "headline_en": null,
@@ -1315,6 +1456,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-041",
+      "headline": "SKO: Notification of cessation of securities - SKO",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SKO?key=2924-03140582-3A702654",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T00:13:14Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "The company notified the exchange of the cessation of securities, indicating a change in capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "The company notified the exchange of the cessation of securities, indicating a change in capital structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Skore",
+          "ticker": "SKO",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1608,6 +1798,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-042",
+      "headline": "Iran war live: Tehran says it’s fully prepared for war amid Hormuz tensions",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/9/28/iran-war-live-tehran-warns-its-fully-prepared-for-war-amid-hormuz-tensions?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-28T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Escalating geopolitical tensions in the Strait of Hormuz pose a significant risk to global energy supply and market stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Escalating geopolitical tensions in the Strait of Hormuz pose a significant risk to global energy supply and market stability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-017",
       "headline": "HUTCHMED Initiates Global Trial of KRAS-EGFR-Antibody Conjugate Therapy HMPL-A830 in Patients with Solid Tumors",
       "headline_en": null,
@@ -1648,55 +1881,6 @@
         {
           "name": "HUTCHMED",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-019",
-      "headline": "HUTCHMED Initiates Global Trial of KRAS-EGFR-Antibody Conjugate Therapy HMPL-A830 in Patients with Solid Tumors | HCM Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/HCM/hutchmed-initiates-global-trial-of-kras-egfr-antibody-conjugate-8jpo17s9at9s.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-28T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "HUTCHMED has initiated a new global clinical trial, a key operational milestone for a biotech firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "HUTCHMED has initiated a new global clinical trial, a key operational milestone for a biotech firm.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HUTCHMED",
-          "ticker": "HCM",
           "listing_country": "US"
         }
       ],
@@ -186442,7 +186626,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2963,
+    "inbox_unconsumed": 2967,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -186451,9 +186635,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 154,
-    "news_picked_today": 38,
-    "news_dropped_today": 116
+    "news_seen_today": 168,
+    "news_picked_today": 43,
+    "news_dropped_today": 125
   },
   "book_momentum": {
     "live_count": 8,
