@@ -252,37 +252,14 @@ if scope=="--data-needs-prewrite":
 # /research:calibrate and /research:track already read) and is used only in the main scan loop.
 from ledger_records import resolve_integrity_status, supersession_target_violations
 
-# ── Check W (sector ↔ valuation-method consistency) — module-level so the `selftest` scope can drive it ──
-# Method substrings SECTOR_OVERLAYS.md forbids per sector type, matched against a SEPARATOR-STRIPPED,
-# lowercased primary_valuation_method so "EBITDA-DCF" / "EBITDA DCF" / "ebitdadcf" all collapse to one
-# token (the old hyphen-literal list silently missed the spaced spellings). Banks / lenders / insurers are
-# balance-sheet-funded financials: SECTOR_OVERLAYS.md values them on equity-side methods (DDM / residual
-# income / P-B / embedded value) and says "NOT FCFF/EV ... never net-debt/EBITDA" — so EVERY enterprise-
-# value / unlevered-cashflow method is a category error, not just FCFF (the old list caught only "fcff").
-# REITs explicitly forbid EBITDA-DCF (depreciation non-economic); FCFF is NOT listed forbidden for a REIT
-# there, so the gate does not invent that ban. Tokens are separator-free — "evebit" matches both EV/EBIT
-# and EV/EBITDA; bare "ev" is deliberately NOT a token (it would false-match "revenue"/"leverage"/"level").
-SECTOR_DATE="2026-06-18"
-_FIN_INSTITUTION_FORBIDDEN=["fcff","evebit","evsales","ebitdadcf","netdebtebitda","enterprisevalue"]
-SECTOR_FORBIDDEN={
-    # lowercase key = substring matched against business_type (case-insensitive)
-    # value = forbidden tokens, matched against the separator-stripped primary_valuation_method
-    "bank":_FIN_INSTITUTION_FORBIDDEN,"lender":_FIN_INSTITUTION_FORBIDDEN,"insur":_FIN_INSTITUTION_FORBIDDEN,
-    "reit":["ebitdadcf"],"real estate":["ebitdadcf"],
-}
-def eval_w_sector_valuation(business_type, primary_valuation_method):
-    """Core of check W. Returns None when N/A (either field blank), else the list of forbidden-method
-    tokens present (empty list = clean). Separator-stripped substring match so hyphen/space spellings
-    collapse. Side-effect-free + module-level so `eval.py selftest` can exercise it without a run fixture."""
-    bt=(business_type or "").strip(); pvm=(primary_valuation_method or "").strip()
-    if not bt or not pvm: return None
-    bt_l=bt.lower(); pvm_norm=re.sub(r'[^a-z0-9]+','',pvm.lower())
-    hits=[]
-    for sec,fmethods in SECTOR_FORBIDDEN.items():
-        if sec in bt_l:
-            for fm in fmethods:
-                if fm in pvm_norm and fm not in hits: hits.append(fm)
-    return hits
+# ── Check W (sector ↔ valuation-method consistency) ──
+# Detection logic extracted to scripts/sector_valuation_checks.py (importable, side-effect-free) so the
+# SAME function also runs LIVE in the /research:full Step 10B.1 finish-gate — before a violation ships,
+# not only when someone remembers to run this eval harness afterward. See sector_valuation_checks.py's
+# module docstring for the full doctrine rationale.
+# Import (not copy): eval.py is the single caller of this function for retrospective grading;
+# sector_valuation_checks.py is the single source of the detection logic, imported by both callers.
+from sector_valuation_checks import SECTOR_DATE, _FIN_INSTITUTION_FORBIDDEN, SECTOR_FORBIDDEN, eval_w_sector_valuation
 
 # ── Check X (conviction-run evidence-integrity floor) — module-level so `eval.py selftest` can drive it ──
 # A run in a conviction basket (Selected/Short) dated >= VERIFY_FLOOR_DATE must carry a verify-evidence
