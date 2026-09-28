@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T20:16:17Z",
+  "generated_at": "2026-09-28T20:17:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-453",
@@ -144947,6 +144947,151 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-1c6c9c209d48",
+      "idea_version": "IDEAV-8ef71b1b183a2aa2",
+      "idea_version_started_at": "2026-09-28T20:16:54Z",
+      "ticker": "H59",
+      "company": "Hafary Holdings",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The founding family's privatization bid at S$0.64 provides a clear floor for the stock price.",
+      "why_now": "The bid was announced on 2026-09-28.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b92ce76caa79"
+      ],
+      "primary_source_event_id": "EVT-b92ce76caa79",
+      "source_headlines": [
+        "Hafary founding family makes bid to take company private at S$0.64 a share"
+      ],
+      "source_headline": "Hafary founding family makes bid to take company private at S$0.64 a share",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/hafary-founding-family-makes-bid-take-company-private-s0-64-share",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T06:43:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T20:16:54Z",
+      "updated_at": "2026-09-28T20:16:54Z",
+      "decay_at": "2026-09-29T18:43:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-52fef4928a87",
+      "idea_version": "IDEAV-5415b73b00c605f1",
+      "idea_version_started_at": "2026-09-28T20:16:54Z",
+      "ticker": "SPP",
+      "company": "Spar Group",
+      "exchange": "JSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company explicitly warned that 2026 performance will lag 2025, signaling ongoing operational struggles and margin pressure.",
+      "why_now": "The guidance warning was issued on 2026-09-28.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ea8d54abee72"
+      ],
+      "primary_source_event_id": "EVT-ea8d54abee72",
+      "source_headlines": [
+        "Spar warns 2026 performance will lag 2025 as turnaround progresses"
+      ],
+      "source_headline": "Spar warns 2026 performance will lag 2025 as turnaround progresses",
+      "source_url": "https://www.moneyweb.co.za/news/companies-and-deals/spar-warns-2026-performance-will-lag-2025-as-turnaround-progresses/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T08:38:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T20:16:54Z",
+      "updated_at": "2026-09-28T20:16:54Z",
+      "decay_at": "2026-09-29T20:38:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-190511cb49a3",
       "idea_version": "IDEAV-5418382e2129c394",
       "idea_version_started_at": "2026-09-28T11:25:05Z",
@@ -148107,75 +148252,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8de17383cf37",
-      "idea_version": "IDEAV-74a12c000379f819",
-      "idea_version_started_at": "2026-09-26T23:48:13Z",
-      "ticker": "WEAV",
-      "company": "Weave Communications, Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Weave Communications, Inc. is involved in an M&A event, which often results in a premium for the target company's shares.",
-      "why_now": "The filing of DEFM14A on September 25, 2026, indicates an active M&A process is underway.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 73,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b3966646ec4e"
-      ],
-      "primary_source_event_id": "EVT-b3966646ec4e",
-      "source_headlines": [
-        "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)"
-      ],
-      "source_headline": "DEFM14A - Weave Communications, Inc. (0001609151) (Filer)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1609151/000114036126037628/0001140361-26-037628-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T12:55:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T23:48:13Z",
-      "updated_at": "2026-09-26T23:48:13Z",
-      "decay_at": "2026-09-27T00:55:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d671baced956",
       "idea_version": "IDEAV-0216b9fe43f0f579",
       "idea_version_started_at": "2026-09-26T23:48:13Z",
@@ -148239,77 +148315,6 @@
       "surfaced_at": "2026-09-26T23:48:13Z",
       "updated_at": "2026-09-26T23:48:13Z",
       "decay_at": "2026-09-27T09:00:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9437e2f30b3e",
-      "idea_version": "IDEAV-711b0c9e251ec561",
-      "idea_version_started_at": "2026-09-26T21:35:18Z",
-      "ticker": "AKAM",
-      "company": "Akamai Technologies",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Akamai secured an $11.6 billion cloud deal over seven years with Anthropic, significantly boosting its revenue outlook.",
-      "why_now": "The news of the $11.6 billion deal with Anthropic was reported on September 25, 2026, and has already led to a 15% surge in Akamai's stock.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 70,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1915a5a69a9e",
-        "EVT-5c6e9c678dd3"
-      ],
-      "primary_source_event_id": "EVT-1915a5a69a9e",
-      "source_headlines": [
-        "Akamai Surges 15% on $11.6B Anthropic Cloud Deal; CoreWeave and Cloudflare Tick Up",
-        "Anthropic to pay Akamai $11.6 billion over seven years in cloud deal"
-      ],
-      "source_headline": "Akamai Surges 15% on $11.6B Anthropic Cloud Deal; CoreWeave and Cloudflare Tick Up",
-      "source_url": "https://247wallst.com/investing/2026/09/25/akamai-surges-15-on-11-6b-anthropic-cloud-deal-coreweave-and-cloudflare-tick-up/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T19:13:38Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/AKAM_2026-09-15",
-        "latest_decision": "Avoid",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-26T16:10:26Z",
-      "updated_at": "2026-09-26T21:35:18Z",
-      "decay_at": "2026-09-27T07:13:38Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -148600,76 +148605,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-9107e0bd5461",
-      "idea_version": "IDEAV-8eef803092a42069",
-      "idea_version_started_at": "2026-09-26T13:43:44Z",
-      "ticker": "NVO",
-      "company": "Novo Nordisk",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company entered a €1.17 billion deal for Nanexa's injection technology, which enhances their drug delivery capabilities and long-term competitive moat in the GLP-1 market.",
-      "why_now": "The deal was announced on 2026-09-25, signaling a strategic expansion of their delivery platform.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b4fe3f9e718f"
-      ],
-      "primary_source_event_id": "EVT-b4fe3f9e718f",
-      "source_headlines": [
-        "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology"
-      ],
-      "source_headline": "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology",
-      "source_url": "https://www.reuters.com/legal/transactional/nanexa-shares-soar-117-billion-novo-nordisk-deal-injection-technology-2026-09-25/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T14:14:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T13:43:44Z",
-      "updated_at": "2026-09-26T13:43:44Z",
-      "decay_at": "2026-09-27T02:14:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-6a5a69a1366b",
       "idea_version": "IDEAV-d4cbc43e591ded73",
       "idea_version_started_at": "2026-09-26T21:35:18Z",
@@ -148950,76 +148885,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-ae01fb457408",
-      "idea_version": "IDEAV-d4aa05ccec8dbcdb",
-      "idea_version_started_at": "2026-09-26T21:35:18Z",
-      "ticker": "BASFY",
-      "company": "BASF SE",
-      "exchange": "OQX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BASF is reportedly working on the acquisition of Evonik, which could expand its market share and operational synergies in the chemicals sector.",
-      "why_now": "News of the potential acquisition broke on September 25, 2026, causing a significant reaction in shares.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-46e2e3a8d65a"
-      ],
-      "primary_source_event_id": "EVT-46e2e3a8d65a",
-      "source_headlines": [
-        "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
-      ],
-      "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T19:41:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T13:43:44Z",
-      "updated_at": "2026-09-26T21:35:18Z",
-      "decay_at": "2026-09-27T07:41:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-144e3c4da420",
       "idea_version": "IDEAV-af27fc5a7e34fb6c",
       "idea_version_started_at": "2026-09-26T21:35:18Z",
@@ -149084,76 +148949,6 @@
       "surfaced_at": "2026-09-26T13:43:44Z",
       "updated_at": "2026-09-26T21:35:18Z",
       "decay_at": "2026-09-27T08:37:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-6b1ba26f5d8e",
-      "idea_version": "IDEAV-a46f02c3a72e41a3",
-      "idea_version_started_at": "2026-09-26T19:43:33Z",
-      "ticker": "NA.TO",
-      "company": "National Bank of Canada",
-      "exchange": "Toronto",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "National Bank of Canada's plan to buy back up to $2.25 billion in shares will reduce its share count, increasing earnings per share and potentially boosting the stock price.",
-      "why_now": "The share buyback plan was announced today, September 25, 2026, indicating an active capital return program.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a4ac23ea9693"
-      ],
-      "primary_source_event_id": "EVT-a4ac23ea9693",
-      "source_headlines": [
-        "National Bank Of Canada To Buy Back Up To $2.25 Bln Shares"
-      ],
-      "source_headline": "National Bank Of Canada To Buy Back Up To $2.25 Bln Shares",
-      "source_url": "https://www.nasdaq.com/articles/national-bank-canada-buy-back-225-bln-shares",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T17:32:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T11:48:12Z",
-      "updated_at": "2026-09-26T19:43:33Z",
-      "decay_at": "2026-09-27T05:32:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -149439,580 +149234,6 @@
       "surfaced_at": "2026-09-27T18:25:11Z",
       "updated_at": "2026-09-27T18:25:11Z",
       "decay_at": "2026-09-28T15:28:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1f810c85967e",
-      "idea_version": "IDEAV-eed2861005428187",
-      "idea_version_started_at": "2026-09-26T23:48:13Z",
-      "ticker": "01936",
-      "company": "Ritamix Global Limited",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Ritamix Global Limited is undergoing a sale of shares, which could lead to a possible special dividend and a mandatory general cash offer, indicating a potential return of capital to shareholders.",
-      "why_now": "The announcement of the share sale, possible special dividend, and cash offer, along with the resumption of trading, makes this a live catalyst as of September 25, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-95a28e51820e"
-      ],
-      "primary_source_event_id": "EVT-95a28e51820e",
-      "source_headlines": [
-        "RITAMIX (01936): JOINT ANNOUNCEMENT (I) SALE AND PURCHASE OF SHARES IN RITAMIX GLOBAL LIMITED; (II) POSSIBLE SPECIAL DIVIDEND AND PROPOSED CHANGE IN USE OF UNUTILISED NET PROCEEDS; (III) POSSIBLE UNCONDITIONAL MANDATORY GENERAL CASH OFFER BY SHANGGU SECURITIES LIMITED FOR AND ON BEHALF OF INNOVATION FORGE HOLDINGS LIMITED; AND (IV) RESUMPTION OF TRADING"
-      ],
-      "source_headline": "RITAMIX (01936): JOINT ANNOUNCEMENT (I) SALE AND PURCHASE OF SHARES IN RITAMIX GLOBAL LIMITED; (II) POSSIBLE SPECIAL DIVIDEND AND PROPOSED CHANGE IN USE OF UNUTILISED NET PROCEEDS; (III) POSSIBLE UNCONDITIONAL MANDATORY GENERAL CASH OFFER BY SHANGGU SECURITIES LIMITED FOR AND ON BEHALF OF INNOVATION FORGE HOLDINGS LIMITED; AND (IV) RESUMPTION OF TRADING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092501223.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T13:56:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T23:48:13Z",
-      "updated_at": "2026-09-26T23:48:13Z",
-      "decay_at": "2026-09-27T01:56:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-50ad10500f80",
-      "idea_version": "IDEAV-bd16cd3574fbcbaf",
-      "idea_version_started_at": "2026-09-26T19:43:33Z",
-      "ticker": "NNXAS",
-      "company": "Nanexa",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Nanexa's shares are soaring due to a €1.17 billion deal with Novo Nordisk for its injection technology, which represents a significant revenue and validation event.",
-      "why_now": "The deal with Novo Nordisk was announced today, September 25, 2026, causing an immediate and material positive impact on the stock.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b4fe3f9e718f"
-      ],
-      "primary_source_event_id": "EVT-b4fe3f9e718f",
-      "source_headlines": [
-        "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology"
-      ],
-      "source_headline": "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology",
-      "source_url": "https://www.reuters.com/legal/transactional/nanexa-shares-soar-117-billion-novo-nordisk-deal-injection-technology-2026-09-25/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T14:14:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T19:43:33Z",
-      "updated_at": "2026-09-26T19:43:33Z",
-      "decay_at": "2026-09-27T02:14:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c4a3209a2ac2",
-      "idea_version": "IDEAV-e6b89be53d36cb05",
-      "idea_version_started_at": "2026-09-26T19:43:33Z",
-      "ticker": "PINE",
-      "company": "Pinewood Technologies",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Pinewood Technologies shareholders have approved a $721 million takeover by Ridgeview, which will likely result in a premium payout for existing shareholders.",
-      "why_now": "Shareholders approved the takeover today, September 25, 2026, making the deal imminent.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-83e1e676c945"
-      ],
-      "primary_source_event_id": "EVT-83e1e676c945",
-      "source_headlines": [
-        "UK's Pinewood Technologies shareholders approve $721 million Ridgeview takeover"
-      ],
-      "source_headline": "UK's Pinewood Technologies shareholders approve $721 million Ridgeview takeover",
-      "source_url": "https://www.reuters.com/business/uks-pinewood-technologies-shareholders-approve-721-million-ridgeview-takeover-2026-09-25/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T17:07:10Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T11:48:12Z",
-      "updated_at": "2026-09-26T19:43:33Z",
-      "decay_at": "2026-09-27T05:07:10Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e5a33fd56bcc",
-      "idea_version": "IDEAV-3c2f4bb2c40f8421",
-      "idea_version_started_at": "2026-09-26T19:43:33Z",
-      "ticker": "PCJEWELLER",
-      "company": "PC Jeweller",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "PC Jeweller has eliminated its debt by clearing dues with all 14 consortium banks, which should significantly improve its financial health and reduce interest expenses.",
-      "why_now": "The company announced today, September 25, 2026, that it has become debt-free.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-74a525f486af"
-      ],
-      "primary_source_event_id": "EVT-74a525f486af",
-      "source_headlines": [
-        "PC Jeweller becomes debt free, clears dues of all 14 consortium banks"
-      ],
-      "source_headline": "PC Jeweller becomes debt free, clears dues of all 14 consortium banks",
-      "source_url": "https://www.cnbctv18.com/business/pc-jeweller-becomes-debt-free-clears-dues-of-all-14-consortium-banks-19998927.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T15:20:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T11:48:12Z",
-      "updated_at": "2026-09-26T19:43:33Z",
-      "decay_at": "2026-09-27T03:20:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9330e3eb3a1d",
-      "idea_version": "IDEAV-55d214a7366173e2",
-      "idea_version_started_at": "2026-09-26T19:19:42Z",
-      "ticker": "EVK",
-      "company": "Evonik Industries",
-      "exchange": "FRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BASF is reportedly working on a potential acquisition of the specialty chemicals firm, which typically involves a significant premium for the target company's shareholders.",
-      "why_now": "News of the acquisition talks broke on September 25, 2026, creating immediate price volatility and a potential M&A arbitrage window.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-46e2e3a8d65a"
-      ],
-      "primary_source_event_id": "EVT-46e2e3a8d65a",
-      "source_headlines": [
-        "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
-      ],
-      "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T19:41:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T19:19:42Z",
-      "updated_at": "2026-09-26T19:19:42Z",
-      "decay_at": "2026-09-27T07:41:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-0452735f01ae",
-      "idea_version": "IDEAV-4a5ff7ae5f4224a1",
-      "idea_version_started_at": "2026-09-26T19:03:28Z",
-      "ticker": "1936",
-      "company": "Ritamix Global Limited",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company announced a major share sale, a possible special dividend, and a mandatory general cash offer by Innovation Forge Holdings alongside a resumption of trading.",
-      "why_now": "Trading is set to resume following the joint announcement on September 25, 2026, which will trigger immediate price discovery.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-95a28e51820e"
-      ],
-      "primary_source_event_id": "EVT-95a28e51820e",
-      "source_headlines": [
-        "RITAMIX (01936): JOINT ANNOUNCEMENT (I) SALE AND PURCHASE OF SHARES IN RITAMIX GLOBAL LIMITED; (II) POSSIBLE SPECIAL DIVIDEND AND PROPOSED CHANGE IN USE OF UNUTILISED NET PROCEEDS; (III) POSSIBLE UNCONDITIONAL MANDATORY GENERAL CASH OFFER BY SHANGGU SECURITIES LIMITED FOR AND ON BEHALF OF INNOVATION FORGE HOLDINGS LIMITED; AND (IV) RESUMPTION OF TRADING"
-      ],
-      "source_headline": "RITAMIX (01936): JOINT ANNOUNCEMENT (I) SALE AND PURCHASE OF SHARES IN RITAMIX GLOBAL LIMITED; (II) POSSIBLE SPECIAL DIVIDEND AND PROPOSED CHANGE IN USE OF UNUTILISED NET PROCEEDS; (III) POSSIBLE UNCONDITIONAL MANDATORY GENERAL CASH OFFER BY SHANGGU SECURITIES LIMITED FOR AND ON BEHALF OF INNOVATION FORGE HOLDINGS LIMITED; AND (IV) RESUMPTION OF TRADING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092501223.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T13:56:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T19:03:28Z",
-      "updated_at": "2026-09-26T19:03:28Z",
-      "decay_at": "2026-09-27T01:56:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a567e40f8e5b",
-      "idea_version": "IDEAV-5c884adc21dc0d33",
-      "idea_version_started_at": "2026-09-26T16:10:26Z",
-      "ticker": "BAS",
-      "company": "BASF SE",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BASF is pursuing an acquisition of Evonik, which would allow for significant cost synergies and consolidation in the specialty chemicals market.",
-      "why_now": "News of the acquisition talks broke today, September 25, 2026, creating a classic merger arbitrage opportunity.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-46e2e3a8d65a"
-      ],
-      "primary_source_event_id": "EVT-46e2e3a8d65a",
-      "source_headlines": [
-        "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
-      ],
-      "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T19:41:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T16:10:26Z",
-      "updated_at": "2026-09-26T16:10:26Z",
-      "decay_at": "2026-09-27T07:41:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b88a5ed7a4c4",
-      "idea_version": "IDEAV-16bf894fe90a241b",
-      "idea_version_started_at": "2026-09-26T16:10:26Z",
-      "ticker": "NNX",
-      "company": "Nanexa AB",
-      "exchange": "STO",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company signed a €1.17 billion deal with Novo Nordisk for its proprietary injection technology, validating its platform and providing a massive cash injection.",
-      "why_now": "The deal was announced today, September 25, 2026, and the market is repricing the company based on the significant licensing revenue.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b4fe3f9e718f"
-      ],
-      "primary_source_event_id": "EVT-b4fe3f9e718f",
-      "source_headlines": [
-        "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology"
-      ],
-      "source_headline": "Nanexa shares soar on €1.17 billion Novo Nordisk deal for injection technology",
-      "source_url": "https://www.reuters.com/legal/transactional/nanexa-shares-soar-117-billion-novo-nordisk-deal-injection-technology-2026-09-25/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T14:14:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T16:10:26Z",
-      "updated_at": "2026-09-26T16:10:26Z",
-      "decay_at": "2026-09-27T02:14:46Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -150899,14 +150120,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 526,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 26,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 15
       },
       "short": {
         "total_count": 261,
@@ -150916,12 +150137,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 526,
+      "evicted_count": 539,
       "oldest_retained_at": "2026-09-01T20:45:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 347,
-          "oldest_retained_at": "2026-09-10T05:54:07Z"
+          "evicted_count": 360,
+          "oldest_retained_at": "2026-09-11T02:56:08Z"
         },
         "short": {
           "evicted_count": 179,
@@ -152935,8 +152156,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T07:41:40Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-28T20:17:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153010,8 +152231,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T07:41:40Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-28T20:17:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153085,8 +152306,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T07:41:40Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-28T20:17:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153159,8 +152380,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T07:13:38Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-28T20:17:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153232,8 +152453,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T05:32:40Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-28T20:17:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153307,8 +152528,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T05:07:10Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-28T20:17:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153382,8 +152603,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T03:20:33Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-28T20:17:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153455,8 +152676,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T02:14:46Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-28T20:17:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153530,8 +152751,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T02:14:46Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-28T20:17:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153605,8 +152826,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T02:14:46Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-28T20:17:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153679,8 +152900,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T01:56:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-28T20:17:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153753,8 +152974,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T01:56:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-28T20:17:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -153825,8 +153046,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T00:55:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-28T20:17:00Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -188082,8 +187303,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1119,
-    "live_count": 53,
+    "surfaced_total": 1121,
+    "live_count": 55,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -188102,9 +187323,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2162394,
-    "news_picked_today": 1085,
-    "news_dropped_today": 12468
+    "news_seen_today": 2173948,
+    "news_picked_today": 1097,
+    "news_dropped_today": 12480
   },
   "book_momentum": {
     "live_count": 8,
