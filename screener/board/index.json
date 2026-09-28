@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T02:21:49Z",
+  "generated_at": "2026-09-28T02:30:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-058",
@@ -955,6 +955,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-136",
+      "headline": "CDL’s Kwek clan looks to invest US$3.9b in Singapore, China, Japan to raise confidence",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/asia/southeast-asia/article/3368989/cdls-kwek-clan-looks-invest-us39b-singapore-china-japan-raise-confidence?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T02:27:04Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Company announces a significant US$3.9 billion investment plan to boost confidence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Company announces a significant US$3.9 billion investment plan to boost confidence.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CDL",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-004",
       "headline": "Ingenia Board to Review Higher Takeover Bid from Warburg Pincus",
       "headline_en": null,
@@ -1898,99 +1947,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260928-108",
-      "headline": "Fortis Healthcare shares in focus after SC allows forensic audit to go ahead",
+      "inbox_id": "INB-20260928-135",
+      "headline": "Hafary’s founding family offers 64 cents a share to take company private",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/fortis-healthcare-share-price-sc-supreme-court-allows-forensic-audit-to-go-ahead-19999586.htm",
-      "source_name": "CNBC-TV18",
+      "url": "https://www.straitstimes.com/business/hafarys-founding-family-offers-64-cents-a-share-to-take-company-private",
+      "source_name": "The Straits Times",
       "input_nature": "news_headline",
-      "found_at": "2026-09-28T01:39:56Z",
+      "found_at": "2026-09-28T02:25:00Z",
       "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Supreme Court allows a forensic audit of Fortis Healthcare, increasing regulatory and governance risk.",
+      "prelim_note": "Founding family offers to take company private at a specific price of 64 cents.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "Supreme Court allows a forensic audit of Fortis Healthcare, increasing regulatory and governance risk.",
-      "region": "IN",
+      "triage_reason": "Founding family offers to take company private at a specific price of 64 cents.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 55,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 55,
+        "materiality": 70,
         "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
         "recency": 5,
-        "materiality_label_floor": 15,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
+        "event_id": "mna",
+        "size_bucket": "small"
       },
       "event_types": [
-        "litigation_enforcement"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Fortis Healthcare",
+          "name": "Hafary",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "SG"
         }
       ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-072",
-      "headline": "Metrics warns of ‘material differences’ after private credit audit",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/metrics-warns-of-material-differences-after-private-credit-audit-20260928-p6110p?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T01:02:26Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Metrics reported material differences following a private credit audit, raising concerns about valuation accuracy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Metrics reported material differences following a private credit audit, raising concerns about valuation accuracy.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Metrics",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -144577,76 +144577,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-301c9958417a",
-      "idea_version": "IDEAV-ce099f2135153b22",
-      "idea_version_started_at": "2026-09-26T15:19:48Z",
-      "ticker": "META",
-      "company": "Meta Platforms",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A New Mexico jury verdict finding 43 million violations of consumer protection law creates a massive potential liability that could reach $200 billion, threatening the company's balance sheet and cash reserves.",
-      "why_now": "The verdict was delivered on 2026-09-26, creating immediate legal and financial uncertainty.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-05a5ca8f3d6e"
-      ],
-      "primary_source_event_id": "EVT-05a5ca8f3d6e",
-      "source_headlines": [
-        "New Mexico jury finds Facebook liable for over 43 million violations of consumer protection law—and Meta could owe over $200 billion in penalties"
-      ],
-      "source_headline": "New Mexico jury finds Facebook liable for over 43 million violations of consumer protection law—and Meta could owe over $200 billion in penalties",
-      "source_url": "https://fortune.com/2026/09/26/facebook-liable-violations-new-mexico-consumer-protection-lawand-meta-200-billion-penalties/",
-      "source_name": "Fortune",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-26T14:25:57Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/META_2026-08-31",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-26T15:19:48Z",
-      "updated_at": "2026-09-26T15:19:48Z",
-      "decay_at": "2026-09-28T02:25:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a5b42c212a71",
       "idea_version": "IDEAV-1e0ad7888182d821",
       "idea_version_started_at": "2026-09-27T23:35:29Z",
@@ -148935,6 +148865,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-301c9958417a",
+      "idea_version": "IDEAV-ce099f2135153b22",
+      "idea_version_started_at": "2026-09-26T15:19:48Z",
+      "ticker": "META",
+      "company": "Meta Platforms",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A New Mexico jury verdict finding 43 million violations of consumer protection law creates a massive potential liability that could reach $200 billion, threatening the company's balance sheet and cash reserves.",
+      "why_now": "The verdict was delivered on 2026-09-26, creating immediate legal and financial uncertainty.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-05a5ca8f3d6e"
+      ],
+      "primary_source_event_id": "EVT-05a5ca8f3d6e",
+      "source_headlines": [
+        "New Mexico jury finds Facebook liable for over 43 million violations of consumer protection law—and Meta could owe over $200 billion in penalties"
+      ],
+      "source_headline": "New Mexico jury finds Facebook liable for over 43 million violations of consumer protection law—and Meta could owe over $200 billion in penalties",
+      "source_url": "https://fortune.com/2026/09/26/facebook-liable-violations-new-mexico-consumer-protection-lawand-meta-200-billion-penalties/",
+      "source_name": "Fortune",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-26T14:25:57Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/META_2026-08-31",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-26T15:19:48Z",
+      "updated_at": "2026-09-26T15:19:48Z",
+      "decay_at": "2026-09-28T02:25:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9107e0bd5461",
       "idea_version": "IDEAV-8eef803092a42069",
       "idea_version_started_at": "2026-09-26T13:43:44Z",
@@ -150082,9 +150082,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 519,
+    "total_count": 520,
     "shown_count": 500,
-    "hidden_count": 19,
+    "hidden_count": 20,
     "side_counts": {
       "long": {
         "total_count": 269,
@@ -150092,9 +150092,9 @@
         "hidden_count": 19
       },
       "short": {
-        "total_count": 250,
+        "total_count": 251,
         "shown_count": 250,
-        "hidden_count": 0
+        "hidden_count": 1
       }
     },
     "retention": {
@@ -150113,6 +150113,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-301c9958417a",
+        "idea_version": "IDEAV-ce099f2135153b22",
+        "idea_version_started_at": "2026-09-26T15:19:48Z",
+        "ticker": "META",
+        "company": "Meta Platforms",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A New Mexico jury verdict finding 43 million violations of consumer protection law creates a massive potential liability that could reach $200 billion, threatening the company's balance sheet and cash reserves.",
+        "why_now": "The verdict was delivered on 2026-09-26, creating immediate legal and financial uncertainty.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-05a5ca8f3d6e"
+        ],
+        "primary_source_event_id": "EVT-05a5ca8f3d6e",
+        "source_headlines": [
+          "New Mexico jury finds Facebook liable for over 43 million violations of consumer protection law—and Meta could owe over $200 billion in penalties"
+        ],
+        "source_headline": "New Mexico jury finds Facebook liable for over 43 million violations of consumer protection law—and Meta could owe over $200 billion in penalties",
+        "source_url": "https://fortune.com/2026/09/26/facebook-liable-violations-new-mexico-consumer-protection-lawand-meta-200-billion-penalties/",
+        "source_name": "Fortune",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-26T14:25:57Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/META_2026-08-31",
+          "latest_decision": null,
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-09-26T15:19:48Z",
+        "updated_at": "2026-09-26T15:19:48Z",
+        "decay_at": "2026-09-28T02:25:57Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T02:25:57Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d671baced956",
         "idea_version": "IDEAV-0216b9fe43f0f579",
@@ -187173,86 +187246,12 @@
         "archived_at": "2026-09-03T09:41:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a8ae6a868c8d",
-        "idea_version": "IDEAV-bfc9a96470c4967a",
-        "idea_version_started_at": "2026-08-31T14:38:32Z",
-        "ticker": "01496",
-        "company": "AP RENTALS",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning, indicating a significant deterioration in earnings performance for the period.",
-        "why_now": "The filing was released on 2026-08-31, making this a live catalyst for immediate repricing.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c0d916c56ce3"
-        ],
-        "primary_source_event_id": "EVT-c0d916c56ce3",
-        "source_headlines": [
-          "AP RENTALS (01496): PROFIT WARNING"
-        ],
-        "source_headline": "AP RENTALS (01496): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100716.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T08:45:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T14:38:32Z",
-        "updated_at": "2026-08-31T14:38:32Z",
-        "decay_at": "2026-09-01T20:45:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T09:41:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1105,
-    "live_count": 62,
+    "live_count": 61,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -187271,9 +187270,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 644,
-    "news_picked_today": 163,
-    "news_dropped_today": 481
+    "news_seen_today": 685,
+    "news_picked_today": 174,
+    "news_dropped_today": 511
   },
   "book_momentum": {
     "live_count": 8,
