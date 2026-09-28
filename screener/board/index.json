@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-28T15:26:05Z",
+  "generated_at": "2026-09-28T16:40:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260928-452",
+      "headline": "Scheme of Arrangement (Demerger) of K. M. Sugar Mills Ltd. (Scrip code- 532673)",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20260928-51/20260928-51.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T15:35:12Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "K. M. Sugar Mills Ltd. announced a Scheme of Arrangement for a Demerger.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "K. M. Sugar Mills Ltd. announced a Scheme of Arrangement for a Demerger.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "K. M. Sugar Mills Ltd.",
+          "ticker": "532673",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260928-437",
       "headline": "GAC GROUP (02238): INSIDE INFORMATION (1) POTENTIAL MAJOR AND CONNECTED TRANSACTION - PROPOSED ACQUISITION OF 50% EQUITY INTEREST IN THE TARGET COMPANY BY WAY OF ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROPOSED NON-PUBLIC ISSUANCE OF A SHARES UNDER SPECIFIC MANDATE TO RAISE SUPPORTING FUNDS; AND (3) RESUMPTION OF TRADING IN A SHARES",
@@ -1954,60 +2003,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-256",
-      "headline": "삼성·SK하이닉스 3분기 합산 영업익 190조원…“사상 최대 실적 전망”",
-      "headline_en": "Samsung and SK Hynix Q3 combined operating profit 190 trillion won... \"Record performance expected\"",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277740",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T05:18:30Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Samsung and SK Hynix are projected to reach a record combined operating profit of 190 trillion won in Q3.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung and SK Hynix are projected to reach a record combined operating profit of 190 trillion won in Q3.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -144380,80 +144375,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5f19e42d97dc",
-      "idea_version": "IDEAV-0c7ffde149793fa2",
-      "idea_version_started_at": "2026-09-27T04:44:42Z",
-      "ticker": "GOOG",
-      "company": "Alphabet Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Concerns over AI safety and regulatory probes into OpenAI and Anthropic suggest potential headwinds for the broader AI sector, which could impact Google's AI development and deployment.",
-      "why_now": "Multiple reports on September 27, 2026, highlight OpenAI sandbox failures and regulatory attention on AI companies.",
-      "conviction": 40,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 68,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-65ee2d0ab6c0",
-        "EVT-3f56632afb40",
-        "EVT-c34c5ffea690"
-      ],
-      "primary_source_event_id": "EVT-65ee2d0ab6c0",
-      "source_headlines": [
-        "OpenAI sandbox failure allows AI agent to gain Internet access",
-        "Another OpenAI sandbox failure lets AI agent reach internet, prompting training pause",
-        "OpenAI, Anthropic CEOs called to appear at Australian AI probe"
-      ],
-      "source_headline": "OpenAI sandbox failure allows AI agent to gain Internet access",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/openai-sandbox-failure-allows-ai-agent-gain-internet-access",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 87,
-      "newest_source_at": "2026-09-27T04:27:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T04:44:42Z",
-      "updated_at": "2026-09-27T04:44:42Z",
-      "decay_at": "2026-09-28T16:27:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-52e98452feee",
       "idea_version": "IDEAV-85ee33ca7114f155",
       "idea_version_started_at": "2026-09-28T02:57:09Z",
@@ -144518,76 +144439,6 @@
       "surfaced_at": "2026-09-28T02:57:09Z",
       "updated_at": "2026-09-28T02:57:09Z",
       "decay_at": "2026-09-29T14:42:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f5b09d965873",
-      "idea_version": "IDEAV-7c67cd58d73b068b",
-      "idea_version_started_at": "2026-09-27T04:44:42Z",
-      "ticker": "INA.AX",
-      "company": "Ingenia Communities",
-      "exchange": "Australian",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Warburg Pincus has made a bid of over A$3 billion for the company, indicating a potential acquisition.",
-      "why_now": "The bid was announced on September 27, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-33241580e6a7"
-      ],
-      "primary_source_event_id": "EVT-33241580e6a7",
-      "source_headlines": [
-        "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in"
-      ],
-      "source_headline": "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in",
-      "source_url": "https://www.afr.com/street-talk/warburg-pincus-slaps-ingenia-with-3b-plus-bid-di-pilla-weighs-in-20260927-p610tu?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T03:28:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T04:44:42Z",
-      "updated_at": "2026-09-27T04:44:42Z",
-      "decay_at": "2026-09-28T15:28:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -144798,76 +144649,6 @@
       "surfaced_at": "2026-09-27T19:10:14Z",
       "updated_at": "2026-09-27T19:10:14Z",
       "decay_at": "2026-09-29T06:18:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-aaa7c7fe0d72",
-      "idea_version": "IDEAV-954e124fc8520346",
-      "idea_version_started_at": "2026-09-27T05:04:56Z",
-      "ticker": "OR.PA",
-      "company": "L'Oréal S.A.",
-      "exchange": "Paris",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "L'Oreal is entering stake sale talks with Giorgio Armani, which could lead to an acquisition and expand its luxury beauty and fashion presence.",
-      "why_now": "Armani is kicking off stake sale talks with LVMH and L'Oreal as of September 27, 2026, indicating a live M&A catalyst.",
-      "conviction": 68,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-beff6feaf733"
-      ],
-      "primary_source_event_id": "EVT-beff6feaf733",
-      "source_headlines": [
-        "Armani to kick off stake sale talks with LVMH and L'Oreal"
-      ],
-      "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
-      "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-27T04:30:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T05:04:56Z",
-      "updated_at": "2026-09-27T05:04:56Z",
-      "decay_at": "2026-09-28T16:30:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -146525,78 +146306,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-84d3d160ac55",
-      "idea_version": "IDEAV-c64da0fbe4b02ef3",
-      "idea_version_started_at": "2026-09-27T20:17:32Z",
-      "ticker": "INA",
-      "company": "Ingenia Communities Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Warburg Pincus has launched a takeover bid exceeding $3 billion for the lifestyle community operator, representing a significant premium to its recent market valuation.",
-      "why_now": "The bid was reported on September 27, 2026, creating an immediate valuation floor and potential for a bidding war if other parties like Di Pilla engage.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-33241580e6a7"
-      ],
-      "primary_source_event_id": "EVT-33241580e6a7",
-      "source_headlines": [
-        "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in"
-      ],
-      "source_headline": "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in",
-      "source_url": "https://www.afr.com/street-talk/warburg-pincus-slaps-ingenia-with-3b-plus-bid-di-pilla-weighs-in-20260927-p610tu?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T03:28:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T03:59:15Z",
-      "updated_at": "2026-09-27T20:17:32Z",
-      "decay_at": "2026-09-28T15:28:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9f7e74ae9645",
       "idea_version": "IDEAV-417899f46e71850f",
       "idea_version_started_at": "2026-09-27T18:25:11Z",
@@ -146663,78 +146372,6 @@
       "surfaced_at": "2026-09-26T11:48:12Z",
       "updated_at": "2026-09-27T18:25:11Z",
       "decay_at": "2026-09-29T02:56:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-e28ce99f344d",
-      "idea_version": "IDEAV-cde86591c768af67",
-      "idea_version_started_at": "2026-09-27T18:25:11Z",
-      "ticker": "ING",
-      "company": "Ingenia Communities Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Warburg Pincus has made a $3 billion-plus takeover bid for Ingenia Communities, which would likely result in a significant premium for shareholders.",
-      "why_now": "The bid from Warburg Pincus was reported on September 27, 2026, creating an immediate catalyst for the stock.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-33241580e6a7"
-      ],
-      "primary_source_event_id": "EVT-33241580e6a7",
-      "source_headlines": [
-        "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in"
-      ],
-      "source_headline": "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in",
-      "source_url": "https://www.afr.com/street-talk/warburg-pincus-slaps-ingenia-with-3b-plus-bid-di-pilla-weighs-in-20260927-p610tu?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T03:28:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T18:25:11Z",
-      "updated_at": "2026-09-27T18:25:11Z",
-      "decay_at": "2026-09-28T15:28:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -147528,222 +147165,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b9314c6a5cfd",
-      "idea_version": "IDEAV-f4fdfef8cb68e9b5",
-      "idea_version_started_at": "2026-09-27T05:55:16Z",
-      "ticker": "MC",
-      "company": "LVMH Moët Hennessy Louis Vuitton",
-      "exchange": "PAR",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "LVMH is entering negotiations to acquire a stake in Giorgio Armani, offering a rare consolidation opportunity in ultra-luxury fashion to boost long-term group margins.",
-      "why_now": "Negotiations are commencing immediately following reports on September 27, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-beff6feaf733"
-      ],
-      "primary_source_event_id": "EVT-beff6feaf733",
-      "source_headlines": [
-        "Armani to kick off stake sale talks with LVMH and L'Oreal"
-      ],
-      "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
-      "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-27T04:30:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T05:55:16Z",
-      "updated_at": "2026-09-27T05:55:16Z",
-      "decay_at": "2026-09-28T16:30:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ce7fc5227a62",
-      "idea_version": "IDEAV-fa36ab06bebb6744",
-      "idea_version_started_at": "2026-09-27T05:55:16Z",
-      "ticker": "OR",
-      "company": "L'Oreal",
-      "exchange": "PAR",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "L'Oreal is entering talks to acquire a stake in Giorgio Armani, which would secure its long-term luxury beauty licensing revenues and expand its high-margin prestige portfolio.",
-      "why_now": "Armani is kicking off formal stake sale talks with L'Oreal and LVMH as of September 27, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-beff6feaf733"
-      ],
-      "primary_source_event_id": "EVT-beff6feaf733",
-      "source_headlines": [
-        "Armani to kick off stake sale talks with LVMH and L'Oreal"
-      ],
-      "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
-      "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-27T04:30:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T05:55:16Z",
-      "updated_at": "2026-09-27T05:55:16Z",
-      "decay_at": "2026-09-28T16:30:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-5b777a88d829",
-      "idea_version": "IDEAV-54af01524dbdaf02",
-      "idea_version_started_at": "2026-09-27T05:04:56Z",
-      "ticker": "MC.PA",
-      "company": "LVMH Moët Hennessy Louis Vuitton SE",
-      "exchange": "EPA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "LVMH is entering stake sale talks with Giorgio Armani, which could lead to an acquisition and further strengthen its luxury brand portfolio and market share.",
-      "why_now": "Armani is kicking off stake sale talks with LVMH and L'Oreal as of September 27, 2026, indicating a live M&A catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-beff6feaf733"
-      ],
-      "primary_source_event_id": "EVT-beff6feaf733",
-      "source_headlines": [
-        "Armani to kick off stake sale talks with LVMH and L'Oreal"
-      ],
-      "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
-      "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-27T04:30:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T05:04:56Z",
-      "updated_at": "2026-09-27T05:04:56Z",
-      "decay_at": "2026-09-28T16:30:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-699b27265ce6",
       "idea_version": "IDEAV-b16bde90d1ed76f2",
       "idea_version_started_at": "2026-09-28T04:16:28Z",
@@ -148240,150 +147661,6 @@
       "surfaced_at": "2026-09-27T15:35:26Z",
       "updated_at": "2026-09-27T15:35:26Z",
       "decay_at": "2026-09-29T02:52:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-095be317c3a2",
-      "idea_version": "IDEAV-53344850a0822e27",
-      "idea_version_started_at": "2026-09-27T05:04:56Z",
-      "ticker": "KPLM.SI",
-      "company": "Keppel Corporation Limited",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Keppel is discussing a potential deal for M1, which could expand its telecommunications infrastructure and services portfolio.",
-      "why_now": "The news explicitly states that Keppel and Starhub are discussing a deal for M1 as of September 27, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-118137460992"
-      ],
-      "primary_source_event_id": "EVT-118137460992",
-      "source_headlines": [
-        "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week"
-      ],
-      "source_headline": "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week",
-      "source_url": "https://www.straitstimes.com/business/companies-markets/keppel-starhub-discuss-potential-m1-deal-grab-execs-buy-shares-after-stock-falls-markets-this-week",
-      "source_name": "The Straits Times",
-      "materiality_max": 91,
-      "newest_source_at": "2026-09-27T04:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T05:04:56Z",
-      "updated_at": "2026-09-27T05:04:56Z",
-      "decay_at": "2026-09-28T16:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-1984ced61a06",
-      "idea_version": "IDEAV-696d0108e6efed2f",
-      "idea_version_started_at": "2026-09-27T04:44:42Z",
-      "ticker": "K30.SI",
-      "company": "Keppel Corporation Limited",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Keppel is in discussions regarding a potential deal for M1, which could represent a strategic acquisition.",
-      "why_now": "The discussions were reported on September 27, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-118137460992"
-      ],
-      "primary_source_event_id": "EVT-118137460992",
-      "source_headlines": [
-        "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week"
-      ],
-      "source_headline": "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week",
-      "source_url": "https://www.straitstimes.com/business/companies-markets/keppel-starhub-discuss-potential-m1-deal-grab-execs-buy-shares-after-stock-falls-markets-this-week",
-      "source_name": "The Straits Times",
-      "materiality_max": 91,
-      "newest_source_at": "2026-09-27T04:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T04:44:42Z",
-      "updated_at": "2026-09-27T04:44:42Z",
-      "decay_at": "2026-09-28T16:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -149100,6 +148377,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-5f19e42d97dc",
+      "idea_version": "IDEAV-0c7ffde149793fa2",
+      "idea_version_started_at": "2026-09-27T04:44:42Z",
+      "ticker": "GOOG",
+      "company": "Alphabet Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Concerns over AI safety and regulatory probes into OpenAI and Anthropic suggest potential headwinds for the broader AI sector, which could impact Google's AI development and deployment.",
+      "why_now": "Multiple reports on September 27, 2026, highlight OpenAI sandbox failures and regulatory attention on AI companies.",
+      "conviction": 40,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 68,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-65ee2d0ab6c0",
+        "EVT-3f56632afb40",
+        "EVT-c34c5ffea690"
+      ],
+      "primary_source_event_id": "EVT-65ee2d0ab6c0",
+      "source_headlines": [
+        "OpenAI sandbox failure allows AI agent to gain Internet access",
+        "Another OpenAI sandbox failure lets AI agent reach internet, prompting training pause",
+        "OpenAI, Anthropic CEOs called to appear at Australian AI probe"
+      ],
+      "source_headline": "OpenAI sandbox failure allows AI agent to gain Internet access",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/openai-sandbox-failure-allows-ai-agent-gain-internet-access",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 87,
+      "newest_source_at": "2026-09-27T04:27:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T04:44:42Z",
+      "updated_at": "2026-09-27T04:44:42Z",
+      "decay_at": "2026-09-28T16:27:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f5b09d965873",
+      "idea_version": "IDEAV-7c67cd58d73b068b",
+      "idea_version_started_at": "2026-09-27T04:44:42Z",
+      "ticker": "INA.AX",
+      "company": "Ingenia Communities",
+      "exchange": "Australian",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Warburg Pincus has made a bid of over A$3 billion for the company, indicating a potential acquisition.",
+      "why_now": "The bid was announced on September 27, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-33241580e6a7"
+      ],
+      "primary_source_event_id": "EVT-33241580e6a7",
+      "source_headlines": [
+        "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in"
+      ],
+      "source_headline": "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in",
+      "source_url": "https://www.afr.com/street-talk/warburg-pincus-slaps-ingenia-with-3b-plus-bid-di-pilla-weighs-in-20260927-p610tu?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T03:28:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T04:44:42Z",
+      "updated_at": "2026-09-27T04:44:42Z",
+      "decay_at": "2026-09-28T15:28:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-e74e5f60c4af",
       "idea_version": "IDEAV-ed624332a594f306",
       "idea_version_started_at": "2026-09-26T20:03:15Z",
@@ -149444,6 +148865,76 @@
       "surfaced_at": "2026-09-26T16:28:04Z",
       "updated_at": "2026-09-26T16:28:04Z",
       "decay_at": "2026-09-28T04:13:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-aaa7c7fe0d72",
+      "idea_version": "IDEAV-954e124fc8520346",
+      "idea_version_started_at": "2026-09-27T05:04:56Z",
+      "ticker": "OR.PA",
+      "company": "L'Oréal S.A.",
+      "exchange": "Paris",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "L'Oreal is entering stake sale talks with Giorgio Armani, which could lead to an acquisition and expand its luxury beauty and fashion presence.",
+      "why_now": "Armani is kicking off stake sale talks with LVMH and L'Oreal as of September 27, 2026, indicating a live M&A catalyst.",
+      "conviction": 68,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-beff6feaf733"
+      ],
+      "primary_source_event_id": "EVT-beff6feaf733",
+      "source_headlines": [
+        "Armani to kick off stake sale talks with LVMH and L'Oreal"
+      ],
+      "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
+      "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-27T04:30:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T05:04:56Z",
+      "updated_at": "2026-09-27T05:04:56Z",
+      "decay_at": "2026-09-28T16:30:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -149865,6 +149356,150 @@
       "surfaced_at": "2026-09-27T02:00:37Z",
       "updated_at": "2026-09-27T02:00:37Z",
       "decay_at": "2026-09-28T12:50:59Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-84d3d160ac55",
+      "idea_version": "IDEAV-c64da0fbe4b02ef3",
+      "idea_version_started_at": "2026-09-27T20:17:32Z",
+      "ticker": "INA",
+      "company": "Ingenia Communities Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Warburg Pincus has launched a takeover bid exceeding $3 billion for the lifestyle community operator, representing a significant premium to its recent market valuation.",
+      "why_now": "The bid was reported on September 27, 2026, creating an immediate valuation floor and potential for a bidding war if other parties like Di Pilla engage.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-33241580e6a7"
+      ],
+      "primary_source_event_id": "EVT-33241580e6a7",
+      "source_headlines": [
+        "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in"
+      ],
+      "source_headline": "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in",
+      "source_url": "https://www.afr.com/street-talk/warburg-pincus-slaps-ingenia-with-3b-plus-bid-di-pilla-weighs-in-20260927-p610tu?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T03:28:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T03:59:15Z",
+      "updated_at": "2026-09-27T20:17:32Z",
+      "decay_at": "2026-09-28T15:28:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e28ce99f344d",
+      "idea_version": "IDEAV-cde86591c768af67",
+      "idea_version_started_at": "2026-09-27T18:25:11Z",
+      "ticker": "ING",
+      "company": "Ingenia Communities Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Warburg Pincus has made a $3 billion-plus takeover bid for Ingenia Communities, which would likely result in a significant premium for shareholders.",
+      "why_now": "The bid from Warburg Pincus was reported on September 27, 2026, creating an immediate catalyst for the stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-33241580e6a7"
+      ],
+      "primary_source_event_id": "EVT-33241580e6a7",
+      "source_headlines": [
+        "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in"
+      ],
+      "source_headline": "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in",
+      "source_url": "https://www.afr.com/street-talk/warburg-pincus-slaps-ingenia-with-3b-plus-bid-di-pilla-weighs-in-20260927-p610tu?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T03:28:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T18:25:11Z",
+      "updated_at": "2026-09-27T18:25:11Z",
+      "decay_at": "2026-09-28T15:28:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -150520,6 +150155,222 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b9314c6a5cfd",
+      "idea_version": "IDEAV-f4fdfef8cb68e9b5",
+      "idea_version_started_at": "2026-09-27T05:55:16Z",
+      "ticker": "MC",
+      "company": "LVMH Moët Hennessy Louis Vuitton",
+      "exchange": "PAR",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "LVMH is entering negotiations to acquire a stake in Giorgio Armani, offering a rare consolidation opportunity in ultra-luxury fashion to boost long-term group margins.",
+      "why_now": "Negotiations are commencing immediately following reports on September 27, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-beff6feaf733"
+      ],
+      "primary_source_event_id": "EVT-beff6feaf733",
+      "source_headlines": [
+        "Armani to kick off stake sale talks with LVMH and L'Oreal"
+      ],
+      "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
+      "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-27T04:30:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T05:55:16Z",
+      "updated_at": "2026-09-27T05:55:16Z",
+      "decay_at": "2026-09-28T16:30:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ce7fc5227a62",
+      "idea_version": "IDEAV-fa36ab06bebb6744",
+      "idea_version_started_at": "2026-09-27T05:55:16Z",
+      "ticker": "OR",
+      "company": "L'Oreal",
+      "exchange": "PAR",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "L'Oreal is entering talks to acquire a stake in Giorgio Armani, which would secure its long-term luxury beauty licensing revenues and expand its high-margin prestige portfolio.",
+      "why_now": "Armani is kicking off formal stake sale talks with L'Oreal and LVMH as of September 27, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-beff6feaf733"
+      ],
+      "primary_source_event_id": "EVT-beff6feaf733",
+      "source_headlines": [
+        "Armani to kick off stake sale talks with LVMH and L'Oreal"
+      ],
+      "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
+      "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-27T04:30:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T05:55:16Z",
+      "updated_at": "2026-09-27T05:55:16Z",
+      "decay_at": "2026-09-28T16:30:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5b777a88d829",
+      "idea_version": "IDEAV-54af01524dbdaf02",
+      "idea_version_started_at": "2026-09-27T05:04:56Z",
+      "ticker": "MC.PA",
+      "company": "LVMH Moët Hennessy Louis Vuitton SE",
+      "exchange": "EPA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "LVMH is entering stake sale talks with Giorgio Armani, which could lead to an acquisition and further strengthen its luxury brand portfolio and market share.",
+      "why_now": "Armani is kicking off stake sale talks with LVMH and L'Oreal as of September 27, 2026, indicating a live M&A catalyst.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-beff6feaf733"
+      ],
+      "primary_source_event_id": "EVT-beff6feaf733",
+      "source_headlines": [
+        "Armani to kick off stake sale talks with LVMH and L'Oreal"
+      ],
+      "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
+      "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-27T04:30:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T05:04:56Z",
+      "updated_at": "2026-09-27T05:04:56Z",
+      "decay_at": "2026-09-28T16:30:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-cca1ae3fbca3",
       "idea_version": "IDEAV-e521db373b57eed5",
       "idea_version_started_at": "2026-09-27T04:44:42Z",
@@ -150587,6 +150438,150 @@
       "surfaced_at": "2026-09-27T04:44:42Z",
       "updated_at": "2026-09-27T04:44:42Z",
       "decay_at": "2026-09-28T15:24:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-095be317c3a2",
+      "idea_version": "IDEAV-53344850a0822e27",
+      "idea_version_started_at": "2026-09-27T05:04:56Z",
+      "ticker": "KPLM.SI",
+      "company": "Keppel Corporation Limited",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Keppel is discussing a potential deal for M1, which could expand its telecommunications infrastructure and services portfolio.",
+      "why_now": "The news explicitly states that Keppel and Starhub are discussing a deal for M1 as of September 27, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-118137460992"
+      ],
+      "primary_source_event_id": "EVT-118137460992",
+      "source_headlines": [
+        "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week"
+      ],
+      "source_headline": "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week",
+      "source_url": "https://www.straitstimes.com/business/companies-markets/keppel-starhub-discuss-potential-m1-deal-grab-execs-buy-shares-after-stock-falls-markets-this-week",
+      "source_name": "The Straits Times",
+      "materiality_max": 91,
+      "newest_source_at": "2026-09-27T04:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T05:04:56Z",
+      "updated_at": "2026-09-27T05:04:56Z",
+      "decay_at": "2026-09-28T16:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1984ced61a06",
+      "idea_version": "IDEAV-696d0108e6efed2f",
+      "idea_version_started_at": "2026-09-27T04:44:42Z",
+      "ticker": "K30.SI",
+      "company": "Keppel Corporation Limited",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Keppel is in discussions regarding a potential deal for M1, which could represent a strategic acquisition.",
+      "why_now": "The discussions were reported on September 27, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-118137460992"
+      ],
+      "primary_source_event_id": "EVT-118137460992",
+      "source_headlines": [
+        "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week"
+      ],
+      "source_headline": "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week",
+      "source_url": "https://www.straitstimes.com/business/companies-markets/keppel-starhub-discuss-potential-m1-deal-grab-execs-buy-shares-after-stock-falls-markets-this-week",
+      "source_name": "The Straits Times",
+      "materiality_max": 91,
+      "newest_source_at": "2026-09-27T04:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T04:44:42Z",
+      "updated_at": "2026-09-27T04:44:42Z",
+      "decay_at": "2026-09-28T16:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -150893,19 +150888,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 538,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 268,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 27
       },
       "short": {
-        "total_count": 260,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 10
+        "hidden_count": 11
       }
     },
     "retention": {
@@ -150924,6 +150919,754 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-aaa7c7fe0d72",
+        "idea_version": "IDEAV-954e124fc8520346",
+        "idea_version_started_at": "2026-09-27T05:04:56Z",
+        "ticker": "OR.PA",
+        "company": "L'Oréal S.A.",
+        "exchange": "Paris",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "L'Oreal is entering stake sale talks with Giorgio Armani, which could lead to an acquisition and expand its luxury beauty and fashion presence.",
+        "why_now": "Armani is kicking off stake sale talks with LVMH and L'Oreal as of September 27, 2026, indicating a live M&A catalyst.",
+        "conviction": 68,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-beff6feaf733"
+        ],
+        "primary_source_event_id": "EVT-beff6feaf733",
+        "source_headlines": [
+          "Armani to kick off stake sale talks with LVMH and L'Oreal"
+        ],
+        "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
+        "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 96,
+        "newest_source_at": "2026-09-27T04:30:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T05:04:56Z",
+        "updated_at": "2026-09-27T05:04:56Z",
+        "decay_at": "2026-09-28T16:30:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T16:30:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-5b777a88d829",
+        "idea_version": "IDEAV-54af01524dbdaf02",
+        "idea_version_started_at": "2026-09-27T05:04:56Z",
+        "ticker": "MC.PA",
+        "company": "LVMH Moët Hennessy Louis Vuitton SE",
+        "exchange": "EPA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "LVMH is entering stake sale talks with Giorgio Armani, which could lead to an acquisition and further strengthen its luxury brand portfolio and market share.",
+        "why_now": "Armani is kicking off stake sale talks with LVMH and L'Oreal as of September 27, 2026, indicating a live M&A catalyst.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-beff6feaf733"
+        ],
+        "primary_source_event_id": "EVT-beff6feaf733",
+        "source_headlines": [
+          "Armani to kick off stake sale talks with LVMH and L'Oreal"
+        ],
+        "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
+        "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 96,
+        "newest_source_at": "2026-09-27T04:30:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T05:04:56Z",
+        "updated_at": "2026-09-27T05:04:56Z",
+        "decay_at": "2026-09-28T16:30:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T16:30:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-b9314c6a5cfd",
+        "idea_version": "IDEAV-f4fdfef8cb68e9b5",
+        "idea_version_started_at": "2026-09-27T05:55:16Z",
+        "ticker": "MC",
+        "company": "LVMH Moët Hennessy Louis Vuitton",
+        "exchange": "PAR",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "LVMH is entering negotiations to acquire a stake in Giorgio Armani, offering a rare consolidation opportunity in ultra-luxury fashion to boost long-term group margins.",
+        "why_now": "Negotiations are commencing immediately following reports on September 27, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-beff6feaf733"
+        ],
+        "primary_source_event_id": "EVT-beff6feaf733",
+        "source_headlines": [
+          "Armani to kick off stake sale talks with LVMH and L'Oreal"
+        ],
+        "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
+        "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 96,
+        "newest_source_at": "2026-09-27T04:30:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T05:55:16Z",
+        "updated_at": "2026-09-27T05:55:16Z",
+        "decay_at": "2026-09-28T16:30:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T16:30:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-ce7fc5227a62",
+        "idea_version": "IDEAV-fa36ab06bebb6744",
+        "idea_version_started_at": "2026-09-27T05:55:16Z",
+        "ticker": "OR",
+        "company": "L'Oreal",
+        "exchange": "PAR",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "L'Oreal is entering talks to acquire a stake in Giorgio Armani, which would secure its long-term luxury beauty licensing revenues and expand its high-margin prestige portfolio.",
+        "why_now": "Armani is kicking off formal stake sale talks with L'Oreal and LVMH as of September 27, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-beff6feaf733"
+        ],
+        "primary_source_event_id": "EVT-beff6feaf733",
+        "source_headlines": [
+          "Armani to kick off stake sale talks with LVMH and L'Oreal"
+        ],
+        "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
+        "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 96,
+        "newest_source_at": "2026-09-27T04:30:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T05:55:16Z",
+        "updated_at": "2026-09-27T05:55:16Z",
+        "decay_at": "2026-09-28T16:30:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T16:30:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-5f19e42d97dc",
+        "idea_version": "IDEAV-0c7ffde149793fa2",
+        "idea_version_started_at": "2026-09-27T04:44:42Z",
+        "ticker": "GOOG",
+        "company": "Alphabet Inc.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Concerns over AI safety and regulatory probes into OpenAI and Anthropic suggest potential headwinds for the broader AI sector, which could impact Google's AI development and deployment.",
+        "why_now": "Multiple reports on September 27, 2026, highlight OpenAI sandbox failures and regulatory attention on AI companies.",
+        "conviction": 40,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 68,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "sector_cycle",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-65ee2d0ab6c0",
+          "EVT-3f56632afb40",
+          "EVT-c34c5ffea690"
+        ],
+        "primary_source_event_id": "EVT-65ee2d0ab6c0",
+        "source_headlines": [
+          "OpenAI sandbox failure allows AI agent to gain Internet access",
+          "Another OpenAI sandbox failure lets AI agent reach internet, prompting training pause",
+          "OpenAI, Anthropic CEOs called to appear at Australian AI probe"
+        ],
+        "source_headline": "OpenAI sandbox failure allows AI agent to gain Internet access",
+        "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/openai-sandbox-failure-allows-ai-agent-gain-internet-access",
+        "source_name": "The Business Times (Singapore)",
+        "materiality_max": 87,
+        "newest_source_at": "2026-09-27T04:27:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T04:44:42Z",
+        "updated_at": "2026-09-27T04:44:42Z",
+        "decay_at": "2026-09-28T16:27:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T16:27:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-095be317c3a2",
+        "idea_version": "IDEAV-53344850a0822e27",
+        "idea_version_started_at": "2026-09-27T05:04:56Z",
+        "ticker": "KPLM.SI",
+        "company": "Keppel Corporation Limited",
+        "exchange": "SGX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Keppel is discussing a potential deal for M1, which could expand its telecommunications infrastructure and services portfolio.",
+        "why_now": "The news explicitly states that Keppel and Starhub are discussing a deal for M1 as of September 27, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-118137460992"
+        ],
+        "primary_source_event_id": "EVT-118137460992",
+        "source_headlines": [
+          "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week"
+        ],
+        "source_headline": "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week",
+        "source_url": "https://www.straitstimes.com/business/companies-markets/keppel-starhub-discuss-potential-m1-deal-grab-execs-buy-shares-after-stock-falls-markets-this-week",
+        "source_name": "The Straits Times",
+        "materiality_max": 91,
+        "newest_source_at": "2026-09-27T04:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T05:04:56Z",
+        "updated_at": "2026-09-27T05:04:56Z",
+        "decay_at": "2026-09-28T16:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T16:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-1984ced61a06",
+        "idea_version": "IDEAV-696d0108e6efed2f",
+        "idea_version_started_at": "2026-09-27T04:44:42Z",
+        "ticker": "K30.SI",
+        "company": "Keppel Corporation Limited",
+        "exchange": "SGX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Keppel is in discussions regarding a potential deal for M1, which could represent a strategic acquisition.",
+        "why_now": "The discussions were reported on September 27, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-118137460992"
+        ],
+        "primary_source_event_id": "EVT-118137460992",
+        "source_headlines": [
+          "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week"
+        ],
+        "source_headline": "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week",
+        "source_url": "https://www.straitstimes.com/business/companies-markets/keppel-starhub-discuss-potential-m1-deal-grab-execs-buy-shares-after-stock-falls-markets-this-week",
+        "source_name": "The Straits Times",
+        "materiality_max": 91,
+        "newest_source_at": "2026-09-27T04:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T04:44:42Z",
+        "updated_at": "2026-09-27T04:44:42Z",
+        "decay_at": "2026-09-28T16:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T16:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f5b09d965873",
+        "idea_version": "IDEAV-7c67cd58d73b068b",
+        "idea_version_started_at": "2026-09-27T04:44:42Z",
+        "ticker": "INA.AX",
+        "company": "Ingenia Communities",
+        "exchange": "Australian",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Warburg Pincus has made a bid of over A$3 billion for the company, indicating a potential acquisition.",
+        "why_now": "The bid was announced on September 27, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-33241580e6a7"
+        ],
+        "primary_source_event_id": "EVT-33241580e6a7",
+        "source_headlines": [
+          "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in"
+        ],
+        "source_headline": "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in",
+        "source_url": "https://www.afr.com/street-talk/warburg-pincus-slaps-ingenia-with-3b-plus-bid-di-pilla-weighs-in-20260927-p610tu?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-27T03:28:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T04:44:42Z",
+        "updated_at": "2026-09-27T04:44:42Z",
+        "decay_at": "2026-09-28T15:28:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T15:28:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-84d3d160ac55",
+        "idea_version": "IDEAV-c64da0fbe4b02ef3",
+        "idea_version_started_at": "2026-09-27T20:17:32Z",
+        "ticker": "INA",
+        "company": "Ingenia Communities Group",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Warburg Pincus has launched a takeover bid exceeding $3 billion for the lifestyle community operator, representing a significant premium to its recent market valuation.",
+        "why_now": "The bid was reported on September 27, 2026, creating an immediate valuation floor and potential for a bidding war if other parties like Di Pilla engage.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-33241580e6a7"
+        ],
+        "primary_source_event_id": "EVT-33241580e6a7",
+        "source_headlines": [
+          "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in"
+        ],
+        "source_headline": "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in",
+        "source_url": "https://www.afr.com/street-talk/warburg-pincus-slaps-ingenia-with-3b-plus-bid-di-pilla-weighs-in-20260927-p610tu?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-27T03:28:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T03:59:15Z",
+        "updated_at": "2026-09-27T20:17:32Z",
+        "decay_at": "2026-09-28T15:28:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T15:28:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-e28ce99f344d",
+        "idea_version": "IDEAV-cde86591c768af67",
+        "idea_version_started_at": "2026-09-27T18:25:11Z",
+        "ticker": "ING",
+        "company": "Ingenia Communities Group",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Warburg Pincus has made a $3 billion-plus takeover bid for Ingenia Communities, which would likely result in a significant premium for shareholders.",
+        "why_now": "The bid from Warburg Pincus was reported on September 27, 2026, creating an immediate catalyst for the stock.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-33241580e6a7"
+        ],
+        "primary_source_event_id": "EVT-33241580e6a7",
+        "source_headlines": [
+          "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in"
+        ],
+        "source_headline": "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in",
+        "source_url": "https://www.afr.com/street-talk/warburg-pincus-slaps-ingenia-with-3b-plus-bid-di-pilla-weighs-in-20260927-p610tu?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-27T03:28:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T18:25:11Z",
+        "updated_at": "2026-09-27T18:25:11Z",
+        "decay_at": "2026-09-28T15:28:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T15:28:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-759cf3b531e6",
         "idea_version": "IDEAV-a1be9d10a405ae28",
@@ -180466,155 +181209,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-077ee61dba5c",
-        "idea_version": "IDEAV-d81a5727c8efdef3",
-        "idea_version_started_at": "2026-09-10T10:22:26Z",
-        "ticker": "ELCO",
-        "company": "Eleco",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company has agreed to a takeover by a private equity firm at a valuation of £208m, which typically sets a floor for the share price near the offer value.",
-        "why_now": "The takeover agreement was announced today, September 10, 2026.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-045be3355fcc"
-        ],
-        "primary_source_event_id": "EVT-045be3355fcc",
-        "source_headlines": [
-          "Eleco agrees £208m takeover by US private equity"
-        ],
-        "source_headline": "Eleco agrees £208m takeover by US private equity",
-        "source_url": "https://ukinvestormagazine.co.uk/eleco-agrees-208m-takeover-by-us-private-equity/",
-        "source_name": "UK Investor Magazine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-10T07:44:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T10:22:26Z",
-        "updated_at": "2026-09-10T10:22:26Z",
-        "decay_at": "2026-09-11T19:44:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T09:21:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-af31c2e0f9bf",
-        "idea_version": "IDEAV-9968a02053526a49",
-        "idea_version_started_at": "2026-09-10T08:47:13Z",
-        "ticker": "AAPL",
-        "company": "Apple Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The launch of a foldable iPhone expands Apple's product portfolio into a new high-end hardware segment, potentially driving a hardware upgrade cycle and capturing market share from Samsung.",
-        "why_now": "The product was officially unveiled on September 10, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9b948459178d"
-        ],
-        "primary_source_event_id": "EVT-9b948459178d",
-        "source_headlines": [
-          "Apple Unveils First Foldable iPhone, Taking on Samsung"
-        ],
-        "source_headline": "Apple Unveils First Foldable iPhone, Taking on Samsung",
-        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276633",
-        "source_name": "Business Korea — All Articles (CDN)",
-        "materiality_max": 96,
-        "newest_source_at": "2026-09-10T04:25:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T08:47:13Z",
-        "updated_at": "2026-09-10T08:47:13Z",
-        "decay_at": "2026-09-11T16:25:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T06:54:21Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-14e8a146693a",
         "idea_version": "IDEAV-75af08a2bada8d89",
         "idea_version_started_at": "2026-09-10T08:47:13Z",
@@ -180690,153 +181284,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-09ff42dc9b39",
-        "idea_version": "IDEAV-69ca76bc4ac9d22f",
-        "idea_version_started_at": "2026-09-10T06:28:42Z",
-        "ticker": "KOLTEPATIL",
-        "company": "Kolte-Patil Developers",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company achieved record sales of Rs 600 crore in just 60 hours for its Vyana project, signaling strong demand and cash flow acceleration in the Pune real estate market.",
-        "why_now": "The announcement was made via official exchange filing on September 10, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-73fa156bb20a"
-        ],
-        "primary_source_event_id": "EVT-73fa156bb20a",
-        "source_headlines": [
-          "Kolte - Patil Developers Limited: Kolte - Patil Developers Limited has informed the Exchange regarding a press release dated September 10, 2026, titled \"Kolte-Patil Developers Marks its Strongest-ever Launch Performance with Sales of over Rs. 600 crore in 60 hours at Vyana at The Reserve , Pune\"."
-        ],
-        "source_headline": "Kolte - Patil Developers Limited: Kolte - Patil Developers Limited has informed the Exchange regarding a press release dated September 10, 2026, titled \"Kolte-Patil Developers Marks its Strongest-ever Launch Performance with Sales of over Rs. 600 crore in 60 hours at Vyana at The Reserve , Pune\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/KOLTEPATIL_10092026075106_PressRelease10sept2026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 93,
-        "newest_source_at": "2026-09-10T02:21:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T06:28:42Z",
-        "updated_at": "2026-09-10T06:28:42Z",
-        "decay_at": "2026-09-11T14:21:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T03:27:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0c529d942ea8",
-        "idea_version": "IDEAV-996ffa485ee9ffb0",
-        "idea_version_started_at": "2026-09-10T06:28:42Z",
-        "ticker": "GOOGL",
-        "company": "Alphabet Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A $15 billion investment in AI infrastructure and nuclear power capacity secures long-term energy stability for data centers, reducing operational risk and energy costs for AI scaling.",
-        "why_now": "The investment plan was announced on September 10, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-da505b1eba78"
-        ],
-        "primary_source_event_id": "EVT-da505b1eba78",
-        "source_headlines": [
-          "Google to invest $15 billion in AI infrastructure and buy nuclear power in Finland"
-        ],
-        "source_headline": "Google to invest $15 billion in AI infrastructure and buy nuclear power in Finland",
-        "source_url": "https://www.reuters.com/business/media-telecom/google-invest-15-billion-ai-infrastructure-finland-2026-09-09/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-10T01:02:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T06:28:42Z",
-        "updated_at": "2026-09-10T06:28:42Z",
-        "decay_at": "2026-09-11T13:02:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T01:06:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-2d93368aeb39",
         "idea_version": "IDEAV-de37e1af31e96430",
         "idea_version_started_at": "2026-09-10T02:28:33Z",
@@ -180901,374 +181348,6 @@
         "surfaced_at": "2026-09-10T02:28:33Z",
         "updated_at": "2026-09-10T02:28:33Z",
         "decay_at": "2026-09-11T12:17:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T00:46:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-12b791fa381c",
-        "idea_version": "IDEAV-7ea6716509268d1e",
-        "idea_version_started_at": "2026-09-10T02:28:33Z",
-        "ticker": "03696",
-        "company": "Insilico Medicine",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The successful enrollment and dosing of the first patient in a Phase III trial for Rentosertib validates the company's AI-driven drug discovery platform and advances its lead asset toward potential commercialization.",
-        "why_now": "The announcement was filed on 2026-09-10, marking a critical clinical milestone that reduces development risk.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4bdef8262fbf"
-        ],
-        "primary_source_event_id": "EVT-4bdef8262fbf",
-        "source_headlines": [
-          "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE COMPLETED FIRST PATIENT ENROLLMENT AND DOSING IN PHASE III (GENESIS-IPF-3) CLINICAL TRIAL OF RENTOSERTIB, ITS LEADING AI-DRIVEN INNOVATIVE DRUG CANDIDATE FOR IPF"
-        ],
-        "source_headline": "INSILICO (03696): VOLUNTARY ANNOUNCEMENT INSILICO MEDICINE COMPLETED FIRST PATIENT ENROLLMENT AND DOSING IN PHASE III (GENESIS-IPF-3) CLINICAL TRIAL OF RENTOSERTIB, ITS LEADING AI-DRIVEN INNOVATIVE DRUG CANDIDATE FOR IPF",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000093.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 90,
-        "newest_source_at": "2026-09-10T00:15:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T02:28:33Z",
-        "updated_at": "2026-09-10T02:28:33Z",
-        "decay_at": "2026-09-11T12:15:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T00:46:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-ad732217d75c",
-        "idea_version": "IDEAV-afa12f274e316088",
-        "idea_version_started_at": "2026-09-10T01:49:10Z",
-        "ticker": "1609.HK",
-        "company": "Star Sports Med Limited",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Obtaining EU MDR certification and product registration approvals allows the company to expand its addressable market into European and other international territories.",
-        "why_now": "The regulatory approval was announced via a voluntary filing on September 10, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9173db28db8a"
-        ],
-        "primary_source_event_id": "EVT-9173db28db8a",
-        "source_headlines": [
-          "STAR SPORTS MED (01609): VOLUNTARY ANNOUNCEMENT OBTAINING EU MDR CERTIFICATION AND PRODUCT REGISTRATION APPROVALS IN MULTIPLE OVERSEAS MARKETS"
-        ],
-        "source_headline": "STAR SPORTS MED (01609): VOLUNTARY ANNOUNCEMENT OBTAINING EU MDR CERTIFICATION AND PRODUCT REGISTRATION APPROVALS IN MULTIPLE OVERSEAS MARKETS",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000079.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 93,
-        "newest_source_at": "2026-09-10T00:01:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T01:49:10Z",
-        "updated_at": "2026-09-10T01:49:10Z",
-        "decay_at": "2026-09-11T12:01:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T00:46:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-82574f745b43",
-        "idea_version": "IDEAV-da688e88210c9601",
-        "idea_version_started_at": "2026-09-10T03:35:41Z",
-        "ticker": "LDR",
-        "company": "Lindian Resources",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company reported a high-grade tin and copper discovery at its Montezuma project, which significantly increases the potential resource value and asset base.",
-        "why_now": "The discovery was announced via an official exchange filing on 2026-09-10.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-267fb6bbba34"
-        ],
-        "primary_source_event_id": "EVT-267fb6bbba34",
-        "source_headlines": [
-          "LDR: High Grade Tin & Copper Discovery at Montezuma [price-sensitive]"
-        ],
-        "source_headline": "LDR: High Grade Tin & Copper Discovery at Montezuma [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LDR?key=2924-03134033-2A1696472",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 90,
-        "newest_source_at": "2026-09-10T00:00:53Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T03:35:41Z",
-        "updated_at": "2026-09-10T03:35:41Z",
-        "decay_at": "2026-09-11T12:00:53Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T00:46:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-b34fe82f77a4",
-        "idea_version": "IDEAV-71be0192807ccf28",
-        "idea_version_started_at": "2026-09-10T01:49:10Z",
-        "ticker": "2588.HK",
-        "company": "BOC Aviation",
-        "exchange": "Hong Kong",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The purchase and long-term lease of twelve Airbus A320neo aircraft secures long-term revenue streams and expands the company's asset base.",
-        "why_now": "The transaction was disclosed in an official filing on September 10, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5734a64b48f0"
-        ],
-        "primary_source_event_id": "EVT-5734a64b48f0",
-        "source_headlines": [
-          "BOC AVIATION (02588): DISCLOSEABLE TRANSACTION IN RELATION TO THE PURCHASE AND LONG TERM LEASE OF TWELVE AIRBUS A320NEO AIRCRAFT"
-        ],
-        "source_headline": "BOC AVIATION (02588): DISCLOSEABLE TRANSACTION IN RELATION TO THE PURCHASE AND LONG TERM LEASE OF TWELVE AIRBUS A320NEO AIRCRAFT",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0910/2026091000077.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 96,
-        "newest_source_at": "2026-09-10T00:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T01:49:10Z",
-        "updated_at": "2026-09-10T01:49:10Z",
-        "decay_at": "2026-09-11T12:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T00:46:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-4ece4730a2ad",
-        "idea_version": "IDEAV-17ed68561aa96839",
-        "idea_version_started_at": "2026-09-10T01:49:10Z",
-        "ticker": "LH",
-        "company": "Labcorp",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of MLM Medical Labs increases Labcorp's laboratory footprint and strengthens its position in the clinical trial support market.",
-        "why_now": "The acquisition was reported on September 9, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 55,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a304b7307532"
-        ],
-        "primary_source_event_id": "EVT-a304b7307532",
-        "source_headlines": [
-          "Labcorp snaps up MLM Medical Labs to boost laboratory footprint"
-        ],
-        "source_headline": "Labcorp snaps up MLM Medical Labs to boost laboratory footprint",
-        "source_url": "https://www.fiercebiotech.com/medtech/labcorp-snaps-mlm-medical-labs-boost-laboratory-footprint",
-        "source_name": "FierceBiotech",
-        "materiality_max": 91,
-        "newest_source_at": "2026-09-09T23:56:07Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T01:49:10Z",
-        "updated_at": "2026-09-10T01:49:10Z",
-        "decay_at": "2026-09-11T11:56:07Z",
         "status": "expired",
         "promoted_signal_id": null,
         "feedback": null,
@@ -187988,86 +188067,12 @@
         "archived_at": "2026-09-05T13:02:16Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3123eadb829a",
-        "idea_version": "IDEAV-5a30aa59d9e9b620",
-        "idea_version_started_at": "2026-09-02T22:52:14Z",
-        "ticker": "DPSCLTD",
-        "company": "DPSC Limited",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "DPSC Limited has entered a Corporate Insolvency Resolution Process, which typically leads to significant equity value erosion or wipeout for existing shareholders.",
-        "why_now": "CIRP commencement announced 2026-09-01; resolution process and potential liquidation risk are now active.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ed1bd353f181"
-        ],
-        "primary_source_event_id": "EVT-ed1bd353f181",
-        "source_headlines": [
-          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-        ],
-        "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_01092026202313_IntimationofOutcomeoftheVotingResultsunderReg30ofLODR01092026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-01T14:54:08Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-02T22:52:14Z",
-        "updated_at": "2026-09-02T22:52:14Z",
-        "decay_at": "2026-09-03T02:54:08Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-04T15:47:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1119,
-    "live_count": 64,
+    "live_count": 54,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -188086,9 +188091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 879857,
-    "news_picked_today": 1023,
-    "news_dropped_today": 12386
+    "news_seen_today": 1158900,
+    "news_picked_today": 1033,
+    "news_dropped_today": 12400
   },
   "book_momentum": {
     "live_count": 8,
