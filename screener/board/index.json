@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T04:17:28Z",
+  "generated_at": "2026-09-28T04:27:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-138",
@@ -199,6 +199,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-196",
+      "headline": "Godrej Properties, MICL partner for ₹6,000 crore Marine Lines project in south Mumbai",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/real-estate/godrej-properties-micl-marine-lines-luxury-project-mumbai-11790560841762.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T04:17:49Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Godrej Properties announced a major ₹6,000 crore infrastructure/real estate project in Mumbai.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Godrej Properties announced a major ₹6,000 crore infrastructure/real estate project in Mumbai.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Godrej Properties",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -732,55 +781,6 @@
       "companies": [
         {
           "name": "Coal India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-126",
-      "headline": "Godrej Properties to add luxury project in South Mumbai's Marine Lines worth ₹6,000 crore GDV",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/godrej-properties-share-price-land-parcel-south-mumbai-marine-lines-6000-crore-gdv-pre-sales-fy27-guidance-19999584.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T02:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Godrej Properties announced a new luxury project with a gross development value of ₹6,000 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Godrej Properties announced a new luxury project with a gross development value of ₹6,000 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Godrej Properties",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -187767,9 +187767,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1495,
-    "news_picked_today": 298,
-    "news_dropped_today": 1197
+    "news_seen_today": 1562,
+    "news_picked_today": 313,
+    "news_dropped_today": 1249
   },
   "book_momentum": {
     "live_count": 8,
