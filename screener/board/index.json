@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-28T09:54:25Z",
+  "generated_at": "2026-09-28T09:58:53Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260928-358",
+      "headline": "Zicom Electronic Security Systems Limited: Zicom Electronic Security Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ZICOM_28092026151419_Intimation_01.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T09:45:02Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "The company has entered a Corporate Insolvency Resolution Process, indicating a formal bankruptcy or insolvency filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has entered a Corporate Insolvency Resolution Process, indicating a formal bankruptcy or insolvency filing.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zicom Electronic Security Systems Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260928-349",
       "headline": "BJ ENERGY INTL (00686): VERY SUBSTANTIAL DISPOSAL - DISPOSAL OF THE UNDERLYING ASSETS FOR THE ABCP ISSUANCE",
@@ -1910,60 +1959,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Geely is acquiring a 30% stake in Nio's battery swapping unit, indicating a strategic partnership in EV infrastructure.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Geely",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "Nio",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-101",
-      "headline": "Geely to acquire 30% of Nio’s power unit as part of battery swapping, charging business deals",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/geely-acquire-30-nios-power-unit-part-battery-swapping-charging-business-deals",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T01:55:47Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Geely is acquiring a 30% stake in Nio's power unit to expand battery swapping and charging business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Geely is acquiring a 30% stake in Nio's power unit to expand battery swapping and charging business.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -188209,9 +188204,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 77104,
-    "news_picked_today": 716,
-    "news_dropped_today": 10461
+    "news_seen_today": 82712,
+    "news_picked_today": 720,
+    "news_dropped_today": 10481
   },
   "book_momentum": {
     "live_count": 8,
