@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-28T13:25:09Z",
+  "generated_at": "2026-09-28T13:35:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260928-392",
+      "headline": "PW MEDTECH (01358): INSIDE INFORMATION - THE BANKRUPTCY LIQUIDATION PROCEEDINGS AND ASSET REALISATION PLAN OF A SUBSIDIARY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801757.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T12:18:00Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "PW Medtech subsidiary has entered bankruptcy liquidation proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PW Medtech subsidiary has entered bankruptcy liquidation proceedings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PW Medtech",
+          "ticker": "01358",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260928-380",
       "headline": "InterestMe Financial Planning Limited (IMFP) and the appointed representative InterestMe Advisers Limited (IMA) enter administration",
@@ -691,6 +740,114 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-424",
+      "headline": "Slate Grocery REIT To Be Acquired By Brixmor, Everview Partners For $2.3 Bln In Cash",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/slate-grocery-reit-be-acquired-brixmor-everview-partners-23-bln-cash",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T12:35:03Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Slate Grocery REIT is being acquired for $2.3 billion in cash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Slate Grocery REIT is being acquired for $2.3 billion in cash.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Slate Grocery REIT",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Brixmor",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-394",
+      "headline": "Valley National Bancorp To Acquire Bluevine For Total Consideration Of Approx. $340 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/valley-national-bancorp-acquire-bluevine-total-consideration-approx-340-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T11:47:13Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Valley National Bancorp to acquire Bluevine for approximately $340 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Valley National Bancorp to acquire Bluevine for approximately $340 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Valley National Bancorp",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Bluevine",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1846,153 +2003,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-183",
-      "headline": "Vietnam jewellery giant PNJ forecasts loss after diamond scandal",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/asean/vietnam-jewellery-giant-pnj-forecasts-loss-after-diamond-scandal",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T04:13:48Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "PNJ forecasts a loss following a diamond scandal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PNJ forecasts a loss following a diamond scandal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PNJ",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-182",
-      "headline": "Northern Star: Goldproduzent weist milliardenschweres Übernahmeangebot zurück",
-      "headline_en": "Northern Star: Gold producer rejects multi-billion takeover offer",
-      "url": "https://www.handelsblatt.com/finanzen/maerkte/devisen-rohstoffe/northern-star-goldproduzent-weist-milliardenschweres-uebernahmeangebot-zurueck/100257818.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T04:04:53Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Northern Star rejected a multi-billion dollar takeover offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Northern Star rejected a multi-billion dollar takeover offer.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Northern Star",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-222",
-      "headline": "Godrej Properties Signs Agreement To Develop Land Parcel In Marine Lines With Rs 6,000 Crore Revenue Potential",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/godrej-properties-signs-agreement-to-develop-land-parcel-in-marine-lines-with-rs-6-000-crore-revenue-potential-12107164#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T03:56:44Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Company announced a project with a significant revenue potential of Rs 6,000 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company announced a project with a significant revenue potential of Rs 6,000 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Godrej Properties",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -149168,78 +149178,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0c529d942ea8",
-      "idea_version": "IDEAV-127ebbb4b1924ada",
-      "idea_version_started_at": "2026-09-27T02:19:51Z",
-      "ticker": "GOOGL",
-      "company": "Google",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Google is testing integration with Walmart-owned Flipkart for e-commerce in India, which could expand Google's reach and revenue streams in a key market.",
-      "why_now": "The testing of this integration is happening now, as reported on September 27, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 42,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 11,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f69dc8e1ee6c"
-      ],
-      "primary_source_event_id": "EVT-f69dc8e1ee6c",
-      "source_headlines": [
-        "Google tests buying from Walmart-owned Flipkart through Gemini and AI Mode in India"
-      ],
-      "source_headline": "Google tests buying from Walmart-owned Flipkart through Gemini and AI Mode in India",
-      "source_url": "https://techcrunch.com/2026/09/26/google-tests-buying-from-walmart-owned-flipkart-through-gemini-and-ai-mode-in-india/",
-      "source_name": "TechCrunch",
-      "materiality_max": 57,
-      "newest_source_at": "2026-09-27T01:30:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T02:19:51Z",
-      "updated_at": "2026-09-27T02:19:51Z",
-      "decay_at": "2026-09-28T13:30:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8de17383cf37",
       "idea_version": "IDEAV-74a12c000379f819",
       "idea_version_started_at": "2026-09-26T23:48:13Z",
@@ -150866,6 +150804,78 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-0c529d942ea8",
+      "idea_version": "IDEAV-127ebbb4b1924ada",
+      "idea_version_started_at": "2026-09-27T02:19:51Z",
+      "ticker": "GOOGL",
+      "company": "Google",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Google is testing integration with Walmart-owned Flipkart for e-commerce in India, which could expand Google's reach and revenue streams in a key market.",
+      "why_now": "The testing of this integration is happening now, as reported on September 27, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 42,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 11,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f69dc8e1ee6c"
+      ],
+      "primary_source_event_id": "EVT-f69dc8e1ee6c",
+      "source_headlines": [
+        "Google tests buying from Walmart-owned Flipkart through Gemini and AI Mode in India"
+      ],
+      "source_headline": "Google tests buying from Walmart-owned Flipkart through Gemini and AI Mode in India",
+      "source_url": "https://techcrunch.com/2026/09/26/google-tests-buying-from-walmart-owned-flipkart-through-gemini-and-ai-mode-in-india/",
+      "source_name": "TechCrunch",
+      "materiality_max": 57,
+      "newest_source_at": "2026-09-27T01:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T02:19:51Z",
+      "updated_at": "2026-09-27T02:19:51Z",
+      "decay_at": "2026-09-28T13:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -150878,14 +150888,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 523,
+    "total_count": 524,
     "shown_count": 500,
-    "hidden_count": 23,
+    "hidden_count": 24,
     "side_counts": {
       "long": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       },
       "short": {
         "total_count": 257,
@@ -150909,6 +150919,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0c529d942ea8",
+        "idea_version": "IDEAV-127ebbb4b1924ada",
+        "idea_version_started_at": "2026-09-27T02:19:51Z",
+        "ticker": "GOOGL",
+        "company": "Google",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Google is testing integration with Walmart-owned Flipkart for e-commerce in India, which could expand Google's reach and revenue streams in a key market.",
+        "why_now": "The testing of this integration is happening now, as reported on September 27, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 42,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 11,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f69dc8e1ee6c"
+        ],
+        "primary_source_event_id": "EVT-f69dc8e1ee6c",
+        "source_headlines": [
+          "Google tests buying from Walmart-owned Flipkart through Gemini and AI Mode in India"
+        ],
+        "source_headline": "Google tests buying from Walmart-owned Flipkart through Gemini and AI Mode in India",
+        "source_url": "https://techcrunch.com/2026/09/26/google-tests-buying-from-walmart-owned-flipkart-through-gemini-and-ai-mode-in-india/",
+        "source_name": "TechCrunch",
+        "materiality_max": 57,
+        "newest_source_at": "2026-09-27T01:30:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T02:19:51Z",
+        "updated_at": "2026-09-27T02:19:51Z",
+        "decay_at": "2026-09-28T13:30:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T13:30:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ba09629655b3",
         "idea_version": "IDEAV-02952a5f76c2d683",
@@ -181105,79 +181190,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ddc523ea3e44",
-        "idea_version": "IDEAV-e78a1a89cd8f5a8e",
-        "idea_version_started_at": "2026-09-09T17:32:12Z",
-        "ticker": "UNFI",
-        "company": "United Natural Foods",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Q4 earnings beat estimates driven by tangible margin gains and cost savings, suggesting the company's turnaround efforts are yielding results.",
-        "why_now": "The earnings report was released on 2026-09-09, confirming the effectiveness of recent operational changes.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-493281f98b9d"
-        ],
-        "primary_source_event_id": "EVT-493281f98b9d",
-        "source_headlines": [
-          "UNFI Q4 Earnings Beat Estimates on Margin Gains and Cost Savings"
-        ],
-        "source_headline": "UNFI Q4 Earnings Beat Estimates on Margin Gains and Cost Savings",
-        "source_url": "https://www.nasdaq.com/articles/unfi-q4-earnings-beat-estimates-margin-gains-and-cost-savings",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-09T15:17:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-09T17:32:12Z",
-        "updated_at": "2026-09-09T17:32:12Z",
-        "decay_at": "2026-09-11T03:17:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-12T15:36:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-8fa29d98e3b9",
         "idea_version": "IDEAV-70217eed3ad33c79",
         "idea_version_started_at": "2026-09-09T16:42:21Z",
@@ -188046,7 +188058,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1119,
-    "live_count": 69,
+    "live_count": 68,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -188065,9 +188077,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 497402,
-    "news_picked_today": 895,
-    "news_dropped_today": 12178
+    "news_seen_today": 528170,
+    "news_picked_today": 960,
+    "news_dropped_today": 12281
   },
   "book_momentum": {
     "live_count": 8,
