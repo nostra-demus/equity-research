@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-28T22:55:55Z",
+  "generated_at": "2026-09-28T23:16:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260928-621",
+      "headline": "REA: REA to acquire 35% interest in Distilled, owner of Daft.ie",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.REA?key=2924-03141044-3A702732",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T22:45:24Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "REA Group is acquiring a 35% interest in Distilled, a significant strategic investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "REA Group is acquiring a 35% interest in Distilled, a significant strategic investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "REA Group",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260928-602",
       "headline": "DRR: Acquisition of Santa Cruz Copper Royalty - Presentation",
@@ -1945,60 +1994,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-529",
-      "headline": "Valley National Bank to acquire fintech Bluevine for $340M",
-      "headline_en": null,
-      "url": "https://www.bankingdive.com/news/valley-national-bank-acquire-fintech-bluevine-340m-small-business-banking/831503/",
-      "source_name": "Banking Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T15:22:27Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Valley National Bank is acquiring Bluevine for $340 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Valley National Bank is acquiring Bluevine for $340 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Valley National Bank",
-          "ticker": "VLY",
-          "listing_country": "US"
-        },
-        {
-          "name": "Bluevine",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -187313,9 +187308,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2889271,
-    "news_picked_today": 1404,
-    "news_dropped_today": 15053
+    "news_seen_today": 2980123,
+    "news_picked_today": 1441,
+    "news_dropped_today": 15112
   },
   "book_momentum": {
     "live_count": 8,
