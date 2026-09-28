@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-09-28T14:15:14Z",
+  "generated_at": "2026-09-28T14:38:10Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260928-436",
+      "headline": "Anupam Rasayan India Limited: Anupam Rasayan India Limited has informed the Exchange regarding a press release titled \"Anupam Rasayan Concludes Acquisition of Bliss GVS Pharma, Marks Third Strategic Step Towards Building an Integrated Global Pharma Platform\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ANURAS_28092026195741_ARILSLDSTX20260928064PressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T14:28:18Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Anupam Rasayan has concluded the acquisition of Bliss GVS Pharma to expand its pharmaceutical platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anupam Rasayan has concluded the acquisition of Bliss GVS Pharma to expand its pharmaceutical platform.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anupam Rasayan India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Bliss GVS Pharma",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260928-429",
       "headline": "KWG GROUP KWG GROUP N2701 (01813 40117): UPDATES ON THE OFFSHORE DEBT RESTRUCTURING",
@@ -1914,60 +1968,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Godrej Properties acquired development rights in a deal valued at 6,000 crore INR in revenue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Godrej Properties",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Man Infraconstruction",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-218",
-      "headline": "MICL transfers Marine Lines development rights to Godrej Properties in ₹6,000-crore revenue deal",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/micl-transfers-marine-lines-development-rights-to-godrej-properties-in-6000-crore-revenue-deal/article71518363.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T04:47:47Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Godrej Properties acquired development rights in a deal valued at ₹6,000 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Godrej Properties acquired development rights in a deal valued at ₹6,000 crore.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -188079,9 +188079,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 626269,
-    "news_picked_today": 993,
-    "news_dropped_today": 12344
+    "news_seen_today": 698392,
+    "news_picked_today": 1003,
+    "news_dropped_today": 12358
   },
   "book_momentum": {
     "live_count": 8,
