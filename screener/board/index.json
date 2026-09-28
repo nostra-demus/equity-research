@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T20:36:49Z",
+  "generated_at": "2026-09-28T20:57:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-453",
@@ -995,13 +995,13 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260928-495",
-      "headline": "AMD to Buy Fei-Fei Li’s World Labs AI Startup for $8.2 Billion",
+      "inbox_id": "INB-20260928-575",
+      "headline": "AMD acquiring Fei-Fei Li's World Labs AI firm in deal worth $8.2 billion",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-28/amd-to-buy-fei-fei-li-s-world-labs-ai-startup-for-8-2-billion",
-      "source_name": "Bloomberg",
+      "url": "https://www.cnbc.com/2026/09/28/amd-fei-fei-li-world-labs.html",
+      "source_name": "CNBC",
       "input_nature": "news_headline",
-      "found_at": "2026-09-28T20:05:00Z",
+      "found_at": "2026-09-28T20:45:24Z",
       "sweep_file": "screener/inbox/2026-09-28_sweep.json",
       "prelim_note": "AMD is acquiring World Labs for $8.2 billion.",
       "dedup_status": "new",
@@ -1011,21 +1011,70 @@
       "triage_reason": "AMD is acquiring World Labs for $8.2 billion.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 80,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Advanced Micro Devices",
+          "ticker": "AMD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-578",
+      "headline": "AMD will acquire Fei-Fei Li’s World Labs for $8.2 billion",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/09/28/amd-will-acquire-fei-fei-lis-world-labs-for-8-2-billion/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T20:39:33Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "AMD is acquiring World Labs for $8.2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMD is acquiring World Labs for $8.2 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "large"
+        "size_bucket": "mega"
       },
       "event_types": [
         "mna"
@@ -1043,7 +1092,7 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1967,55 +2016,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-341",
-      "headline": "Supermarket giant to open 40 new stores in £900 million investment despite earnings dip",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/aldi-new-stores-uk-investment-earnings-b3057434.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T08:43:26Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "A major retailer is committing to a 900 million GBP investment for 40 new stores.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A major retailer is committing to a 900 million GBP investment for 40 new stores.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Supermarket giant",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -187325,9 +187325,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2277231,
-    "news_picked_today": 1201,
-    "news_dropped_today": 12760
+    "news_seen_today": 2351651,
+    "news_picked_today": 1241,
+    "news_dropped_today": 13032
   },
   "book_momentum": {
     "live_count": 8,
