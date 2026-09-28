@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T03:36:48Z",
+  "generated_at": "2026-09-28T03:47:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-138",
@@ -1762,6 +1762,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-168",
+      "headline": "Nikkei, Yen, Hang Seng: Asienbörsen uneinheitlich – Zinsängste und Iran-Krieg bremsen Anleger",
+      "headline_en": "Nikkei, Yen, Hang Seng: Asian stock markets mixed – interest rate fears and Iran war slow down investors",
+      "url": "https://www.handelsblatt.com/finanzen/maerkte/marktberichte/nikkei-yen-hang-seng-asienboersen-uneinheitlich-zinsaengste-und-iran-krieg-bremsen-anleger/100257807.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T03:30:04Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Market sentiment is being weighed down by interest rate concerns and geopolitical escalation in the Iran conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Market sentiment is being weighed down by interest rate concerns and geopolitical escalation in the Iran conflict.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-163",
+      "headline": "Lupin Limited: Lupin Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"Lupin Receives Tentative Approval from U.S. FDA for Novel Apixaban Oral Suspension\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Lupin2_28092026091311_SELetterPressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T03:43:36Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Lupin received tentative US FDA approval for a generic drug, which is a positive regulatory milestone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Lupin received tentative US FDA approval for a generic drug, which is a positive regulatory milestone.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lupin Limited",
+          "ticker": "500257",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-005",
       "headline": "HUTCHMED (00013): VOLUNTARY ANNOUNCEMENT - HUTCHMED Initiates Global Trial of KRAS-EGFR-Antibody Conjugate Therapy HMPL-A830 in Patients with Solid Tumors",
       "headline_en": null,
@@ -1909,104 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-003",
-      "headline": "Foreign banks have expressed UBS merger interest, Swiss newspaper reports",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/foreign-banks-have-expressed-ubs-merger-interest-swiss-newspaper-reports",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T00:07:00Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Reports of interest in a merger involving a major global bank are significant for market sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Reports of interest in a merger involving a major global bank are significant for market sentiment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "UBS",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-024",
-      "headline": "ASX to open steady; oil rises; Metrics funds placed in trading halt",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-steady-start-oil-prices-fall-to-us104-20260928-p610tf?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T23:56:23Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Metrics funds have been placed in a trading halt, indicating potential liquidity or valuation issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Metrics funds have been placed in a trading halt, indicating potential liquidity or valuation issues.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Metrics",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -187570,9 +187564,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 985,
-    "news_picked_today": 236,
-    "news_dropped_today": 749
+    "news_seen_today": 1020,
+    "news_picked_today": 244,
+    "news_dropped_today": 776
   },
   "book_momentum": {
     "live_count": 8,
