@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-28T09:05:56Z",
+  "generated_at": "2026-09-28T09:13:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260928-349",
+      "headline": "BJ ENERGY INTL (00686): VERY SUBSTANTIAL DISPOSAL - DISPOSAL OF THE UNDERLYING ASSETS FOR THE ABCP ISSUANCE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092800734.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T08:47:00Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "The company is executing a very substantial disposal of assets, which is a major corporate restructuring event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is executing a very substantial disposal of assets, which is a major corporate restructuring event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Beijing Energy International Holding Co., Ltd.",
+          "ticker": "00686",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260928-340",
       "headline": "[TSE]Results of Examination of Substantial Survival (Ceasing to Be a Substantial Surviving Company) and Entry Into Grace Period: Wel-Dish.Incorporated",
@@ -1947,55 +1996,6 @@
           "name": "Phu Nhuan Jewelry",
           "ticker": null,
           "listing_country": "VN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-083",
-      "headline": "Australia's Ingenia Communities mulls Warburg Pincus' improved buyout offer",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/australias-ingenia-communities-mulls-warburg-pincus-improved-buyout-offer-2026-09-28/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T01:17:27Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Ingenia Communities is considering an improved buyout offer from Warburg Pincus.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Ingenia Communities is considering an improved buyout offer from Warburg Pincus.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia Communities",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "mid",
@@ -188209,9 +188209,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 46426,
-    "news_picked_today": 667,
-    "news_dropped_today": 9838
+    "news_seen_today": 51577,
+    "news_picked_today": 670,
+    "news_dropped_today": 9907
   },
   "book_momentum": {
     "live_count": 8,
