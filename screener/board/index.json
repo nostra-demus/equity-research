@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T02:40:37Z",
+  "generated_at": "2026-09-28T02:45:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-058",
@@ -394,6 +394,55 @@
       "companies": [
         {
           "name": "PNJ",
+          "ticker": null,
+          "listing_country": "VN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-137",
+      "headline": "Vietnam Jeweler PNJ Forecasts Loss After Diamond Scandal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-28/vietnam-jewelry-giant-pnj-forecasts-loss-after-diamond-scandal",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T01:47:23Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "PNJ has issued a profit warning forecasting a loss due to a diamond scandal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PNJ has issued a profit warning forecasting a loss due to a diamond scandal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Phu Nhuan Jewelry",
           "ticker": null,
           "listing_country": "VN"
         }
@@ -1942,55 +1991,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-135",
-      "headline": "Hafary’s founding family offers 64 cents a share to take company private",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/hafarys-founding-family-offers-64-cents-a-share-to-take-company-private",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T02:25:00Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Founding family offers to take company private at a specific price of 64 cents.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Founding family offers to take company private at a specific price of 64 cents.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hafary",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -187342,9 +187342,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 734,
-    "news_picked_today": 179,
-    "news_dropped_today": 555
+    "news_seen_today": 744,
+    "news_picked_today": 180,
+    "news_dropped_today": 564
   },
   "book_momentum": {
     "live_count": 8,
