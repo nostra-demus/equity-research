@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-28T22:13:12Z",
+  "generated_at": "2026-09-28T22:38:18Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260928-602",
+      "headline": "DRR: Acquisition of Santa Cruz Copper Royalty - Presentation",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DRR?key=2924-03140938-6A1346119",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T22:06:14Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "DRR announced the acquisition of Santa Cruz Copper Royalty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DRR announced the acquisition of Santa Cruz Copper Royalty.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DRR",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260928-453",
       "headline": "ECA2026-691 - Information Regarding the Merger of First Seacoast Bancorp, Inc. (FSEA)",
@@ -1094,6 +1143,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-614",
+      "headline": "AMD makes a big bet on the next era of AI with World Labs acquisition",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=93ecda1c-d415-41cc-be2e-e0d91984ba2b&mod=mw_rss_bulletins",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T22:01:15Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "AMD made a big bet on the next era of AI with the World Labs acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMD made a big bet on the next era of AI with the World Labs acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "World Labs",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-597",
       "headline": "AAR to buy majority stake in aircraft maintenance firm MRO Holdings for $1.8 billion",
       "headline_en": null,
@@ -1138,55 +1241,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-592",
-      "headline": "AMD makes a big bet on the next era of AI with World Labs acquisition",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/story/amd-makes-a-big-bet-on-the-next-era-of-ai-7f8a3b3c?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T21:37:00Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "AMD is acquiring World Labs to expand its AI capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AMD is acquiring World Labs to expand its AI capabilities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMD",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1944,55 +1998,6 @@
           "name": "FAW Toyota",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-544",
-      "headline": "AI Agent Startup Instinct Raises $1 Billion at $10 Billion Value",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-28/ai-agent-startup-instinct-raises-1-billion-at-10-billion-value",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T14:28:38Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Instinct raised $1 billion in funding at a $10 billion valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Instinct raised $1 billion in funding at a $10 billion valuation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Instinct",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -146663,77 +146668,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e35bdb67e4c2",
-      "idea_version": "IDEAV-347548d47156279c",
-      "idea_version_started_at": "2026-09-27T10:29:42Z",
-      "ticker": "01086",
-      "company": "Goodbaby International",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has announced a formal privatization proposal via a scheme of arrangement, which typically results in the stock price converging toward the offer price.",
-      "why_now": "The announcement was filed on 2026-09-27, initiating the privatization process.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-839a5c7d22a2"
-      ],
-      "primary_source_event_id": "EVT-839a5c7d22a2",
-      "source_headlines": [
-        "GOODBABY INTL (01086): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF GOODBABY INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL IN RELATION TO THE ROLLOVER ARRANGEMENT AND (4) ESTABLISHMENT OF INDEPENDENT BOARD COMMITTEE AND APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER"
-      ],
-      "source_headline": "GOODBABY INTL (01086): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF GOODBABY INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL IN RELATION TO THE ROLLOVER ARRANGEMENT AND (4) ESTABLISHMENT OF INDEPENDENT BOARD COMMITTEE AND APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700021.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T10:25:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T10:29:42Z",
-      "updated_at": "2026-09-27T10:29:42Z",
-      "decay_at": "2026-09-28T22:25:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-188d857a638c",
       "idea_version": "IDEAV-e2455486310490b1",
       "idea_version_started_at": "2026-09-28T00:37:06Z",
@@ -148935,6 +148869,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-e35bdb67e4c2",
+      "idea_version": "IDEAV-347548d47156279c",
+      "idea_version_started_at": "2026-09-27T10:29:42Z",
+      "ticker": "01086",
+      "company": "Goodbaby International",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has announced a formal privatization proposal via a scheme of arrangement, which typically results in the stock price converging toward the offer price.",
+      "why_now": "The announcement was filed on 2026-09-27, initiating the privatization process.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 23,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-839a5c7d22a2"
+      ],
+      "primary_source_event_id": "EVT-839a5c7d22a2",
+      "source_headlines": [
+        "GOODBABY INTL (01086): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF GOODBABY INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL IN RELATION TO THE ROLLOVER ARRANGEMENT AND (4) ESTABLISHMENT OF INDEPENDENT BOARD COMMITTEE AND APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER"
+      ],
+      "source_headline": "GOODBABY INTL (01086): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF GOODBABY INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL IN RELATION TO THE ROLLOVER ARRANGEMENT AND (4) ESTABLISHMENT OF INDEPENDENT BOARD COMMITTEE AND APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700021.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T10:25:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T10:29:42Z",
+      "updated_at": "2026-09-27T10:29:42Z",
+      "decay_at": "2026-09-28T22:25:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-34170708f0d3",
       "idea_version": "IDEAV-1fe75c6467913028",
       "idea_version_started_at": "2026-09-27T20:17:32Z",
@@ -150102,14 +150107,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 533,
     "shown_count": 500,
-    "hidden_count": 32,
+    "hidden_count": 33,
     "side_counts": {
       "long": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       },
       "short": {
         "total_count": 264,
@@ -150133,6 +150138,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e35bdb67e4c2",
+        "idea_version": "IDEAV-347548d47156279c",
+        "idea_version_started_at": "2026-09-27T10:29:42Z",
+        "ticker": "01086",
+        "company": "Goodbaby International",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has announced a formal privatization proposal via a scheme of arrangement, which typically results in the stock price converging toward the offer price.",
+        "why_now": "The announcement was filed on 2026-09-27, initiating the privatization process.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 23,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-839a5c7d22a2"
+        ],
+        "primary_source_event_id": "EVT-839a5c7d22a2",
+        "source_headlines": [
+          "GOODBABY INTL (01086): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF GOODBABY INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL IN RELATION TO THE ROLLOVER ARRANGEMENT AND (4) ESTABLISHMENT OF INDEPENDENT BOARD COMMITTEE AND APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER"
+        ],
+        "source_headline": "GOODBABY INTL (01086): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF GOODBABY INTERNATIONAL HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL IN RELATION TO THE ROLLOVER ARRANGEMENT AND (4) ESTABLISHMENT OF INDEPENDENT BOARD COMMITTEE AND APPOINTMENT OF INDEPENDENT FINANCIAL ADVISER",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700021.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-27T10:25:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T10:29:42Z",
+        "updated_at": "2026-09-27T10:29:42Z",
+        "decay_at": "2026-09-28T22:25:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T22:25:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-481a4b3ef631",
         "idea_version": "IDEAV-6cfbf2b9657e3199",
@@ -180422,80 +180501,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3010c71d12cb",
-        "idea_version": "IDEAV-54a3bf6b4847c273",
-        "idea_version_started_at": "2026-09-11T23:19:39Z",
-        "ticker": "JSWINFRA",
-        "company": "JSW Infrastructure Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of NCR Rail Infrastructure Limited via the insolvency resolution process allows the company to vertically integrate its logistics capabilities and improve operational efficiency in its rail-linked port operations.",
-        "why_now": "The acquisition was confirmed via exchange filing on September 10, 2026, marking the formal implementation of the resolution plan.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b4e50fe09fd1"
-        ],
-        "primary_source_event_id": "EVT-b4e50fe09fd1",
-        "source_headlines": [
-          "JSW Infrastructure Limited: JSWINFRA: JSW Infrastructure Limited has informed the Exchange about Acquisition of NCR Rail Infrastructure Limited on implementation of the Resolution Plan under the Insolvency and Bankruptcy Code, 2016."
-        ],
-        "source_headline": "JSW Infrastructure Limited: JSWINFRA: JSW Infrastructure Limited has informed the Exchange about Acquisition of NCR Rail Infrastructure Limited on implementation of the Resolution Plan under the Insolvency and Bankruptcy Code, 2016.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/JSWINFRA_10092026190128_Covering_Letter.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-10T13:33:38Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T15:48:12Z",
-        "updated_at": "2026-09-11T23:19:39Z",
-        "decay_at": "2026-09-12T01:33:38Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T14:06:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-dba8408df9af",
         "idea_version": "IDEAV-3e9d19ce199fc9f2",
         "idea_version_started_at": "2026-09-10T14:12:20Z",
@@ -187289,7 +187294,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1121,
-    "live_count": 49,
+    "live_count": 48,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -187308,9 +187313,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2715655,
-    "news_picked_today": 1316,
-    "news_dropped_today": 14613
+    "news_seen_today": 2843483,
+    "news_picked_today": 1358,
+    "news_dropped_today": 14811
   },
   "book_momentum": {
     "live_count": 8,
