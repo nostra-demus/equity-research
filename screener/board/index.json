@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T05:56:35Z",
+  "generated_at": "2026-09-28T05:58:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-138",
@@ -248,6 +248,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-256",
+      "headline": "삼성·SK하이닉스 3분기 합산 영업익 190조원…“사상 최대 실적 전망”",
+      "headline_en": "Samsung and SK Hynix Q3 combined operating profit 190 trillion won... \"Record performance expected\"",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277740",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T05:18:30Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Samsung and SK Hynix are projected to reach a record combined operating profit of 190 trillion won in Q3.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung and SK Hynix are projected to reach a record combined operating profit of 190 trillion won in Q3.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electronics",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,61 +1994,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-099",
-      "headline": "NIO, Geely Deepen EV Infrastructure Ties Through RMB16 Billion Battery Services Deal",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nio-geely-deepen-ev-infrastructure-ties-through-rmb16-billion-battery-services-deal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T01:14:20Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "NIO and Geely announced a RMB 16 billion deal to expand EV battery infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "NIO and Geely announced a RMB 16 billion deal to expand EV battery infrastructure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NIO",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "Geely",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188060,9 +188059,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5915,
-    "news_picked_today": 429,
-    "news_dropped_today": 5368
+    "news_seen_today": 6043,
+    "news_picked_today": 443,
+    "news_dropped_today": 5458
   },
   "book_momentum": {
     "live_count": 8,
