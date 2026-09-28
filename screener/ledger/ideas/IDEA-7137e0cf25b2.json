@@ -1,0 +1,76 @@
+{
+  "idea_id": "IDEA-7137e0cf25b2",
+  "idea_version": "IDEAV-954a35c15d23cb4e",
+  "idea_version_started_at": "2026-09-28T01:41:01Z",
+  "ticker": "NST",
+  "company": "Northern Star Resources",
+  "exchange": "ASX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "long",
+  "pair_with": null,
+  "reason": "The company rejected a $27-billion takeover bid, signaling management's confidence in higher intrinsic value and potentially inviting a higher counter-bid.",
+  "why_now": "The rejection was reported on September 28, 2026, causing an immediate share price jump.",
+  "conviction": 70,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 7,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-673bf7165333",
+    "EVT-f0c57bd9c1bd"
+  ],
+  "primary_source_event_id": "EVT-673bf7165333",
+  "source_headlines": [
+    "Northern Star shares pop as Australian gold miner rejects $27-billion takeover proposal",
+    "ASX rises; Karoon plunges 12pc; Northern Star jumps on bid rejection"
+  ],
+  "source_headline": "Northern Star shares pop as Australian gold miner rejects $27-billion takeover proposal",
+  "source_url": "https://www.cnbc.com/2026/09/28/northern-star-shares-gold-fields-takeover-bid.html",
+  "source_name": "CNBC",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-28T01:19:23Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-28T01:41:01Z",
+  "updated_at": "2026-09-28T01:41:01Z",
+  "decay_at": "2026-09-29T13:19:23Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
