@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T19:06:46Z",
+  "generated_at": "2026-09-28T20:16:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-453",
@@ -995,6 +995,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-476",
+      "headline": "UnitedHealthcare, Team Health settle $100M fraud suit in Tennessee",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/payers/unitedhealthcare-team-health-settle-100m-fraud-suit-tennessee",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T19:39:52Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "UnitedHealthcare and Team Health settled a $100 million fraud suit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UnitedHealthcare and Team Health settled a $100 million fraud suit.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UnitedHealthcare",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Team Health",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-461",
       "headline": "Paramount rolls out $44 billion bond sale to fund Warner Bros. takeover",
       "headline_en": null,
@@ -1955,55 +2009,6 @@
       "companies": [
         {
           "name": "Gold Fields",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-318",
-      "headline": "Aldi to invest £900m in new stores after record turnover",
-      "headline_en": null,
-      "url": "https://www.cityam.com/aldi-to-invest-900m-in-new-stores-after-record-turnover/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T06:32:29Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Aldi announces a £900 million investment in new store expansion following record turnover.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aldi announces a £900 million investment in new store expansion following record turnover.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aldi",
           "ticker": null,
           "listing_country": null
         }
@@ -188097,7 +188102,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1787407,
+    "news_seen_today": 2162394,
     "news_picked_today": 1085,
     "news_dropped_today": 12468
   },
