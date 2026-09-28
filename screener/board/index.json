@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T00:13:27Z",
+  "generated_at": "2026-09-28T00:16:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-007",
@@ -264,6 +264,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-031",
+      "headline": "MRE: Suspension from Quotation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MRE?key=2924-03140577-2A1699741",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T00:09:39Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "MRE has been suspended from quotation, indicating a significant operational or financial issue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "MRE has been suspended from quotation, indicating a significant operational or financial issue.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MRE",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-004",
       "headline": "Ingenia Board to Review Higher Takeover Bid from Warburg Pincus",
       "headline_en": null,
@@ -510,6 +559,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-037",
+      "headline": "Metrics funds placed in trading halt; ASX rises; oil hits $US106",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-steady-start-oil-prices-fall-to-us104-20260928-p610tf?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T00:13:29Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Metrics funds are in a trading halt, and oil prices have reached $US106, signaling market volatility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Metrics funds are in a trading halt, and oil prices have reached $US106, signaling market volatility.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Metrics",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-009",
       "headline": "RWL: Major Tender Award in Morocco [price-sensitive]",
       "headline_en": null,
@@ -657,6 +755,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-034",
+      "headline": "Trump says US is ‘very seriously’ considering diesel export ban to tackle high prices",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/commodities/trump-says-us-is-very-seriously-considering-diesel-export-ban-to-tackle-high-prices/article71518133.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T00:10:56Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "A potential US diesel export ban would significantly disrupt global energy supply and pricing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "A potential US diesel export ban would significantly disrupt global energy supply and pricing.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-026",
       "headline": "Nebius Is Raising the Price of Its AI Compute on Oct. 1. Here's What That Says About the Shortage.",
       "headline_en": null,
@@ -788,6 +929,104 @@
       "companies": [
         {
           "name": "EXT",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-030",
+      "headline": "PNI: Metrics Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PNI?key=2924-03140578-2A1699739",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T00:09:59Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Metrics provides a business update, which is price-sensitive information for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "Metrics provides a business update, which is price-sensitive information for investors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Metrics",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-032",
+      "headline": "STN: Change in substantial holding from LSX",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.STN?key=2924-03140576-6A1346003",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T00:09:24Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "A change in substantial holding by LSX in STN indicates a shift in ownership structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "A change in substantial holding by LSX in STN indicates a shift in ownership structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "STN",
           "ticker": null,
           "listing_country": null
         }
@@ -1081,6 +1320,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-035",
+      "headline": "Tata companies face a tough call on Chandra vote at AGM",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/tata-companies-face-a-tough-call-on-chandra-vote-at-agm/articleshow/134524892.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Tata companies face a governance decision regarding a vote on leadership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Tata companies face a governance decision regarding a vote on leadership.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-014",
       "headline": "HSBC HOLDINGS (00005): Transaction in own shares",
       "headline_en": null,
@@ -1125,6 +1413,147 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-038",
+      "headline": "Trump confirms meeting with Anthropic’s Amodei, repeats dismissal of AI fears",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/trump-confirms-meeting-anthropics-amodei-repeats-dismissal-ai-fears",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T00:13:23Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Trump's meeting with Anthropic's CEO regarding AI policy is a significant regulatory signal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Trump's meeting with Anthropic's CEO regarding AI policy is a significant regulatory signal.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-029",
+      "headline": "Sanad’s Al Ain GTF centre will need 1,000-plus technicians, CFO says",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/aviation/sanads-al-ain-gtf-centre-will-need-1000-plus-technicians-cfo-says-1.500682482",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Sanad plans to hire 1,000-plus technicians for its Al Ain facility, indicating operational expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Sanad plans to hire 1,000-plus technicians for its Al Ain facility, indicating operational expansion.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sanad",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-033",
+      "headline": "Rupee's likely to slip despite RBI push for stability",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/forex/forex-news/rupees-likely-to-slip-despite-rbi-push-for-stability/articleshow/134528883.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T00:04:09Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "The Indian Rupee is expected to weaken, impacting import costs and inflation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "The Indian Rupee is expected to weaken, impacting import costs and inflation.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1272,6 +1701,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-036",
+      "headline": "Gold Declines as Hormuz Impasse Keeps Rate-Hike Bets Elevated",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-27/gold-declines-as-hormuz-impasse-keeps-rate-hike-bets-elevated",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-27T23:59:20Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Geopolitical tensions in the Strait of Hormuz are impacting gold prices and interest rate expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 43,
+      "triage_reason": "Geopolitical tensions in the Strait of Hormuz are impacting gold prices and interest rate expectations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -185970,7 +186442,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2953,
+    "inbox_unconsumed": 2963,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -185979,9 +186451,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 127,
-    "news_picked_today": 28,
-    "news_dropped_today": 99
+    "news_seen_today": 154,
+    "news_picked_today": 38,
+    "news_dropped_today": 116
   },
   "book_momentum": {
     "live_count": 8,
