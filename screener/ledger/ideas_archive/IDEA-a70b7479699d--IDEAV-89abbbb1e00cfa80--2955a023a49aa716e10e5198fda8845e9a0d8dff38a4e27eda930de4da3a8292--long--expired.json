@@ -1,31 +1,31 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-11T18:09:10Z",
+  "archived_at": "2026-09-28T11:25:12Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-7e55579cb4be",
-    "idea_version": "IDEAV-6527540977b72ae7",
-    "idea_version_started_at": "2026-09-08T21:12:44Z",
-    "ticker": "RUBF.PA",
-    "company": "Rubis",
-    "exchange": "Euronext Paris",
+    "idea_id": "IDEA-a70b7479699d",
+    "idea_version": "IDEAV-89abbbb1e00cfa80",
+    "idea_version_started_at": "2026-09-26T19:03:28Z",
+    "ticker": "9626",
+    "company": "Bilibili Inc.",
+    "exchange": "HKEX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "The company has successfully leveraged high oil prices to improve its margins, resulting in an upward revision to its financial guidance.",
-    "why_now": "The guidance upgrade was reported on 2026-09-08, reflecting improved operational performance in the current energy price environment.",
+    "reason": "Bilibili has proposed an off-market share buy-back alongside a notice of an Extraordinary General Meeting, which will reduce outstanding share count and support equity value.",
+    "why_now": "The announcement was filed on September 25, 2026, setting up an upcoming shareholder vote at the Extraordinary General Meeting.",
     "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
+      "evidence": 25,
       "impact": 19,
       "specificity": 7,
-      "timing": 10,
+      "timing": 6,
       "expression": 0,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-a9b4dba9b149"
+      "EVT-4169b2f0aa4b"
     ],
-    "primary_source_event_id": "EVT-a9b4dba9b149",
+    "primary_source_event_id": "EVT-4169b2f0aa4b",
     "source_headlines": [
-      "Rubis Turns Expensive Oil Into a Guidance Upgrade"
+      "BILIBILI-W (09626): (1) PROPOSED OFF-MARKET SHARE BUY-BACK; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING"
     ],
-    "source_headline": "Rubis Turns Expensive Oil Into a Guidance Upgrade",
-    "source_url": "https://finance.yahoo.com/energy/articles/rubis-turns-expensive-oil-guidance-150910219.html",
-    "source_name": "Yahoo Finance",
+    "source_headline": "BILIBILI-W (09626): (1) PROPOSED OFF-MARKET SHARE BUY-BACK; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500895.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-08T15:09:10Z",
+    "newest_source_at": "2026-09-25T10:00:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-08T21:12:44Z",
-    "updated_at": "2026-09-08T21:12:44Z",
-    "decay_at": "2026-09-10T03:09:10Z",
+    "surfaced_at": "2026-09-26T19:03:28Z",
+    "updated_at": "2026-09-26T19:03:28Z",
+    "decay_at": "2026-09-26T22:00:00Z",
     "status": "live",
     "promoted_signal_id": null
   }
