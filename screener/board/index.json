@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T04:07:12Z",
+  "generated_at": "2026-09-28T04:16:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-138",
@@ -199,6 +199,147 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-183",
+      "headline": "Vietnam jewellery giant PNJ forecasts loss after diamond scandal",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/asean/vietnam-jewellery-giant-pnj-forecasts-loss-after-diamond-scandal",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T04:13:48Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "PNJ forecasts a loss following a diamond scandal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PNJ forecasts a loss following a diamond scandal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PNJ",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-182",
+      "headline": "Northern Star: Goldproduzent weist milliardenschweres Übernahmeangebot zurück",
+      "headline_en": "Northern Star: Gold producer rejects multi-billion takeover offer",
+      "url": "https://www.handelsblatt.com/finanzen/maerkte/devisen-rohstoffe/northern-star-goldproduzent-weist-milliardenschweres-uebernahmeangebot-zurueck/100257818.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T04:04:53Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Northern Star rejected a multi-billion dollar takeover offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Northern Star rejected a multi-billion dollar takeover offer.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Northern Star",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-190",
+      "headline": "Auto parts giant’s shares slide on report of $6.3bn charge",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/7922be35-978e-4110-8100-31774a3e823b?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T03:39:04Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "An auto parts giant's shares are sliding following a report of a $6.3bn charge.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An auto parts giant's shares are sliding following a report of a $6.3bn charge.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -753,55 +894,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-112",
-      "headline": "Vietnam Jewelry Giant PNJ Forecasts Loss After Diamond Scandal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-28/vietnam-jewelry-giant-pnj-forecasts-loss-after-diamond-scandal",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T01:47:23Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "PNJ forecasts a loss following a diamond scandal, indicating a significant negative financial impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PNJ forecasts a loss following a diamond scandal, indicating a significant negative financial impact.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PNJ",
-          "ticker": null,
-          "listing_country": "VN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1895,109 +1987,6 @@
           "name": "Hutchmed",
           "ticker": "00013",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-123",
-      "headline": "ESR, 아퀼라 클린에너지 APAC (Aquila Clean Energy APAC) 인수",
-      "headline_en": "ESR acquires Aquila Clean Energy APAC",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277712",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T01:43:20Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "ESR Group is acquiring Aquila Clean Energy APAC, representing a significant consolidation in the regional clean energy infrastructure sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "ESR Group is acquiring Aquila Clean Energy APAC, representing a significant consolidation in the regional clean energy infrastructure sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ESR Group",
-          "ticker": null,
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-086",
-      "headline": "ASX rises; Karoon plunges 12pc; Northern Star jumps on bid rejection",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-set-for-a-steady-start-oil-prices-fall-to-us104-20260928-p610tf?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T01:15:51Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Karoon Energy shares fell 12% and Northern Star Resources moved on a bid rejection.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Karoon Energy shares fell 12% and Northern Star Resources moved on a bid rejection.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Karoon Energy",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Northern Star Resources",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -144797,76 +144786,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b520e6e5e5f6",
-      "idea_version": "IDEAV-b528e92838fca2d3",
-      "idea_version_started_at": "2026-09-26T16:28:04Z",
-      "ticker": "SBUX",
-      "company": "Starbucks",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The closure of 250 North American stores indicates a significant contraction in the company's physical footprint and a potential decline in revenue growth expectations.",
-      "why_now": "The restructuring announcement was made on 2026-09-26 and represents an immediate operational pivot.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-07077758c60e"
-      ],
-      "primary_source_event_id": "EVT-07077758c60e",
-      "source_headlines": [
-        "Major coffee chain is closing 250 stores across North America"
-      ],
-      "source_headline": "Major coffee chain is closing 250 stores across North America",
-      "source_url": "https://www.thestreet.com/restaurants/starbucks-closing-250-stores",
-      "source_name": "TheStreet",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-26T16:13:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T16:28:04Z",
-      "updated_at": "2026-09-26T16:28:04Z",
-      "decay_at": "2026-09-28T04:13:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-380e9175003d",
       "idea_version": "IDEAV-6e7278c47133c0df",
       "idea_version_started_at": "2026-09-27T19:10:14Z",
@@ -149371,6 +149290,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b520e6e5e5f6",
+      "idea_version": "IDEAV-b528e92838fca2d3",
+      "idea_version_started_at": "2026-09-26T16:28:04Z",
+      "ticker": "SBUX",
+      "company": "Starbucks",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The closure of 250 North American stores indicates a significant contraction in the company's physical footprint and a potential decline in revenue growth expectations.",
+      "why_now": "The restructuring announcement was made on 2026-09-26 and represents an immediate operational pivot.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-07077758c60e"
+      ],
+      "primary_source_event_id": "EVT-07077758c60e",
+      "source_headlines": [
+        "Major coffee chain is closing 250 stores across North America"
+      ],
+      "source_headline": "Major coffee chain is closing 250 stores across North America",
+      "source_url": "https://www.thestreet.com/restaurants/starbucks-closing-250-stores",
+      "source_name": "TheStreet",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-26T16:13:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T16:28:04Z",
+      "updated_at": "2026-09-26T16:28:04Z",
+      "decay_at": "2026-09-28T04:13:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ae01fb457408",
       "idea_version": "IDEAV-d4aa05ccec8dbcdb",
       "idea_version_started_at": "2026-09-26T21:35:18Z",
@@ -150448,9 +150437,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 521,
+    "total_count": 522,
     "shown_count": 500,
-    "hidden_count": 21,
+    "hidden_count": 22,
     "side_counts": {
       "long": {
         "total_count": 269,
@@ -150458,9 +150447,9 @@
         "hidden_count": 19
       },
       "short": {
-        "total_count": 252,
+        "total_count": 253,
         "shown_count": 250,
-        "hidden_count": 2
+        "hidden_count": 3
       }
     },
     "retention": {
@@ -150479,6 +150468,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b520e6e5e5f6",
+        "idea_version": "IDEAV-b528e92838fca2d3",
+        "idea_version_started_at": "2026-09-26T16:28:04Z",
+        "ticker": "SBUX",
+        "company": "Starbucks",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The closure of 250 North American stores indicates a significant contraction in the company's physical footprint and a potential decline in revenue growth expectations.",
+        "why_now": "The restructuring announcement was made on 2026-09-26 and represents an immediate operational pivot.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-07077758c60e"
+        ],
+        "primary_source_event_id": "EVT-07077758c60e",
+        "source_headlines": [
+          "Major coffee chain is closing 250 stores across North America"
+        ],
+        "source_headline": "Major coffee chain is closing 250 stores across North America",
+        "source_url": "https://www.thestreet.com/restaurants/starbucks-closing-250-stores",
+        "source_name": "TheStreet",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-26T16:13:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-26T16:28:04Z",
+        "updated_at": "2026-09-26T16:28:04Z",
+        "decay_at": "2026-09-28T04:13:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T04:13:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6a5a69a1366b",
         "idea_version": "IDEAV-d4cbc43e591ded73",
@@ -187537,86 +187599,12 @@
         "archived_at": "2026-09-03T09:41:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-4d5dba24c3a6",
-        "idea_version": "IDEAV-3dbeceb77a40dd94",
-        "idea_version_started_at": "2026-08-31T14:38:32Z",
-        "ticker": "00333",
-        "company": "TOP FORM INTERNATIONAL",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning, signaling weaker-than-expected financial results.",
-        "why_now": "The filing was released on 2026-08-31, providing a fresh catalyst for a downward move.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6c34f8902975"
-        ],
-        "primary_source_event_id": "EVT-6c34f8902975",
-        "source_headlines": [
-          "TOP FORM INT'L (00333): PROFIT WARNING"
-        ],
-        "source_headline": "TOP FORM INT'L (00333): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0831/2026083100934.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-08-31T09:16:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-08-31T14:38:32Z",
-        "updated_at": "2026-08-31T14:38:32Z",
-        "decay_at": "2026-09-01T21:16:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-03T09:41:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1110,
-    "live_count": 65,
+    "live_count": 64,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -187635,9 +187623,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1402,
-    "news_picked_today": 273,
-    "news_dropped_today": 1129
+    "news_seen_today": 1495,
+    "news_picked_today": 298,
+    "news_dropped_today": 1197
   },
   "book_momentum": {
     "live_count": 8,
