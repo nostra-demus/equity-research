@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T11:59:09Z",
+  "generated_at": "2026-09-28T12:05:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-365",
@@ -593,6 +593,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-379",
+      "headline": "FTAI Infrastructure Unit To Buy Port Arthur Terminal, Alberta DRU Interest For $255 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ftai-infrastructure-unit-buy-port-arthur-terminal-alberta-dru-interest-255-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T11:06:55Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "FTAI Infrastructure unit to acquire assets for $255 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FTAI Infrastructure unit to acquire assets for $255 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FTAI Infrastructure",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1938,55 +1987,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-155",
-      "headline": "Warburg Pincus Makes Improved $1.5 Billion Offer for Australia’s Ingenia",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/warburg-pincus-makes-improved-1-5-billion-offer-for-australias-ingenia-03f3b2af?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T03:07:00Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Warburg Pincus has made a quantified $1.5 billion acquisition offer for Ingenia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Warburg Pincus has made a quantified $1.5 billion acquisition offer for Ingenia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188058,9 +188058,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 258722,
-    "news_picked_today": 822,
-    "news_dropped_today": 11915
+    "news_seen_today": 263254,
+    "news_picked_today": 837,
+    "news_dropped_today": 11948
   },
   "book_momentum": {
     "live_count": 8,
