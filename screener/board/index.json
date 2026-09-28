@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T06:17:35Z",
+  "generated_at": "2026-09-28T06:29:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-138",
@@ -1662,6 +1662,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-257",
+      "headline": "Arisinfra Solutions Limited: Arisinfra Solutions Limited has informed the Exchange about Acquisition of equity shares in Buildmex-Infra Private Limited, Material Subsidiary from its existing shareholder, Mr. Balavignesh Subramani.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ARISINFRA2024_28092026112551_Intimation_Reg30.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T05:56:21Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Arisinfra Solutions Limited is acquiring equity shares in its material subsidiary Buildmex-Infra Private Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Arisinfra Solutions Limited is acquiring equity shares in its material subsidiary Buildmex-Infra Private Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arisinfra Solutions Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-236",
       "headline": "KPIL bags ₹4,000+ crore UAE gas pipeline EPC contract; stock slips 1.14%",
       "headline_en": null,
@@ -1945,55 +1994,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-040",
-      "headline": "TER: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TER?key=2924-03140583-2A1699745",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T00:13:39Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "The company has entered a trading halt pending an announcement, which is a material event for investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The company has entered a trading halt pending an announcement, which is a material event for investors.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Terramin Australia",
-          "ticker": "TER",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188131,9 +188131,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7927,
-    "news_picked_today": 443,
-    "news_dropped_today": 5794
+    "news_seen_today": 9475,
+    "news_picked_today": 449,
+    "news_dropped_today": 6292
   },
   "book_momentum": {
     "live_count": 8,
