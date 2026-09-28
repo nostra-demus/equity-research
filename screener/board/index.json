@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T07:57:09Z",
+  "generated_at": "2026-09-28T08:26:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-138",
@@ -199,6 +199,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-339",
+      "headline": "Ireland's top private landlord IRES open to $827 million takeover bid from Barings",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/irelands-top-private-landlord-ires-open-827-million-takeover-bid-barings-2026-09-28/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T07:35:45Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "IRES (Ireland's top private landlord REIT) receives $827 million takeover bid from Barings and states openness to it; named, quantified offer, but exploratory stage—not yet hard agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IRES (Ireland's top private landlord REIT) receives $827 million takeover bid from Barings and states openness to it; named, quantified offer, but exploratory stage—not yet hard agreement.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IRES Residential Real Estate Investment Trust",
+          "ticker": "IRES",
+          "listing_country": "IE"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1946,61 +1996,6 @@
         {
           "name": "Nio",
           "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-028",
-      "headline": "NIO inks battery-swapping deal with Geely, values energy unit at $2.4 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/nio-inks-battery-swapping-deal-with-geely-values-energy-unit-24-billion-2026-09-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-27T23:57:44Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "NIO entered a battery-swapping partnership with Geely, valuing its energy unit at $2.4 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NIO entered a battery-swapping partnership with Geely, valuing its energy unit at $2.4 billion.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NIO Inc.",
-          "ticker": "NIO",
-          "listing_country": "CN"
-        },
-        {
-          "name": "Geely Automobile Holdings",
-          "ticker": "0175",
           "listing_country": "CN"
         }
       ],
@@ -188215,9 +188210,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 18667,
-    "news_picked_today": 608,
-    "news_dropped_today": 8961
+    "news_seen_today": 26343,
+    "news_picked_today": 615,
+    "news_dropped_today": 9026
   },
   "book_momentum": {
     "live_count": 8,
