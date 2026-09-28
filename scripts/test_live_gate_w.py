@@ -145,6 +145,10 @@ def main():
         ("Generic operator on FCFF DCF (untracked sector)", "Generic operating company", "FCFF DCF", [], [W_MSG]),
         ("business_type unset -> N/A", None, "FCFF DCF", [], [W_MSG]),
         ("primary_valuation_method unset -> N/A", "Bank / lender", None, [], [W_MSG]),
+        # A non-string field (malformed decision_record.json) must degrade to N/A, never crash the gate
+        # before it emits a GATE: line. run_block uses check=True, so a crash surfaces as a hard failure.
+        ("non-string business_type -> N/A (no crash)", ["Bank / lender"], "FCFF DCF", [], [W_MSG]),
+        ("bank quoted on EV/Revenue (forbidden EV method)", "Bank / lender", "EV/Revenue", [W_MSG], []),
     ]
 
     tmp = tempfile.mkdtemp(prefix="w_live_gate_")

@@ -1044,8 +1044,14 @@ if scope=="selftest":
         ("REIT / real estate","FCFF DCF","clean"),             # doctrine does NOT forbid FCFF for a REIT
         ("Generic operating company","FCFF DCF","clean"),      # untracked sector — no constraint
         ("Commodity producer / miner","mid-cycle FCFF DCF","clean"),
+        ("Bank / lender","EV/Revenue","fail"),                 # EV/Revenue == EV/Sales synonym — still an EV method
+        ("Bank / lender","EV / Revenue vs peers","fail"),      # separator-robust spelling of the same
+        ("SaaS / subscription software (insurance vertical)","FCFF DCF","clean"),  # parenthetical aside must NOT match 'insur'
+        ("Generic operating company (banking software vendor)","FCFF DCF","clean"),# 'banking' in a qualifier must NOT match 'bank'
         ("","FCFF DCF","na"),
         ("Bank / lender","","na"),
+        (["Bank / lender"],"FCFF DCF","na"),                   # non-string business_type -> N/A, never a crash
+        ("Bank / lender",123,"na"),                            # non-string primary_valuation_method -> N/A, never a crash
     ]
     bad=0
     for bt,pvm,exp in cases:

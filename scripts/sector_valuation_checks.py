@@ -48,9 +48,12 @@ import re
 # value / unlevered-cashflow method is a category error, not just FCFF. REITs explicitly forbid
 # EBITDA-DCF (depreciation non-economic); FCFF is NOT listed forbidden for a REIT there, so the gate does
 # not invent that ban. Tokens are separator-free — "evebit" matches both EV/EBIT and EV/EBITDA; bare "ev"
-# is deliberately NOT a token (it would false-match "revenue"/"leverage"/"level").
+# is deliberately NOT a token (it would false-match "revenue"/"leverage"/"level"). "evsales" AND
+# "evrevenue" are both listed because "EV/Revenue" is used interchangeably with "EV/Sales" in this repo;
+# without the "evrevenue" spelling a bank quoted on "EV/Revenue" would slip the gate (an EV method is a
+# category error for a balance-sheet-funded financial regardless of which synonym is written).
 SECTOR_DATE = "2026-06-18"
-_FIN_INSTITUTION_FORBIDDEN = ["fcff", "evebit", "evsales", "ebitdadcf", "netdebtebitda", "enterprisevalue"]
+_FIN_INSTITUTION_FORBIDDEN = ["fcff", "evebit", "evsales", "evrevenue", "ebitdadcf", "netdebtebitda", "enterprisevalue"]
 SECTOR_FORBIDDEN = {
     # lowercase key = substring matched against business_type (case-insensitive)
     # value = forbidden tokens, matched against the separator-stripped primary_valuation_method
@@ -63,9 +66,19 @@ def eval_w_sector_valuation(business_type, primary_valuation_method):
     """Core of check W. Returns None when N/A (either field blank), else the list of forbidden-method
     tokens present (empty list = clean). Separator-stripped substring match so hyphen/space spellings
     collapse. Side-effect-free + module-level so `eval.py selftest` can exercise it without a run fixture."""
-    bt = (business_type or "").strip(); pvm = (primary_valuation_method or "").strip()
+    # Type-safe: a non-string field (a list/number from a malformed decision_record.json) degrades to
+    # N/A instead of raising AttributeError on .strip() — both callers (eval.py grader and the live
+    # Step 10B.1 finish-gate) pass raw JSON values straight in, and a crash there would kill the whole
+    # gate before it emits a GATE:/PROVISIONAL result. Presence + type of these additive fields is
+    # separately enforced by eval.py's B_schema check; W only judges validity when both are usable strings.
+    bt = business_type.strip() if isinstance(business_type, str) else ""
+    pvm = primary_valuation_method.strip() if isinstance(primary_valuation_method, str) else ""
     if not bt or not pvm: return None
-    bt_l = bt.lower(); pvm_norm = re.sub(r'[^a-z0-9]+', '', pvm.lower())
+    # Match the sector against the CANONICAL classification only — the text before any parenthetical
+    # qualifier — so a free-form aside ("SaaS / subscription software (insurance vertical)", "Generic
+    # operating company (banking software vendor)") is not mis-read as a financial/REIT and made to wrongly
+    # forbid an otherwise-valid method. business_type routinely carries such parentheticals (synthesizer.md).
+    bt_l = bt.lower().split("(", 1)[0]; pvm_norm = re.sub(r'[^a-z0-9]+', '', pvm.lower())
     hits = []
     for sec, fmethods in SECTOR_FORBIDDEN.items():
         if sec in bt_l:
