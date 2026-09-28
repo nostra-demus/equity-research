@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T18:55:17Z",
+  "generated_at": "2026-09-28T19:06:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-453",
@@ -1050,6 +1050,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-473",
+      "headline": "Honasa Consumer Block Deal: Peak XV, Sequoia, Redwood Trust to sell stake for up to ₹400 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/honasa-consumer-share-price-block-deal-peak-xv-sequoia-redwood-trust-to-sell-stake-for-up-to-rs-400-crore-20000374.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T16:29:01Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Peak XV, Sequoia, and Redwood Trust are selling a stake in Honasa Consumer for up to ₹400 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Peak XV, Sequoia, and Redwood Trust are selling a stake in Honasa Consumer for up to ₹400 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honasa Consumer",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-447",
       "headline": "Evonik rejects $11.7 billion BASF takeover bid, FT reports",
       "headline_en": null,
@@ -1941,55 +1990,6 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aldi",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-300",
-      "headline": "Aldi to invest £900 million in Britain in 2027",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/aldi-invest-900-million-britain-2027-2026-09-28/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T06:26:09Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Aldi announced a £900 million investment plan for Britain in 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aldi announced a £900 million investment plan for Britain in 2027.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -188097,9 +188097,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1755343,
-    "news_picked_today": 1055,
-    "news_dropped_today": 12450
+    "news_seen_today": 1787407,
+    "news_picked_today": 1085,
+    "news_dropped_today": 12468
   },
   "book_momentum": {
     "live_count": 8,
