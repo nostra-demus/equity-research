@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T05:42:42Z",
+  "generated_at": "2026-09-28T05:43:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-138",
@@ -145423,6 +145423,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-fc426f81932d",
+      "idea_version": "IDEAV-40cee4c6330b9f3a",
+      "idea_version_started_at": "2026-09-28T05:43:18Z",
+      "ticker": "6594",
+      "company": "Nidec",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Nidec is set to recognize a massive impairment loss of over $3.8 billion, which will severely impact its net income and capital structure.",
+      "why_now": "The impairment news was reported on September 28, 2026, creating immediate downward pressure on the stock.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-33304eae42f1"
+      ],
+      "primary_source_event_id": "EVT-33304eae42f1",
+      "source_headlines": [
+        "Japan motor maker Nidec to recognize over $3.8bn in impairment loss"
+      ],
+      "source_headline": "Japan motor maker Nidec to recognize over $3.8bn in impairment loss",
+      "source_url": "https://asia.nikkei.com/business/companies/japan-motor-maker-nidec-to-recognize-over-3.8bn-in-impairment-loss",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T05:34:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T05:43:18Z",
+      "updated_at": "2026-09-28T05:43:18Z",
+      "decay_at": "2026-09-29T17:34:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-6dedf05fd8fd",
       "idea_version": "IDEAV-fd65239c2a212381",
       "idea_version_started_at": "2026-09-28T04:46:17Z",
@@ -187968,8 +188040,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1115,
-    "live_count": 69,
+    "surfaced_total": 1116,
+    "live_count": 70,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
