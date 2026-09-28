@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T02:57:26Z",
+  "generated_at": "2026-09-28T03:06:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-138",
@@ -199,6 +199,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-144",
+      "headline": "Northern Star shares pop as Australian gold miner rejects $27 billion takeover proposal",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/28/northern-star-shares-gold-fields-takeover-bid.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T03:00:53Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Northern Star Resources rejected a $27 billion takeover proposal, signaling a significant valuation gap and potential for future M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Northern Star Resources rejected a $27 billion takeover proposal, signaling a significant valuation gap and potential for future M&A activity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Northern Star Resources",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -552,55 +601,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-087",
-      "headline": "Northern Star shares pop as Australian gold miner rejects $27-billion takeover proposal",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/28/northern-star-shares-gold-fields-takeover-bid.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T01:19:23Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Northern Star Resources rejected a $27-billion takeover proposal, signaling potential for a higher bid or strategic shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Northern Star Resources rejected a $27-billion takeover proposal, signaling potential for a higher bid or strategic shift.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Northern Star Resources",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -187422,9 +187422,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 795,
-    "news_picked_today": 191,
-    "news_dropped_today": 604
+    "news_seen_today": 833,
+    "news_picked_today": 197,
+    "news_dropped_today": 636
   },
   "book_momentum": {
     "live_count": 8,
