@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T15:17:12Z",
+  "generated_at": "2026-09-28T15:26:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-437",
@@ -892,6 +892,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-447",
+      "headline": "Evonik rejects $11.7 billion BASF takeover bid, FT reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/evonik-rejects-117-billion-basf-takeover-bid-ft-reports-2026-09-28/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T13:44:26Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Evonik rejected an $11.7 billion takeover bid from BASF.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Evonik rejected an $11.7 billion takeover bid from BASF.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Evonik",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "BASF",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1954,50 +2008,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-239",
-      "headline": "Major Australian private lender suspends three ASX funds, cuts asset values after audit",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/major-australian-private-lender-suspends-three-asx-funds-cuts-asset-values-after-2026-09-28/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T05:17:43Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "An Australian private lender has suspended three ASX-listed funds and cut asset values following an audit, indicating potential distress or accounting issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An Australian private lender has suspended three ASX-listed funds and cut asset values following an audit, indicating potential distress or accounting issues.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress",
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -145075,77 +145085,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-759cf3b531e6",
-      "idea_version": "IDEAV-a1be9d10a405ae28",
-      "idea_version_started_at": "2026-09-27T04:44:42Z",
-      "ticker": "AMZN",
-      "company": "Amazon.com, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Amazon was fined ₹10 lakh by the CCPA for selling unregistered herbicides, indicating regulatory scrutiny.",
-      "why_now": "The fine was reported on September 27, 2026.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7bc774b61636"
-      ],
-      "primary_source_event_id": "EVT-7bc774b61636",
-      "source_headlines": [
-        "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales"
-      ],
-      "source_headline": "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales",
-      "source_url": "https://www.thehindubusinessline.com/companies/ccpa-slaps-10-lakh-fine-on-amazon-flipkart-5-lakh-on-jiomart-over-unregistered-herbicide-sales/article71515152.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-27T03:24:37Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/AMZN_2026-07-20",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-27T04:44:42Z",
-      "updated_at": "2026-09-27T04:44:42Z",
-      "decay_at": "2026-09-28T15:24:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-47d6ca173e9c",
       "idea_version": "IDEAV-1b82fdb84cf4c871",
       "idea_version_started_at": "2026-09-27T12:04:57Z",
@@ -148091,79 +148030,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-cca1ae3fbca3",
-      "idea_version": "IDEAV-e521db373b57eed5",
-      "idea_version_started_at": "2026-09-27T04:44:42Z",
-      "ticker": "FLIPKART",
-      "company": "Flipkart",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Flipkart was fined ₹10 lakh by the CCPA for selling unregistered herbicides, indicating regulatory scrutiny.",
-      "why_now": "The fine was reported on September 27, 2026.",
-      "conviction": 40,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7bc774b61636"
-      ],
-      "primary_source_event_id": "EVT-7bc774b61636",
-      "source_headlines": [
-        "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales"
-      ],
-      "source_headline": "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales",
-      "source_url": "https://www.thehindubusinessline.com/companies/ccpa-slaps-10-lakh-fine-on-amazon-flipkart-5-lakh-on-jiomart-over-unregistered-herbicide-sales/article71515152.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 94,
-      "newest_source_at": "2026-09-27T03:24:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T04:44:42Z",
-      "updated_at": "2026-09-27T04:44:42Z",
-      "decay_at": "2026-09-28T15:24:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-86d9ffa1d53a",
       "idea_version": "IDEAV-593e260e415fa823",
       "idea_version_started_at": "2026-09-27T09:14:56Z",
@@ -149864,6 +149730,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-759cf3b531e6",
+      "idea_version": "IDEAV-a1be9d10a405ae28",
+      "idea_version_started_at": "2026-09-27T04:44:42Z",
+      "ticker": "AMZN",
+      "company": "Amazon.com, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Amazon was fined ₹10 lakh by the CCPA for selling unregistered herbicides, indicating regulatory scrutiny.",
+      "why_now": "The fine was reported on September 27, 2026.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7bc774b61636"
+      ],
+      "primary_source_event_id": "EVT-7bc774b61636",
+      "source_headlines": [
+        "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales"
+      ],
+      "source_headline": "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales",
+      "source_url": "https://www.thehindubusinessline.com/companies/ccpa-slaps-10-lakh-fine-on-amazon-flipkart-5-lakh-on-jiomart-over-unregistered-herbicide-sales/article71515152.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-27T03:24:37Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/AMZN_2026-07-20",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-27T04:44:42Z",
+      "updated_at": "2026-09-27T04:44:42Z",
+      "decay_at": "2026-09-28T15:24:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-7232e82f4459",
       "idea_version": "IDEAV-fa7f94dea692ebd2",
       "idea_version_started_at": "2026-09-27T02:00:37Z",
@@ -150583,6 +150520,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-cca1ae3fbca3",
+      "idea_version": "IDEAV-e521db373b57eed5",
+      "idea_version_started_at": "2026-09-27T04:44:42Z",
+      "ticker": "FLIPKART",
+      "company": "Flipkart",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Flipkart was fined ₹10 lakh by the CCPA for selling unregistered herbicides, indicating regulatory scrutiny.",
+      "why_now": "The fine was reported on September 27, 2026.",
+      "conviction": 40,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7bc774b61636"
+      ],
+      "primary_source_event_id": "EVT-7bc774b61636",
+      "source_headlines": [
+        "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales"
+      ],
+      "source_headline": "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales",
+      "source_url": "https://www.thehindubusinessline.com/companies/ccpa-slaps-10-lakh-fine-on-amazon-flipkart-5-lakh-on-jiomart-over-unregistered-herbicide-sales/article71515152.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 94,
+      "newest_source_at": "2026-09-27T03:24:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T04:44:42Z",
+      "updated_at": "2026-09-27T04:44:42Z",
+      "decay_at": "2026-09-28T15:24:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3a5e2b5bb8c5",
       "idea_version": "IDEAV-267198f9d0786948",
       "idea_version_started_at": "2026-09-27T02:19:51Z",
@@ -150883,9 +150893,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 526,
+    "total_count": 528,
     "shown_count": 500,
-    "hidden_count": 26,
+    "hidden_count": 28,
     "side_counts": {
       "long": {
         "total_count": 268,
@@ -150893,9 +150903,9 @@
         "hidden_count": 18
       },
       "short": {
-        "total_count": 258,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 10
       }
     },
     "retention": {
@@ -150914,6 +150924,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-759cf3b531e6",
+        "idea_version": "IDEAV-a1be9d10a405ae28",
+        "idea_version_started_at": "2026-09-27T04:44:42Z",
+        "ticker": "AMZN",
+        "company": "Amazon.com, Inc.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Amazon was fined ₹10 lakh by the CCPA for selling unregistered herbicides, indicating regulatory scrutiny.",
+        "why_now": "The fine was reported on September 27, 2026.",
+        "conviction": 45,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 14,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7bc774b61636"
+        ],
+        "primary_source_event_id": "EVT-7bc774b61636",
+        "source_headlines": [
+          "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales"
+        ],
+        "source_headline": "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales",
+        "source_url": "https://www.thehindubusinessline.com/companies/ccpa-slaps-10-lakh-fine-on-amazon-flipkart-5-lakh-on-jiomart-over-unregistered-herbicide-sales/article71515152.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 94,
+        "newest_source_at": "2026-09-27T03:24:37Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/AMZN_2026-07-20",
+          "latest_decision": null,
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-09-27T04:44:42Z",
+        "updated_at": "2026-09-27T04:44:42Z",
+        "decay_at": "2026-09-28T15:24:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T15:24:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-cca1ae3fbca3",
+        "idea_version": "IDEAV-e521db373b57eed5",
+        "idea_version_started_at": "2026-09-27T04:44:42Z",
+        "ticker": "FLIPKART",
+        "company": "Flipkart",
+        "exchange": null,
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Flipkart was fined ₹10 lakh by the CCPA for selling unregistered herbicides, indicating regulatory scrutiny.",
+        "why_now": "The fine was reported on September 27, 2026.",
+        "conviction": 40,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 14,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7bc774b61636"
+        ],
+        "primary_source_event_id": "EVT-7bc774b61636",
+        "source_headlines": [
+          "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales"
+        ],
+        "source_headline": "CCPA slaps ₹10 lakh fine on Amazon, Flipkart; ₹5 lakh on JioMart over unregistered herbicide sales",
+        "source_url": "https://www.thehindubusinessline.com/companies/ccpa-slaps-10-lakh-fine-on-amazon-flipkart-5-lakh-on-jiomart-over-unregistered-herbicide-sales/article71515152.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 94,
+        "newest_source_at": "2026-09-27T03:24:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T04:44:42Z",
+        "updated_at": "2026-09-27T04:44:42Z",
+        "decay_at": "2026-09-28T15:24:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T15:24:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-34170708f0d3",
         "idea_version": "IDEAV-1fe75c6467913028",
@@ -187902,164 +188062,12 @@
         "archived_at": "2026-09-04T15:47:18Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c4367824b313",
-        "idea_version": "IDEAV-a7ba24ac4b1c26e6",
-        "idea_version_started_at": "2026-09-02T23:36:56Z",
-        "ticker": "DPSC",
-        "company": "DPSC Limited",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling severe financial distress and likely equity impairment.",
-        "why_now": "The insolvency process was formally announced on September 1, 2026.",
-        "conviction": 90,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ed1bd353f181",
-          "EVT-fec3a38080b5"
-        ],
-        "primary_source_event_id": "EVT-ed1bd353f181",
-        "source_headlines": [
-          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Post facto intimation of the 6th (Sixth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
-        ],
-        "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_01092026202313_IntimationofOutcomeoftheVotingResultsunderReg30ofLODR01092026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-01T14:54:08Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-02T23:36:56Z",
-        "updated_at": "2026-09-02T23:36:56Z",
-        "decay_at": "2026-09-03T02:54:08Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-04T15:47:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-27677ede6ab0",
-        "idea_version": "IDEAV-002a39d42239d0e1",
-        "idea_version_started_at": "2026-09-02T23:36:56Z",
-        "ticker": "00853",
-        "company": "MicroPort Scientific Corporation",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The delay in interim results, postponement of board meetings, and subsequent suspension of trading are classic indicators of severe financial or accounting instability.",
-        "why_now": "The suspension and disclosure were announced on September 1, 2026.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f078091d70bb"
-        ],
-        "primary_source_event_id": "EVT-f078091d70bb",
-        "source_headlines": [
-          "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING"
-        ],
-        "source_headline": "MICROPORT MICROPORT B2812 (00853 40168): INSIDE INFORMATION - DELAY IN PUBLICATION OF THE 2026 INTERIM RESULTS; POSTPONEMENT OF BOARD MEETING; AND SUSPENSION OF TRADING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0901/2026083103079.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-01T13:48:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-02T23:36:56Z",
-        "updated_at": "2026-09-02T23:36:56Z",
-        "decay_at": "2026-09-03T01:48:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-04T15:47:18Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1119,
-    "live_count": 66,
+    "live_count": 64,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -188078,9 +188086,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 863605,
-    "news_picked_today": 1009,
-    "news_dropped_today": 12376
+    "news_seen_today": 879857,
+    "news_picked_today": 1023,
+    "news_dropped_today": 12386
   },
   "book_momentum": {
     "live_count": 8,
