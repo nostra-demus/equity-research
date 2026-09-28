@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T22:48:15Z",
+  "generated_at": "2026-09-28T22:55:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-602",
@@ -1143,6 +1143,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260928-619",
+      "headline": "ASX to rise; Megaport wins $1b worth of contracts, upgrades guidance",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-us-bond-yields-surge-higher-rba-awaited-20260929-p6118b?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-28T22:40:07Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "Megaport secured $1 billion in contracts and upgraded its financial guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Megaport secured $1 billion in contracts and upgraded its financial guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Megaport",
+          "ticker": "MP1",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260928-617",
       "headline": "Nvidia rival AMD to buy industry pioneer’s AI startup World Labs for US$8.2 billion",
       "headline_en": null,
@@ -1949,55 +1999,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-530",
-      "headline": "Redcare Pharmacy Raises 2026 Revenue Guidance On Strong German Rx Growth",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/redcare-pharmacy-raises-2026-revenue-guidance-strong-german-rx-growth",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T15:17:53Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "Redcare Pharmacy raised its 2026 revenue guidance due to strong growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Redcare Pharmacy raised its 2026 revenue guidance due to strong growth.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Redcare Pharmacy",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -187312,9 +187313,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2877949,
-    "news_picked_today": 1399,
-    "news_dropped_today": 15034
+    "news_seen_today": 2889271,
+    "news_picked_today": 1404,
+    "news_dropped_today": 15053
   },
   "book_momentum": {
     "live_count": 8,
