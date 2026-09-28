@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T22:04:48Z",
+  "generated_at": "2026-09-28T22:13:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20260928-453",
@@ -96,6 +96,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260928-601",
+      "headline": "25-NSE - BRC Group Holdings, Inc. (0001464790) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1464790/000135445726000920/0001354457-26-000920-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-28T20:16:38Z",
+      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
+      "prelim_note": "BRC Group Holdings, Inc. is being delisted from the exchange, indicating a potential distress or compliance event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BRC Group Holdings, Inc. is being delisted from the exchange, indicating a potential distress or compliance event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BRC Group Holdings, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1944,60 +1993,6 @@
           "name": "Instinct",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260928-550",
-      "headline": "GAC plans to buy 50% of FAW Toyota to coordinate operations at Toyota's 2 China joint ventures",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/09/28/gac-to-buy-50-faw-toyota-coordinate-toyota-china-jvs/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-28T14:14:18Z",
-      "sweep_file": "screener/inbox/2026-09-28_sweep.json",
-      "prelim_note": "GAC plans to acquire a 50% stake in FAW Toyota to consolidate operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GAC plans to acquire a 50% stake in FAW Toyota to consolidate operations.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GAC",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "FAW Toyota",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -147239,77 +147234,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-481a4b3ef631",
-      "idea_version": "IDEAV-6cfbf2b9657e3199",
-      "idea_version_started_at": "2026-09-27T10:13:26Z",
-      "ticker": "03692",
-      "company": "Hansoh Pharmaceutical Group",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company received positive regulatory updates regarding the marketing authorization of Aumolertinib in the EU, which expands the addressable market for its core oncology product.",
-      "why_now": "The voluntary announcement was filed on 2026-09-27, providing immediate clarity on the product's European commercialization timeline.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bce6f755c270"
-      ],
-      "primary_source_event_id": "EVT-bce6f755c270",
-      "source_headlines": [
-        "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE MARKETING AUTHORIZATION STATUS OF AUMOLERTINIB IN THE EU"
-      ],
-      "source_headline": "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE MARKETING AUTHORIZATION STATUS OF AUMOLERTINIB IN THE EU",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700007.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 95,
-      "newest_source_at": "2026-09-27T10:08:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T10:13:26Z",
-      "updated_at": "2026-09-27T10:13:26Z",
-      "decay_at": "2026-09-28T22:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0bf3d617a214",
       "idea_version": "IDEAV-c1fc68129104d6db",
       "idea_version_started_at": "2026-09-27T22:32:28Z",
@@ -149302,6 +149226,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-481a4b3ef631",
+      "idea_version": "IDEAV-6cfbf2b9657e3199",
+      "idea_version_started_at": "2026-09-27T10:13:26Z",
+      "ticker": "03692",
+      "company": "Hansoh Pharmaceutical Group",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company received positive regulatory updates regarding the marketing authorization of Aumolertinib in the EU, which expands the addressable market for its core oncology product.",
+      "why_now": "The voluntary announcement was filed on 2026-09-27, providing immediate clarity on the product's European commercialization timeline.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bce6f755c270"
+      ],
+      "primary_source_event_id": "EVT-bce6f755c270",
+      "source_headlines": [
+        "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE MARKETING AUTHORIZATION STATUS OF AUMOLERTINIB IN THE EU"
+      ],
+      "source_headline": "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE MARKETING AUTHORIZATION STATUS OF AUMOLERTINIB IN THE EU",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 95,
+      "newest_source_at": "2026-09-27T10:08:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T10:13:26Z",
+      "updated_at": "2026-09-27T10:13:26Z",
+      "decay_at": "2026-09-28T22:08:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-a025b73a32d6",
       "idea_version": "IDEAV-92bec4d064b6dd50",
       "idea_version_started_at": "2026-09-27T07:14:53Z",
@@ -150107,14 +150102,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 531,
+    "total_count": 532,
     "shown_count": 500,
-    "hidden_count": 31,
+    "hidden_count": 32,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       },
       "short": {
         "total_count": 264,
@@ -150138,6 +150133,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-481a4b3ef631",
+        "idea_version": "IDEAV-6cfbf2b9657e3199",
+        "idea_version_started_at": "2026-09-27T10:13:26Z",
+        "ticker": "03692",
+        "company": "Hansoh Pharmaceutical Group",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company received positive regulatory updates regarding the marketing authorization of Aumolertinib in the EU, which expands the addressable market for its core oncology product.",
+        "why_now": "The voluntary announcement was filed on 2026-09-27, providing immediate clarity on the product's European commercialization timeline.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 14,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bce6f755c270"
+        ],
+        "primary_source_event_id": "EVT-bce6f755c270",
+        "source_headlines": [
+          "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE MARKETING AUTHORIZATION STATUS OF AUMOLERTINIB IN THE EU"
+        ],
+        "source_headline": "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE MARKETING AUTHORIZATION STATUS OF AUMOLERTINIB IN THE EU",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700007.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 95,
+        "newest_source_at": "2026-09-27T10:08:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T10:13:26Z",
+        "updated_at": "2026-09-27T10:13:26Z",
+        "decay_at": "2026-09-28T22:08:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-28T22:08:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-888b01b644ef",
         "idea_version": "IDEAV-2b246912960862a3",
@@ -180501,81 +180570,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-843296e89987",
-        "idea_version": "IDEAV-7f373bab79431030",
-        "idea_version_started_at": "2026-09-10T14:12:20Z",
-        "ticker": "VNC",
-        "company": "Vince Holding Corp",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Vince Holding Corp reported Q2 gains and raised its outlook, suggesting improved financial performance and future profitability.",
-        "why_now": "The company announced its Q2 results and raised guidance on September 10, 2026, providing a clear positive catalyst.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0650b1ff1a3d"
-        ],
-        "primary_source_event_id": "EVT-0650b1ff1a3d",
-        "source_headlines": [
-          "Vince Reports Q2 Gains, Raises Outlook"
-        ],
-        "source_headline": "Vince Reports Q2 Gains, Raises Outlook",
-        "source_url": "https://finance.yahoo.com/markets/stocks/articles/vince-reports-q2-gains-raises-121742262.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-10T12:17:42Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T14:12:20Z",
-        "updated_at": "2026-09-10T14:12:20Z",
-        "decay_at": "2026-09-12T00:17:42Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T12:24:58Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-7f435f03c9a1",
         "idea_version": "IDEAV-6b414f39b9cea62e",
         "idea_version_started_at": "2026-09-10T14:12:20Z",
@@ -187295,7 +187289,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1121,
-    "live_count": 50,
+    "live_count": 49,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -187314,9 +187308,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2703725,
-    "news_picked_today": 1310,
-    "news_dropped_today": 14211
+    "news_seen_today": 2715655,
+    "news_picked_today": 1316,
+    "news_dropped_today": 14613
   },
   "book_momentum": {
     "live_count": 8,
