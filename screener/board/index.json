@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T16:51:43Z",
+  "generated_at": "2026-09-29T17:13:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-360",
@@ -1046,6 +1046,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-414",
+      "headline": "Paramount Just Launched a $44 Billion Debt Sale to Buy Warner Bros.",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/09/29/paramount-just-launched-a-44-billion-debt-sale-to-buy-warner-bros/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T17:05:57Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Paramount announced a $44 billion debt sale to fund the acquisition of Warner Bros.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount announced a $44 billion debt sale to fund the acquisition of Warner Bros.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-411",
+      "headline": "Prestige Estates raises ₹3,000 crore from CPPIB for hospitality arm",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/real-estate/prestige-estates-raises-3000-crore-from-cppib-for-hospitality-arm/article71525451.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T17:01:45Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Prestige Estates raised ₹3,000 crore for its hospitality arm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Prestige Estates raised ₹3,000 crore for its hospitality arm.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prestige Estates",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-404",
       "headline": "AMD Pays $8.2 Billion in Stock for Non-Chipmaking Startup as CEO Bets on Physical AI",
       "headline_en": null,
@@ -1894,110 +1998,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-214",
-      "headline": "Anthropic warns of ‘existential risks to humanity’ from AI; AstraZeneca makes $2bn cancer drug tie-up – business live",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/live/2026/sep/29/anthropic-ipo-warning-existential-risks-to-humanity-from-ai-astrazeneca-2bn-cancer-drug-tie-up-diesel-stock-market-live-news-updates",
-      "source_name": "The Guardian — Economics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T07:00:20Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Anthropic warns of 'existential risks to humanity' from AI; AstraZeneca makes $2bn cancer drug tie-up",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anthropic warns of 'existential risks to humanity' from AI; AstraZeneca makes $2bn cancer drug tie-up",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "AstraZeneca",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-213",
-      "headline": "AMD agrees to acquire Fei-Fei Li’s World Labs for $8.2 billion",
-      "headline_en": null,
-      "url": "https://technode.com/2026/09/29/amd-agrees-to-acquire-fei-fei-lis-world-labs-for-8-2-billion/",
-      "source_name": "TechNode",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T06:55:32Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "AMD agrees to acquire World Labs for $8.2 billion",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AMD agrees to acquire World Labs for $8.2 billion",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMD",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "World Labs",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -149145,78 +149145,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5cb10d23dab1",
-      "idea_version": "IDEAV-840bb861b4a41001",
-      "idea_version_started_at": "2026-09-28T05:14:52Z",
-      "ticker": "KPIL",
-      "company": "Kalpataru Projects International Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Kalpataru Projects International has won an Engineering, Procurement, and Construction (EPC) contract worth over ₹4,000 crore for a gas pipeline in the UAE, which will add substantially to its order book and future revenue.",
-      "why_now": "The contract win was announced on September 28, 2026, providing a fresh catalyst, and the stock's initial slip suggests the positive news may not be fully priced in.",
-      "conviction": 68,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1e930b551ead"
-      ],
-      "primary_source_event_id": "EVT-1e930b551ead",
-      "source_headlines": [
-        "KPIL bags ₹4,000+ crore UAE gas pipeline EPC contract; stock slips 1.14%"
-      ],
-      "source_headline": "KPIL bags ₹4,000+ crore UAE gas pipeline EPC contract; stock slips 1.14%",
-      "source_url": "https://www.thehindubusinessline.com/companies/kpil-bags-4000-crore-uae-gas-pipeline-epc-contract-stock-slips-114/article71518424.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-28T05:02:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T05:14:52Z",
-      "updated_at": "2026-09-28T05:14:52Z",
-      "decay_at": "2026-09-29T17:02:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-15b437f23637",
       "idea_version": "IDEAV-a6761bbee8662be1",
       "idea_version_started_at": "2026-09-28T00:13:12Z",
@@ -152141,6 +152069,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-5cb10d23dab1",
+      "idea_version": "IDEAV-840bb861b4a41001",
+      "idea_version_started_at": "2026-09-28T05:14:52Z",
+      "ticker": "KPIL",
+      "company": "Kalpataru Projects International Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Kalpataru Projects International has won an Engineering, Procurement, and Construction (EPC) contract worth over ₹4,000 crore for a gas pipeline in the UAE, which will add substantially to its order book and future revenue.",
+      "why_now": "The contract win was announced on September 28, 2026, providing a fresh catalyst, and the stock's initial slip suggests the positive news may not be fully priced in.",
+      "conviction": 68,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e930b551ead"
+      ],
+      "primary_source_event_id": "EVT-1e930b551ead",
+      "source_headlines": [
+        "KPIL bags ₹4,000+ crore UAE gas pipeline EPC contract; stock slips 1.14%"
+      ],
+      "source_headline": "KPIL bags ₹4,000+ crore UAE gas pipeline EPC contract; stock slips 1.14%",
+      "source_url": "https://www.thehindubusinessline.com/companies/kpil-bags-4000-crore-uae-gas-pipeline-epc-contract-stock-slips-114/article71518424.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 97,
+      "newest_source_at": "2026-09-28T05:02:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T05:14:52Z",
+      "updated_at": "2026-09-28T05:14:52Z",
+      "decay_at": "2026-09-29T17:02:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-34170708f0d3",
       "idea_version": "IDEAV-1fe75c6467913028",
       "idea_version_started_at": "2026-09-27T20:17:32Z",
@@ -154166,14 +154166,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 569,
+    "total_count": 570,
     "shown_count": 500,
-    "hidden_count": 69,
+    "hidden_count": 70,
     "side_counts": {
       "long": {
-        "total_count": 298,
+        "total_count": 299,
         "shown_count": 250,
-        "hidden_count": 48
+        "hidden_count": 49
       },
       "short": {
         "total_count": 271,
@@ -154197,6 +154197,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5cb10d23dab1",
+        "idea_version": "IDEAV-840bb861b4a41001",
+        "idea_version_started_at": "2026-09-28T05:14:52Z",
+        "ticker": "KPIL",
+        "company": "Kalpataru Projects International Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Kalpataru Projects International has won an Engineering, Procurement, and Construction (EPC) contract worth over ₹4,000 crore for a gas pipeline in the UAE, which will add substantially to its order book and future revenue.",
+        "why_now": "The contract win was announced on September 28, 2026, providing a fresh catalyst, and the stock's initial slip suggests the positive news may not be fully priced in.",
+        "conviction": 68,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1e930b551ead"
+        ],
+        "primary_source_event_id": "EVT-1e930b551ead",
+        "source_headlines": [
+          "KPIL bags ₹4,000+ crore UAE gas pipeline EPC contract; stock slips 1.14%"
+        ],
+        "source_headline": "KPIL bags ₹4,000+ crore UAE gas pipeline EPC contract; stock slips 1.14%",
+        "source_url": "https://www.thehindubusinessline.com/companies/kpil-bags-4000-crore-uae-gas-pipeline-epc-contract-stock-slips-114/article71518424.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 97,
+        "newest_source_at": "2026-09-28T05:02:48Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-28T05:14:52Z",
+        "updated_at": "2026-09-28T05:14:52Z",
+        "decay_at": "2026-09-29T17:02:48Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T17:02:48Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-faf4a80af724",
         "idea_version": "IDEAV-d7a40b8b80d3f7b3",
@@ -184055,79 +184130,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-190511cb49a3",
-        "idea_version": "IDEAV-1d5f3d60e4479a01",
-        "idea_version_started_at": "2026-09-13T18:31:35Z",
-        "ticker": "TTE",
-        "company": "TotalEnergies",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A massive $10 billion capital commitment to Angola oil projects signals a significant expansion of long-term production capacity and reserve replacement.",
-        "why_now": "The announcement of the $10B investment plan was confirmed on September 12, 2024.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 61,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-be007f04e005"
-        ],
-        "primary_source_event_id": "EVT-be007f04e005",
-        "source_headlines": [
-          "TotalEnergies Plans $10B in Angola Oil Investments"
-        ],
-        "source_headline": "TotalEnergies Plans $10B in Angola Oil Investments",
-        "source_url": "https://www.rigzone.com/news/wire/totalenergies_plans_10b_in_angola_oil_investments-12-sep-2026-184596-article/?rss=true",
-        "source_name": "Rigzone",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-12T12:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T18:31:35Z",
-        "updated_at": "2026-09-13T18:31:35Z",
-        "decay_at": "2026-09-14T00:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T18:56:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c7c3c3693e6e",
         "idea_version": "IDEAV-38f366266b568ca0",
         "idea_version_started_at": "2026-09-13T06:54:12Z",
@@ -191367,7 +191369,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1155,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -191386,9 +191388,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8838153,
-    "news_picked_today": 1017,
-    "news_dropped_today": 7239
+    "news_seen_today": 9175023,
+    "news_picked_today": 1030,
+    "news_dropped_today": 7322
   },
   "book_momentum": {
     "live_count": 8,
