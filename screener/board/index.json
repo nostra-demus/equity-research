@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T11:43:56Z",
+  "generated_at": "2026-09-29T11:46:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-281",
@@ -1906,6 +1906,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-299",
+      "headline": "HK & CHINA GAS (00003): Notice of Listing on The Stock Exchange of Hong Kong Limited - HKCG (Finance) Limited - U.S.$7,000,000,000 Medium Term Note Programme",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092901409.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T10:51:00Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "The company announced a $7,000,000,000 medium-term note programme.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The company announced a $7,000,000,000 medium-term note programme.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HK & CHINA GAS",
+          "ticker": "00003",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-156",
       "headline": "POLYFAIR HLDGS (08532): INSIDE INFORMATION UPDATE ON THE WINDING-UP PETITION",
       "headline_en": null,
@@ -1950,56 +1999,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-177",
-      "headline": "FTC, States Win Protections to Lower Pesticide Prices for American Farmers in Antitrust Case Against Corteva",
-      "headline_en": null,
-      "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-states-win-protections-lower-pesticide-prices-american-farmers-antitrust-case-against-corteva",
-      "source_name": "Federal Trade Commission (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-28T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "The FTC and states secured an antitrust settlement against Corteva to lower pesticide prices, impacting the company's pricing power and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The FTC and states secured an antitrust settlement against Corteva to lower pesticide prices, impacting the company's pricing power and regulatory risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Corteva",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -147853,78 +147852,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-06ae978a41f7",
-      "idea_version": "IDEAV-2beb3467999c772b",
-      "idea_version_started_at": "2026-09-29T03:32:55Z",
-      "ticker": "00064",
-      "company": "Get Nice Holdings",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has announced a privatization scheme of arrangement and a proposed special dividend, creating a defined exit event for shareholders.",
-      "why_now": "The formal filing regarding the privatization and listing withdrawal was published on September 27, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6df12dab94db"
-      ],
-      "primary_source_event_id": "EVT-6df12dab94db",
-      "source_headlines": [
-        "GET NICE (00064): (1) PRIVATISATION OF GET NICE HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING; AND (3) PROPOSED SPECIAL DIVIDEND"
-      ],
-      "source_headline": "GET NICE (00064): (1) PRIVATISATION OF GET NICE HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING; AND (3) PROPOSED SPECIAL DIVIDEND",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092800097.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T23:46:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T03:32:55Z",
-      "updated_at": "2026-09-29T03:32:55Z",
-      "decay_at": "2026-09-29T11:46:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1c6c9c209d48",
       "idea_version": "IDEAV-8ef71b1b183a2aa2",
       "idea_version_started_at": "2026-09-28T20:16:54Z",
@@ -149003,77 +148930,6 @@
       "surfaced_at": "2026-09-28T01:17:09Z",
       "updated_at": "2026-09-28T01:17:09Z",
       "decay_at": "2026-09-29T12:49:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-188d857a638c",
-      "idea_version": "IDEAV-e2455486310490b1",
-      "idea_version_started_at": "2026-09-28T00:37:06Z",
-      "ticker": "09866",
-      "company": "NIO",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The strategic partnership with Geely for battery swapping and charging infrastructure reduces capital expenditure requirements and accelerates the scaling of NIO's energy network.",
-      "why_now": "The definitive agreement was announced on 2026-09-27, providing an immediate catalyst for operational efficiency improvements.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7968ae751041"
-      ],
-      "primary_source_event_id": "EVT-7968ae751041",
-      "source_headlines": [
-        "NIO-SW (09866): INSIDE INFORMATION - DEFINITIVE AGREEMENTS FOR STRATEGIC TRANSACTION WITH GEELY HOLDING GROUP IN BATTERY SWAPPING AND CHARGING BUSINESSES"
-      ],
-      "source_headline": "NIO-SW (09866): INSIDE INFORMATION - DEFINITIVE AGREEMENTS FOR STRATEGIC TRANSACTION WITH GEELY HOLDING GROUP IN BATTERY SWAPPING AND CHARGING BUSINESSES",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092800095.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 99,
-      "newest_source_at": "2026-09-27T23:45:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T00:37:06Z",
-      "updated_at": "2026-09-28T00:37:06Z",
-      "decay_at": "2026-09-29T11:45:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -150706,6 +150562,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-06ae978a41f7",
+      "idea_version": "IDEAV-2beb3467999c772b",
+      "idea_version_started_at": "2026-09-29T03:32:55Z",
+      "ticker": "00064",
+      "company": "Get Nice Holdings",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has announced a privatization scheme of arrangement and a proposed special dividend, creating a defined exit event for shareholders.",
+      "why_now": "The formal filing regarding the privatization and listing withdrawal was published on September 27, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6df12dab94db"
+      ],
+      "primary_source_event_id": "EVT-6df12dab94db",
+      "source_headlines": [
+        "GET NICE (00064): (1) PRIVATISATION OF GET NICE HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING; AND (3) PROPOSED SPECIAL DIVIDEND"
+      ],
+      "source_headline": "GET NICE (00064): (1) PRIVATISATION OF GET NICE HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING; AND (3) PROPOSED SPECIAL DIVIDEND",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092800097.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T23:46:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T03:32:55Z",
+      "updated_at": "2026-09-29T03:32:55Z",
+      "decay_at": "2026-09-29T11:46:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-cc058e79f633",
       "idea_version": "IDEAV-ff4cee524be55d68",
       "idea_version_started_at": "2026-09-27T23:52:27Z",
@@ -151705,6 +151633,77 @@
       "surfaced_at": "2026-09-27T03:59:15Z",
       "updated_at": "2026-09-29T03:32:55Z",
       "decay_at": "2026-09-29T10:31:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-188d857a638c",
+      "idea_version": "IDEAV-e2455486310490b1",
+      "idea_version_started_at": "2026-09-28T00:37:06Z",
+      "ticker": "09866",
+      "company": "NIO",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The strategic partnership with Geely for battery swapping and charging infrastructure reduces capital expenditure requirements and accelerates the scaling of NIO's energy network.",
+      "why_now": "The definitive agreement was announced on 2026-09-27, providing an immediate catalyst for operational efficiency improvements.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7968ae751041"
+      ],
+      "primary_source_event_id": "EVT-7968ae751041",
+      "source_headlines": [
+        "NIO-SW (09866): INSIDE INFORMATION - DEFINITIVE AGREEMENTS FOR STRATEGIC TRANSACTION WITH GEELY HOLDING GROUP IN BATTERY SWAPPING AND CHARGING BUSINESSES"
+      ],
+      "source_headline": "NIO-SW (09866): INSIDE INFORMATION - DEFINITIVE AGREEMENTS FOR STRATEGIC TRANSACTION WITH GEELY HOLDING GROUP IN BATTERY SWAPPING AND CHARGING BUSINESSES",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092800095.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 99,
+      "newest_source_at": "2026-09-27T23:45:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T00:37:06Z",
+      "updated_at": "2026-09-28T00:37:06Z",
+      "decay_at": "2026-09-29T11:45:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -153379,14 +153378,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 553,
+    "total_count": 555,
     "shown_count": 500,
-    "hidden_count": 53,
+    "hidden_count": 55,
     "side_counts": {
       "long": {
-        "total_count": 282,
+        "total_count": 284,
         "shown_count": 250,
-        "hidden_count": 32
+        "hidden_count": 34
       },
       "short": {
         "total_count": 271,
@@ -153410,6 +153409,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-06ae978a41f7",
+        "idea_version": "IDEAV-2beb3467999c772b",
+        "idea_version_started_at": "2026-09-29T03:32:55Z",
+        "ticker": "00064",
+        "company": "Get Nice Holdings",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has announced a privatization scheme of arrangement and a proposed special dividend, creating a defined exit event for shareholders.",
+        "why_now": "The formal filing regarding the privatization and listing withdrawal was published on September 27, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6df12dab94db"
+        ],
+        "primary_source_event_id": "EVT-6df12dab94db",
+        "source_headlines": [
+          "GET NICE (00064): (1) PRIVATISATION OF GET NICE HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING; AND (3) PROPOSED SPECIAL DIVIDEND"
+        ],
+        "source_headline": "GET NICE (00064): (1) PRIVATISATION OF GET NICE HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING; AND (3) PROPOSED SPECIAL DIVIDEND",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092800097.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-27T23:46:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T03:32:55Z",
+        "updated_at": "2026-09-29T03:32:55Z",
+        "decay_at": "2026-09-29T11:46:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T11:46:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-188d857a638c",
+        "idea_version": "IDEAV-e2455486310490b1",
+        "idea_version_started_at": "2026-09-28T00:37:06Z",
+        "ticker": "09866",
+        "company": "NIO",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The strategic partnership with Geely for battery swapping and charging infrastructure reduces capital expenditure requirements and accelerates the scaling of NIO's energy network.",
+        "why_now": "The definitive agreement was announced on 2026-09-27, providing an immediate catalyst for operational efficiency improvements.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7968ae751041"
+        ],
+        "primary_source_event_id": "EVT-7968ae751041",
+        "source_headlines": [
+          "NIO-SW (09866): INSIDE INFORMATION - DEFINITIVE AGREEMENTS FOR STRATEGIC TRANSACTION WITH GEELY HOLDING GROUP IN BATTERY SWAPPING AND CHARGING BUSINESSES"
+        ],
+        "source_headline": "NIO-SW (09866): INSIDE INFORMATION - DEFINITIVE AGREEMENTS FOR STRATEGIC TRANSACTION WITH GEELY HOLDING GROUP IN BATTERY SWAPPING AND CHARGING BUSINESSES",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092800095.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 99,
+        "newest_source_at": "2026-09-27T23:45:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-28T00:37:06Z",
+        "updated_at": "2026-09-28T00:37:06Z",
+        "decay_at": "2026-09-29T11:45:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T11:45:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2e0537f9d742",
         "idea_version": "IDEAV-085c966c2ec4c29f",
@@ -183556,154 +183704,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-52bcd63c0c75",
-        "idea_version": "IDEAV-0c8e6188e55c17b6",
-        "idea_version_started_at": "2026-09-11T22:18:52Z",
-        "ticker": "PRAKASH",
-        "company": "Prakash Industries Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The receipt of Consent to Operate for a capacity expansion at the Bhaskarpara coal mine provides a direct path to increased production volume and revenue.",
-        "why_now": "The company informed the exchange of the approval on September 11, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-58dec22bf3ae"
-        ],
-        "primary_source_event_id": "EVT-58dec22bf3ae",
-        "source_headlines": [
-          "Prakash Industries Limited: Prakash Industries Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Consent to Operate (CTO) for Expansion of Bhaskarpara Coal Mine production capacity from 1.0 MTPA to 1.2 MTPA\"."
-        ],
-        "source_headline": "Prakash Industries Limited: Prakash Industries Limited has informed the Exchange regarding a press release dated September 11, 2026, titled \"Consent to Operate (CTO) for Expansion of Bhaskarpara Coal Mine production capacity from 1.0 MTPA to 1.2 MTPA\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/PRAKASH_11092026155921_Intimation_to_SE_11092026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-11T10:31:39Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-11T13:20:53Z",
-        "updated_at": "2026-09-11T22:18:52Z",
-        "decay_at": "2026-09-12T22:31:39Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-14T10:56:23Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-de1d8125d965",
-        "idea_version": "IDEAV-6b8e40bb98d5678f",
-        "idea_version_started_at": "2026-09-11T22:18:52Z",
-        "ticker": "00688",
-        "company": "China Overseas Land & Investment",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The approval of a spin-off allows the company to unlock value from its underlying property assets and improve capital allocation efficiency.",
-        "why_now": "The exchange approval was announced on September 11, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-208c265444a7"
-        ],
-        "primary_source_event_id": "EVT-208c265444a7",
-        "source_headlines": [
-          "CHINA OVERSEAS (00688): PROPOSED SPIN-OFF APPROVED BY THE STOCK EXCHANGE"
-        ],
-        "source_headline": "CHINA OVERSEAS (00688): PROPOSED SPIN-OFF APPROVED BY THE STOCK EXCHANGE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091101165.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-11T10:28:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-11T13:20:53Z",
-        "updated_at": "2026-09-11T22:18:52Z",
-        "decay_at": "2026-09-12T22:28:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-14T10:30:22Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-cf866ad63dd3",
         "idea_version": "IDEAV-86af74d004e4beb1",
         "idea_version_started_at": "2026-09-12T05:48:12Z",
@@ -190571,7 +190571,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1141,
-    "live_count": 46,
+    "live_count": 44,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -190590,9 +190590,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4721814,
-    "news_picked_today": 661,
-    "news_dropped_today": 5387
+    "news_seen_today": 4741053,
+    "news_picked_today": 664,
+    "news_dropped_today": 5408
   },
   "book_momentum": {
     "live_count": 8,
