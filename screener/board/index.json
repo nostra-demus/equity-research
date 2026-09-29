@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T10:41:24Z",
+  "generated_at": "2026-09-29T10:42:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-271",
@@ -551,6 +551,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-280",
+      "headline": "AMD acquires AI research firm World Labs in all-stock deal worth $8.2bn",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/amd-acquires-ai-research-firm-world-labs-in-all-stock-deal-worth-82bn/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T10:38:57Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "AMD is acquiring AI research firm World Labs in an all-stock deal valued at $8.2 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMD is acquiring AI research firm World Labs in an all-stock deal valued at $8.2 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1945,55 +1994,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-253",
-      "headline": "SKIL Infrastructure Limited: SKIL Infrastructure Limited has informed the Exchange regarding the Post Facto Intimation of the Twelfth (12th) Committee of Creditors meeting held on Monday, September 28, 2026",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/Skilinfra_29092026132501_Letter_Post_Facto_Intimation_12th_COC.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T07:55:12Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "SKIL Infrastructure is undergoing a committee of creditors meeting, indicating potential insolvency or debt distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "SKIL Infrastructure is undergoing a committee of creditors meeting, indicating potential insolvency or debt distress.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SKIL Infrastructure Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -190518,9 +190518,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3966220,
-    "news_picked_today": 575,
-    "news_dropped_today": 5017
+    "news_seen_today": 3984044,
+    "news_picked_today": 578,
+    "news_dropped_today": 5038
   },
   "book_momentum": {
     "live_count": 8,
