@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T08:34:29Z",
+  "generated_at": "2026-09-29T08:37:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-208",
@@ -394,6 +394,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-250",
+      "headline": "Lindt cuts sales forecast as higher chocolate prices, heatwave dampen demand",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/lindt-cuts-2026-growth-forecast-weak-demand-heatwave-weigh-sales-2026-09-29/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T07:13:05Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Lindt cut its sales forecast due to weak demand, marking a significant negative revision.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lindt cut its sales forecast due to weak demand, marking a significant negative revision.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lindt & Sprüngli",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-214",
       "headline": "Anthropic warns of ‘existential risks to humanity’ from AI; AstraZeneca makes $2bn cancer drug tie-up – business live",
       "headline_en": null,
@@ -736,6 +785,55 @@
           "name": "Lindt",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-251",
+      "headline": "Lindt Plans Price Cuts After Second 2026 Guidance Revision",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-29/lindt-cuts-sales-growth-guidance-for-second-time-on-weak-demand",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T05:30:07Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Lindt issued a second guidance revision for 2026, indicating deteriorating financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lindt issued a second guidance revision for 2026, indicating deteriorating financial performance.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lindt & Sprüngli",
+          "ticker": null,
+          "listing_country": "CH"
         }
       ],
       "size_bucket": "large",
@@ -1882,98 +1980,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-108",
-      "headline": "RBI to conduct Overnight Variable Rate Reverse Repo (VRRR) auction under LAF on September 29, 2026",
-      "headline_en": null,
-      "url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63682",
-      "source_name": "Reserve Bank of India (RBI) — Press Releases",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-28T13:35:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "RBI to conduct Overnight Variable Rate Reverse Repo (VRRR) auction under LAF on September 29, 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "RBI to conduct Overnight Variable Rate Reverse Repo (VRRR) auction under LAF on September 29, 2026.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-015",
-      "headline": "Natco Pharma raises proposed investment in eGenesis to $16.70 million",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/natco-pharma-raises-proposed-investment-in-egenesis-to-1670-million/article71522277.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T00:05:25Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Natco Pharma increased its proposed investment in eGenesis to $16.70 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Natco Pharma increased its proposed investment in eGenesis to $16.70 million.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Natco Pharma",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -189928,9 +189934,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2900416,
-    "news_picked_today": 443,
-    "news_dropped_today": 4045
+    "news_seen_today": 2932494,
+    "news_picked_today": 447,
+    "news_dropped_today": 4065
   },
   "book_momentum": {
     "live_count": 8,
