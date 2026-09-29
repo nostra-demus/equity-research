@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T01:45:38Z",
+  "generated_at": "2026-09-29T01:56:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -95,6 +95,65 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-092",
+      "headline": "Samsung to inject $1 billion into Nvidia- and KKR-backed AI infrastructure firm",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/29/samsung-investment-nvidia-kkr-ai-helix-digital.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T01:48:52Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Samsung is investing $1 billion into an AI infrastructure firm, representing a significant capital commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung is investing $1 billion into an AI infrastructure firm, representing a significant capital commitment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1222,6 +1281,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-083",
+      "headline": "Nidec’s Unending Turmoil Raises Specter of Breakup or Takeover",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-29/nidec-s-unending-turmoil-raises-specter-of-breakup-or-takeover",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T01:19:27Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Nidec is facing internal turmoil leading to speculation about a potential breakup or takeover.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Nidec is facing internal turmoil leading to speculation about a potential breakup or takeover.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nidec",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-048",
       "headline": "China and U.S. pledge tariff cuts on $60 billion of goods",
       "headline_en": null,
@@ -1314,6 +1422,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-082",
+      "headline": "Tata Trusts proposes merger to reshape Tata Sons' regulatory status, avoid IPO",
+      "headline_en": null,
+      "url": "https://www.hindustantimes.com/business/tata-trusts-proposes-merger-to-reshape-tata-sons-regulatory-status-avoid-ipo-101790640861084.html",
+      "source_name": "Hindustan Times (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T01:09:02Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Tata Trusts is proposing a merger to change the regulatory status of Tata Sons, which would impact the group's IPO plans.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Tata Trusts is proposing a merger to change the regulatory status of Tata Sons, which would impact the group's IPO plans.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-059",
       "headline": "Listing of Equity Shares of HIMALAYA NUTRAVEDICS INDIA LIMITED",
       "headline_en": null,
@@ -1358,6 +1516,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-093",
+      "headline": "Australia news live: OpenAI apologises for Medicare hack, calling it a ‘new kind of cyber incident’",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/australia-news/live/2026/sep/29/treasurer-jim-chalmers-reserve-bank-cash-rate-decision-coalition-one-nation-ntwnfb",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T01:35:08Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "OpenAI apologized for a Medicare data hack, creating significant operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "OpenAI apologized for a Medicare data hack, creating significant operational and reputational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1739,202 +1946,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-027",
-      "headline": "SCHEDULE 13D/A - D. E. SHAW & CO, L.P. (0001009268) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1009268/000110465926111463/0001104659-26-111463-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-28T23:49:09Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "D. E. Shaw & Co. filed an amended Schedule 13D, reflecting a change in their ownership position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "D. E. Shaw & Co. filed an amended Schedule 13D, reflecting a change in their ownership position.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "D. E. Shaw & Co., L.P.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-078",
-      "headline": "XRG: Update on revised Appendix 4E [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XRG?key=2924-03141217-2A1700170",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T01:14:35Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "XRG provided a price-sensitive update to its financial results (Appendix 4E), which is material for valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "XRG provided a price-sensitive update to its financial results (Appendix 4E), which is material for valuation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XRG",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-037",
-      "headline": "PIA: TOV: PIA - Panel Application Withdrawn [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PIA?key=2924-03141181_PS-2A1700155",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T23:58:49Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "The Takeovers Panel application regarding the PIA/TOV matter has been withdrawn.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "The Takeovers Panel application regarding the PIA/TOV matter has been withdrawn.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pengana International Equities",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-038",
-      "headline": "TOV: PIA - Panel Application Withdrawn",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TOV?key=2924-03141181_NPS-2A1700156",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T23:58:49Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "The Takeovers Panel application regarding the PIA/TOV matter has been withdrawn.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "The Takeovers Panel application regarding the PIA/TOV matter has been withdrawn.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TOV",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -148308,79 +148319,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e683a5bffde6",
-      "idea_version": "IDEAV-86256c14ae0599cd",
-      "idea_version_started_at": "2026-09-27T14:13:08Z",
-      "ticker": "BRIGHTLINE",
-      "company": "Brightline",
-      "exchange": "OTC",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Brightline has filed for Chapter 11 bankruptcy, indicating severe financial distress and a high likelihood of equity value destruction.",
-      "why_now": "The company has officially filed for bankruptcy protection as of September 27, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7f2bcd6911cd"
-      ],
-      "primary_source_event_id": "EVT-7f2bcd6911cd",
-      "source_headlines": [
-        "Only US private passenger train files Chapter 11 bankruptcy"
-      ],
-      "source_headline": "Only US private passenger train files Chapter 11 bankruptcy",
-      "source_url": "https://www.thestreet.com/travel/brightline-passenger-train-company-files-chapter-11-bankruptcy",
-      "source_name": "TheStreet",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T13:47:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T14:13:08Z",
-      "updated_at": "2026-09-27T14:13:08Z",
-      "decay_at": "2026-09-29T01:47:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-188d857a638c",
       "idea_version": "IDEAV-e2455486310490b1",
       "idea_version_started_at": "2026-09-28T00:37:06Z",
@@ -150510,6 +150448,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-e683a5bffde6",
+      "idea_version": "IDEAV-86256c14ae0599cd",
+      "idea_version_started_at": "2026-09-27T14:13:08Z",
+      "ticker": "BRIGHTLINE",
+      "company": "Brightline",
+      "exchange": "OTC",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Brightline has filed for Chapter 11 bankruptcy, indicating severe financial distress and a high likelihood of equity value destruction.",
+      "why_now": "The company has officially filed for bankruptcy protection as of September 27, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7f2bcd6911cd"
+      ],
+      "primary_source_event_id": "EVT-7f2bcd6911cd",
+      "source_headlines": [
+        "Only US private passenger train files Chapter 11 bankruptcy"
+      ],
+      "source_headline": "Only US private passenger train files Chapter 11 bankruptcy",
+      "source_url": "https://www.thestreet.com/travel/brightline-passenger-train-company-files-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T13:47:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T14:13:08Z",
+      "updated_at": "2026-09-27T14:13:08Z",
+      "decay_at": "2026-09-29T01:47:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3d659333c5c4",
       "idea_version": "IDEAV-660bf2a694598018",
       "idea_version_started_at": "2026-09-27T12:04:57Z",
@@ -152033,9 +152044,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 500,
-    "hidden_count": 38,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -152043,9 +152054,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -152064,6 +152075,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e683a5bffde6",
+        "idea_version": "IDEAV-86256c14ae0599cd",
+        "idea_version_started_at": "2026-09-27T14:13:08Z",
+        "ticker": "BRIGHTLINE",
+        "company": "Brightline",
+        "exchange": "OTC",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Brightline has filed for Chapter 11 bankruptcy, indicating severe financial distress and a high likelihood of equity value destruction.",
+        "why_now": "The company has officially filed for bankruptcy protection as of September 27, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7f2bcd6911cd"
+        ],
+        "primary_source_event_id": "EVT-7f2bcd6911cd",
+        "source_headlines": [
+          "Only US private passenger train files Chapter 11 bankruptcy"
+        ],
+        "source_headline": "Only US private passenger train files Chapter 11 bankruptcy",
+        "source_url": "https://www.thestreet.com/travel/brightline-passenger-train-company-files-chapter-11-bankruptcy",
+        "source_name": "TheStreet",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-27T13:47:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T14:13:08Z",
+        "updated_at": "2026-09-27T14:13:08Z",
+        "decay_at": "2026-09-29T01:47:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T01:47:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3d659333c5c4",
         "idea_version": "IDEAV-660bf2a694598018",
@@ -189142,87 +189229,12 @@
         "archived_at": "2026-09-06T16:45:32Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-f7d451f14843",
-        "idea_version": "IDEAV-3a714f02fd38b381",
-        "idea_version_started_at": "2026-09-03T18:13:00Z",
-        "ticker": "CRST",
-        "company": "Crest Nicholson",
-        "exchange": "LSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company warned of an annual loss due to a subdued property market, indicating significant margin compression and demand headwinds in the UK housing sector.",
-        "why_now": "The warning was issued on September 3, 2026, and reflects immediate operational deterioration.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4c88d04d884b"
-        ],
-        "primary_source_event_id": "EVT-4c88d04d884b",
-        "source_headlines": [
-          "Housebuilder Crest Nicholson warns of annual loss in ‘subdued’ property market"
-        ],
-        "source_headline": "Housebuilder Crest Nicholson warns of annual loss in ‘subdued’ property market",
-        "source_url": "https://www.theguardian.com/business/2026/sep/03/housebuilder-crest-nicholson-warns-of-annual-loss-subdued-property-market",
-        "source_name": "The Guardian — Business",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-03T10:02:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-03T14:38:11Z",
-        "updated_at": "2026-09-03T18:13:00Z",
-        "decay_at": "2026-09-04T22:02:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T10:10:53Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1121,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -189241,9 +189253,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 384465,
-    "news_picked_today": 98,
-    "news_dropped_today": 838
+    "news_seen_today": 424099,
+    "news_picked_today": 111,
+    "news_dropped_today": 897
   },
   "book_momentum": {
     "live_count": 8,
