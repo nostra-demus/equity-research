@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T00:12:53Z",
+  "generated_at": "2026-09-29T00:20:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-005",
@@ -199,6 +199,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-007",
+      "headline": "Saksoft Limited: Saksoft Limited has informed the Exchange about Credit Rating- Revision",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SAKSOFT_28092026200449_Revised_credit_rating_SE_intimationsigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T14:35:04Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Saksoft Limited announced a revision in its credit rating.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Saksoft Limited announced a revision in its credit rating.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "credit_rating_upgrade",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "credit_rating_upgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saksoft Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-001",
       "headline": "6-K - HSBC HOLDINGS PLC (0001089113) (Filer)",
       "headline_en": null,
@@ -243,6 +292,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-006",
+      "headline": "Sun Pharmaceutical Industries Limited: Sun Pharmaceutical Industries Limited has informed the Exchange regarding 'Completion and Result of Postal Ballot dated 25 August 2026'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SUNSEC_28092026200828_SEIntimationforVR.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T14:39:05Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Routine corporate governance update regarding the completion of a postal ballot.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Routine corporate governance update regarding the completion of a postal ballot.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sun Pharmaceutical Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -187540,7 +187638,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2972,
+    "inbox_unconsumed": 2974,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -187549,7 +187647,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 81368,
+    "news_seen_today": 91473,
     "news_picked_today": 5,
     "news_dropped_today": 115
   },
