@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T01:30:30Z",
+  "generated_at": "2026-09-29T01:33:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -139,6 +139,55 @@
       "companies": [
         {
           "name": "Advanced Micro Devices",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-076",
+      "headline": "Nvidia sets biggest-ever buyback plan as AI chip competition weighs on stock performance",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/nvidia-sets-biggest-ever-buyback-plan-ai-chip-competition-weighs-stock-performance",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T01:24:44Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Nvidia announced its largest-ever share buyback program, signaling strong cash flow and management confidence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Nvidia announced its largest-ever share buyback program, signaling strong cash flow and management confidence.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1695,6 +1744,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-078",
+      "headline": "XRG: Update on revised Appendix 4E [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XRG?key=2924-03141217-2A1700170",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T01:14:35Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "XRG provided a price-sensitive update to its financial results (Appendix 4E), which is material for valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "XRG provided a price-sensitive update to its financial results (Appendix 4E), which is material for valuation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XRG",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-037",
       "headline": "PIA: TOV: PIA - Panel Application Withdrawn [price-sensitive]",
       "headline_en": null,
@@ -1834,104 +1932,6 @@
           "name": "Gossamer Bio, Inc.",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-055",
-      "headline": "Agastya Energy and Infrastructure Limited: Agastya Energy and Infrastructure Limited has informed the Exchange about Sale or disposal",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SANGINITA_28092026195123_Intimation_under_Regulation_30.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T14:21:39Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Agastya Energy and Infrastructure Limited announced a sale or disposal of assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Agastya Energy and Infrastructure Limited announced a sale or disposal of assets.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Agastya Energy and Infrastructure Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-034",
-      "headline": "SVL: Silver Mines Completes Bowdens Project Royalty Buy-Backs [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SVL?key=2924-03141192-2A1700162",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T00:16:44Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Silver Mines completed a royalty buy-back for the Bowdens Project, reducing future royalty obligations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Silver Mines completed a royalty buy-back for the Bowdens Project, reducing future royalty obligations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Silver Mines",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -189241,9 +189241,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 314840,
-    "news_picked_today": 89,
-    "news_dropped_today": 703
+    "news_seen_today": 344765,
+    "news_picked_today": 95,
+    "news_dropped_today": 721
   },
   "book_momentum": {
     "live_count": 8,
