@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T07:09:35Z",
+  "generated_at": "2026-09-29T07:11:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-208",
@@ -146477,6 +146477,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-90b902d53889",
+      "idea_version": "IDEAV-a31c966953e6e529",
+      "idea_version_started_at": "2026-09-29T07:11:10Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The US$150 billion share buyback program provides a massive floor for the stock price and signals management's confidence in long-term cash flow despite competitive pressures.",
+      "why_now": "The announcement of the largest buyback in history occurred on 2026-09-29.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 73,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ee9a2a8e6e5d",
+        "EVT-e8475580229f"
+      ],
+      "primary_source_event_id": "EVT-ee9a2a8e6e5d",
+      "source_headlines": [
+        "Nvidia sets biggest-ever buyback plan as AI chip competition weighs on stock performance",
+        "Nvidia adds US$150 billion to massive stock buyback, the largest ever"
+      ],
+      "source_headline": "Nvidia sets biggest-ever buyback plan as AI chip competition weighs on stock performance",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/nvidia-sets-biggest-ever-buyback-plan-ai-chip-competition-weighs-stock-performance",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 98,
+      "newest_source_at": "2026-09-29T02:27:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T07:11:10Z",
+      "updated_at": "2026-09-29T07:11:10Z",
+      "decay_at": "2026-09-30T14:27:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-52e98452feee",
       "idea_version": "IDEAV-85ee33ca7114f155",
       "idea_version_started_at": "2026-09-28T02:57:09Z",
@@ -146891,6 +146962,77 @@
       "surfaced_at": "2026-09-28T00:37:06Z",
       "updated_at": "2026-09-28T00:37:06Z",
       "decay_at": "2026-09-29T11:38:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-bd1393525e42",
+      "idea_version": "IDEAV-c901d95859efb5e2",
+      "idea_version_started_at": "2026-09-29T07:11:10Z",
+      "ticker": "00131.HK",
+      "company": "Cheuk Nang Holdings",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A positive profit alert indicates a material improvement in earnings, likely driven by property valuation gains or operational efficiencies.",
+      "why_now": "The filing was released on 2026-09-28, providing immediate catalyst for a re-rating.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-340d838a6949"
+      ],
+      "primary_source_event_id": "EVT-340d838a6949",
+      "source_headlines": [
+        "CHEUK NANG HOLD (00131): Positive Profit Alert"
+      ],
+      "source_headline": "CHEUK NANG HOLD (00131): Positive Profit Alert",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801795.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T12:33:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T07:11:10Z",
+      "updated_at": "2026-09-29T07:11:10Z",
+      "decay_at": "2026-09-30T00:33:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -189764,8 +189906,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1130,
-    "live_count": 45,
+    "surfaced_total": 1132,
+    "live_count": 47,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -189784,7 +189926,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2093164,
+    "news_seen_today": 2107302,
     "news_picked_today": 405,
     "news_dropped_today": 3963
   },
