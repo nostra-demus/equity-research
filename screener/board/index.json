@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T11:09:09Z",
+  "generated_at": "2026-09-29T11:16:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-281",
@@ -146569,6 +146569,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-e4081d3d7646",
+      "idea_version": "IDEAV-21bfaf3dac94dd7a",
+      "idea_version_started_at": "2026-09-29T11:16:34Z",
+      "ticker": "AMD",
+      "company": "Advanced Micro Devices",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The $8.2 billion all-stock acquisition of World Labs will cause significant shareholder dilution and likely pressure the stock price in the near term.",
+      "why_now": "The deal was announced on 2026-09-29 and the market typically reacts negatively to large-scale equity-funded acquisitions.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0f8360b7187d"
+      ],
+      "primary_source_event_id": "EVT-0f8360b7187d",
+      "source_headlines": [
+        "AMD acquires AI research firm World Labs in all-stock deal worth $8.2bn"
+      ],
+      "source_headline": "AMD acquires AI research firm World Labs in all-stock deal worth $8.2bn",
+      "source_url": "https://www.datacenterdynamics.com/en/news/amd-acquires-ai-research-firm-world-labs-in-all-stock-deal-worth-82bn/",
+      "source_name": "DataCenterDynamics",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T10:38:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T11:16:34Z",
+      "updated_at": "2026-09-29T11:16:34Z",
+      "decay_at": "2026-09-30T22:38:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-52e98452feee",
       "idea_version": "IDEAV-85ee33ca7114f155",
       "idea_version_started_at": "2026-09-28T02:57:09Z",
@@ -146913,76 +146983,6 @@
       "surfaced_at": "2026-09-26T15:19:48Z",
       "updated_at": "2026-09-28T03:32:24Z",
       "decay_at": "2026-09-29T14:36:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-a5b42c212a71",
-      "idea_version": "IDEAV-1e0ad7888182d821",
-      "idea_version_started_at": "2026-09-27T23:35:29Z",
-      "ticker": "PEP",
-      "company": "PepsiCo",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A 1 billion dollar capital investment in Colombia over 5 years signals long-term capacity expansion and market share growth in the Latin American region.",
-      "why_now": "The investment was officially announced by the President of Colombia on 2026-09-27.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f431cfaa0a69"
-      ],
-      "primary_source_event_id": "EVT-f431cfaa0a69",
-      "source_headlines": [
-        "President of Colombia announces that PepsiCo will invest 1 billion dollars in the country over the next 5 years"
-      ],
-      "source_headline": "Presidente de Colombia anuncia que PepsiCo invertirá 1.000 millones de dólares en el país en próximos 5 años",
-      "source_url": "https://www.reuters.com/es/mundo/2LCCFUXBXRPWNNTCUN2EDPLB2U-2026-09-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T23:13:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T23:35:29Z",
-      "updated_at": "2026-09-27T23:35:29Z",
-      "decay_at": "2026-09-29T11:13:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -149994,6 +149994,76 @@
       "surfaced_at": "2026-09-26T15:19:48Z",
       "updated_at": "2026-09-26T15:19:48Z",
       "decay_at": "2026-09-28T02:25:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a5b42c212a71",
+      "idea_version": "IDEAV-1e0ad7888182d821",
+      "idea_version_started_at": "2026-09-27T23:35:29Z",
+      "ticker": "PEP",
+      "company": "PepsiCo",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A 1 billion dollar capital investment in Colombia over 5 years signals long-term capacity expansion and market share growth in the Latin American region.",
+      "why_now": "The investment was officially announced by the President of Colombia on 2026-09-27.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f431cfaa0a69"
+      ],
+      "primary_source_event_id": "EVT-f431cfaa0a69",
+      "source_headlines": [
+        "President of Colombia announces that PepsiCo will invest 1 billion dollars in the country over the next 5 years"
+      ],
+      "source_headline": "Presidente de Colombia anuncia que PepsiCo invertirá 1.000 millones de dólares en el país en próximos 5 años",
+      "source_url": "https://www.reuters.com/es/mundo/2LCCFUXBXRPWNNTCUN2EDPLB2U-2026-09-27/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T23:13:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T23:35:29Z",
+      "updated_at": "2026-09-27T23:35:29Z",
+      "decay_at": "2026-09-29T11:13:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -153303,14 +153373,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 551,
     "shown_count": 500,
-    "hidden_count": 50,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       },
       "short": {
         "total_count": 270,
@@ -153334,6 +153404,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a5b42c212a71",
+        "idea_version": "IDEAV-1e0ad7888182d821",
+        "idea_version_started_at": "2026-09-27T23:35:29Z",
+        "ticker": "PEP",
+        "company": "PepsiCo",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A 1 billion dollar capital investment in Colombia over 5 years signals long-term capacity expansion and market share growth in the Latin American region.",
+        "why_now": "The investment was officially announced by the President of Colombia on 2026-09-27.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f431cfaa0a69"
+        ],
+        "primary_source_event_id": "EVT-f431cfaa0a69",
+        "source_headlines": [
+          "President of Colombia announces that PepsiCo will invest 1 billion dollars in the country over the next 5 years"
+        ],
+        "source_headline": "Presidente de Colombia anuncia que PepsiCo invertirá 1.000 millones de dólares en el país en próximos 5 años",
+        "source_url": "https://www.reuters.com/es/mundo/2LCCFUXBXRPWNNTCUN2EDPLB2U-2026-09-27/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-27T23:13:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T23:35:29Z",
+        "updated_at": "2026-09-27T23:35:29Z",
+        "decay_at": "2026-09-29T11:13:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T11:13:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ed1c1d3cd77d",
         "idea_version": "IDEAV-3d6b37d0eaa1fdb9",
@@ -183482,81 +183625,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-701a8a0dff40",
-        "idea_version": "IDEAV-f51f719f2fbecd05",
-        "idea_version_started_at": "2026-09-11T11:59:49Z",
-        "ticker": "OMN",
-        "company": "Omnia Holdings",
-        "exchange": "JSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is in advanced buyout talks, which typically signals a premium to the current trading price as the market prices in a potential acquisition.",
-        "why_now": "The news of advanced talks was reported on 2026-09-11.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a34ee22ac70c"
-        ],
-        "primary_source_event_id": "EVT-a34ee22ac70c",
-        "source_headlines": [
-          "Omnia in advanced talks over potential buyout of all its ordinary shares"
-        ],
-        "source_headline": "Omnia in advanced talks over potential buyout of all its ordinary shares",
-        "source_url": "https://www.moneyweb.co.za/news/companies-and-deals/omnia-in-advanced-talks-over-potential-buyout-of-all-its-ordinary-shares/",
-        "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-11T09:35:28Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-11T11:59:49Z",
-        "updated_at": "2026-09-11T11:59:49Z",
-        "decay_at": "2026-09-12T21:35:28Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-14T09:41:26Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-cf866ad63dd3",
         "idea_version": "IDEAV-86af74d004e4beb1",
         "idea_version_started_at": "2026-09-12T05:48:12Z",
@@ -190498,7 +190566,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1140,
+    "surfaced_total": 1141,
     "live_count": 48,
     "promoted_total": 0,
     "machine_confirmed": 0,
@@ -190518,9 +190586,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4344908,
+    "news_seen_today": 4418692,
     "news_picked_today": 612,
-    "news_dropped_today": 5196
+    "news_dropped_today": 5244
   },
   "book_momentum": {
     "live_count": 8,
