@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-29T23:03:18Z",
+  "generated_at": "2026-09-29T23:06:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-432",
+      "headline": "DRO: DroneShield Awarded US$500M US IDIQ Procurement Vehicle",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DRO?key=2924-03141779-2A1700430",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T22:49:44Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "DroneShield was awarded a US$500M IDIQ procurement contract, representing a significant revenue opportunity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DroneShield was awarded a US$500M IDIQ procurement contract, representing a significant revenue opportunity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DroneShield",
+          "ticker": "DRO",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-431",
       "headline": "BC8: FY27 Guidance & Outlook [price-sensitive]",
@@ -1944,55 +1993,6 @@
       "companies": [
         {
           "name": "Scholastic",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-316",
-      "headline": "SoundThinking To Be Acquired By Transom For Up To $11/shr In Cash; Shares Up 50% In Pre-market",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/soundthinking-be-acquired-transom-11-shr-cash-shares-50-pre-market",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T12:02:14Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "SoundThinking to be acquired for $11 per share in cash.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SoundThinking to be acquired for $11 per share in cash.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoundThinking",
           "ticker": null,
           "listing_country": "US"
         }
@@ -191606,9 +191606,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14671586,
-    "news_picked_today": 1219,
-    "news_dropped_today": 10061
+    "news_seen_today": 14703464,
+    "news_picked_today": 1224,
+    "news_dropped_today": 10080
   },
   "book_momentum": {
     "live_count": 8,
