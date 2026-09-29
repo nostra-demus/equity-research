@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T19:43:24Z",
+  "generated_at": "2026-09-29T19:47:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-360",
@@ -1046,6 +1046,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-418",
+      "headline": "Air India's ₹10,000 crore fundraise plan draws cashflow concerns",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/air-indias-10000-crore-fundraise-plan-draws-cashflow-concerns/articleshow/134573523.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T19:37:48Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Air India plans to raise 10,000 crore rupees, raising concerns about its cash flow position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Air India plans to raise 10,000 crore rupees, raising concerns about its cash flow position.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air India",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-417",
       "headline": "The real prize in AMD’s $8 billion World Labs acquisition isn’t what you’d think",
       "headline_en": null,
@@ -1951,55 +2000,6 @@
           "name": "Lindt",
           "ticker": null,
           "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-240",
-      "headline": "Lufthansa CEO says jet fuel hit to top €1.5 billion forecast",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/lufthansa-ceo-says-jet-fuel-hit-top-15-billion-forecast-2026-09-29/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T08:18:54Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Lufthansa expects jet fuel costs to exceed its previous forecast by over €1.5 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lufthansa expects jet fuel costs to exceed its previous forecast by over €1.5 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lufthansa",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -191470,9 +191470,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11657380,
-    "news_picked_today": 1074,
-    "news_dropped_today": 8502
+    "news_seen_today": 11778312,
+    "news_picked_today": 1076,
+    "news_dropped_today": 8548
   },
   "book_momentum": {
     "live_count": 8,
