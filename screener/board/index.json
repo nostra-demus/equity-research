@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-09-29T14:17:34Z",
+  "generated_at": "2026-09-29T14:58:03Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-360",
+      "headline": "OCEAN ONE HLDG (09876): MAJOR TRANSACTION IN RELATION TO ACQUISITION OF PROPERTY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092902169.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T14:38:00Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Company announced a major transaction involving the acquisition of property.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a major transaction involving the acquisition of property.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OCEAN ONE HLDG",
+          "ticker": "09876",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-362",
+      "headline": "C STRATEGIC TEC (01725): FURTHER SUPPLEMENTAL ANNOUNCEMENT TO EXPIRY OF LONG STOP DATE AND LAPSE OF MAJOR AND CONNECTED TRANSACTION IN RELATION TO ACQUISITION OF 49% ISSUED SHARE CAPITAL OF ASPACE SATELLITE TECHNOLOGY LIMITED INVOLVING ISSUE OF CONSIDERATION SHARES AND CONVERTIBLE BONDS UNDER SPECIFIC MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092902165.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T14:37:00Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Lapse of a major and connected transaction involving acquisition of 49% stake in Aspace Satellite Technology.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lapse of a major and connected transaction involving acquisition of 49% stake in Aspace Satellite Technology.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C STRATEGIC TEC",
+          "ticker": "01725",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-325",
       "headline": "Saurashtra Cement Limited: In compliance with Regulation 29(1) of the Securities and Exchange Board of India (Substantial Acquisition of Shares and Takeovers) Regulations, 2011 ( SEBI SAST Regulations ), please find enclosed, as Annexure A, the prescribed disclosure in relation to the indirect acquisition by Mehta Family Trust - held by Mr. Jay Mehta And Juhi Chawla as Trustees ( Acquirer ) of voting rights in Saurashtra Cement Limited ( Target Company ) consequent upon the acquisition of 50.04%",
@@ -1891,104 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-251",
-      "headline": "Lindt Plans Price Cuts After Second 2026 Guidance Revision",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-29/lindt-cuts-sales-growth-guidance-for-second-time-on-weak-demand",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T05:30:07Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Lindt issued a second guidance revision for 2026, indicating deteriorating financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lindt issued a second guidance revision for 2026, indicating deteriorating financial performance.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lindt & Sprüngli",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-198",
-      "headline": "BRC Group To Acquire Sangoma Technologies In $204 Mln Deal",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/brc-group-acquire-sangoma-technologies-204-mln-deal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T05:27:50Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "BRC Group is acquiring Sangoma Technologies for $204 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BRC Group is acquiring Sangoma Technologies for $204 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sangoma Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -146701,76 +146701,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-52e98452feee",
-      "idea_version": "IDEAV-85ee33ca7114f155",
-      "idea_version_started_at": "2026-09-28T02:57:09Z",
-      "ticker": "NEM",
-      "company": "Newmont",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The rejection of a $27 billion takeover bid signals management's confidence in the company's standalone valuation and future gold production margins, likely forcing a higher bid or a strategic premium adjustment.",
-      "why_now": "The bid rejection was reported on September 28, 2026, creating immediate volatility and potential for a follow-up offer.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-40c0321a5bb6"
-      ],
-      "primary_source_event_id": "EVT-40c0321a5bb6",
-      "source_headlines": [
-        "Australia’s biggest gold miner rejects $27bn takeover bid"
-      ],
-      "source_headline": "Australia’s biggest gold miner rejects $27bn takeover bid",
-      "source_url": "https://www.ft.com/content/bce81a18-05cf-43a6-9c86-b3238b732230?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T02:42:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T02:57:09Z",
-      "updated_at": "2026-09-28T02:57:09Z",
-      "decay_at": "2026-09-29T14:42:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-000581c2d4b0",
       "idea_version": "IDEAV-c3234b6d80f23e22",
       "idea_version_started_at": "2026-09-29T10:02:00Z",
@@ -146975,76 +146905,6 @@
       "surfaced_at": "2026-09-29T06:22:55Z",
       "updated_at": "2026-09-29T06:22:55Z",
       "decay_at": "2026-09-30T09:39:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0448efa62005",
-      "idea_version": "IDEAV-9e9db2598360c1ed",
-      "idea_version_started_at": "2026-09-28T03:32:24Z",
-      "ticker": "AAPL",
-      "company": "Apple",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Apple was reportedly ordered by a San Diego jury to pay Taction Technology more than $5.7 billion in a patent case, which will be a significant financial hit.",
-      "why_now": "The jury's reported award was announced on September 28, 2026, creating an immediate negative catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-503578612fbf"
-      ],
-      "primary_source_event_id": "EVT-503578612fbf",
-      "source_headlines": [
-        "San Diego Jury Reportedly Awards Taction Technology More Than $5.7 Bln In Apple Patent Case"
-      ],
-      "source_headline": "San Diego Jury Reportedly Awards Taction Technology More Than $5.7 Bln In Apple Patent Case",
-      "source_url": "https://www.nasdaq.com/articles/san-diego-jury-reportedly-awards-taction-technology-more-57-bln-apple-patent-case",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T02:36:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T15:19:48Z",
-      "updated_at": "2026-09-28T03:32:24Z",
-      "decay_at": "2026-09-29T14:36:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -149280,77 +149140,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a4151217c05f",
-      "idea_version": "IDEAV-bf106862d6d941ab",
-      "idea_version_started_at": "2026-09-28T03:12:56Z",
-      "ticker": "MANINFRA",
-      "company": "Man Infraconstruction Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a collaboration for its Marine Lines project that unlocks over ₹6,000 crore in revenue potential and provides an immediate ₹300 crore capital recoupment.",
-      "why_now": "The press release and exchange filing were issued on September 28, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-58e2719b6365"
-      ],
-      "primary_source_event_id": "EVT-58e2719b6365",
-      "source_headlines": [
-        "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"MICL unlocks ₹6,000+ Crores overall revenue potential from Marine Lines Project and Recoups ₹300+ Crores Investment through Landmark Collaboration with Godrej Properties Group \"."
-      ],
-      "source_headline": "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"MICL unlocks ₹6,000+ Crores overall revenue potential from Marine Lines Project and Recoups ₹300+ Crores Investment through Landmark Collaboration with Godrej Properties Group \".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/kunjalparekh_28092026081058_MICL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T02:45:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T03:12:56Z",
-      "updated_at": "2026-09-28T03:12:56Z",
-      "decay_at": "2026-09-29T14:45:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d8f7377dbcbf",
       "idea_version": "IDEAV-1bb0b0aea3e64790",
       "idea_version_started_at": "2026-09-29T11:56:52Z",
@@ -149494,78 +149283,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-699b27265ce6",
-      "idea_version": "IDEAV-b16bde90d1ed76f2",
-      "idea_version_started_at": "2026-09-28T04:16:28Z",
-      "ticker": "CDL",
-      "company": "City Developments Limited",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "CDL's Kwek clan plans to invest US$3.9 billion in Singapore, China, and Japan, which should enhance the company's asset base and future earnings potential.",
-      "why_now": "The investment plan was announced on September 28, 2026, signaling a clear forward-looking capital allocation strategy.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9ed682a3e67c"
-      ],
-      "primary_source_event_id": "EVT-9ed682a3e67c",
-      "source_headlines": [
-        "CDL’s Kwek clan looks to invest US$3.9b in Singapore, China, Japan to raise confidence"
-      ],
-      "source_headline": "CDL’s Kwek clan looks to invest US$3.9b in Singapore, China, Japan to raise confidence",
-      "source_url": "https://www.scmp.com/news/asia/southeast-asia/article/3368989/cdls-kwek-clan-looks-invest-us39b-singapore-china-japan-raise-confidence?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "materiality_max": 95,
-      "newest_source_at": "2026-09-28T02:27:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T04:16:28Z",
-      "updated_at": "2026-09-28T04:16:28Z",
-      "decay_at": "2026-09-29T14:27:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-cd610332b346",
       "idea_version": "IDEAV-5a9a84931362fd33",
       "idea_version_started_at": "2026-09-28T03:56:13Z",
@@ -149631,78 +149348,6 @@
       "surfaced_at": "2026-09-28T03:56:13Z",
       "updated_at": "2026-09-28T03:56:13Z",
       "decay_at": "2026-09-29T15:43:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-f74b0e3c1b77",
-      "idea_version": "IDEAV-be979c7205abc26c",
-      "idea_version_started_at": "2026-09-28T02:35:28Z",
-      "ticker": "H5G",
-      "company": "Hafary Holdings",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The founding family has launched a privatization offer at 64 cents per share, creating a near-term arbitrage opportunity between the current market price and the offer price.",
-      "why_now": "The offer was announced on 2026-09-28; the stock should trade toward the offer price as the market prices in the certainty of the deal.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cd1e91a52830"
-      ],
-      "primary_source_event_id": "EVT-cd1e91a52830",
-      "source_headlines": [
-        "Hafary’s founding family offers 64 cents a share to take company private"
-      ],
-      "source_headline": "Hafary’s founding family offers 64 cents a share to take company private",
-      "source_url": "https://www.straitstimes.com/business/hafarys-founding-family-offers-64-cents-a-share-to-take-company-private",
-      "source_name": "The Straits Times",
-      "materiality_max": 88,
-      "newest_source_at": "2026-09-28T02:25:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T02:35:28Z",
-      "updated_at": "2026-09-28T02:35:28Z",
-      "decay_at": "2026-09-29T14:25:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -149848,6 +149493,76 @@
       "surfaced_at": "2026-09-27T04:44:42Z",
       "updated_at": "2026-09-27T04:44:42Z",
       "decay_at": "2026-09-28T16:27:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-52e98452feee",
+      "idea_version": "IDEAV-85ee33ca7114f155",
+      "idea_version_started_at": "2026-09-28T02:57:09Z",
+      "ticker": "NEM",
+      "company": "Newmont",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The rejection of a $27 billion takeover bid signals management's confidence in the company's standalone valuation and future gold production margins, likely forcing a higher bid or a strategic premium adjustment.",
+      "why_now": "The bid rejection was reported on September 28, 2026, creating immediate volatility and potential for a follow-up offer.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-40c0321a5bb6"
+      ],
+      "primary_source_event_id": "EVT-40c0321a5bb6",
+      "source_headlines": [
+        "Australia’s biggest gold miner rejects $27bn takeover bid"
+      ],
+      "source_headline": "Australia’s biggest gold miner rejects $27bn takeover bid",
+      "source_url": "https://www.ft.com/content/bce81a18-05cf-43a6-9c86-b3238b732230?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T02:42:40Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T02:57:09Z",
+      "updated_at": "2026-09-28T02:57:09Z",
+      "decay_at": "2026-09-29T14:42:40Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -150058,6 +149773,76 @@
       "surfaced_at": "2026-09-26T15:19:48Z",
       "updated_at": "2026-09-26T15:19:48Z",
       "decay_at": "2026-09-28T02:25:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0448efa62005",
+      "idea_version": "IDEAV-9e9db2598360c1ed",
+      "idea_version_started_at": "2026-09-28T03:32:24Z",
+      "ticker": "AAPL",
+      "company": "Apple",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Apple was reportedly ordered by a San Diego jury to pay Taction Technology more than $5.7 billion in a patent case, which will be a significant financial hit.",
+      "why_now": "The jury's reported award was announced on September 28, 2026, creating an immediate negative catalyst.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-503578612fbf"
+      ],
+      "primary_source_event_id": "EVT-503578612fbf",
+      "source_headlines": [
+        "San Diego Jury Reportedly Awards Taction Technology More Than $5.7 Bln In Apple Patent Case"
+      ],
+      "source_headline": "San Diego Jury Reportedly Awards Taction Technology More Than $5.7 Bln In Apple Patent Case",
+      "source_url": "https://www.nasdaq.com/articles/san-diego-jury-reportedly-awards-taction-technology-more-57-bln-apple-patent-case",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T02:36:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-26T15:19:48Z",
+      "updated_at": "2026-09-28T03:32:24Z",
+      "decay_at": "2026-09-29T14:36:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -151188,6 +150973,77 @@
       "surfaced_at": "2026-09-28T03:32:24Z",
       "updated_at": "2026-09-28T03:32:24Z",
       "decay_at": "2026-09-29T13:47:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a4151217c05f",
+      "idea_version": "IDEAV-bf106862d6d941ab",
+      "idea_version_started_at": "2026-09-28T03:12:56Z",
+      "ticker": "MANINFRA",
+      "company": "Man Infraconstruction Limited",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a collaboration for its Marine Lines project that unlocks over ₹6,000 crore in revenue potential and provides an immediate ₹300 crore capital recoupment.",
+      "why_now": "The press release and exchange filing were issued on September 28, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-58e2719b6365"
+      ],
+      "primary_source_event_id": "EVT-58e2719b6365",
+      "source_headlines": [
+        "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"MICL unlocks ₹6,000+ Crores overall revenue potential from Marine Lines Project and Recoups ₹300+ Crores Investment through Landmark Collaboration with Godrej Properties Group \"."
+      ],
+      "source_headline": "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"MICL unlocks ₹6,000+ Crores overall revenue potential from Marine Lines Project and Recoups ₹300+ Crores Investment through Landmark Collaboration with Godrej Properties Group \".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/kunjalparekh_28092026081058_MICL.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T02:45:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T03:12:56Z",
+      "updated_at": "2026-09-28T03:12:56Z",
+      "decay_at": "2026-09-29T14:45:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -152919,6 +152775,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-699b27265ce6",
+      "idea_version": "IDEAV-b16bde90d1ed76f2",
+      "idea_version_started_at": "2026-09-28T04:16:28Z",
+      "ticker": "CDL",
+      "company": "City Developments Limited",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "CDL's Kwek clan plans to invest US$3.9 billion in Singapore, China, and Japan, which should enhance the company's asset base and future earnings potential.",
+      "why_now": "The investment plan was announced on September 28, 2026, signaling a clear forward-looking capital allocation strategy.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9ed682a3e67c"
+      ],
+      "primary_source_event_id": "EVT-9ed682a3e67c",
+      "source_headlines": [
+        "CDL’s Kwek clan looks to invest US$3.9b in Singapore, China, Japan to raise confidence"
+      ],
+      "source_headline": "CDL’s Kwek clan looks to invest US$3.9b in Singapore, China, Japan to raise confidence",
+      "source_url": "https://www.scmp.com/news/asia/southeast-asia/article/3368989/cdls-kwek-clan-looks-invest-us39b-singapore-china-japan-raise-confidence?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "materiality_max": 95,
+      "newest_source_at": "2026-09-28T02:27:04Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T04:16:28Z",
+      "updated_at": "2026-09-28T04:16:28Z",
+      "decay_at": "2026-09-29T14:27:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-481a4b3ef631",
       "idea_version": "IDEAV-6cfbf2b9657e3199",
       "idea_version_started_at": "2026-09-27T10:13:26Z",
@@ -153638,6 +153566,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f74b0e3c1b77",
+      "idea_version": "IDEAV-be979c7205abc26c",
+      "idea_version_started_at": "2026-09-28T02:35:28Z",
+      "ticker": "H5G",
+      "company": "Hafary Holdings",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The founding family has launched a privatization offer at 64 cents per share, creating a near-term arbitrage opportunity between the current market price and the offer price.",
+      "why_now": "The offer was announced on 2026-09-28; the stock should trade toward the offer price as the market prices in the certainty of the deal.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cd1e91a52830"
+      ],
+      "primary_source_event_id": "EVT-cd1e91a52830",
+      "source_headlines": [
+        "Hafary’s founding family offers 64 cents a share to take company private"
+      ],
+      "source_headline": "Hafary’s founding family offers 64 cents a share to take company private",
+      "source_url": "https://www.straitstimes.com/business/hafarys-founding-family-offers-64-cents-a-share-to-take-company-private",
+      "source_name": "The Straits Times",
+      "materiality_max": 88,
+      "newest_source_at": "2026-09-28T02:25:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T02:35:28Z",
+      "updated_at": "2026-09-28T02:35:28Z",
+      "decay_at": "2026-09-29T14:25:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-238220c823ee",
       "idea_version": "IDEAV-e73a0a9cfd66b651",
       "idea_version_started_at": "2026-09-28T01:17:09Z",
@@ -154224,19 +154224,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 563,
+    "total_count": 568,
     "shown_count": 500,
-    "hidden_count": 63,
+    "hidden_count": 68,
     "side_counts": {
       "long": {
-        "total_count": 291,
+        "total_count": 295,
         "shown_count": 250,
-        "hidden_count": 41
+        "hidden_count": 45
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -154255,6 +154255,376 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a4151217c05f",
+        "idea_version": "IDEAV-bf106862d6d941ab",
+        "idea_version_started_at": "2026-09-28T03:12:56Z",
+        "ticker": "MANINFRA",
+        "company": "Man Infraconstruction Limited",
+        "exchange": "BSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a collaboration for its Marine Lines project that unlocks over ₹6,000 crore in revenue potential and provides an immediate ₹300 crore capital recoupment.",
+        "why_now": "The press release and exchange filing were issued on September 28, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-58e2719b6365"
+        ],
+        "primary_source_event_id": "EVT-58e2719b6365",
+        "source_headlines": [
+          "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"MICL unlocks ₹6,000+ Crores overall revenue potential from Marine Lines Project and Recoups ₹300+ Crores Investment through Landmark Collaboration with Godrej Properties Group \"."
+        ],
+        "source_headline": "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"MICL unlocks ₹6,000+ Crores overall revenue potential from Marine Lines Project and Recoups ₹300+ Crores Investment through Landmark Collaboration with Godrej Properties Group \".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/kunjalparekh_28092026081058_MICL.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-28T02:45:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-28T03:12:56Z",
+        "updated_at": "2026-09-28T03:12:56Z",
+        "decay_at": "2026-09-29T14:45:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T14:45:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-52e98452feee",
+        "idea_version": "IDEAV-85ee33ca7114f155",
+        "idea_version_started_at": "2026-09-28T02:57:09Z",
+        "ticker": "NEM",
+        "company": "Newmont",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The rejection of a $27 billion takeover bid signals management's confidence in the company's standalone valuation and future gold production margins, likely forcing a higher bid or a strategic premium adjustment.",
+        "why_now": "The bid rejection was reported on September 28, 2026, creating immediate volatility and potential for a follow-up offer.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-40c0321a5bb6"
+        ],
+        "primary_source_event_id": "EVT-40c0321a5bb6",
+        "source_headlines": [
+          "Australia’s biggest gold miner rejects $27bn takeover bid"
+        ],
+        "source_headline": "Australia’s biggest gold miner rejects $27bn takeover bid",
+        "source_url": "https://www.ft.com/content/bce81a18-05cf-43a6-9c86-b3238b732230?syn-25a6b1a6=1",
+        "source_name": "Financial Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-28T02:42:40Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-28T02:57:09Z",
+        "updated_at": "2026-09-28T02:57:09Z",
+        "decay_at": "2026-09-29T14:42:40Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T14:42:40Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-0448efa62005",
+        "idea_version": "IDEAV-9e9db2598360c1ed",
+        "idea_version_started_at": "2026-09-28T03:32:24Z",
+        "ticker": "AAPL",
+        "company": "Apple",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Apple was reportedly ordered by a San Diego jury to pay Taction Technology more than $5.7 billion in a patent case, which will be a significant financial hit.",
+        "why_now": "The jury's reported award was announced on September 28, 2026, creating an immediate negative catalyst.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-503578612fbf"
+        ],
+        "primary_source_event_id": "EVT-503578612fbf",
+        "source_headlines": [
+          "San Diego Jury Reportedly Awards Taction Technology More Than $5.7 Bln In Apple Patent Case"
+        ],
+        "source_headline": "San Diego Jury Reportedly Awards Taction Technology More Than $5.7 Bln In Apple Patent Case",
+        "source_url": "https://www.nasdaq.com/articles/san-diego-jury-reportedly-awards-taction-technology-more-57-bln-apple-patent-case",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-28T02:36:47Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-26T15:19:48Z",
+        "updated_at": "2026-09-28T03:32:24Z",
+        "decay_at": "2026-09-29T14:36:47Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T14:36:47Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-699b27265ce6",
+        "idea_version": "IDEAV-b16bde90d1ed76f2",
+        "idea_version_started_at": "2026-09-28T04:16:28Z",
+        "ticker": "CDL",
+        "company": "City Developments Limited",
+        "exchange": "SGX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "CDL's Kwek clan plans to invest US$3.9 billion in Singapore, China, and Japan, which should enhance the company's asset base and future earnings potential.",
+        "why_now": "The investment plan was announced on September 28, 2026, signaling a clear forward-looking capital allocation strategy.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9ed682a3e67c"
+        ],
+        "primary_source_event_id": "EVT-9ed682a3e67c",
+        "source_headlines": [
+          "CDL’s Kwek clan looks to invest US$3.9b in Singapore, China, Japan to raise confidence"
+        ],
+        "source_headline": "CDL’s Kwek clan looks to invest US$3.9b in Singapore, China, Japan to raise confidence",
+        "source_url": "https://www.scmp.com/news/asia/southeast-asia/article/3368989/cdls-kwek-clan-looks-invest-us39b-singapore-china-japan-raise-confidence?utm_source=rss_feed",
+        "source_name": "South China Morning Post",
+        "materiality_max": 95,
+        "newest_source_at": "2026-09-28T02:27:04Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-28T04:16:28Z",
+        "updated_at": "2026-09-28T04:16:28Z",
+        "decay_at": "2026-09-29T14:27:04Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T14:27:04Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f74b0e3c1b77",
+        "idea_version": "IDEAV-be979c7205abc26c",
+        "idea_version_started_at": "2026-09-28T02:35:28Z",
+        "ticker": "H5G",
+        "company": "Hafary Holdings",
+        "exchange": "SGX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The founding family has launched a privatization offer at 64 cents per share, creating a near-term arbitrage opportunity between the current market price and the offer price.",
+        "why_now": "The offer was announced on 2026-09-28; the stock should trade toward the offer price as the market prices in the certainty of the deal.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cd1e91a52830"
+        ],
+        "primary_source_event_id": "EVT-cd1e91a52830",
+        "source_headlines": [
+          "Hafary’s founding family offers 64 cents a share to take company private"
+        ],
+        "source_headline": "Hafary’s founding family offers 64 cents a share to take company private",
+        "source_url": "https://www.straitstimes.com/business/hafarys-founding-family-offers-64-cents-a-share-to-take-company-private",
+        "source_name": "The Straits Times",
+        "materiality_max": 88,
+        "newest_source_at": "2026-09-28T02:25:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-28T02:35:28Z",
+        "updated_at": "2026-09-28T02:35:28Z",
+        "decay_at": "2026-09-29T14:25:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T14:25:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6dedf05fd8fd",
         "idea_version": "IDEAV-fd65239c2a212381",
@@ -184107,156 +184477,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-8785cce22dea",
-        "idea_version": "IDEAV-252b297b2308307a",
-        "idea_version_started_at": "2026-09-12T09:50:12Z",
-        "ticker": "ORCL",
-        "company": "Oracle Corporation",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is aggressively reallocating capital toward AI infrastructure by cutting costs in non-core areas, which should improve operating margins despite the immediate restructuring charge.",
-        "why_now": "The announcement of an additional $700 million in restructuring costs on September 12, 2026, signals a definitive shift in capital allocation priorities.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8aa19a7e758b",
-          "EVT-26ddad135b5c"
-        ],
-        "primary_source_event_id": "EVT-8aa19a7e758b",
-        "source_headlines": [
-          "Oracle Plans More Job Cuts, Adds $700 Million To Restructuring Costs Amid AI Spending",
-          "Oracle to spend an additional US$700 million on more job cuts"
-        ],
-        "source_headline": "Oracle Plans More Job Cuts, Adds $700 Million To Restructuring Costs Amid AI Spending",
-        "source_url": "https://www.ndtvprofit.com/business/oracle-plans-more-job-cuts-adds-700-million-to-restructuring-costs-amid-ai-spending-12036036#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-12T07:50:50Z",
-        "prior_coverage": {
-          "has_run": true,
-          "latest_run": "analyses/ORCL_2026-08-14",
-          "latest_decision": "Watchlist",
-          "data_pool_present": true
-        },
-        "surfaced_at": "2026-09-10T20:58:23Z",
-        "updated_at": "2026-09-12T09:50:12Z",
-        "decay_at": "2026-09-13T19:50:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T10:07:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0ee45ba091ad",
-        "idea_version": "IDEAV-0d03b849cead4409",
-        "idea_version_started_at": "2026-09-12T09:18:30Z",
-        "ticker": "GPTINFRA",
-        "company": "GPT Infraprojects Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured a new order worth Rs. 85.53 Crore through its subsidiary, providing a direct boost to its order book and revenue visibility.",
-        "why_now": "The exchange filing confirming the order was released on 2026-09-12.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0343d5ee0891"
-        ],
-        "primary_source_event_id": "EVT-0343d5ee0891",
-        "source_headlines": [
-          "GPT Infraprojects Limited: GPT Infraprojects Limited has informed the Exchange about Bagging/Receiving of orders/contracts f value Rs. 85.53 Crore by Alcon Builders and Engineers Private Limited, a wholly owned subsidiary of the company"
-        ],
-        "source_headline": "GPT Infraprojects Limited: GPT Infraprojects Limited has informed the Exchange about Bagging/Receiving of orders/contracts f value Rs. 85.53 Crore by Alcon Builders and Engineers Private Limited, a wholly owned subsidiary of the company",
-        "source_url": "https://nsearchives.nseindia.com/corporate/GPTINFRA_12092026111121_Press_Release_intimation_Contract_win_8553_Cr_120926_sgd.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 88,
-        "newest_source_at": "2026-09-12T05:41:51Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-12T09:18:30Z",
-        "updated_at": "2026-09-12T09:18:30Z",
-        "decay_at": "2026-09-13T17:41:51Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T06:28:26Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-574ddee0f271",
         "idea_version": "IDEAV-44e721b3ac376643",
         "idea_version_started_at": "2026-09-12T08:35:39Z",
@@ -184326,154 +184546,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-15T04:48:05Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-f07c70da5bc7",
-        "idea_version": "IDEAV-c20db35577e295e2",
-        "idea_version_started_at": "2026-09-13T11:45:45Z",
-        "ticker": "CL",
-        "company": "Colgate-Palmolive",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Divesting lower-growth mass-market personal care brands would improve the company's overall organic growth profile and margin structure.",
-        "why_now": "The strategic review of these assets was reported on 2026-09-12.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9a26f5c672bf"
-        ],
-        "primary_source_event_id": "EVT-9a26f5c672bf",
-        "source_headlines": [
-          "Colgate Weighs Sale Of Mass-Market Personal Care Brands In $1 Billion Deal: Report"
-        ],
-        "source_headline": "Colgate Weighs Sale Of Mass-Market Personal Care Brands In $1 Billion Deal: Report",
-        "source_url": "https://www.ndtvprofit.com/business/colgate-weighs-sale-of-mass-market-personal-care-brands-in-1-billion-deal-12034854#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 99,
-        "newest_source_at": "2026-09-12T03:23:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T11:45:45Z",
-        "updated_at": "2026-09-13T11:45:45Z",
-        "decay_at": "2026-09-13T15:23:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T04:48:05Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-be16a3f18c55",
-        "idea_version": "IDEAV-a089795d329b4b8f",
-        "idea_version_started_at": "2026-09-12T06:25:31Z",
-        "ticker": "XOM",
-        "company": "Exxon Mobil",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Exxon's updated guidance projects an additional $35 billion in cash flow by 2030, signaling improved capital efficiency and potential for increased shareholder returns.",
-        "why_now": "The company just released its 2030 strategic targets and 2028 milestone markers.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c54b272b36de"
-        ],
-        "primary_source_event_id": "EVT-c54b272b36de",
-        "source_headlines": [
-          "Exxon's 2030 Targets Call for $35 Billion More in Cash Flow. Here's the Milestone That Tells You It's on Track By 2028."
-        ],
-        "source_headline": "Exxon's 2030 Targets Call for $35 Billion More in Cash Flow. Here's the Milestone That Tells You It's on Track By 2028.",
-        "source_url": "https://www.nasdaq.com/articles/exxons-2030-targets-call-35-billion-more-cash-flow-heres-milestone-tells-you-its-track",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-12T02:35:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-12T06:25:31Z",
-        "updated_at": "2026-09-12T06:25:31Z",
-        "decay_at": "2026-09-13T14:35:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T03:13:35Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -191343,85 +191415,12 @@
         "archived_at": "2026-09-06T22:34:38Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-36876b9a411b",
-        "idea_version": "IDEAV-21f7a9e777e39349",
-        "idea_version_started_at": "2026-09-04T05:44:07Z",
-        "ticker": "ADBE",
-        "company": "Adobe",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Announced CEO succession with Shantanu Narayen stepping down; market is pricing in transition risk to AI-era monetization and potential strategy shift.",
-        "why_now": "CEO change announced 2026-09-03; transition period and new strategy outlook create near-term uncertainty.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cf62087a86de"
-        ],
-        "primary_source_event_id": "EVT-cf62087a86de",
-        "source_headlines": [
-          "Adobe just announced its next CEO. Here’s why its stock is dropping."
-        ],
-        "source_headline": "Adobe just announced its next CEO. Here’s why its stock is dropping.",
-        "source_url": "https://www.marketwatch.com/bulletins/redirect/go?g=462b28b6-cf0f-4dbd-bd73-1217da5622d4&mod=mw_rss_bulletins",
-        "source_name": "MarketWatch",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-03T22:25:48Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-04T05:44:07Z",
-        "updated_at": "2026-09-04T05:44:07Z",
-        "decay_at": "2026-09-05T10:25:48Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T22:34:38Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1153,
-    "live_count": 48,
+    "live_count": 43,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -191440,9 +191439,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6718528,
-    "news_picked_today": 892,
-    "news_dropped_today": 6404
+    "news_seen_today": 7228816,
+    "news_picked_today": 900,
+    "news_dropped_today": 6420
   },
   "book_momentum": {
     "live_count": 8,
