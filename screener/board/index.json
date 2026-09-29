@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T16:42:27Z",
+  "generated_at": "2026-09-29T16:48:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-360",
@@ -1046,6 +1046,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-404",
+      "headline": "AMD Pays $8.2 Billion in Stock for Non-Chipmaking Startup as CEO Bets on Physical AI",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/09/29/amd-pays-8-2-billion-in-stock-for-non-chipmaking-startup-as-ceo-bets-on-physical-ai/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T16:38:56Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "AMD announced an $8.2 billion acquisition of a startup to expand AI capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMD announced an $8.2 billion acquisition of a startup to expand AI capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-398",
       "headline": "Sun Pharma plans ₹10,000 crore bond sale to refinance Organon acquisition loan: Report",
       "headline_en": null,
@@ -1949,56 +1998,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-247",
-      "headline": "AAR To Acquire 65% Stake In MRO Holdings; Q1 Profit, Revenue Rise",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/aar-acquire-65-stake-mro-holdings-q1-profit-revenue-rise",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T06:45:38Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "AAR announced the acquisition of a 65% stake in MRO Holdings alongside reporting growth in Q1 profit and revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AAR announced the acquisition of a 65% stake in MRO Holdings alongside reporting growth in Q1 profit and revenue.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AAR",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -191387,9 +191386,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8709488,
-    "news_picked_today": 1008,
-    "news_dropped_today": 7104
+    "news_seen_today": 8812401,
+    "news_picked_today": 1016,
+    "news_dropped_today": 7216
   },
   "book_momentum": {
     "live_count": 8,
