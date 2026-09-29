@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T04:17:40Z",
+  "generated_at": "2026-09-29T04:22:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -1187,6 +1187,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-173",
+      "headline": "PA GOODDOCTOR (01833): RENEWAL OF CONTINUING CONNECTED TRANSACTIONS, MAJOR TRANSACTION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801739.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T12:13:00Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "The company announced a major transaction and renewal of continuing connected transactions, which requires regulatory and shareholder scrutiny.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "The company announced a major transaction and renewal of continuing connected transactions, which requires regulatory and shareholder scrutiny.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ping An Healthcare and Technology",
+          "ticker": "01833",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-032",
       "headline": "BML: Sorby Hills Project Delivery Plan [price-sensitive]",
       "headline_en": null,
@@ -1902,56 +1952,6 @@
       "companies": [
         {
           "name": "AVID Medical, Inc.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-126",
-      "headline": "FDA device recall (Class I) — Nova Biomedical Corporation: StatStrip Glucose and B- Ketone meter. Model No: 63910. Glucose test system. — A software synchronization/timing issue in the barcode scanning and patient data processing component that causes the de",
-      "headline_en": null,
-      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-3131-2026%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-23T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Nova Biomedical issued a Class I recall for glucose/ketone meters due to a software synchronization issue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Nova Biomedical issued a Class I recall for glucose/ketone meters due to a software synchronization issue.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nova Biomedical Corporation",
           "ticker": null,
           "listing_country": null
         }
@@ -189202,9 +189202,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1022333,
-    "news_picked_today": 275,
-    "news_dropped_today": 2029
+    "news_seen_today": 1031863,
+    "news_picked_today": 276,
+    "news_dropped_today": 2076
   },
   "book_momentum": {
     "live_count": 8,
