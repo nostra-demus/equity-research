@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T06:23:14Z",
+  "generated_at": "2026-09-29T06:27:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-192",
@@ -1189,6 +1189,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-203",
+      "headline": "G-TEC JAINX EDUCATION LIMITED: Navigant Corporate Advisors Limited has Submitted to the Exchange a copy of Public Announcement under Regulation 3(1) and 3(3) read with Regulations 13, 14 and 15(1) of the Securities and Exchange Board of India (Substantial Acquisition of Shares and Takeovers) Regulations, 2011, as amended for the attention of the equity shareholders of the G-TEC JAINX EDUCATION LIMITED (Target Company).",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/team_sandeshc_29092026111607_GTECJAINX.zip",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T05:51:17Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Public announcement regarding a substantial acquisition of shares in G-TEC JAINX Education Limited.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Public announcement regarding a substantial acquisition of shares in G-TEC JAINX Education Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "G-TEC JAINX EDUCATION LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-042",
       "headline": "SCHEDULE 13D/A - Medpace Holdings, Inc. (0001668397) (Subject)",
       "headline_en": null,
@@ -1910,55 +1959,6 @@
         {
           "name": "WINFULL GP",
           "ticker": "00183",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-197",
-      "headline": "COOLPAD GROUP (02369): DISCLOSEABLE TRANSACTION EXERCISE OF MSTR CALL OPTIONS AND DISPOSALS OF LISTED SECURITIES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801639.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T11:35:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Coolpad Group disclosed the exercise of call options and disposal of listed securities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Coolpad Group disclosed the exercise of call options and disposal of listed securities.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coolpad Group",
-          "ticker": "02369",
           "listing_country": "CN"
         }
       ],
@@ -189560,9 +189560,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1718497,
-    "news_picked_today": 355,
-    "news_dropped_today": 3005
+    "news_seen_today": 1745762,
+    "news_picked_today": 359,
+    "news_dropped_today": 3049
   },
   "book_momentum": {
     "live_count": 8,
