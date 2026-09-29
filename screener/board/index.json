@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T08:37:29Z",
+  "generated_at": "2026-09-29T08:41:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-208",
@@ -1538,6 +1538,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-253",
+      "headline": "SKIL Infrastructure Limited: SKIL Infrastructure Limited has informed the Exchange regarding the Post Facto Intimation of the Twelfth (12th) Committee of Creditors meeting held on Monday, September 28, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Skilinfra_29092026132501_Letter_Post_Facto_Intimation_12th_COC.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T07:55:12Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "SKIL Infrastructure is undergoing a committee of creditors meeting, indicating potential insolvency or debt distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "SKIL Infrastructure is undergoing a committee of creditors meeting, indicating potential insolvency or debt distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SKIL Infrastructure Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-233",
       "headline": "Pfizer Limited: Pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015, we hereby inform that the Company has, on September 28, 2026, received an Order dated September 25, 2026, issued by the Deputy / Additional Commissioner of Income tax Transfer Pricing, levying a penalty of Rs. 1,26,34,050/- based on the Transfer Pricing audit conducted for the Assessment Year 2023-24.",
       "headline_en": null,
@@ -1931,55 +1980,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-042",
-      "headline": "SCHEDULE 13D/A - Medpace Holdings, Inc. (0001668397) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1668397/000119312526405684/0001193125-26-405684-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-28T23:15:13Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Medpace Holdings, Inc. filed an amended Schedule 13D, indicating a change in significant shareholder ownership.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Medpace Holdings, Inc. filed an amended Schedule 13D, indicating a change in significant shareholder ownership.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Medpace Holdings, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -189934,9 +189934,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2932494,
-    "news_picked_today": 447,
-    "news_dropped_today": 4065
+    "news_seen_today": 2964851,
+    "news_picked_today": 456,
+    "news_dropped_today": 4104
   },
   "book_momentum": {
     "live_count": 8,
