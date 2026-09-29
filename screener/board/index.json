@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T17:38:14Z",
+  "generated_at": "2026-09-29T17:44:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-360",
@@ -1046,6 +1046,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-416",
+      "headline": "JSW Cement approves merger with Shiva Cement; shareholders to get 5 shares for every 41",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/jsw-cement-share-price-approves-merger-with-shiva-cement-shareholders-to-get-5-shares-for-every-41-20001438.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T17:34:51Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "JSW Cement has approved a merger with Shiva Cement with a defined share swap ratio of 5 shares for every 41.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JSW Cement has approved a merger with Shiva Cement with a defined share swap ratio of 5 shares for every 41.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JSW Cement",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Shiva Cement",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-414",
       "headline": "Paramount Just Launched a $44 Billion Debt Sale to Buy Warner Bros.",
       "headline_en": null,
@@ -1946,55 +2000,6 @@
           "name": "Legrand",
           "ticker": null,
           "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-250",
-      "headline": "Lindt cuts sales forecast as higher chocolate prices, heatwave dampen demand",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/lindt-cuts-2026-growth-forecast-weak-demand-heatwave-weigh-sales-2026-09-29/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T07:13:05Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Lindt cut its sales forecast due to weak demand, marking a significant negative revision.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lindt cut its sales forecast due to weak demand, marking a significant negative revision.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lindt & Sprüngli",
-          "ticker": null,
-          "listing_country": "CH"
         }
       ],
       "size_bucket": "large",
@@ -191390,9 +191395,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9671943,
-    "news_picked_today": 1038,
-    "news_dropped_today": 7506
+    "news_seen_today": 9777155,
+    "news_picked_today": 1043,
+    "news_dropped_today": 7549
   },
   "book_momentum": {
     "live_count": 8,
