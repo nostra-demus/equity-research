@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T00:03:54Z",
+  "generated_at": "2026-09-29T00:06:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-002",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-003",
+      "headline": "Williamson Magor & Company Limited: Williamson Magor & Company Limited has informed the Exchange regarding Change in Director(s) of the company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/WILLAMAGOR_28092026201837_ChinMgt28092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T14:48:55Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "The company announced a change in its board of directors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "The company announced a change in its board of directors.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Williamson Magor & Company Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -187392,7 +187441,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2969,
+    "inbox_unconsumed": 2970,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -187401,9 +187450,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 30603,
-    "news_picked_today": 2,
-    "news_dropped_today": 46
+    "news_seen_today": 50933,
+    "news_picked_today": 3,
+    "news_dropped_today": 69
   },
   "book_momentum": {
     "live_count": 8,
