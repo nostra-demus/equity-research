@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T01:12:56Z",
+  "generated_at": "2026-09-29T01:21:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -1265,6 +1265,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-064",
+      "headline": "OpenAI scraps release of latest AI model over safety concerns",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/economy/2026/9/29/openai-scraps-release-of-latest-ai-model-over-safety-concerns?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-09-29T00:38:06Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "OpenAI delayed the release of a new AI model due to safety concerns, potentially impacting product roadmap and competitive positioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "OpenAI delayed the release of a new AI model due to safety concerns, potentially impacting product roadmap and competitive positioning.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-066",
+      "headline": "Senate negotiators reach deal on permitting text",
+      "headline_en": null,
+      "url": "https://www.politico.com/news/2026/09/28/senate-negotiators-reach-deal-on-permitting-text-01096441",
+      "source_name": "POLITICO — Energy & Environment",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T00:25:42Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Senate negotiators reached a deal on permitting reform, which could significantly accelerate infrastructure and energy project timelines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Senate negotiators reached a deal on permitting reform, which could significantly accelerate infrastructure and energy project timelines.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-031",
       "headline": "Bank of India: Bank Of India has informed the Exchange about Establishment of Euro Medium Term Note Programme.",
       "headline_en": null,
@@ -1849,104 +1941,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-002",
-      "headline": "Turtlemint Fintech Solutions Limited: Significant movement in price has been observed in Turtlemint Fintech Solutions Limited. The Exchange, in order to ensure that investors have latest relevant information about the company and to inform the market place so that the interest of the investors is safeguarded, had written to the company. Turtlemint Fintech Solutions Limited has submitted their response.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TURTLEMINT_28092026202116_Turtlemint_Clarification_on_Price_Movement.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T14:52:08Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "The exchange has queried the company regarding significant price movement, which may indicate undisclosed material information.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "The exchange has queried the company regarding significant price movement, which may indicate undisclosed material information.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Turtlemint Fintech Solutions Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-003",
-      "headline": "Williamson Magor & Company Limited: Williamson Magor & Company Limited has informed the Exchange regarding Change in Director(s) of the company.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/WILLAMAGOR_28092026201837_ChinMgt28092026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T14:48:55Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "The company announced a change in its board of directors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "The company announced a change in its board of directors.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Williamson Magor & Company Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -189253,9 +189247,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 274761,
-    "news_picked_today": 72,
-    "news_dropped_today": 576
+    "news_seen_today": 284825,
+    "news_picked_today": 78,
+    "news_dropped_today": 642
   },
   "book_momentum": {
     "live_count": 8,
