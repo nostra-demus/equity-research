@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T04:40:11Z",
+  "generated_at": "2026-09-29T04:42:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -1428,6 +1428,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-178",
+      "headline": "AUSTASIA GROUP (02425): (1) DISCLOSEABLE TRANSACTION AND CONNECTED TRANSACTION; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801701.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T11:54:00Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "The company announced a discloseable and connected transaction alongside an EGM notice.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The company announced a discloseable and connected transaction alongside an EGM notice.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Austasia Group",
+          "ticker": "02425",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-149",
       "headline": "Goldman Sachs sees Eternal achieving $1 billion EBITDA by FY29; raises target price",
       "headline_en": null,
@@ -1901,56 +1950,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-124",
-      "headline": "FDA device recall (Class I) — Medline Industries, LP: Medline Convenience Kits: 1) DYKM1000B, Catalog Number: DYKM1000B; 2) DYKM2187A, Catalog Number: DYKM2187A — The kits contain certain lots of sterile applicators which may contain fungal contamination that may occur under certain",
-      "headline_en": null,
-      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-3125-2026%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-23T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Medline Industries issued a Class I recall for convenience kits due to potential fungal contamination.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Medline Industries issued a Class I recall for convenience kits due to potential fungal contamination.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Medline Industries, LP",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -189196,9 +189195,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1135847,
-    "news_picked_today": 293,
-    "news_dropped_today": 2251
+    "news_seen_today": 1145566,
+    "news_picked_today": 294,
+    "news_dropped_today": 2274
   },
   "book_momentum": {
     "live_count": 8,
