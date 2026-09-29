@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T13:01:22Z",
+  "generated_at": "2026-09-29T13:10:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-318",
@@ -147197,6 +147197,150 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-9652af888bb5",
+      "idea_version": "IDEAV-f389334e4802534c",
+      "idea_version_started_at": "2026-09-29T13:10:26Z",
+      "ticker": "00565",
+      "company": "Art Group Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling a material deterioration in earnings and margins.",
+      "why_now": "The filing was released on 2026-09-29.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-872d2d4d1b98"
+      ],
+      "primary_source_event_id": "EVT-872d2d4d1b98",
+      "source_headlines": [
+        "ART GROUP HOLD (00565): PROFIT WARNING"
+      ],
+      "source_headline": "ART GROUP HOLD (00565): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092901797.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T12:54:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T13:10:26Z",
+      "updated_at": "2026-09-29T13:10:26Z",
+      "decay_at": "2026-10-01T00:54:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-fdfb53f77b2d",
+      "idea_version": "IDEAV-3f1e108e12ddebf1",
+      "idea_version_started_at": "2026-09-29T13:10:26Z",
+      "ticker": "BGRENERGY",
+      "company": "BGR Energy Systems Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a high risk of insolvency and significant impairment to shareholder value.",
+      "why_now": "The filing was made public on 2026-09-29.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cba7776d5a05"
+      ],
+      "primary_source_event_id": "EVT-cba7776d5a05",
+      "source_headlines": [
+        "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/BGRENERGY_29092026180521_NCLTOrderAdjourment.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T12:36:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T13:10:26Z",
+      "updated_at": "2026-09-29T13:10:26Z",
+      "decay_at": "2026-10-01T00:36:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5dbd1bb67197",
       "idea_version": "IDEAV-82dc730518997f06",
       "idea_version_started_at": "2026-09-29T12:17:15Z",
@@ -190847,8 +190991,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1145,
-    "live_count": 43,
+    "surfaced_total": 1147,
+    "live_count": 45,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -190867,9 +191011,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5686656,
+    "news_seen_today": 5839929,
     "news_picked_today": 791,
-    "news_dropped_today": 5905
+    "news_dropped_today": 5929
   },
   "book_momentum": {
     "live_count": 8,
