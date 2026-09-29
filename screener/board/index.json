@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-29T12:58:26Z",
+  "generated_at": "2026-09-29T13:01:22Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-318",
+      "headline": "ART GROUP HOLD (00565): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092901797.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T12:54:00Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Art Group Hold issued a profit warning, indicating a material decline in expected financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Art Group Hold issued a profit warning, indicating a material decline in expected financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ART GROUP HOLD",
+          "ticker": "00565",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-310",
       "headline": "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1937,55 +1986,6 @@
           "name": "Shein",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-141",
-      "headline": "Shein Drops to Record Low After Profit Plunge in Debut Earnings",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-29/shein-drops-to-record-low-after-profit-plunge-in-debut-earnings",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T02:21:53Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Shein shares hit a record low following a significant profit plunge in debut earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shein shares hit a record low following a significant profit plunge in debut earnings.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shein",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -149354,77 +149354,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-238220c823ee",
-      "idea_version": "IDEAV-e73a0a9cfd66b651",
-      "idea_version_started_at": "2026-09-28T01:17:09Z",
-      "ticker": "TOR",
-      "company": "Torian Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Torian Resources' growth drilling at Ritz has delivered high-grade hits, which could significantly increase the estimated resource and future production potential of the project.",
-      "why_now": "The company filed an ASX announcement detailing the drilling results on September 28, 2026, providing a direct catalyst for re-evaluation.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-32225a4f663f"
-      ],
-      "primary_source_event_id": "EVT-32225a4f663f",
-      "source_headlines": [
-        "TOR: Growth drilling delivers high-grade hits at Ritz [price-sensitive]"
-      ],
-      "source_headline": "TOR: Growth drilling delivers high-grade hits at Ritz [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TOR?key=2924-03140605-6A1346007",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 88,
-      "newest_source_at": "2026-09-28T00:59:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T01:17:09Z",
-      "updated_at": "2026-09-28T01:17:09Z",
-      "decay_at": "2026-09-29T12:59:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-15b437f23637",
       "idea_version": "IDEAV-a6761bbee8662be1",
       "idea_version_started_at": "2026-09-28T00:13:12Z",
@@ -153138,6 +153067,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-238220c823ee",
+      "idea_version": "IDEAV-e73a0a9cfd66b651",
+      "idea_version_started_at": "2026-09-28T01:17:09Z",
+      "ticker": "TOR",
+      "company": "Torian Resources",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Torian Resources' growth drilling at Ritz has delivered high-grade hits, which could significantly increase the estimated resource and future production potential of the project.",
+      "why_now": "The company filed an ASX announcement detailing the drilling results on September 28, 2026, providing a direct catalyst for re-evaluation.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-32225a4f663f"
+      ],
+      "primary_source_event_id": "EVT-32225a4f663f",
+      "source_headlines": [
+        "TOR: Growth drilling delivers high-grade hits at Ritz [price-sensitive]"
+      ],
+      "source_headline": "TOR: Growth drilling delivers high-grade hits at Ritz [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TOR?key=2924-03140605-6A1346007",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 88,
+      "newest_source_at": "2026-09-28T00:59:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T01:17:09Z",
+      "updated_at": "2026-09-28T01:17:09Z",
+      "decay_at": "2026-09-29T12:59:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-8b18351c452b",
       "idea_version": "IDEAV-74cc105ed3b65696",
       "idea_version_started_at": "2026-09-27T09:54:29Z",
@@ -153653,14 +153653,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 559,
+    "total_count": 560,
     "shown_count": 500,
-    "hidden_count": 59,
+    "hidden_count": 60,
     "side_counts": {
       "long": {
-        "total_count": 288,
+        "total_count": 289,
         "shown_count": 250,
-        "hidden_count": 38
+        "hidden_count": 39
       },
       "short": {
         "total_count": 271,
@@ -153684,6 +153684,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-238220c823ee",
+        "idea_version": "IDEAV-e73a0a9cfd66b651",
+        "idea_version_started_at": "2026-09-28T01:17:09Z",
+        "ticker": "TOR",
+        "company": "Torian Resources",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Torian Resources' growth drilling at Ritz has delivered high-grade hits, which could significantly increase the estimated resource and future production potential of the project.",
+        "why_now": "The company filed an ASX announcement detailing the drilling results on September 28, 2026, providing a direct catalyst for re-evaluation.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-32225a4f663f"
+        ],
+        "primary_source_event_id": "EVT-32225a4f663f",
+        "source_headlines": [
+          "TOR: Growth drilling delivers high-grade hits at Ritz [price-sensitive]"
+        ],
+        "source_headline": "TOR: Growth drilling delivers high-grade hits at Ritz [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TOR?key=2924-03140605-6A1346007",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 88,
+        "newest_source_at": "2026-09-28T00:59:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-28T01:17:09Z",
+        "updated_at": "2026-09-28T01:17:09Z",
+        "decay_at": "2026-09-29T12:59:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T12:59:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8abccb21ae47",
         "idea_version": "IDEAV-8a1db31ff3c53529",
@@ -183758,80 +183832,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-0f963912a562",
-        "idea_version": "IDEAV-b6f16dc9eebc7f4a",
-        "idea_version_started_at": "2026-09-11T23:59:41Z",
-        "ticker": "AXGN",
-        "company": "Axogen",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of BioCircuit Technologies for $200 million expands Axogen's nerve repair portfolio, potentially accelerating long-term revenue growth through product synergy.",
-        "why_now": "The deal was announced on 2026-09-10/11, and the market is currently digesting the strategic impact of the portfolio expansion.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8af0835f4f57",
-          "EVT-9482923fd716"
-        ],
-        "primary_source_event_id": "EVT-8af0835f4f57",
-        "source_headlines": [
-          "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
-          "Axogen to buy BioCircuit Technologies for $200M"
-        ],
-        "source_headline": "Axogen deepens nerve repair portfolio through $200m BioCircuit takeover",
-        "source_url": "https://finance.yahoo.com/healthcare/articles/axogen-deepens-nerve-repair-portfolio-160014189.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-11T16:00:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T18:09:40Z",
-        "updated_at": "2026-09-11T23:59:41Z",
-        "decay_at": "2026-09-13T04:00:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-14T19:12:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-7b08e8c1482d",
         "idea_version": "IDEAV-f742c2d5684821a2",
         "idea_version_started_at": "2026-09-11T23:59:41Z",
@@ -190848,7 +190848,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1145,
-    "live_count": 44,
+    "live_count": 43,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -190867,9 +190867,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5621718,
-    "news_picked_today": 779,
-    "news_dropped_today": 5869
+    "news_seen_today": 5686656,
+    "news_picked_today": 791,
+    "news_dropped_today": 5905
   },
   "book_momentum": {
     "live_count": 8,
