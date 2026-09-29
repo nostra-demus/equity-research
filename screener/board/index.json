@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T02:14:05Z",
+  "generated_at": "2026-09-29T02:22:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -1127,6 +1127,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-111",
+      "headline": "Indian Drugmaker Taps Private Credit for Japanese Acquisition",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-29/indian-drugmaker-taps-private-credit-for-japanese-acquisition",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T01:31:24Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "An Indian pharmaceutical company is utilizing private credit to fund an acquisition in Japan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "An Indian pharmaceutical company is utilizing private credit to fund an acquisition in Japan.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-063",
       "headline": "FTC chief vows to 'restore justice' as court clears way for Coupang probe",
       "headline_en": null,
@@ -1894,49 +1938,6 @@
         "regulatory"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-066",
-      "headline": "Senate negotiators reach deal on permitting text",
-      "headline_en": null,
-      "url": "https://www.politico.com/news/2026/09/28/senate-negotiators-reach-deal-on-permitting-text-01096441",
-      "source_name": "POLITICO — Energy & Environment",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T00:25:42Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Senate negotiators reached a deal on permitting reform, which could significantly accelerate infrastructure and energy project timelines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Senate negotiators reached a deal on permitting reform, which could significantly accelerate infrastructure and energy project timelines.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -189246,9 +189247,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 492896,
-    "news_picked_today": 136,
-    "news_dropped_today": 1088
+    "news_seen_today": 531836,
+    "news_picked_today": 141,
+    "news_dropped_today": 1155
   },
   "book_momentum": {
     "live_count": 8,
