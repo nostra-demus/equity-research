@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T13:58:42Z",
+  "generated_at": "2026-09-29T14:06:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-325",
@@ -943,6 +943,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-357",
+      "headline": "Endurance Technologies to acquire remaining 32% stake in German Stöferle companies for €18 million",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/endurance-technologies-to-acquire-remaining-32-pc-stake-in-german-stoferle-companies-for-euro-18-million-20001216.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T13:54:20Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Endurance Technologies is acquiring the remaining 32% stake in German Stöferle companies for 18 million euros.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Endurance Technologies is acquiring the remaining 32% stake in German Stöferle companies for 18 million euros.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Endurance Technologies",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1940,55 +1989,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-185",
-      "headline": "Lindt cuts 2026 growth forecast as weak demand, heatwave weigh on sales",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/lindt-cuts-2026-growth-forecast-weak-demand-heatwave-weigh-sales-2026-09-29/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T05:23:44Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Lindt cut its 2026 growth forecast due to weak demand and heatwave impacts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lindt cut its 2026 growth forecast due to weak demand and heatwave impacts.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lindt",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -191013,9 +191013,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6575797,
-    "news_picked_today": 867,
-    "news_dropped_today": 6237
+    "news_seen_today": 6646884,
+    "news_picked_today": 877,
+    "news_dropped_today": 6299
   },
   "book_momentum": {
     "live_count": 8,
