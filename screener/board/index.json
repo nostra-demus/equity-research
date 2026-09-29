@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-09-29T10:34:56Z",
+  "generated_at": "2026-09-29T10:41:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-271",
+      "headline": "Indo Borax & Chemicals Limited: Indo Borax & Chemicals Limited has informed the Exchange regarding 'Completion of the acquisition of 64.26 % of the share capital of Kronox Lab Sciences Limited'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/INDOBORAX_29092026155957_Disclosures_Reg_30_-_Indo_Broax.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T10:31:25Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Indo Borax & Chemicals completed the acquisition of a 64.26% stake in Kronox Lab Sciences.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Indo Borax & Chemicals completed the acquisition of a 64.26% stake in Kronox Lab Sciences.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Indo Borax & Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Kronox Lab Sciences Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-269",
       "headline": "KPI Green Energy Limited: KPI Green Energy Limited has informed the Exchange regarding Receipt of Work Order worth approx. Rs. 2,025 crore for 500 MW / 550 MWp Solar EPC Project from NACOF Oorja Private Limited. The Disclosure is attached herewith.",
@@ -46,6 +100,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-277",
+      "headline": "CHINA RAIL CONS CRCC HY N3609-R (01186 85184): Notice of Listing on The Stock Exchange of Hong Kong Limited - CRCC Huayuan Limited - Issuance of CNY2,300,000,000 2.10 per cent. Guaranteed Notes Due 2036",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092901141.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T09:38:00Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "CRCC Huayuan Limited announced the listing of CNY2,300,000,000 2.10 per cent. Guaranteed Notes Due 2036.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CRCC Huayuan Limited announced the listing of CNY2,300,000,000 2.10 per cent. Guaranteed Notes Due 2036.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHINA RAIL CONS",
+          "ticker": "01186",
+          "listing_country": "CN"
+        },
+        {
+          "name": "CRCC Huayuan Limited",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1886,104 +1994,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-233",
-      "headline": "Pfizer Limited: Pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015, we hereby inform that the Company has, on September 28, 2026, received an Order dated September 25, 2026, issued by the Deputy / Additional Commissioner of Income tax Transfer Pricing, levying a penalty of Rs. 1,26,34,050/- based on the Transfer Pricing audit conducted for the Assessment Year 2023-24.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PFIZER_29092026130308_Stock_Exchange_Intimation_-_Regulation_30.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T07:33:32Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Company received a tax penalty order of Rs. 12.6 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Company received a tax penalty order of Rs. 12.6 million.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pfizer Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-232",
-      "headline": "DOW: Change in substantial holding from PPT",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DOW?key=2924-03141391-2A1700258",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T06:51:21Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Perpetual Limited (PPT) reported a change in its substantial holding in Downer EDI (DOW).",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Perpetual Limited (PPT) reported a change in its substantial holding in Downer EDI (DOW).",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Downer EDI",
-          "ticker": "DOW",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -149135,77 +149145,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ed1c1d3cd77d",
-      "idea_version": "IDEAV-3d6b37d0eaa1fdb9",
-      "idea_version_started_at": "2026-09-27T22:52:34Z",
-      "ticker": "KAR",
-      "company": "Karoon Energy",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An electrical fault at the SPS-92 well has forced a downward revision of 2026 production and financial guidance.",
-      "why_now": "The company issued a price-sensitive guidance update on September 27, 2026, following the operational failure.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5b4e86aa57ca"
-      ],
-      "primary_source_event_id": "EVT-5b4e86aa57ca",
-      "source_headlines": [
-        "KAR: SPS-92 electrical fault, 2026 guidance update [price-sensitive]"
-      ],
-      "source_headline": "KAR: SPS-92 electrical fault, 2026 guidance update [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KAR?key=2924-03140404-3A702611",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T22:36:34Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/KAR_2026-08-30",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-09-27T22:52:34Z",
-      "updated_at": "2026-09-27T22:52:34Z",
-      "decay_at": "2026-09-29T10:36:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-188d857a638c",
       "idea_version": "IDEAV-e2455486310490b1",
       "idea_version_started_at": "2026-09-28T00:37:06Z",
@@ -150757,6 +150696,77 @@
       "surfaced_at": "2026-09-27T02:00:37Z",
       "updated_at": "2026-09-27T02:00:37Z",
       "decay_at": "2026-09-28T12:50:59Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ed1c1d3cd77d",
+      "idea_version": "IDEAV-3d6b37d0eaa1fdb9",
+      "idea_version_started_at": "2026-09-27T22:52:34Z",
+      "ticker": "KAR",
+      "company": "Karoon Energy",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "An electrical fault at the SPS-92 well has forced a downward revision of 2026 production and financial guidance.",
+      "why_now": "The company issued a price-sensitive guidance update on September 27, 2026, following the operational failure.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5b4e86aa57ca"
+      ],
+      "primary_source_event_id": "EVT-5b4e86aa57ca",
+      "source_headlines": [
+        "KAR: SPS-92 electrical fault, 2026 guidance update [price-sensitive]"
+      ],
+      "source_headline": "KAR: SPS-92 electrical fault, 2026 guidance update [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KAR?key=2924-03140404-3A702611",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T22:36:34Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/KAR_2026-08-30",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-09-27T22:52:34Z",
+      "updated_at": "2026-09-27T22:52:34Z",
+      "decay_at": "2026-09-29T10:36:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -153293,9 +153303,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 549,
+    "total_count": 550,
     "shown_count": 500,
-    "hidden_count": 49,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
         "total_count": 280,
@@ -153303,9 +153313,9 @@
         "hidden_count": 30
       },
       "short": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       }
     },
     "retention": {
@@ -153324,6 +153334,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ed1c1d3cd77d",
+        "idea_version": "IDEAV-3d6b37d0eaa1fdb9",
+        "idea_version_started_at": "2026-09-27T22:52:34Z",
+        "ticker": "KAR",
+        "company": "Karoon Energy",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "An electrical fault at the SPS-92 well has forced a downward revision of 2026 production and financial guidance.",
+        "why_now": "The company issued a price-sensitive guidance update on September 27, 2026, following the operational failure.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5b4e86aa57ca"
+        ],
+        "primary_source_event_id": "EVT-5b4e86aa57ca",
+        "source_headlines": [
+          "KAR: SPS-92 electrical fault, 2026 guidance update [price-sensitive]"
+        ],
+        "source_headline": "KAR: SPS-92 electrical fault, 2026 guidance update [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KAR?key=2924-03140404-3A702611",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-27T22:36:34Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/KAR_2026-08-30",
+          "latest_decision": null,
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-09-27T22:52:34Z",
+        "updated_at": "2026-09-27T22:52:34Z",
+        "decay_at": "2026-09-29T10:36:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T10:36:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-84d3d160ac55",
         "idea_version": "IDEAV-d8d38b50d5b7a32f",
@@ -190410,85 +190494,12 @@
         "archived_at": "2026-09-06T21:54:24Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-373f07b62282",
-        "idea_version": "IDEAV-4416a5b0615d7f73",
-        "idea_version_started_at": "2026-09-04T06:14:00Z",
-        "ticker": "UBER",
-        "company": "Uber",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A 10% workforce reduction combined with a massive $10 billion pivot into capital-intensive robotaxis signals significant operational distress and high execution risk.",
-        "why_now": "The announcement occurred on September 3, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f5a85ef62d3b"
-        ],
-        "primary_source_event_id": "EVT-f5a85ef62d3b",
-        "source_headlines": [
-          "Uber Is Cutting 10% of Its Workforce and Betting $10 Billion on Robotaxis Instead"
-        ],
-        "source_headline": "Uber Is Cutting 10% of Its Workforce and Betting $10 Billion on Robotaxis Instead",
-        "source_url": "https://247wallst.com/investing/2026/09/03/uber-is-cutting-10-of-its-workforce-and-betting-10-billion-on-robotaxis-instead/",
-        "source_name": "24/7 Wall St.",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-03T17:47:42Z",
-        "prior_coverage": {
-          "has_run": true,
-          "latest_run": "analyses/UBER_2026-08-09",
-          "latest_decision": "Watchlist",
-          "data_pool_present": true
-        },
-        "surfaced_at": "2026-09-04T06:14:00Z",
-        "updated_at": "2026-09-04T06:14:00Z",
-        "decay_at": "2026-09-05T05:47:42Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T18:05:55Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1140,
-    "live_count": 49,
+    "live_count": 48,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -190507,9 +190518,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3930486,
-    "news_picked_today": 563,
-    "news_dropped_today": 4933
+    "news_seen_today": 3966220,
+    "news_picked_today": 575,
+    "news_dropped_today": 5017
   },
   "book_momentum": {
     "live_count": 8,
