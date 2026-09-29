@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T00:24:46Z",
+  "generated_at": "2026-09-29T00:29:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -388,6 +388,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-020",
+      "headline": "PFE: Secures low cost entry into Corona Gold Project [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PFE?key=2924-03141170-6A1346211",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T23:51:19Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "PFE has secured a low-cost entry into the Corona Gold Project, indicating a strategic expansion of its asset portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "PFE has secured a low-cost entry into the Corona Gold Project, indicating a strategic expansion of its asset portfolio.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PFE",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-005",
       "headline": "Settlement order in the matter of Investcorp Private Equity Fund I",
       "headline_en": null,
@@ -675,6 +724,60 @@
           "name": "Saksoft Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-021",
+      "headline": "FTI: NOL8 Brings AI Data Plane to Equinix Fabric [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FTI?key=2924-03141167-2A1700140",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T23:50:39Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "FTI is integrating its NOL8 AI data plane with Equinix Fabric, expanding its commercial reach and product utility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "FTI is integrating its NOL8 AI data plane with Equinix Fabric, expanding its commercial reach and product utility.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FTI",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Equinix",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -188208,7 +188311,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2986,
+    "inbox_unconsumed": 2988,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -188217,9 +188320,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 122358,
-    "news_picked_today": 19,
-    "news_dropped_today": 197
+    "news_seen_today": 132647,
+    "news_picked_today": 21,
+    "news_dropped_today": 243
   },
   "book_momentum": {
     "live_count": 8,
