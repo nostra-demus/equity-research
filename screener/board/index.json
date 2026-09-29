@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-29T12:06:40Z",
+  "generated_at": "2026-09-29T12:09:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-308",
+      "headline": "The Hi-Tech Gears Limited: The Hi-Tech Gears Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/HITECHGEAR_29092026172957_STx_CIRP_SD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T12:00:28Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "The company has entered a Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has entered a Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Hi-Tech Gears Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-300",
       "headline": "Endurance Technologies Limited: Endurance Technologies Limited has informed the Exchange about acquisition of remaining 32% stake in Stoeferle GmbH and Stoeferle Automotive GmbH by Endurance Overseas SpA, Italy, a wholly-owned subsidiary of the Company.",
@@ -1947,55 +1996,6 @@
           "name": "HUA HONG GRACE",
           "ticker": "01347",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-290",
-      "headline": "Navin Fluorine International Limited: Navin Fluorine International Limited has informed the Exchange about Commencement of commercial production/operations",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/NAVINFLUOR_29092026164657_Intimationreg30.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T11:17:04Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Navin Fluorine International Limited has commenced commercial production at a new facility, indicating a capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Navin Fluorine International Limited has commenced commercial production at a new facility, indicating a capacity expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Navin Fluorine International Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -190735,9 +190735,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4936240,
-    "news_picked_today": 690,
-    "news_dropped_today": 5550
+    "news_seen_today": 4976014,
+    "news_picked_today": 701,
+    "news_dropped_today": 5563
   },
   "book_momentum": {
     "live_count": 8,
