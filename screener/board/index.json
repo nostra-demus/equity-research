@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-29T23:23:43Z",
+  "generated_at": "2026-09-29T23:27:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-434",
+      "headline": "ADO: Full Year Results and Business Update Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ADO?key=2924-03141853-2A1700451",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T23:16:29Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "The company released full-year financial results and a business update.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company released full-year financial results and a business update.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adbri",
+          "ticker": "ABC",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-433",
       "headline": "AEL: ECSP development phase FID, Nestor sanction & Juliet update [price-sensitive]",
@@ -1939,60 +1988,6 @@
       "companies": [
         {
           "name": "Endurance Technologies",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-324",
-      "headline": "Surat-based Anupam Rasayan completes ₹1,750-cr acquisition of 48.2% in Bliss GVS Pharma",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/surat-based-anupam-rasayan-completes-1750-cr-acquisition-of-482-in-bliss-gvs-pharma/article71523837.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T13:24:41Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Acquisition of 48.2% stake in Bliss GVS Pharma for 1750 crore INR is a major capital deployment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Acquisition of 48.2% stake in Bliss GVS Pharma for 1750 crore INR is a major capital deployment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anupam Rasayan",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Bliss GVS Pharma",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -191607,9 +191602,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14926678,
-    "news_picked_today": 1250,
-    "news_dropped_today": 10174
+    "news_seen_today": 15022240,
+    "news_picked_today": 1262,
+    "news_dropped_today": 10186
   },
   "book_momentum": {
     "live_count": 8,
