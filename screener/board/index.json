@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T11:16:56Z",
+  "generated_at": "2026-09-29T11:21:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-281",
@@ -1907,6 +1907,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-289",
+      "headline": "Nvidia announces record $150 billion share buyback amid AI boom",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/international-business/nvidia-announces-record-150-billion-share-buyback-amid-ai-boom/articleshow/134563925.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T10:56:49Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Nvidia announced a $150 billion share buyback, a massive capital return program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Nvidia announced a $150 billion share buyback, a massive capital return program.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-176",
       "headline": "U.S., China release $60 bil. nonsensitive product lists for tariff cuts after Trump-Xi meeting",
       "headline_en": null,
@@ -1945,55 +1994,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-140",
-      "headline": "Nvidia adds US$150 billion to massive stock buyback, the largest ever",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/nvidia-adds-us150-billion-to-massive-stock-buyback-the-largest-ever",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T02:27:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Nvidia announced a $150 billion stock buyback, the largest in history.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Nvidia announced a $150 billion stock buyback, the largest in history.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -190586,9 +190586,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4418692,
-    "news_picked_today": 612,
-    "news_dropped_today": 5244
+    "news_seen_today": 4456123,
+    "news_picked_today": 626,
+    "news_dropped_today": 5254
   },
   "book_momentum": {
     "live_count": 8,
