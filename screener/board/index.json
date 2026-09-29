@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T05:33:22Z",
+  "generated_at": "2026-09-29T05:36:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -190,6 +190,55 @@
           "name": "Guotai Junan International Holdings Limited",
           "ticker": "01788",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-185",
+      "headline": "Lindt cuts 2026 growth forecast as weak demand, heatwave weigh on sales",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/lindt-cuts-2026-growth-forecast-weak-demand-heatwave-weigh-sales-2026-09-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T05:23:44Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Lindt cut its 2026 growth forecast due to weak demand and heatwave impacts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lindt cut its 2026 growth forecast due to weak demand and heatwave impacts.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lindt",
+          "ticker": null,
+          "listing_country": "CH"
         }
       ],
       "size_bucket": "large",
@@ -1897,55 +1946,6 @@
           "name": "IRB Infrastructure Developers",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-054",
-      "headline": "NEU: Trofinetide US patent protections extended to March 2041 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NEU?key=2924-03141203-2A1700164",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T00:34:49Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Neuren Pharmaceuticals (NEU) received a patent extension for Trofinetide in the US until 2041.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Neuren Pharmaceuticals (NEU) received a patent extension for Trofinetide in the US until 2041.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Neuren Pharmaceuticals",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -189194,9 +189194,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1428467,
-    "news_picked_today": 323,
-    "news_dropped_today": 2653
+    "news_seen_today": 1449231,
+    "news_picked_today": 325,
+    "news_dropped_today": 2675
   },
   "book_momentum": {
     "live_count": 8,
