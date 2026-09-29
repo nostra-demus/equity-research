@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T06:42:46Z",
+  "generated_at": "2026-09-29T06:43:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-192",
@@ -146325,6 +146325,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-14d83f2c882e",
+      "idea_version": "IDEAV-d04cc4eb1a74c027",
+      "idea_version_started_at": "2026-09-29T06:43:00Z",
+      "ticker": "AMD",
+      "company": "Advanced Micro Devices",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $8.2 billion acquisition of World Labs represents a strategic pivot into 'physical AI' that expands the company's addressable market beyond traditional data center GPUs.",
+      "why_now": "The deal was announced on 2026-09-28, and the market is currently assessing the integration risk versus the long-term growth potential of the new technology stack.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b86f9f2dbf6f",
+        "EVT-d547c330f3c6"
+      ],
+      "primary_source_event_id": "EVT-b86f9f2dbf6f",
+      "source_headlines": [
+        "Nvidia rival AMD to buy industry pioneer’s AI startup World Labs for US$8.2 billion",
+        "AMD to buy Fei-Fei Li's World Labs in $8.2 billion bet on 'physical AI'"
+      ],
+      "source_headline": "Nvidia rival AMD to buy industry pioneer’s AI startup World Labs for US$8.2 billion",
+      "source_url": "https://www.businesstimes.com.sg/international/nvidia-rival-amd-buy-industry-pioneers-ai-startup-world-labs-us8-2-billion",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T23:11:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T06:43:00Z",
+      "updated_at": "2026-09-29T06:43:00Z",
+      "decay_at": "2026-09-30T11:11:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-15b437f23637",
       "idea_version": "IDEAV-a6761bbee8662be1",
       "idea_version_started_at": "2026-09-28T00:13:12Z",
@@ -146460,6 +146531,76 @@
       "surfaced_at": "2026-09-28T02:57:09Z",
       "updated_at": "2026-09-28T02:57:09Z",
       "decay_at": "2026-09-29T14:42:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-689f4996a82d",
+      "idea_version": "IDEAV-8417f0199e061c5f",
+      "idea_version_started_at": "2026-09-29T06:43:00Z",
+      "ticker": "MDB",
+      "company": "MongoDB",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The sudden departure of the CEO combined with a significant earnings and revenue miss signals deep-seated operational instability and a loss of leadership continuity.",
+      "why_now": "The news broke on 2026-09-28 and the stock has already reacted, but the structural nature of the executive exit suggests further downside as the market digests the strategic vacuum.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6e7b2ea5fac1"
+      ],
+      "primary_source_event_id": "EVT-6e7b2ea5fac1",
+      "source_headlines": [
+        "MongoDB stock crashes 26% as its CEO jumps ship"
+      ],
+      "source_headline": "MongoDB stock crashes 26% as its CEO jumps ship",
+      "source_url": "https://www.thestreet.com/investing/stocks/mongodb-stock-crash-ceo-resigns-meta",
+      "source_name": "TheStreet",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T22:17:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T06:43:00Z",
+      "updated_at": "2026-09-29T06:43:00Z",
+      "decay_at": "2026-09-30T10:17:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -146740,6 +146881,79 @@
       "surfaced_at": "2026-09-28T00:37:06Z",
       "updated_at": "2026-09-28T00:37:06Z",
       "decay_at": "2026-09-29T11:38:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-f64bbbd95f6f",
+      "idea_version": "IDEAV-deb73ae1a74b16bb",
+      "idea_version_started_at": "2026-09-29T06:43:00Z",
+      "ticker": "MP1",
+      "company": "Megaport",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured $1 billion in new contracts and simultaneously upgraded its 2027 earnings guidance, indicating a major inflection in revenue growth and operational scale.",
+      "why_now": "The guidance upgrade was officially announced on 2026-09-28, providing a clear catalyst for a re-rating of the stock.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e30c918d40e6",
+        "EVT-bd5b3cbab213"
+      ],
+      "primary_source_event_id": "EVT-e30c918d40e6",
+      "source_headlines": [
+        "ASX to rise; Megaport wins $1b worth of contracts, upgrades guidance",
+        "Australia's Megaport wins $687 million AI infrastructure deals, raises 2027 earnings forecast"
+      ],
+      "source_headline": "ASX to rise; Megaport wins $1b worth of contracts, upgrades guidance",
+      "source_url": "https://www.afr.com/markets/equity-markets/asx-to-rise-us-bond-yields-surge-higher-rba-awaited-20260929-p6118b?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T23:32:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T06:43:00Z",
+      "updated_at": "2026-09-29T06:43:00Z",
+      "decay_at": "2026-09-30T11:32:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -189540,8 +189754,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1127,
-    "live_count": 42,
+    "surfaced_total": 1130,
+    "live_count": 45,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
