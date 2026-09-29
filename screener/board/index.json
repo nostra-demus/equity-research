@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T16:06:44Z",
+  "generated_at": "2026-09-29T16:14:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-360",
@@ -1046,6 +1046,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-398",
+      "headline": "Sun Pharma plans ₹10,000 crore bond sale to refinance Organon acquisition loan: Report",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/sun-pharma-plans-rs-10-000-crore-bond-sale-to-refinance-organon-acquisition-loan-report-11790695336859.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T15:45:10Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Sun Pharma plans a 100 billion INR bond sale to refinance existing debt.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sun Pharma plans a 100 billion INR bond sale to refinance existing debt.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sun Pharma",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-396",
       "headline": "KKR to acquire Cisternina Logistics, plans to build pan-India liquid storage and logistics platform",
       "headline_en": null,
@@ -1950,55 +1999,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-228",
-      "headline": "Shapoorji Pallonji Group Repays ₹3,500 Crore Bond Dues After Fresh Lender Support, Avoids Default Risk",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/shapoorji-pallonji-group-repays-3500-crore-bond-dues-after-fresh-lender-support-avoids-default-risk",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T06:29:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Shapoorji Pallonji Group Repays ₹3,500 Crore Bond Dues After Fresh Lender Support, Avoids Default Risk",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shapoorji Pallonji Group Repays ₹3,500 Crore Bond Dues After Fresh Lender Support, Avoids Default Risk",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shapoorji Pallonji Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -191383,9 +191383,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8175948,
-    "news_picked_today": 986,
-    "news_dropped_today": 6982
+    "news_seen_today": 8327568,
+    "news_picked_today": 993,
+    "news_dropped_today": 6999
   },
   "book_momentum": {
     "live_count": 8,
