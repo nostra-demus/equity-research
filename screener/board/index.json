@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T04:37:19Z",
+  "generated_at": "2026-09-29T04:40:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -600,6 +600,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-177",
+      "headline": "FTC, States Win Protections to Lower Pesticide Prices for American Farmers in Antitrust Case Against Corteva",
+      "headline_en": null,
+      "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-states-win-protections-lower-pesticide-prices-american-farmers-antitrust-case-against-corteva",
+      "source_name": "Federal Trade Commission (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-28T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "The FTC and states secured an antitrust settlement against Corteva to lower pesticide prices, impacting the company's pricing power and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The FTC and states secured an antitrust settlement against Corteva to lower pesticide prices, impacting the company's pricing power and regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Corteva",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1901,55 +1951,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-131",
-      "headline": "FDA device recall (Class I) — Abiomed, Inc.: Automated Impella Controller (AIC) with the below product descriptions and corresponding Product Codes. 1. Impella Controller, Packaged, CA; Product Code: 0042- — The potential for purge cassette recognition issues due to the failure of the purge flag component of the purge pressure",
-      "headline_en": null,
-      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-3148-2026%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-23T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Abiomed issued a Class I recall, the most serious type, for its Impella Controller due to potential purge cassette failure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Abiomed issued a Class I recall, the most serious type, for its Impella Controller due to potential purge cassette failure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Abiomed, Inc.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -189195,9 +189196,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1117105,
-    "news_picked_today": 292,
-    "news_dropped_today": 2228
+    "news_seen_today": 1135847,
+    "news_picked_today": 293,
+    "news_dropped_today": 2251
   },
   "book_momentum": {
     "live_count": 8,
