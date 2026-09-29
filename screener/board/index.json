@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-29T06:58:48Z",
+  "generated_at": "2026-09-29T07:03:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-208",
+      "headline": "BIL VYAPAR LIMITED: BIL VYAPAR LIMITED has informed the Exchange about Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015- Intimation of meeting of Committee of Creditors.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BINANIIND_29092026120459_SE_Intimation_COC.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T06:35:07Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "The company is undergoing a Committee of Creditors meeting, indicating potential insolvency or debt restructuring proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is undergoing a Committee of Creditors meeting, indicating potential insolvency or debt restructuring proceedings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BIL VYAPAR LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-192",
       "headline": "GDF: Asset Sale Heathwood [price-sensitive]",
@@ -239,6 +288,55 @@
           "name": "Guotai Junan International Holdings Limited",
           "ticker": "01788",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-205",
+      "headline": "REA Group To Buy 35% Stake In Distilled In €248 Mln Deal",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/rea-group-buy-35-stake-distilled-eu248-mln-deal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T06:19:37Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "REA Group is acquiring a 35% stake in Distilled for 248 million euros.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "REA Group is acquiring a 35% stake in Distilled for 248 million euros.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "REA Group",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -1189,6 +1287,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-211",
+      "headline": "SPX: Ceasing to be a substantial holder from NAB",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SPX?key=2924-03141370-3A702786",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T06:31:51Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "National Australia Bank has ceased to be a substantial holder in SPX, indicating a change in institutional ownership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "National Australia Bank has ceased to be a substantial holder in SPX, indicating a change in institutional ownership.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Australia Bank",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "SPX",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-204",
       "headline": "Global Health Limited: Global Health Limited has informed the Exchange regarding a press release dated September 29, 2026, titled \"Medanta to expand Healthcare Footprint in Uttar Pradesh with the Acquisition of 10,560 Sq. Metre Land Parcel in Ghaziabad.\".",
       "headline_en": null,
@@ -1423,6 +1575,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-210",
+      "headline": "CKA: BBM Secures Three-Year Extension of US$20m Repayment [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CKA?key=2924-03141373-6A1346291",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T06:34:21Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "BBM secured a three-year extension on a US$20m debt repayment, improving liquidity and capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "BBM secured a three-year extension on a US$20m debt repayment, improving liquidity and capital structure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BBM",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-207",
+      "headline": "CY5: Becoming a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CY5?key=2924-03141368-6A1346290",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T06:31:36Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "A substantial holder disclosure indicates a change in ownership structure for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A substantial holder disclosure indicates a change in ownership structure for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CY5",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1718,251 +1968,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-032",
-      "headline": "BML: Sorby Hills Project Delivery Plan [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BML?key=2924-03141196-6A1346215",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T00:22:39Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Boab Metals Limited announced a project delivery plan for the Sorby Hills project, a key operational milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Boab Metals Limited announced a project delivery plan for the Sorby Hills project, a key operational milestone.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boab Metals Limited",
-          "ticker": "BML",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-043",
-      "headline": "SCHEDULE 13D/A - Troendle August J. (0001622058) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1622058/000119312526405684/0001193125-26-405684-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-28T23:15:13Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "August J. Troendle filed an amended Schedule 13D regarding ownership stake.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "August J. Troendle filed an amended Schedule 13D regarding ownership stake.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "August J. Troendle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-178",
-      "headline": "AUSTASIA GROUP (02425): (1) DISCLOSEABLE TRANSACTION AND CONNECTED TRANSACTION; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801701.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T11:54:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "The company announced a discloseable and connected transaction alongside an EGM notice.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company announced a discloseable and connected transaction alongside an EGM notice.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Austasia Group",
-          "ticker": "02425",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-149",
-      "headline": "Goldman Sachs sees Eternal achieving $1 billion EBITDA by FY29; raises target price",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/goldman-sachs-sees-eternal-achieving-1-billion-ebitda-by-fy29-raises-target-price/articleshow/134554650.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T03:00:59Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Goldman Sachs projects Eternal to reach $1 billion in EBITDA by FY29, leading to a target price increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Goldman Sachs projects Eternal to reach $1 billion in EBITDA by FY29, leading to a target price increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eternal",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-195",
-      "headline": "Symbiotec Pharmalab Limited: Announcement Under Regulation 30 (LODR)-Symbiotec Pharmalab Limited Receives Establishment Inspection Report (\"EIR\") From U.S. FDA for Its Manufacturing Facility In Pithampur ('SEZ') With VAI Classification",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SYMBIOTEC_29092026105720_SymbiotecUSFDAApprovalSEZ.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T05:27:51Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Receiving a VAI classification from the US FDA for a manufacturing facility reduces regulatory risk and supports export operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Receiving a VAI classification from the US FDA for a manufacturing facility reduces regulatory risk and supports export operations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Symbiotec Pharmalab Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -189774,9 +189779,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1992835,
-    "news_picked_today": 370,
-    "news_dropped_today": 3278
+    "news_seen_today": 2022063,
+    "news_picked_today": 382,
+    "news_dropped_today": 3746
   },
   "book_momentum": {
     "live_count": 8,
