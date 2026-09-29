@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T03:56:41Z",
+  "generated_at": "2026-09-29T04:00:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -1377,6 +1377,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-161",
+      "headline": "IRB Infrastructure Developers Limited: IRB Infrastructure Developers Limited has informed the Exchange regarding 'Company sponsored IRB InvIT Fund completes Fund-Raise through Institutional Placement and Preferential Allotment of Units'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/IRB_29092026090259_SE_Discl_InvIT_QIP.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T03:34:23Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "IRB Infrastructure Developers' sponsored InvIT fund completed a fund-raise, indicating successful capital access.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "IRB Infrastructure Developers' sponsored InvIT fund completed a fund-raise, indicating successful capital access.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IRB Infrastructure Developers",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-054",
       "headline": "NEU: Trofinetide US patent protections extended to March 2041 [price-sensitive]",
       "headline_en": null,
@@ -1912,55 +1961,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-150",
-      "headline": "424B5 - Arbe Robotics Ltd. (0001861841) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1861841/000121390026103771/0001213900-26-103771-index.htm",
-      "source_name": "SEC EDGAR — Latest Form 4 (Insider Transactions)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-28T12:35:27Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Arbe Robotics filed a 424B5 prospectus supplement for a potential securities offering, which is dilutive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Arbe Robotics filed a 424B5 prospectus supplement for a potential securities offering, which is dilutive.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arbe Robotics Ltd.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -189206,9 +189206,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 955944,
-    "news_picked_today": 254,
-    "news_dropped_today": 1882
+    "news_seen_today": 974898,
+    "news_picked_today": 258,
+    "news_dropped_today": 1902
   },
   "book_momentum": {
     "live_count": 8,
