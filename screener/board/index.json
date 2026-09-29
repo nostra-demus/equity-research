@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-29T05:47:22Z",
+  "generated_at": "2026-09-29T05:53:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-192",
+      "headline": "GDF: Asset Sale Heathwood [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GDF?key=2924-03141289-2A1700203",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T04:45:50Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "GDF announced a price-sensitive asset sale of the Heathwood asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GDF announced a price-sensitive asset sale of the Heathwood asset.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GDF",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-008",
       "headline": "ITC NEOCLOUD (00199): DISCLOSEABLE TRANSACTION ACQUISITION OF 80% EQUITY INTEREST IN AN ARTIFICIAL INTELLIGENCE COMPUTING SERVICE COMPANY HOLDING 26 DELIVERED HIGH-PERFORMANCE SERVERS AND RMB648.96 MILLION CUSTOMER CONTRACTS",
@@ -1624,6 +1673,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-193",
+      "headline": "WINFULL GP (00183): (1) MAJOR TRANSACTION: DISPOSAL OF EQUITY INTEREST IN A SUBSIDIARY; AND (2) DISCLOSEABLE TRANSACTION: PROVISION OF LOAN TO THE PURCHASER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801645.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T11:37:00Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Winfull Group announced a major transaction involving the disposal of a subsidiary and a loan provision.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Winfull Group announced a major transaction involving the disposal of a subsidiary and a loan provision.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WINFULL GP",
+          "ticker": "00183",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-188",
       "headline": "Australia raises interest rate to highest level in 15 years",
       "headline_en": null,
@@ -1840,109 +1938,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-181",
-      "headline": "AMD acquires ‘godmother of AI’ Li Fei-Fei’s start-up as battle with Nvidia intensifies",
-      "headline_en": null,
-      "url": "https://www.scmp.com/tech/big-tech/article/3369141/amd-acquires-godmother-ai-li-fei-feis-start-battle-nvidia-intensifies?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T04:30:18Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "AMD acquired AI startup World Labs, founded by Li Fei-Fei, to strengthen its competitive position against Nvidia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "AMD acquired AI startup World Labs, founded by Li Fei-Fei, to strengthen its competitive position against Nvidia.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMD",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-144",
-      "headline": "Tata Sons merger: What TCE and TESS bring to the table in Tata Trusts’ new plan",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/tata-sons-merger-what-tce-and-tess-bring-to-the-table-in-tata-trusts-new-plan-11790647082581.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T02:52:45Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Tata Sons is undergoing a merger involving TCE and TESS as part of a restructuring plan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Tata Sons is undergoing a merger involving TCE and TESS as part of a restructuring plan.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -189188,9 +189183,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1511844,
-    "news_picked_today": 334,
-    "news_dropped_today": 2738
+    "news_seen_today": 1543014,
+    "news_picked_today": 338,
+    "news_dropped_today": 2806
   },
   "book_momentum": {
     "live_count": 8,
