@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-29T08:55:35Z",
+  "generated_at": "2026-09-29T09:01:42Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-256",
+      "headline": "EASYKNIT-NEW (01218): VERY SUBSTANTIAL DISPOSAL IN RELATION TO DISPOSAL OF THE ENTIRE ISSUED SHARE CAPITAL OF THE TARGET COMPANY AND NOTICE OF THE SGM",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092900414.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T08:32:00Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "The company announced a very substantial disposal of its entire issued share capital in a target company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a very substantial disposal of its entire issued share capital in a target company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Easyknit International Holdings Limited",
+          "ticker": "01218",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-208",
       "headline": "BIL VYAPAR LIMITED: BIL VYAPAR LIMITED has informed the Exchange about Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015- Intimation of meeting of Committee of Creditors.",
@@ -1931,55 +1980,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-203",
-      "headline": "G-TEC JAINX EDUCATION LIMITED: Navigant Corporate Advisors Limited has Submitted to the Exchange a copy of Public Announcement under Regulation 3(1) and 3(3) read with Regulations 13, 14 and 15(1) of the Securities and Exchange Board of India (Substantial Acquisition of Shares and Takeovers) Regulations, 2011, as amended for the attention of the equity shareholders of the G-TEC JAINX EDUCATION LIMITED (Target Company).",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/team_sandeshc_29092026111607_GTECJAINX.zip",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T05:51:17Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Public announcement regarding a substantial acquisition of shares in G-TEC JAINX Education Limited.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Public announcement regarding a substantial acquisition of shares in G-TEC JAINX Education Limited.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "G-TEC JAINX EDUCATION LIMITED",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -189934,9 +189934,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3046677,
-    "news_picked_today": 479,
-    "news_dropped_today": 4177
+    "news_seen_today": 3095896,
+    "news_picked_today": 484,
+    "news_dropped_today": 4244
   },
   "book_momentum": {
     "live_count": 8,
