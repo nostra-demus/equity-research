@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-29T10:05:51Z",
+  "generated_at": "2026-09-29T10:16:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-269",
+      "headline": "KPI Green Energy Limited: KPI Green Energy Limited has informed the Exchange regarding Receipt of Work Order worth approx. Rs. 2,025 crore for 500 MW / 550 MWp Solar EPC Project from NACOF Oorja Private Limited. The Disclosure is attached herewith.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KPIGLOBAL_29092026152717_7_KPI_Green_Reg30_NACOF_500MW_Order_29092026_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T09:57:36Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "KPI Green Energy received a solar EPC work order worth approximately Rs. 2,025 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KPI Green Energy received a solar EPC work order worth approximately Rs. 2,025 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KPI Green Energy Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-263",
       "headline": "PUBLIC FIN HOLD (00626): JOINT ANNOUNCEMENT (1) PROPOSED PRIVATISATION OF PUBLIC FINANCIAL HOLDINGS LIMITED BY PUBLIC BANK BERHAD BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT 1981 OF BERMUDA (AS AMENDED FROM TIME TO TIME); AND (2) PROPOSED WITHDRAWAL OF LISTING OF SHARES OF PUBLIC FINANCIAL HOLDINGS LIMITED - EXTENSION OF TIME FOR DESPATCH OF THE SCHEME DOCUMENT",
@@ -1932,56 +1981,6 @@
           "name": "Downer EDI",
           "ticker": "DOW",
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-201",
-      "headline": "Sanofi India Limited: Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 Receipt of Show Cause Notice from GST Authority.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/COSECSANOFI_29092026110816_BSENSEUPLOAD.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T05:39:48Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Sanofi India received a show cause notice from GST authorities, indicating potential regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Sanofi India received a show cause notice from GST authorities, indicating potential regulatory risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sanofi India Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -190439,9 +190438,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3668612,
-    "news_picked_today": 548,
-    "news_dropped_today": 4708
+    "news_seen_today": 3754215,
+    "news_picked_today": 550,
+    "news_dropped_today": 4826
   },
   "book_momentum": {
     "live_count": 8,
