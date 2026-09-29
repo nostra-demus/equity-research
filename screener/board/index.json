@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T01:11:04Z",
+  "generated_at": "2026-09-29T01:12:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -873,6 +873,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-063",
+      "headline": "FTC chief vows to 'restore justice' as court clears way for Coupang probe",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20260929002700320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T00:57:15Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "FTC probe into Coupang moves forward following court clearance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "FTC probe into Coupang moves forward following court clearance.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coupang",
+          "ticker": "CPNG",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1892,55 +1942,6 @@
       "companies": [
         {
           "name": "Williamson Magor & Company Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-004",
-      "headline": "Euro Panel Products Limited: Euro Panel Products Limited has informed the Exchange about change in Management",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/EUROPANEL_28092026201031_Covering_Letter_Change_in_Management_F.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T14:41:01Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Euro Panel Products Limited announced a change in management.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Euro Panel Products Limited announced a change in management.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Euro Panel Products Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -189252,9 +189253,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 264703,
-    "news_picked_today": 67,
-    "news_dropped_today": 557
+    "news_seen_today": 274761,
+    "news_picked_today": 72,
+    "news_dropped_today": 576
   },
   "book_momentum": {
     "live_count": 8,
