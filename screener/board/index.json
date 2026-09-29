@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T03:32:39Z",
+  "generated_at": "2026-09-29T03:33:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -146671,6 +146671,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-06ae978a41f7",
+      "idea_version": "IDEAV-2beb3467999c772b",
+      "idea_version_started_at": "2026-09-29T03:32:55Z",
+      "ticker": "00064",
+      "company": "Get Nice Holdings",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has announced a privatization scheme of arrangement and a proposed special dividend, creating a defined exit event for shareholders.",
+      "why_now": "The formal filing regarding the privatization and listing withdrawal was published on September 27, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6df12dab94db"
+      ],
+      "primary_source_event_id": "EVT-6df12dab94db",
+      "source_headlines": [
+        "GET NICE (00064): (1) PRIVATISATION OF GET NICE HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING; AND (3) PROPOSED SPECIAL DIVIDEND"
+      ],
+      "source_headline": "GET NICE (00064): (1) PRIVATISATION OF GET NICE HOLDINGS LIMITED BY THE OFFEROR BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING; AND (3) PROPOSED SPECIAL DIVIDEND",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092800097.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T23:46:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T03:32:55Z",
+      "updated_at": "2026-09-29T03:32:55Z",
+      "decay_at": "2026-09-29T11:46:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1c6c9c209d48",
       "idea_version": "IDEAV-8ef71b1b183a2aa2",
       "idea_version_started_at": "2026-09-28T20:16:54Z",
@@ -148186,6 +148258,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-84d3d160ac55",
+      "idea_version": "IDEAV-d8d38b50d5b7a32f",
+      "idea_version_started_at": "2026-09-29T03:32:55Z",
+      "ticker": "INA",
+      "company": "Incitec Pivot",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The receipt of a further revised non-binding indicative takeover offer suggests a potential premium acquisition is in progress.",
+      "why_now": "The filing was released on September 27, 2026, confirming active M&A negotiations.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a08ca4f54f6c"
+      ],
+      "primary_source_event_id": "EVT-a08ca4f54f6c",
+      "source_headlines": [
+        "INA: Receipt of further revised non-binding indicative offer [price-sensitive]"
+      ],
+      "source_headline": "INA: Receipt of further revised non-binding indicative offer [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03140397-2A1699656",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 99,
+      "newest_source_at": "2026-09-27T22:31:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T03:59:15Z",
+      "updated_at": "2026-09-29T03:32:55Z",
+      "decay_at": "2026-09-29T10:31:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-188d857a638c",
       "idea_version": "IDEAV-e2455486310490b1",
       "idea_version_started_at": "2026-09-28T00:37:06Z",
@@ -148971,75 +149114,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d671baced956",
-      "idea_version": "IDEAV-0216b9fe43f0f579",
-      "idea_version_started_at": "2026-09-26T23:48:13Z",
-      "ticker": "IPEX",
-      "company": "Inflection Point Acquisition Corp. V",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Inflection Point Acquisition Corp. V has completed a business combination with GOWell Energy Technology, which could unlock value for shareholders of the SPAC.",
-      "why_now": "The business combination was updated as 'Closed' on September 25, 2026, making this a current event.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 72,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-fa37effcea40"
-      ],
-      "primary_source_event_id": "EVT-fa37effcea40",
-      "source_headlines": [
-        "ECA2026-685 - (UPDATED: Closed) Information Regarding the Business Combination of Inflection Point Acquisition Corp. V (IPEX/R/U) & GOWell Energy Technology"
-      ],
-      "source_headline": "ECA2026-685 - (UPDATED: Closed) Information Regarding the Business Combination of Inflection Point Acquisition Corp. V (IPEX/R/U) & GOWell Energy Technology",
-      "source_url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-685",
-      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T21:00:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T23:48:13Z",
-      "updated_at": "2026-09-26T23:48:13Z",
-      "decay_at": "2026-09-27T09:00:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5f19e42d97dc",
       "idea_version": "IDEAV-0c7ffde149793fa2",
       "idea_version_started_at": "2026-09-27T04:44:42Z",
@@ -149745,76 +149819,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-144e3c4da420",
-      "idea_version": "IDEAV-af27fc5a7e34fb6c",
-      "idea_version_started_at": "2026-09-26T21:35:18Z",
-      "ticker": "NOC",
-      "company": "Northrop Grumman Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Northrop Grumman received long-lead funding for 67 APG-85 radars for F-35s, securing future revenue from a key defense program.",
-      "why_now": "The funding was received on September 25, 2026, providing a fresh catalyst for the stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-267ff94a3682"
-      ],
-      "primary_source_event_id": "EVT-267ff94a3682",
-      "source_headlines": [
-        "Northrop Grumman Receives Long-Lead Funding for 67 APG-85 Radars for F-35s"
-      ],
-      "source_headline": "Northrop Grumman Receives Long-Lead Funding for 67 APG-85 Radars for F-35s",
-      "source_url": "https://www.defensedaily.com/northrop-grumman-receives-long-lead-funding-for-67-apg-85-radars-for-f-35s/air-force/",
-      "source_name": "Defense Daily",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-25T20:37:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T13:43:44Z",
-      "updated_at": "2026-09-26T21:35:18Z",
-      "decay_at": "2026-09-27T08:37:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-759cf3b531e6",
       "idea_version": "IDEAV-a1be9d10a405ae28",
       "idea_version_started_at": "2026-09-27T04:44:42Z",
@@ -150092,78 +150096,6 @@
       "surfaced_at": "2026-09-27T20:17:32Z",
       "updated_at": "2026-09-27T20:17:32Z",
       "decay_at": "2026-09-29T02:56:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-84d3d160ac55",
-      "idea_version": "IDEAV-c64da0fbe4b02ef3",
-      "idea_version_started_at": "2026-09-27T20:17:32Z",
-      "ticker": "INA",
-      "company": "Ingenia Communities Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Warburg Pincus has launched a takeover bid exceeding $3 billion for the lifestyle community operator, representing a significant premium to its recent market valuation.",
-      "why_now": "The bid was reported on September 27, 2026, creating an immediate valuation floor and potential for a bidding war if other parties like Di Pilla engage.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-33241580e6a7"
-      ],
-      "primary_source_event_id": "EVT-33241580e6a7",
-      "source_headlines": [
-        "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in"
-      ],
-      "source_headline": "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in",
-      "source_url": "https://www.afr.com/street-talk/warburg-pincus-slaps-ingenia-with-3b-plus-bid-di-pilla-weighs-in-20260927-p610tu?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T03:28:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T03:59:15Z",
-      "updated_at": "2026-09-27T20:17:32Z",
-      "decay_at": "2026-09-28T15:28:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -152055,14 +151987,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 540,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 23
       },
       "short": {
         "total_count": 267,
@@ -152072,12 +152004,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 539,
+      "evicted_count": 541,
       "oldest_retained_at": "2026-09-01T20:45:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 360,
-          "oldest_retained_at": "2026-09-11T02:56:08Z"
+          "evicted_count": 362,
+          "oldest_retained_at": "2026-09-11T03:17:00Z"
         },
         "short": {
           "evicted_count": 179,
@@ -154027,81 +153959,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-84d3d160ac55",
-        "idea_version": "IDEAV-c64da0fbe4b02ef3",
-        "idea_version_started_at": "2026-09-27T20:17:32Z",
-        "ticker": "INA",
-        "company": "Ingenia Communities Group",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Warburg Pincus has launched a takeover bid exceeding $3 billion for the lifestyle community operator, representing a significant premium to its recent market valuation.",
-        "why_now": "The bid was reported on September 27, 2026, creating an immediate valuation floor and potential for a bidding war if other parties like Di Pilla engage.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-33241580e6a7"
-        ],
-        "primary_source_event_id": "EVT-33241580e6a7",
-        "source_headlines": [
-          "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in"
-        ],
-        "source_headline": "Warburg Pincus slaps Ingenia with $3b-plus bid; Di Pilla weighs in",
-        "source_url": "https://www.afr.com/street-talk/warburg-pincus-slaps-ingenia-with-3b-plus-bid-di-pilla-weighs-in-20260927-p610tu?ref=rss&utm_medium=rss&utm_source=rss_feed",
-        "source_name": "Australian Financial Review",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-27T03:28:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T03:59:15Z",
-        "updated_at": "2026-09-27T20:17:32Z",
-        "decay_at": "2026-09-28T15:28:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-28T15:28:22Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-e28ce99f344d",
         "idea_version": "IDEAV-cde86591c768af67",
         "idea_version_started_at": "2026-09-27T18:25:11Z",
@@ -155212,8 +155069,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T09:00:40Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-29T03:33:02Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -155285,8 +155142,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-27T08:37:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-29T03:33:02Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -182310,6 +182167,80 @@
         "audit_only": true
       },
       {
+        "idea_id": "IDEA-6d25d5e62254",
+        "idea_version": "IDEAV-c4a9a837d7e7abe7",
+        "idea_version_started_at": "2026-09-11T09:09:59Z",
+        "ticker": "AIR.PA",
+        "company": "Airbus SE",
+        "exchange": "Paris",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Airbus is securing substantial new aircraft orders from Vietravel and Vietnam Airlines, bolstering its backlog and long-term revenue visibility.",
+        "why_now": "These major order announcements occurred today, signaling continued momentum in commercial aviation demand.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 6,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-32c89e1bbdca",
+          "EVT-4a9ca506d21a"
+        ],
+        "primary_source_event_id": "EVT-32c89e1bbdca",
+        "source_headlines": [
+          "Vietravel Signs Deal for 50 Airbus Jets in Major Expansion Push",
+          "Vietnam Airlines places provisional order with Airbus for five Airbus A350-900s"
+        ],
+        "source_headline": "Vietravel Signs Deal for 50 Airbus Jets in Major Expansion Push",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-09-11/vietravel-signs-deal-for-50-airbus-jets-in-major-expansion-push",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-11T03:15:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-11T09:09:59Z",
+        "updated_at": "2026-09-11T09:09:59Z",
+        "decay_at": "2026-09-12T15:15:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-14T03:19:41Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
         "idea_id": "IDEA-02a86175523b",
         "idea_version": "IDEAV-36a3c1f30a16bfbb",
         "idea_version_started_at": "2026-09-11T06:39:59Z",
@@ -189250,8 +189181,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1121,
-    "live_count": 38,
+    "surfaced_total": 1122,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
