@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-09-28T23:52:55Z",
+  "generated_at": "2026-09-29T00:03:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-002",
+      "headline": "Turtlemint Fintech Solutions Limited: Significant movement in price has been observed in Turtlemint Fintech Solutions Limited. The Exchange, in order to ensure that investors have latest relevant information about the company and to inform the market place so that the interest of the investors is safeguarded, had written to the company. Turtlemint Fintech Solutions Limited has submitted their response.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TURTLEMINT_28092026202116_Turtlemint_Clarification_on_Price_Movement.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T14:52:08Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "The exchange has queried the company regarding significant price movement, which may indicate undisclosed material information.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "The exchange has queried the company regarding significant price movement, which may indicate undisclosed material information.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Turtlemint Fintech Solutions Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-001",
+      "headline": "6-K - HSBC HOLDINGS PLC (0001089113) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1089113/000165495426008596/0001654954-26-008596-index.htm",
+      "source_name": "SEC EDGAR — Latest 6-K (Foreign Private Issuer interim)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-28T14:49:27Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Routine interim filing for a foreign private issuer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Routine interim filing for a foreign private issuer.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC Holdings PLC",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260928-621",
       "headline": "REA: REA to acquire 35% interest in Distilled, owner of Daft.ie",
@@ -187294,7 +187392,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2967,
+    "inbox_unconsumed": 2969,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -187303,9 +187401,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3147641,
-    "news_picked_today": 1519,
-    "news_dropped_today": 16234
+    "news_seen_today": 30603,
+    "news_picked_today": 2,
+    "news_dropped_today": 46
   },
   "book_momentum": {
     "live_count": 8,
