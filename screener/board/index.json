@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T11:41:34Z",
+  "generated_at": "2026-09-29T11:43:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-281",
@@ -597,6 +597,55 @@
           "name": "Guotai Junan International Holdings Limited",
           "ticker": "01788",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-298",
+      "headline": "CEO da Lufthansa afirma que custo com combustível de aviação superará previsão de 1,5 bi de euros",
+      "headline_en": "Lufthansa CEO says aviation fuel costs will exceed the 1.5 billion euro forecast",
+      "url": "https://www.reuters.com/pt/negocio/TUGA7POU3VLSNA6XZ3HXRN4E4Q-2026-09-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T11:36:09Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Lufthansa CEO stated that fuel costs will exceed the previous forecast of 1.5 billion euros.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lufthansa CEO stated that fuel costs will exceed the previous forecast of 1.5 billion euros.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lufthansa",
+          "ticker": null,
+          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -1951,55 +2000,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-289",
-      "headline": "Nvidia announces record $150 billion share buyback amid AI boom",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/international-business/nvidia-announces-record-150-billion-share-buyback-amid-ai-boom/articleshow/134563925.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T10:56:49Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Nvidia announced a $150 billion share buyback, a massive capital return program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Nvidia announced a $150 billion share buyback, a massive capital return program.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -190590,9 +190590,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4683438,
-    "news_picked_today": 651,
-    "news_dropped_today": 5373
+    "news_seen_today": 4721814,
+    "news_picked_today": 661,
+    "news_dropped_today": 5387
   },
   "book_momentum": {
     "live_count": 8,
