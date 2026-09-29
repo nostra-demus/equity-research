@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-29T22:22:27Z",
+  "generated_at": "2026-09-29T22:27:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-427",
+      "headline": "AIM: AGM Addresses, Presentation and FY27 Guidance [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AIM?key=2924-03141638-3A702829",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T22:16:24Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "The company issued FY27 guidance, which is a material forward-looking financial disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued FY27 guidance, which is a material forward-looking financial disclosure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AI-Media Technologies",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-360",
       "headline": "OCEAN ONE HLDG (09876): MAJOR TRANSACTION IN RELATION TO ACQUISITION OF PROPERTY",
@@ -1046,6 +1095,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-430",
+      "headline": "Lilly's experimental drug cuts weight by 21% in diabetes trial",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/lillys-experimental-drug-cuts-weight-by-21-diabetes-trial-2026-09-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T22:15:06Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Eli Lilly reported a 21% weight reduction in a clinical trial, which is a major positive catalyst for the drug's commercial prospects.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Eli Lilly reported a 21% weight reduction in a clinical trial, which is a major positive catalyst for the drug's commercial prospects.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eli Lilly",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-426",
       "headline": "Stock Market Today, Sept. 29: Carnival Surges 13% on Record Bookings, Raised Guidance",
       "headline_en": null,
@@ -1895,109 +1993,6 @@
       "companies": [
         {
           "name": "Lufthansa",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-280",
-      "headline": "AMD acquires AI research firm World Labs in all-stock deal worth $8.2bn",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/amd-acquires-ai-research-firm-world-labs-in-all-stock-deal-worth-82bn/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T10:38:57Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "AMD is acquiring AI research firm World Labs in an all-stock deal valued at $8.2 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AMD is acquiring AI research firm World Labs in an all-stock deal valued at $8.2 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMD",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-268",
-      "headline": "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-29/israel-cites-saudi-qatari-stakes-in-hapag-to-halt-4-billion-zim-takeover",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T09:18:14Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Israel is using geopolitical stakes to block a 4 billion dollar takeover of ZIM by Hapag-Lloyd.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Israel is using geopolitical stakes to block a 4 billion dollar takeover of ZIM by Hapag-Lloyd.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ZIM",
-          "ticker": null,
-          "listing_country": "IL"
-        },
-        {
-          "name": "Hapag-Lloyd",
           "ticker": null,
           "listing_country": "DE"
         }
@@ -191542,9 +191537,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13970389,
-    "news_picked_today": 1151,
-    "news_dropped_today": 9721
+    "news_seen_today": 14034190,
+    "news_picked_today": 1162,
+    "news_dropped_today": 9758
   },
   "book_momentum": {
     "live_count": 8,
