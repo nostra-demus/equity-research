@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T11:28:56Z",
+  "generated_at": "2026-09-29T11:31:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-281",
@@ -1808,6 +1808,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-290",
+      "headline": "Navin Fluorine International Limited: Navin Fluorine International Limited has informed the Exchange about Commencement of commercial production/operations",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/NAVINFLUOR_29092026164657_Intimationreg30.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T11:17:04Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Navin Fluorine International Limited has commenced commercial production at a new facility, indicating a capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Navin Fluorine International Limited has commenced commercial production at a new facility, indicating a capacity expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Navin Fluorine International Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-156",
       "headline": "POLYFAIR HLDGS (08532): INSIDE INFORMATION UPDATE ON THE WINDING-UP PETITION",
       "headline_en": null,
@@ -1951,49 +2000,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-176",
-      "headline": "U.S., China release $60 bil. nonsensitive product lists for tariff cuts after Trump-Xi meeting",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/86629",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "The US and China announced $60 billion in tariff cuts on non-sensitive products, signaling a major trade de-escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The US and China announced $60 billion in tariff cuts on non-sensitive products, signaling a major trade de-escalation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -190586,9 +190592,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4550166,
-    "news_picked_today": 635,
-    "news_dropped_today": 5317
+    "news_seen_today": 4569114,
+    "news_picked_today": 637,
+    "news_dropped_today": 5339
   },
   "book_momentum": {
     "live_count": 8,
