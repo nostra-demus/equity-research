@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T19:36:41Z",
+  "generated_at": "2026-09-29T19:43:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-360",
@@ -1046,6 +1046,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-417",
+      "headline": "The real prize in AMD’s $8 billion World Labs acquisition isn’t what you’d think",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/story/the-real-prize-in-amds-8-billion-world-labs-acquisition-isnt-what-youd-think-6f609d0f?mod=mw_rss_topstories",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T19:34:00Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "AMD is acquiring World Labs for $8 billion, a significant capital allocation and strategic expansion into AI-related technology.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMD is acquiring World Labs for $8 billion, a significant capital allocation and strategic expansion into AI-related technology.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Advanced Micro Devices",
+          "ticker": "AMD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-416",
       "headline": "JSW Cement approves merger with Shiva Cement; shareholders to get 5 shares for every 41",
       "headline_en": null,
@@ -1951,55 +2000,6 @@
           "name": "Lufthansa",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-239",
-      "headline": "Legrand Shares Rise After Data-Center Boom Prompts Guidance Upgrade",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/legrand-shares-rise-after-data-center-boom-prompts-guidance-upgrade-67440b45?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T08:07:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Legrand raised its guidance driven by strong demand in the data-center sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Legrand raised its guidance driven by strong demand in the data-center sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Legrand",
-          "ticker": null,
-          "listing_country": "FR"
         }
       ],
       "size_bucket": "large",
@@ -191470,9 +191470,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11506387,
-    "news_picked_today": 1073,
-    "news_dropped_today": 8479
+    "news_seen_today": 11657380,
+    "news_picked_today": 1074,
+    "news_dropped_today": 8502
   },
   "book_momentum": {
     "live_count": 8,
