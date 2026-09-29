@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T01:33:03Z",
+  "generated_at": "2026-09-29T01:37:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -1596,6 +1596,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-079",
+      "headline": "GMR AIRPORTS LIMITED: GMR AIRPORTS LIMITED has informed the Exchange regarding 'voluntary redemption of Non-Convertible Bonds along with accrued interest and redemption premium under Regulations 30, 51 and 57 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GMRINFRA_28092026192550_28092026redemption57GAL-1500cr.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-28T13:57:35Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "GMR Airports is performing a voluntary redemption of non-convertible bonds, indicating active debt management.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 79,
+      "triage_reason": "GMR Airports is performing a voluntary redemption of non-convertible bonds, indicating active debt management.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GMR AIRPORTS LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-005",
       "headline": "Settlement order in the matter of Investcorp Private Equity Fund I",
       "headline_en": null,
@@ -1883,55 +1932,6 @@
           "name": "TOV",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-026",
-      "headline": "SCHEDULE 13D/A - Gossamer Bio, Inc. (0001728117) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1728117/000110465926111463/0001104659-26-111463-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-28T23:49:09Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Gossamer Bio filed a Schedule 13D/A, indicating a change in significant shareholder holdings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Gossamer Bio filed a Schedule 13D/A, indicating a change in significant shareholder holdings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Gossamer Bio, Inc.",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -189241,9 +189241,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 344765,
-    "news_picked_today": 95,
-    "news_dropped_today": 721
+    "news_seen_today": 354724,
+    "news_picked_today": 97,
+    "news_dropped_today": 767
   },
   "book_momentum": {
     "live_count": 8,
