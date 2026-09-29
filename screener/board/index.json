@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T09:27:30Z",
+  "generated_at": "2026-09-29T09:30:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-263",
@@ -146905,6 +146905,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-986b0677dc42",
+      "idea_version": "IDEAV-a9be88edb10cc221",
+      "idea_version_started_at": "2026-09-29T09:29:53Z",
+      "ticker": "LR.PA",
+      "company": "Legrand",
+      "exchange": "Paris",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Legrand is seeing direct margin and revenue expansion from the data-center infrastructure boom, leading to a formal guidance upgrade.",
+      "why_now": "The guidance upgrade was reported today, September 29, 2026, signaling that the data-center demand cycle is currently outperforming previous management expectations.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8c18ff2c8a4d"
+      ],
+      "primary_source_event_id": "EVT-8c18ff2c8a4d",
+      "source_headlines": [
+        "Legrand Shares Rise After Data-Center Boom Prompts Guidance Upgrade"
+      ],
+      "source_headline": "Legrand Shares Rise After Data-Center Boom Prompts Guidance Upgrade",
+      "source_url": "https://www.wsj.com/business/earnings/legrand-shares-rise-after-data-center-boom-prompts-guidance-upgrade-67440b45?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T08:07:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T09:29:53Z",
+      "updated_at": "2026-09-29T09:29:53Z",
+      "decay_at": "2026-09-30T20:07:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2e0537f9d742",
       "idea_version": "IDEAV-085c966c2ec4c29f",
       "idea_version_started_at": "2026-09-28T00:37:06Z",
@@ -146969,6 +147039,148 @@
       "surfaced_at": "2026-09-28T00:37:06Z",
       "updated_at": "2026-09-28T00:37:06Z",
       "decay_at": "2026-09-29T11:38:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1b179dc0df6d",
+      "idea_version": "IDEAV-2a92d8f3e40bd7a8",
+      "idea_version_started_at": "2026-09-29T09:29:53Z",
+      "ticker": "LHA.DE",
+      "company": "Lufthansa",
+      "exchange": "XETRA",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Rising jet fuel costs are expected to exceed previous forecasts by over €1.5 billion, creating a significant headwind for operating margins.",
+      "why_now": "The CEO's warning was issued today, September 29, 2026, indicating that the impact of fuel price volatility is live and material for the current fiscal period.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d4b368c3e0fd"
+      ],
+      "primary_source_event_id": "EVT-d4b368c3e0fd",
+      "source_headlines": [
+        "Lufthansa CEO says jet fuel hit to top €1.5 billion forecast"
+      ],
+      "source_headline": "Lufthansa CEO says jet fuel hit to top €1.5 billion forecast",
+      "source_url": "https://www.reuters.com/business/energy/lufthansa-ceo-says-jet-fuel-hit-top-15-billion-forecast-2026-09-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T08:18:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T09:29:53Z",
+      "updated_at": "2026-09-29T09:29:53Z",
+      "decay_at": "2026-09-30T20:18:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-2c23f01c47d1",
+      "idea_version": "IDEAV-d1e9cc4365757f82",
+      "idea_version_started_at": "2026-09-29T09:29:53Z",
+      "ticker": "LISN.SW",
+      "company": "Lindt & Sprüngli",
+      "exchange": "Swiss",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing a double-whammy of demand destruction from high chocolate prices and adverse weather conditions, forcing a downward revision to sales guidance.",
+      "why_now": "The sales forecast cut was announced today, September 29, 2026, reflecting immediate consumer pushback to price hikes.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e2619a9fa4a6"
+      ],
+      "primary_source_event_id": "EVT-e2619a9fa4a6",
+      "source_headlines": [
+        "Lindt cuts sales forecast as higher chocolate prices, heatwave dampen demand"
+      ],
+      "source_headline": "Lindt cuts sales forecast as higher chocolate prices, heatwave dampen demand",
+      "source_url": "https://www.reuters.com/business/retail-consumer/lindt-cuts-2026-growth-forecast-weak-demand-heatwave-weigh-sales-2026-09-29/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T07:13:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T09:29:53Z",
+      "updated_at": "2026-09-29T09:29:53Z",
+      "decay_at": "2026-09-30T19:13:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -190059,8 +190271,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1134,
-    "live_count": 47,
+    "surfaced_total": 1137,
+    "live_count": 50,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -190079,7 +190291,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3278999,
+    "news_seen_today": 3312589,
     "news_picked_today": 521,
     "news_dropped_today": 4447
   },
