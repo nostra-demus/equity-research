@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-29T22:42:21Z",
+  "generated_at": "2026-09-29T22:46:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-431",
+      "headline": "BC8: FY27 Guidance & Outlook [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BC8?key=2924-03141739-6A1346504",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T22:32:09Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Company issued FY27 guidance and outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company issued FY27 guidance and outlook.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Black Cat Syndicate",
+          "ticker": "BC8",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-427",
       "headline": "AIM: AGM Addresses, Presentation and FY27 Guidance [price-sensitive]",
@@ -1949,55 +1998,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-298",
-      "headline": "CEO da Lufthansa afirma que custo com combustível de aviação superará previsão de 1,5 bi de euros",
-      "headline_en": "Lufthansa CEO says aviation fuel costs will exceed the 1.5 billion euro forecast",
-      "url": "https://www.reuters.com/pt/negocio/TUGA7POU3VLSNA6XZ3HXRN4E4Q-2026-09-29/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T11:36:09Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Lufthansa CEO stated that fuel costs will exceed the previous forecast of 1.5 billion euros.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lufthansa CEO stated that fuel costs will exceed the previous forecast of 1.5 billion euros.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lufthansa",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -191607,9 +191607,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14321007,
-    "news_picked_today": 1183,
-    "news_dropped_today": 9929
+    "news_seen_today": 14384760,
+    "news_picked_today": 1190,
+    "news_dropped_today": 9946
   },
   "book_momentum": {
     "live_count": 8,
