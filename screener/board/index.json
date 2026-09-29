@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T15:48:07Z",
+  "generated_at": "2026-09-29T15:51:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-360",
@@ -1046,6 +1046,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-396",
+      "headline": "KKR to acquire Cisternina Logistics, plans to build pan-India liquid storage and logistics platform",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/kkr-to-acquire-cisternina-logistics-plans-to-build-pan-india-liquid-storage-and-logistics-platform/articleshow/134569880.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T15:26:34Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "KKR announced the acquisition of Cisternina Logistics to build a pan-India liquid storage platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KKR announced the acquisition of Cisternina Logistics to build a pan-India liquid storage platform.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Cisternina Logistics",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-394",
       "headline": "Court Sanctions Nuveen's Recommended Cash Bid For Schroders",
       "headline_en": null,
@@ -1942,55 +1996,6 @@
           "name": "Shapoorji Pallonji Group",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-205",
-      "headline": "REA Group To Buy 35% Stake In Distilled In €248 Mln Deal",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/rea-group-buy-35-stake-distilled-eu248-mln-deal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T06:19:37Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "REA Group is acquiring a 35% stake in Distilled for 248 million euros.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "REA Group is acquiring a 35% stake in Distilled for 248 million euros.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "REA Group",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -191449,9 +191454,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7900772,
-    "news_picked_today": 976,
-    "news_dropped_today": 6920
+    "news_seen_today": 7975625,
+    "news_picked_today": 981,
+    "news_dropped_today": 6939
   },
   "book_momentum": {
     "live_count": 8,
