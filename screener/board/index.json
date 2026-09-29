@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T06:47:59Z",
+  "generated_at": "2026-09-29T06:58:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-192",
@@ -1189,6 +1189,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-204",
+      "headline": "Global Health Limited: Global Health Limited has informed the Exchange regarding a press release dated September 29, 2026, titled \"Medanta to expand Healthcare Footprint in Uttar Pradesh with the Acquisition of 10,560 Sq. Metre Land Parcel in Ghaziabad.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MEDANTA21_29092026120039_GHLPRESSRELEASE29SEPT2026Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T06:30:48Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Global Health Limited is expanding its healthcare footprint by acquiring a 10,560 sq. metre land parcel in Ghaziabad.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Global Health Limited is expanding its healthcare footprint by acquiring a 10,560 sq. metre land parcel in Ghaziabad.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Global Health Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-203",
       "headline": "G-TEC JAINX EDUCATION LIMITED: Navigant Corporate Advisors Limited has Submitted to the Exchange a copy of Public Announcement under Regulation 3(1) and 3(3) read with Regulations 13, 14 and 15(1) of the Securities and Exchange Board of India (Substantial Acquisition of Shares and Takeovers) Regulations, 2011, as amended for the attention of the equity shareholders of the G-TEC JAINX EDUCATION LIMITED (Target Company).",
       "headline_en": null,
@@ -1914,55 +1963,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-193",
-      "headline": "WINFULL GP (00183): (1) MAJOR TRANSACTION: DISPOSAL OF EQUITY INTEREST IN A SUBSIDIARY; AND (2) DISCLOSEABLE TRANSACTION: PROVISION OF LOAN TO THE PURCHASER",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801645.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T11:37:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Winfull Group announced a major transaction involving the disposal of a subsidiary and a loan provision.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Winfull Group announced a major transaction involving the disposal of a subsidiary and a loan provision.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WINFULL GP",
-          "ticker": "00183",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -189774,9 +189774,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1909246,
-    "news_picked_today": 366,
-    "news_dropped_today": 3186
+    "news_seen_today": 1992835,
+    "news_picked_today": 370,
+    "news_dropped_today": 3278
   },
   "book_momentum": {
     "live_count": 8,
