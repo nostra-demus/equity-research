@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T08:30:29Z",
+  "generated_at": "2026-09-29T08:34:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-208",
@@ -296,6 +296,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-240",
+      "headline": "Lufthansa CEO says jet fuel hit to top €1.5 billion forecast",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/lufthansa-ceo-says-jet-fuel-hit-top-15-billion-forecast-2026-09-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T08:18:54Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Lufthansa expects jet fuel costs to exceed its previous forecast by over €1.5 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lufthansa expects jet fuel costs to exceed its previous forecast by over €1.5 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lufthansa",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-239",
       "headline": "Legrand Shares Rise After Data-Center Boom Prompts Guidance Upgrade",
       "headline_en": null,
@@ -444,6 +493,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-247",
+      "headline": "AAR To Acquire 65% Stake In MRO Holdings; Q1 Profit, Revenue Rise",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/aar-acquire-65-stake-mro-holdings-q1-profit-revenue-rise",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T06:45:38Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "AAR announced the acquisition of a 65% stake in MRO Holdings alongside reporting growth in Q1 profit and revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AAR announced the acquisition of a 65% stake in MRO Holdings alongside reporting growth in Q1 profit and revenue.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AAR",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1872,104 +1971,6 @@
           "name": "Natco Pharma",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-235",
-      "headline": "Transport Corporation of India Limited: Transport Corporation of India Limited has informed the Exchange regarding Outcome of Board Meeting held on September 29, 2026 pertaining to the Buyback of equity shares of the Company and matters incidental thereto.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ak_bansal_tcil_com_29092026135249_TCIL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T08:23:07Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Board approved a share buyback program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Board approved a share buyback program.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Transport Corporation of India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-229",
-      "headline": "JIN: Jumbo announces CFO transition",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.JIN?key=2924-03141416-2A1700266",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T07:06:56Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Jumbo Interactive announced a transition in its CFO role.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Jumbo Interactive announced a transition in its CFO role.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jumbo Interactive",
-          "ticker": "JIN",
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "mid",
@@ -148624,79 +148625,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-73ec49591826",
-      "idea_version": "IDEAV-75fe019ffad46679",
-      "idea_version_started_at": "2026-09-27T22:02:47Z",
-      "ticker": "SPCT",
-      "company": "Spectrum Control",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is being acquired by Greenbriar for $1.8 billion, creating a clear arbitrage opportunity between the current market price and the acquisition valuation.",
-      "why_now": "The deal was reported as nearing completion on 2026-09-27.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a58efce01ef5"
-      ],
-      "primary_source_event_id": "EVT-a58efce01ef5",
-      "source_headlines": [
-        "Greenbriar Nears $1.8 billion Spectrum Control Purchase"
-      ],
-      "source_headline": "Greenbriar Nears $1.8 billion Spectrum Control Purchase",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-09-27/greenbriar-nears-1-8-billion-spectrum-control-purchase",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T20:33:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T22:02:47Z",
-      "updated_at": "2026-09-27T22:02:47Z",
-      "decay_at": "2026-09-29T08:33:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-92b2863f1657",
       "idea_version": "IDEAV-e5f4f093d430d8bc",
       "idea_version_started_at": "2026-09-27T22:02:47Z",
@@ -148762,78 +148690,6 @@
       "surfaced_at": "2026-09-27T22:02:47Z",
       "updated_at": "2026-09-27T22:02:47Z",
       "decay_at": "2026-09-29T09:30:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-c04daf1f9b98",
-      "idea_version": "IDEAV-de35d4ad808aaac5",
-      "idea_version_started_at": "2026-09-27T21:07:08Z",
-      "ticker": "SPEC",
-      "company": "Spectrum Control",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is reportedly nearing a $1.8 billion acquisition by Greenbriar, which typically forces the stock price to converge toward the deal valuation.",
-      "why_now": "The report of the deal being near surfaced on 2026-09-27, creating an immediate arbitrage opportunity.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a58efce01ef5"
-      ],
-      "primary_source_event_id": "EVT-a58efce01ef5",
-      "source_headlines": [
-        "Greenbriar Nears $1.8 billion Spectrum Control Purchase"
-      ],
-      "source_headline": "Greenbriar Nears $1.8 billion Spectrum Control Purchase",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-09-27/greenbriar-nears-1-8-billion-spectrum-control-purchase",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T20:33:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T21:07:08Z",
-      "updated_at": "2026-09-27T21:07:08Z",
-      "decay_at": "2026-09-29T08:33:16Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -150604,6 +150460,151 @@
       "surfaced_at": "2026-09-27T02:00:37Z",
       "updated_at": "2026-09-27T02:00:37Z",
       "decay_at": "2026-09-28T12:50:59Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-73ec49591826",
+      "idea_version": "IDEAV-75fe019ffad46679",
+      "idea_version_started_at": "2026-09-27T22:02:47Z",
+      "ticker": "SPCT",
+      "company": "Spectrum Control",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is being acquired by Greenbriar for $1.8 billion, creating a clear arbitrage opportunity between the current market price and the acquisition valuation.",
+      "why_now": "The deal was reported as nearing completion on 2026-09-27.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a58efce01ef5"
+      ],
+      "primary_source_event_id": "EVT-a58efce01ef5",
+      "source_headlines": [
+        "Greenbriar Nears $1.8 billion Spectrum Control Purchase"
+      ],
+      "source_headline": "Greenbriar Nears $1.8 billion Spectrum Control Purchase",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-27/greenbriar-nears-1-8-billion-spectrum-control-purchase",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T20:33:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T22:02:47Z",
+      "updated_at": "2026-09-27T22:02:47Z",
+      "decay_at": "2026-09-29T08:33:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c04daf1f9b98",
+      "idea_version": "IDEAV-de35d4ad808aaac5",
+      "idea_version_started_at": "2026-09-27T21:07:08Z",
+      "ticker": "SPEC",
+      "company": "Spectrum Control",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is reportedly nearing a $1.8 billion acquisition by Greenbriar, which typically forces the stock price to converge toward the deal valuation.",
+      "why_now": "The report of the deal being near surfaced on 2026-09-27, creating an immediate arbitrage opportunity.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a58efce01ef5"
+      ],
+      "primary_source_event_id": "EVT-a58efce01ef5",
+      "source_headlines": [
+        "Greenbriar Nears $1.8 billion Spectrum Control Purchase"
+      ],
+      "source_headline": "Greenbriar Nears $1.8 billion Spectrum Control Purchase",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-27/greenbriar-nears-1-8-billion-spectrum-control-purchase",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T20:33:16Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T21:07:08Z",
+      "updated_at": "2026-09-27T21:07:08Z",
+      "decay_at": "2026-09-29T08:33:16Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -152711,14 +152712,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 543,
+    "total_count": 545,
     "shown_count": 500,
-    "hidden_count": 43,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 28
       },
       "short": {
         "total_count": 267,
@@ -152742,6 +152743,157 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-73ec49591826",
+        "idea_version": "IDEAV-75fe019ffad46679",
+        "idea_version_started_at": "2026-09-27T22:02:47Z",
+        "ticker": "SPCT",
+        "company": "Spectrum Control",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is being acquired by Greenbriar for $1.8 billion, creating a clear arbitrage opportunity between the current market price and the acquisition valuation.",
+        "why_now": "The deal was reported as nearing completion on 2026-09-27.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a58efce01ef5"
+        ],
+        "primary_source_event_id": "EVT-a58efce01ef5",
+        "source_headlines": [
+          "Greenbriar Nears $1.8 billion Spectrum Control Purchase"
+        ],
+        "source_headline": "Greenbriar Nears $1.8 billion Spectrum Control Purchase",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-09-27/greenbriar-nears-1-8-billion-spectrum-control-purchase",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-27T20:33:16Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T22:02:47Z",
+        "updated_at": "2026-09-27T22:02:47Z",
+        "decay_at": "2026-09-29T08:33:16Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T08:33:16Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-c04daf1f9b98",
+        "idea_version": "IDEAV-de35d4ad808aaac5",
+        "idea_version_started_at": "2026-09-27T21:07:08Z",
+        "ticker": "SPEC",
+        "company": "Spectrum Control",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is reportedly nearing a $1.8 billion acquisition by Greenbriar, which typically forces the stock price to converge toward the deal valuation.",
+        "why_now": "The report of the deal being near surfaced on 2026-09-27, creating an immediate arbitrage opportunity.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a58efce01ef5"
+        ],
+        "primary_source_event_id": "EVT-a58efce01ef5",
+        "source_headlines": [
+          "Greenbriar Nears $1.8 billion Spectrum Control Purchase"
+        ],
+        "source_headline": "Greenbriar Nears $1.8 billion Spectrum Control Purchase",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-09-27/greenbriar-nears-1-8-billion-spectrum-control-purchase",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-27T20:33:16Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T21:07:08Z",
+        "updated_at": "2026-09-27T21:07:08Z",
+        "decay_at": "2026-09-29T08:33:16Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T08:33:16Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-380e9175003d",
         "idea_version": "IDEAV-6e7278c47133c0df",
@@ -182743,156 +182895,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-7bad7e7a459f",
-        "idea_version": "IDEAV-ab5c5bac32555c4b",
-        "idea_version_started_at": "2026-09-11T11:59:49Z",
-        "ticker": "01347",
-        "company": "Hua Hong Semiconductor",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The completion of a major connected transaction allows the company to finalize its strategic capital allocation and operational integration.",
-        "why_now": "The completion was officially announced on 2026-09-11.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-378c885cab8d"
-        ],
-        "primary_source_event_id": "EVT-378c885cab8d",
-        "source_headlines": [
-          "HUA HONG GRACE (01347): COMPLETION OF THE MAJOR AND CONNECTED TRANSACTION"
-        ],
-        "source_headline": "HUA HONG GRACE (01347): COMPLETION OF THE MAJOR AND CONNECTED TRANSACTION",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100436.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 99,
-        "newest_source_at": "2026-09-11T08:41:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-11T11:59:49Z",
-        "updated_at": "2026-09-11T11:59:49Z",
-        "decay_at": "2026-09-12T20:41:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-14T08:49:59Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-bcafd2773772",
-        "idea_version": "IDEAV-1cd19565d5f606c5",
-        "idea_version_started_at": "2026-09-11T11:59:49Z",
-        "ticker": "02535",
-        "company": "WK Group",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is subject to a mandatory general cash offer, which typically provides a floor near the offer price for remaining shareholders.",
-        "why_now": "The composite document was dispatched on 2026-09-11, initiating the formal offer period.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e744017eeca0"
-        ],
-        "primary_source_event_id": "EVT-e744017eeca0",
-        "source_headlines": [
-          "WK GROUP (02535): JOINT ANNOUNCEMENT - DESPATCH OF COMPOSITE DOCUMENT RELATING TO CONDITIONAL MANDATORY GENERAL CASH OFFER BY GET NICE SECURITIES LIMITED FOR AND ON BEHALF OF WELLLUCK LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF WK GROUP (HOLDINGS) LIMITED (OTHER THAN THOSE SHARES ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY WELLLUCK LIMITED AND PARTIES ACTING IN CONCERT WITH IT)"
-        ],
-        "source_headline": "WK GROUP (02535): JOINT ANNOUNCEMENT - DESPATCH OF COMPOSITE DOCUMENT RELATING TO CONDITIONAL MANDATORY GENERAL CASH OFFER BY GET NICE SECURITIES LIMITED FOR AND ON BEHALF OF WELLLUCK LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF WK GROUP (HOLDINGS) LIMITED (OTHER THAN THOSE SHARES ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY WELLLUCK LIMITED AND PARTIES ACTING IN CONCERT WITH IT)",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100372.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-11T08:34:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-11T11:59:49Z",
-        "updated_at": "2026-09-11T11:59:49Z",
-        "decay_at": "2026-09-12T20:34:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-14T08:49:59Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-60732dd42a51",
         "idea_version": "IDEAV-b0029cb88695f9ff",
         "idea_version_started_at": "2026-09-11T09:09:59Z",
@@ -189907,7 +189909,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1132,
-    "live_count": 47,
+    "live_count": 45,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -189926,9 +189928,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2852227,
-    "news_picked_today": 434,
-    "news_dropped_today": 4030
+    "news_seen_today": 2900416,
+    "news_picked_today": 443,
+    "news_dropped_today": 4045
   },
   "book_momentum": {
     "live_count": 8,
