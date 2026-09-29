@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T20:17:13Z",
+  "generated_at": "2026-09-29T20:21:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-360",
@@ -147279,6 +147279,220 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0ff3dac31d35",
+      "idea_version": "IDEAV-02ba0a067e1fad75",
+      "idea_version_started_at": "2026-09-29T20:20:56Z",
+      "ticker": "02358",
+      "company": "Jiu Rong Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company announced a delay in annual results and a potential trading suspension, signaling severe accounting or liquidity issues.",
+      "why_now": "The filing was released on 2026-09-28, making the risk of a trading halt imminent.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2a45448f2536"
+      ],
+      "primary_source_event_id": "EVT-2a45448f2536",
+      "source_headlines": [
+        "JIU RONG HOLD (02358): INSIDE INFORMATION - (1) DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS; (2) POSSIBLE DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; (3) POSTPONEMENT OF BOARD MEETING; AND (4) POSSIBLE SUSPENSION OF TRADING"
+      ],
+      "source_headline": "JIU RONG HOLD (02358): INSIDE INFORMATION - (1) DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS; (2) POSSIBLE DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; (3) POSTPONEMENT OF BOARD MEETING; AND (4) POSSIBLE SUSPENSION OF TRADING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801499.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T11:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T20:20:56Z",
+      "updated_at": "2026-09-29T20:20:56Z",
+      "decay_at": "2026-09-29T23:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-93de6962dd1b",
+      "idea_version": "IDEAV-24e56722cd3e69ee",
+      "idea_version_started_at": "2026-09-29T20:20:56Z",
+      "ticker": "02899",
+      "company": "Zijin Mining",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is expanding its gold production capacity by obtaining controlling power in Chifeng Jilong Gold Mining, which should accretively increase its gold output.",
+      "why_now": "The transaction was announced via official filing on 2026-09-28.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a4c849cab6c9"
+      ],
+      "primary_source_event_id": "EVT-a4c849cab6c9",
+      "source_headlines": [
+        "ZIJIN MINING (02899): Discloseable Transaction-Announcement in relation to the Signing of Supplemental Agreements for Obtaining the Controlling Power in Chifeng Jilong Gold Mining Group Limited"
+      ],
+      "source_headline": "ZIJIN MINING (02899): Discloseable Transaction-Announcement in relation to the Signing of Supplemental Agreements for Obtaining the Controlling Power in Chifeng Jilong Gold Mining Group Limited",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801593.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T11:22:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T05:54:11Z",
+      "updated_at": "2026-09-29T20:20:56Z",
+      "decay_at": "2026-09-29T23:22:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e8778e3ed285",
+      "idea_version": "IDEAV-f584f36f24898996",
+      "idea_version_started_at": "2026-09-29T20:20:56Z",
+      "ticker": "HLAG",
+      "company": "Hapag-Lloyd",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its 2026 earnings outlook, indicating stronger-than-expected operational performance in the shipping sector.",
+      "why_now": "The guidance update was released on 2026-09-28.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ccdae2a871a0"
+      ],
+      "primary_source_event_id": "EVT-ccdae2a871a0",
+      "source_headlines": [
+        "Germany's Hapag-Lloyd raises 2026 earnings outlook"
+      ],
+      "source_headline": "Germany's Hapag-Lloyd raises 2026 earnings outlook",
+      "source_url": "https://www.reuters.com/business/germanys-hapag-lloyd-raises-2026-earnings-outlook-2026-09-28/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T17:46:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T20:20:56Z",
+      "updated_at": "2026-09-29T20:20:56Z",
+      "decay_at": "2026-09-30T05:46:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0ede2e9c92e5",
       "idea_version": "IDEAV-fa47640bb0188f54",
       "idea_version_started_at": "2026-09-29T18:17:07Z",
@@ -148504,77 +148718,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-93de6962dd1b",
-      "idea_version": "IDEAV-d918dc41f88b9b34",
-      "idea_version_started_at": "2026-09-29T05:54:11Z",
-      "ticker": "02899",
-      "company": "Zijin Mining",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is expanding its gold production capacity by securing controlling interest in Chifeng Jilong Gold Mining, which directly increases its gold reserves and production scale.",
-      "why_now": "The supplemental agreements were officially announced on 2026-09-28, confirming the path to control.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a4c849cab6c9"
-      ],
-      "primary_source_event_id": "EVT-a4c849cab6c9",
-      "source_headlines": [
-        "ZIJIN MINING (02899): Discloseable Transaction-Announcement in relation to the Signing of Supplemental Agreements for Obtaining the Controlling Power in Chifeng Jilong Gold Mining Group Limited"
-      ],
-      "source_headline": "ZIJIN MINING (02899): Discloseable Transaction-Announcement in relation to the Signing of Supplemental Agreements for Obtaining the Controlling Power in Chifeng Jilong Gold Mining Group Limited",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801593.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T11:22:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T05:54:11Z",
-      "updated_at": "2026-09-29T05:54:11Z",
-      "decay_at": "2026-09-29T23:22:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b017da00cfa7",
       "idea_version": "IDEAV-f9e88d7625e84af1",
       "idea_version_started_at": "2026-09-29T05:54:11Z",
@@ -149139,76 +149282,6 @@
       "surfaced_at": "2026-09-27T04:44:42Z",
       "updated_at": "2026-09-27T04:44:42Z",
       "decay_at": "2026-09-28T15:28:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e74e5f60c4af",
-      "idea_version": "IDEAV-ed624332a594f306",
-      "idea_version_started_at": "2026-09-26T20:03:15Z",
-      "ticker": "BABA",
-      "company": "Alibaba Group Holding Limited",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The agreement to cut tariffs on $30 billion in goods directly reduces trade friction and operational costs for major Chinese e-commerce and technology exporters.",
-      "why_now": "The announcement follows a high-stakes meeting between Xi and US leadership on September 26, 2026, creating an immediate sentiment shift for US-listed Chinese ADRs.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8e4ff60043b2"
-      ],
-      "primary_source_event_id": "EVT-8e4ff60043b2",
-      "source_headlines": [
-        "China, US agree to AI dialogue, tariff cuts on $30 billion in goods during Xi visit"
-      ],
-      "source_headline": "China, US agree to AI dialogue, tariff cuts on $30 billion in goods during Xi visit",
-      "source_url": "https://www.reuters.com/world/china/china-us-agree-30-billion-tariff-cut-ai-dialogue-during-xi-visit-2026-09-26/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-26T19:04:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T20:03:15Z",
-      "updated_at": "2026-09-26T20:03:15Z",
-      "decay_at": "2026-09-28T07:04:56Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -154242,14 +154315,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 575,
+    "total_count": 574,
     "shown_count": 500,
-    "hidden_count": 75,
+    "hidden_count": 74,
     "side_counts": {
       "long": {
-        "total_count": 303,
+        "total_count": 302,
         "shown_count": 250,
-        "hidden_count": 53
+        "hidden_count": 52
       },
       "short": {
         "total_count": 272,
@@ -154259,11 +154332,11 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 544,
+      "evicted_count": 545,
       "oldest_retained_at": "2026-09-01T21:16:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 362,
+          "evicted_count": 363,
           "oldest_retained_at": "2026-09-11T03:17:00Z"
         },
         "short": {
@@ -159866,8 +159939,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-28T07:04:56Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-29T20:21:05Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -191450,8 +191523,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1156,
-    "live_count": 36,
+    "surfaced_total": 1158,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -191470,9 +191543,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12234322,
+    "news_seen_today": 12265165,
     "news_picked_today": 1089,
-    "news_dropped_today": 8799
+    "news_dropped_today": 8823
   },
   "book_momentum": {
     "live_count": 8,
