@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T21:07:17Z",
+  "generated_at": "2026-09-29T21:18:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-360",
@@ -1046,6 +1046,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-426",
+      "headline": "Stock Market Today, Sept. 29: Carnival Surges 13% on Record Bookings, Raised Guidance",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/09/29/stock-market-today-sept-29-carnival-surges-13-on-record-bookings-raised-guidance/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T20:48:39Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Carnival reported record bookings and raised its guidance, indicating strong operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Carnival reported record bookings and raised its guidance, indicating strong operational performance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carnival",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-418",
       "headline": "Air India's ₹10,000 crore fundraise plan draws cashflow concerns",
       "headline_en": null,
@@ -1951,55 +2000,6 @@
           "name": "Hapag-Lloyd",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-258",
-      "headline": "Lindt cuts sales forecast as heatwaves dampen demand for chocolate",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/lindt-cuts-2026-growth-forecast-weak-demand-heatwave-weigh-sales-2026-09-29/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T09:04:25Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Lindt has cut its sales forecast due to heatwaves impacting consumer demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lindt has cut its sales forecast due to heatwaves impacting consumer demand.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lindt",
-          "ticker": null,
-          "listing_country": "CH"
         }
       ],
       "size_bucket": "large",
@@ -191542,9 +191542,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12920854,
-    "news_picked_today": 1115,
-    "news_dropped_today": 9157
+    "news_seen_today": 13110819,
+    "news_picked_today": 1123,
+    "news_dropped_today": 9197
   },
   "book_momentum": {
     "live_count": 8,
