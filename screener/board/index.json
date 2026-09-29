@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-29T12:41:47Z",
+  "generated_at": "2026-09-29T12:44:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-310",
+      "headline": "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BGRENERGY_29092026180521_NCLTOrderAdjourment.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T12:36:23Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "BGR Energy Systems Limited has entered the Corporate Insolvency Resolution Process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BGR Energy Systems Limited has entered the Corporate Insolvency Resolution Process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BGR Energy Systems Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-308",
       "headline": "The Hi-Tech Gears Limited: The Hi-Tech Gears Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1950,55 +1999,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-262",
-      "headline": "HUA HONG GRACE (01347): SUPPLEMENTAL ANNOUNCEMENT IN RELATION TO THE FORMATION OF A JOINT VENTURE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092900620.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T08:45:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "HUA HONG GRACE announced a supplemental announcement regarding the formation of a joint venture.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "HUA HONG GRACE announced a supplemental announcement regarding the formation of a joint venture.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HUA HONG GRACE",
-          "ticker": "01347",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -190877,9 +190877,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5344598,
-    "news_picked_today": 749,
-    "news_dropped_today": 5755
+    "news_seen_today": 5386858,
+    "news_picked_today": 757,
+    "news_dropped_today": 5771
   },
   "book_momentum": {
     "live_count": 8,
