@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T14:58:03Z",
+  "generated_at": "2026-09-29T15:08:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-360",
@@ -1046,6 +1046,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-393",
+      "headline": "Carnival raises annual profit forecast on strong demand",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/carnival-raises-annual-profit-forecast-demand-grows-2026-09-29/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T14:22:49Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Carnival raised its annual profit forecast due to strong demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Carnival raised its annual profit forecast due to strong demand.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carnival",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-386",
+      "headline": "Carnival Raises Full-Year Outlook on Record Booking Demand",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-29/carnival-raises-full-year-outlook-on-record-booking-demand",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T14:08:17Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Company raised full-year outlook due to record demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company raised full-year outlook due to record demand.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carnival",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-357",
       "headline": "Endurance Technologies to acquire remaining 32% stake in German Stöferle companies for €18 million",
       "headline_en": null,
@@ -1090,55 +1188,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-349",
-      "headline": "Carnival raises annual profit forecast as demand grows",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/carnival-raises-annual-profit-forecast-demand-grows-2026-09-29/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T13:37:12Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Carnival raised its annual profit forecast, indicating stronger-than-expected demand and operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Carnival raised its annual profit forecast, indicating stronger-than-expected demand and operational performance.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carnival",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1937,55 +1986,6 @@
           "name": "ITC Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-189",
-      "headline": "Lindt Cuts Sales-Growth Guidance for Second Time on Weak Demand",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-29/lindt-cuts-sales-growth-guidance-for-second-time-on-weak-demand",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T05:30:07Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Lindt cut its sales-growth guidance for the second time due to weak demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lindt cut its sales-growth guidance for the second time due to weak demand.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lindt",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -149066,80 +149066,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7137e0cf25b2",
-      "idea_version": "IDEAV-db99c273464eecbe",
-      "idea_version_started_at": "2026-09-28T03:12:56Z",
-      "ticker": "NST",
-      "company": "Northern Star Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "As a major Australian gold miner, Northern Star benefits from the market re-rating of the sector following the rejection of a $27 billion takeover bid for its peer, Newmont, which highlights the scarcity value of large-scale gold assets.",
-      "why_now": "The rejection of the bid was reported on September 28, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-40c0321a5bb6",
-        "EVT-77d61165f5ea"
-      ],
-      "primary_source_event_id": "EVT-40c0321a5bb6",
-      "source_headlines": [
-        "Australia’s biggest gold miner rejects $27bn takeover bid",
-        "Northern Star shares pop as Australian gold miner rejects $27 billion takeover proposal"
-      ],
-      "source_headline": "Australia’s biggest gold miner rejects $27bn takeover bid",
-      "source_url": "https://www.ft.com/content/bce81a18-05cf-43a6-9c86-b3238b732230?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T03:00:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T01:41:01Z",
-      "updated_at": "2026-09-28T03:12:56Z",
-      "decay_at": "2026-09-29T15:00:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d8f7377dbcbf",
       "idea_version": "IDEAV-1bb0b0aea3e64790",
       "idea_version_started_at": "2026-09-29T11:56:52Z",
@@ -150973,6 +150899,80 @@
       "surfaced_at": "2026-09-28T03:32:24Z",
       "updated_at": "2026-09-28T03:32:24Z",
       "decay_at": "2026-09-29T13:47:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7137e0cf25b2",
+      "idea_version": "IDEAV-db99c273464eecbe",
+      "idea_version_started_at": "2026-09-28T03:12:56Z",
+      "ticker": "NST",
+      "company": "Northern Star Resources",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "As a major Australian gold miner, Northern Star benefits from the market re-rating of the sector following the rejection of a $27 billion takeover bid for its peer, Newmont, which highlights the scarcity value of large-scale gold assets.",
+      "why_now": "The rejection of the bid was reported on September 28, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-40c0321a5bb6",
+        "EVT-77d61165f5ea"
+      ],
+      "primary_source_event_id": "EVT-40c0321a5bb6",
+      "source_headlines": [
+        "Australia’s biggest gold miner rejects $27bn takeover bid",
+        "Northern Star shares pop as Australian gold miner rejects $27 billion takeover proposal"
+      ],
+      "source_headline": "Australia’s biggest gold miner rejects $27bn takeover bid",
+      "source_url": "https://www.ft.com/content/bce81a18-05cf-43a6-9c86-b3238b732230?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T03:00:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T01:41:01Z",
+      "updated_at": "2026-09-28T03:12:56Z",
+      "decay_at": "2026-09-29T15:00:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -154224,14 +154224,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 568,
+    "total_count": 569,
     "shown_count": 500,
-    "hidden_count": 68,
+    "hidden_count": 69,
     "side_counts": {
       "long": {
-        "total_count": 295,
+        "total_count": 296,
         "shown_count": 250,
-        "hidden_count": 45
+        "hidden_count": 46
       },
       "short": {
         "total_count": 273,
@@ -154255,6 +154255,83 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7137e0cf25b2",
+        "idea_version": "IDEAV-db99c273464eecbe",
+        "idea_version_started_at": "2026-09-28T03:12:56Z",
+        "ticker": "NST",
+        "company": "Northern Star Resources",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "As a major Australian gold miner, Northern Star benefits from the market re-rating of the sector following the rejection of a $27 billion takeover bid for its peer, Newmont, which highlights the scarcity value of large-scale gold assets.",
+        "why_now": "The rejection of the bid was reported on September 28, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "sector_cycle",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-40c0321a5bb6",
+          "EVT-77d61165f5ea"
+        ],
+        "primary_source_event_id": "EVT-40c0321a5bb6",
+        "source_headlines": [
+          "Australia’s biggest gold miner rejects $27bn takeover bid",
+          "Northern Star shares pop as Australian gold miner rejects $27 billion takeover proposal"
+        ],
+        "source_headline": "Australia’s biggest gold miner rejects $27bn takeover bid",
+        "source_url": "https://www.ft.com/content/bce81a18-05cf-43a6-9c86-b3238b732230?syn-25a6b1a6=1",
+        "source_name": "Financial Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-28T03:00:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-28T01:41:01Z",
+        "updated_at": "2026-09-28T03:12:56Z",
+        "decay_at": "2026-09-29T15:00:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T15:00:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a4151217c05f",
         "idea_version": "IDEAV-bf106862d6d941ab",
@@ -184404,79 +184481,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3832437dcd8b",
-        "idea_version": "IDEAV-53a497c653ec5ba3",
-        "idea_version_started_at": "2026-09-13T16:50:02Z",
-        "ticker": "ZIM",
-        "company": "ZIM Integrated Shipping Services",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Hapag-Lloyd is reportedly persisting with its pursuit of an acquisition of ZIM despite an initial Israeli government veto, maintaining a significant M&A premium on the stock.",
-        "why_now": "Fresh reporting on September 12, 2026, indicates the bidder is not walking away despite regulatory hurdles.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 59,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-0bf7bb333074"
-        ],
-        "primary_source_event_id": "EVT-0bf7bb333074",
-        "source_headlines": [
-          "Schifffahrt: Hapag-Lloyd setzt trotz israelischem Veto auf ZIM-Übernahme"
-        ],
-        "source_headline": "Schifffahrt: Hapag-Lloyd setzt trotz israelischem Veto auf ZIM-Übernahme",
-        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/schifffahrt-hapag-lloyd-setzt-trotz-israelischem-veto-auf-zim-uebernahme/100254039.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-12T08:06:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T16:50:02Z",
-        "updated_at": "2026-09-13T16:50:02Z",
-        "decay_at": "2026-09-13T20:06:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T10:07:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-574ddee0f271",
         "idea_version": "IDEAV-44e721b3ac376643",
         "idea_version_started_at": "2026-09-12T08:35:39Z",
@@ -191420,7 +191424,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1153,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -191439,9 +191443,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7228816,
-    "news_picked_today": 900,
-    "news_dropped_today": 6420
+    "news_seen_today": 7327898,
+    "news_picked_today": 939,
+    "news_dropped_today": 6477
   },
   "book_momentum": {
     "live_count": 8,
