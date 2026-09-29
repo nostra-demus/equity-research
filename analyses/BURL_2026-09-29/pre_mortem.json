@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "ticker": "BURL",
+  "run_root": "analyses/BURL_2026-09-29",
+  "performed_at": "2026-09-29T22:39:30Z",
+  "auditor": "pre-mortem",
+  "final_thesis_path": "analyses/BURL_2026-09-29/final_thesis.md",
+  "decision_record_path": "analyses/BURL_2026-09-29/decision_record.json",
+  "final_thesis_sha256": "953ee30945eae60e6faac12cde2debb621b936d9781f55491af3842dc357bca6",
+  "decision_record_sha256": "c345a433265ea14bbbb809f317724e83f907a215d18cc237ffb0eeba54225577",
+  "original_decision": "Watchlist",
+  "original_confidence": 50.0,
+  "adversarial_direction": "Both sides: test whether Watchlist should be Avoid because downside and cash conversion are worse than the dossier allows, and whether it should be Starter Position Only because operating execution is stronger than the cautious valuation blend assumes.",
+  "pre_mortem_narrative": "Twelve months later, the Watchlist decision has failed by omission: the Q2 tariff refund was reinvested into sharper value, transactions accelerated, merchandise margin held most of its underlying gain, and the Savannah distribution center began contributing leverage. EPS moved above the $12.06 forward base while the market retained a peer-like multiple, pushing the stock toward the $370.63 bull before the engine received the perfect cohort and cash-flow evidence it demanded. The opposite failure remains possible but less damaging to a no-position call: a warm-weather and lower-income-consumer slowdown drives markdowns, SG&A deleverage and weaker cash flow, proving the $237.01 base too generous. The decision therefore fails mainly if its evidence threshold causes it to miss an operating inflection already visible in Q2, not because it took uncompensated balance-sheet risk.",
+  "bear_case": "The stock is $17.68 above the $237.01 base and almost twice the $133.46 filing-based DCF. Q2's reported margin contained a $55.5m refund that management plans to reinvest, 9.4 of 11.0 sales-growth points came from new/non-comparable stores, transactions were relatively flat, and H1 CFO less cash capex was negative $197.760m. A weak Q3 can join traffic, markdown, fixed-cost and ABL effects in one correlated downside state; the $66.31 bear shows that a cyclical earnings trough can overwhelm today's apparently adequate strict leverage.",
+  "bull_case_steelman": "BURL delivered 11% Q2 sales growth, 2% comparable-store growth, 100bp of refund-excluded adjusted EBIT-margin expansion and 38% adjusted-EPS growth. Management raised full-year earnings guidance, opened 149 net stores over the trailing year, and retained $1.646bn of cash plus disclosed ABL availability. The direct-peer NTM P/E method gives $281.39 even after a 10% durability discount, while a transaction response to sharper value and normal maturation of new stores can move EPS toward the $13.00 bull case. A Watchlist can therefore become a false negative if the engine waits for evidence that the stock prices before the filing arrives.",
+  "killer_risk": "The single thesis-killer is a false-negative timing error: Q3 transactions and refund-excluded margin improve enough to validate the value investment before the engine's preferred full-year cohort-return and free-cash-flow evidence becomes available.",
+  "kill_criteria_attack": [
+    {
+      "criterion": "Q3 FY2026 sales growth above 11%, comparable-store sales above 3%, and adjusted EBIT-margin decline smaller than 60bp.",
+      "closeness_to_trigger": "Plausible but not already met. Q2 sales were 11%, comps 2%, and refund-excluded adjusted EBIT margin increased 100bp; Q3 has a different year-ago basis and management guides to a 60–80bp decline.",
+      "disconfirming_evidence_now": "Q2 underlying margin execution and management's decision to sharpen value support the upside, but transactions were relatively flat and the exact conjunction did not fire in both recent periods.",
+      "severity": "medium"
+    },
+    {
+      "criterion": "Q3 FY2026 sales growth below 9%, comparable-store sales below 1%, or adjusted EBIT-margin decline greater than 80bp.",
+      "closeness_to_trigger": "Not already met; the threshold sits below the company ranges and neither of the last two reported quarters would have fired it.",
+      "disconfirming_evidence_now": "Warm-weather risk, lower-income consumer sensitivity and flat Q2 transactions make the downside test credible, but no filed Q3 evidence exists at the decision date.",
+      "severity": "medium"
+    },
+    {
+      "criterion": "FY2026 FCF, defined as CFO less total cash capex, below $0.",
+      "closeness_to_trigger": "Partway toward triggering: H1 FCF was negative $197.760m, so H2 must exceed positive $197.760m for the full year to finish above zero. Retail seasonality makes the full-year result unresolved rather than already failed.",
+      "disconfirming_evidence_now": "Reported LTM CFO-minus-capex FCF is positive $412.5m and normalized LTM FCF is about $357.0m, but heavy expansion capex leaves little room for an H2 sales or working-capital miss.",
+      "severity": "high"
+    },
+    {
+      "criterion": "Maintenance-covenant breach or ABL availability unavailable when needed.",
+      "closeness_to_trigger": "Not measurable contractually because the live covenant test and borrowing-base sensitivity are absent; current disclosed ABL availability is $942.0m and no breach is reported.",
+      "disconfirming_evidence_now": "The absence of a compliance certificate prevents proof of headroom, but 0.84x strict leverage and 18.4x EBITDA/interest argue against an imminent accounting-leverage break.",
+      "severity": "medium"
+    },
+    {
+      "criterion": "Auditor resignation over disagreement, qualified or going-concern opinion, material restatement, or material ICFR weakness.",
+      "closeness_to_trigger": "Not close on available evidence; FY2025 audit and ICFR opinions are clean and no current adverse filing exists.",
+      "disconfirming_evidence_now": "Three qualified forensic tags form a mechanical High mosaic, but strong cash conversion and clean current audit evidence keep the signal from proving a reporting problem.",
+      "severity": "low"
+    }
+  ],
+  "variant_perception_attack": {
+    "claimed_edge": "Capacity-led Q2 growth and unproven cash conversion may be receiving too much credit at the current price.",
+    "already_priced": true,
+    "is_provably_different": false,
+    "what_would_prove_not_different": "A Q3 filing showing transaction-led comparable sales, durable refund-excluded margin and improving cash conversion would show that the cautious read merely restated public risks while consensus correctly anticipated execution. The dossier itself assigns edge_score 42 and says there is no proven variant perception yet."
+  },
+  "value_trap_check": "This is not a classic cheap-stock value trap because the price is above the blended base and the decision takes no position. The greater trap is anchoring on peer or own-history multiples while cash conversion remains unproven; the dossier avoids that by excluding own-history values and retaining a 30% DCF weight.",
+  "base_rate_check": "Judgment using the reference class of fast store-rollout discretionary retailers: adding capacity while expanding margin and preserving mature-store traffic is harder through a consumer and weather cycle than in one favorable quarter. No source-bound sample large enough to claim an empirical frequency is in the frozen pool. The 25% bull probability and 50/100 conviction are therefore judgment, and the Watchlist decision respects rather than overrides that uncertain base rate.",
+  "overconfidence_flags": [
+    "Anchoring risk: the $281.39 peer value can pull the base upward even though the $133.46 DCF is more sensitive to capex and cash conversion.",
+    "Recency risk: one quarter of refund-excluded margin expansion may be mistaken for a durable mature-store inflection.",
+    "False-negative risk: demanding full-year cohort evidence may delay action until the market has already priced a Q3 improvement.",
+    "No evidence of excessive headline confidence: the call is Watchlist, confidence is 50/100, and suggested sizing is zero."
+  ],
+  "disconfirming_evidence_present": [
+    "Against the cautious call, refund-excluded Q2 adjusted EBIT margin expanded 100bp and adjusted EPS grew 38%.",
+    "Against the cautious call, the direct-peer NTM P/E method gives $281.39 after a 10% durability discount.",
+    "Against a solvency bear, strict net debt is $75.9m lower year over year on the matched seasonal date and cash covers the at-least next-24-month maturities 3.15x.",
+    "Against a bullish inflection, transactions were relatively flat and H1 CFO less cash capex was negative $197.760m."
+  ],
+  "what_would_change_the_call": [
+    "Upgrade consideration: Q3 sales above 11%, comps above 3%, and adjusted EBIT-margin decline smaller than 60bp on the stated comparable basis.",
+    "Downgrade consideration: Q3 sales below 9%, comps below 1%, or adjusted EBIT-margin decline greater than 80bp.",
+    "Avoid/reject: FY2026 CFO less total cash capex below zero together with weaker transaction and margin evidence.",
+    "Immediate rejection: covenant breach, loss of needed ABL availability, adverse audit opinion, material restatement or material ICFR weakness.",
+    "Revalue only after Q3 clarifies transaction response, refund-excluded margin and the Q4 outlook."
+  ],
+  "survives": true,
+  "confidence_haircut": 0,
+  "recommended_confidence": 50.0,
+  "recommended_rating_cap": "",
+  "verdict": "Survives",
+  "notes": "The Watchlist decision already prices the absent proven edge, wide valuation spread and asymmetric downside by taking no position. The strongest attack is a false-negative timing error, but it does not justify raising confidence or loosening the decision. This audit used only information available on or before the 2026-09-29 decision date and did not edit any run artifact."
+}
