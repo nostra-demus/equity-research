@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T00:29:47Z",
+  "generated_at": "2026-09-29T00:34:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -437,6 +437,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-023",
+      "headline": "Anthropic warns AI may pose 'existential risks to humanity' in IPO filing",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/finance/anthropic-warns-ai-may-pose-existential-risks-humanity-ipo-filing-2026-09-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T00:22:37Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Anthropic disclosed existential risks in its IPO filing, highlighting potential long-term regulatory and operational challenges for the AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Anthropic disclosed existential risks in its IPO filing, highlighting potential long-term regulatory and operational challenges for the AI sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-005",
       "headline": "Settlement order in the matter of Investcorp Private Equity Fund I",
       "headline_en": null,
@@ -482,6 +531,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-022",
+      "headline": "Sebi clears Gautam, Vinod Adani of MPS norm violation, imposes penalties on others",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/sebi-clears-gautam-vinod-adani-of-mps-norm-violation-imposes-penalties-on-others/articleshow/134553180.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T00:08:45Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "SEBI cleared Gautam and Vinod Adani of minimum public shareholding norm violations, reducing regulatory uncertainty for the group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "SEBI cleared Gautam and Vinod Adani of minimum public shareholding norm violations, reducing regulatory uncertainty for the group.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -188311,7 +188409,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 2988,
+    "inbox_unconsumed": 2990,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -188320,9 +188418,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 132647,
-    "news_picked_today": 21,
-    "news_dropped_today": 243
+    "news_seen_today": 153129,
+    "news_picked_today": 23,
+    "news_dropped_today": 265
   },
   "book_momentum": {
     "live_count": 8,
