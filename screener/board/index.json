@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T03:13:13Z",
+  "generated_at": "2026-09-29T03:17:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -929,6 +929,55 @@
           "name": "August J. Troendle",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-149",
+      "headline": "Goldman Sachs sees Eternal achieving $1 billion EBITDA by FY29; raises target price",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/goldman-sachs-sees-eternal-achieving-1-billion-ebitda-by-fy29-raises-target-price/articleshow/134554650.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T03:00:59Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Goldman Sachs projects Eternal to reach $1 billion in EBITDA by FY29, leading to a target price increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Goldman Sachs projects Eternal to reach $1 billion in EBITDA by FY29, leading to a target price increase.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eternal",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -1908,56 +1957,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-112",
-      "headline": "FDA drug recall (Class I) — VITRUVIAS THERAPEUTICS INC: Thyroid Tablets, USP, 1/2 Grain (30 mg), Each tablet contains: levothyroxine (T4) 19 mcg, liothyronine (T3) 4.5 mcg, 100 Tablets, Rx only, Distributed by: Vitru — Superpotent Drug",
-      "headline_en": null,
-      "url": "https://api.fda.gov/drug/enforcement.json?search=recall_number.exact:%22D-0866-2026%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-23T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Class I recall for superpotent drug indicates significant safety risk and potential regulatory/legal liability for Vitruvias Therapeutics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Class I recall for superpotent drug indicates significant safety risk and potential regulatory/legal liability for Vitruvias Therapeutics.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VITRUVIAS THERAPEUTICS INC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -189271,9 +189270,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 726644,
-    "news_picked_today": 229,
-    "news_dropped_today": 1523
+    "news_seen_today": 745887,
+    "news_picked_today": 232,
+    "news_dropped_today": 1544
   },
   "book_momentum": {
     "live_count": 8,
