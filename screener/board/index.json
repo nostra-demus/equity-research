@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T09:30:15Z",
+  "generated_at": "2026-09-29T09:33:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-263",
@@ -391,6 +391,60 @@
           "name": "Guotai Junan International Holdings Limited",
           "ticker": "01788",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-268",
+      "headline": "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-29/israel-cites-saudi-qatari-stakes-in-hapag-to-halt-4-billion-zim-takeover",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T09:18:14Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Israel is using geopolitical stakes to block a 4 billion dollar takeover of ZIM by Hapag-Lloyd.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Israel is using geopolitical stakes to block a 4 billion dollar takeover of ZIM by Hapag-Lloyd.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ZIM",
+          "ticker": null,
+          "listing_country": "IL"
+        },
+        {
+          "name": "Hapag-Lloyd",
+          "ticker": null,
+          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -1931,55 +1985,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-046",
-      "headline": "HSBC HOLDINGS (00005): NOTICE OF REDEMPTION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092900051.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T23:10:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "HSBC Holdings issued a notice of redemption for debt securities, affecting its capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "HSBC Holdings issued a notice of redemption for debt securities, affecting its capital structure.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HSBC Holdings",
-          "ticker": "00005",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -148988,77 +148993,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-92b2863f1657",
-      "idea_version": "IDEAV-e5f4f093d430d8bc",
-      "idea_version_started_at": "2026-09-27T22:02:47Z",
-      "ticker": "SM1",
-      "company": "Synlait Milk",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company reported FY26 results that triggered a price-sensitive filing, indicating significant operational or margin pressure that typically leads to downward revisions.",
-      "why_now": "The earnings report was released on 2026-09-27.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9b1e9ee48120"
-      ],
-      "primary_source_event_id": "EVT-9b1e9ee48120",
-      "source_headlines": [
-        "SM1: Synlait reports FY26 result [price-sensitive]"
-      ],
-      "source_headline": "SM1: Synlait reports FY26 result [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SM1?key=2924-03140273-2A1699616",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T21:30:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T22:02:47Z",
-      "updated_at": "2026-09-27T22:02:47Z",
-      "decay_at": "2026-09-29T09:30:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-84d3d160ac55",
       "idea_version": "IDEAV-d8d38b50d5b7a32f",
       "idea_version_started_at": "2026-09-29T03:32:55Z",
@@ -150896,6 +150830,77 @@
       "surfaced_at": "2026-09-27T22:02:47Z",
       "updated_at": "2026-09-27T22:02:47Z",
       "decay_at": "2026-09-29T08:33:16Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-92b2863f1657",
+      "idea_version": "IDEAV-e5f4f093d430d8bc",
+      "idea_version_started_at": "2026-09-27T22:02:47Z",
+      "ticker": "SM1",
+      "company": "Synlait Milk",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported FY26 results that triggered a price-sensitive filing, indicating significant operational or margin pressure that typically leads to downward revisions.",
+      "why_now": "The earnings report was released on 2026-09-27.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9b1e9ee48120"
+      ],
+      "primary_source_event_id": "EVT-9b1e9ee48120",
+      "source_headlines": [
+        "SM1: Synlait reports FY26 result [price-sensitive]"
+      ],
+      "source_headline": "SM1: Synlait reports FY26 result [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SM1?key=2924-03140273-2A1699616",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-27T21:30:19Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-27T22:02:47Z",
+      "updated_at": "2026-09-27T22:02:47Z",
+      "decay_at": "2026-09-29T09:30:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -153075,9 +153080,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 546,
     "shown_count": 500,
-    "hidden_count": 45,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
         "total_count": 278,
@@ -153085,9 +153090,9 @@
         "hidden_count": 28
       },
       "short": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       }
     },
     "retention": {
@@ -153106,6 +153111,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-92b2863f1657",
+        "idea_version": "IDEAV-e5f4f093d430d8bc",
+        "idea_version_started_at": "2026-09-27T22:02:47Z",
+        "ticker": "SM1",
+        "company": "Synlait Milk",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company reported FY26 results that triggered a price-sensitive filing, indicating significant operational or margin pressure that typically leads to downward revisions.",
+        "why_now": "The earnings report was released on 2026-09-27.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9b1e9ee48120"
+        ],
+        "primary_source_event_id": "EVT-9b1e9ee48120",
+        "source_headlines": [
+          "SM1: Synlait reports FY26 result [price-sensitive]"
+        ],
+        "source_headline": "SM1: Synlait reports FY26 result [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SM1?key=2924-03140273-2A1699616",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-27T21:30:19Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T22:02:47Z",
+        "updated_at": "2026-09-27T22:02:47Z",
+        "decay_at": "2026-09-29T09:30:19Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T09:30:19Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-73ec49591826",
         "idea_version": "IDEAV-75fe019ffad46679",
@@ -190193,86 +190272,12 @@
         "archived_at": "2026-09-06T16:45:32Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-9623b2f3d514",
-        "idea_version": "IDEAV-d0ee2d1952f3a07b",
-        "idea_version_started_at": "2026-09-03T22:15:11Z",
-        "ticker": "CIEN",
-        "company": "Ciena Corporation",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Ciena shares fell 10% after in-line guidance overshadowed an earnings beat, signaling the market is pricing slower forward growth despite current results.",
-        "why_now": "Earnings and guidance released 2026-09-03 per TheStreet report; negative guidance reaction is the live catalyst.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 55,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b941397b310d"
-        ],
-        "primary_source_event_id": "EVT-b941397b310d",
-        "source_headlines": [
-          "Ciena Corporation Tumbles 10% as In-Line Guidance Overshadows Earnings Beat, Arista Edges Higher"
-        ],
-        "source_headline": "Ciena Corporation Tumbles 10% as In-Line Guidance Overshadows Earnings Beat, Arista Edges Higher",
-        "source_url": "https://247wallst.com/investing/2026/09/03/ciena-corporation-tumbles-10-as-in-line-guidance-overshadows-earnings-beat-arista-edges-higher/",
-        "source_name": "24/7 Wall St.",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-03T16:27:32Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-03T22:15:11Z",
-        "updated_at": "2026-09-03T22:15:11Z",
-        "decay_at": "2026-09-05T04:27:32Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-06T16:45:32Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1137,
-    "live_count": 50,
+    "live_count": 49,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -190291,9 +190296,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3312589,
-    "news_picked_today": 521,
-    "news_dropped_today": 4447
+    "news_seen_today": 3363157,
+    "news_picked_today": 526,
+    "news_dropped_today": 4466
   },
   "book_momentum": {
     "live_count": 8,
