@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-29T11:46:43Z",
+  "generated_at": "2026-09-29T11:52:15Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260929-300",
+      "headline": "Endurance Technologies Limited: Endurance Technologies Limited has informed the Exchange about acquisition of remaining 32% stake in Stoeferle GmbH and Stoeferle Automotive GmbH by Endurance Overseas SpA, Italy, a wholly-owned subsidiary of the Company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ENDURANCE_29092026171139_Intimation29.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T11:42:13Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Endurance Technologies is acquiring the remaining 32% stake in Stoeferle GmbH and Stoeferle Automotive GmbH.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Endurance Technologies is acquiring the remaining 32% stake in Stoeferle GmbH and Stoeferle Automotive GmbH.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Endurance Technologies Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-281",
       "headline": "Adani Enterprises Limited: The Exchange has sought clarification from Adani Enterprises Limited with respect to recent news item captioned Adani Airport Holdings raises $120 million through local bond issue.. The response from the Company is awaited.",
@@ -1950,55 +1999,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-156",
-      "headline": "POLYFAIR HLDGS (08532): INSIDE INFORMATION UPDATE ON THE WINDING-UP PETITION",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0928/2026092801801.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T12:35:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Update on a winding-up petition indicates severe financial distress for the issuer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Update on a winding-up petition indicates severe financial distress for the issuer.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Polyfair Holdings",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -190590,9 +190590,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4741053,
-    "news_picked_today": 664,
-    "news_dropped_today": 5408
+    "news_seen_today": 4798981,
+    "news_picked_today": 675,
+    "news_dropped_today": 5469
   },
   "book_momentum": {
     "live_count": 8,
