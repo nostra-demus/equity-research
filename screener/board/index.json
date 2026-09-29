@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T12:46:46Z",
+  "generated_at": "2026-09-29T12:50:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-310",
@@ -796,6 +796,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-315",
+      "headline": "Scholastic To Buy Cottage Door Press For $71 Mln, Shares Climb In Pre-Market",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/scholastic-buy-cottage-door-press-71-mln-shares-climb-pre-market",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T12:14:18Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "Scholastic is acquiring Cottage Door Press for $71 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Scholastic is acquiring Cottage Door Press for $71 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Scholastic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260929-316",
+      "headline": "SoundThinking To Be Acquired By Transom For Up To $11/shr In Cash; Shares Up 50% In Pre-market",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/soundthinking-be-acquired-transom-11-shr-cash-shares-50-pre-market",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T12:02:14Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "SoundThinking to be acquired for $11 per share in cash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SoundThinking to be acquired for $11 per share in cash.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoundThinking",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1891,114 +1989,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-092",
-      "headline": "Samsung to inject $1 billion into Nvidia- and KKR-backed AI infrastructure firm",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/29/samsung-investment-nvidia-kkr-ai-helix-digital.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T01:48:52Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Samsung is investing $1 billion into an AI infrastructure firm, representing a significant capital commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung is investing $1 billion into an AI infrastructure firm, representing a significant capital commitment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "KKR",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-047",
-      "headline": "Nvidia rival AMD to buy industry pioneer’s AI start-up World Labs for US$8.2 billion",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/nvidia-rival-amd-to-buy-industry-pioneers-ai-start-up-world-labs-for-us8-2-billion",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-29T00:36:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "AMD is acquiring AI startup World Labs for US$8.2 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AMD is acquiring AI startup World Labs for US$8.2 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Advanced Micro Devices",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -149006,79 +148996,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8abccb21ae47",
-      "idea_version": "IDEAV-8a1db31ff3c53529",
-      "idea_version_started_at": "2026-09-28T01:17:09Z",
-      "ticker": "C09",
-      "company": "City Developments Limited",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "City Developments Limited plans to invest S$5 billion and divest S$6 billion in assets, alongside targeting a dividend payout of over 35%, which could unlock shareholder value and improve capital efficiency.",
-      "why_now": "The company announced its refreshed strategy and divestment targets on September 28, 2026, providing a clear catalyst for re-rating.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0603f9af44db",
-        "EVT-69e6365b4f55"
-      ],
-      "primary_source_event_id": "EVT-0603f9af44db",
-      "source_headlines": [
-        "CDL to invest S$5 billion, target S$6 billion divestments under refreshed strategy",
-        "CDL to unlock hidden empire worth $6b for growth, targets dividend payout of over 35%"
-      ],
-      "source_headline": "CDL to invest S$5 billion, target S$6 billion divestments under refreshed strategy",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/cdl-invest-s5-billion-target-s6-billion-divestments-under-refreshed-strategy",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T00:49:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T01:17:09Z",
-      "updated_at": "2026-09-28T01:17:09Z",
-      "decay_at": "2026-09-29T12:49:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d8f7377dbcbf",
       "idea_version": "IDEAV-1bb0b0aea3e64790",
       "idea_version_started_at": "2026-09-29T11:56:52Z",
@@ -150771,6 +150688,79 @@
       "surfaced_at": "2026-09-29T03:32:55Z",
       "updated_at": "2026-09-29T03:32:55Z",
       "decay_at": "2026-09-29T11:46:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8abccb21ae47",
+      "idea_version": "IDEAV-8a1db31ff3c53529",
+      "idea_version_started_at": "2026-09-28T01:17:09Z",
+      "ticker": "C09",
+      "company": "City Developments Limited",
+      "exchange": "SGX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "City Developments Limited plans to invest S$5 billion and divest S$6 billion in assets, alongside targeting a dividend payout of over 35%, which could unlock shareholder value and improve capital efficiency.",
+      "why_now": "The company announced its refreshed strategy and divestment targets on September 28, 2026, providing a clear catalyst for re-rating.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0603f9af44db",
+        "EVT-69e6365b4f55"
+      ],
+      "primary_source_event_id": "EVT-0603f9af44db",
+      "source_headlines": [
+        "CDL to invest S$5 billion, target S$6 billion divestments under refreshed strategy",
+        "CDL to unlock hidden empire worth $6b for growth, targets dividend payout of over 35%"
+      ],
+      "source_headline": "CDL to invest S$5 billion, target S$6 billion divestments under refreshed strategy",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/cdl-invest-s5-billion-target-s6-billion-divestments-under-refreshed-strategy",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T00:49:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T01:17:09Z",
+      "updated_at": "2026-09-28T01:17:09Z",
+      "decay_at": "2026-09-29T12:49:49Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -153663,14 +153653,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 558,
+    "total_count": 559,
     "shown_count": 500,
-    "hidden_count": 58,
+    "hidden_count": 59,
     "side_counts": {
       "long": {
-        "total_count": 287,
+        "total_count": 288,
         "shown_count": 250,
-        "hidden_count": 37
+        "hidden_count": 38
       },
       "short": {
         "total_count": 271,
@@ -153694,6 +153684,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8abccb21ae47",
+        "idea_version": "IDEAV-8a1db31ff3c53529",
+        "idea_version_started_at": "2026-09-28T01:17:09Z",
+        "ticker": "C09",
+        "company": "City Developments Limited",
+        "exchange": "SGX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "City Developments Limited plans to invest S$5 billion and divest S$6 billion in assets, alongside targeting a dividend payout of over 35%, which could unlock shareholder value and improve capital efficiency.",
+        "why_now": "The company announced its refreshed strategy and divestment targets on September 28, 2026, providing a clear catalyst for re-rating.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0603f9af44db",
+          "EVT-69e6365b4f55"
+        ],
+        "primary_source_event_id": "EVT-0603f9af44db",
+        "source_headlines": [
+          "CDL to invest S$5 billion, target S$6 billion divestments under refreshed strategy",
+          "CDL to unlock hidden empire worth $6b for growth, targets dividend payout of over 35%"
+        ],
+        "source_headline": "CDL to invest S$5 billion, target S$6 billion divestments under refreshed strategy",
+        "source_url": "https://www.businesstimes.com.sg/companies-markets/cdl-invest-s5-billion-target-s6-billion-divestments-under-refreshed-strategy",
+        "source_name": "The Business Times (Singapore)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-28T00:49:49Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-28T01:17:09Z",
+        "updated_at": "2026-09-28T01:17:09Z",
+        "decay_at": "2026-09-29T12:49:49Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-29T12:49:49Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-15b437f23637",
         "idea_version": "IDEAV-a6761bbee8662be1",
@@ -183841,82 +183907,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-75765a74602d",
-        "idea_version": "IDEAV-4b58c0f15db609aa",
-        "idea_version_started_at": "2026-09-11T23:19:39Z",
-        "ticker": "VIJAYA",
-        "company": "Vijaya Diagnostic Centre Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is expanding its footprint in the North East Indian market through the strategic acquisition of Arya Wellness Centre, which will likely drive incremental revenue growth and regional market share.",
-        "why_now": "The Board approved the Business Transfer Agreement on September 11, 2026, making this a fresh inorganic growth catalyst.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8b9aee66b3a5",
-          "EVT-c1f642d752ea"
-        ],
-        "primary_source_event_id": "EVT-8b9aee66b3a5",
-        "source_headlines": [
-          "Vijaya Diagnostic Centre Limited: Vijaya Diagnostic Centre Limited has informed the Exchange regarding Outcome of Board Meeting held on September 11, 2026. (Approval for execution of Business Transfer Agreement (\"BTA\") for 100% acquisition of integrated diagnostic business undertaking of Arya Wellness Centre, Guwahati, Assam on a slump sale basis subject to the fulfilment of Conditions Precedent (CPs) and other terms and conditions as set out in the BTA.",
-          "Vijaya Diagnostic Centre Limited: Vijaya Diagnostic Centre Limited has informed the Exchange about General Updates - Investor Presentation - 100% Acquisition of integrated diagnostic business undertaking of Arya Wellness Centre, Guwahati, Asssam."
-        ],
-        "source_headline": "Vijaya Diagnostic Centre Limited: Vijaya Diagnostic Centre Limited has informed the Exchange regarding Outcome of Board Meeting held on September 11, 2026. (Approval for execution of Business Transfer Agreement (\"BTA\") for 100% acquisition of integrated diagnostic business undertaking of Arya Wellness Centre, Guwahati, Assam on a slump sale basis subject to the fulfilment of Conditions Precedent (CPs) and other terms and conditions as set out in the BTA.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/VIJAYA_11092026195905_Stx_BM_Outcome_Acquisition_Signed.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-11T15:27:58Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-11T23:19:39Z",
-        "updated_at": "2026-09-11T23:19:39Z",
-        "decay_at": "2026-09-13T03:27:58Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-14T19:12:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bcdb35c76a25",
         "idea_version": "IDEAV-ae19cf706889b129",
         "idea_version_started_at": "2026-09-11T18:09:01Z",
@@ -190858,7 +190848,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1145,
-    "live_count": 45,
+    "live_count": 44,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -190877,9 +190867,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5408165,
-    "news_picked_today": 762,
-    "news_dropped_today": 5790
+    "news_seen_today": 5493273,
+    "news_picked_today": 771,
+    "news_dropped_today": 5805
   },
   "book_momentum": {
     "live_count": 8,
