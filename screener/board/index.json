@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T04:42:40Z",
+  "generated_at": "2026-09-29T04:46:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260929-008",
@@ -1661,6 +1661,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260929-181",
+      "headline": "AMD acquires ‘godmother of AI’ Li Fei-Fei’s start-up as battle with Nvidia intensifies",
+      "headline_en": null,
+      "url": "https://www.scmp.com/tech/big-tech/article/3369141/amd-acquires-godmother-ai-li-fei-feis-start-battle-nvidia-intensifies?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-29T04:30:18Z",
+      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
+      "prelim_note": "AMD acquired AI startup World Labs, founded by Li Fei-Fei, to strengthen its competitive position against Nvidia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "AMD acquired AI startup World Labs, founded by Li Fei-Fei, to strengthen its competitive position against Nvidia.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260929-144",
       "headline": "Tata Sons merger: What TCE and TESS bring to the table in Tata Trusts’ new plan",
       "headline_en": null,
@@ -1897,55 +1951,6 @@
         {
           "name": "HUTCHMED",
           "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260929-009",
-      "headline": "ASCLETIS-B (01672): VOLUNTARY ANNOUNCEMENT - ASCLETIS ANNOUNCES POSITIVE RESULTS FROM 28-DAY PROOF-OF-CONCEPT CLINICAL STUDY IN U.S. FOR ASC50, A FIRST-IN-CLASS AND BEST-IN-CLASS ORAL SMALL MOLECULE IL-17A INHIBITOR FOR THE TREATMENT OF PLAQUE PSORIASIS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092900059.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-28T23:50:00Z",
-      "sweep_file": "screener/inbox/2026-09-29_sweep.json",
-      "prelim_note": "Ascletis reported positive proof-of-concept clinical trial results for its ASC50 drug candidate.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Ascletis reported positive proof-of-concept clinical trial results for its ASC50 drug candidate.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ascletis Pharma",
-          "ticker": "01672",
           "listing_country": "CN"
         }
       ],
@@ -189195,9 +189200,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1145566,
-    "news_picked_today": 294,
-    "news_dropped_today": 2274
+    "news_seen_today": 1174627,
+    "news_picked_today": 300,
+    "news_dropped_today": 2292
   },
   "book_momentum": {
     "live_count": 8,
