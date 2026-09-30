@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-09-30T08:57:18Z",
+  "generated_at": "2026-09-30T09:01:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-172",
+      "headline": "Auri Grow India Limited: Auri Grow India Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GODHA_30092026141430_NSE__Public_Announcement_Intimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T08:44:49Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "The company has entered the Corporate Insolvency Resolution Process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has entered the Corporate Insolvency Resolution Process.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Auri Grow India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-166",
+      "headline": "CMRU (01636): INSIDE INFORMATION - (1) QUARTERLY UPDATE ON RESUMPTION PROGRESS; (2) UPDATE ON DELAY IN PUBLICATION OF RESULTS AND REPORTS; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000712.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T08:36:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "CMRU remains suspended and reports delays in financial reporting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CMRU remains suspended and reports delays in financial reporting.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CMRU",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-140",
       "headline": "KPI Green Energy Limited: KPI Green Energy Limited has informed the Exchange regarding a press release dated September 30, 2026, titled \"KPI Green Energy Signs Binding Offer to Acquire 507.9 MW of Operational Wind Capacity in Gujarat\".",
@@ -395,6 +493,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-183",
+      "headline": "UK's Greggs raises profit outlook but plans factory closures",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/uk/britains-greggs-raises-profit-outlook-improved-trading-2026-09-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T08:21:29Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Greggs raised its profit outlook but announced factory closures, indicating both operational efficiency gains and structural cost-cutting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Greggs raised its profit outlook but announced factory closures, indicating both operational efficiency gains and structural cost-cutting.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Greggs",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-145",
       "headline": "KPI Green Energy shares gain for fourth straight day; Announces ₹2,410 crore acquisition",
       "headline_en": null,
@@ -747,6 +895,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-163",
+      "headline": "COFCO JOYCOME (01610): PROPOSED MERGER WITH A DIRECT WHOLLY-OWNED SUBSIDIARY AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000752.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T08:37:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "COFCO Joycome proposed a merger with a subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "COFCO Joycome proposed a merger with a subsidiary.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "COFCO Joycome",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-139",
       "headline": "P1E: Full Financial Information FY26 [price-sensitive]",
       "headline_en": null,
@@ -889,6 +1086,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-168",
+      "headline": "R&F PROPERTIES (02777): Quarterly Update on Implementation of Action Plan to Resolve Auditor's Disclaimer of Opinion on the Annual Consolidated Financial Statements",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000688.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T08:35:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "R&F Properties continues to address auditor disclaimer of opinion on financial statements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "R&F Properties continues to address auditor disclaimer of opinion on financial statements.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "R&F Properties",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1139,6 +1385,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-171",
+      "headline": "Sun TV Network Limited: The Exchange has sought clarification from Sun TV Network Limited with respect to recent news item captioned Possible Demerger of SUN TV's sports division.. The response from the Company is attached.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SUNTV1_30092026141339_SunTVreply30092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T08:44:54Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Sun TV Network responded to exchange queries regarding a potential demerger of its sports division.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Sun TV Network responded to exchange queries regarding a potential demerger of its sports division.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sun TV Network Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-164",
+      "headline": "YICHEN IND (01596): COMPLETION OF DISCLOSEABLE AND CONNECTED TRANSACTION IN RELATION TO ACQUISITION OF INTEREST IN ELECTRICITY BUSINESS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000748.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T08:37:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Yichen Industry completed an acquisition of an electricity business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Yichen Industry completed an acquisition of an electricity business.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yichen Industry",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1630,349 +1974,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-053",
-      "headline": "SCHEDULE 13D/A - Sheffield Bryan (0001606914) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1606914/000119312526408033/0001193125-26-408033-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-30T00:48:12Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "An amendment to a Schedule 13D filing indicates a change in ownership or intent for Bryan Sheffield.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "An amendment to a Schedule 13D filing indicates a change in ownership or intent for Bryan Sheffield.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bryan Sheffield",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-016",
-      "headline": "HENGAN INT'L (01044): PASSING OF CHAIRMAN AND EXECUTIVE DIRECTOR",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000079.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T23:54:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "The passing of the chairman and executive director is a significant leadership loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The passing of the chairman and executive director is a significant leadership loss.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hengan International",
-          "ticker": "01044",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-012",
-      "headline": "ODA: Interim & Joint Managing Director Appointment [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ODA?key=2924-03141901-2A1700517",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T23:49:34Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "The appointment of an interim and joint managing director is a significant management change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The appointment of an interim and joint managing director is a significant management change.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Orica",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-151",
-      "headline": "TCI Express Limited: TCI Express Limited has informed the Exchange about Credit Rating",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TCIEXP_30092026115905_ICRACreditRating.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T06:29:14Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "The company received a credit rating update, which is a standard but material disclosure for debt investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company received a credit rating update, which is a standard but material disclosure for debt investors.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "credit_rating_upgrade",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "credit_rating_upgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TCI Express Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-155",
-      "headline": "Sundrop Brands Limited: Sundrop Brands Limited has informed the Exchange about receipt of show cause notice from Deputy Commissioner (SGST), Ghaziabad I, Uttar Pradesh.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/Kavita_Sundrop_30092026111134_SBLIntimationofGSTSCNUP.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T05:41:46Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Receipt of a show cause notice from a tax authority indicates potential regulatory or legal issues that could lead to fines or penalties.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Receipt of a show cause notice from a tax authority indicates potential regulatory or legal issues that could lead to fines or penalties.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sundrop Brands Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-141",
-      "headline": "VIG: Half Year Accounts Ended 31 Dec 2025 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VIG?key=2924-03142169-6A1346652",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T04:55:25Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "The company released its half-year financial accounts, explicitly flagged as price-sensitive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company released its half-year financial accounts, explicitly flagged as price-sensitive.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VIG",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-133",
-      "headline": "EWC: Circumstances Affecting Prelim (App4E) Pursuant to LR 4.3D [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EWC?key=2924-03142117-2A1700627",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T04:16:35Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "The company issued a price-sensitive notice regarding circumstances affecting its preliminary financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company issued a price-sensitive notice regarding circumstances affecting its preliminary financial results.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "EWC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -148262,75 +148263,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-8e38ef15bf4e",
-      "idea_version": "IDEAV-556c9010c4834b5a",
-      "idea_version_started_at": "2026-09-29T06:22:55Z",
-      "ticker": "RTX",
-      "company": "RTX Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a $20.7 billion contract from the Department of War to accelerate production of air-to-air missiles, providing significant long-term revenue visibility.",
-      "why_now": "The contract award was officially announced on September 28, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 80,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2ebacdd5e187"
-      ],
-      "primary_source_event_id": "EVT-2ebacdd5e187",
-      "source_headlines": [
-        "Department of War and RTX Accelerate Advanced Medium-Range Air-to-Air Missile Production Through $20.7B Award"
-      ],
-      "source_headline": "Department of War and RTX Accelerate Advanced Medium-Range Air-to-Air Missile Production Through $20.7B Award",
-      "source_url": "https://www.war.gov/News/Releases/Release/Article/4613107/department-of-war-and-rtx-accelerate-advanced-medium-range-air-to-air-missile-p/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T21:00:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T06:22:55Z",
-      "updated_at": "2026-09-29T06:22:55Z",
-      "decay_at": "2026-09-30T09:00:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7c601055fcc6",
       "idea_version": "IDEAV-3dc4c8644e0d8955",
       "idea_version_started_at": "2026-09-29T14:12:15Z",
@@ -151468,6 +151400,75 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-8e38ef15bf4e",
+      "idea_version": "IDEAV-556c9010c4834b5a",
+      "idea_version_started_at": "2026-09-29T06:22:55Z",
+      "ticker": "RTX",
+      "company": "RTX Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a $20.7 billion contract from the Department of War to accelerate production of air-to-air missiles, providing significant long-term revenue visibility.",
+      "why_now": "The contract award was officially announced on September 28, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 80,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2ebacdd5e187"
+      ],
+      "primary_source_event_id": "EVT-2ebacdd5e187",
+      "source_headlines": [
+        "Department of War and RTX Accelerate Advanced Medium-Range Air-to-Air Missile Production Through $20.7B Award"
+      ],
+      "source_headline": "Department of War and RTX Accelerate Advanced Medium-Range Air-to-Air Missile Production Through $20.7B Award",
+      "source_url": "https://www.war.gov/News/Releases/Release/Article/4613107/department-of-war-and-rtx-accelerate-advanced-medium-range-air-to-air-missile-p/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T21:00:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T06:22:55Z",
+      "updated_at": "2026-09-29T06:22:55Z",
+      "decay_at": "2026-09-30T09:00:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-15b437f23637",
@@ -155768,14 +155769,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 560,
+    "total_count": 561,
     "shown_count": 500,
-    "hidden_count": 60,
+    "hidden_count": 61,
     "side_counts": {
       "long": {
-        "total_count": 295,
+        "total_count": 296,
         "shown_count": 250,
-        "hidden_count": 45
+        "hidden_count": 46
       },
       "short": {
         "total_count": 265,
@@ -155799,6 +155800,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8e38ef15bf4e",
+        "idea_version": "IDEAV-556c9010c4834b5a",
+        "idea_version_started_at": "2026-09-29T06:22:55Z",
+        "ticker": "RTX",
+        "company": "RTX Corporation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured a $20.7 billion contract from the Department of War to accelerate production of air-to-air missiles, providing significant long-term revenue visibility.",
+        "why_now": "The contract award was officially announced on September 28, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 80,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2ebacdd5e187"
+        ],
+        "primary_source_event_id": "EVT-2ebacdd5e187",
+        "source_headlines": [
+          "Department of War and RTX Accelerate Advanced Medium-Range Air-to-Air Missile Production Through $20.7B Award"
+        ],
+        "source_headline": "Department of War and RTX Accelerate Advanced Medium-Range Air-to-Air Missile Production Through $20.7B Award",
+        "source_url": "https://www.war.gov/News/Releases/Release/Article/4613107/department-of-war-and-rtx-accelerate-advanced-medium-range-air-to-air-missile-p/",
+        "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-28T21:00:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T06:22:55Z",
+        "updated_at": "2026-09-29T06:22:55Z",
+        "decay_at": "2026-09-30T09:00:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-30T09:00:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e8778e3ed285",
         "idea_version": "IDEAV-f584f36f24898996",
@@ -184996,80 +185069,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f15353e10064",
-        "idea_version": "IDEAV-d5e1360839a4cfa0",
-        "idea_version_started_at": "2026-09-13T12:04:53Z",
-        "ticker": "01300",
-        "company": "TRIGIANT",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Trigiant is proposing to acquire 100% of Qinghai Zhongli Optical Fibre Technology Co., Ltd., which could expand its market share and revenue in the optical fiber sector.",
-        "why_now": "The proposed acquisition was announced on September 13, 2026, indicating a live M&A catalyst.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3cb052bc8572"
-        ],
-        "primary_source_event_id": "EVT-3cb052bc8572",
-        "source_headlines": [
-          "TRIGIANT (01300): POSSIBLE DISCLOSEABLE TRANSACTION - PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN QINGHAI ZHONGLI OPTICAL FIBRE TECHNOLOGY CO., LTD."
-        ],
-        "source_headline": "TRIGIANT (01300): POSSIBLE DISCLOSEABLE TRANSACTION - PROPOSED ACQUISITION OF 100% EQUITY INTERESTS IN QINGHAI ZHONGLI OPTICAL FIBRE TECHNOLOGY CO., LTD.",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300031.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T10:17:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T12:04:53Z",
-        "updated_at": "2026-09-13T12:04:53Z",
-        "decay_at": "2026-09-14T22:17:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-16T11:53:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-140d0f792e92",
         "idea_version": "IDEAV-c9f2072c0f774a5a",
         "idea_version_started_at": "2026-09-13T16:50:02Z",
@@ -192976,7 +192975,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1170,
-    "live_count": 45,
+    "live_count": 44,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -192995,9 +192994,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7756521,
-    "news_picked_today": 279,
-    "news_dropped_today": 6009
+    "news_seen_today": 7825723,
+    "news_picked_today": 312,
+    "news_dropped_today": 6048
   },
   "book_momentum": {
     "live_count": 8,
