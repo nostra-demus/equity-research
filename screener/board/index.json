@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T15:04:09Z",
+  "generated_at": "2026-09-30T15:11:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-402",
@@ -101,6 +101,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-410",
+      "headline": "SICHUAN EXPRESS (00107): MAJOR TRANSACTION - PROPOSED ISSUANCE OF QUASI REITs AND RELATED DISCLOSEABLE TRANSACTION AND MAJOR TRANSACTION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002738.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T14:09:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Company announced a major transaction involving the issuance of quasi-REITs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a major transaction involving the issuance of quasi-REITs.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sichuan Express",
+          "ticker": "00107",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-420",
+      "headline": "RSUN PPT (01996): INSIDE INFORMATION - UPDATE ON WINDING UP PETITION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002609.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "The company is facing a winding-up petition, which is a critical threat to its ongoing operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is facing a winding-up petition, which is a critical threat to its ongoing operations.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rsun Property",
+          "ticker": "01996",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-345",
       "headline": "CON AERO TECH (00232): JOINT ANNOUNCEMENT - (1) COMPLETION OF THE DISPOSAL; (2) DECLARATION OF SPECIAL DIVIDEND ON DISPOSAL; (3) COMPLETION OF THE PROPERTY DISPOSAL; (4) DECLARATION OF CASH DIVIDEND ON PROPERTY DISPOSAL; (5) EFFECTIVE DATE OF THE CAPITAL REORGANIZATION; (6) FREE EXCHANGE OF SHARE CERTIFICATES; AND (7) WITHDRAWAL OF LISTING",
       "headline_en": null,
@@ -146,56 +245,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-400",
-      "headline": "SICHUAN EXPRESS (00107): I. MAJOR TRANSACTION - PROPOSED ISSUANCE OF QUASI REITs AND RELATED DISCLOSEABLE TRANSACTION AND MAJOR TRANSACTION; II. PROPOSED APPOINTMENT OF NON-EXECUTIVE DIRECTOR; AND III. NOTICE OF EXTRAORDINARY GENERAL MEETING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002579.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T13:54:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Sichuan Express announced a major transaction involving the issuance of quasi-REITs and a board appointment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sichuan Express announced a major transaction involving the issuance of quasi-REITs and a board appointment.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SICHUAN EXPRESS",
-          "ticker": "00107",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1920,55 +1969,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-148",
-      "headline": "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/nlc-india-declares-385-dividend-for-fy26-profit-after-tax-up-3891-to-3769-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T05:20:22Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "NLC India reported a 38.91% increase in profit after tax to ₹3,769 crore and declared a 38.5% dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NLC India reported a 38.91% increase in profit after tax to ₹3,769 crore and declared a 38.5% dividend.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NLC India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192346,9 +192346,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10186985,
-    "news_picked_today": 783,
-    "news_dropped_today": 14625
+    "news_seen_today": 10214754,
+    "news_picked_today": 801,
+    "news_dropped_today": 14799
   },
   "book_momentum": {
     "live_count": 8,
