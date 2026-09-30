@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T09:20:21Z",
+  "generated_at": "2026-09-30T09:26:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-192",
@@ -1287,6 +1287,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-210",
+      "headline": "BOCOM N2809-R (85185): Notice of Listing on The Stock Exchange of Hong Kong Limited - Bank of Communications Co., Ltd. Hong Kong Branch - Issue of CNY4,350,000,000 1.60 per cent. Notes due 2028 under its U.S. $12,000,000,000 Medium Term Note Programme",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000884.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T08:42:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Bank of Communications issued CNY 4.35 billion in notes due 2028.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Bank of Communications issued CNY 4.35 billion in notes due 2028.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of Communications",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-168",
       "headline": "R&F PROPERTIES (02777): Quarterly Update on Implementation of Action Plan to Resolve Auditor's Disclaimer of Opinion on the Annual Consolidated Financial Statements",
       "headline_en": null,
@@ -1919,55 +1968,6 @@
       "companies": [
         {
           "name": "MXT",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-048",
-      "headline": "MOT: Delay in release of 2026 audited financial report",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MOT?key=2924-03141941-2A1700489",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T00:28:29Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Delay in releasing audited financial reports is a significant governance and transparency red flag.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Delay in releasing audited financial reports is a significant governance and transparency red flag.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MOT",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -192922,9 +192922,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7894945,
-    "news_picked_today": 339,
-    "news_dropped_today": 6261
+    "news_seen_today": 7929354,
+    "news_picked_today": 344,
+    "news_dropped_today": 6280
   },
   "book_momentum": {
     "live_count": 8,
