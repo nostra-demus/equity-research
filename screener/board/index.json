@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T00:46:30Z",
+  "generated_at": "2026-09-30T00:54:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-046",
@@ -733,6 +733,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-050",
+      "headline": "TRIO IND ELEC (01710): EXCHANGE NOTICE - TRADING HALT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000133.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T00:42:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Trio Industrial Electronics has halted trading pending an announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Trio Industrial Electronics has halted trading pending an announcement.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trio Industrial Electronics",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1877,20 +1926,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260930-015",
-      "headline": "BANK OF GUIZHOU (06199): THE APPROVAL OF THE QUALIFICATION OF THE CHAIRMAN; AND CHANGES TO THE COMPOSITION OF THE SPECIAL COMMITTEES OF THE BOARD",
+      "inbox_id": "INB-20260930-051",
+      "headline": "JINCHUAN INTL (02362): EXCHANGE NOTICE - RESUMPTION OF TRADING",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000085.pdf",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000131.htm",
       "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T23:59:00Z",
+      "found_at": "2026-09-30T00:42:00Z",
       "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Regulatory approval of a new chairman is a material governance event for a bank.",
+      "prelim_note": "Jinchuan International has resumed trading.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 69,
-      "triage_reason": "Regulatory approval of a new chairman is a material governance event for a bank.",
+      "triage_reason": "Jinchuan International has resumed trading.",
       "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 45,
@@ -1906,66 +1955,17 @@
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "management",
+        "event_id": "regulatory",
         "size_bucket": "mid"
       },
       "event_types": [
-        "management"
+        "regulatory"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Bank of Guizhou",
-          "ticker": "06199",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-017",
-      "headline": "BANK OF GUIZHOU (06199): CHANGE OF NON-EXECUTIVE DIRECTOR",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000077.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T23:53:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Change of a non-executive director is a material governance update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Change of a non-executive director is a material governance update.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of Guizhou",
-          "ticker": "06199",
+          "name": "Jinchuan International",
+          "ticker": null,
           "listing_country": "CN"
         }
       ],
@@ -193647,9 +193647,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 633279,
-    "news_picked_today": 51,
-    "news_dropped_today": 357
+    "news_seen_today": 759718,
+    "news_picked_today": 54,
+    "news_dropped_today": 402
   },
   "book_momentum": {
     "live_count": 8,
