@@ -1,6 +1,202 @@
 {
-  "generated_at": "2026-09-30T11:30:18Z",
+  "generated_at": "2026-09-30T11:48:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-299",
+      "headline": "KO YO GROUP (00827): UPDATES IN RELATION TO GOING CONCERN AND MITIGATION MEASURES IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002163.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T11:38:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Ko Yo Group is providing updates on going concern issues, indicating significant financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ko Yo Group is providing updates on going concern issues, indicating significant financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ko Yo Group",
+          "ticker": "00827",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-302",
+      "headline": "CONCH ENVIRO (00587): MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE ACQUISITIONS OF THE TARGET COMPANIES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002137.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Conch Enviro announced a major and connected transaction involving the acquisition of target companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Conch Enviro announced a major and connected transaction involving the acquisition of target companies.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Conch Enviro",
+          "ticker": "00587",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-306",
+      "headline": "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0930/2026093002075.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T11:18:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Somerley Cap announced a mandatory unconditional cash offer to acquire all issued shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Somerley Cap announced a mandatory unconditional cash offer to acquire all issued shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Somerley Cap",
+          "ticker": "08439",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-308",
+      "headline": "HENG TAI (00197): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS; (2) DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; (3) POSTPONEMENT OF BOARD MEETING; AND (4) SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002043.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T11:11:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Heng Tai announced a delay in financial reporting and a suspension of trading, indicating severe operational or accounting issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Heng Tai announced a delay in financial reporting and a suspension of trading, indicating severe operational or accounting issues.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Heng Tai",
+          "ticker": "00197",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-291",
       "headline": "FIRST CAP GP (01269): UPDATE ON PROPOSED DEBT RESTRUCTURING - ENTERING INTO RESTRUCTURING SUPPORT AGREEMENT",
@@ -1500,6 +1696,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-305",
+      "headline": "SINO-OCEAN GP (03377): UPDATE IN RELATION TO THE GOING CONCERN MATTERS SET OUT IN THE ANNUAL REPORTS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002085.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T11:20:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Sino-Ocean GP is providing updates on going concern matters, signaling ongoing financial instability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Sino-Ocean GP is providing updates on going concern matters, signaling ongoing financial instability.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sino-Ocean GP",
+          "ticker": "03377",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-266",
       "headline": "CONCH CEMENT (00914): CONNECTED TRANSACTIONS: ACQUISITIONS OF EQUITY INTERESTS BY SUBSIDIARIES",
       "headline_en": null,
@@ -1738,251 +1983,6 @@
           "name": "P1E",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-135",
-      "headline": "ZHENROPPT SPCS ZHENRO PPT (04596 06158): INSIDE INFORMATION - ADJOURNMENT OF WINDING-UP PETITION HEARING AGAINST A SUBSIDIARY",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000291.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T04:20:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Adjournment of a winding-up petition provides temporary relief for the subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Adjournment of a winding-up petition provides temporary relief for the subsidiary.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zhenro Properties",
-          "ticker": "06158",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-119",
-      "headline": "PaleBlueDot AI Seeks $600 Million Private Credit to Buy Chips",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-30/palebluedot-ai-seeks-600-million-private-credit-to-buy-chips",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T03:52:05Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "PaleBlueDot AI is seeking $600 million in private credit for capital expenditure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "PaleBlueDot AI is seeking $600 million in private credit for capital expenditure.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PaleBlueDot AI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-219",
-      "headline": "BOCOM N2909 BOCOM N3109 (40714 40734): Notice of Listing on The Stock Exchange of Hong Kong Limited - Bank of Communications Co., Ltd. Hong Kong Branch - Issue of U.S.$350,000,000 Floating Rate Notes due 2029 and U.S.$320,000,000 Floating Rate Note due 2031 under its U.S.$12,000,000,000 Medium Term Note Programme",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093001180.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T09:03:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Bank of Communications issued $670 million in floating rate notes under its existing MTN programme.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Bank of Communications issued $670 million in floating rate notes under its existing MTN programme.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of Communications Co., Ltd.",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-191",
-      "headline": "LT Foods Limited: Intimation under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 in respect of Execution of Share Purchase Agreement for acquisition of controlling stake in Leev.nu B.V., Netherlands",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/532783_30092026142730_intimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T08:57:42Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "LT Foods is acquiring a controlling stake in Leev.nu B.V. to expand its international footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "LT Foods is acquiring a controlling stake in Leev.nu B.V. to expand its international footprint.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LT Foods Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-190",
-      "headline": "GLORY SUN LAND (00299): (1) QUARTERLY UPDATE ON RESUMPTION PROGRESS; AND (2) CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093001016.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T08:50:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Continued trading suspension signals ongoing financial distress; resumption progress outcome undisclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Continued trading suspension signals ongoing financial distress; resumption progress outcome undisclosed.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GLORY SUN LAND",
-          "ticker": "00299",
-          "listing_country": "HK"
         }
       ],
       "size_bucket": "unknown",
@@ -150915,79 +150915,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f64bbbd95f6f",
-      "idea_version": "IDEAV-deb73ae1a74b16bb",
-      "idea_version_started_at": "2026-09-29T06:43:00Z",
-      "ticker": "MP1",
-      "company": "Megaport",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured $1 billion in new contracts and simultaneously upgraded its 2027 earnings guidance, indicating a major inflection in revenue growth and operational scale.",
-      "why_now": "The guidance upgrade was officially announced on 2026-09-28, providing a clear catalyst for a re-rating of the stock.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e30c918d40e6",
-        "EVT-bd5b3cbab213"
-      ],
-      "primary_source_event_id": "EVT-e30c918d40e6",
-      "source_headlines": [
-        "ASX to rise; Megaport wins $1b worth of contracts, upgrades guidance",
-        "Australia's Megaport wins $687 million AI infrastructure deals, raises 2027 earnings forecast"
-      ],
-      "source_headline": "ASX to rise; Megaport wins $1b worth of contracts, upgrades guidance",
-      "source_url": "https://www.afr.com/markets/equity-markets/asx-to-rise-us-bond-yields-surge-higher-rba-awaited-20260929-p6118b?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T23:32:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T06:43:00Z",
-      "updated_at": "2026-09-29T06:43:00Z",
-      "decay_at": "2026-09-30T11:32:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d99505bc75b0",
       "idea_version": "IDEAV-11208c4dd4e3a05e",
       "idea_version_started_at": "2026-09-30T09:32:50Z",
@@ -152467,6 +152394,79 @@
       "surfaced_at": "2026-09-29T07:11:10Z",
       "updated_at": "2026-09-29T07:11:10Z",
       "decay_at": "2026-09-30T00:33:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f64bbbd95f6f",
+      "idea_version": "IDEAV-deb73ae1a74b16bb",
+      "idea_version_started_at": "2026-09-29T06:43:00Z",
+      "ticker": "MP1",
+      "company": "Megaport",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured $1 billion in new contracts and simultaneously upgraded its 2027 earnings guidance, indicating a major inflection in revenue growth and operational scale.",
+      "why_now": "The guidance upgrade was officially announced on 2026-09-28, providing a clear catalyst for a re-rating of the stock.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e30c918d40e6",
+        "EVT-bd5b3cbab213"
+      ],
+      "primary_source_event_id": "EVT-e30c918d40e6",
+      "source_headlines": [
+        "ASX to rise; Megaport wins $1b worth of contracts, upgrades guidance",
+        "Australia's Megaport wins $687 million AI infrastructure deals, raises 2027 earnings forecast"
+      ],
+      "source_headline": "ASX to rise; Megaport wins $1b worth of contracts, upgrades guidance",
+      "source_url": "https://www.afr.com/markets/equity-markets/asx-to-rise-us-bond-yields-surge-higher-rba-awaited-20260929-p6118b?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T23:32:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T06:43:00Z",
+      "updated_at": "2026-09-29T06:43:00Z",
+      "decay_at": "2026-09-30T11:32:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155567,14 +155567,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 558,
+    "total_count": 559,
     "shown_count": 500,
-    "hidden_count": 58,
+    "hidden_count": 59,
     "side_counts": {
       "long": {
-        "total_count": 295,
+        "total_count": 296,
         "shown_count": 250,
-        "hidden_count": 45
+        "hidden_count": 46
       },
       "short": {
         "total_count": 263,
@@ -155598,6 +155598,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f64bbbd95f6f",
+        "idea_version": "IDEAV-deb73ae1a74b16bb",
+        "idea_version_started_at": "2026-09-29T06:43:00Z",
+        "ticker": "MP1",
+        "company": "Megaport",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured $1 billion in new contracts and simultaneously upgraded its 2027 earnings guidance, indicating a major inflection in revenue growth and operational scale.",
+        "why_now": "The guidance upgrade was officially announced on 2026-09-28, providing a clear catalyst for a re-rating of the stock.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e30c918d40e6",
+          "EVT-bd5b3cbab213"
+        ],
+        "primary_source_event_id": "EVT-e30c918d40e6",
+        "source_headlines": [
+          "ASX to rise; Megaport wins $1b worth of contracts, upgrades guidance",
+          "Australia's Megaport wins $687 million AI infrastructure deals, raises 2027 earnings forecast"
+        ],
+        "source_headline": "ASX to rise; Megaport wins $1b worth of contracts, upgrades guidance",
+        "source_url": "https://www.afr.com/markets/equity-markets/asx-to-rise-us-bond-yields-surge-higher-rba-awaited-20260929-p6118b?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-28T23:32:34Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T06:43:00Z",
+        "updated_at": "2026-09-29T06:43:00Z",
+        "decay_at": "2026-09-30T11:32:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-30T11:32:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-14d83f2c882e",
         "idea_version": "IDEAV-d04cc4eb1a74c027",
@@ -184718,81 +184794,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f10044ee35a3",
-        "idea_version": "IDEAV-70cc29c1fe35cd26",
-        "idea_version_started_at": "2026-09-13T18:31:35Z",
-        "ticker": "SDZ",
-        "company": "Sandoz",
-        "exchange": "SIX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A new 2040 strategy targeting 100 biosimilars supported by a $300 million facility build-out positions the company to capture significant market share in the high-margin biologics space.",
-        "why_now": "The strategic roadmap and facility investment were unveiled on September 13, 2024.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ec739a38721f"
-        ],
-        "primary_source_event_id": "EVT-ec739a38721f",
-        "source_headlines": [
-          "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build"
-        ],
-        "source_headline": "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build",
-        "source_url": "https://www.fiercepharma.com/pharma/sandoz-aims-biosimilar-dominance-under-new-strategy-300m-facility-sweetener-slovenia",
-        "source_name": "FiercePharma",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T12:23:32Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T12:44:48Z",
-        "updated_at": "2026-09-13T18:31:35Z",
-        "decay_at": "2026-09-15T00:23:32Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-16T13:29:06Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-69441c9f6035",
         "idea_version": "IDEAV-3864d3d0cf90ad00",
         "idea_version_started_at": "2026-09-13T12:04:53Z",
@@ -192771,7 +192772,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1173,
-    "live_count": 44,
+    "live_count": 43,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -192790,9 +192791,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8929970,
-    "news_picked_today": 519,
-    "news_dropped_today": 8529
+    "news_seen_today": 9219977,
+    "news_picked_today": 536,
+    "news_dropped_today": 8704
   },
   "book_momentum": {
     "live_count": 8,
