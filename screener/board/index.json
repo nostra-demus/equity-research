@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T19:24:04Z",
+  "generated_at": "2026-09-30T19:33:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-455",
@@ -46,6 +46,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-468",
+      "headline": "SEC Charges Meyer Global Management and Its CEO With Defrauding Retail Investors in Private Funds That Held Interests in SpaceX and Other Pre-IPO Securities",
+      "headline_en": null,
+      "url": "https://www.sec.gov/newsroom/press-releases/2026-98-sec-charges-meyer-global-management-its-ceo-defrauding-retail-investors-private-funds-held-interests",
+      "source_name": "U.S. Securities & Exchange Commission (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-30T18:30:01Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "The SEC has charged Meyer Global Management and its CEO with defrauding investors in private funds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The SEC has charged Meyer Global Management and its CEO with defrauding investors in private funds.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meyer Global Management",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1917,49 +1967,6 @@
       },
       "event_types": [
         "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-387",
-      "headline": "CBI Court Sentences Former Jalgaon Income Tax Officer To 5 Years In Jail, ₹1.5 Lakh Fine In Bribery Case",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/cbi-court-sentences-former-jalgaon-income-tax-officer-to-5-years-in-jail-15-lakh-fine-in-bribery-case",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T13:12:02Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "A former income tax officer being sentenced to jail and fined indicates a significant enforcement action and potential corruption issue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A former income tax officer being sentenced to jail and fined indicates a significant enforcement action and potential corruption issue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [],
@@ -192339,9 +192346,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11402353,
-    "news_picked_today": 1009,
-    "news_dropped_today": 18839
+    "news_seen_today": 11428428,
+    "news_picked_today": 1014,
+    "news_dropped_today": 19170
   },
   "book_momentum": {
     "live_count": 8,
