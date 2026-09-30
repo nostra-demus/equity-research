@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T11:48:24Z",
+  "generated_at": "2026-09-30T11:57:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-299",
@@ -1142,6 +1142,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-319",
+      "headline": "Kenon To Acquire 25% Of Vicinity District Energy Business For $450 Mln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/kenon-acquire-25-vicinity-district-energy-business-450-mln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T10:48:18Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Kenon is acquiring a 25% stake in Vicinity District Energy for $450 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kenon is acquiring a 25% stake in Vicinity District Energy for $450 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kenon Holdings Ltd.",
+          "ticker": "KEN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-282",
       "headline": "JSW Cement to issue 5 shares for every 41 Shiva Cement shares in merger",
       "headline_en": null,
@@ -1937,55 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-139",
-      "headline": "P1E: Full Financial Information FY26 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.P1E?key=2924-03142140-2A1700640",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T04:31:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "The company released full financial information for FY26, which is a primary source for performance assessment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company released full financial information for FY26, which is a primary source for performance assessment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "P1E",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192791,9 +192791,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9219977,
-    "news_picked_today": 536,
-    "news_dropped_today": 8704
+    "news_seen_today": 9252548,
+    "news_picked_today": 558,
+    "news_dropped_today": 9090
   },
   "book_momentum": {
     "live_count": 8,
