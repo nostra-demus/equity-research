@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-30T11:11:12Z",
+  "generated_at": "2026-09-30T11:17:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-291",
+      "headline": "FIRST CAP GP (01269): UPDATE ON PROPOSED DEBT RESTRUCTURING - ENTERING INTO RESTRUCTURING SUPPORT AGREEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002005.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T11:01:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Company entered into a restructuring support agreement to address debt distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company entered into a restructuring support agreement to address debt distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FIRST CAP GP",
+          "ticker": "01269",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-257",
       "headline": "REGAL INT'L RH INT FN GSPS (00078 05425): JOINT ANNOUNCEMENT - DEFERRAL OF DISTRIBUTION AND ARREARS OF DISTRIBUTION IN RESPECT OF THE PERPETUAL SECURITIES",
@@ -1931,55 +1981,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-137",
-      "headline": "KPI Green Energy Limited: KPI Green Energy Limited has informed the Exchange about proposed Acquisition. The Disclosure is attached herewith.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/KPIGLOBAL_30092026101722_7_KPI_Green_Acquire_Alfanar_30092026_Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T04:47:56Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "KPI Green Energy Limited has announced a proposed acquisition, which is a material corporate development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "KPI Green Energy Limited has announced a proposed acquisition, which is a material corporate development.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KPI Green Energy Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -148476,77 +148477,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-14d83f2c882e",
-      "idea_version": "IDEAV-d04cc4eb1a74c027",
-      "idea_version_started_at": "2026-09-29T06:43:00Z",
-      "ticker": "AMD",
-      "company": "Advanced Micro Devices",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $8.2 billion acquisition of World Labs represents a strategic pivot into 'physical AI' that expands the company's addressable market beyond traditional data center GPUs.",
-      "why_now": "The deal was announced on 2026-09-28, and the market is currently assessing the integration risk versus the long-term growth potential of the new technology stack.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b86f9f2dbf6f",
-        "EVT-d547c330f3c6"
-      ],
-      "primary_source_event_id": "EVT-b86f9f2dbf6f",
-      "source_headlines": [
-        "Nvidia rival AMD to buy industry pioneer’s AI startup World Labs for US$8.2 billion",
-        "AMD to buy Fei-Fei Li's World Labs in $8.2 billion bet on 'physical AI'"
-      ],
-      "source_headline": "Nvidia rival AMD to buy industry pioneer’s AI startup World Labs for US$8.2 billion",
-      "source_url": "https://www.businesstimes.com.sg/international/nvidia-rival-amd-buy-industry-pioneers-ai-startup-world-labs-us8-2-billion",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T23:11:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T06:43:00Z",
-      "updated_at": "2026-09-29T06:43:00Z",
-      "decay_at": "2026-09-30T11:11:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-485c669a88ce",
       "idea_version": "IDEAV-7ffbef24b3e2be08",
       "idea_version_started_at": "2026-09-30T03:15:36Z",
@@ -151545,6 +151475,77 @@
       "surfaced_at": "2026-09-29T06:22:55Z",
       "updated_at": "2026-09-29T06:22:55Z",
       "decay_at": "2026-09-30T09:00:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-14d83f2c882e",
+      "idea_version": "IDEAV-d04cc4eb1a74c027",
+      "idea_version_started_at": "2026-09-29T06:43:00Z",
+      "ticker": "AMD",
+      "company": "Advanced Micro Devices",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $8.2 billion acquisition of World Labs represents a strategic pivot into 'physical AI' that expands the company's addressable market beyond traditional data center GPUs.",
+      "why_now": "The deal was announced on 2026-09-28, and the market is currently assessing the integration risk versus the long-term growth potential of the new technology stack.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b86f9f2dbf6f",
+        "EVT-d547c330f3c6"
+      ],
+      "primary_source_event_id": "EVT-b86f9f2dbf6f",
+      "source_headlines": [
+        "Nvidia rival AMD to buy industry pioneer’s AI startup World Labs for US$8.2 billion",
+        "AMD to buy Fei-Fei Li's World Labs in $8.2 billion bet on 'physical AI'"
+      ],
+      "source_headline": "Nvidia rival AMD to buy industry pioneer’s AI startup World Labs for US$8.2 billion",
+      "source_url": "https://www.businesstimes.com.sg/international/nvidia-rival-amd-buy-industry-pioneers-ai-startup-world-labs-us8-2-billion",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T23:11:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T06:43:00Z",
+      "updated_at": "2026-09-29T06:43:00Z",
+      "decay_at": "2026-09-30T11:11:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155561,14 +155562,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 557,
+    "total_count": 558,
     "shown_count": 500,
-    "hidden_count": 57,
+    "hidden_count": 58,
     "side_counts": {
       "long": {
-        "total_count": 294,
+        "total_count": 295,
         "shown_count": 250,
-        "hidden_count": 44
+        "hidden_count": 45
       },
       "short": {
         "total_count": 263,
@@ -155592,6 +155593,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-14d83f2c882e",
+        "idea_version": "IDEAV-d04cc4eb1a74c027",
+        "idea_version_started_at": "2026-09-29T06:43:00Z",
+        "ticker": "AMD",
+        "company": "Advanced Micro Devices",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $8.2 billion acquisition of World Labs represents a strategic pivot into 'physical AI' that expands the company's addressable market beyond traditional data center GPUs.",
+        "why_now": "The deal was announced on 2026-09-28, and the market is currently assessing the integration risk versus the long-term growth potential of the new technology stack.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 74,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b86f9f2dbf6f",
+          "EVT-d547c330f3c6"
+        ],
+        "primary_source_event_id": "EVT-b86f9f2dbf6f",
+        "source_headlines": [
+          "Nvidia rival AMD to buy industry pioneer’s AI startup World Labs for US$8.2 billion",
+          "AMD to buy Fei-Fei Li's World Labs in $8.2 billion bet on 'physical AI'"
+        ],
+        "source_headline": "Nvidia rival AMD to buy industry pioneer’s AI startup World Labs for US$8.2 billion",
+        "source_url": "https://www.businesstimes.com.sg/international/nvidia-rival-amd-buy-industry-pioneers-ai-startup-world-labs-us8-2-billion",
+        "source_name": "The Business Times (Singapore)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-28T23:11:52Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T06:43:00Z",
+        "updated_at": "2026-09-29T06:43:00Z",
+        "decay_at": "2026-09-30T11:11:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-30T11:11:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-689f4996a82d",
         "idea_version": "IDEAV-8417f0199e061c5f",
@@ -184713,79 +184788,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-0c529d942ea8",
-        "idea_version": "IDEAV-9f930044c15c16a8",
-        "idea_version_started_at": "2026-09-13T17:56:30Z",
-        "ticker": "GOOGL",
-        "company": "Alphabet",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Alphabet's Google Cloud backlog has reached $514 billion after 82% revenue growth last quarter, indicating strong and accelerating demand for its cloud services.",
-        "why_now": "Sundar Pichai's recent statement highlights the current, substantial growth in the cloud backlog and revenue.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-93d5f8bf42d3"
-        ],
-        "primary_source_event_id": "EVT-93d5f8bf42d3",
-        "source_headlines": [
-          "Sundar Pichai Says Alphabet's Cloud Backlog Hit $514 Billion After 82% Revenue Growth Last Quarter. Is Google Cloud Becoming a Bigger Growth Driver Than Search?"
-        ],
-        "source_headline": "Sundar Pichai Says Alphabet's Cloud Backlog Hit $514 Billion After 82% Revenue Growth Last Quarter. Is Google Cloud Becoming a Bigger Growth Driver Than Search?",
-        "source_url": "https://www.fool.com/investing/2026/09/13/sundar-pichai-alphabets-backlog-514-billion/?source=iedfolrf0000001",
-        "source_name": "The Motley Fool",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T12:03:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T13:01:40Z",
-        "updated_at": "2026-09-13T17:56:30Z",
-        "decay_at": "2026-09-15T00:03:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-16T13:29:06Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-69441c9f6035",
         "idea_version": "IDEAV-3864d3d0cf90ad00",
         "idea_version_started_at": "2026-09-13T12:04:53Z",
@@ -192764,7 +192766,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1173,
-    "live_count": 45,
+    "live_count": 44,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -192783,9 +192785,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8797191,
-    "news_picked_today": 487,
-    "news_dropped_today": 8177
+    "news_seen_today": 8864187,
+    "news_picked_today": 501,
+    "news_dropped_today": 8259
   },
   "book_momentum": {
     "live_count": 8,
