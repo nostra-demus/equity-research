@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-09-30T10:35:13Z",
+  "generated_at": "2026-09-30T10:42:22Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-257",
+      "headline": "REGAL INT'L RH INT FN GSPS (00078 05425): JOINT ANNOUNCEMENT - DEFERRAL OF DISTRIBUTION AND ARREARS OF DISTRIBUTION IN RESPECT OF THE PERPETUAL SECURITIES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093001699.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T10:13:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "REGAL INT'L and RH INT FN GSPS announced a deferral of distribution and arrears of distribution for perpetual securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "REGAL INT'L and RH INT FN GSPS announced a deferral of distribution and arrears of distribution for perpetual securities.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "REGAL INT'L",
+          "ticker": "00078",
+          "listing_country": "CN"
+        },
+        {
+          "name": "RH INT FN GSPS",
+          "ticker": "05425",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-236",
       "headline": "AIDIGONG (00286): 1) DECISION OF THE LISTING COMMITTEE ON CANCELLATION OF LISTING;(2) NOT APPLYING FOR A REVIEW OF THE DELISTING DECISION; (3) CONSEQUENCES TO THE SHAREHOLDERS; AND (4) CONTINUED SUSPENSION OF TRADING",
@@ -1239,6 +1293,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-265",
+      "headline": "BOCOM INTL (03329): VOLUNTARY ANNOUNCEMENT COMPLETION OF THE ISSUANCE OF RMB1,100,000,000 AND USD134,000,000 SUBORDINATED PERPETUAL SECURITIES",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093001617.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T09:55:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Completion of a large issuance of RMB 1.1 billion and USD 134 million in subordinated perpetual securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Completion of a large issuance of RMB 1.1 billion and USD 134 million in subordinated perpetual securities.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BOCOM INTL",
+          "ticker": "03329",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-205",
       "headline": "LINK REIT (00823): Completion of Disposal of 50% Interest in a Trust which Owns Interests in 100 Market Street, Sydney, Australia",
       "headline_en": null,
@@ -1871,109 +1975,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-227",
-      "headline": "HOPSON DEV HOLD (00754): (1) FURTHER DELAY IN PUBLICATION OF THE 2025 ANNUAL RESULTS AND THE 2026 INTERIM RESULTS AND DESPATCH OF THE 2025 ANNUAL REPORT AND 2026 INTERIM REPORT; (2) QUARTERLY UPDATE ON RESUMPTION PROGRESS; AND (3) CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093001452.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T09:32:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Continued suspension of trading and further delay in financial reporting indicate significant governance and liquidity risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Continued suspension of trading and further delay in financial reporting indicate significant governance and liquidity risks.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hopson Development Holdings",
-          "ticker": "00754",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-158",
-      "headline": "OPmobility agrees to buy Hyundai Mobis' lighting unit for $443 million",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/opmobility-agrees-buy-hyundai-mobis-lighting-unit-443-million-2026-09-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T07:16:10Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "OPmobility to acquire Hyundai Mobis' lighting business for $443 million; confirmed deal with named acquirer, target, and transaction value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "OPmobility to acquire Hyundai Mobis' lighting business for $443 million; confirmed deal with named acquirer, target, and transaction value.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OPmobility",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Hyundai Mobis",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192777,9 +192778,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8466588,
-    "news_picked_today": 434,
-    "news_dropped_today": 7702
+    "news_seen_today": 8499751,
+    "news_picked_today": 456,
+    "news_dropped_today": 7896
   },
   "book_momentum": {
     "live_count": 8,
