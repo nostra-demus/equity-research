@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T04:06:07Z",
+  "generated_at": "2026-09-30T04:07:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-104",
@@ -149368,6 +149368,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-9c1fb5bd088d",
+      "idea_version": "IDEAV-e1c08ae772655aa8",
+      "idea_version_started_at": "2026-09-30T04:07:30Z",
+      "ticker": "00848",
+      "company": "Maoye International",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company announced a privatization proposal by W.F Group Limited via a scheme of arrangement, which typically results in the stock price converging toward the offer price.",
+      "why_now": "The announcement was made on 2026-09-29 and trading resumed on 2026-09-30.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ecc2af8e82dd"
+      ],
+      "primary_source_event_id": "EVT-ecc2af8e82dd",
+      "source_headlines": [
+        "MAOYE INT'L (00848): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF MAOYE INTERNATIONAL HOLDINGS LIMITED BY W.F GROUP LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL RELATING TO THE ROLLOVER ARRANGEMENT; AND (4) RESUMPTION OF TRADING"
+      ],
+      "source_headline": "MAOYE INT'L (00848): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF MAOYE INTERNATIONAL HOLDINGS LIMITED BY W.F GROUP LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL RELATING TO THE ROLLOVER ARRANGEMENT; AND (4) RESUMPTION OF TRADING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092902197.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T14:52:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T04:07:30Z",
+      "updated_at": "2026-09-30T04:07:30Z",
+      "decay_at": "2026-10-01T02:52:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-02a86175523b",
       "idea_version": "IDEAV-f25ea1d334d8503f",
       "idea_version_started_at": "2026-09-30T02:00:49Z",
@@ -155243,150 +155315,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-095be317c3a2",
-      "idea_version": "IDEAV-53344850a0822e27",
-      "idea_version_started_at": "2026-09-27T05:04:56Z",
-      "ticker": "KPLM.SI",
-      "company": "Keppel Corporation Limited",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Keppel is discussing a potential deal for M1, which could expand its telecommunications infrastructure and services portfolio.",
-      "why_now": "The news explicitly states that Keppel and Starhub are discussing a deal for M1 as of September 27, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-118137460992"
-      ],
-      "primary_source_event_id": "EVT-118137460992",
-      "source_headlines": [
-        "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week"
-      ],
-      "source_headline": "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week",
-      "source_url": "https://www.straitstimes.com/business/companies-markets/keppel-starhub-discuss-potential-m1-deal-grab-execs-buy-shares-after-stock-falls-markets-this-week",
-      "source_name": "The Straits Times",
-      "materiality_max": 91,
-      "newest_source_at": "2026-09-27T04:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T05:04:56Z",
-      "updated_at": "2026-09-27T05:04:56Z",
-      "decay_at": "2026-09-28T16:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1984ced61a06",
-      "idea_version": "IDEAV-696d0108e6efed2f",
-      "idea_version_started_at": "2026-09-27T04:44:42Z",
-      "ticker": "K30.SI",
-      "company": "Keppel Corporation Limited",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Keppel is in discussions regarding a potential deal for M1, which could represent a strategic acquisition.",
-      "why_now": "The discussions were reported on September 27, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-118137460992"
-      ],
-      "primary_source_event_id": "EVT-118137460992",
-      "source_headlines": [
-        "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week"
-      ],
-      "source_headline": "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week",
-      "source_url": "https://www.straitstimes.com/business/companies-markets/keppel-starhub-discuss-potential-m1-deal-grab-execs-buy-shares-after-stock-falls-markets-this-week",
-      "source_name": "The Straits Times",
-      "materiality_max": 91,
-      "newest_source_at": "2026-09-27T04:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T04:44:42Z",
-      "updated_at": "2026-09-27T04:44:42Z",
-      "decay_at": "2026-09-28T16:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5de53cb99e08",
       "idea_version": "IDEAV-d1c47a64f320b8ce",
       "idea_version_started_at": "2026-09-27T14:49:56Z",
@@ -155898,14 +155826,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 568,
+    "total_count": 566,
     "shown_count": 500,
-    "hidden_count": 68,
+    "hidden_count": 66,
     "side_counts": {
       "long": {
-        "total_count": 301,
+        "total_count": 299,
         "shown_count": 250,
-        "hidden_count": 51
+        "hidden_count": 49
       },
       "short": {
         "total_count": 267,
@@ -155915,12 +155843,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 556,
+      "evicted_count": 558,
       "oldest_retained_at": "2026-09-03T02:54:08Z",
       "side_counts": {
         "long": {
-          "evicted_count": 367,
-          "oldest_retained_at": "2026-09-11T12:00:53Z"
+          "evicted_count": 369,
+          "oldest_retained_at": "2026-09-11T12:15:00Z"
         },
         "short": {
           "evicted_count": 189,
@@ -160918,8 +160846,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-28T16:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T04:07:33Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -160993,8 +160921,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-28T16:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T04:07:33Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -193103,8 +193031,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1164,
-    "live_count": 39,
+    "surfaced_total": 1165,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -193123,7 +193051,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3550248,
+    "news_seen_today": 3581442,
     "news_picked_today": 158,
     "news_dropped_today": 1906
   },
