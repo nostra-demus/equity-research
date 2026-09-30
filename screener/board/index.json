@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T15:29:53Z",
+  "generated_at": "2026-09-30T15:40:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-402",
@@ -1485,6 +1485,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-431",
+      "headline": "Restaurant giant closes eateries, files Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/restaurateur-billy-streck-files-chapter-11-after-string-of-closures",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T13:52:34Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "A restaurant company filed Chapter 11 bankruptcy and closed multiple eateries — a default/distress survival event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A restaurant company filed Chapter 11 bankruptcy and closed multiple eateries — a default/distress survival event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 9,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-387",
       "headline": "CBI Court Sentences Former Jalgaon Income Tax Officer To 5 Years In Jail, ₹1.5 Lakh Fine In Bribery Case",
       "headline_en": null,
@@ -1919,56 +1962,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-183",
-      "headline": "UK's Greggs raises profit outlook but plans factory closures",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/uk/britains-greggs-raises-profit-outlook-improved-trading-2026-09-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T08:21:29Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Greggs raised its profit outlook but announced factory closures, indicating both operational efficiency gains and structural cost-cutting.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Greggs raised its profit outlook but announced factory closures, indicating both operational efficiency gains and structural cost-cutting.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Greggs",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192346,9 +192339,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10326339,
-    "news_picked_today": 827,
-    "news_dropped_today": 15157
+    "news_seen_today": 10353971,
+    "news_picked_today": 831,
+    "news_dropped_today": 15273
   },
   "book_momentum": {
     "live_count": 8,
