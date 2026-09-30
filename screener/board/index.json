@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-30T15:50:57Z",
+  "generated_at": "2026-09-30T16:04:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-435",
+      "headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SHRENIK_30092026211124_Outcome_of_the_First_CoC_Meeting.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T15:42:27Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Shrenik Limited has entered Corporate Insolvency Resolution Process (India's formal bankruptcy regime); equity holders face permanent capital loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shrenik Limited has entered Corporate Insolvency Resolution Process (India's formal bankruptcy regime); equity holders face permanent capital loss.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shrenik Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-402",
       "headline": "KFM KINGDOM (03816): JOINT ANNOUNCEMENT ON (1) PROPOSED SUBSCRIPTION OF CONVERTIBLE BONDS UNDER SPECIFIC MANDATES; (2) ACQUISITION OF SALE SHARES BY LUXSHARE HONG KONG; (3) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY ASIAN CAPITAL FOR AND ON BEHALF OF LUXSHARE HONG KONG TO ACQUIRE ALL THE ISSUED SHARES IN KFM KINGDOM HOLDINGS LIMITED; AND (4) RESUMPTION OF TRADING",
@@ -1337,6 +1386,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-446",
+      "headline": "‎UCA ordered into liquidation",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1940407",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T18:23:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "A company ordered into liquidation — a survival event and permanent loss for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A company ordered into liquidation — a survival event and permanent loss for shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UCA",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-430",
       "headline": "Ford F-150 supplier disruption to impact 3Q sales, CEO says",
       "headline_en": null,
@@ -1864,104 +1962,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-245",
-      "headline": "KPI Green Energy to acquire 507.9 MW operational wind assets in Gujarat for Rs 2,410 crore",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/renewables/kpi-green-energy-to-acquire-507-9-mw-operational-wind-assets-in-gujarat-for-rs-2410-crore/articleshow/134589370.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T09:42:32Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "KPI Green Energy is acquiring 507.9 MW of wind assets for Rs 2,410 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KPI Green Energy is acquiring 507.9 MW of wind assets for Rs 2,410 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KPI Green Energy",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-246",
-      "headline": "AMD acquires AI legend Fei-Fei Li's World Labs for $8.2 billion",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/amd-acquires-ai-legend-fei-fei-lis-world-labs-for-usd8-2-billion-imagenet-pioneer-will-become-amd-chief-scientist-as-the-chipmaker-brings-her-lab-in-house",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T09:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "AMD is acquiring World Labs for $8.2 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AMD is acquiring World Labs for $8.2 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMD",
-          "ticker": "AMD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192339,9 +192339,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10408801,
-    "news_picked_today": 843,
-    "news_dropped_today": 15309
+    "news_seen_today": 10464375,
+    "news_picked_today": 861,
+    "news_dropped_today": 15387
   },
   "book_momentum": {
     "live_count": 8,
