@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T04:28:49Z",
+  "generated_at": "2026-09-30T04:38:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-128",
@@ -888,6 +888,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-129",
+      "headline": "GIC acquires 16 Marriott-run hotels in Japan amid tourism boom",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/09/30/companies/gic-marriott-hotels-japan-tourism/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T04:29:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "GIC acquired 16 hotels, representing a significant capital deployment in the Japanese hospitality sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "GIC acquired 16 hotels, representing a significant capital deployment in the Japanese hospitality sector.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marriott International",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1876,31 +1925,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260930-101",
-      "headline": "Oil Price Today (September 30): Crude oil at $104 as Trump rejects easing Iran sanctions. What are experts saying?",
+      "inbox_id": "INB-20260930-132",
+      "headline": "Oil prices rise to $10.3.3 as Trump rejects Iran sanctions relief",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/commodities/news/oil-price-today-september-30-crude-oil-at-104-as-trump-rejects-easing-iran-sanctions-what-are-experts-saying/articleshow/134577453.cms",
-      "source_name": "The Economic Times",
+      "url": "https://economymiddleeast.com/news/oil-prices-rise-to-10-3-3-as-trump-rejects-iran-sanctions-relief/?utm_source=rss&utm_medium=rss&utm_campaign=oil-prices-rise-to-10-3-3-as-trump-rejects-iran-sanctions-relief",
+      "source_name": "Economy Middle East",
       "input_nature": "news_headline",
-      "found_at": "2026-09-30T02:12:01Z",
+      "found_at": "2026-09-30T04:27:33Z",
       "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Crude oil prices reached $104 per barrel following the rejection of easing Iran sanctions, signaling a potential supply shock.",
+      "prelim_note": "Oil prices rose following the rejection of Iran sanctions relief, indicating a supply-side geopolitical risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 92,
-      "triage_reason": "Crude oil prices reached $104 per barrel following the rejection of easing Iran sanctions, signaling a potential supply shock.",
+      "triage_reason": "Oil prices rose following the rejection of Iran sanctions relief, indicating a supply-side geopolitical risk.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 2,
         "event": 0,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -1909,50 +1958,6 @@
         "size_bucket": "unknown"
       },
       "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-064",
-      "headline": "What products are part of US-China $60 billion tariff cuts deal",
-      "headline_en": null,
-      "url": "https://thehill.com/business/6119380-us-china-tariff-cuts/",
-      "source_name": "The Hill — Business News",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T01:24:18Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "A $60 billion tariff reduction deal between the US and China represents a significant shift in trade policy and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "A $60 billion tariff reduction deal between the US and China represents a significant shift in trade policy and regulatory risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
         "macro_sector"
       ],
       "issuer_linkage": "macro",
@@ -193052,9 +193057,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3895761,
-    "news_picked_today": 171,
-    "news_dropped_today": 2061
+    "news_seen_today": 4052846,
+    "news_picked_today": 176,
+    "news_dropped_today": 2176
   },
   "book_momentum": {
     "live_count": 8,
