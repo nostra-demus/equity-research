@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T15:16:50Z",
+  "generated_at": "2026-09-30T15:21:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-402",
@@ -1337,6 +1337,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-430",
+      "headline": "Ford F-150 supplier disruption to impact 3Q sales, CEO says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/autos-transportation/ford-f-150-supplier-disruption-impact-3q-sales-ceo-says-2026-09-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T14:47:44Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Ford confirmed a supplier disruption will negatively impact 3Q sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ford confirmed a supplier disruption will negatively impact 3Q sales.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ford",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-392",
       "headline": "Paramount Cuts Pricing on $30 Billion High-Grade Bond Sale",
       "headline_en": null,
@@ -1917,55 +1966,6 @@
           "name": "Greggs",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-145",
-      "headline": "KPI Green Energy shares gain for fourth straight day; Announces ₹2,410 crore acquisition",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/kpi-green-energy-share-price-2410-crore-acquisition-alfnar-energy-netra-wind-rajasthan-order-win-2026-returns-20001687.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T05:42:37Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "KPI Green Energy announced a 2.41 billion rupee acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KPI Green Energy announced a 2.41 billion rupee acquisition.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KPI Green Energy",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -192346,9 +192346,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10242754,
-    "news_picked_today": 802,
-    "news_dropped_today": 14894
+    "news_seen_today": 10298402,
+    "news_picked_today": 813,
+    "news_dropped_today": 14931
   },
   "book_momentum": {
     "live_count": 8,
