@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-30T03:10:05Z",
+  "generated_at": "2026-09-30T03:15:22Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-104",
+      "headline": "XRG: Suspension from Quotation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XRG?key=2924-03142054-2A1700614",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T02:59:49Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "XRG has been suspended from quotation, indicating a potential material issue or distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "XRG has been suspended from quotation, indicating a potential material issue or distress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XRG",
+          "ticker": "XRG",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-100",
       "headline": "APA: APA finalises Brigalow Peaking Power Plant agreement [price-sensitive]",
@@ -1891,55 +1940,6 @@
           "name": "Linux Laboratories",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-074",
-      "headline": "JXR (01951): MAJOR TRANSACTION THE PROPOSED ISSUANCE OF ABS AND THE EQUITY TRANSFER AGREEMENT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092902179.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T14:44:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "JXR announced a major transaction involving the issuance of asset-backed securities and an equity transfer agreement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "JXR announced a major transaction involving the issuance of asset-backed securities and an equity transfer agreement.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JXR",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "mid",
@@ -193401,9 +193401,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2771095,
-    "news_picked_today": 128,
-    "news_dropped_today": 1432
+    "news_seen_today": 2865009,
+    "news_picked_today": 129,
+    "news_dropped_today": 1479
   },
   "book_momentum": {
     "live_count": 8,
