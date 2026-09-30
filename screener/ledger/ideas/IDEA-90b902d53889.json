@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-90b902d53889",
-  "idea_version": "IDEAV-a31c966953e6e529",
-  "idea_version_started_at": "2026-09-29T07:11:10Z",
+  "idea_version": "IDEAV-21d26439d698bf8a",
+  "idea_version_started_at": "2026-09-30T05:39:46Z",
   "ticker": "NVDA",
   "company": "Nvidia",
   "exchange": "NASDAQ",
@@ -11,25 +11,26 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "The US$150 billion share buyback program provides a massive floor for the stock price and signals management's confidence in long-term cash flow despite competitive pressures.",
-  "why_now": "The announcement of the largest buyback in history occurred on 2026-09-29.",
-  "conviction": 75,
+  "reason": "A $150 billion share buyback authorization significantly reduces the float and signals management confidence in long-term cash flow generation.",
+  "why_now": "The announcement occurred on 2026-09-30, providing an immediate catalyst for capital return expectations.",
+  "conviction": 85,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 73,
+  "trade_score": 67,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 20,
+    "impact": 21,
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 7,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -46,19 +47,17 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-ee9a2a8e6e5d",
-    "EVT-e8475580229f"
+    "EVT-2cb5799a3c60"
   ],
-  "primary_source_event_id": "EVT-ee9a2a8e6e5d",
+  "primary_source_event_id": "EVT-2cb5799a3c60",
   "source_headlines": [
-    "Nvidia sets biggest-ever buyback plan as AI chip competition weighs on stock performance",
-    "Nvidia adds US$150 billion to massive stock buyback, the largest ever"
+    "Nvidia Approves Record $150 Billion Buyback"
   ],
-  "source_headline": "Nvidia sets biggest-ever buyback plan as AI chip competition weighs on stock performance",
-  "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/nvidia-sets-biggest-ever-buyback-plan-ai-chip-competition-weighs-stock-performance",
-  "source_name": "The Business Times (Singapore)",
+  "source_headline": "Nvidia Approves Record $150 Billion Buyback",
+  "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277875",
+  "source_name": "Business Korea — All English Articles",
   "materiality_max": 98,
-  "newest_source_at": "2026-09-29T02:27:00Z",
+  "newest_source_at": "2026-09-30T03:54:22Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-29T07:11:10Z",
-  "updated_at": "2026-09-29T07:11:10Z",
-  "decay_at": "2026-09-30T14:27:00Z",
+  "updated_at": "2026-09-30T05:39:46Z",
+  "decay_at": "2026-10-01T15:54:22Z",
   "status": "live",
   "promoted_signal_id": null
 }

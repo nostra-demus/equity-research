@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T05:39:34Z",
+  "generated_at": "2026-09-30T05:40:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-140",
@@ -148604,77 +148604,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-90b902d53889",
-      "idea_version": "IDEAV-a31c966953e6e529",
-      "idea_version_started_at": "2026-09-29T07:11:10Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The US$150 billion share buyback program provides a massive floor for the stock price and signals management's confidence in long-term cash flow despite competitive pressures.",
-      "why_now": "The announcement of the largest buyback in history occurred on 2026-09-29.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 73,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ee9a2a8e6e5d",
-        "EVT-e8475580229f"
-      ],
-      "primary_source_event_id": "EVT-ee9a2a8e6e5d",
-      "source_headlines": [
-        "Nvidia sets biggest-ever buyback plan as AI chip competition weighs on stock performance",
-        "Nvidia adds US$150 billion to massive stock buyback, the largest ever"
-      ],
-      "source_headline": "Nvidia sets biggest-ever buyback plan as AI chip competition weighs on stock performance",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/nvidia-sets-biggest-ever-buyback-plan-ai-chip-competition-weighs-stock-performance",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 98,
-      "newest_source_at": "2026-09-29T02:27:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T07:11:10Z",
-      "updated_at": "2026-09-29T07:11:10Z",
-      "decay_at": "2026-09-30T14:27:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-485c669a88ce",
       "idea_version": "IDEAV-7ffbef24b3e2be08",
       "idea_version_started_at": "2026-09-30T03:15:36Z",
@@ -148878,6 +148807,76 @@
       "surfaced_at": "2026-09-29T11:16:34Z",
       "updated_at": "2026-09-29T11:16:34Z",
       "decay_at": "2026-09-30T22:38:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-90b902d53889",
+      "idea_version": "IDEAV-21d26439d698bf8a",
+      "idea_version_started_at": "2026-09-30T05:39:46Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A $150 billion share buyback authorization significantly reduces the float and signals management confidence in long-term cash flow generation.",
+      "why_now": "The announcement occurred on 2026-09-30, providing an immediate catalyst for capital return expectations.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2cb5799a3c60"
+      ],
+      "primary_source_event_id": "EVT-2cb5799a3c60",
+      "source_headlines": [
+        "Nvidia Approves Record $150 Billion Buyback"
+      ],
+      "source_headline": "Nvidia Approves Record $150 Billion Buyback",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277875",
+      "source_name": "Business Korea — All English Articles",
+      "materiality_max": 98,
+      "newest_source_at": "2026-09-30T03:54:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T07:11:10Z",
+      "updated_at": "2026-09-30T05:39:46Z",
+      "decay_at": "2026-10-01T15:54:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -149442,6 +149441,151 @@
       "surfaced_at": "2026-09-29T09:11:29Z",
       "updated_at": "2026-09-29T09:11:29Z",
       "decay_at": "2026-09-30T17:30:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-17fd34c8a14c",
+      "idea_version": "IDEAV-481ba6216b7f46b4",
+      "idea_version_started_at": "2026-09-30T05:39:46Z",
+      "ticker": "PRESTIGE",
+      "company": "Prestige Estates Projects Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of a 27% stake in the hospitality arm by CPP Investments for ₹3,000 crore provides a significant liquidity injection and validates the valuation of the company's hotel assets.",
+      "why_now": "The deal was announced on 2026-09-30.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0ac56edef06d"
+      ],
+      "primary_source_event_id": "EVT-0ac56edef06d",
+      "source_headlines": [
+        "Prestige Estates shares gain as CPP Investments to acquire 27% stake in hospitality arm for ₹3,000 crore"
+      ],
+      "source_headline": "Prestige Estates shares gain as CPP Investments to acquire 27% stake in hospitality arm for ₹3,000 crore",
+      "source_url": "https://www.cnbctv18.com/market/prestige-estates-projects-share-price-cppib-investment-3000-crore-hospitality-arm-expansion-ipo-plans-20001528.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T03:53:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T05:39:46Z",
+      "updated_at": "2026-09-30T05:39:46Z",
+      "decay_at": "2026-10-01T15:53:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-5fb7af495786",
+      "idea_version": "IDEAV-3d3033bd04704e87",
+      "idea_version_started_at": "2026-09-30T05:39:46Z",
+      "ticker": "YAL",
+      "company": "Yancoal Australia",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The NSW Independent Planning Commission's approval of the Hunter Valley Operations Continuation Project removes a major regulatory hurdle for the company's long-term production capacity.",
+      "why_now": "The decision was officially released on 2026-09-30.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bd6266e20d10",
+        "EVT-847eec47f97e"
+      ],
+      "primary_source_event_id": "EVT-bd6266e20d10",
+      "source_headlines": [
+        "YAL: NSW IPC decision on HVO Continuation Project [price-sensitive]",
+        "YANCOAL AUS (03668): NSW Independent Planning Commission decision on Hunter Valley Operations Continuation Project"
+      ],
+      "source_headline": "YAL: NSW IPC decision on HVO Continuation Project [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.YAL?key=2924-03142107-2A1700625",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T04:09:10Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T05:39:46Z",
+      "updated_at": "2026-09-30T05:39:46Z",
+      "decay_at": "2026-10-01T16:09:10Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -151028,6 +151172,79 @@
       "surfaced_at": "2026-09-29T11:56:52Z",
       "updated_at": "2026-09-29T11:56:52Z",
       "decay_at": "2026-09-30T23:17:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-669e750ceb07",
+      "idea_version": "IDEAV-318316218afa88ad",
+      "idea_version_started_at": "2026-09-30T05:39:46Z",
+      "ticker": "PBF",
+      "company": "PB Fintech",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 53% price target cut by a major brokerage suggests a fundamental reassessment of the company's growth trajectory and margin sustainability.",
+      "why_now": "The analyst downgrade was reported on 2026-09-30.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-710bc8d29a52"
+      ],
+      "primary_source_event_id": "EVT-710bc8d29a52",
+      "source_headlines": [
+        "Bernstein cuts PB Fintech share price target by 53%. More pressure after Rs 37,000 m-cap rout?"
+      ],
+      "source_headline": "Bernstein cuts PB Fintech share price target by 53%. More pressure after Rs 37,000 m-cap rout?",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bernstein-cuts-pb-fintech-share-price-target-by-53-more-pressure-after-rs-37000-m-cap-rout/articleshow/134579716.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-30T03:32:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T05:39:46Z",
+      "updated_at": "2026-09-30T05:39:46Z",
+      "decay_at": "2026-10-01T15:32:41Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -192751,8 +192968,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1166,
-    "live_count": 42,
+    "surfaced_total": 1169,
+    "live_count": 45,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
