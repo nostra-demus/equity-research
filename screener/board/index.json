@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T05:19:14Z",
+  "generated_at": "2026-09-30T05:19:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-140",
@@ -148464,6 +148464,75 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-e6d1d0d41652",
+      "idea_version": "IDEAV-613ce08e5427ded4",
+      "idea_version_started_at": "2026-09-30T05:19:29Z",
+      "ticker": "APA",
+      "company": "APA Group",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Finalizing the agreement for the Brigalow Peaking Power Plant secures a new revenue stream and aligns with the company's strategic focus on energy infrastructure growth.",
+      "why_now": "The agreement was officially finalized and announced on 2026-09-30.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 75,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-70e271be0cec"
+      ],
+      "primary_source_event_id": "EVT-70e271be0cec",
+      "source_headlines": [
+        "APA: APA finalises Brigalow Peaking Power Plant agreement [price-sensitive]"
+      ],
+      "source_headline": "APA: APA finalises Brigalow Peaking Power Plant agreement [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.APA?key=2924-03142030-2A1700599",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T02:21:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T05:19:29Z",
+      "updated_at": "2026-09-30T05:19:29Z",
+      "decay_at": "2026-10-01T14:21:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-14d83f2c882e",
       "idea_version": "IDEAV-d04cc4eb1a74c027",
       "idea_version_started_at": "2026-09-29T06:43:00Z",
@@ -149373,6 +149442,78 @@
       "surfaced_at": "2026-09-29T09:11:29Z",
       "updated_at": "2026-09-29T09:11:29Z",
       "decay_at": "2026-09-30T17:30:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-fc426f81932d",
+      "idea_version": "IDEAV-1a6eaba2437c7b04",
+      "idea_version_started_at": "2026-09-30T05:19:29Z",
+      "ticker": "6594",
+      "company": "Nidec",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The sudden resignation of the CEO coupled with an accounting scandal creates significant governance risk and uncertainty regarding the company's financial integrity.",
+      "why_now": "The news broke on 2026-09-30 and the market is currently reacting to the leadership vacuum and potential regulatory scrutiny.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3a8bf6d73a03"
+      ],
+      "primary_source_event_id": "EVT-3a8bf6d73a03",
+      "source_headlines": [
+        "Nidec Shares Sink as CEO Resigns Amid Accounting Scandal"
+      ],
+      "source_headline": "Nidec Shares Sink as CEO Resigns Amid Accounting Scandal",
+      "source_url": "https://www.bloomberg.com/news/videos/2026-09-30/nidec-shares-sink-as-ceo-resigns-amid-accounting-scandal-video",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T02:28:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T05:43:18Z",
+      "updated_at": "2026-09-30T05:19:29Z",
+      "decay_at": "2026-10-01T14:28:42Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -151178,80 +151319,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5f19e42d97dc",
-      "idea_version": "IDEAV-0c7ffde149793fa2",
-      "idea_version_started_at": "2026-09-27T04:44:42Z",
-      "ticker": "GOOG",
-      "company": "Alphabet Inc.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Concerns over AI safety and regulatory probes into OpenAI and Anthropic suggest potential headwinds for the broader AI sector, which could impact Google's AI development and deployment.",
-      "why_now": "Multiple reports on September 27, 2026, highlight OpenAI sandbox failures and regulatory attention on AI companies.",
-      "conviction": 40,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 68,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "sector_cycle",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-65ee2d0ab6c0",
-        "EVT-3f56632afb40",
-        "EVT-c34c5ffea690"
-      ],
-      "primary_source_event_id": "EVT-65ee2d0ab6c0",
-      "source_headlines": [
-        "OpenAI sandbox failure allows AI agent to gain Internet access",
-        "Another OpenAI sandbox failure lets AI agent reach internet, prompting training pause",
-        "OpenAI, Anthropic CEOs called to appear at Australian AI probe"
-      ],
-      "source_headline": "OpenAI sandbox failure allows AI agent to gain Internet access",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/openai-sandbox-failure-allows-ai-agent-gain-internet-access",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 87,
-      "newest_source_at": "2026-09-27T04:27:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T04:44:42Z",
-      "updated_at": "2026-09-27T04:44:42Z",
-      "decay_at": "2026-09-28T16:27:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-52e98452feee",
       "idea_version": "IDEAV-85ee33ca7114f155",
       "idea_version_started_at": "2026-09-28T02:57:09Z",
@@ -151526,76 +151593,6 @@
       "surfaced_at": "2026-09-27T19:10:14Z",
       "updated_at": "2026-09-27T19:10:14Z",
       "decay_at": "2026-09-29T06:18:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-aaa7c7fe0d72",
-      "idea_version": "IDEAV-954e124fc8520346",
-      "idea_version_started_at": "2026-09-27T05:04:56Z",
-      "ticker": "OR.PA",
-      "company": "L'Oréal S.A.",
-      "exchange": "Paris",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "L'Oreal is entering stake sale talks with Giorgio Armani, which could lead to an acquisition and expand its luxury beauty and fashion presence.",
-      "why_now": "Armani is kicking off stake sale talks with LVMH and L'Oreal as of September 27, 2026, indicating a live M&A catalyst.",
-      "conviction": 68,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-beff6feaf733"
-      ],
-      "primary_source_event_id": "EVT-beff6feaf733",
-      "source_headlines": [
-        "Armani to kick off stake sale talks with LVMH and L'Oreal"
-      ],
-      "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
-      "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-27T04:30:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T05:04:56Z",
-      "updated_at": "2026-09-27T05:04:56Z",
-      "decay_at": "2026-09-28T16:30:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -152738,78 +152735,6 @@
       "surfaced_at": "2026-09-28T06:17:10Z",
       "updated_at": "2026-09-28T06:17:10Z",
       "decay_at": "2026-09-29T17:18:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-fc426f81932d",
-      "idea_version": "IDEAV-40cee4c6330b9f3a",
-      "idea_version_started_at": "2026-09-28T05:43:18Z",
-      "ticker": "6594",
-      "company": "Nidec",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Nidec is set to recognize a massive impairment loss of over $3.8 billion, which will severely impact its net income and capital structure.",
-      "why_now": "The impairment news was reported on September 28, 2026, creating immediate downward pressure on the stock.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-33304eae42f1"
-      ],
-      "primary_source_event_id": "EVT-33304eae42f1",
-      "source_headlines": [
-        "Japan motor maker Nidec to recognize over $3.8bn in impairment loss"
-      ],
-      "source_headline": "Japan motor maker Nidec to recognize over $3.8bn in impairment loss",
-      "source_url": "https://asia.nikkei.com/business/companies/japan-motor-maker-nidec-to-recognize-over-3.8bn-in-impairment-loss",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T05:34:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T05:43:18Z",
-      "updated_at": "2026-09-28T05:43:18Z",
-      "decay_at": "2026-09-29T17:34:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -154681,222 +154606,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-b9314c6a5cfd",
-      "idea_version": "IDEAV-f4fdfef8cb68e9b5",
-      "idea_version_started_at": "2026-09-27T05:55:16Z",
-      "ticker": "MC",
-      "company": "LVMH Moët Hennessy Louis Vuitton",
-      "exchange": "PAR",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "LVMH is entering negotiations to acquire a stake in Giorgio Armani, offering a rare consolidation opportunity in ultra-luxury fashion to boost long-term group margins.",
-      "why_now": "Negotiations are commencing immediately following reports on September 27, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-beff6feaf733"
-      ],
-      "primary_source_event_id": "EVT-beff6feaf733",
-      "source_headlines": [
-        "Armani to kick off stake sale talks with LVMH and L'Oreal"
-      ],
-      "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
-      "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-27T04:30:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T05:55:16Z",
-      "updated_at": "2026-09-27T05:55:16Z",
-      "decay_at": "2026-09-28T16:30:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-ce7fc5227a62",
-      "idea_version": "IDEAV-fa36ab06bebb6744",
-      "idea_version_started_at": "2026-09-27T05:55:16Z",
-      "ticker": "OR",
-      "company": "L'Oreal",
-      "exchange": "PAR",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "L'Oreal is entering talks to acquire a stake in Giorgio Armani, which would secure its long-term luxury beauty licensing revenues and expand its high-margin prestige portfolio.",
-      "why_now": "Armani is kicking off formal stake sale talks with L'Oreal and LVMH as of September 27, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-beff6feaf733"
-      ],
-      "primary_source_event_id": "EVT-beff6feaf733",
-      "source_headlines": [
-        "Armani to kick off stake sale talks with LVMH and L'Oreal"
-      ],
-      "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
-      "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-27T04:30:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T05:55:16Z",
-      "updated_at": "2026-09-27T05:55:16Z",
-      "decay_at": "2026-09-28T16:30:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5b777a88d829",
-      "idea_version": "IDEAV-54af01524dbdaf02",
-      "idea_version_started_at": "2026-09-27T05:04:56Z",
-      "ticker": "MC.PA",
-      "company": "LVMH Moët Hennessy Louis Vuitton SE",
-      "exchange": "EPA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "LVMH is entering stake sale talks with Giorgio Armani, which could lead to an acquisition and further strengthen its luxury brand portfolio and market share.",
-      "why_now": "Armani is kicking off stake sale talks with LVMH and L'Oreal as of September 27, 2026, indicating a live M&A catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-beff6feaf733"
-      ],
-      "primary_source_event_id": "EVT-beff6feaf733",
-      "source_headlines": [
-        "Armani to kick off stake sale talks with LVMH and L'Oreal"
-      ],
-      "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
-      "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-27T04:30:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T05:04:56Z",
-      "updated_at": "2026-09-27T05:04:56Z",
-      "decay_at": "2026-09-28T16:30:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-699b27265ce6",
       "idea_version": "IDEAV-b16bde90d1ed76f2",
       "idea_version_started_at": "2026-09-28T04:16:28Z",
@@ -155837,33 +155546,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 566,
+    "total_count": 560,
     "shown_count": 500,
-    "hidden_count": 66,
+    "hidden_count": 60,
     "side_counts": {
       "long": {
-        "total_count": 299,
+        "total_count": 295,
         "shown_count": 250,
-        "hidden_count": 49
+        "hidden_count": 45
       },
       "short": {
-        "total_count": 267,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 15
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 558,
-      "oldest_retained_at": "2026-09-03T02:54:08Z",
+      "evicted_count": 563,
+      "oldest_retained_at": "2026-09-04T00:34:18Z",
       "side_counts": {
         "long": {
-          "evicted_count": 369,
-          "oldest_retained_at": "2026-09-11T12:15:00Z"
+          "evicted_count": 373,
+          "oldest_retained_at": "2026-09-11T19:44:50Z"
         },
         "short": {
-          "evicted_count": 189,
-          "oldest_retained_at": "2026-09-03T02:54:08Z"
+          "evicted_count": 190,
+          "oldest_retained_at": "2026-09-04T00:34:18Z"
         }
       }
     },
@@ -156612,81 +156321,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-29T18:23:44Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-fc426f81932d",
-        "idea_version": "IDEAV-40cee4c6330b9f3a",
-        "idea_version_started_at": "2026-09-28T05:43:18Z",
-        "ticker": "6594",
-        "company": "Nidec",
-        "exchange": "TSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Nidec is set to recognize a massive impairment loss of over $3.8 billion, which will severely impact its net income and capital structure.",
-        "why_now": "The impairment news was reported on September 28, 2026, creating immediate downward pressure on the stock.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-33304eae42f1"
-        ],
-        "primary_source_event_id": "EVT-33304eae42f1",
-        "source_headlines": [
-          "Japan motor maker Nidec to recognize over $3.8bn in impairment loss"
-        ],
-        "source_headline": "Japan motor maker Nidec to recognize over $3.8bn in impairment loss",
-        "source_url": "https://asia.nikkei.com/business/companies/japan-motor-maker-nidec-to-recognize-over-3.8bn-in-impairment-loss",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-28T05:34:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-28T05:43:18Z",
-        "updated_at": "2026-09-28T05:43:18Z",
-        "decay_at": "2026-09-29T17:34:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-29T17:34:22Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -160480,8 +160114,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-28T16:30:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T05:19:35Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -160555,8 +160189,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-28T16:30:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T05:19:35Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -160630,8 +160264,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-28T16:30:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T05:19:35Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -160705,8 +160339,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-28T16:30:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T05:19:35Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -160782,8 +160416,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-28T16:27:44Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T05:19:35Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -193038,12 +192672,87 @@
         "archived_at": "2026-09-07T12:27:17Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-9a1422482f25",
+        "idea_version": "IDEAV-c566f34d88458f14",
+        "idea_version_started_at": "2026-09-04T09:24:12Z",
+        "ticker": "CABK",
+        "company": "CaixaBank",
+        "exchange": "BME",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "CaixaBank's BPI is exiting the Angolan market by selling its stake in BFA for €388.5 million, which suggests a strategic refocusing away from potentially less profitable or riskier international operations.",
+        "why_now": "The stake sale and market exit are current events, with a specific transaction value provided.",
+        "conviction": 45,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0e24d848113e"
+        ],
+        "primary_source_event_id": "EVT-0e24d848113e",
+        "source_headlines": [
+          "Caixabank's BPI leaves Angola market with BFA stake sale for €388.5 million"
+        ],
+        "source_headline": "Caixabank's BPI leaves Angola market with BFA stake sale for €388.5 million",
+        "source_url": "https://www.reuters.com/world/africa/caixabanks-bpi-leaves-angola-market-with-bfa-stake-sale-3885-million-2026-09-04/",
+        "source_name": "Reuters — Latest, next page (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-04T07:20:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-04T09:24:12Z",
+        "updated_at": "2026-09-04T09:24:12Z",
+        "decay_at": "2026-09-05T19:20:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-07T12:27:17Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1165,
-    "live_count": 40,
+    "surfaced_total": 1166,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
