@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T22:31:42Z",
+  "generated_at": "2026-09-30T22:39:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-525",
@@ -148833,76 +148833,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e4081d3d7646",
-      "idea_version": "IDEAV-21bfaf3dac94dd7a",
-      "idea_version_started_at": "2026-09-29T11:16:34Z",
-      "ticker": "AMD",
-      "company": "Advanced Micro Devices",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The $8.2 billion all-stock acquisition of World Labs will cause significant shareholder dilution and likely pressure the stock price in the near term.",
-      "why_now": "The deal was announced on 2026-09-29 and the market typically reacts negatively to large-scale equity-funded acquisitions.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0f8360b7187d"
-      ],
-      "primary_source_event_id": "EVT-0f8360b7187d",
-      "source_headlines": [
-        "AMD acquires AI research firm World Labs in all-stock deal worth $8.2bn"
-      ],
-      "source_headline": "AMD acquires AI research firm World Labs in all-stock deal worth $8.2bn",
-      "source_url": "https://www.datacenterdynamics.com/en/news/amd-acquires-ai-research-firm-world-labs-in-all-stock-deal-worth-82bn/",
-      "source_name": "DataCenterDynamics",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-29T10:38:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T11:16:34Z",
-      "updated_at": "2026-09-29T11:16:34Z",
-      "decay_at": "2026-09-30T22:38:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-90b902d53889",
       "idea_version": "IDEAV-21d26439d698bf8a",
       "idea_version_started_at": "2026-09-30T05:39:46Z",
@@ -151475,6 +151405,76 @@
       "surfaced_at": "2026-09-28T00:13:12Z",
       "updated_at": "2026-09-28T00:13:12Z",
       "decay_at": "2026-09-29T12:04:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e4081d3d7646",
+      "idea_version": "IDEAV-21bfaf3dac94dd7a",
+      "idea_version_started_at": "2026-09-29T11:16:34Z",
+      "ticker": "AMD",
+      "company": "Advanced Micro Devices",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The $8.2 billion all-stock acquisition of World Labs will cause significant shareholder dilution and likely pressure the stock price in the near term.",
+      "why_now": "The deal was announced on 2026-09-29 and the market typically reacts negatively to large-scale equity-funded acquisitions.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0f8360b7187d"
+      ],
+      "primary_source_event_id": "EVT-0f8360b7187d",
+      "source_headlines": [
+        "AMD acquires AI research firm World Labs in all-stock deal worth $8.2bn"
+      ],
+      "source_headline": "AMD acquires AI research firm World Labs in all-stock deal worth $8.2bn",
+      "source_url": "https://www.datacenterdynamics.com/en/news/amd-acquires-ai-research-firm-world-labs-in-all-stock-deal-worth-82bn/",
+      "source_name": "DataCenterDynamics",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T10:38:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T11:16:34Z",
+      "updated_at": "2026-09-29T11:16:34Z",
+      "decay_at": "2026-09-30T22:38:57Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -154990,9 +154990,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 552,
     "shown_count": 500,
-    "hidden_count": 51,
+    "hidden_count": 52,
     "side_counts": {
       "long": {
         "total_count": 285,
@@ -155000,9 +155000,9 @@
         "hidden_count": 35
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -155021,6 +155021,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e4081d3d7646",
+        "idea_version": "IDEAV-21bfaf3dac94dd7a",
+        "idea_version_started_at": "2026-09-29T11:16:34Z",
+        "ticker": "AMD",
+        "company": "Advanced Micro Devices",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The $8.2 billion all-stock acquisition of World Labs will cause significant shareholder dilution and likely pressure the stock price in the near term.",
+        "why_now": "The deal was announced on 2026-09-29 and the market typically reacts negatively to large-scale equity-funded acquisitions.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0f8360b7187d"
+        ],
+        "primary_source_event_id": "EVT-0f8360b7187d",
+        "source_headlines": [
+          "AMD acquires AI research firm World Labs in all-stock deal worth $8.2bn"
+        ],
+        "source_headline": "AMD acquires AI research firm World Labs in all-stock deal worth $8.2bn",
+        "source_url": "https://www.datacenterdynamics.com/en/news/amd-acquires-ai-research-firm-world-labs-in-all-stock-deal-worth-82bn/",
+        "source_name": "DataCenterDynamics",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-29T10:38:57Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T11:16:34Z",
+        "updated_at": "2026-09-29T11:16:34Z",
+        "decay_at": "2026-09-30T22:38:57Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-30T22:38:57Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ff67c8bb6eab",
         "idea_version": "IDEAV-804184a132d61ea6",
@@ -192123,86 +192196,12 @@
         "archived_at": "2026-09-07T16:59:20Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0c6d82b4b0e4",
-        "idea_version": "IDEAV-0162a70012b58b71",
-        "idea_version_started_at": "2026-09-05T20:08:22Z",
-        "ticker": "LULU",
-        "company": "Lululemon Athletica",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company reported a significant earnings miss and lowered its forward guidance, signaling a sharp deceleration in consumer demand and operational efficiency.",
-        "why_now": "The guidance cut and sales decline were announced on September 4, 2026, creating immediate downward pressure on the stock.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-214fc3c707d8",
-          "EVT-45cd33439e55"
-        ],
-        "primary_source_event_id": "EVT-214fc3c707d8",
-        "source_headlines": [
-          "Lululemon’s Stock Sinks 18% After Q2 Earnings And Outlook Cut",
-          "Lululemon pulls back store plans as sales plummet"
-        ],
-        "source_headline": "Lululemon’s Stock Sinks 18% After Q2 Earnings And Outlook Cut",
-        "source_url": "https://www.forbes.com/sites/fionariley/2026/09/04/lululemons-stock-sinks-18-after-q2-earnings-and-outlook-cut/",
-        "source_name": "Forbes",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-04T16:13:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-03T23:05:06Z",
-        "updated_at": "2026-09-05T20:08:22Z",
-        "decay_at": "2026-09-06T04:13:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-07T16:59:20Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1180,
-    "live_count": 43,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -192221,9 +192220,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12645252,
-    "news_picked_today": 1152,
-    "news_dropped_today": 22536
+    "news_seen_today": 12669086,
+    "news_picked_today": 1174,
+    "news_dropped_today": 22802
   },
   "book_momentum": {
     "live_count": 8,
