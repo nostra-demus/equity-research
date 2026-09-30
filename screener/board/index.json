@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T16:19:29Z",
+  "generated_at": "2026-09-30T16:20:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-451",
@@ -149083,6 +149083,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-2c8697fc45c7",
+      "idea_version": "IDEAV-7777b0b37ce565a4",
+      "idea_version_started_at": "2026-09-30T16:19:46Z",
+      "ticker": "LESL",
+      "company": "Leslie's, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has filed for bankruptcy to restructure its debt, which typically results in significant equity dilution or total loss for common shareholders.",
+      "why_now": "The bankruptcy filing was reported on 2026-09-30.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 22,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-aa2648ee54e1"
+      ],
+      "primary_source_event_id": "EVT-aa2648ee54e1",
+      "source_headlines": [
+        "Pool Supplier Leslie’s Files for Bankruptcy to Cut 90% of Debt"
+      ],
+      "source_headline": "Pool Supplier Leslie’s Files for Bankruptcy to Cut 90% of Debt",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-30/pool-supplier-leslie-s-files-for-bankruptcy-to-cut-90-of-debt",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T13:53:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T16:19:46Z",
+      "updated_at": "2026-09-30T16:19:46Z",
+      "decay_at": "2026-10-02T01:53:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1b179dc0df6d",
       "idea_version": "IDEAV-2a92d8f3e40bd7a8",
       "idea_version_started_at": "2026-09-29T09:29:53Z",
@@ -149291,6 +149362,150 @@
       "surfaced_at": "2026-09-29T09:11:29Z",
       "updated_at": "2026-09-29T09:11:29Z",
       "decay_at": "2026-09-30T17:30:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-52a632df2dfe",
+      "idea_version": "IDEAV-bf8cdf8594cf7309",
+      "idea_version_started_at": "2026-09-30T16:19:46Z",
+      "ticker": "08439",
+      "company": "Somerley Capital Holdings",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is subject to a mandatory unconditional cash offer, providing a clear exit price for shareholders.",
+      "why_now": "The announcement confirms the satisfaction of conditions precedent to the sale and purchase agreement as of 2026-09-30.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e3d40514e05a"
+      ],
+      "primary_source_event_id": "EVT-e3d40514e05a",
+      "source_headlines": [
+        "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA"
+      ],
+      "source_headline": "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0930/2026093002075.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T11:18:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T16:19:46Z",
+      "updated_at": "2026-09-30T16:19:46Z",
+      "decay_at": "2026-10-01T23:18:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-70b8068a4e51",
+      "idea_version": "IDEAV-be22929168ec6abe",
+      "idea_version_started_at": "2026-09-30T16:19:46Z",
+      "ticker": "PARA",
+      "company": "Paramount Global",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The ability to cut pricing on a large $30 billion high-grade bond sale signals strong investor demand and improved credit market access for the company.",
+      "why_now": "The bond pricing update occurred on 2026-09-30.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-eb8f9e9ecf87"
+      ],
+      "primary_source_event_id": "EVT-eb8f9e9ecf87",
+      "source_headlines": [
+        "Paramount Cuts Pricing on $30 Billion High-Grade Bond Sale"
+      ],
+      "source_headline": "Paramount Cuts Pricing on $30 Billion High-Grade Bond Sale",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-30/paramount-cuts-pricing-on-30-billion-high-grade-bond-sale",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T14:09:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T16:19:46Z",
+      "updated_at": "2026-09-30T16:19:46Z",
+      "decay_at": "2026-10-02T02:09:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -153955,222 +154170,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-02707dda3bc1",
-      "idea_version": "IDEAV-10945d6ed972942b",
-      "idea_version_started_at": "2026-09-27T20:17:32Z",
-      "ticker": "REXEL",
-      "company": "Rexel SA",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Rexel is expanding its US footprint through a $1.4 billion acquisition of GCG, a specialty wire and cable distributor, which is expected to be accretive to its North American margins.",
-      "why_now": "The deal was announced on September 27, 2026, marking a significant strategic deployment of capital into the high-growth US specialty electrical market.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a4e497fbca82"
-      ],
-      "primary_source_event_id": "EVT-a4e497fbca82",
-      "source_headlines": [
-        "Rexel To Acquire U.S. Specialty Wire And Cable Firm GCG In $1.4 Bln Deal"
-      ],
-      "source_headline": "Rexel To Acquire U.S. Specialty Wire And Cable Firm GCG In $1.4 Bln Deal",
-      "source_url": "https://www.nasdaq.com/articles/rexel-acquire-us-specialty-wire-and-cable-firm-gcg-14-bln-deal",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T14:56:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T20:17:32Z",
-      "updated_at": "2026-09-27T20:17:32Z",
-      "decay_at": "2026-09-29T02:56:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9f7e74ae9645",
-      "idea_version": "IDEAV-417899f46e71850f",
-      "idea_version_started_at": "2026-09-27T18:25:11Z",
-      "ticker": "RXL",
-      "company": "Rexel SA",
-      "exchange": "EPA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Rexel is acquiring U.S. specialty wire and cable firm GCG in a $1.4 billion deal, which should expand its market share and revenue in a key segment.",
-      "why_now": "The acquisition was announced on September 27, 2026, providing a fresh catalyst for Rexel's stock.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a4e497fbca82"
-      ],
-      "primary_source_event_id": "EVT-a4e497fbca82",
-      "source_headlines": [
-        "Rexel To Acquire U.S. Specialty Wire And Cable Firm GCG In $1.4 Bln Deal"
-      ],
-      "source_headline": "Rexel To Acquire U.S. Specialty Wire And Cable Firm GCG In $1.4 Bln Deal",
-      "source_url": "https://www.nasdaq.com/articles/rexel-acquire-us-specialty-wire-and-cable-firm-gcg-14-bln-deal",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T14:56:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T11:48:12Z",
-      "updated_at": "2026-09-27T18:25:11Z",
-      "decay_at": "2026-09-29T02:56:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-0cef461e2830",
-      "idea_version": "IDEAV-c6e6eab23717338f",
-      "idea_version_started_at": "2026-09-27T16:15:45Z",
-      "ticker": "EVPR",
-      "company": "Everpure",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company issued a $7 billion revenue forecast that significantly exceeds consensus analyst expectations, suggesting a fundamental step-change in growth.",
-      "why_now": "The guidance update was released on September 27, 2026, creating an immediate valuation gap relative to previous estimates.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ca9cafde9b29"
-      ],
-      "primary_source_event_id": "EVT-ca9cafde9b29",
-      "source_headlines": [
-        "Everpure’s $7 Billion Forecast Just Blew Past Wall Street’s Numbers"
-      ],
-      "source_headline": "Everpure’s $7 Billion Forecast Just Blew Past Wall Street’s Numbers",
-      "source_url": "https://247wallst.com/investing/2026/09/27/everpures-7-billion-forecast-just-blew-past-wall-streets-numbers/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-27T15:45:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T16:15:45Z",
-      "updated_at": "2026-09-27T16:15:45Z",
-      "decay_at": "2026-09-29T03:45:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-84d3d160ac55",
       "idea_version": "IDEAV-d8d38b50d5b7a32f",
       "idea_version_started_at": "2026-09-29T03:32:55Z",
@@ -154742,78 +154741,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5de53cb99e08",
-      "idea_version": "IDEAV-d1c47a64f320b8ce",
-      "idea_version_started_at": "2026-09-27T14:49:56Z",
-      "ticker": "GOLD",
-      "company": "Barrick Gold",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The resolution of labor disputes at the Loulo-Gounkoto complex in Mali removes a significant production risk for the company's gold output.",
-      "why_now": "The deal was announced on 2026-09-27, immediately eliminating the threat of a strike that could have halted operations.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-677cf77fc3e2"
-      ],
-      "primary_source_event_id": "EVT-677cf77fc3e2",
-      "source_headlines": [
-        "Barrick Mining reaches deal with unions at Mali gold mine, easing strike threat"
-      ],
-      "source_headline": "Barrick Mining reaches deal with unions at Mali gold mine, easing strike threat",
-      "source_url": "https://www.reuters.com/world/africa/barrick-mining-reaches-deal-with-mali-gold-unions-bloomberg-news-reports-2026-09-27/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-27T14:33:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T14:49:56Z",
-      "updated_at": "2026-09-27T14:49:56Z",
-      "decay_at": "2026-09-29T02:33:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5466e1ade136",
       "idea_version": "IDEAV-8d934bcdef98dd99",
       "idea_version_started_at": "2026-09-28T00:37:06Z",
@@ -155109,14 +155036,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 547,
     "shown_count": 500,
-    "hidden_count": 51,
+    "hidden_count": 47,
     "side_counts": {
       "long": {
-        "total_count": 290,
+        "total_count": 286,
         "shown_count": 250,
-        "hidden_count": 40
+        "hidden_count": 36
       },
       "short": {
         "total_count": 261,
@@ -155126,12 +155053,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 577,
+      "evicted_count": 581,
       "oldest_retained_at": "2026-09-05T04:22:48Z",
       "side_counts": {
         "long": {
-          "evicted_count": 382,
-          "oldest_retained_at": "2026-09-12T11:00:00Z"
+          "evicted_count": 386,
+          "oldest_retained_at": "2026-09-12T17:13:44Z"
         },
         "short": {
           "evicted_count": 195,
@@ -158707,8 +158634,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T03:45:36Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T16:19:56Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -158782,8 +158709,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T02:56:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T16:19:56Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -158857,8 +158784,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T02:56:39Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T16:19:56Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -158932,8 +158859,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T02:33:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T16:19:56Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -192314,8 +192241,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1174,
-    "live_count": 45,
+    "surfaced_total": 1177,
+    "live_count": 48,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
