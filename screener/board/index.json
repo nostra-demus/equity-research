@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-30T14:40:15Z",
+  "generated_at": "2026-09-30T14:43:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-394",
+      "headline": "JIANGSU EXPRESS (00177): DISCLOSEABLE AND RELATED PARTY/CONNECTED TRANSACTION IN RESPECT OF ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY - 2026 INTERIM PROFIT DISTRIBUTION SCHEME AND NOTICE OF 2026 FIRST EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002809.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T14:28:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Company announced the acquisition of 100% equity interest in Suxichang South Expressway Company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced the acquisition of 100% equity interest in Suxichang South Expressway Company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JIANGSU EXPRESS",
+          "ticker": "00177",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-345",
       "headline": "CON AERO TECH (00232): JOINT ANNOUNCEMENT - (1) COMPLETION OF THE DISPOSAL; (2) DECLARATION OF SPECIAL DIVIDEND ON DISPOSAL; (3) COMPLETION OF THE PROPERTY DISPOSAL; (4) DECLARATION OF CASH DIVIDEND ON PROPERTY DISPOSAL; (5) EFFECTIVE DATE OF THE CAPITAL REORGANIZATION; (6) FREE EXCHANGE OF SHARE CERTIFICATES; AND (7) WITHDRAWAL OF LISTING",
@@ -1919,61 +1968,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-112",
-      "headline": "Paramount’s $30 billion bond sale draws $109 billion demand for Warner Bros deal",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/paramounts-30-billion-bond-sale-draws-109-billion-demand-for-warner-bros-deal-11790735235267.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T02:35:04Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Paramount's $30 billion bond sale for the Warner Bros deal drew $109 billion in demand, indicating strong market confidence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount's $30 billion bond sale for the Warner Bros deal drew $109 billion in demand, indicating strong market confidence.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Warner Bros",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192351,9 +192345,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9962733,
-    "news_picked_today": 764,
-    "news_dropped_today": 14284
+    "news_seen_today": 9990802,
+    "news_picked_today": 769,
+    "news_dropped_today": 14303
   },
   "book_momentum": {
     "live_count": 8,
