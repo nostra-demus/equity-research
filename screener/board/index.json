@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T07:58:22Z",
+  "generated_at": "2026-09-30T08:08:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-140",
@@ -1090,6 +1090,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-158",
+      "headline": "OPmobility agrees to buy Hyundai Mobis' lighting unit for $443 million",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/opmobility-agrees-buy-hyundai-mobis-lighting-unit-443-million-2026-09-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T07:16:10Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "OPmobility to acquire Hyundai Mobis' lighting business for $443 million; confirmed deal with named acquirer, target, and transaction value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "OPmobility to acquire Hyundai Mobis' lighting business for $443 million; confirmed deal with named acquirer, target, and transaction value.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OPmobility",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Hyundai Mobis",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-143",
       "headline": "Asian Energy Services Limited: Asian Energy Services Limited has informed the Exchange about the Pronouncement of order by the Hon'ble National Company Law Tribunal, Mumbai Bench ('NCLT' or 'Hon'ble Tribunal') in the matter of Scheme of Merger by Absorption of Oilmax Energy Private Limited ('OEPL' or Transferor Company') with Asian Energy Services Limited ('AESL' or Transferee Company' or 'the Company') and their respective shareholders ('Scheme').",
       "headline_en": null,
@@ -1916,55 +1970,6 @@
           "name": "EWC",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-067",
-      "headline": "GOW: Preliminary Final Report for the year ended 31 July 2026 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GOW?key=2924-03141992-2A1700574",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T01:33:04Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "GOW released its preliminary final report for the year ended July 31, 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "GOW released its preliminary final report for the year ended July 31, 2026.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GOW",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "unknown",
@@ -192918,9 +192923,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6973658,
-    "news_picked_today": 261,
-    "news_dropped_today": 5163
+    "news_seen_today": 7081526,
+    "news_picked_today": 271,
+    "news_dropped_today": 5225
   },
   "book_momentum": {
     "live_count": 8,
