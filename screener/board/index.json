@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T17:25:08Z",
+  "generated_at": "2026-09-30T17:30:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-452",
@@ -149366,78 +149366,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0262bb6131e9",
-      "idea_version": "IDEAV-6452e2ba2edff06c",
-      "idea_version_started_at": "2026-09-29T09:11:29Z",
-      "ticker": "LDSVF",
-      "company": "Lindt & Sprüngli",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has cut its growth forecast for the second time due to persistent weak demand and adverse weather conditions impacting sales.",
-      "why_now": "The guidance cut was released on 2026-09-29.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a367333b1d18",
-        "EVT-8e58121d2a35"
-      ],
-      "primary_source_event_id": "EVT-a367333b1d18",
-      "source_headlines": [
-        "Lindt cuts 2026 growth forecast as weak demand, heatwave weigh on sales",
-        "Lindt Cuts Sales-Growth Guidance for Second Time on Weak Demand"
-      ],
-      "source_headline": "Lindt cuts 2026 growth forecast as weak demand, heatwave weigh on sales",
-      "source_url": "https://www.reuters.com/business/retail-consumer/lindt-cuts-2026-growth-forecast-weak-demand-heatwave-weigh-sales-2026-09-29/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-29T05:30:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T09:11:29Z",
-      "updated_at": "2026-09-29T09:11:29Z",
-      "decay_at": "2026-09-30T17:30:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-52a632df2dfe",
       "idea_version": "IDEAV-bf8cdf8594cf7309",
       "idea_version_started_at": "2026-09-30T16:19:46Z",
@@ -151239,79 +151167,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d158d5568139",
-      "idea_version": "IDEAV-3af9372ed9f72aef",
-      "idea_version_started_at": "2026-09-29T09:11:29Z",
-      "ticker": "STTC",
-      "company": "Sangoma Technologies",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Sangoma Technologies is being acquired by BRC Group in a $204 million deal, creating a clear arbitrage opportunity between the current market price and the acquisition price.",
-      "why_now": "The deal was announced on 2026-09-29.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3b2a9acd7e91"
-      ],
-      "primary_source_event_id": "EVT-3b2a9acd7e91",
-      "source_headlines": [
-        "BRC Group To Acquire Sangoma Technologies In $204 Mln Deal"
-      ],
-      "source_headline": "BRC Group To Acquire Sangoma Technologies In $204 Mln Deal",
-      "source_url": "https://www.nasdaq.com/articles/brc-group-acquire-sangoma-technologies-204-mln-deal",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-29T05:27:50Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T09:11:29Z",
-      "updated_at": "2026-09-29T09:11:29Z",
-      "decay_at": "2026-09-30T17:27:50Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d99505bc75b0",
       "idea_version": "IDEAV-11208c4dd4e3a05e",
       "idea_version_started_at": "2026-09-30T09:32:50Z",
@@ -152371,6 +152226,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0262bb6131e9",
+      "idea_version": "IDEAV-6452e2ba2edff06c",
+      "idea_version_started_at": "2026-09-29T09:11:29Z",
+      "ticker": "LDSVF",
+      "company": "Lindt & Sprüngli",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has cut its growth forecast for the second time due to persistent weak demand and adverse weather conditions impacting sales.",
+      "why_now": "The guidance cut was released on 2026-09-29.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a367333b1d18",
+        "EVT-8e58121d2a35"
+      ],
+      "primary_source_event_id": "EVT-a367333b1d18",
+      "source_headlines": [
+        "Lindt cuts 2026 growth forecast as weak demand, heatwave weigh on sales",
+        "Lindt Cuts Sales-Growth Guidance for Second Time on Weak Demand"
+      ],
+      "source_headline": "Lindt cuts 2026 growth forecast as weak demand, heatwave weigh on sales",
+      "source_url": "https://www.reuters.com/business/retail-consumer/lindt-cuts-2026-growth-forecast-weak-demand-heatwave-weigh-sales-2026-09-29/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T05:30:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T09:11:29Z",
+      "updated_at": "2026-09-29T09:11:29Z",
+      "decay_at": "2026-09-30T17:30:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-0ff3dac31d35",
       "idea_version": "IDEAV-02ba0a067e1fad75",
       "idea_version_started_at": "2026-09-29T20:20:56Z",
@@ -152579,6 +152506,79 @@
       "surfaced_at": "2026-09-29T20:20:56Z",
       "updated_at": "2026-09-29T20:20:56Z",
       "decay_at": "2026-09-30T05:46:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d158d5568139",
+      "idea_version": "IDEAV-3af9372ed9f72aef",
+      "idea_version_started_at": "2026-09-29T09:11:29Z",
+      "ticker": "STTC",
+      "company": "Sangoma Technologies",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Sangoma Technologies is being acquired by BRC Group in a $204 million deal, creating a clear arbitrage opportunity between the current market price and the acquisition price.",
+      "why_now": "The deal was announced on 2026-09-29.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3b2a9acd7e91"
+      ],
+      "primary_source_event_id": "EVT-3b2a9acd7e91",
+      "source_headlines": [
+        "BRC Group To Acquire Sangoma Technologies In $204 Mln Deal"
+      ],
+      "source_headline": "BRC Group To Acquire Sangoma Technologies In $204 Mln Deal",
+      "source_url": "https://www.nasdaq.com/articles/brc-group-acquire-sangoma-technologies-204-mln-deal",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T05:27:50Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T09:11:29Z",
+      "updated_at": "2026-09-29T09:11:29Z",
+      "decay_at": "2026-09-30T17:27:50Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155106,19 +155106,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 549,
     "shown_count": 500,
-    "hidden_count": 47,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 286,
+        "total_count": 287,
         "shown_count": 250,
-        "hidden_count": 36
+        "hidden_count": 37
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -155137,6 +155137,157 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0262bb6131e9",
+        "idea_version": "IDEAV-6452e2ba2edff06c",
+        "idea_version_started_at": "2026-09-29T09:11:29Z",
+        "ticker": "LDSVF",
+        "company": "Lindt & Sprüngli",
+        "exchange": "OTC Markets",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has cut its growth forecast for the second time due to persistent weak demand and adverse weather conditions impacting sales.",
+        "why_now": "The guidance cut was released on 2026-09-29.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a367333b1d18",
+          "EVT-8e58121d2a35"
+        ],
+        "primary_source_event_id": "EVT-a367333b1d18",
+        "source_headlines": [
+          "Lindt cuts 2026 growth forecast as weak demand, heatwave weigh on sales",
+          "Lindt Cuts Sales-Growth Guidance for Second Time on Weak Demand"
+        ],
+        "source_headline": "Lindt cuts 2026 growth forecast as weak demand, heatwave weigh on sales",
+        "source_url": "https://www.reuters.com/business/retail-consumer/lindt-cuts-2026-growth-forecast-weak-demand-heatwave-weigh-sales-2026-09-29/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-29T05:30:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T09:11:29Z",
+        "updated_at": "2026-09-29T09:11:29Z",
+        "decay_at": "2026-09-30T17:30:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-30T17:30:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-d158d5568139",
+        "idea_version": "IDEAV-3af9372ed9f72aef",
+        "idea_version_started_at": "2026-09-29T09:11:29Z",
+        "ticker": "STTC",
+        "company": "Sangoma Technologies",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Sangoma Technologies is being acquired by BRC Group in a $204 million deal, creating a clear arbitrage opportunity between the current market price and the acquisition price.",
+        "why_now": "The deal was announced on 2026-09-29.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3b2a9acd7e91"
+        ],
+        "primary_source_event_id": "EVT-3b2a9acd7e91",
+        "source_headlines": [
+          "BRC Group To Acquire Sangoma Technologies In $204 Mln Deal"
+        ],
+        "source_headline": "BRC Group To Acquire Sangoma Technologies In $204 Mln Deal",
+        "source_url": "https://www.nasdaq.com/articles/brc-group-acquire-sangoma-technologies-204-mln-deal",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-29T05:27:50Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T09:11:29Z",
+        "updated_at": "2026-09-29T09:11:29Z",
+        "decay_at": "2026-09-30T17:27:50Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-30T17:27:50Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f64bbbd95f6f",
         "idea_version": "IDEAV-deb73ae1a74b16bb",
@@ -184259,81 +184410,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f10044ee35a3",
-        "idea_version": "IDEAV-70cc29c1fe35cd26",
-        "idea_version_started_at": "2026-09-13T18:31:35Z",
-        "ticker": "SDZ",
-        "company": "Sandoz",
-        "exchange": "SIX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A new 2040 strategy targeting 100 biosimilars supported by a $300 million facility build-out positions the company to capture significant market share in the high-margin biologics space.",
-        "why_now": "The strategic roadmap and facility investment were unveiled on September 13, 2024.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ec739a38721f"
-        ],
-        "primary_source_event_id": "EVT-ec739a38721f",
-        "source_headlines": [
-          "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build"
-        ],
-        "source_headline": "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build",
-        "source_url": "https://www.fiercepharma.com/pharma/sandoz-aims-biosimilar-dominance-under-new-strategy-300m-facility-sweetener-slovenia",
-        "source_name": "FiercePharma",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T12:23:32Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T12:44:48Z",
-        "updated_at": "2026-09-13T18:31:35Z",
-        "decay_at": "2026-09-15T00:23:32Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-16T13:29:06Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-69441c9f6035",
         "idea_version": "IDEAV-3864d3d0cf90ad00",
         "idea_version_started_at": "2026-09-13T12:04:53Z",
@@ -192233,86 +192309,12 @@
         "archived_at": "2026-09-07T12:27:17Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1bddbe8343f3",
-        "idea_version": "IDEAV-6a30c09e4203eb0e",
-        "idea_version_started_at": "2026-09-04T20:44:18Z",
-        "ticker": "BANKINDIA",
-        "company": "Bank of India",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A planned strike by employees will disrupt banking operations, likely impacting short-term transaction volumes and service efficiency.",
-        "why_now": "The notice of strike was filed on September 04, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ceaad3da0897"
-        ],
-        "primary_source_event_id": "EVT-ceaad3da0897",
-        "source_headlines": [
-          "Bank of India: Bank Of India has informed the Exchange about Notice of Strike."
-        ],
-        "source_headline": "Bank of India: Bank Of India has informed the Exchange about Notice of Strike.",
-        "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8bdb6f6f-a0d3-4fc4-9123-6363ae868b0a.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-04T09:40:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-04T11:46:15Z",
-        "updated_at": "2026-09-04T20:44:18Z",
-        "decay_at": "2026-09-05T21:40:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-07T12:27:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1178,
-    "live_count": 49,
+    "live_count": 47,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -192331,9 +192333,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10792684,
-    "news_picked_today": 917,
-    "news_dropped_today": 16507
+    "news_seen_today": 10819767,
+    "news_picked_today": 927,
+    "news_dropped_today": 16593
   },
   "book_momentum": {
     "live_count": 8,
