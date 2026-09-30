@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T02:29:19Z",
+  "generated_at": "2026-09-30T02:41:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-046",
@@ -193,6 +193,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-096",
+      "headline": "Nidec Shares Sink as CEO Resigns Amid Accounting Scandal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-30/nidec-shares-sink-as-ceo-resigns-amid-accounting-scandal-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T02:28:42Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Nidec CEO resigned amid an accounting scandal, creating significant management and governance uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nidec CEO resigned amid an accounting scandal, creating significant management and governance uncertainty.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "executive_exit",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nidec",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1898,56 +1948,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-022",
-      "headline": "ET Exclusive: Venu Srinivasan seeks probe into Tata Trusts over alleged governance lapses",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/et-exclusive-venu-srinivasan-seeks-probe-into-tata-trusts-over-alleged-governance-lapses/articleshow/134573035.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Venu Srinivasan is seeking a probe into Tata Trusts regarding alleged governance lapses, which could impact the management and reputation of the Tata group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Venu Srinivasan is seeking a probe into Tata Trusts regarding alleged governance lapses, which could impact the management and reputation of the Tata group.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Trusts",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193411,9 +193411,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2144201,
-    "news_picked_today": 110,
-    "news_dropped_today": 1114
+    "news_seen_today": 2332335,
+    "news_picked_today": 115,
+    "news_dropped_today": 1205
   },
   "book_momentum": {
     "live_count": 8,
