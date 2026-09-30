@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T01:09:32Z",
+  "generated_at": "2026-09-30T01:13:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-046",
@@ -934,6 +934,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-062",
+      "headline": "SOMERLEY CAP (08439): EXCHANGE NOTICE - TRADING HALT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0930/2026093000149.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T00:58:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Somerley Capital has announced a trading halt on the HKEX.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Somerley Capital has announced a trading halt on the HKEX.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Somerley Capital",
+          "ticker": "08439",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-050",
       "headline": "TRIO IND ELEC (01710): EXCHANGE NOTICE - TRADING HALT",
       "headline_en": null,
@@ -1620,6 +1669,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-058",
+      "headline": "US Federal Reserve’s Williams sees one more interest rate hike in late 2026",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/economy/us-federal-reserves-williams-sees-one-more-interest-rate-hike-in-late-2026",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T00:55:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "A Federal Reserve official provided a specific forward-looking interest rate expectation for 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "A Federal Reserve official provided a specific forward-looking interest rate expectation for 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-043",
       "headline": "424B5 - KROGER CO (0000056873) (Filer)",
       "headline_en": null,
@@ -1767,20 +1859,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260930-014",
-      "headline": "SCHEDULE 13D - PMGC Holdings Inc. (0001840563) (Filed by)",
+      "inbox_id": "INB-20260930-061",
+      "headline": "SCHEDULE 13D/A - Heritage Global Inc. (0000849145) (Subject)",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1840563/000121390026104805/0001213900-26-104805-index.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/849145/000119312526408045/0001193125-26-408045-index.htm",
       "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-09-29T23:58:26Z",
+      "found_at": "2026-09-30T01:01:15Z",
       "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "A Schedule 13D filing indicates a significant ownership stake or activist interest in PMGC Holdings Inc.",
+      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership or intent for Heritage Global Inc.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 74,
-      "triage_reason": "A Schedule 13D filing indicates a significant ownership stake or activist interest in PMGC Holdings Inc.",
+      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership or intent for Heritage Global Inc.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -1805,7 +1897,7 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "PMGC Holdings Inc.",
+          "name": "Heritage Global Inc.",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1816,20 +1908,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260930-007",
-      "headline": "SCHEDULE 13D - NorthStrive Acquisition Corp I. (0002133719) (Subject)",
+      "inbox_id": "INB-20260930-060",
+      "headline": "SCHEDULE 13D/A - DOVE ROSS (0001245119) (Filed by)",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2133719/000121390026104805/0001213900-26-104805-index.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1245119/000119312526408045/0001193125-26-408045-index.htm",
       "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-09-29T23:58:26Z",
+      "found_at": "2026-09-30T01:01:15Z",
       "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "A Schedule 13D filing indicates a significant ownership stake or activist interest in NorthStrive Acquisition Corp I.",
+      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership or intent for Heritage Global Inc.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 74,
-      "triage_reason": "A Schedule 13D filing indicates a significant ownership stake or activist interest in NorthStrive Acquisition Corp I.",
+      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership or intent for Heritage Global Inc.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -1854,111 +1946,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "NorthStrive Acquisition Corp I",
+          "name": "Heritage Global Inc.",
           "ticker": null,
           "listing_country": "US"
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-009",
-      "headline": "CIRC (01763): CONNECTED TRANSACTION AND DISCLOSEABLE TRANSACTION PROPOSED APPOINTMENT OF DIRECTOR PROPOSED INTERIM DIVIDEND AND PROPOSED GRANT OF GENERAL MANDATE TO ISSUE SHARES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000053.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T23:01:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Proposed director appointment and interim dividend announcement are material corporate governance and capital allocation events.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Proposed director appointment and interim dividend announcement are material corporate governance and capital allocation events.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "China Resources Land",
-          "ticker": "01763",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-018",
-      "headline": "WOER (09981): FURTHER UPDATE ON PUBLIC OFFERING AND TRANSFER OF LISTING OF SHANGHAI KETER TO THE BEIJING STOCK EXCHANGE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000071.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T23:40:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "The company is updating the status of its subsidiary's listing transfer to the Beijing Stock Exchange.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "The company is updating the status of its subsidiary's listing transfer to the Beijing Stock Exchange.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Woer",
-          "ticker": "09981",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193423,9 +193416,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1012203,
-    "news_picked_today": 61,
-    "news_dropped_today": 539
+    "news_seen_today": 1075217,
+    "news_picked_today": 66,
+    "news_dropped_today": 558
   },
   "book_momentum": {
     "live_count": 8,
