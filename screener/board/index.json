@@ -1,6 +1,300 @@
 {
-  "generated_at": "2026-09-29T23:54:27Z",
+  "generated_at": "2026-09-30T00:04:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-004",
+      "headline": "PAR: Appointment of Voluntary Administrators [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PAR?key=2924-03141905-3A702887",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T23:51:34Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Paradigm Biopharmaceuticals has appointed voluntary administrators, indicating a formal insolvency process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paradigm Biopharmaceuticals has appointed voluntary administrators, indicating a formal insolvency process.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paradigm Biopharmaceuticals",
+          "ticker": "PAR",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-006",
+      "headline": "MYX: MYX settles US patent litigation re Imvexxy with Sun Pharma [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MYX?key=2924-03141902-3A702883",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T23:49:39Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Mithra Pharmaceuticals settled US patent litigation regarding Imvexxy with Sun Pharma, removing a legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Mithra Pharmaceuticals settled US patent litigation regarding Imvexxy with Sun Pharma, removing a legal risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mithra Pharmaceuticals",
+          "ticker": "MYX",
+          "listing_country": "BE"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-003",
+      "headline": "EMP: Approval of Judith2 Appraisal Well Drilling Environment Plan [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EMP?key=2924-03141907-2A1700521",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T23:52:59Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Empire Energy Group received approval for the Judith2 appraisal well drilling plan, a key operational milestone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Empire Energy Group received approval for the Judith2 appraisal well drilling plan, a key operational milestone.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Empire Energy Group",
+          "ticker": "EMP",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-005",
+      "headline": "ALX: 2027 Potential French Tax Changes [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ALX?key=2924-03141906-2A1700520",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T23:51:34Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Atlas Arteria is assessing the impact of potential 2027 French tax changes on its operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Atlas Arteria is assessing the impact of potential 2027 French tax changes on its operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Atlas Arteria",
+          "ticker": "ALX",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-001",
+      "headline": "NTU: 2026 Financial Statements, Auditor Arrangements & FID Update",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NTU?key=2924-03141904-6A1346571",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T23:51:14Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Routine financial statement and FID update for a small-cap mining company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Routine financial statement and FID update for a small-cap mining company.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NTU",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-002",
+      "headline": "SUH: Diamond Drilling Commences to Test Ferro South Targets",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SUH?key=2924-03141892-6A1346569",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T23:44:24Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Routine exploration update for a junior mining company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Routine exploration update for a junior mining company.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SUH",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260929-434",
       "headline": "ADO: Full Year Results and Business Update Presentation [price-sensitive]",
@@ -191664,7 +191958,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3007,
+    "inbox_unconsumed": 3013,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -191673,9 +191967,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 15340434,
-    "news_picked_today": 1304,
-    "news_dropped_today": 10432
+    "news_seen_today": 0,
+    "news_picked_today": 0,
+    "news_dropped_today": 0
   },
   "book_momentum": {
     "live_count": 8,
