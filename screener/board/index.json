@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T01:41:00Z",
+  "generated_at": "2026-09-30T01:45:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-046",
@@ -1413,6 +1413,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-065",
+      "headline": "Trump says Iran ‘doing very poorly’ as US announces fresh sanctions",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/world/trump-says-iran-doing-very-poorly-as-us-announces-fresh-sanctions-20001489.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T01:36:42Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "The US announced fresh sanctions against Iran, escalating geopolitical tensions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "The US announced fresh sanctions against Iran, escalating geopolitical tensions.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-040",
       "headline": "Gold Fields pitches $3.5b tax saving in Northern Star takeover",
       "headline_en": null,
@@ -1898,55 +1941,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-061",
-      "headline": "SCHEDULE 13D/A - Heritage Global Inc. (0000849145) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/849145/000119312526408045/0001193125-26-408045-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-30T01:01:15Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership or intent for Heritage Global Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership or intent for Heritage Global Inc.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Heritage Global Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193411,9 +193405,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1421519,
-    "news_picked_today": 69,
-    "news_dropped_today": 795
+    "news_seen_today": 1484431,
+    "news_picked_today": 72,
+    "news_dropped_today": 816
   },
   "book_momentum": {
     "live_count": 8,
