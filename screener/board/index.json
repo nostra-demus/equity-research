@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-30T16:27:27Z",
+  "generated_at": "2026-09-30T16:34:39Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-452",
+      "headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SHRENIK_30092026212627_Copy_of_Disclosure_of_the_Second_CoC_Meeting.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T15:57:45Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Shrenik Limited has entered the Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shrenik Limited has entered the Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shrenik Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-451",
       "headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process Intimation regarding the Interim Resolution Professional performing the functions of theResolution Professional (deemed Resolution Professional) of Shrenik Limited (In CIRP) in terms ofRegulation 17(3) of the IBBI (Insolvency Resolution Process for Corporate Persons) Regulations,2016.",
@@ -27,55 +76,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shrenik Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-435",
-      "headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SHRENIK_30092026211124_Outcome_of_the_First_CoC_Meeting.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T15:42:27Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Shrenik Limited has entered Corporate Insolvency Resolution Process (India's formal bankruptcy regime); equity holders face permanent capital loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shrenik Limited has entered Corporate Insolvency Resolution Process (India's formal bankruptcy regime); equity holders face permanent capital loss.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
