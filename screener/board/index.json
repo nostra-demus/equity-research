@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T03:15:29Z",
+  "generated_at": "2026-09-30T03:15:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-104",
@@ -148581,6 +148581,75 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-485c669a88ce",
+      "idea_version": "IDEAV-7ffbef24b3e2be08",
+      "idea_version_started_at": "2026-09-30T03:15:36Z",
+      "ticker": "AXP",
+      "company": "American Express",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The OCC's public dissent regarding the company's resolution plan signals heightened regulatory scrutiny and potential capital constraints, which could force costly operational adjustments.",
+      "why_now": "The Comptroller issued a formal statement on 2026-09-29 explicitly criticizing the firm's resolution planning, marking a rare and significant public regulatory rebuke.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 71,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 14,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-294ce2975015"
+      ],
+      "primary_source_event_id": "EVT-294ce2975015",
+      "source_headlines": [
+        "Comptroller Issues Statement Explaining Vote Against Resolution Plan Feedback for American Express, Reasserts Need for Reforms to Resolution Planning"
+      ],
+      "source_headline": "Comptroller Issues Statement Explaining Vote Against Resolution Plan Feedback for American Express, Reasserts Need for Reforms to Resolution Planning",
+      "source_url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-82.html",
+      "source_name": "Office of the Comptroller of the Currency — News Releases",
+      "materiality_max": 93,
+      "newest_source_at": "2026-09-29T20:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T03:15:36Z",
+      "updated_at": "2026-09-30T03:15:36Z",
+      "decay_at": "2026-10-01T08:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-99a574f2e453",
       "idea_version": "IDEAV-e7a8f8f4342bd67e",
       "idea_version_started_at": "2026-09-29T22:42:00Z",
@@ -154514,81 +154583,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-34170708f0d3",
-      "idea_version": "IDEAV-1fe75c6467913028",
-      "idea_version_started_at": "2026-09-27T20:17:32Z",
-      "ticker": "TCL",
-      "company": "Transurban Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The exit of pension fund backer La Caisse from the $33 billion WestConnex project creates an opportunity for Transurban, the existing operator, to consolidate its ownership of this core infrastructure asset.",
-      "why_now": "The stake was put up for sale on September 27, 2026, making Transurban the logical strategic buyer for the interest in Australia's largest road project.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7db9988e7ff4",
-        "EVT-487ec0759c5b"
-      ],
-      "primary_source_event_id": "EVT-7db9988e7ff4",
-      "source_headlines": [
-        "WestConnex pension fund backer puts big stake in $33b road up for sale",
-        "La Caisse to exit NSW’s $33b WestConnex toll road; eyes on Transurban"
-      ],
-      "source_headline": "WestConnex pension fund backer puts big stake in $33b road up for sale",
-      "source_url": "https://www.afr.com/street-talk/la-cassie-to-exit-nsw-s-33b-westconnex-toll-road-eyes-on-transurban-20260927-p610ss?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 97,
-      "newest_source_at": "2026-09-27T02:53:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T03:19:50Z",
-      "updated_at": "2026-09-27T20:17:32Z",
-      "decay_at": "2026-09-28T14:53:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-318245f25356",
       "idea_version": "IDEAV-8fb4f408f3cda980",
       "idea_version_started_at": "2026-09-27T19:10:14Z",
@@ -156176,14 +156170,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 573,
+    "total_count": 572,
     "shown_count": 500,
-    "hidden_count": 73,
+    "hidden_count": 72,
     "side_counts": {
       "long": {
-        "total_count": 304,
+        "total_count": 303,
         "shown_count": 250,
-        "hidden_count": 54
+        "hidden_count": 53
       },
       "short": {
         "total_count": 269,
@@ -156193,12 +156187,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 551,
+      "evicted_count": 552,
       "oldest_retained_at": "2026-09-03T01:48:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 364,
-          "oldest_retained_at": "2026-09-11T08:49:52Z"
+          "evicted_count": 365,
+          "oldest_retained_at": "2026-09-11T11:56:07Z"
         },
         "short": {
           "evicted_count": 187,
@@ -161647,8 +161641,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-28T14:53:31Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T03:15:40Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -193381,8 +193375,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1163,
-    "live_count": 38,
+    "surfaced_total": 1164,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
