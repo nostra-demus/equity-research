@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-30T14:06:17Z",
+  "generated_at": "2026-09-30T14:11:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-345",
+      "headline": "CON AERO TECH (00232): JOINT ANNOUNCEMENT - (1) COMPLETION OF THE DISPOSAL; (2) DECLARATION OF SPECIAL DIVIDEND ON DISPOSAL; (3) COMPLETION OF THE PROPERTY DISPOSAL; (4) DECLARATION OF CASH DIVIDEND ON PROPERTY DISPOSAL; (5) EFFECTIVE DATE OF THE CAPITAL REORGANIZATION; (6) FREE EXCHANGE OF SHARE CERTIFICATES; AND (7) WITHDRAWAL OF LISTING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002601.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T13:58:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Con Aero Tech is completing a disposal, issuing a special dividend, and withdrawing its listing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Con Aero Tech is completing a disposal, issuing a special dividend, and withdrawing its listing.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Con Aero Tech",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-333",
       "headline": "SFSY ENERGY (00750): MAJOR TRANSACTION ACQUISITION OF 100% EQUITY INTEREST IN TARGET COMPANY COMPLETION OF RECONSTRUCTION OF 35MW CAPACITY OF THE LIUPANSHUI PROJECT",
@@ -1937,56 +1987,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-265",
-      "headline": "BOCOM INTL (03329): VOLUNTARY ANNOUNCEMENT COMPLETION OF THE ISSUANCE OF RMB1,100,000,000 AND USD134,000,000 SUBORDINATED PERPETUAL SECURITIES",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093001617.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T09:55:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Completion of a large issuance of RMB 1.1 billion and USD 134 million in subordinated perpetual securities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Completion of a large issuance of RMB 1.1 billion and USD 134 million in subordinated perpetual securities.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BOCOM INTL",
-          "ticker": "03329",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192364,9 +192364,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9737645,
-    "news_picked_today": 627,
-    "news_dropped_today": 13821
+    "news_seen_today": 9765960,
+    "news_picked_today": 662,
+    "news_dropped_today": 13882
   },
   "book_momentum": {
     "live_count": 8,
