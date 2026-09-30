@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-7137e0cf25b2",
-  "idea_version": "IDEAV-db99c273464eecbe",
-  "idea_version_started_at": "2026-09-28T03:12:56Z",
+  "idea_version": "IDEAV-3df979a56a1b2f11",
+  "idea_version_started_at": "2026-09-30T02:41:30Z",
   "ticker": "NST",
   "company": "Northern Star Resources",
   "exchange": "ASX",
@@ -11,19 +11,19 @@
   "listing_verification_source": null,
   "direction": "long",
   "pair_with": null,
-  "reason": "As a major Australian gold miner, Northern Star benefits from the market re-rating of the sector following the rejection of a $27 billion takeover bid for its peer, Newmont, which highlights the scarcity value of large-scale gold assets.",
-  "why_now": "The rejection of the bid was reported on September 28, 2026.",
-  "conviction": 60,
+  "reason": "Gold Fields is proposing a $3.5 billion takeover that includes significant tax synergies, which typically drives a premium for the target company's shareholders.",
+  "why_now": "The takeover proposal was reported on 2026-09-30, creating an immediate M&A arbitrage or premium-capture opportunity.",
+  "conviction": 65,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 20,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
-    "corroboration": 7,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -32,7 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "priced-in risk",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -44,24 +44,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "priced",
-  "thesis_type": "sector_cycle",
+  "priced_in": "room",
+  "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-40c0321a5bb6",
-    "EVT-77d61165f5ea"
+    "EVT-3566a39e714b"
   ],
-  "primary_source_event_id": "EVT-40c0321a5bb6",
+  "primary_source_event_id": "EVT-3566a39e714b",
   "source_headlines": [
-    "Australia’s biggest gold miner rejects $27bn takeover bid",
-    "Northern Star shares pop as Australian gold miner rejects $27 billion takeover proposal"
+    "Gold Fields pitches $3.5b tax saving in Northern Star takeover"
   ],
-  "source_headline": "Australia’s biggest gold miner rejects $27bn takeover bid",
-  "source_url": "https://www.ft.com/content/bce81a18-05cf-43a6-9c86-b3238b732230?syn-25a6b1a6=1",
-  "source_name": "Financial Times",
-  "materiality_max": 100,
-  "newest_source_at": "2026-09-28T03:00:53Z",
+  "source_headline": "Gold Fields pitches $3.5b tax saving in Northern Star takeover",
+  "source_url": "https://www.afr.com/companies/mining/gold-fields-pitches-3-5b-tax-bill-drop-in-northern-star-takeover-20260930-p611ms?ref=rss&utm_medium=rss&utm_source=rss_feed",
+  "source_name": "Australian Financial Review",
+  "materiality_max": 85,
+  "newest_source_at": "2026-09-30T00:25:16Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -69,8 +67,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-28T01:41:01Z",
-  "updated_at": "2026-09-28T03:12:56Z",
-  "decay_at": "2026-09-29T15:00:53Z",
+  "updated_at": "2026-09-30T02:41:30Z",
+  "decay_at": "2026-10-01T12:25:16Z",
   "status": "live",
   "promoted_signal_id": null
 }
