@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T02:45:33Z",
+  "generated_at": "2026-09-30T02:56:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-100",
@@ -240,6 +240,55 @@
           "name": "Maoye International",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-102",
+      "headline": "Prestige Estates shares in focus as CPP Investments to acquire 27% stake in hospitality arm for ₹3,000 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/prestige-estates-projects-share-price-cppib-investment-3000-crore-hospitality-arm-expansion-ipo-plans-20001528.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T02:29:24Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "CPP Investments is acquiring a 27% stake in Prestige Estates' hospitality arm for ₹3,000 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CPP Investments is acquiring a 27% stake in Prestige Estates' hospitality arm for ₹3,000 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prestige Estates Projects Ltd",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1328,6 +1377,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-101",
+      "headline": "Oil Price Today (September 30): Crude oil at $104 as Trump rejects easing Iran sanctions. What are experts saying?",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/commodities/news/oil-price-today-september-30-crude-oil-at-104-as-trump-rejects-easing-iran-sanctions-what-are-experts-saying/articleshow/134577453.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T02:12:01Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Crude oil prices reached $104 per barrel following the rejection of easing Iran sanctions, signaling a potential supply shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Crude oil prices reached $104 per barrel following the rejection of easing Iran sanctions, signaling a potential supply shock.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-064",
       "headline": "What products are part of US-China $60 billion tariff cuts deal",
       "headline_en": null,
@@ -1844,105 +1936,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-091",
-      "headline": "Hedge Fund Aspex Pushed for Nidec CEO to Remain Before Ouster",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-30/nidec-s-no-3-shareholder-pushed-for-kishida-to-remain-as-ceo",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T01:01:05Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Hedge fund Aspex pushed for the Nidec CEO to remain before his ouster, indicating internal management conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Hedge fund Aspex pushed for the Nidec CEO to remain before his ouster, indicating internal management conflict.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nidec",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-080",
-      "headline": "Radiant World deepens job cuts after founder loses control of firm",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/radiant-world-deepens-job-cuts-after-founder-loses-control-of-firm",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T02:00:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Radiant World is deepening job cuts following a loss of control by the founder, indicating significant internal distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Radiant World is deepening job cuts following a loss of control by the founder, indicating significant internal distress.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Radiant World",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -150657,77 +150650,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b017da00cfa7",
-      "idea_version": "IDEAV-f9e88d7625e84af1",
-      "idea_version_started_at": "2026-09-29T05:54:11Z",
-      "ticker": "02238",
-      "company": "GAC Group",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The proposed acquisition of a 50% equity interest in a target company, combined with a capital raise, signals a major strategic pivot or expansion for the automotive group.",
-      "why_now": "The announcement on 2026-09-28 includes the resumption of trading, providing an immediate entry point.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b8af40852bfa"
-      ],
-      "primary_source_event_id": "EVT-b8af40852bfa",
-      "source_headlines": [
-        "GAC GROUP (02238): INSIDE INFORMATION (1) POTENTIAL MAJOR AND CONNECTED TRANSACTION - PROPOSED ACQUISITION OF 50% EQUITY INTEREST IN THE TARGET COMPANY BY WAY OF ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROPOSED NON-PUBLIC ISSUANCE OF A SHARES UNDER SPECIFIC MANDATE TO RAISE SUPPORTING FUNDS; AND (3) RESUMPTION OF TRADING IN A SHARES"
-      ],
-      "source_headline": "GAC GROUP (02238): INSIDE INFORMATION (1) POTENTIAL MAJOR AND CONNECTED TRANSACTION - PROPOSED ACQUISITION OF 50% EQUITY INTEREST IN THE TARGET COMPANY BY WAY OF ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROPOSED NON-PUBLIC ISSUANCE OF A SHARES UNDER SPECIFIC MANDATE TO RAISE SUPPORTING FUNDS; AND (3) RESUMPTION OF TRADING IN A SHARES",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092802059.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T14:46:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T05:54:11Z",
-      "updated_at": "2026-09-29T05:54:11Z",
-      "decay_at": "2026-09-30T02:46:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d8f7377dbcbf",
       "idea_version": "IDEAV-1bb0b0aea3e64790",
       "idea_version_started_at": "2026-09-29T11:56:52Z",
@@ -152137,6 +152059,77 @@
       "surfaced_at": "2026-09-29T07:11:10Z",
       "updated_at": "2026-09-29T07:11:10Z",
       "decay_at": "2026-09-30T00:33:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b017da00cfa7",
+      "idea_version": "IDEAV-f9e88d7625e84af1",
+      "idea_version_started_at": "2026-09-29T05:54:11Z",
+      "ticker": "02238",
+      "company": "GAC Group",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The proposed acquisition of a 50% equity interest in a target company, combined with a capital raise, signals a major strategic pivot or expansion for the automotive group.",
+      "why_now": "The announcement on 2026-09-28 includes the resumption of trading, providing an immediate entry point.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b8af40852bfa"
+      ],
+      "primary_source_event_id": "EVT-b8af40852bfa",
+      "source_headlines": [
+        "GAC GROUP (02238): INSIDE INFORMATION (1) POTENTIAL MAJOR AND CONNECTED TRANSACTION - PROPOSED ACQUISITION OF 50% EQUITY INTEREST IN THE TARGET COMPANY BY WAY OF ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROPOSED NON-PUBLIC ISSUANCE OF A SHARES UNDER SPECIFIC MANDATE TO RAISE SUPPORTING FUNDS; AND (3) RESUMPTION OF TRADING IN A SHARES"
+      ],
+      "source_headline": "GAC GROUP (02238): INSIDE INFORMATION (1) POTENTIAL MAJOR AND CONNECTED TRANSACTION - PROPOSED ACQUISITION OF 50% EQUITY INTEREST IN THE TARGET COMPANY BY WAY OF ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROPOSED NON-PUBLIC ISSUANCE OF A SHARES UNDER SPECIFIC MANDATE TO RAISE SUPPORTING FUNDS; AND (3) RESUMPTION OF TRADING IN A SHARES",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092802059.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T14:46:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T05:54:11Z",
+      "updated_at": "2026-09-29T05:54:11Z",
+      "decay_at": "2026-09-30T02:46:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -156177,14 +156170,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 573,
     "shown_count": 500,
-    "hidden_count": 72,
+    "hidden_count": 73,
     "side_counts": {
       "long": {
-        "total_count": 303,
+        "total_count": 304,
         "shown_count": 250,
-        "hidden_count": 53
+        "hidden_count": 54
       },
       "short": {
         "total_count": 269,
@@ -156208,6 +156201,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b017da00cfa7",
+        "idea_version": "IDEAV-f9e88d7625e84af1",
+        "idea_version_started_at": "2026-09-29T05:54:11Z",
+        "ticker": "02238",
+        "company": "GAC Group",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The proposed acquisition of a 50% equity interest in a target company, combined with a capital raise, signals a major strategic pivot or expansion for the automotive group.",
+        "why_now": "The announcement on 2026-09-28 includes the resumption of trading, providing an immediate entry point.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b8af40852bfa"
+        ],
+        "primary_source_event_id": "EVT-b8af40852bfa",
+        "source_headlines": [
+          "GAC GROUP (02238): INSIDE INFORMATION (1) POTENTIAL MAJOR AND CONNECTED TRANSACTION - PROPOSED ACQUISITION OF 50% EQUITY INTEREST IN THE TARGET COMPANY BY WAY OF ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROPOSED NON-PUBLIC ISSUANCE OF A SHARES UNDER SPECIFIC MANDATE TO RAISE SUPPORTING FUNDS; AND (3) RESUMPTION OF TRADING IN A SHARES"
+        ],
+        "source_headline": "GAC GROUP (02238): INSIDE INFORMATION (1) POTENTIAL MAJOR AND CONNECTED TRANSACTION - PROPOSED ACQUISITION OF 50% EQUITY INTEREST IN THE TARGET COMPANY BY WAY OF ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROPOSED NON-PUBLIC ISSUANCE OF A SHARES UNDER SPECIFIC MANDATE TO RAISE SUPPORTING FUNDS; AND (3) RESUMPTION OF TRADING IN A SHARES",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092802059.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-28T14:46:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T05:54:11Z",
+        "updated_at": "2026-09-29T05:54:11Z",
+        "decay_at": "2026-09-30T02:46:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-30T02:46:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c7045bed7a33",
         "idea_version": "IDEAV-ad273e3a5ff39775",
@@ -185850,80 +185917,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e38b2231c234",
-        "idea_version": "IDEAV-a6e1dba8e77d6940",
-        "idea_version_started_at": "2026-09-13T18:15:10Z",
-        "ticker": "GE",
-        "company": "GE Aerospace",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company's $12 billion acquisition of CPP puts its capital allocation and growth strategy to the test, expanding its proprietary aerospace component footprint.",
-        "why_now": "The acquisition details are currently being digested by the market following weekend coverage on September 12, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8cff733d76dc",
-          "EVT-ab951b64b3c4"
-        ],
-        "primary_source_event_id": "EVT-8cff733d76dc",
-        "source_headlines": [
-          "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
-          "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know."
-        ],
-        "source_headline": "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
-        "source_url": "https://finance.yahoo.com/markets/stocks/articles/ge-aerospace-ge-12-billion-223833187.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-12T22:38:33Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-12T16:36:23Z",
-        "updated_at": "2026-09-13T18:15:10Z",
-        "decay_at": "2026-09-14T10:38:33Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T23:04:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-f736026666d7",
         "idea_version": "IDEAV-42897a3daa1b9aca",
         "idea_version_started_at": "2026-09-13T17:56:30Z",
@@ -193383,7 +193376,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1163,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -193402,9 +193395,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2395063,
-    "news_picked_today": 119,
-    "news_dropped_today": 1225
+    "news_seen_today": 2520532,
+    "news_picked_today": 122,
+    "news_dropped_today": 1318
   },
   "book_momentum": {
     "live_count": 8,
