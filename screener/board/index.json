@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T00:39:37Z",
+  "generated_at": "2026-09-30T00:44:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-004",
@@ -689,6 +689,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-041",
+      "headline": "Linux Laboratories raises $70 mn led by ChrysCapital and Tata Capital",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/linux-laboratories-raises-70-mn-led-by-chryscapital-and-tata-capital-11790692739434.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T00:30:55Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Linux Laboratories raised $70 million in funding led by ChrysCapital and Tata Capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Linux Laboratories raised $70 million in funding led by ChrysCapital and Tata Capital.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Linux Laboratories",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-040",
       "headline": "Gold Fields pitches $3.5b tax saving in Northern Star takeover",
       "headline_en": null,
@@ -984,6 +1033,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-043",
+      "headline": "424B5 - KROGER CO (0000056873) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/56873/000110465926111923/0001104659-26-111923-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-29T20:06:14Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Kroger filed a shelf registration prospectus for potential future debt issuance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Kroger filed a shelf registration prospectus for potential future debt issuance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kroger Co",
+          "ticker": "KR",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1485,60 +1583,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260930-039",
-      "headline": "Apollo Funds Announce Completion of Acquisition of Nippon Sheet Glass, Marking New Chapter of Growth",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/09/30/3371474/0/en/apollo-funds-announce-completion-of-acquisition-of-nippon-sheet-glass-marking-new-chapter-of-growth.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-09-30T00:30:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Apollo Global Management completed the acquisition of Nippon Sheet Glass.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Apollo Global Management completed the acquisition of Nippon Sheet Glass.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apollo Global Management",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Nippon Sheet Glass",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260930-015",
       "headline": "BANK OF GUIZHOU (06199): THE APPROVAL OF THE QUALIFICATION OF THE CHAIRMAN; AND CHANGES TO THE COMPOSITION OF THE SPECIAL COMMITTEES OF THE BOARD",
       "headline_en": null,
@@ -1833,6 +1877,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-042",
+      "headline": "Why Tata Trusts chose TCE, TESS for proposed Tata Sons merger",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-sons-restructuring-ipo-listing-tata-trusts-11790669521997.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T00:30:15Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Analysis of the proposed Tata Sons merger structure involving Tata Trusts and related entities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Analysis of the proposed Tata Sons merger structure involving Tata Trusts and related entities.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Tata Trusts",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-029",
       "headline": "LINK HOLDINGS (08237): VOLUNTARY ANNOUNCEMENT LETTER OF INTENT IN RELATION TO PROPOSED STRATEGIC COOPERATION REGARDING SLEEP-HEALTH THEMED HOTEL",
       "headline_en": null,
@@ -1877,98 +1975,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-038",
-      "headline": "Japan Lifts Syria Sanctions on 16 Entities",
-      "headline_en": null,
-      "url": "https://www.nippon.com/en/news/yjj2026092900505/",
-      "source_name": "nippon.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T00:05:08Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Japan lifted sanctions on 16 entities related to Syria.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Japan lifted sanctions on 16 entities related to Syria.",
-      "region": "JP",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-031",
-      "headline": "Scorpio adds more VLCCs, sells product tanker trio",
-      "headline_en": null,
-      "url": "https://www.seatrade-maritime.com/tankers/scorpio-adds-more-vlccs-sells-product-tanker-trio",
-      "source_name": "Seatrade Maritime News",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-09-30T00:00:47Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Scorpio Tankers is expanding its VLCC fleet while divesting older product tankers to optimize its asset portfolio.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Scorpio Tankers is expanding its VLCC fleet while divesting older product tankers to optimize its asset portfolio.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -33,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "official_data",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Scorpio Tankers",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193646,9 +193652,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 569995,
-    "news_picked_today": 40,
-    "news_dropped_today": 296
+    "news_seen_today": 601661,
+    "news_picked_today": 43,
+    "news_dropped_today": 341
   },
   "book_momentum": {
     "live_count": 8,
