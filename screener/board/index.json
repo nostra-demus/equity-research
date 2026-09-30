@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T03:28:45Z",
+  "generated_at": "2026-09-30T03:34:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-104",
@@ -1433,6 +1433,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-115",
+      "headline": "Graphite India shares in focus as US sets 12.22% preliminary dumping margin",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/graphite-india-share-price-us-sets-preliminary-dumping-margin-20001572.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T03:24:34Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "The US Department of Commerce set a 12.22% preliminary dumping margin on Graphite India, increasing regulatory and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The US Department of Commerce set a 12.22% preliminary dumping margin on Graphite India, increasing regulatory and operational risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Graphite India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-076",
       "headline": "TRIO IND ELEC (01710): TRADING HALT",
       "headline_en": null,
@@ -1901,55 +1951,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-088",
-      "headline": "Judge denies Zillow’s motion to dismiss antitrust lawsuit",
-      "headline_en": null,
-      "url": "https://www.housingwire.com/articles/zillow-antitrust-lawsuit-tying/",
-      "source_name": "HousingWire",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T02:21:36Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "A judge denied Zillow's motion to dismiss an antitrust lawsuit, increasing legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A judge denied Zillow's motion to dismiss an antitrust lawsuit, increasing legal risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zillow",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193402,9 +193403,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3021314,
-    "news_picked_today": 145,
-    "news_dropped_today": 1631
+    "news_seen_today": 3052501,
+    "news_picked_today": 149,
+    "news_dropped_today": 1675
   },
   "book_momentum": {
     "live_count": 8,
