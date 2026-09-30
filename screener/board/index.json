@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-30T16:04:14Z",
+  "generated_at": "2026-09-30T16:19:29Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-451",
+      "headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process Intimation regarding the Interim Resolution Professional performing the functions of theResolution Professional (deemed Resolution Professional) of Shrenik Limited (In CIRP) in terms ofRegulation 17(3) of the IBBI (Insolvency Resolution Process for Corporate Persons) Regulations,2016.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SHRENIK_30092026212002_NSE_Disclosure_Deemed_RP.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T15:51:51Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Shrenik Limited formally entered Corporate Insolvency Resolution Process (CIRP) per IBBI regulations, signaling mandatory restructuring and material default risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shrenik Limited formally entered Corporate Insolvency Resolution Process (CIRP) per IBBI regulations, signaling mandatory restructuring and material default risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shrenik Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-435",
       "headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1905,60 +1954,6 @@
           "name": "Kenon Holdings Ltd.",
           "ticker": "KEN",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-282",
-      "headline": "JSW Cement to issue 5 shares for every 41 Shiva Cement shares in merger",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/jsw-cement-share-price-approves-merger-with-shiva-cement-shareholders-to-get-5-shares-for-every-41-20001438.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T10:33:26Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "JSW Cement announced a merger with Shiva Cement with a share swap ratio of 5 shares for every 41.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "JSW Cement announced a merger with Shiva Cement with a share swap ratio of 5 shares for every 41.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JSW Cement",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Shiva Cement",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -192339,9 +192334,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10464375,
-    "news_picked_today": 861,
-    "news_dropped_today": 15387
+    "news_seen_today": 10547514,
+    "news_picked_today": 882,
+    "news_dropped_today": 15798
   },
   "book_momentum": {
     "live_count": 8,
