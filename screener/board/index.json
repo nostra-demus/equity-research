@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T00:21:30Z",
+  "generated_at": "2026-09-30T00:24:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-004",
@@ -1470,6 +1470,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-031",
+      "headline": "Scorpio adds more VLCCs, sells product tanker trio",
+      "headline_en": null,
+      "url": "https://www.seatrade-maritime.com/tankers/scorpio-adds-more-vlccs-sells-product-tanker-trio",
+      "source_name": "Seatrade Maritime News",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-09-30T00:00:47Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Scorpio Tankers is expanding its VLCC fleet while divesting older product tankers to optimize its asset portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Scorpio Tankers is expanding its VLCC fleet while divesting older product tankers to optimize its asset portfolio.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -33,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "official_data",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Scorpio Tankers",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193137,7 +193186,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3037,
+    "inbox_unconsumed": 3038,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -193146,9 +193195,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 316930,
-    "news_picked_today": 30,
-    "news_dropped_today": 162
+    "news_seen_today": 348596,
+    "news_picked_today": 31,
+    "news_dropped_today": 185
   },
   "book_momentum": {
     "live_count": 8,
