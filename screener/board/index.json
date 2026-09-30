@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-30T04:24:30Z",
+  "generated_at": "2026-09-30T04:28:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-128",
+      "headline": "YAL: NSW IPC decision on HVO Continuation Project [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.YAL?key=2924-03142107-2A1700625",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T04:09:10Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "The NSW Independent Planning Commission approved the HVO Continuation Project, a significant regulatory milestone for Yancoal's operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The NSW Independent Planning Commission approved the HVO Continuation Project, a significant regulatory milestone for Yancoal's operations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yancoal Australia",
+          "ticker": "YAL",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-104",
       "headline": "XRG: Suspension from Quotation [price-sensitive]",
@@ -885,6 +934,56 @@
           "name": "PB Fintech",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-125",
+      "headline": "YANCOAL AUS (03668): NSW Independent Planning Commission decision on Hunter Valley Operations Continuation Project",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000265.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T04:09:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "The NSW Independent Planning Commission issued a decision regarding the Hunter Valley Operations Continuation Project, which is critical for the company's long-term production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "The NSW Independent Planning Commission issued a decision regarding the Hunter Valley Operations Continuation Project, which is critical for the company's long-term production.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yancoal Australia",
+          "ticker": null,
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -1859,104 +1958,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-010",
-      "headline": "CHIHO ENV (00976): CONCLUSION OF THE CONTROLLING SHAREHOLDERS' RESTRUCTURING PROCEEDINGS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000043.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T22:32:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "The conclusion of restructuring proceedings for controlling shareholders is a significant event for the company's stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The conclusion of restructuring proceedings for controlling shareholders is a significant event for the company's stability.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chiho Environmental Group",
-          "ticker": "00976",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-117",
-      "headline": "GIC Acquires 16 Marriott-Run Hotels in Japan Amid Tourism Boom",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-09-30/gic-acquires-16-marriott-run-hotels-in-japan-amid-tourism-boom",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T03:33:36Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "GIC acquired 16 hotels operated by Marriott in Japan, representing a significant capital deployment in the hospitality sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "GIC acquired 16 hotels operated by Marriott in Japan, representing a significant capital deployment in the hospitality sector.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marriott International",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193051,9 +193052,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3832909,
-    "news_picked_today": 163,
-    "news_dropped_today": 2021
+    "news_seen_today": 3895761,
+    "news_picked_today": 171,
+    "news_dropped_today": 2061
   },
   "book_momentum": {
     "live_count": 8,
