@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T19:46:58Z",
+  "generated_at": "2026-09-30T19:51:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-455",
@@ -42,6 +42,55 @@
         {
           "name": "NSTS Bancorp, Inc.",
           "ticker": "NSTS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-469",
+      "headline": "25-NSE - Keen Vision Acquisition Corp. (0001889983) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1889983/000135445726000927/0001354457-26-000927-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-30T19:35:56Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Keen Vision Acquisition Corp. is facing a delisting notification, which is a material event regarding its status as a public company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Keen Vision Acquisition Corp. is facing a delisting notification, which is a material event regarding its status as a public company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Keen Vision Acquisition Corp.",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1928,49 +1977,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-431",
-      "headline": "Restaurant giant closes eateries, files Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/restaurateur-billy-streck-files-chapter-11-after-string-of-closures",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T13:52:34Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "A restaurant company filed Chapter 11 bankruptcy and closed multiple eateries — a default/distress survival event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A restaurant company filed Chapter 11 bankruptcy and closed multiple eateries — a default/distress survival event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 9,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192346,9 +192352,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11505453,
-    "news_picked_today": 1021,
-    "news_dropped_today": 19475
+    "news_seen_today": 11531024,
+    "news_picked_today": 1028,
+    "news_dropped_today": 19492
   },
   "book_momentum": {
     "live_count": 8,
