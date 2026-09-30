@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T09:33:09Z",
+  "generated_at": "2026-09-30T09:38:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-215",
@@ -1239,6 +1239,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-219",
+      "headline": "BOCOM N2909 BOCOM N3109 (40714 40734): Notice of Listing on The Stock Exchange of Hong Kong Limited - Bank of Communications Co., Ltd. Hong Kong Branch - Issue of U.S.$350,000,000 Floating Rate Notes due 2029 and U.S.$320,000,000 Floating Rate Note due 2031 under its U.S.$12,000,000,000 Medium Term Note Programme",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093001180.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T09:03:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Bank of Communications issued $670 million in floating rate notes under its existing MTN programme.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Bank of Communications issued $670 million in floating rate notes under its existing MTN programme.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of Communications Co., Ltd.",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-191",
       "headline": "LT Foods Limited: Intimation under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 in respect of Execution of Share Purchase Agreement for acquisition of controlling stake in Leev.nu B.V., Netherlands",
       "headline_en": null,
@@ -1332,55 +1381,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-210",
-      "headline": "BOCOM N2809-R (85185): Notice of Listing on The Stock Exchange of Hong Kong Limited - Bank of Communications Co., Ltd. Hong Kong Branch - Issue of CNY4,350,000,000 1.60 per cent. Notes due 2028 under its U.S. $12,000,000,000 Medium Term Note Programme",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000884.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T08:42:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Bank of Communications issued CNY 4.35 billion in notes due 2028.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Bank of Communications issued CNY 4.35 billion in notes due 2028.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bank of Communications",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192850,9 +192850,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7963965,
-    "news_picked_today": 349,
-    "news_dropped_today": 6443
+    "news_seen_today": 7998408,
+    "news_picked_today": 355,
+    "news_dropped_today": 6509
   },
   "book_momentum": {
     "live_count": 8,
