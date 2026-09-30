@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T02:26:12Z",
+  "generated_at": "2026-09-30T02:29:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-046",
@@ -1511,6 +1511,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-088",
+      "headline": "Judge denies Zillow’s motion to dismiss antitrust lawsuit",
+      "headline_en": null,
+      "url": "https://www.housingwire.com/articles/zillow-antitrust-lawsuit-tying/",
+      "source_name": "HousingWire",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T02:21:36Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "A judge denied Zillow's motion to dismiss an antitrust lawsuit, increasing legal risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A judge denied Zillow's motion to dismiss an antitrust lawsuit, increasing legal risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zillow",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-075",
       "headline": "Smartworks Coworking Spaces Limited: Smartworks Coworking Spaces Limited has informed the Exchange regarding 'Press Release - \"Smartworks Announces Managed office Deals Worth -INR 305 Crore from New Clients\".'.",
       "headline_en": null,
@@ -1701,6 +1750,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-091",
+      "headline": "Hedge Fund Aspex Pushed for Nidec CEO to Remain Before Ouster",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-30/nidec-s-no-3-shareholder-pushed-for-kishida-to-remain-as-ceo",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T01:01:05Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Hedge fund Aspex pushed for the Nidec CEO to remain before his ouster, indicating internal management conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Hedge fund Aspex pushed for the Nidec CEO to remain before his ouster, indicating internal management conflict.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nidec",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-080",
       "headline": "Radiant World deepens job cuts after founder loses control of firm",
       "headline_en": null,
@@ -1845,104 +1943,6 @@
       "companies": [
         {
           "name": "Tata Trusts",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-024",
-      "headline": "MQA: Full Year Accounts",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MQA?key=2924-03141929-2A1700538",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T00:08:49Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Company released full year financial accounts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Company released full year financial accounts.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MQA",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-025",
-      "headline": "MQW: Full Year Accounts",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MQW?key=2924-03141927-2A1700536",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T00:07:04Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Company released full year financial accounts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Company released full year financial accounts.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MQW",
           "ticker": null,
           "listing_country": null
         }
@@ -150732,77 +150732,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c7045bed7a33",
-      "idea_version": "IDEAV-ad273e3a5ff39775",
-      "idea_version_started_at": "2026-09-29T05:54:11Z",
-      "ticker": "ANUPAM",
-      "company": "Anupam Rasayan India Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Bliss GVS Pharma accelerates the company's strategy to build an integrated global pharmaceutical platform, potentially improving margins through vertical integration.",
-      "why_now": "The acquisition was formally concluded and announced on 2026-09-28.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-07226e4e2a1b"
-      ],
-      "primary_source_event_id": "EVT-07226e4e2a1b",
-      "source_headlines": [
-        "Anupam Rasayan India Limited: Anupam Rasayan India Limited has informed the Exchange regarding a press release titled \"Anupam Rasayan Concludes Acquisition of Bliss GVS Pharma, Marks Third Strategic Step Towards Building an Integrated Global Pharma Platform\"."
-      ],
-      "source_headline": "Anupam Rasayan India Limited: Anupam Rasayan India Limited has informed the Exchange regarding a press release titled \"Anupam Rasayan Concludes Acquisition of Bliss GVS Pharma, Marks Third Strategic Step Towards Building an Integrated Global Pharma Platform\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ANURAS_28092026195741_ARILSLDSTX20260928064PressRelease.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T14:28:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T05:54:11Z",
-      "updated_at": "2026-09-29T05:54:11Z",
-      "decay_at": "2026-09-30T02:28:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d8f7377dbcbf",
       "idea_version": "IDEAV-1bb0b0aea3e64790",
       "idea_version_started_at": "2026-09-29T11:56:52Z",
@@ -152140,6 +152069,77 @@
       "surfaced_at": "2026-09-29T07:11:10Z",
       "updated_at": "2026-09-29T07:11:10Z",
       "decay_at": "2026-09-30T00:33:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-c7045bed7a33",
+      "idea_version": "IDEAV-ad273e3a5ff39775",
+      "idea_version_started_at": "2026-09-29T05:54:11Z",
+      "ticker": "ANUPAM",
+      "company": "Anupam Rasayan India Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Bliss GVS Pharma accelerates the company's strategy to build an integrated global pharmaceutical platform, potentially improving margins through vertical integration.",
+      "why_now": "The acquisition was formally concluded and announced on 2026-09-28.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-07226e4e2a1b"
+      ],
+      "primary_source_event_id": "EVT-07226e4e2a1b",
+      "source_headlines": [
+        "Anupam Rasayan India Limited: Anupam Rasayan India Limited has informed the Exchange regarding a press release titled \"Anupam Rasayan Concludes Acquisition of Bliss GVS Pharma, Marks Third Strategic Step Towards Building an Integrated Global Pharma Platform\"."
+      ],
+      "source_headline": "Anupam Rasayan India Limited: Anupam Rasayan India Limited has informed the Exchange regarding a press release titled \"Anupam Rasayan Concludes Acquisition of Bliss GVS Pharma, Marks Third Strategic Step Towards Building an Integrated Global Pharma Platform\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/ANURAS_28092026195741_ARILSLDSTX20260928064PressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T14:28:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T05:54:11Z",
+      "updated_at": "2026-09-29T05:54:11Z",
+      "decay_at": "2026-09-30T02:28:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -156183,14 +156183,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 573,
     "shown_count": 500,
-    "hidden_count": 72,
+    "hidden_count": 73,
     "side_counts": {
       "long": {
-        "total_count": 303,
+        "total_count": 304,
         "shown_count": 250,
-        "hidden_count": 53
+        "hidden_count": 54
       },
       "short": {
         "total_count": 269,
@@ -156214,6 +156214,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c7045bed7a33",
+        "idea_version": "IDEAV-ad273e3a5ff39775",
+        "idea_version_started_at": "2026-09-29T05:54:11Z",
+        "ticker": "ANUPAM",
+        "company": "Anupam Rasayan India Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of Bliss GVS Pharma accelerates the company's strategy to build an integrated global pharmaceutical platform, potentially improving margins through vertical integration.",
+        "why_now": "The acquisition was formally concluded and announced on 2026-09-28.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-07226e4e2a1b"
+        ],
+        "primary_source_event_id": "EVT-07226e4e2a1b",
+        "source_headlines": [
+          "Anupam Rasayan India Limited: Anupam Rasayan India Limited has informed the Exchange regarding a press release titled \"Anupam Rasayan Concludes Acquisition of Bliss GVS Pharma, Marks Third Strategic Step Towards Building an Integrated Global Pharma Platform\"."
+        ],
+        "source_headline": "Anupam Rasayan India Limited: Anupam Rasayan India Limited has informed the Exchange regarding a press release titled \"Anupam Rasayan Concludes Acquisition of Bliss GVS Pharma, Marks Third Strategic Step Towards Building an Integrated Global Pharma Platform\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/ANURAS_28092026195741_ARILSLDSTX20260928064PressRelease.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-28T14:28:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T05:54:11Z",
+        "updated_at": "2026-09-29T05:54:11Z",
+        "decay_at": "2026-09-30T02:28:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-30T02:28:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-bd1393525e42",
         "idea_version": "IDEAV-c901d95859efb5e2",
@@ -185859,80 +185933,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e38b2231c234",
-        "idea_version": "IDEAV-a6e1dba8e77d6940",
-        "idea_version_started_at": "2026-09-13T18:15:10Z",
-        "ticker": "GE",
-        "company": "GE Aerospace",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company's $12 billion acquisition of CPP puts its capital allocation and growth strategy to the test, expanding its proprietary aerospace component footprint.",
-        "why_now": "The acquisition details are currently being digested by the market following weekend coverage on September 12, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-8cff733d76dc",
-          "EVT-ab951b64b3c4"
-        ],
-        "primary_source_event_id": "EVT-8cff733d76dc",
-        "source_headlines": [
-          "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
-          "GE Aerospace Is Making a $12 Billion Acquisition. Here's What Investors Should Know."
-        ],
-        "source_headline": "GE Aerospace (GE)’s $12 Billion CPP Acquisition Puts Its Growth Strategy to the Test",
-        "source_url": "https://finance.yahoo.com/markets/stocks/articles/ge-aerospace-ge-12-billion-223833187.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-12T22:38:33Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-12T16:36:23Z",
-        "updated_at": "2026-09-13T18:15:10Z",
-        "decay_at": "2026-09-14T10:38:33Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T23:04:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-f736026666d7",
         "idea_version": "IDEAV-42897a3daa1b9aca",
         "idea_version_started_at": "2026-09-13T17:56:30Z",
@@ -193392,7 +193392,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1163,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -193411,9 +193411,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2112829,
-    "news_picked_today": 103,
-    "news_dropped_today": 1097
+    "news_seen_today": 2144201,
+    "news_picked_today": 110,
+    "news_dropped_today": 1114
   },
   "book_momentum": {
     "live_count": 8,
