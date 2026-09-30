@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T00:27:49Z",
+  "generated_at": "2026-09-30T00:39:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-004",
@@ -684,6 +684,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-040",
+      "headline": "Gold Fields pitches $3.5b tax saving in Northern Star takeover",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/mining/gold-fields-pitches-3-5b-tax-bill-drop-in-northern-star-takeover-20260930-p611ms?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T00:25:16Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Gold Fields is proposing a $3.5 billion takeover of Northern Star Resources.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Gold Fields is proposing a $3.5 billion takeover of Northern Star Resources.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gold Fields",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Northern Star Resources",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1377,6 +1431,114 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-037",
+      "headline": "Apollo Funds Announce Completion of Acquisition of Nippon Sheet Glass, Marking New Chapter of Growth | APO Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/APO/apollo-funds-announce-completion-of-acquisition-of-nippon-sheet-clanwflsaa6f.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-30T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Apollo Global Management completed the acquisition of Nippon Sheet Glass.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Apollo Global Management completed the acquisition of Nippon Sheet Glass.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apollo Global Management",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Nippon Sheet Glass",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-039",
+      "headline": "Apollo Funds Announce Completion of Acquisition of Nippon Sheet Glass, Marking New Chapter of Growth",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/09/30/3371474/0/en/apollo-funds-announce-completion-of-acquisition-of-nippon-sheet-glass-marking-new-chapter-of-growth.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-09-30T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Apollo Global Management completed the acquisition of Nippon Sheet Glass.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Apollo Global Management completed the acquisition of Nippon Sheet Glass.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apollo Global Management",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Nippon Sheet Glass",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-015",
       "headline": "BANK OF GUIZHOU (06199): THE APPROVAL OF THE QUALIFICATION OF THE CHAIRMAN; AND CHANGES TO THE COMPOSITION OF THE SPECIAL COMMITTEES OF THE BOARD",
       "headline_en": null,
@@ -1714,6 +1876,49 @@
           "listing_country": "CN"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-038",
+      "headline": "Japan Lifts Syria Sanctions on 16 Entities",
+      "headline_en": null,
+      "url": "https://www.nippon.com/en/news/yjj2026092900505/",
+      "source_name": "nippon.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T00:05:08Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Japan lifted sanctions on 16 entities related to Syria.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Japan lifted sanctions on 16 entities related to Syria.",
+      "region": "JP",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -150330,77 +150535,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-bd1393525e42",
-      "idea_version": "IDEAV-c901d95859efb5e2",
-      "idea_version_started_at": "2026-09-29T07:11:10Z",
-      "ticker": "00131.HK",
-      "company": "Cheuk Nang Holdings",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A positive profit alert indicates a material improvement in earnings, likely driven by property valuation gains or operational efficiencies.",
-      "why_now": "The filing was released on 2026-09-28, providing immediate catalyst for a re-rating.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-340d838a6949"
-      ],
-      "primary_source_event_id": "EVT-340d838a6949",
-      "source_headlines": [
-        "CHEUK NANG HOLD (00131): Positive Profit Alert"
-      ],
-      "source_headline": "CHEUK NANG HOLD (00131): Positive Profit Alert",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801795.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T12:33:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T07:11:10Z",
-      "updated_at": "2026-09-29T07:11:10Z",
-      "decay_at": "2026-09-30T00:33:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f64bbbd95f6f",
       "idea_version": "IDEAV-deb73ae1a74b16bb",
       "idea_version_started_at": "2026-09-29T06:43:00Z",
@@ -151880,6 +152014,77 @@
       "surfaced_at": "2026-09-29T05:54:11Z",
       "updated_at": "2026-09-29T20:20:56Z",
       "decay_at": "2026-09-29T23:22:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-bd1393525e42",
+      "idea_version": "IDEAV-c901d95859efb5e2",
+      "idea_version_started_at": "2026-09-29T07:11:10Z",
+      "ticker": "00131.HK",
+      "company": "Cheuk Nang Holdings",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A positive profit alert indicates a material improvement in earnings, likely driven by property valuation gains or operational efficiencies.",
+      "why_now": "The filing was released on 2026-09-28, providing immediate catalyst for a re-rating.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-340d838a6949"
+      ],
+      "primary_source_event_id": "EVT-340d838a6949",
+      "source_headlines": [
+        "CHEUK NANG HOLD (00131): Positive Profit Alert"
+      ],
+      "source_headline": "CHEUK NANG HOLD (00131): Positive Profit Alert",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801795.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T12:33:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T07:11:10Z",
+      "updated_at": "2026-09-29T07:11:10Z",
+      "decay_at": "2026-09-30T00:33:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -156213,14 +156418,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 577,
+    "total_count": 578,
     "shown_count": 500,
-    "hidden_count": 77,
+    "hidden_count": 78,
     "side_counts": {
       "long": {
-        "total_count": 303,
+        "total_count": 304,
         "shown_count": 250,
-        "hidden_count": 53
+        "hidden_count": 54
       },
       "short": {
         "total_count": 274,
@@ -156244,6 +156449,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-bd1393525e42",
+        "idea_version": "IDEAV-c901d95859efb5e2",
+        "idea_version_started_at": "2026-09-29T07:11:10Z",
+        "ticker": "00131.HK",
+        "company": "Cheuk Nang Holdings",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A positive profit alert indicates a material improvement in earnings, likely driven by property valuation gains or operational efficiencies.",
+        "why_now": "The filing was released on 2026-09-28, providing immediate catalyst for a re-rating.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-340d838a6949"
+        ],
+        "primary_source_event_id": "EVT-340d838a6949",
+        "source_headlines": [
+          "CHEUK NANG HOLD (00131): Positive Profit Alert"
+        ],
+        "source_headline": "CHEUK NANG HOLD (00131): Positive Profit Alert",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801795.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-28T12:33:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T07:11:10Z",
+        "updated_at": "2026-09-29T07:11:10Z",
+        "decay_at": "2026-09-30T00:33:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-30T00:33:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-93de6962dd1b",
         "idea_version": "IDEAV-24e56722cd3e69ee",
@@ -185963,79 +186242,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1e21975df7c3",
-        "idea_version": "IDEAV-f2882134d822e1f8",
-        "idea_version_started_at": "2026-09-13T18:31:35Z",
-        "ticker": "GME",
-        "company": "GameStop",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "CEO Ryan Cohen's purchase of 1 million shares for $20 million provides a strong signal of internal confidence and often triggers retail-driven momentum in this specific ticker.",
-        "why_now": "The insider transaction was reported on September 12, 2024, providing a fresh sentiment catalyst.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 59,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "liquidity_positioning",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-95b38c9e5ac1"
-        ],
-        "primary_source_event_id": "EVT-95b38c9e5ac1",
-        "source_headlines": [
-          "GameStop Billionaire Ryan Cohen Buys 1 Million Shares for $20 Million. What This Large Purchase Means for GME"
-        ],
-        "source_headline": "GameStop Billionaire Ryan Cohen Buys 1 Million Shares for $20 Million. What This Large Purchase Means for GME",
-        "source_url": "https://www.fool.com/coverage/filings/2026/09/12/gamestop-billionaire-ryan-cohen-buys-1-million-shares-for-usd20-million-what-this-large-purchase-means-for-gme/?source=iedfolrf0000001",
-        "source_name": "The Motley Fool",
-        "materiality_max": 96,
-        "newest_source_at": "2026-09-12T18:13:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-12T20:43:48Z",
-        "updated_at": "2026-09-13T18:31:35Z",
-        "decay_at": "2026-09-14T06:13:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T18:56:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0c6d82b4b0e4",
         "idea_version": "IDEAV-f8e1b98137b8b9f0",
         "idea_version_started_at": "2026-09-13T17:10:20Z",
@@ -193421,7 +193627,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1160,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -193431,7 +193637,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3043,
+    "inbox_unconsumed": 3047,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -193440,9 +193646,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 411856,
-    "news_picked_today": 36,
-    "news_dropped_today": 204
+    "news_seen_today": 569995,
+    "news_picked_today": 40,
+    "news_dropped_today": 296
   },
   "book_momentum": {
     "live_count": 8,
