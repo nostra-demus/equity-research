@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T14:43:55Z",
+  "generated_at": "2026-09-30T14:53:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-394",
@@ -96,6 +96,56 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-400",
+      "headline": "SICHUAN EXPRESS (00107): I. MAJOR TRANSACTION - PROPOSED ISSUANCE OF QUASI REITs AND RELATED DISCLOSEABLE TRANSACTION AND MAJOR TRANSACTION; II. PROPOSED APPOINTMENT OF NON-EXECUTIVE DIRECTOR; AND III. NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002579.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T13:54:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Sichuan Express announced a major transaction involving the issuance of quasi-REITs and a board appointment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sichuan Express announced a major transaction involving the issuance of quasi-REITs and a board appointment.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SICHUAN EXPRESS",
+          "ticker": "00107",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1919,55 +1969,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-118",
-      "headline": "Prestige Estates shares gain as CPP Investments to acquire 27% stake in hospitality arm for ₹3,000 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/prestige-estates-projects-share-price-cppib-investment-3000-crore-hospitality-arm-expansion-ipo-plans-20001528.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T03:53:22Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Prestige Estates is selling a 27% stake in its hospitality arm for ₹3,000 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Prestige Estates is selling a 27% stake in its hospitality arm for ₹3,000 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prestige Estates Projects Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192345,9 +192346,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9990802,
-    "news_picked_today": 769,
-    "news_dropped_today": 14303
+    "news_seen_today": 10103129,
+    "news_picked_today": 778,
+    "news_dropped_today": 14462
   },
   "book_momentum": {
     "live_count": 8,
