@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T20:51:20Z",
+  "generated_at": "2026-09-30T21:00:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-455",
@@ -42,6 +42,55 @@
         {
           "name": "NSTS Bancorp, Inc.",
           "ticker": "NSTS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-502",
+      "headline": "25-NSE - NutriBand Inc. (0001676047) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1676047/000135445726000928/0001354457-26-000928-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-30T20:12:23Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Nasdaq delisting of NutriBand is a survival / forced-exit event that wipes out equity value and liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nasdaq delisting of NutriBand is a survival / forced-exit event that wipes out equity value and liquidity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NutriBand Inc.",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1923,60 +1972,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-467",
-      "headline": "Capital Bancorp Shares Rise 12% On $728.1 Mln Peoples Bancorp Merger Deal",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/capital-bancorp-shares-rise-12-7281-mln-peoples-bancorp-merger-deal",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T17:50:48Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Capital Bancorp is merging with Peoples Bancorp in a deal valued at $728.1 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Capital Bancorp is merging with Peoples Bancorp in a deal valued at $728.1 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Capital Bancorp",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Peoples Bancorp",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192353,9 +192348,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12157907,
-    "news_picked_today": 1072,
-    "news_dropped_today": 20408
+    "news_seen_today": 12183056,
+    "news_picked_today": 1083,
+    "news_dropped_today": 20637
   },
   "book_momentum": {
     "live_count": 8,
