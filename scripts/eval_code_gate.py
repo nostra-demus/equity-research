@@ -130,6 +130,21 @@ def _require_trusted_shape(report):
     for i, entry in enumerate(vsi["failures"]):
         if not isinstance(entry, dict):
             bad(f"'valuation_summary_integrity.failures[{i}]' is not an object (got {type(entry).__name__})")
+    # Codex #732 (r4119535831): each run entry's `pass`/`warn_only` drive status_of() — `entry.get("warn_only")`
+    # truthy reads the run WARN, `entry.get("pass")` truthy reads it PASS. A truthy NON-boolean (e.g. the string
+    # "false") therefore reads a failing run as passing/warned and hides its FAIL, invisible behind an inherited
+    # failure on another run. Require both to be booleans WHERE PRESENT — absence is already the safe fail
+    # direction (a missing `pass` reads FAIL, a missing `warn_only` reads not-WARN), so a retyped field raises
+    # here (change -> exit 2, base -> strict) instead of hiding a regression. eval.py always emits real booleans.
+    for name, entry in report["runs"].items():
+        if not isinstance(entry, dict):
+            bad(f"'runs[{name!r}]' is not an object (got {type(entry).__name__})")
+        for field in ("pass", "warn_only"):
+            if field in entry and not isinstance(entry[field], bool):
+                bad(f"'runs[{name!r}].{field}' is {entry[field]!r}, not a boolean — a truthy non-boolean would make "
+                    f"status_of() read the run as {'PASS' if field == 'pass' else 'WARN'} and hide a FAIL")
+        if "checks" in entry and not isinstance(entry["checks"], list):
+            bad(f"'runs[{name!r}].checks' is not a list (got {type(entry['checks']).__name__})")
 
 
 def run_harness(root=".", quiet=False):
@@ -237,17 +252,27 @@ def failure_keys(report, root="."):
 
 
 def _unattributed_ap_failures(report, root="."):
-    """Raw entries of report['valuation_summary_integrity']['failures'] whose `run` field is missing or falsy.
+    """AP failure entries the per-run loop in failure_keys() cannot key, surfaced so they can never hide behind
+    an unrelated already-explained failure. Both of these hard-fail the whole suite in eval.py (apfailures ->
+    False) yet produce no distinct key on their own:
 
-    research_check.ap_failures() indexes this list by `run` and silently drops any entry without one
-    (`if run:`), so such an entry hard-fails the suite in eval.py (apfailures -> False) but is invisible to
-    both status_of() and the per-run loop above. One identity per violation, keyed under (suite) so it always
-    surfaces regardless of what else is already in `keys`."""
+      * an entry whose `run` is missing or falsy — research_check.ap_failures() drops it (`if run:`), so
+        status_of() never sees it. Keyed under (suite), one identity per violation.
+      * an entry WITH a run but an empty/missing `violations` list (Codex #732, r4119535836) — ap_failures()
+        maps it to [], so status_of() adds no AP key for it; behind an inherited per-run failure on that SAME
+        run (which already put the run's own key in `keys` and set `accounted`) the malformed entry surfaced
+        nothing at all. Keyed under the run so a malformed attributed entry always gates."""
     out = set()
     seen = collections.Counter()
     for entry in (report.get("valuation_summary_integrity") or {}).get("failures") or []:
-        if entry.get("run"):
-            continue  # has a run: already covered via ap_failures()/status_of() in the main loop
+        run = entry.get("run")
+        if run and (entry.get("violations") or []):
+            continue  # attributed with real violations: already covered via ap_failures()/status_of()
+        if run:
+            ident = "AP_valuation_summary_integrity (attributed, no violations recorded)"
+            seen[ident] += 1
+            out.add((run, ident if seen[ident] == 1 else f"{ident} #{seen[ident]}"))
+            continue
         violations = entry.get("violations") or ["(unattributed AP failure: no run and no violations recorded)"]
         for violation in violations:
             ident = _identity("AP_valuation_summary_integrity (no run)", violation, root)

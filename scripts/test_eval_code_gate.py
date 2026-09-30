@@ -152,6 +152,19 @@ check("an unattributed AP failure with no violations list still yields a key, ne
       failure_keys(dict(report({}), valuation_summary_integrity={"checked": 1, "failures": [{"run": None}]}))
       == {(SUITE, "AP_valuation_summary_integrity (no run): (unattributed AP failure: no run and no violations recorded)")})
 
+# Codex (#732, r4119535836): an ATTRIBUTED AP entry (run set) with an empty/missing `violations` list hard-fails
+# the suite in eval.py (apfailures -> False), but research_check.ap_failures() maps it to [] so status_of() adds
+# no AP key for it. Behind an inherited per-run failure on that SAME run — which already put the run's own key in
+# `keys` and set `accounted` — the malformed entry surfaced nothing at all and read as fully inherited. It is now
+# keyed under the run so it always gates; red before this fix, green after.
+_attr_empty = dict(report({"V_2026-09-23": run_entry(["S_haircut_propagated"])}),
+                   valuation_summary_integrity={"checked": 1, "failures": [{"run": "V_2026-09-23", "violations": []}]})
+new, inh = split(failure_keys(_attr_empty), failure_keys(report({"V_2026-09-23": run_entry(["S_haircut_propagated"])})))
+check("an attributed AP entry with empty violations gates even while that run already fails on the base",
+      new == {("V_2026-09-23", "AP_valuation_summary_integrity (attributed, no violations recorded)")}, sorted(new))
+new, inh = split(failure_keys(_attr_empty), failure_keys(_attr_empty))
+check("an identical attributed-empty AP entry on base and change stays inherited", not new and len(inh) == 2, sorted(new))
+
 _repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 check("every way the real scripts/eval.py can fail the suite is one this gate can name",
       undecoded_suite_gates(_repo) == [], undecoded_suite_gates(_repo))
@@ -295,6 +308,33 @@ rc, out = gate(root, {"report": dict(report(dict(BASE["runs"])),
                       "rc": 1}, sha)
 check("e2e: a source_contracts_s24 entry with a status renamed away from PASS/FAIL is refused (would hide a J failure)",
       rc == 2 and "source_contracts_s24" in out, out[-400:])
+
+# Codex (#732, r4119535831): each run entry's `pass`/`warn_only` drive status_of() — a truthy NON-boolean (e.g.
+# the string "false") reads the failing run as PASS/WARN and hides its FAIL, invisible behind the inherited
+# V_2026-09-23 failure. run_harness now requires both to be booleans where present. Each case adds a genuinely
+# failing run (O_integrity_gate) whose FAIL is masked by the retyped field — red on the pre-fix gate (rc 0, the
+# hidden FAIL ships), refused after (rc 2). Pinned to the gate's contract ("a run it breaks ... still fails it")
+# and CLAUDE.md §28, never to current behaviour.
+def _bad_run_report(field, value):
+    entry = {"pass": False, "warn_only": False, "decision": "Avoid",
+             "checks": [{"check": "O_integrity_gate", "status": "FAIL"}]}
+    entry[field] = value  # a truthy non-boolean makes status_of() read the run PASS (pass) / WARN (warn_only)
+    rep = report(dict(BASE["runs"]))
+    rep["runs"] = dict(BASE["runs"], **{"R_2026-09-10": entry})
+    rep["suite_pass"] = False
+    return rep
+for _field in ("pass", "warn_only"):
+    rc, out = gate(root, {"report": _bad_run_report(_field, "false"), "rc": 1}, sha)
+    check(f"e2e: a run entry whose '{_field}' is a truthy non-boolean is refused (would hide a FAIL behind an inherited one)",
+          rc == 2 and "runs" in out and _field in out, out[-400:])
+
+# Codex (#732, r4119535836): an attributed AP entry (run set) with empty violations, behind the inherited
+# V_2026-09-23 failure on that same run — red on the pre-fix gate (rc 0, the hard-fail hides), gates after (rc 1).
+_attr_empty_e2e = dict(report({"V_2026-09-23": run_entry(["S_haircut_propagated"])}),
+                       valuation_summary_integrity={"checked": 1, "failures": [{"run": "V_2026-09-23", "violations": []}]})
+rc, out = gate(root, {"report": _attr_empty_e2e, "rc": 1}, sha)
+check("e2e: an attributed AP entry with empty violations on an already-failing run gates (not hidden as inherited)",
+      rc == 1 and "attributed, no violations recorded" in out, out[-400:])
 
 rc, out = gate(root, {"report": report({"OK_2026-09-01": run_entry()})}, sha)
 check("e2e: a clean corpus -> PASS", rc == 0, out[-400:])
