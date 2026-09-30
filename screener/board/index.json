@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T17:32:17Z",
+  "generated_at": "2026-09-30T17:41:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-455",
@@ -1533,6 +1533,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-459",
+      "headline": "Pool supplies firm Leslie's files for bankruptcy amid sales slump",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/pool-supplies-firm-leslies-files-bankruptcy-amid-sales-slump-2026-09-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T17:17:09Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Leslie's files for bankruptcy amid sales slump; default event that impairs operations and destroys shareholder capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Leslie's files for bankruptcy amid sales slump; default event that impairs operations and destroys shareholder capital.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Leslie's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-430",
       "headline": "Ford F-150 supplier disruption to impact 3Q sales, CEO says",
       "headline_en": null,
@@ -1905,55 +1954,6 @@
           "name": "Brakebush Brothers",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-289",
-      "headline": "Hormel Foods to buy Brakebush in deal valued at $1.06 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/hormel-foods-acquire-brakebush-106-billion-2026-09-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T10:49:41Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Hormel Foods is acquiring Brakebush for $1.06 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Hormel Foods is acquiring Brakebush for $1.06 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hormel Foods",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -192333,9 +192333,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10846754,
-    "news_picked_today": 933,
-    "news_dropped_today": 16611
+    "news_seen_today": 10873717,
+    "news_picked_today": 940,
+    "news_dropped_today": 16724
   },
   "book_momentum": {
     "live_count": 8,
