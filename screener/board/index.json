@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T21:16:14Z",
+  "generated_at": "2026-09-30T21:21:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-455",
@@ -148958,76 +148958,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-000581c2d4b0",
-      "idea_version": "IDEAV-c3234b6d80f23e22",
-      "idea_version_started_at": "2026-09-29T10:02:00Z",
-      "ticker": "ZIM",
-      "company": "ZIM Integrated Shipping Services",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The proposed $4 billion takeover by Hapag-Lloyd is being blocked by Israeli regulators due to concerns over foreign ownership stakes, removing the acquisition premium from the stock price.",
-      "why_now": "The regulatory intervention was reported on September 29, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-acf117012996"
-      ],
-      "primary_source_event_id": "EVT-acf117012996",
-      "source_headlines": [
-        "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover"
-      ],
-      "source_headline": "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-09-29/israel-cites-saudi-qatari-stakes-in-hapag-to-halt-4-billion-zim-takeover",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-29T09:18:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T10:02:00Z",
-      "updated_at": "2026-09-29T10:02:00Z",
-      "decay_at": "2026-09-30T21:18:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-40819af81f1f",
       "idea_version": "IDEAV-87950ef288afff4a",
       "idea_version_started_at": "2026-09-30T16:43:44Z",
@@ -151671,6 +151601,76 @@
       "surfaced_at": "2026-09-28T02:57:09Z",
       "updated_at": "2026-09-28T02:57:09Z",
       "decay_at": "2026-09-29T14:42:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-000581c2d4b0",
+      "idea_version": "IDEAV-c3234b6d80f23e22",
+      "idea_version_started_at": "2026-09-29T10:02:00Z",
+      "ticker": "ZIM",
+      "company": "ZIM Integrated Shipping Services",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The proposed $4 billion takeover by Hapag-Lloyd is being blocked by Israeli regulators due to concerns over foreign ownership stakes, removing the acquisition premium from the stock price.",
+      "why_now": "The regulatory intervention was reported on September 29, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-acf117012996"
+      ],
+      "primary_source_event_id": "EVT-acf117012996",
+      "source_headlines": [
+        "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover"
+      ],
+      "source_headline": "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-09-29/israel-cites-saudi-qatari-stakes-in-hapag-to-halt-4-billion-zim-takeover",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T09:18:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T10:02:00Z",
+      "updated_at": "2026-09-29T10:02:00Z",
+      "decay_at": "2026-09-30T21:18:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155120,9 +155120,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 552,
     "shown_count": 500,
-    "hidden_count": 51,
+    "hidden_count": 52,
     "side_counts": {
       "long": {
         "total_count": 286,
@@ -155130,9 +155130,9 @@
         "hidden_count": 36
       },
       "short": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       }
     },
     "retention": {
@@ -155151,6 +155151,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-000581c2d4b0",
+        "idea_version": "IDEAV-c3234b6d80f23e22",
+        "idea_version_started_at": "2026-09-29T10:02:00Z",
+        "ticker": "ZIM",
+        "company": "ZIM Integrated Shipping Services",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The proposed $4 billion takeover by Hapag-Lloyd is being blocked by Israeli regulators due to concerns over foreign ownership stakes, removing the acquisition premium from the stock price.",
+        "why_now": "The regulatory intervention was reported on September 29, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-acf117012996"
+        ],
+        "primary_source_event_id": "EVT-acf117012996",
+        "source_headlines": [
+          "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover"
+        ],
+        "source_headline": "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-09-29/israel-cites-saudi-qatari-stakes-in-hapag-to-halt-4-billion-zim-takeover",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-29T09:18:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T10:02:00Z",
+        "updated_at": "2026-09-29T10:02:00Z",
+        "decay_at": "2026-09-30T21:18:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-30T21:18:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ecd44507baf4",
         "idea_version": "IDEAV-db22a8845cd3834f",
@@ -192253,85 +192326,12 @@
         "archived_at": "2026-09-07T16:59:20Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-aae3ef159f69",
-        "idea_version": "IDEAV-6b3d1e38bfd09573",
-        "idea_version_started_at": "2026-09-05T22:50:47Z",
-        "ticker": "BSX",
-        "company": "Boston Scientific Corporation",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A major recall of Boston Scientific's spinal cord stimulator leads has been linked to more than 1,000 patient injuries, presenting significant litigation, regulatory, and market share risks.",
-        "why_now": "The critical severity recall details and injury counts were publicized on September 4, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 59,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c9b8a01f5ab3"
-        ],
-        "primary_source_event_id": "EVT-c9b8a01f5ab3",
-        "source_headlines": [
-          "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries"
-        ],
-        "source_headline": "Boston Scientific recall of spinal cord stimulator leads tied to more than 1,000 injuries",
-        "source_url": "https://www.medtechdive.com/news/boston-scientific-recall-of-spinal-cord-stimulator-leads-tied-to-more-than/829699/",
-        "source_name": "MedTech Dive",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-04T15:39:43Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-04T17:02:16Z",
-        "updated_at": "2026-09-05T22:50:47Z",
-        "decay_at": "2026-09-06T03:39:43Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-07T16:59:20Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1180,
-    "live_count": 45,
+    "live_count": 44,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
