@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T04:00:27Z",
+  "generated_at": "2026-09-30T04:06:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-104",
@@ -297,6 +297,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260930-118",
+      "headline": "Prestige Estates shares gain as CPP Investments to acquire 27% stake in hospitality arm for ₹3,000 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/prestige-estates-projects-share-price-cppib-investment-3000-crore-hospitality-arm-expansion-ipo-plans-20001528.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T03:53:22Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Prestige Estates is selling a 27% stake in its hospitality arm for ₹3,000 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Prestige Estates is selling a 27% stake in its hospitality arm for ₹3,000 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prestige Estates Projects Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260930-112",
       "headline": "Paramount’s $30 billion bond sale draws $109 billion demand for Warner Bros deal",
       "headline_en": null,
@@ -402,55 +451,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260930-102",
-      "headline": "Prestige Estates shares in focus as CPP Investments to acquire 27% stake in hospitality arm for ₹3,000 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/prestige-estates-projects-share-price-cppib-investment-3000-crore-hospitality-arm-expansion-ipo-plans-20001528.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T02:29:24Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "CPP Investments is acquiring a 27% stake in Prestige Estates' hospitality arm for ₹3,000 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CPP Investments is acquiring a 27% stake in Prestige Estates' hospitality arm for ₹3,000 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prestige Estates Projects Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20260930-096",
       "headline": "Nidec Shares Sink as CEO Resigns Amid Accounting Scandal",
       "headline_en": null,
@@ -496,6 +496,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-119",
+      "headline": "PaleBlueDot AI Seeks $600 Million Private Credit to Buy Chips",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-30/palebluedot-ai-seeks-600-million-private-credit-to-buy-chips",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T03:52:05Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "PaleBlueDot AI is seeking $600 million in private credit for capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "PaleBlueDot AI is seeking $600 million in private credit for capital expenditure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PaleBlueDot AI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1905,55 +1954,6 @@
           "name": "Australian Strategic Materials",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-003",
-      "headline": "EMP: Approval of Judith2 Appraisal Well Drilling Environment Plan [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EMP?key=2924-03141907-2A1700521",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T23:52:59Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "Empire Energy Group received approval for the Judith2 appraisal well drilling plan, a key operational milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Empire Energy Group received approval for the Judith2 appraisal well drilling plan, a key operational milestone.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Empire Energy Group",
-          "ticker": "EMP",
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -193123,9 +193123,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3456861,
-    "news_picked_today": 155,
-    "news_dropped_today": 1861
+    "news_seen_today": 3550248,
+    "news_picked_today": 158,
+    "news_dropped_today": 1906
   },
   "book_momentum": {
     "live_count": 8,
