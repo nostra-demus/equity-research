@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-30T09:38:07Z",
+  "generated_at": "2026-09-30T09:47:07Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-226",
+      "headline": "RSUN PPT (01996): UPDATE IN RELATION TO DISCLAIMER OF OPINION IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093001306.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T09:15:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Auditor disclaimer of opinion on FY25 annual report signals unresolved audit-scope or accounting issues preventing auditor attestation of financial statements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Auditor disclaimer of opinion on FY25 annual report signals unresolved audit-scope or accounting issues preventing auditor attestation of financial statements.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RSUN PPT",
+          "ticker": "01996",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-215",
       "headline": "HC GROUP (02280): INSIDE INFORMATION DELAY IN PUBLICATION OF THE 2026 INTERIM REPORT AND CONTINUED SUSPENSION OF TRADING",
@@ -1922,55 +1971,6 @@
           "name": "Asian Energy Services Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-138",
-      "headline": "XPN: Completion of the Datisan Sale [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XPN?key=2924-03142152-2A1700644",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T04:38:25Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "RTR has completed the sale of Datisan, a price-sensitive divestment event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "RTR has completed the sale of Datisan, a price-sensitive divestment event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RTR",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -148960,76 +148960,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d4008a8b5537",
-      "idea_version": "IDEAV-967196dc0fb7b276",
-      "idea_version_started_at": "2026-09-29T06:22:55Z",
-      "ticker": "AIR",
-      "company": "AAR Corp",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of a majority stake in MRO Holdings for $1.8 billion expands AAR's footprint in the aircraft maintenance, repair, and overhaul market, increasing its service capacity.",
-      "why_now": "The deal was announced on September 28, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ff213ee98ce9"
-      ],
-      "primary_source_event_id": "EVT-ff213ee98ce9",
-      "source_headlines": [
-        "AAR to buy majority stake in aircraft maintenance firm MRO Holdings for $1.8 billion"
-      ],
-      "source_headline": "AAR to buy majority stake in aircraft maintenance firm MRO Holdings for $1.8 billion",
-      "source_url": "https://www.reuters.com/business/aar-buy-majority-stake-aircraft-maintenance-firm-mro-holdings-18-billion-2026-09-28/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T21:39:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T06:22:55Z",
-      "updated_at": "2026-09-29T06:22:55Z",
-      "decay_at": "2026-09-30T09:39:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-da27b1ea58fb",
       "idea_version": "IDEAV-dc34c3134228dee9",
       "idea_version_started_at": "2026-09-29T16:06:24Z",
@@ -151749,6 +151679,76 @@
       "surfaced_at": "2026-09-28T02:57:09Z",
       "updated_at": "2026-09-28T02:57:09Z",
       "decay_at": "2026-09-29T14:42:40Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d4008a8b5537",
+      "idea_version": "IDEAV-967196dc0fb7b276",
+      "idea_version_started_at": "2026-09-29T06:22:55Z",
+      "ticker": "AIR",
+      "company": "AAR Corp",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of a majority stake in MRO Holdings for $1.8 billion expands AAR's footprint in the aircraft maintenance, repair, and overhaul market, increasing its service capacity.",
+      "why_now": "The deal was announced on September 28, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ff213ee98ce9"
+      ],
+      "primary_source_event_id": "EVT-ff213ee98ce9",
+      "source_headlines": [
+        "AAR to buy majority stake in aircraft maintenance firm MRO Holdings for $1.8 billion"
+      ],
+      "source_headline": "AAR to buy majority stake in aircraft maintenance firm MRO Holdings for $1.8 billion",
+      "source_url": "https://www.reuters.com/business/aar-buy-majority-stake-aircraft-maintenance-firm-mro-holdings-18-billion-2026-09-28/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-28T21:39:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T06:22:55Z",
+      "updated_at": "2026-09-29T06:22:55Z",
+      "decay_at": "2026-09-30T09:39:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155625,14 +155625,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 557,
+    "total_count": 558,
     "shown_count": 500,
-    "hidden_count": 57,
+    "hidden_count": 58,
     "side_counts": {
       "long": {
-        "total_count": 295,
+        "total_count": 296,
         "shown_count": 250,
-        "hidden_count": 45
+        "hidden_count": 46
       },
       "short": {
         "total_count": 262,
@@ -155656,6 +155656,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d4008a8b5537",
+        "idea_version": "IDEAV-967196dc0fb7b276",
+        "idea_version_started_at": "2026-09-29T06:22:55Z",
+        "ticker": "AIR",
+        "company": "AAR Corp",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of a majority stake in MRO Holdings for $1.8 billion expands AAR's footprint in the aircraft maintenance, repair, and overhaul market, increasing its service capacity.",
+        "why_now": "The deal was announced on September 28, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ff213ee98ce9"
+        ],
+        "primary_source_event_id": "EVT-ff213ee98ce9",
+        "source_headlines": [
+          "AAR to buy majority stake in aircraft maintenance firm MRO Holdings for $1.8 billion"
+        ],
+        "source_headline": "AAR to buy majority stake in aircraft maintenance firm MRO Holdings for $1.8 billion",
+        "source_url": "https://www.reuters.com/business/aar-buy-majority-stake-aircraft-maintenance-firm-mro-holdings-18-billion-2026-09-28/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-28T21:39:54Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T06:22:55Z",
+        "updated_at": "2026-09-29T06:22:55Z",
+        "decay_at": "2026-09-30T09:39:54Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-30T09:39:54Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8e38ef15bf4e",
         "idea_version": "IDEAV-556c9010c4834b5a",
@@ -184851,80 +184924,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-7835675519f4",
-        "idea_version": "IDEAV-bfddf05a76e37850",
-        "idea_version_started_at": "2026-09-13T17:31:23Z",
-        "ticker": "GEHC",
-        "company": "GE HealthCare",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of Sofie Biosciences for $1 billion expands the company's footprint in the high-growth radiopharmaceutical and cancer diagnostics market.",
-        "why_now": "The deal was reported as being in active negotiations on September 13, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-46a2aebd5c00",
-          "EVT-4b3ff767bb59"
-        ],
-        "primary_source_event_id": "EVT-46a2aebd5c00",
-        "source_headlines": [
-          "GE HealthCare in talks over possible $1 billion deal for Sofie Biosciences, FT reports",
-          "GE HealthCare in talks over $1bn deal for maker of cancer scan chemicals"
-        ],
-        "source_headline": "GE HealthCare in talks over possible $1 billion deal for Sofie Biosciences, FT reports",
-        "source_url": "https://www.reuters.com/legal/transactional/ge-healthcare-talks-over-possible-1-billion-deal-sofie-biosciences-ft-reports-2026-09-13/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T11:19:07Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T12:04:53Z",
-        "updated_at": "2026-09-13T17:31:23Z",
-        "decay_at": "2026-09-14T23:19:07Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-16T11:53:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-140d0f792e92",
         "idea_version": "IDEAV-c9f2072c0f774a5a",
         "idea_version_started_at": "2026-09-13T16:50:02Z",
@@ -192831,7 +192830,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1172,
-    "live_count": 46,
+    "live_count": 45,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -192850,9 +192849,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7998408,
-    "news_picked_today": 355,
-    "news_dropped_today": 6509
+    "news_seen_today": 8032779,
+    "news_picked_today": 367,
+    "news_dropped_today": 6809
   },
   "book_momentum": {
     "live_count": 8,
