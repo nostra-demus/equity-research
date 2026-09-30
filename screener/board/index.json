@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T23:07:44Z",
+  "generated_at": "2026-09-30T23:13:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-532",
@@ -1927,60 +1927,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260930-524",
-      "headline": "CScale raises $145 million for AI networking, with backing from Nvidia and Intel",
+      "inbox_id": "INB-20260930-537",
+      "headline": "SHIMAO GROUP (00813): Updates in relation to the Disclaimer of Opinion set out in the Annual Report for the year ended 31 December 2025",
       "headline_en": null,
-      "url": "https://www.reuters.com/business/media-telecom/cscale-raises-145-million-ai-networking-with-backing-nvidia-intel-2026-09-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T21:05:08Z",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092901181.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T09:47:00Z",
       "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "CScale raised $145 million for AI networking, with backing from Nvidia and Intel.",
+      "prelim_note": "A stock-exchange update about an auditor's disclaimer of opinion signals going-concern or accounting distress and can trigger regulatory action, covenant breaches, or delisting.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "CScale raised $145 million for AI networking, with backing from Nvidia and Intel.",
-      "region": "GLOBAL",
+      "triage_reason": "A stock-exchange update about an auditor's disclaimer of opinion signals going-concern or accounting distress and can trigger regulatory action, covenant breaches, or delisting.",
+      "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "large"
       },
       "event_types": [
-        "capital_actions"
+        "accounting_restatement",
+        "default_distress"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "CScale",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Intel",
-          "ticker": null,
-          "listing_country": null
+          "name": "Shimao Group Holdings Limited",
+          "ticker": "00813",
+          "listing_country": "HK"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192000,9 +191991,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12786584,
-    "news_picked_today": 1206,
-    "news_dropped_today": 23106
+    "news_seen_today": 12809946,
+    "news_picked_today": 1212,
+    "news_dropped_today": 23316
   },
   "book_momentum": {
     "live_count": 8,
