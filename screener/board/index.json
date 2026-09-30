@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-09-30T21:38:22Z",
+  "generated_at": "2026-09-30T21:47:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-525",
+      "headline": "HGH: Heartland shareholders approve proposed TSB merger",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HGH?key=2924-03142797-2A1700833",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T21:30:03Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Heartland shareholders approved the proposed merger with TSB, a significant corporate action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Heartland shareholders approved the proposed merger with TSB, a significant corporate action.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Heartland Group Holdings",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-455",
       "headline": "eca2026-700 - Information Regarding the Merger of NSTS Bancorp, Inc. (NSTS)",
@@ -1935,55 +1984,6 @@
           "name": "Micron",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-492",
-      "headline": "Nidec races to shore up governance as auditor withholds earnings sign-off",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/companies/nidec-races-to-shore-up-governance-as-auditor-withholds-earnings-sign-off",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T20:35:59Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "An auditor withholding an earnings sign-off is a major red flag regarding governance and financial reporting integrity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An auditor withholding an earnings sign-off is a major red flag regarding governance and financial reporting integrity.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nidec",
-          "ticker": "6594",
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -192220,9 +192220,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12331819,
-    "news_picked_today": 1130,
-    "news_dropped_today": 21526
+    "news_seen_today": 12356547,
+    "news_picked_today": 1138,
+    "news_dropped_today": 21830
   },
   "book_momentum": {
     "live_count": 8,
