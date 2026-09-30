@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-14T08:49:59Z",
+  "archived_at": "2026-09-30T21:21:44Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-7bad7e7a459f",
-    "idea_version": "IDEAV-ab5c5bac32555c4b",
-    "idea_version_started_at": "2026-09-11T11:59:49Z",
-    "ticker": "01347",
-    "company": "Hua Hong Semiconductor",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-73ec49591826",
+    "idea_version": "IDEAV-75fe019ffad46679",
+    "idea_version_started_at": "2026-09-27T22:02:47Z",
+    "ticker": "SPCT",
+    "company": "Spectrum Control",
+    "exchange": "NYSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "The completion of a major connected transaction allows the company to finalize its strategic capital allocation and operational integration.",
-    "why_now": "The completion was officially announced on 2026-09-11.",
-    "conviction": 55,
+    "reason": "The company is being acquired by Greenbriar for $1.8 billion, creating a clear arbitrage opportunity between the current market price and the acquisition valuation.",
+    "why_now": "The deal was reported as nearing completion on 2026-09-27.",
+    "conviction": 85,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 15,
+      "evidence": 14,
+      "impact": 21,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -37,6 +37,7 @@
       "live liquidity",
       "dated catalyst",
       "priced-in risk",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +54,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-378c885cab8d"
+      "EVT-a58efce01ef5"
     ],
-    "primary_source_event_id": "EVT-378c885cab8d",
+    "primary_source_event_id": "EVT-a58efce01ef5",
     "source_headlines": [
-      "HUA HONG GRACE (01347): COMPLETION OF THE MAJOR AND CONNECTED TRANSACTION"
+      "Greenbriar Nears $1.8 billion Spectrum Control Purchase"
     ],
-    "source_headline": "HUA HONG GRACE (01347): COMPLETION OF THE MAJOR AND CONNECTED TRANSACTION",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100436.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
-    "materiality_max": 99,
-    "newest_source_at": "2026-09-11T08:41:00Z",
+    "source_headline": "Greenbriar Nears $1.8 billion Spectrum Control Purchase",
+    "source_url": "https://www.bloomberg.com/news/articles/2026-09-27/greenbriar-nears-1-8-billion-spectrum-control-purchase",
+    "source_name": "Bloomberg",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-27T20:33:16Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-11T11:59:49Z",
-    "updated_at": "2026-09-11T11:59:49Z",
-    "decay_at": "2026-09-12T20:41:00Z",
+    "surfaced_at": "2026-09-27T22:02:47Z",
+    "updated_at": "2026-09-27T22:02:47Z",
+    "decay_at": "2026-09-29T08:33:16Z",
     "status": "live",
     "promoted_signal_id": null
   }
