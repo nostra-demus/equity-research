@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-09-30T14:53:23Z",
+  "generated_at": "2026-09-30T14:58:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260930-402",
+      "headline": "KFM KINGDOM (03816): JOINT ANNOUNCEMENT ON (1) PROPOSED SUBSCRIPTION OF CONVERTIBLE BONDS UNDER SPECIFIC MANDATES; (2) ACQUISITION OF SALE SHARES BY LUXSHARE HONG KONG; (3) POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY ASIAN CAPITAL FOR AND ON BEHALF OF LUXSHARE HONG KONG TO ACQUIRE ALL THE ISSUED SHARES IN KFM KINGDOM HOLDINGS LIMITED; AND (4) RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093002883.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T14:42:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "KFM Kingdom receives proposed convertible-bond subscription, share acquisition by Luxshare Hong Kong, and possible unconditional mandatory cash offer to acquire all shares; trading resumption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KFM Kingdom receives proposed convertible-bond subscription, share acquisition by Luxshare Hong Kong, and possible unconditional mandatory cash offer to acquire all shares; trading resumption.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KFM KINGDOM HOLDINGS LIMITED",
+          "ticker": "3816",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-394",
       "headline": "JIANGSU EXPRESS (00177): DISCLOSEABLE AND RELATED PARTY/CONNECTED TRANSACTION IN RESPECT OF ACQUISITION OF 100% EQUITY INTERESTS IN SUXICHANG SOUTH EXPRESSWAY COMPANY - 2026 INTERIM PROFIT DISTRIBUTION SCHEME AND NOTICE OF 2026 FIRST EXTRAORDINARY GENERAL MEETING",
@@ -1914,56 +1964,6 @@
       "companies": [
         {
           "name": "NLC India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-147",
-      "headline": "KPI Green Energy To Acquire Alfanar Energy And Netra Wind For ₹2,410 Crore, Boosting Wind Capacity",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/kpi-green-energy-to-acquire-alfanar-energy-and-netra-wind-for-2410-crore-boosting-wind-capacity",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T04:51:22Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "KPI Green Energy is acquiring Alfanar Energy and Netra Wind for ₹2,410 crore to expand wind capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KPI Green Energy is acquiring Alfanar Energy and Netra Wind for ₹2,410 crore to expand wind capacity.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KPI Green Energy",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -192346,9 +192346,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10103129,
-    "news_picked_today": 778,
-    "news_dropped_today": 14462
+    "news_seen_today": 10131177,
+    "news_picked_today": 782,
+    "news_dropped_today": 14578
   },
   "book_momentum": {
     "live_count": 8,
