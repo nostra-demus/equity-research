@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T10:14:31Z",
+  "generated_at": "2026-09-30T10:15:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-226",
@@ -149314,6 +149314,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-a8364208c07a",
+      "idea_version": "IDEAV-ab886b11ae43d6d9",
+      "idea_version_started_at": "2026-09-30T10:14:44Z",
+      "ticker": "01996",
+      "company": "Rsun Property Services",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The auditor's disclaimer of opinion indicates a fundamental inability to verify the company's financial position, signaling extreme risk of insolvency or severe accounting irregularities.",
+      "why_now": "The filing was released on 2026-09-30, confirming the auditor's refusal to provide an opinion on the 2025 annual report.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1855b17513c4"
+      ],
+      "primary_source_event_id": "EVT-1855b17513c4",
+      "source_headlines": [
+        "RSUN PPT (01996): UPDATE IN RELATION TO DISCLAIMER OF OPINION IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025"
+      ],
+      "source_headline": "RSUN PPT (01996): UPDATE IN RELATION TO DISCLAIMER OF OPINION IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093001306.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T09:15:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T10:14:44Z",
+      "updated_at": "2026-09-30T10:14:44Z",
+      "decay_at": "2026-10-01T21:15:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5fb10eec7770",
       "idea_version": "IDEAV-172081ed4cadf983",
       "idea_version_started_at": "2026-09-30T09:10:28Z",
@@ -151959,76 +152030,6 @@
       "surfaced_at": "2026-09-27T19:10:14Z",
       "updated_at": "2026-09-27T19:10:14Z",
       "decay_at": "2026-09-29T06:18:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-888b01b644ef",
-      "idea_version": "IDEAV-2b246912960862a3",
-      "idea_version_started_at": "2026-09-27T10:13:26Z",
-      "ticker": "RIOT",
-      "company": "Riot Platforms",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Repaying $200 million in debt and releasing collateral improves the company's balance sheet flexibility and reduces interest expense, lowering its financial risk profile.",
-      "why_now": "The debt repayment was confirmed on 2026-09-27, signaling an immediate improvement in liquidity.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7298605bbe21"
-      ],
-      "primary_source_event_id": "EVT-7298605bbe21",
-      "source_headlines": [
-        "Riot Platforms repays $200M credit facility, releases collateral"
-      ],
-      "source_headline": "Riot Platforms repays $200M credit facility, releases collateral",
-      "source_url": "https://cointelegraph.com/news/riot-platforms-repays-200m-credit-facility-releases-collateral?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "materiality_max": 89,
-      "newest_source_at": "2026-09-27T09:57:19Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T10:13:26Z",
-      "updated_at": "2026-09-27T10:13:26Z",
-      "decay_at": "2026-09-28T21:57:19Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155045,77 +155046,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-481a4b3ef631",
-      "idea_version": "IDEAV-6cfbf2b9657e3199",
-      "idea_version_started_at": "2026-09-27T10:13:26Z",
-      "ticker": "03692",
-      "company": "Hansoh Pharmaceutical Group",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company received positive regulatory updates regarding the marketing authorization of Aumolertinib in the EU, which expands the addressable market for its core oncology product.",
-      "why_now": "The voluntary announcement was filed on 2026-09-27, providing immediate clarity on the product's European commercialization timeline.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bce6f755c270"
-      ],
-      "primary_source_event_id": "EVT-bce6f755c270",
-      "source_headlines": [
-        "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE MARKETING AUTHORIZATION STATUS OF AUMOLERTINIB IN THE EU"
-      ],
-      "source_headline": "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE MARKETING AUTHORIZATION STATUS OF AUMOLERTINIB IN THE EU",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700007.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 95,
-      "newest_source_at": "2026-09-27T10:08:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-27T10:13:26Z",
-      "updated_at": "2026-09-27T10:13:26Z",
-      "decay_at": "2026-09-28T22:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-0bf3d617a214",
       "idea_version": "IDEAV-c1fc68129104d6db",
       "idea_version_started_at": "2026-09-27T22:32:28Z",
@@ -155625,14 +155555,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 558,
+    "total_count": 556,
     "shown_count": 500,
-    "hidden_count": 58,
+    "hidden_count": 56,
     "side_counts": {
       "long": {
-        "total_count": 296,
+        "total_count": 294,
         "shown_count": 250,
-        "hidden_count": 46
+        "hidden_count": 44
       },
       "short": {
         "total_count": 262,
@@ -155642,12 +155572,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 568,
+      "evicted_count": 570,
       "oldest_retained_at": "2026-09-04T08:30:19Z",
       "side_counts": {
         "long": {
-          "evicted_count": 375,
-          "oldest_retained_at": "2026-09-11T21:26:25Z"
+          "evicted_count": 377,
+          "oldest_retained_at": "2026-09-12T00:17:42Z"
         },
         "short": {
           "evicted_count": 193,
@@ -159893,8 +159823,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-28T22:08:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T10:14:48Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -159966,8 +159896,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-28T21:57:19Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-09-30T10:14:48Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -192829,8 +192759,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1172,
-    "live_count": 45,
+    "surfaced_total": 1173,
+    "live_count": 46,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
