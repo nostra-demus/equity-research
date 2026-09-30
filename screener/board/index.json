@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T00:59:39Z",
+  "generated_at": "2026-09-30T01:02:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-046",
@@ -144,6 +144,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-055",
+      "headline": "CBA: Issue of CNH 2,000,000,000 worth of Subordinated Notes",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CBA?key=2924-03141971-2A1700563",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T00:54:24Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Commonwealth Bank of Australia is issuing CNH 2 billion in subordinated notes to raise capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Commonwealth Bank of Australia is issuing CNH 2 billion in subordinated notes to raise capital.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Commonwealth Bank of Australia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1870,55 +1919,6 @@
       "headline": "SCHEDULE 13D/A - LIFECORE BIOMEDICAL, INC. \\DE\\ (0001005286) (Subject)",
       "headline_en": null,
       "url": "https://www.sec.gov/Archives/edgar/data/1005286/000110465926111939/0001104659-26-111939-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-29T20:15:29Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "An amended 13D filing indicates a change in ownership stake for Lifecore Biomedical.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "An amended 13D filing indicates a change in ownership stake for Lifecore Biomedical.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LIFECORE BIOMEDICAL, INC.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-035",
-      "headline": "SCHEDULE 13D/A - WYNNEFIELD PARTNERS SMALL CAP VALUE LP I (0001251565) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1251565/000110465926111939/0001104659-26-111939-index.htm",
       "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
       "input_nature": "regulatory_filing",
       "found_at": "2026-09-29T20:15:29Z",
@@ -193423,9 +193423,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 822921,
-    "news_picked_today": 57,
-    "news_dropped_today": 423
+    "news_seen_today": 886055,
+    "news_picked_today": 59,
+    "news_dropped_today": 469
   },
   "book_momentum": {
     "live_count": 8,
