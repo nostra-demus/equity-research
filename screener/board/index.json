@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-30T11:17:34Z",
+  "generated_at": "2026-09-30T11:27:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20260930-291",
@@ -835,6 +835,60 @@
           "name": "Hyundai Mobis",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260930-292",
+      "headline": "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/hormel-foods-to-buy-brakebush-brothers-for-about-1-06-billion-6adef7ff?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T11:01:00Z",
+      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
+      "prelim_note": "Hormel Foods announced $1.06 billion acquisition of Brakebush Brothers, a packaged-meat platform deal with named value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hormel Foods announced $1.06 billion acquisition of Brakebush Brothers, a packaged-meat platform deal with named value.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hormel Foods Corporation",
+          "ticker": "HRL",
+          "listing_country": "US"
+        },
+        {
+          "name": "Brakebush Brothers",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1932,55 +1986,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260930-168",
-      "headline": "R&F PROPERTIES (02777): Quarterly Update on Implementation of Action Plan to Resolve Auditor's Disclaimer of Opinion on the Annual Consolidated Financial Statements",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0930/2026093000688.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T08:35:00Z",
-      "sweep_file": "screener/inbox/2026-09-30_sweep.json",
-      "prelim_note": "R&F Properties continues to address auditor disclaimer of opinion on financial statements.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "R&F Properties continues to address auditor disclaimer of opinion on financial statements.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "R&F Properties",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192785,9 +192790,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8864187,
-    "news_picked_today": 501,
-    "news_dropped_today": 8259
+    "news_seen_today": 8897637,
+    "news_picked_today": 512,
+    "news_dropped_today": 8488
   },
   "book_momentum": {
     "live_count": 8,
