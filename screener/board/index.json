@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T23:10:12Z",
+  "generated_at": "2026-10-01T23:18:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-545",
@@ -151820,78 +151820,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-52a632df2dfe",
-      "idea_version": "IDEAV-bf8cdf8594cf7309",
-      "idea_version_started_at": "2026-09-30T16:19:46Z",
-      "ticker": "08439",
-      "company": "Somerley Capital Holdings",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is subject to a mandatory unconditional cash offer, providing a clear exit price for shareholders.",
-      "why_now": "The announcement confirms the satisfaction of conditions precedent to the sale and purchase agreement as of 2026-09-30.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e3d40514e05a"
-      ],
-      "primary_source_event_id": "EVT-e3d40514e05a",
-      "source_headlines": [
-        "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA"
-      ],
-      "source_headline": "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0930/2026093002075.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-30T11:18:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-30T16:19:46Z",
-      "updated_at": "2026-09-30T16:19:46Z",
-      "decay_at": "2026-10-01T23:18:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fa0d140ee7df",
       "idea_version": "IDEAV-56f9fc0daac67d9a",
       "idea_version_started_at": "2026-10-01T01:46:19Z",
@@ -153292,6 +153220,78 @@
       "surfaced_at": "2026-09-29T09:11:29Z",
       "updated_at": "2026-09-29T09:11:29Z",
       "decay_at": "2026-09-30T17:30:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-52a632df2dfe",
+      "idea_version": "IDEAV-bf8cdf8594cf7309",
+      "idea_version_started_at": "2026-09-30T16:19:46Z",
+      "ticker": "08439",
+      "company": "Somerley Capital Holdings",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is subject to a mandatory unconditional cash offer, providing a clear exit price for shareholders.",
+      "why_now": "The announcement confirms the satisfaction of conditions precedent to the sale and purchase agreement as of 2026-09-30.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e3d40514e05a"
+      ],
+      "primary_source_event_id": "EVT-e3d40514e05a",
+      "source_headlines": [
+        "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA"
+      ],
+      "source_headline": "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0930/2026093002075.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T11:18:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T16:19:46Z",
+      "updated_at": "2026-09-30T16:19:46Z",
+      "decay_at": "2026-10-01T23:18:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155395,14 +155395,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 546,
     "shown_count": 500,
-    "hidden_count": 45,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
         "total_count": 268,
@@ -155426,6 +155426,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-52a632df2dfe",
+        "idea_version": "IDEAV-bf8cdf8594cf7309",
+        "idea_version_started_at": "2026-09-30T16:19:46Z",
+        "ticker": "08439",
+        "company": "Somerley Capital Holdings",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is subject to a mandatory unconditional cash offer, providing a clear exit price for shareholders.",
+        "why_now": "The announcement confirms the satisfaction of conditions precedent to the sale and purchase agreement as of 2026-09-30.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e3d40514e05a"
+        ],
+        "primary_source_event_id": "EVT-e3d40514e05a",
+        "source_headlines": [
+          "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA"
+        ],
+        "source_headline": "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0930/2026093002075.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-30T11:18:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-30T16:19:46Z",
+        "updated_at": "2026-09-30T16:19:46Z",
+        "decay_at": "2026-10-01T23:18:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T23:18:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-aadc0ff37abc",
         "idea_version": "IDEAV-f0209184942afc7f",
@@ -184910,80 +184985,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d02c47d3e85d",
-        "idea_version": "IDEAV-e8eb59fc8b5e0575",
-        "idea_version_started_at": "2026-09-14T04:51:58Z",
-        "ticker": "GBE",
-        "company": "Globe Metals & Mining",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Globe Metals & Mining has secured further legal clearance for its Kanyika Project, removing a significant hurdle and advancing its development prospects.",
-        "why_now": "The legal clearance was announced on September 14, 2026, providing a current positive catalyst.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a0cfaa080c01"
-        ],
-        "primary_source_event_id": "EVT-a0cfaa080c01",
-        "source_headlines": [
-          "GBE: Globe Secures Further Legal Clearance for Kanyika Project [price-sensitive]"
-        ],
-        "source_headline": "GBE: Globe Secures Further Legal Clearance for Kanyika Project [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GBE?key=2924-03135151-6A1343660",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 92,
-        "newest_source_at": "2026-09-14T02:39:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T04:51:58Z",
-        "updated_at": "2026-09-14T04:51:58Z",
-        "decay_at": "2026-09-15T14:39:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-3c162423bb69",
         "idea_version": "IDEAV-c35bd18c0ffca97c",
         "idea_version_started_at": "2026-09-14T04:51:58Z",
@@ -192586,7 +192587,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1199,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -192605,9 +192606,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5441200,
-    "news_picked_today": 1672,
-    "news_dropped_today": 26576
+    "news_seen_today": 5453050,
+    "news_picked_today": 1684,
+    "news_dropped_today": 26732
   },
   "book_momentum": {
     "live_count": 8,
