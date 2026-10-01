@@ -29,7 +29,7 @@ import sys
 import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from eval_code_gate import SUITE, failure_keys, main, split, undecoded_suite_gates  # noqa: E402
+from eval_code_gate import SUITE, _require_trusted_shape, failure_keys, main, split, undecoded_suite_gates  # noqa: E402
 
 _fails = []
 
@@ -171,6 +171,41 @@ check("an attributed AP entry with empty violations gates even while that run al
 new, inh = split(failure_keys(_attr_empty), failure_keys(_attr_empty))
 check("an identical attributed-empty AP entry on base and change stays inherited", not new and len(inh) == 2, sorted(new))
 
+# BF (scenario-basis coherence): eval.py fails the suite on any ENFORCED basis finding. Each enforced violation
+# must be its own key, so a BF failure never hides behind an unrelated inherited failure; red before the BF
+# reader existed (the enforced section was invisible), green after.
+def _bf(enforced, runs=None):
+    rep = report(runs if runs is not None else {"V_2026-09-23": run_entry(["S_haircut_propagated"])})
+    rep["scenario_basis_coherence"] = {"checked": 1, "enforce_date": "2026-12-15", "enforced": enforced, "findings": []}
+    rep["suite_pass"] = False
+    return rep
+_inherited_only = report({"V_2026-09-23": run_entry(["S_haircut_propagated"])})
+new, inh = split(failure_keys(_bf([{"run": "NEW_2027-01-05", "violations": ["weighted cases mix earnings PERIODS"]}])),
+                 failure_keys(_inherited_only))
+check("an enforced BF failure gates even behind an inherited failure",
+      new == {("NEW_2027-01-05", "BF_scenario_basis_coherence: weighted cases mix earnings PERIODS")}, sorted(new))
+new, _ = split(failure_keys(_bf([{"run": "R", "violations": ["a", "b (a second, new BF violation)"]}])),
+               failure_keys(_bf([{"run": "R", "violations": ["a"]}])))
+check("an ADDITIONAL BF violation on a run the base already fails gates",
+      new == {("R", "BF_scenario_basis_coherence: b (a second, new BF violation)")}, sorted(new))
+new, inh = split(failure_keys(_bf([{"run": "R", "violations": ["a"]}])), failure_keys(_bf([{"run": "R", "violations": ["a"]}])))
+check("an identical enforced BF violation on base and change stays inherited", not new and inh, sorted(new))
+new, _ = split(failure_keys(_bf([{"run": "R", "violations": []}])), failure_keys(_inherited_only))
+check("an enforced BF entry with no violations still gates", bool(new), sorted(new))
+check("a base report with no BF section reads as no BF failures",
+      failure_keys(_inherited_only) == {("V_2026-09-23", "S_haircut_propagated")})
+check("a report-only BF section ('enforced': false, the first version of the check) is accepted and names nothing",
+      _require_trusted_shape(dict(_inherited_only, scenario_basis_coherence={"checked": 3, "enforced": False, "findings": []})) is None
+      and failure_keys(dict(_inherited_only, scenario_basis_coherence={"checked": 3, "enforced": False, "findings": []}))
+      == failure_keys(_inherited_only))
+for _bad in ({"enforced": "x"}, {"enforced": True}, {"enforced": [{"run": "R", "violations": "a"}]}, []):
+    _rep = dict(_inherited_only, scenario_basis_coherence=_bad)
+    try:
+        _require_trusted_shape(_rep); _ok = False
+    except RuntimeError:
+        _ok = True
+    check(f"a drifted scenario_basis_coherence section is refused ({str(_bad)[:40]})", _ok)
+
 _repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 check("every way the real scripts/eval.py can fail the suite is one this gate can name",
       undecoded_suite_gates(_repo) == [], undecoded_suite_gates(_repo))
@@ -200,7 +235,7 @@ FAKE_EVAL = r'''
 import json, os, sys
 # inert stand-ins for every suite_pass write the real eval.py has (the gate compares them in both directions)
 suite_pass = True
-warn_only = run_pass = jmiss = azfails = apfailures = False
+warn_only = run_pass = jmiss = azfails = apfailures = baenforced = False
 if not warn_only:
     suite_pass = suite_pass and run_pass
 try:
@@ -212,6 +247,8 @@ if jmiss:
 if azfails:
     suite_pass = False
 if apfailures:
+    suite_pass = False
+if baenforced:
     suite_pass = False
 state = json.load(open("state.json"))
 if state.get("crash"):
