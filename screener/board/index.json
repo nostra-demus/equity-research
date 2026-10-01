@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T22:57:08Z",
+  "generated_at": "2026-10-01T23:06:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-545",
@@ -989,6 +989,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-626",
+      "headline": "ON Semicondcutor to Buy Synaptics for Cash, Not Stock, in Downsized Deal",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/on-semicondcutor-to-buy-synaptics-for-cash-not-stock-in-downsized-deal-d2781e36?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T22:25:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "ON Semiconductor is acquiring Synaptics in a cash-based M&A deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ON Semiconductor is acquiring Synaptics in a cash-based M&A deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ON Semiconductor",
+          "ticker": "ON",
+          "listing_country": "US"
+        },
+        {
+          "name": "Synaptics",
+          "ticker": "SYNA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-612",
       "headline": "Japan's largest power producer teams with Dell on $15bn data center",
       "headline_en": null,
@@ -1940,56 +1994,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-350",
-      "headline": "Paramount wraps up $52bn debt sale to fund Warner buyout",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/international/paramount-wraps-up-52bn-debt-sale-to-fund-warner-buyout/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T09:00:08Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Paramount completed a $52 billion debt sale to fund a major acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount completed a $52 billion debt sale to fund a major acquisition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -150323,77 +150327,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-aadc0ff37abc",
-      "idea_version": "IDEAV-f0209184942afc7f",
-      "idea_version_started_at": "2026-09-30T13:55:27Z",
-      "ticker": "HRL",
-      "company": "Hormel Foods Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $1.06 billion acquisition of Brakebush Brothers expands Hormel's portfolio in the value-added poultry segment, providing immediate scale and product diversification.",
-      "why_now": "The deal was announced on 2026-09-30.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0c7dced7746f",
-        "EVT-b0b7932f5d67"
-      ],
-      "primary_source_event_id": "EVT-0c7dced7746f",
-      "source_headlines": [
-        "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
-        "Hormel Foods to buy Brakebush in deal valued at $1.06 billion"
-      ],
-      "source_headline": "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
-      "source_url": "https://www.wsj.com/business/deals/hormel-foods-to-buy-brakebush-brothers-for-about-1-06-billion-6adef7ff?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-30T11:01:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-30T13:55:27Z",
-      "updated_at": "2026-09-30T13:55:27Z",
-      "decay_at": "2026-10-01T23:01:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b1ef7638c514",
       "idea_version": "IDEAV-987a75d8bf3974e1",
       "idea_version_started_at": "2026-09-30T19:14:30Z",
@@ -152448,6 +152381,77 @@
       "surfaced_at": "2026-09-30T05:19:29Z",
       "updated_at": "2026-09-30T05:19:29Z",
       "decay_at": "2026-10-01T14:21:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-aadc0ff37abc",
+      "idea_version": "IDEAV-f0209184942afc7f",
+      "idea_version_started_at": "2026-09-30T13:55:27Z",
+      "ticker": "HRL",
+      "company": "Hormel Foods Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $1.06 billion acquisition of Brakebush Brothers expands Hormel's portfolio in the value-added poultry segment, providing immediate scale and product diversification.",
+      "why_now": "The deal was announced on 2026-09-30.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0c7dced7746f",
+        "EVT-b0b7932f5d67"
+      ],
+      "primary_source_event_id": "EVT-0c7dced7746f",
+      "source_headlines": [
+        "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
+        "Hormel Foods to buy Brakebush in deal valued at $1.06 billion"
+      ],
+      "source_headline": "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
+      "source_url": "https://www.wsj.com/business/deals/hormel-foods-to-buy-brakebush-brothers-for-about-1-06-billion-6adef7ff?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T11:01:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T13:55:27Z",
+      "updated_at": "2026-09-30T13:55:27Z",
+      "decay_at": "2026-10-01T23:01:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155394,14 +155398,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 545,
     "shown_count": 500,
-    "hidden_count": 44,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 268,
@@ -155425,6 +155429,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-aadc0ff37abc",
+        "idea_version": "IDEAV-f0209184942afc7f",
+        "idea_version_started_at": "2026-09-30T13:55:27Z",
+        "ticker": "HRL",
+        "company": "Hormel Foods Corporation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $1.06 billion acquisition of Brakebush Brothers expands Hormel's portfolio in the value-added poultry segment, providing immediate scale and product diversification.",
+        "why_now": "The deal was announced on 2026-09-30.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 74,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0c7dced7746f",
+          "EVT-b0b7932f5d67"
+        ],
+        "primary_source_event_id": "EVT-0c7dced7746f",
+        "source_headlines": [
+          "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
+          "Hormel Foods to buy Brakebush in deal valued at $1.06 billion"
+        ],
+        "source_headline": "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
+        "source_url": "https://www.wsj.com/business/deals/hormel-foods-to-buy-brakebush-brothers-for-about-1-06-billion-6adef7ff?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-30T11:01:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-30T13:55:27Z",
+        "updated_at": "2026-09-30T13:55:27Z",
+        "decay_at": "2026-10-01T23:01:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T23:01:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-14d83f2c882e",
         "idea_version": "IDEAV-7f2f9540532d9232",
@@ -184984,81 +185062,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-caa8876bf8f7",
-        "idea_version": "IDEAV-cf3f3ac8dfd3c4e3",
-        "idea_version_started_at": "2026-09-14T04:27:13Z",
-        "ticker": "010140",
-        "company": "Samsung Heavy Industries",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured a 1.6 trillion won contract for six vessels, providing a significant boost to its order backlog and revenue visibility.",
-        "why_now": "The contract announcement occurred on 2026-09-14.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c5d692cd3b59"
-        ],
-        "primary_source_event_id": "EVT-c5d692cd3b59",
-        "source_headlines": [
-          "Samsung Heavy secures 1.6 tln-won deal for 4 LNG carriers, 2 oil tankers"
-        ],
-        "source_headline": "Samsung Heavy secures 1.6 tln-won deal for 4 LNG carriers, 2 oil tankers",
-        "source_url": "https://en.yna.co.kr/view/AEN20260914002700320",
-        "source_name": "Yonhap News Agency — All News (English)",
-        "materiality_max": 98,
-        "newest_source_at": "2026-09-14T02:22:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T04:27:13Z",
-        "updated_at": "2026-09-14T04:27:13Z",
-        "decay_at": "2026-09-15T14:22:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b5981f7037da",
         "idea_version": "IDEAV-afbc547570650824",
         "idea_version_started_at": "2026-09-14T04:51:58Z",
@@ -192586,7 +192589,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1199,
-    "live_count": 28,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -192605,9 +192608,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5393743,
-    "news_picked_today": 1644,
-    "news_dropped_today": 26508
+    "news_seen_today": 5417451,
+    "news_picked_today": 1665,
+    "news_dropped_today": 26559
   },
   "book_momentum": {
     "live_count": 8,
