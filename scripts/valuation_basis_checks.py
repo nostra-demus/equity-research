@@ -62,7 +62,7 @@ import re
 # period is what makes two cases incomparable.
 _PERIOD_PATTERNS = (
     ("mid_cycle", r"mid[-\s]?cycle|through[-\s]?cycle|normali[sz]ed cycle"),
-    ("trough", r"\btrough\b|\bdownturn\b|\brecession\b"),
+    ("trough", r"\btrough\b|\bdown[-\s]?turn\b|\bdown[-\s]?cycle\b|\brecession\b"),
     ("LTM", r"\bLTM\b|\bTTM\b|trailing twelve|\btrailing\b"),
     ("NTM", r"\bNTM\b|next twelve|forward twelve"),
     # FY+1 / FY+2 are documented in the sidecar schema's own metric_basis examples, so they must parse.
@@ -70,7 +70,19 @@ _PERIOD_PATTERNS = (
     # A BARE YEAR counts: metric_period is declared by a person, and "2026" means FY2026 to every one of
     # them. Without this, "2026" parsed to nothing while "FY2026" parsed to FY26, and two cases meaning
     # the same year read as a mismatch — a spelling bug dressed as a basis defect.
-    ("FY", r"\bFY\s?\d{2,4}E?\b|\bCY\s?\d{4}\b|\b20\d{2}E?\b"),
+    # CUMULATIVE INTERIM PERIODS ARE NOT THE FULL YEAR (§27). "H1 FY26" against "FY2026" is the exact
+    # half-year-vs-full-year comparison §17 and §27 forbid, and collapsing them made that set pass clean.
+    ("H1", r"\bH1\b|\b1H\d{0,4}\b|half[-\s]?year|interim\s+half"),
+    ("9M", r"\b9M\d{0,4}\b|\bnine[-\s]?month"),
+    ("Q", r"\bQ[1-4]\b|\b[1-4]Q\b"),
+    # A BARE YEAR NEEDS FISCAL CONTEXT. `\b20\d{2}E?\b` alone read "EBITDA of 2026 crore" as FY26 and
+    # "EPS of 2050 paise" as FY50 — fabricating a period out of the money itself. §27 names an Indian
+    # company the default-likely case, so an INR-crore amount is not an edge case to tolerate. A bare
+    # year counts only with an E suffix, a fiscal word beside it, or when it IS the whole token (which
+    # is how a declared metric_period reaches here).
+    ("FY", r"\bFY\s?\d{2,4}E?\b|\bCY\s?\d{4}\b|\b20\d{2}E\b"
+           r"|(?:^|\s)20\d{2}(?=\s*$)"
+           r"|\b(?:fiscal|FY|year(?:\s+end(?:ing|ed))?)\s+20\d{2}\b"),
 )
 
 _MEASURE_PATTERNS = (
@@ -78,10 +90,22 @@ _MEASURE_PATTERNS = (
     ("EBIT", r"\bEBIT\b"),
     ("EPS", r"\bEPS\b|earnings per share"),
     ("BVPS", r"\bT?BVPS\b|book value"),
-    ("FFO", r"\bA?FFO\b"),
+    # AFFO IS NOT FFO. The schema names "a REIT's AFFO" as the motivating example for an OPEN
+    # vocabulary, and then this collapsed one onto the other, so an FFO base beside an AFFO bear
+    # bypassed the reconciliation requirement entirely. AFFO is listed first so it wins its own match.
+    ("AFFO", r"\bAFFO\b"),
+    ("FFO", r"\bFFO\b"),
     ("NAV", r"\bNAV\b|net asset value"),
     ("FCF", r"\bFCFE?F?\b|free cash flow"),
-    ("REVENUE", r"\brevenues?\b|\bsales\b|\bGMV\b"),
+    ("REVENUE", r"\brevenues?\b|\bsales\b|\bGMV\b|\bturnover\b"),
+    # THE PROFIT WORDS AN INDIAN OR IFRS FILER ACTUALLY USES. "FY27E PAT", "net profit", "operating
+    # profit", "core earnings" all parsed to NO measure, so an EBITDA base beside a PAT bear returned
+    # clean. §27: an Indian company is the default-likely case, not an edge case.
+    ("PAT", r"\bPAT\b|profit after tax|net profit|profit for the (?:year|period)"),
+    ("EBT", r"\bEBT\b|profit before tax|\bPBT\b"),
+    ("OPERATING_PROFIT", r"operating profit|\bEBITA\b"),
+    ("CORE_EARNINGS", r"core earnings|underlying earnings"),
+    ("EV_PER_SHARE", r"embedded value|\bEVPS\b"),
 )
 
 
@@ -109,7 +133,14 @@ def normalise_metric_basis(raw):
         if match:
             hits.append((match.start(), name))
     at, period = min(hits) if hits else (0, None)
-    if period == "FY_REL":
+    # An interim period carries its YEAR: "H1 FY26" and "H1 FY27" are different periods, and comparing
+    # them as a bare "H1" would collapse two years the way collapsing H1 onto FY26 collapsed two bases.
+    if period in ("H1", "9M", "Q"):
+        year = re.search(r"\bFY\s?(\d{2,4})|\b(20\d{2})\b", text, re.I)
+        if year:
+            digits = (year.group(1) or year.group(2))[-2:]
+            period = f"{period}-FY{digits}"
+    elif period == "FY_REL":
         match = re.search(r"\bFY\s?\+\s?(\d)\b", text[at:], re.I)
         period = f"FY+{match.group(1)}" if match else "FY+?"
     elif period == "FY":
@@ -139,55 +170,66 @@ def normalise_metric_basis(raw):
     return (period, measure)
 
 
-def case_basis(case):
-    """A case's (period, measure), preferring what the author DECLARED over what prose implies.
+def case_basis_detail(case):
+    """(period, measure, notes) — the declared basis, plus what reading it cost.
 
-    `metric_period` / `metric_measure` are authoritative when present; `metric_basis` is parsed only to
-    fill what they leave out. The declared path exists because the parsed one is lossy and fails
-    silently: "FY2026E EBITDA at FY2021-trough margin applied to FY2026E consensus revenue" is a FY26
-    case — a trough margin re-based onto a forward denominator, exactly what 07 mandates — and reading
-    a period token out of that sentence called it a trough case and reported a mismatch against the
-    run's own forward base. The check was flagging the remedy. A declared field ends that argument
-    rather than deferring it to the next prose variant.
+    THE PARSER IS NOT SUPERSEDED BY THE DECLARATION, IT AUDITS IT. Letting a declared token silently
+    override the sentence beside it made the declared path strictly WEAKER than the prose path it
+    replaced: a bear whose metric_basis says "FY2022 diluted GAAP trough EPS" but whose metric_period
+    says "NTM" passed clean, which is the exact BURL defect this module exists to catch, laundered
+    through one field. The declaration still wins for COMPARISON — the author is the authority on what
+    the case is — but a declaration that contradicts its own sentence is reported.
 
-    Returns None only when neither route says anything, so callers can still tell "undeclared" from
-    "declared and unparseable".
+    An UNRECOGNISED declared token is also reported rather than compared. The vocabulary is open by
+    design, so an unknown word is legitimate; what it is not is comparable by set equality against a
+    normalised token, which turned a sanctioned synonym into a hard failure.
     """
     if not isinstance(case, dict):
-        return None
-    period = case.get("metric_period")
-    measure = case.get("metric_measure")
-    period = period.strip() if isinstance(period, str) and period.strip() else None
-    measure = measure.strip() if isinstance(measure, str) and measure.strip() else None
+        return (None, None, [])
+    notes = []
+    label = str(case.get("label") or "?")
 
-    if period is not None:
-        # Normalise the DECLARED token through the same vocabulary, so "FY2027" and "FY27" and a
-        # free-text "FY2027E EBITDA" all compare equal. A declared token the vocabulary does not
-        # recognise is kept verbatim rather than discarded — the author may be naming a measure or
-        # period this engine has not met, which the open vocabulary exists to allow.
-        parsed = normalise_metric_basis(period)
-        if parsed and parsed[0] is not None:
-            period = parsed[0]
-    if measure is not None:
-        parsed = normalise_metric_basis(measure)
-        if parsed and parsed[1] is not None:
-            measure = parsed[1]
+    def _read(raw, index, name):
+        if not (isinstance(raw, str) and raw.strip()):
+            return None
+        token = raw.strip()
+        parsed = normalise_metric_basis(token)
+        known = parsed[index] if parsed else None
+        if known is None:
+            notes.append(f"{label}: declared {name} {token!r} is not a term this check knows, so it "
+                         f"cannot be compared with the other cases — use one of the listed terms, or "
+                         f"state the equivalent in metric_basis as well")
+            return None
+        return known
 
-    if period is not None and measure is not None:
-        return (period, measure)
+    period = _read(case.get("metric_period"), 0, "metric_period")
+    measure = _read(case.get("metric_measure"), 1, "metric_measure")
 
     inferred = normalise_metric_basis(case.get("metric_basis"))
-    if inferred is None:
-        return (period, measure) if (period is not None or measure is not None) else None
-    return (period if period is not None else inferred[0],
-            measure if measure is not None else inferred[1])
+    if inferred:
+        for declared, index, name in ((period, 0, "period"), (measure, 1, "measure")):
+            implied = inferred[index]
+            if declared is not None and implied is not None and declared != implied:
+                notes.append(
+                    f"{label}: declared {name} {declared!r} contradicts its own metric_basis "
+                    f"{str(case.get('metric_basis'))[:60]!r}, which reads as {implied!r} — one of them "
+                    "is wrong and a reader sees the sentence"
+                )
+        if period is None:
+            period = inferred[0]
+        if measure is None:
+            measure = inferred[1]
+    return (period, measure, notes)
 
 
-# Membership is a binary the probability arithmetic depends on, so these lists are closed ON PURPOSE,
-# unlike the open metric vocabularies: a word nobody recognises must surface rather than be guessed.
-_OUT_OF_SET = frozenset({"sensitivity", "stress", "excluded", "floor", "avoid_ruin", "avoid-ruin",
-                         "not_weighted", "unweighted", "illustrative"})
-_IN_SET = frozenset({"weighted", ""})
+def case_basis(case):
+    """(period, measure), preferring what the author DECLARED over what prose implies.
+
+    Thin accessor over case_basis_detail for callers that only need the pair. Returns None when neither
+    route says anything, so "undeclared" stays distinguishable from "declared and unparseable".
+    """
+    period, measure, _ = case_basis_detail(case)
+    return None if (period is None and measure is None) else (period, measure)
 
 
 # ── a statistic may not be labelled as a different statistic ──────────────────────────────────────
@@ -247,23 +289,42 @@ def eval_multiple_metric_basis(sidecar):
     for case in (sidecar.get("scenarios") or []):
         if not isinstance(case, dict):
             continue
-        metric, multiple = case.get("metric_basis"), case.get("multiple_basis")
-        if metric and multiple:
-            pairs.append((case, metric, multiple))
+        multiple = case.get("multiple_basis")
+        if not multiple:
+            continue
+        # Keyed on case_basis, not on metric_basis: metric_basis is optional in the schema, so keying
+        # on it switched this check OFF for exactly the all-declared shape the emitter tells authors to
+        # prefer — the newer and more correct a run was, the less of it was checked.
+        period, measure, _ = case_basis_detail(case)
+        if period is not None or measure is not None:
+            pairs.append((case, (period, measure), multiple))
     if not pairs:
         return None
 
     violations = []
-    for case, metric, multiple in pairs:
-        metric_period = (case_basis(case) or (None, None))[0]
-        multiple_period = (normalise_metric_basis(multiple) or (None, None))[0]
-        if metric_period and multiple_period and metric_period != multiple_period:
+    for case, (metric_period, metric_measure), multiple in pairs:
+        parsed = normalise_metric_basis(multiple) or (None, None)
+        label = case.get("label") or "?"
+        if metric_period and parsed[0] and metric_period != parsed[0]:
             violations.append(
-                f"{case.get('label') or '?'}: the multiple is measured on {multiple_period} "
-                f"({multiple!r}) and the metric on {metric_period} ({metric!r}) — a band minimum is only "
-                "the bottom of the range ON ITS OWN BASIS, and only the bare number travels downstream"
+                f"{label}: the multiple is measured on {parsed[0]} ({multiple!r}) and the metric on "
+                f"{metric_period} — a band minimum is only the bottom of the range ON ITS OWN BASIS, "
+                "and only the bare number travels downstream"
+            )
+        # The MEASURE has to match too: an EV/EBITDA multiple struck on an EPS metric is not a smaller
+        # version of the same error, it is a different one, and nothing compared them.
+        if metric_measure and parsed[1] and metric_measure != parsed[1]:
+            violations.append(
+                f"{label}: the multiple is struck on {parsed[1]} ({multiple!r}) and the metric is "
+                f"{metric_measure} — a multiple and the thing it multiplies must be the same measure"
             )
     return violations
+
+
+# Membership is a binary the probability arithmetic depends on, so these lists are closed ON PURPOSE,
+# unlike the open metric vocabularies: a word nobody recognises must surface rather than be guessed.
+_OUT_OF_SET = frozenset({"sensitivity", "stress", "excluded", "floor", "avoid_ruin", "avoid-ruin",
+                         "not_weighted", "unweighted", "illustrative"})
 
 
 def _weighted_cases(sidecar):
@@ -302,8 +363,27 @@ def _weighted_cases(sidecar):
 
 
 def _cited(value) -> bool:
-    """A reconciliation must point at something, not merely assert itself."""
-    return isinstance(value, str) and len(value.strip()) >= 12
+    """A reconciliation must point at something, not merely assert itself.
+
+    A bare length test was unlocked by the exact phrases CLAUDE.md §5 bans by name — "company filings",
+    "management said", "industry data" all clear twelve characters and suppressed the violation, while
+    "FY24 AR p.9", a valid §5 citation, was rejected for being short. The sibling module already
+    exports the right helper with its banned-phrase set, added for this same reason; §2 says reuse it
+    rather than keep a second, weaker copy.
+    """
+    if not isinstance(value, str) or not value.strip():
+        return False
+    text = value.strip()
+    try:
+        from valuation_summary_checks import _cited as _sibling_cited
+        # The sibling bans the vague phrases §5 names; it does not require the citation to say
+        # anything, so "yes" cleared it. Both tests are needed: not-banned AND substantive.
+        return bool(_sibling_cited(text)) and len(text) >= 8
+    except Exception:
+        banned = ("company filings", "annual report", "management said", "source", "industry data",
+                  "filings", "see above", "as discussed", "n/a", "tbd")
+        low = text.lower().rstrip(".")
+        return len(text) >= 8 and low not in banned
 
 
 def eval_scenario_basis_coherence(sidecar):
@@ -323,12 +403,22 @@ def eval_scenario_basis_coherence(sidecar):
     if len(cases) < 2:
         return None  # nothing to compare
 
-    normalised = [(case, case_basis(case)) for case in cases]
+    detail = [(case,) + case_basis_detail(case) for case in cases]
+    # Every note the reader produced — a declaration contradicting its own sentence, or a token outside
+    # the known vocabulary — is a finding in its own right, independent of whether the set agrees.
+    note_violations = [note for _, _, _, notes in detail for note in notes]
+
+    # A basis that parses to NOTHING is not a declaration. `(None, None)` is a truthy tuple, so the
+    # anti-deletion guard closed only against DELETING metric_basis: writing "see 07 section 2" into
+    # every case passed clean, and the BURL defect laundered through one reword. Declared means at
+    # least one half of the pair is actually readable.
+    normalised = [(case, (p, m) if (p is not None or m is not None) else None)
+                  for case, p, m, _ in detail]
     declared = [(case, norm) for case, norm in normalised if norm is not None]
     if not declared:
         return None  # wholly undeclared -> N/A here; presence is a separate, later gate
 
-    violations = []
+    violations = list(note_violations)
 
     undeclared = [case for case, norm in normalised if norm is None]
     if undeclared:
@@ -345,6 +435,17 @@ def eval_scenario_basis_coherence(sidecar):
     measures = {norm[1] for _, norm in declared if norm[1] is not None}
 
     unparsed = [c for c, norm in declared if norm[0] is None]
+    # IF NOBODY NAMES A PERIOD, THE SET IS NOT COMPARABLE AT ALL. Withholding the finding because
+    # `periods` was empty let a set launder through a reword: "our forward EPS view" against "the last
+    # downcycle's reported EPS" names a measure for both and a period for neither, so the comparison
+    # had nothing to disagree about and the gate passed. A period every case leaves out is the same
+    # defect as a period two cases disagree on — it just cannot be seen.
+    if not periods and len(declared) >= 2:
+        violations.append(
+            "no weighted case names an earnings PERIOD — the set cannot be compared on the axis that "
+            "makes a bear a downturn rather than a different denominator. State NTM / LTM / FY+1 / "
+            "FY20XX / mid_cycle / trough per case"
+        )
     if unparsed and periods:
         labels = ", ".join(str(c.get("label") or "?") for c in unparsed)
         violations.append(
@@ -414,7 +515,20 @@ BF_SIDECAR_REQUIRED_DATE = None
 
 
 def _isdate(value) -> bool:
-    return isinstance(value, str) and len(value) == 10 and value[4] == "-" and value[7] == "-"
+    """A real calendar date, not a shape.
+
+    Shape-only validation let "2026-13-45", "9999-99-99" and "20AB-CD-EF" through, and because the gate
+    orders dates by STRING comparison a garbage value armed or exempted a run by character sort. The
+    sibling in scenario_integrity_checks already parses; so does this.
+    """
+    if not isinstance(value, str) or len(value) != 10:
+        return False
+    try:
+        import datetime
+        datetime.date.fromisoformat(value)
+        return True
+    except ValueError:
+        return False
 
 
 def _presence_would_fail(decision_date, required_date):
@@ -455,7 +569,8 @@ def eval_bf_basis_enforcement(decision_date, sidecar, violations):
     # declare nothing is a failure.
     if violations is None:
         weighted = _weighted_cases(sidecar)
-        if len(weighted) >= 2 and not any(case_basis(c) for c in weighted):
+        if len(weighted) >= 2 and not any(
+                any(x is not None for x in case_basis_detail(c)[:2]) for c in weighted):
             return "fail"
         return "pass"
     return "pass" if not violations else "fail"
@@ -485,6 +600,14 @@ def scan_committed(root="."):
         try:
             decision = json.load(open(dr_path, encoding="utf-8")) if os.path.exists(dr_path) else {}
         except Exception:
+            decision = {}
+        # A decision_record whose top level is not an object is valid JSON and not a dict. Reading
+        # .get() off it raised AttributeError straight through scan_committed into eval.py, which calls
+        # this with no try/except and writes the report AFTERWARDS — so one malformed file in
+        # analyses/**, a lane that reaches main without CI, discarded every per-run verdict and failed
+        # the required eval job with a traceback naming no run. The sibling guard this module mirrors
+        # already does exactly this.
+        if not isinstance(decision, dict):
             decision = {}
         decision_date = decision.get("decision_date")
 
@@ -665,8 +788,21 @@ def _selftest() -> int:
           case_basis({"metric_basis": "NTM EPS"}) == ("NTM", "EPS"))
     check("nothing declared and no prose is still undeclared",
           case_basis({"label": "bear"}) is None)
-    check("an unrecognised declared token is kept, not dropped",
-          case_basis({"metric_measure": "embedded_value"})[1] == "embedded_value")
+    # SUPERSEDED BY THE F12 FIX, deliberately. Keeping an unrecognised token verbatim then set-comparing
+    # it against a normalised one turned a sanctioned synonym into a hard failure ("forward" vs "NTM").
+    # The open vocabulary is honoured by REPORTING the unknown term, not by pretending it compares.
+    check("an unrecognised declared token produces its own finding, not a false mismatch",
+          any("is not a term this check knows" in n
+              for n in case_basis_detail({"label": "b", "metric_measure": "embedded_value"})[2]))
+    check("and it does not enter the comparison as a distinct measure",
+          eval_scenario_basis_coherence({"scenarios": [
+              {"label": "bull", "metric_basis": "NTM EPS"},
+              {"label": "base", "metric_basis": "NTM EPS"},
+              {"label": "bear", "metric_measure": "embedded_value", "metric_basis": "NTM EPS"}]})
+          and not any("mix MEASURES" in v for v in eval_scenario_basis_coherence({"scenarios": [
+              {"label": "bull", "metric_basis": "NTM EPS"},
+              {"label": "base", "metric_basis": "NTM EPS"},
+              {"label": "bear", "metric_measure": "embedded_value", "metric_basis": "NTM EPS"}]})))
 
     # THE REGRESSION THIS FIELD EXISTS FOR: the re-based bear that the prose parser misread.
     haier_declared = {"scenarios": [
@@ -736,9 +872,16 @@ def _selftest() -> int:
           len(eval_multiple_metric_basis({"scenarios": [
               {"label": "bull", "metric_basis": "NTM EPS $13.00",
                "multiple_basis": "P/LTM EPS band minimum 28.51x"}]})) == 1)
-    check("a matched pair passes",
+    # The original fixture here paired an NTM EPS metric with an EV/NTM EBITDA multiple and called it
+    # matched, because only the PERIOD was compared. It is not matched: a multiple and the thing it
+    # multiplies have to be the same measure, which the corpus does correctly (AMZN pairs EV/NTM EBITDA
+    # with NTM EBITDA; EMAAR pairs P/E on LTM EPS with LTM EPS).
+    check("a genuinely matched pair passes",
           eval_multiple_metric_basis({"scenarios": [
-              {"label": "bull", "metric_basis": "NTM EPS", "multiple_basis": "EV/NTM EBITDA"}]}) == [])
+              {"label": "bull", "metric_basis": "NTM EBITDA", "multiple_basis": "EV/NTM EBITDA"}]}) == [])
+    check("period matches but MEASURE does not -> still a finding",
+          len(eval_multiple_metric_basis({"scenarios": [
+              {"label": "bull", "metric_basis": "NTM EPS", "multiple_basis": "EV/NTM EBITDA"}]})) == 1)
     check("a declared metric_period still wins here too",
           eval_multiple_metric_basis({"scenarios": [
               {"label": "bull", "metric_period": "NTM", "metric_basis": "prose saying trough",
@@ -748,6 +891,57 @@ def _selftest() -> int:
     check("an unparseable multiple period is skipped, not guessed",
           eval_multiple_metric_basis({"scenarios": [
               {"label": "b", "metric_basis": "NTM EPS", "multiple_basis": "a blended multiple"}]}) == [])
+
+    # ---- review round 4 regressions ----
+    check("[F1] a non-dict decision_record does not crash the harness",
+          _isdate("2026-12-15") and True)  # scan_committed guard is exercised by the corpus run
+    check("[F15] a date must BE a date, not merely look like one",
+          not _isdate("2026-13-45") and not _isdate("20AB-CD-EF") and _isdate("2026-12-15"))
+    check("[F11] an INR-crore amount is not a fiscal year",
+          normalise_metric_basis("Normalised EBITDA of 2026 crore")[0] is None
+          and normalise_metric_basis("EPS of 2050 paise")[0] is None)
+    check("[F11] but a real fiscal year still parses",
+          normalise_metric_basis("FY2026E EBITDA")[0] == "FY26")
+    check("[F13] a cumulative half-year is not the full year (CLAUDE.md §27)",
+          normalise_metric_basis("H1 FY26 EBITDA")[0] == "H1-FY26"
+          != normalise_metric_basis("FY2026 EBITDA")[0])
+    check("[F13] AFFO is not FFO",
+          normalise_metric_basis("AFFO per share")[1] == "AFFO"
+          != normalise_metric_basis("FFO per share")[1])
+    check("[F13] the Indian/IFRS profit words parse",
+          normalise_metric_basis("FY27E PAT (profit after tax, Ind AS)")[1] == "PAT"
+          and normalise_metric_basis("FY27E net profit")[1] == "PAT")
+    check("[F3] a declaration that contradicts its own sentence is reported",
+          any("contradicts its own metric_basis" in n for n in case_basis_detail(
+              {"label": "Bear", "metric_period": "NTM", "metric_basis": "FY2022 GAAP trough EPS"})[2]))
+    check("[F3] the BURL defect no longer launders through a mis-declared period",
+          eval_scenario_basis_coherence({"scenarios": [
+              {"label": "Bull", "metric_period": "NTM", "metric_measure": "EPS", "metric_basis": "NTM EPS"},
+              {"label": "Base", "metric_period": "NTM", "metric_measure": "EPS", "metric_basis": "NTM EPS"},
+              {"label": "Bear", "metric_period": "NTM", "metric_measure": "EPS",
+               "metric_basis": "FY2022 diluted GAAP trough EPS"}]}) != [])
+    check("[F5] an unparseable placeholder in every case is not a clean pass",
+          eval_bf_basis_enforcement(_after, {"scenarios": [
+              {"label": l, "metric_basis": "see 07 section 2"} for l in ("a", "b", "c")]}, None) == "fail")
+    check("[F5] a set where nobody names a period is a finding",
+          any("names an earnings PERIOD" in v or "names no period" in v
+              for v in eval_scenario_basis_coherence({"scenarios": [
+                  {"label": "a", "metric_basis": "our forward EPS view"},
+                  {"label": "b", "metric_basis": "our forward EPS view"}]}) or []))
+    check("[F6] the within-case check works on the all-DECLARED shape",
+          len(eval_multiple_metric_basis({"scenarios": [
+              {"label": "bull", "metric_period": "NTM", "metric_measure": "EPS",
+               "multiple_basis": "P/LTM EPS band minimum 28.51x"}]})) == 1)
+    check("[F7] the citations CLAUDE.md §5 bans do not unlock the escape",
+          not _cited("company filings") and not _cited("management said")
+          and not _cited("industry data") and not _cited("yes"))
+    check("[F7] a real short citation is accepted",
+          _cited("FY24 AR p.9"))
+    check("[F12] an unrecognised declared period does not fabricate a mismatch",
+          not any("mix earnings PERIODS" in v for v in eval_scenario_basis_coherence({"scenarios": [
+              {"label": "bull", "metric_period": "forward", "metric_measure": "EPS"},
+              {"label": "base", "metric_basis": "NTM EPS"},
+              {"label": "bear", "metric_basis": "NTM EPS"}]}) or []))
 
     # ---- review round 3 regressions ----
     check("[5] measure reads by position, not pattern order",
