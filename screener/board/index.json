@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T13:15:52Z",
+  "generated_at": "2026-10-01T13:20:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-421",
@@ -582,6 +582,56 @@
         {
           "name": "Accenture",
           "ticker": "ACN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-423",
+      "headline": "Accenture Shares Spike 20% Pre-Market On Q4 Earnings Beat, Upbeat Forecast",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/accenture-shares-spike-10-pre-market-on-q4-earnings-beat-upbeat-forecast-12125229#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T12:05:44Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Accenture reported a significant earnings beat and provided an upbeat forecast, causing a 20% pre-market share price increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Accenture reported a significant earnings beat and provided an upbeat forecast, causing a 20% pre-market share price increase.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accenture",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1951,55 +2001,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-221",
-      "headline": "Cupid shares hit fresh 52-week high as firm raises FY27 revenue, profit guidance again; multibagger stock skyrockets 617% in a year",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/cupid-shares-hit-fresh-52-week-high-as-firm-raises-fy27-revenue-profit-guidance-again-multibagger-stock-skyrockets-617-in-a-year/articleshow/134607835.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T04:18:53Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Cupid Ltd raises FY27 revenue and profit guidance again; primary-source guidance changes directly move investment decisions and analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Cupid Ltd raises FY27 revenue and profit guidance again; primary-source guidance changes directly move investment decisions and analyst expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cupid Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192552,9 +192553,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3777685,
-    "news_picked_today": 885,
-    "news_dropped_today": 16731
+    "news_seen_today": 3794431,
+    "news_picked_today": 889,
+    "news_dropped_today": 16751
   },
   "book_momentum": {
     "live_count": 8,
