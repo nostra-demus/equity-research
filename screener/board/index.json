@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-01T20:28:21Z",
+  "generated_at": "2026-10-01T20:35:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261001-545",
+      "headline": "25-NSE - Guardforce AI Co., Ltd. (0001804469) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1804469/000135445726000935/0001354457-26-000935-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-01T20:05:45Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Form 25-NSE delisting notification signals removal of Guardforce AI Co., Ltd. from Nasdaq; underlying reason (bankruptcy, listing-standards non-compliance, acquisition) not specified in header, affecting public-market exit value and liquidity for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Form 25-NSE delisting notification signals removal of Guardforce AI Co., Ltd. from Nasdaq; underlying reason (bankruptcy, listing-standards non-compliance, acquisition) not specified in header, affecting public-market exit value and liquidity for shareholders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Guardforce AI Co., Ltd.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261001-543",
       "headline": "25-NSE - SPAR Group, Inc. (0001004989) (Subject)",
@@ -1919,60 +1969,6 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": "PARA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros. Discovery, Inc.",
-          "ticker": "WBD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-288",
-      "headline": "USA-Paramount autorisé par une juge à finaliser l'acquisition de Warner Bros",
-      "headline_en": "USA-Paramount authorized by a judge to finalize the acquisition of Warner Bros",
-      "url": "https://www.reuters.com/fr/affaires/usa-paramount-autoris-par-une-juge-finaliser-lacquisition-de-warner-bros-2026-10-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T06:18:36Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "A judge has authorized Paramount to finalize its acquisition of Warner Bros.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A judge has authorized Paramount to finalize its acquisition of Warner Bros.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 3,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -192615,9 +192611,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5070348,
-    "news_picked_today": 1424,
-    "news_dropped_today": 23704
+    "news_seen_today": 5083030,
+    "news_picked_today": 1426,
+    "news_dropped_today": 23966
   },
   "book_momentum": {
     "live_count": 8,
