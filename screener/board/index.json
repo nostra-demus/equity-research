@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T11:01:49Z",
+  "generated_at": "2026-10-01T11:02:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-373",
@@ -150966,6 +150966,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-d9df77079e54",
+      "idea_version": "IDEAV-0ed7a377cc3ea280",
+      "idea_version_started_at": "2026-10-01T11:02:09Z",
+      "ticker": "03668",
+      "company": "Yancoal Australia",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of an 80% interest in the Kestrel Coal Mine increases the company's production capacity and reserve base, directly enhancing future revenue potential.",
+      "why_now": "The acquisition was officially completed and announced on October 1, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b7d6ff6e7a8f",
+        "EVT-cbf00afb060b"
+      ],
+      "primary_source_event_id": "EVT-b7d6ff6e7a8f",
+      "source_headlines": [
+        "YANKUANG ENERGY (01171): DISCLOSEABLE TRANSACTION YANCOAL AUSTRALIA SUCCESSFULLY COMPLETED ACQUISITION OF 80% INTEREST IN THE KESTREL COAL MINE",
+        "YANCOAL AUS (03668): Yancoal successfully completes the acquisition of an 80% interest in the Kestrel Coal Mine"
+      ],
+      "source_headline": "YANKUANG ENERGY (01171): DISCLOSEABLE TRANSACTION YANCOAL AUSTRALIA SUCCESSFULLY COMPLETED ACQUISITION OF 80% INTEREST IN THE KESTREL COAL MINE",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1001/2026100100007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T10:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T11:02:09Z",
+      "updated_at": "2026-10-01T11:02:09Z",
+      "decay_at": "2026-10-02T22:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-cae125754ffb",
       "idea_version": "IDEAV-e54aefa434d81b90",
       "idea_version_started_at": "2026-10-01T09:32:07Z",
@@ -152253,6 +152326,77 @@
       "surfaced_at": "2026-09-30T09:32:50Z",
       "updated_at": "2026-09-30T09:32:50Z",
       "decay_at": "2026-10-01T20:57:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1398b6438111",
+      "idea_version": "IDEAV-34f2df35fedabf49",
+      "idea_version_started_at": "2026-10-01T11:02:09Z",
+      "ticker": "IRBINFRA",
+      "company": "IRB Infrastructure Developers",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A credit rating downgrade by Moody's increases the company's cost of debt and signals potential liquidity or leverage concerns for its infrastructure projects.",
+      "why_now": "The rating update was disclosed via exchange filing on October 1, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c5c990098e69"
+      ],
+      "primary_source_event_id": "EVT-c5c990098e69",
+      "source_headlines": [
+        "IRB Infrastructure Developers Limited: IRB Infrastructure Developers Limited has informed the Exchange regarding 'Moody s Investor Service has issued an update on the long term corporate family rating and the instrument rating assigned to USD senior secured notes.'."
+      ],
+      "source_headline": "IRB Infrastructure Developers Limited: IRB Infrastructure Developers Limited has informed the Exchange regarding 'Moody s Investor Service has issued an update on the long term corporate family rating and the instrument rating assigned to USD senior secured notes.'.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/IRB_01102026151356_IRBIDL_credit_rating_Moody.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 97,
+      "newest_source_at": "2026-10-01T09:44:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T11:02:09Z",
+      "updated_at": "2026-10-01T11:02:09Z",
+      "decay_at": "2026-10-02T21:44:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -153735,77 +153879,6 @@
       "surfaced_at": "2026-09-29T23:33:49Z",
       "updated_at": "2026-09-29T23:33:49Z",
       "decay_at": "2026-10-01T10:49:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-0ff3dac31d35",
-      "idea_version": "IDEAV-02ba0a067e1fad75",
-      "idea_version_started_at": "2026-09-29T20:20:56Z",
-      "ticker": "02358",
-      "company": "Jiu Rong Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company announced a delay in annual results and a potential trading suspension, signaling severe accounting or liquidity issues.",
-      "why_now": "The filing was released on 2026-09-28, making the risk of a trading halt imminent.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2a45448f2536"
-      ],
-      "primary_source_event_id": "EVT-2a45448f2536",
-      "source_headlines": [
-        "JIU RONG HOLD (02358): INSIDE INFORMATION - (1) DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS; (2) POSSIBLE DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; (3) POSTPONEMENT OF BOARD MEETING; AND (4) POSSIBLE SUSPENSION OF TRADING"
-      ],
-      "source_headline": "JIU RONG HOLD (02358): INSIDE INFORMATION - (1) DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS; (2) POSSIBLE DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; (3) POSTPONEMENT OF BOARD MEETING; AND (4) POSSIBLE SUSPENSION OF TRADING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092801499.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T11:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T20:20:56Z",
-      "updated_at": "2026-09-29T20:20:56Z",
-      "decay_at": "2026-09-29T23:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155403,9 +155476,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 538,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -155413,23 +155486,23 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 266,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 15
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 618,
-      "oldest_retained_at": "2026-09-05T18:21:47Z",
+      "evicted_count": 619,
+      "oldest_retained_at": "2026-09-05T19:20:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 414,
           "oldest_retained_at": "2026-09-14T04:46:44Z"
         },
         "short": {
-          "evicted_count": 204,
-          "oldest_retained_at": "2026-09-05T18:21:47Z"
+          "evicted_count": 205,
+          "oldest_retained_at": "2026-09-05T19:20:00Z"
         }
       }
     },
@@ -158322,8 +158395,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T23:00:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T11:02:15Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -192600,8 +192673,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1191,
-    "live_count": 33,
+    "surfaced_total": 1193,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
