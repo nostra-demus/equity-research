@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T07:11:18Z",
+  "generated_at": "2026-10-01T07:14:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-121",
@@ -250,6 +250,60 @@
           "name": "Doosan Enerbility",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-295",
+      "headline": "Lynas Rare Earths to Buy Meteoric Resources in $672 Million Deal",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/lynas-rare-earths-to-buy-meteoric-resources-in-672-million-deal-2701e09b?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T04:56:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Lynas Rare Earths announced a $672 million acquisition of Meteoric Resources.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lynas Rare Earths announced a $672 million acquisition of Meteoric Resources.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lynas Rare Earths",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Meteoric Resources",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -1606,6 +1660,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-296",
+      "headline": "Arla Foods to Invest Millions to Tap Protein-Rich Dairy Demand, CEO Says",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/arla-foods-to-invest-millions-to-tap-protein-rich-dairy-demand-ceo-says-3e1ad1da?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T05:03:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Arla Foods announced a multi-million investment to expand protein-rich dairy production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Arla Foods announced a multi-million investment to expand protein-rich dairy production capacity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arla Foods",
+          "ticker": null,
+          "listing_country": "DK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-135",
       "headline": "Rio Tinto smelter bailouts near $5b as Tasmanian plant gets $200m",
       "headline_en": null,
@@ -1864,21 +1967,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261001-149",
-      "headline": "Force Motors Q2 FY27 sales jump 50% to 11,700 units, driven by domestic demand",
+      "inbox_id": "INB-20261001-298",
+      "headline": "Micron earnings: AI chip demand drives fresh memory boom",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/auto/force-motors-q2-sales-domestic-demand-september-sales-commercial-vehicles-suv-sales-20002594.htm",
-      "source_name": "CNBC-TV18",
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/micron-earnings-ai-chip-demand-drives-fresh-memory-boom/slideshow/134609446.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-01T02:19:14Z",
+      "found_at": "2026-10-01T05:30:54Z",
       "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Force Motors reported a 50% increase in Q2 FY27 sales to 11,700 units.",
+      "prelim_note": "Micron reported strong earnings driven by AI chip demand.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 92,
-      "triage_reason": "Force Motors reported a 50% increase in Q2 FY27 sales to 11,700 units.",
-      "region": "IN",
+      "triage_reason": "Micron reported strong earnings driven by AI chip demand.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -1886,15 +1989,15 @@
         "source_tier": 0,
         "scope": 6,
         "event": 5,
-        "size": 1,
-        "recency": 5,
+        "size": 2,
+        "recency": 4,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
+        "size_bucket": "large"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -1902,116 +2005,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Force Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-220",
-      "headline": "NuScale Raised $985 Million With Almost No Revenue. Here's How Long the Cash Lasts",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/09/30/nuscale-raised-985-million-with-almost-no-revenue/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T02:15:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "NuScale's high capital raise relative to its minimal revenue highlights significant liquidity and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "NuScale's high capital raise relative to its minimal revenue highlights significant liquidity and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NuScale",
+          "name": "Micron",
           "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-066",
-      "headline": "Paramount-Warner Bros. Deal Cleared Despite Merger Opposition",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/rickellis/2026/09/30/paramount-warner-bros-deal-cleared-despite-merger-opposition/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:32:16Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Regulatory approval of a major media-sector merger between Paramount and Warner Bros.; specifics of deal value and timing not stated.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Regulatory approval of a major media-sector merger between Paramount and Warner Bros.; specifics of deal value and timing not stated.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": "PARA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros. Discovery",
-          "ticker": "WBD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192565,9 +192564,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1531131,
-    "news_picked_today": 529,
-    "news_dropped_today": 9287
+    "news_seen_today": 1565737,
+    "news_picked_today": 538,
+    "news_dropped_today": 9350
   },
   "book_momentum": {
     "live_count": 8,
