@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T07:51:36Z",
+  "generated_at": "2026-10-01T08:15:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-121",
@@ -964,6 +964,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-321",
+      "headline": "Shriram Finance Limited: Shriram Finance Limited has informed the Exchange about General Updates regarding tender Offer for purchase of certain Senior Secured Notes issued under the USD 3,500,000,000 Global Medium Term Note Programme (GMTN Programme) - Senior Secured Notes purchased and Settlement announcement",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/Mathew_01102026131536_BSENSEReg30IntimationofNotesPurchased.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T07:49:55Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Tender offer for senior secured notes affects capital structure and interest costs for a major NBFC, but headline lacks amount, price, and refinancing terms, preventing impact direction assessment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Tender offer for senior secured notes affects capital structure and interest costs for a major NBFC, but headline lacks amount, price, and refinancing terms, preventing impact direction assessment.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shriram Finance Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-090",
       "headline": "MRE: Continuation of Suspension from Quotation [price-sensitive]",
       "headline_en": null,
@@ -1557,6 +1607,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-325",
+      "headline": "Owner of Bluewater shopping centre to buy Metrocentre in £516m deal",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16174779/Owner-Bluewater-shopping-centre-buy-Metrocentre-516m-deal.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T07:55:18Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Bluewater owner to acquire Metrocentre for £516m; quantified deal value signals material UK retail-property consolidation despite acquirer not explicitly named.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Bluewater owner to acquire Metrocentre for £516m; quantified deal value signals material UK retail-property consolidation despite acquirer not explicitly named.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Metrocentre",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-285",
       "headline": "Australia's Lynas looks to Brazil with Meteoric Resources takeover bid",
       "headline_en": null,
@@ -1900,116 +1999,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-003",
-      "headline": "Paramount gets court green light on Warner Bros deal, names Mattel’s Kreiz co-CEO",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/paramount-gets-court-green-light-on-warner-bros-deal-names-mattels-kreiz-co-ceo",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T23:55:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Paramount received court approval for a Warner Bros deal and appointed a new co-CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Paramount received court approval for a Warner Bros deal and appointed a new co-CEO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros. Discovery",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-009",
-      "headline": "Paramount recebe aprovação judicial para acordo com Warner Bros e nomeia Kreiz, da Mattel, como co-CEO",
-      "headline_en": "Paramount receives court approval for Warner Bros deal and appoints Mattel's Kreiz as co-CEO",
-      "url": "https://www.reuters.com/pt/negocio/SRHFFTIW7VM7DIPKBRQL6LGPYU-2026-09-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T23:43:44Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Paramount received court approval for a Warner Bros deal and appointed a new co-CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Paramount received court approval for a Warner Bros deal and appointed a new co-CEO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros. Discovery",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -150414,75 +150403,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-485c669a88ce",
-      "idea_version": "IDEAV-7ffbef24b3e2be08",
-      "idea_version_started_at": "2026-09-30T03:15:36Z",
-      "ticker": "AXP",
-      "company": "American Express",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The OCC's public dissent regarding the company's resolution plan signals heightened regulatory scrutiny and potential capital constraints, which could force costly operational adjustments.",
-      "why_now": "The Comptroller issued a formal statement on 2026-09-29 explicitly criticizing the firm's resolution planning, marking a rare and significant public regulatory rebuke.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 71,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-294ce2975015"
-      ],
-      "primary_source_event_id": "EVT-294ce2975015",
-      "source_headlines": [
-        "Comptroller Issues Statement Explaining Vote Against Resolution Plan Feedback for American Express, Reasserts Need for Reforms to Resolution Planning"
-      ],
-      "source_headline": "Comptroller Issues Statement Explaining Vote Against Resolution Plan Feedback for American Express, Reasserts Need for Reforms to Resolution Planning",
-      "source_url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-82.html",
-      "source_name": "Office of the Comptroller of the Currency — News Releases",
-      "materiality_max": 93,
-      "newest_source_at": "2026-09-29T20:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-30T03:15:36Z",
-      "updated_at": "2026-09-30T03:15:36Z",
-      "decay_at": "2026-10-01T08:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b1ef7638c514",
       "idea_version": "IDEAV-987a75d8bf3974e1",
       "idea_version_started_at": "2026-09-30T19:14:30Z",
@@ -152824,6 +152744,75 @@
       "surfaced_at": "2026-09-29T14:12:15Z",
       "updated_at": "2026-09-29T14:12:15Z",
       "decay_at": "2026-10-01T00:00:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-485c669a88ce",
+      "idea_version": "IDEAV-7ffbef24b3e2be08",
+      "idea_version_started_at": "2026-09-30T03:15:36Z",
+      "ticker": "AXP",
+      "company": "American Express",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The OCC's public dissent regarding the company's resolution plan signals heightened regulatory scrutiny and potential capital constraints, which could force costly operational adjustments.",
+      "why_now": "The Comptroller issued a formal statement on 2026-09-29 explicitly criticizing the firm's resolution planning, marking a rare and significant public regulatory rebuke.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 71,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 14,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-294ce2975015"
+      ],
+      "primary_source_event_id": "EVT-294ce2975015",
+      "source_headlines": [
+        "Comptroller Issues Statement Explaining Vote Against Resolution Plan Feedback for American Express, Reasserts Need for Reforms to Resolution Planning"
+      ],
+      "source_headline": "Comptroller Issues Statement Explaining Vote Against Resolution Plan Feedback for American Express, Reasserts Need for Reforms to Resolution Planning",
+      "source_url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-82.html",
+      "source_name": "Office of the Comptroller of the Currency — News Releases",
+      "materiality_max": 93,
+      "newest_source_at": "2026-09-29T20:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T03:15:36Z",
+      "updated_at": "2026-09-30T03:15:36Z",
+      "decay_at": "2026-10-01T08:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155270,9 +155259,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 538,
     "shown_count": 500,
-    "hidden_count": 37,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -155280,9 +155269,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -155301,6 +155290,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-485c669a88ce",
+        "idea_version": "IDEAV-7ffbef24b3e2be08",
+        "idea_version_started_at": "2026-09-30T03:15:36Z",
+        "ticker": "AXP",
+        "company": "American Express",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The OCC's public dissent regarding the company's resolution plan signals heightened regulatory scrutiny and potential capital constraints, which could force costly operational adjustments.",
+        "why_now": "The Comptroller issued a formal statement on 2026-09-29 explicitly criticizing the firm's resolution planning, marking a rare and significant public regulatory rebuke.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 71,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 14,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "policy_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-294ce2975015"
+        ],
+        "primary_source_event_id": "EVT-294ce2975015",
+        "source_headlines": [
+          "Comptroller Issues Statement Explaining Vote Against Resolution Plan Feedback for American Express, Reasserts Need for Reforms to Resolution Planning"
+        ],
+        "source_headline": "Comptroller Issues Statement Explaining Vote Against Resolution Plan Feedback for American Express, Reasserts Need for Reforms to Resolution Planning",
+        "source_url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-82.html",
+        "source_name": "Office of the Comptroller of the Currency — News Releases",
+        "materiality_max": 93,
+        "newest_source_at": "2026-09-29T20:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-30T03:15:36Z",
+        "updated_at": "2026-09-30T03:15:36Z",
+        "decay_at": "2026-10-01T08:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T08:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6c73a795e792",
         "idea_version": "IDEAV-e5b3d0f403382d36",
@@ -192393,86 +192454,12 @@
         "archived_at": "2026-09-08T13:03:33Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-2b72b57fa630",
-        "idea_version": "IDEAV-b213b35b717884f8",
-        "idea_version_started_at": "2026-09-05T15:28:18Z",
-        "ticker": "SOFI",
-        "company": "SoFi Technologies",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The stock fell 10% despite the company raising its revenue guidance, indicating a potential disconnect between company performance and market perception.",
-        "why_now": "The stock price reaction occurred on September 5, 2026, following the guidance update.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-eaad760addfd"
-        ],
-        "primary_source_event_id": "EVT-eaad760addfd",
-        "source_headlines": [
-          "SoFi Raised Its Revenue Guidance and the Stock Fell 10%. Here's What the Market Missed."
-        ],
-        "source_headline": "SoFi Raised Its Revenue Guidance and the Stock Fell 10%. Here's What the Market Missed.",
-        "source_url": "https://finance.yahoo.com/markets/stocks/articles/sofi-raised-revenue-guidance-stock-122701154.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-05T12:27:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T15:28:18Z",
-        "updated_at": "2026-09-05T15:28:18Z",
-        "decay_at": "2026-09-07T00:27:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-08T12:37:17Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1188,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -192491,9 +192478,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1708983,
-    "news_picked_today": 585,
-    "news_dropped_today": 10071
+    "news_seen_today": 1909412,
+    "news_picked_today": 595,
+    "news_dropped_today": 10085
   },
   "book_momentum": {
     "live_count": 8,
