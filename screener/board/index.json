@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T02:37:32Z",
+  "generated_at": "2026-10-01T02:45:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-121",
@@ -1577,6 +1577,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-138",
+      "headline": "Why Capitec hiked loan impairments by R1bn",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news/companies-and-deals/why-capitec-hiked-loan-impairments-by-r1bn/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T02:03:12Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Capitec Bank increased loan impairments by R1 billion, affecting reported profit, provision levels, and credit-quality metrics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Capitec Bank increased loan impairments by R1 billion, affecting reported profit, provision levels, and credit-quality metrics.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 18,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capitec Bank",
+          "ticker": "CAP",
+          "listing_country": "ZA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-098",
       "headline": "ASX falls; Meteoric up 50pc after Lynas buyout",
       "headline_en": null,
@@ -1971,56 +2020,6 @@
           "name": "Cosmo Robotics",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-107",
-      "headline": "Toys R Us to exit Japan after years of losses",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/retail/toys-r-us-to-exit-japan-after-years-of-losses",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T02:13:05Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Toys R Us is exiting the Japanese market entirely following years of financial losses.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Toys R Us is exiting the Japanese market entirely following years of financial losses.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Toys R Us",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -193291,9 +193290,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 677771,
-    "news_picked_today": 158,
-    "news_dropped_today": 3682
+    "news_seen_today": 696426,
+    "news_picked_today": 161,
+    "news_dropped_today": 3871
   },
   "book_momentum": {
     "live_count": 8,
