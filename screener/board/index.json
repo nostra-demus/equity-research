@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T17:31:22Z",
+  "generated_at": "2026-10-01T17:34:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-501",
@@ -783,6 +783,55 @@
           "name": "BSA Limited",
           "ticker": "BSA",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-507",
+      "headline": "Sonnenstrom: Solarspezialist Energiekonzepte Deutschland meldet Insolvenz an",
+      "headline_en": "Solar specialist Energiekonzepte Deutschland files for insolvency",
+      "url": "https://www.handelsblatt.com/unternehmen/energie/solarenergie-solarspezialist-energiekonzepte-deutschland-meldet-insolvenz-an/100258988.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T17:11:43Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Energiekonzepte Deutschland has filed for insolvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Energiekonzepte Deutschland has filed for insolvency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Energiekonzepte Deutschland",
+          "ticker": null,
+          "listing_country": "DE"
         }
       ],
       "size_bucket": "small",
@@ -1948,60 +1997,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-236",
-      "headline": "Australia's Lynas Rare Earths to buy Meteoric Resources for $672 million",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/australias-lynas-rare-earths-buy-meteoric-resources-672-million-deal-2026-09-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T03:54:37Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Lynas Rare Earths announced a $672 million acquisition of Meteoric Resources.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lynas Rare Earths announced a $672 million acquisition of Meteoric Resources.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lynas Rare Earths",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Meteoric Resources",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192549,9 +192544,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4673484,
-    "news_picked_today": 1189,
-    "news_dropped_today": 21371
+    "news_seen_today": 4687370,
+    "news_picked_today": 1196,
+    "news_dropped_today": 21388
   },
   "book_momentum": {
     "live_count": 8,
