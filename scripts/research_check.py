@@ -199,6 +199,13 @@ def suite_contract_failures(report):
     if az and not az.get("pass", True):
         out.append({"name": "governance flag/cap correspondence (AZ)",
                     "detail": ", ".join(az.get("failures") or []) or "(see the log)"})
+    # BF scenario-basis coherence also sets suite_pass=False, on any run DATED on/after its enforce date.
+    # It is named here for the same reason AP is read separately: the BF scan walks run folders the
+    # per-run loop never scores, so without this the harness blocks the push and names no failing check.
+    for entry in (report.get("scenario_basis_coherence") or {}).get("enforced") or []:
+        run = entry.get("run") or "(unnamed run)"
+        out.append({"name": f"scenario basis coherence (BF): {run}",
+                    "detail": "; ".join(entry.get("violations") or []) or "(see the log)"})
     return out
 
 
