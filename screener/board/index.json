@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T01:55:45Z",
+  "generated_at": "2026-10-01T02:02:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-033",
@@ -208,31 +208,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261001-073",
-      "headline": "TER: Continuation of Suspension from Quotation [price-sensitive]",
+      "inbox_id": "INB-20261001-090",
+      "headline": "MRE: Continuation of Suspension from Quotation [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TER?key=2924-03143123-2A1701064",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MRE?key=2924-03143151-2A1701071",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-01T01:04:04Z",
+      "found_at": "2026-10-01T01:44:34Z",
       "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Continuation of suspension from quotation signals unresolved disclosure, compliance, or distress issues and pending material announcement (M&A, enforcement, insolvency), creating trading and survival risk.",
+      "prelim_note": "MRE remains suspended from quotation, indicating ongoing operational or financial uncertainty.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 98,
-      "triage_reason": "Continuation of suspension from quotation signals unresolved disclosure, compliance, or distress issues and pending material announcement (M&A, enforcement, insolvency), creating trading and survival risk.",
+      "triage_reason": "MRE remains suspended from quotation, indicating ongoing operational or financial uncertainty.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 60,
         "source_tier": 8,
         "scope": 6,
         "event": 9,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -241,15 +241,14 @@
         "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory",
         "default_distress"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "TER",
+          "name": "MRE",
           "ticker": null,
-          "listing_country": "AU"
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1230,6 +1229,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-091",
+      "headline": "RNX: Work commenced, new data confirms new Yukon gold target [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RNX?key=2924-03143149-6A1347169",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T01:42:59Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "RNX reported new data confirming a gold target, which is a positive operational development for a mining company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "RNX reported new data confirming a gold target, which is a positive operational development for a mining company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RNX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-086",
       "headline": "Anthropic Plans to Spend $518 Billion on Cloud and Data Centers. More Than $100 Billion Is Already Promised to Amazon.",
       "headline_en": null,
@@ -1953,56 +2001,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-013",
-      "headline": "SNT: Syntara expands SNT-9465 skin scarring study [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SNT?key=2924-03143063-2A1701001",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T23:49:53Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Expansion of SNT-9465 clinical trial for skin scarring indicates trial progression but lacks quantification of enrollment, data triggers, or timeline acceleration.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Expansion of SNT-9465 clinical trial for skin scarring indicates trial progression but lacks quantification of enrollment, data triggers, or timeline acceleration.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Syntara",
-          "ticker": "SNT",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193273,9 +193271,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 561350,
-    "news_picked_today": 101,
-    "news_dropped_today": 2515
+    "news_seen_today": 581095,
+    "news_picked_today": 103,
+    "news_dropped_today": 2825
   },
   "book_momentum": {
     "live_count": 8,
