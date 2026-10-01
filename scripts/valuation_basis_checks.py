@@ -61,8 +61,8 @@ import re
 # precede LTM/NTM deliberately — "mid-cycle NTM EBITDA" is a mid-cycle claim, not a forward one, and the
 # period is what makes two cases incomparable.
 _PERIOD_PATTERNS = (
-    ("mid_cycle", r"mid[-\s]?cycle|through[-\s]?cycle|normali[sz]ed cycle"),
-    ("trough", r"\btrough\b|\bdown[-\s]?turn\b|\bdown[-\s]?cycle\b|\brecession\b"),
+    ("mid_cycle", r"mid[-_\s]?cycle|through[-_\s]?cycle|normali[sz]ed[-_\s]?cycle"),
+    ("trough", r"\btrough\b|\bdown[-_\s]?turn\b|\bdown[-_\s]?cycle\b|\brecession\b"),
     ("LTM", r"\bLTM\b|\bTTM\b|trailing twelve|\btrailing\b"),
     ("NTM", r"\bNTM\b|next twelve|forward twelve"),
     # FY+1 / FY+2 are documented in the sidecar schema's own metric_basis examples, so they must parse.
@@ -72,15 +72,15 @@ _PERIOD_PATTERNS = (
     # the same year read as a mismatch — a spelling bug dressed as a basis defect.
     # CUMULATIVE INTERIM PERIODS ARE NOT THE FULL YEAR (§27). "H1 FY26" against "FY2026" is the exact
     # half-year-vs-full-year comparison §17 and §27 forbid, and collapsing them made that set pass clean.
-    ("H1", r"\bH1\b|\b1H\d{0,4}\b|half[-\s]?year|interim\s+half"),
-    ("9M", r"\b9M\d{0,4}\b|\bnine[-\s]?month"),
-    ("Q", r"\bQ[1-4]\b|\b[1-4]Q\b"),
+    ("H1", r"(?<![A-Za-z0-9])H1(?![A-Za-z0-9])|(?<![A-Za-z0-9])1H\d{0,4}\b|half[-_\s]?year|interim[-_\s]?half"),
+    ("9M", r"(?<![A-Za-z0-9])9M\d{0,4}(?![A-Za-z0-9])|\bnine[-_\s]?month"),
+    ("Q", r"(?<![A-Za-z0-9])Q[1-4](?![A-Za-z0-9])|(?<![A-Za-z0-9])[1-4]Q(?![A-Za-z0-9])"),
     # A BARE YEAR NEEDS FISCAL CONTEXT. `\b20\d{2}E?\b` alone read "EBITDA of 2026 crore" as FY26 and
     # "EPS of 2050 paise" as FY50 — fabricating a period out of the money itself. §27 names an Indian
     # company the default-likely case, so an INR-crore amount is not an edge case to tolerate. A bare
     # year counts only with an E suffix, a fiscal word beside it, or when it IS the whole token (which
     # is how a declared metric_period reaches here).
-    ("FY", r"\bFY\s?\d{2,4}E?\b|\bCY\s?\d{4}\b|\b20\d{2}E\b"
+    ("FY", r"(?<![A-Za-z0-9])FY[\s_]?\d{2,4}E?(?![A-Za-z0-9])|(?<![A-Za-z0-9])CY[\s_]?\d{4}\b|\b20\d{2}E\b"
            r"|(?:^|\s)20\d{2}(?=\s*$)"
            r"|\b(?:fiscal|FY|year(?:\s+end(?:ing|ed))?)\s+20\d{2}\b"),
 )
@@ -101,11 +101,11 @@ _MEASURE_PATTERNS = (
     # THE PROFIT WORDS AN INDIAN OR IFRS FILER ACTUALLY USES. "FY27E PAT", "net profit", "operating
     # profit", "core earnings" all parsed to NO measure, so an EBITDA base beside a PAT bear returned
     # clean. §27: an Indian company is the default-likely case, not an edge case.
-    ("PAT", r"\bPAT\b|profit after tax|net profit|profit for the (?:year|period)"),
+    ("PAT", r"\bPAT\b|profit[-_\s]?after[-_\s]?tax|net[-_\s]?profit|profit for the (?:year|period)"),
     ("EBT", r"\bEBT\b|profit before tax|\bPBT\b"),
-    ("OPERATING_PROFIT", r"operating profit|\bEBITA\b"),
-    ("CORE_EARNINGS", r"core earnings|underlying earnings"),
-    ("EV_PER_SHARE", r"embedded value|\bEVPS\b"),
+    ("OPERATING_PROFIT", r"operating[-_\s]?profit|\bEBITA\b"),
+    ("CORE_EARNINGS", r"core[-_\s]?earnings|underlying[-_\s]?earnings"),
+    ("EV_PER_SHARE", r"embedded[-_\s]?value|\bEVPS\b"),
 )
 
 
@@ -153,7 +153,7 @@ def normalise_metric_basis(raw):
         # year out of a token the period scan had already rejected: "CY26 normalized EBITDA rolled to
         # FY2029E" is an FY29 metric whose period used to resolve to FY26, inventing a mismatch
         # against an FY29 set — or hiding a real one.
-        match = (re.search(r"(?:FY\s?\+?|CY\s?)(\d{2,4})", text[at:], re.I)
+        match = (re.search(r"(?:FY[\s_]?\+?|CY[\s_]?)(\d{2,4})", text[at:], re.I)
                  or re.search(r"\b(20\d{2})E?\b", text[at:]))
         period = f"FY{match.group(1)[-2:]}" if match else "FY"
 
@@ -804,16 +804,40 @@ def _selftest() -> int:
     # The open vocabulary is honoured by REPORTING the unknown term, not by pretending it compares.
     check("an unrecognised declared token produces its own finding, not a false mismatch",
           any("is not a term this check knows" in n
-              for n in case_basis_detail({"label": "b", "metric_measure": "embedded_value"})[2]))
+              for n in case_basis_detail({"label": "b", "metric_measure": "gross_written_premium"})[2]))
     check("and it does not enter the comparison as a distinct measure",
           eval_scenario_basis_coherence({"scenarios": [
               {"label": "bull", "metric_basis": "NTM EPS"},
               {"label": "base", "metric_basis": "NTM EPS"},
-              {"label": "bear", "metric_measure": "embedded_value", "metric_basis": "NTM EPS"}]})
+              {"label": "bear", "metric_measure": "gross_written_premium", "metric_basis": "NTM EPS"}]})
           and not any("mix MEASURES" in v for v in eval_scenario_basis_coherence({"scenarios": [
               {"label": "bull", "metric_basis": "NTM EPS"},
               {"label": "base", "metric_basis": "NTM EPS"},
-              {"label": "bear", "metric_measure": "embedded_value", "metric_basis": "NTM EPS"}]})))
+              {"label": "bear", "metric_measure": "gross_written_premium", "metric_basis": "NTM EPS"}]})))
+
+    # ---- F5: the schema's OWN mandated spellings must parse (underscore is a separator) ----
+    # `_` is a word character, so \b never fires beside it. Every enum value below is mandated by
+    # frameworks/valuation_summary.schema.json and 99_valuation-synthesis.md, and each one earned a
+    # violation for being spelled exactly as instructed. Compliance must never be a finding.
+    for token, want_period, want_measure in [
+        ("mid_cycle", "mid_cycle", None), ("half_year", "H1", None), ("nine_month", "9M", None),
+        ("down_cycle", "trough", None), ("H1_FY26", "H1", None), ("9M_FY27", "9M", None),
+        ("Q2_FY27", "Q", None), ("FY_2026", "FY26", None),
+        ("net_profit", None, "PAT"), ("operating_profit", None, "OPERATING_PROFIT"),
+        ("core_earnings", None, "CORE_EARNINGS"), ("embedded_value", None, "EV_PER_SHARE"),
+    ]:
+        got = normalise_metric_basis(token)
+        check(f"schema spelling {token!r} parses (not a violation)",
+              (got[0] == want_period if want_period else True)
+              and (got[1] == want_measure if want_measure else True))
+    check("a fully schema-compliant declared case is clean",
+          not eval_scenario_basis_coherence({"scenarios": [
+              {"label": "bull", "metric_period": "mid_cycle", "metric_measure": "EBITDA",
+               "metric_basis": "mid_cycle EBITDA", "set_membership": "weighted", "probability": 0.3},
+              {"label": "base", "metric_period": "mid_cycle", "metric_measure": "EBITDA",
+               "metric_basis": "mid_cycle EBITDA", "set_membership": "weighted", "probability": 0.4},
+              {"label": "bear", "metric_period": "mid_cycle", "metric_measure": "EBITDA",
+               "metric_basis": "mid_cycle EBITDA", "set_membership": "weighted", "probability": 0.3}]}))
 
     # THE REGRESSION THIS FIELD EXISTS FOR: the re-based bear that the prose parser misread.
     haier_declared = {"scenarios": [
