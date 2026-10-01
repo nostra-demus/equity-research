@@ -212,6 +212,46 @@ def eval_scenario_basis_coherence(sidecar):
     return violations
 
 
+# ── enforcement gate ──────────────────────────────────────────────────────────────────────────────
+# The rule is armed by DATE, not by merging this file. Two thirds of the committed corpus predates it —
+# 34 of 51 run folders emit no sidecar at all — and failing work whose authors were never told the rule
+# is enforcement by ambush. The established idiom in eval.py (AY_DATE, AZ_DATE, SECTOR_DATE) is a dated
+# forward gate, and this follows it exactly.
+#
+# DO NOT LET THIS DATE ARRIVE UNTIL A FROZEN-INPUT CANARY HAS PROVEN THE EMITTER ACTUALLY WRITES
+# `set_membership` AND `cross_metric_reconciliation` ON A REAL RUN. Those fields are introduced by a
+# prompt change, and a prompt change cannot be validated by replaying frozen artifacts — the artifacts
+# were produced by the old prompt. If the canary has not run, move the date; an armed gate against an
+# emitter that does not comply fails every new run for a reason the author cannot fix.
+BF_ENFORCE_DATE = "2026-11-01"
+
+
+def _isdate(value) -> bool:
+    return isinstance(value, str) and len(value) == 10 and value[4] == "-" and value[7] == "-"
+
+
+def eval_bf_basis_enforcement(decision_date, sidecar, violations):
+    """Core of the dated enforcement gate. Returns 'pass' | 'fail' | 'na'.
+
+    `violations` is eval_scenario_basis_coherence's result for this run (None = nothing to judge).
+
+    An UNDATED run is 'na'. That is deliberate and it is a known hole: a run carrying no decision_date
+    cannot be placed on either side of a forward gate, and guessing from the folder name would make the
+    gate depend on a filename convention rather than on the thesis's own stated date. It is reported by
+    the scan so the hole is visible rather than silent.
+    """
+    if not _isdate(decision_date) or decision_date < BF_ENFORCE_DATE:
+        return "na"
+    if sidecar is None:
+        # Past the gate the sidecar is no longer optional: it is the only artifact carrying per-case
+        # basis, so a run without one cannot be checked at all — which is exactly how the BURL run
+        # passed every gate it had.
+        return "fail"
+    if violations is None:
+        return "pass"
+    return "fail" if violations else "pass"
+
+
 def scan_committed(root="."):
     """Replay every committed sidecar. Returns (checked, failures) where failures is [(run, [violations])].
 
@@ -221,23 +261,47 @@ def scan_committed(root="."):
     """
     import glob
 
-    checked, failures = 0, []
-    pattern = os.path.join(root, "analyses/*/valuation/valuation_summary.json")
-    for path in sorted(glob.glob(pattern)):
-        run = os.path.basename(os.path.dirname(os.path.dirname(path)))
+    # Walk the UNION of runs that have a decision_record OR a sidecar. A sidecar-only run is a real,
+    # normal state — a partial run the per-run loop skips — and check AP scans those deliberately for
+    # the same reason. Walking decision records alone silently dropped one (TSLA_2026-07-24), which is
+    # the quietest kind of coverage regression: the finding count falls and nothing says why.
+    run_dirs = {os.path.dirname(p) for p in glob.glob(os.path.join(root, "analyses/*/decision_record.json"))}
+    run_dirs |= {os.path.dirname(os.path.dirname(p))
+                 for p in glob.glob(os.path.join(root, "analyses/*/valuation/valuation_summary.json"))}
+
+    checked, failures, enforced = 0, [], []
+    for run_dir in sorted(run_dirs):
+        run = os.path.basename(run_dir)
+        dr_path = os.path.join(run_dir, "decision_record.json")
         try:
-            sidecar = json.load(open(path, encoding="utf-8"))
-        except Exception as exc:
-            failures.append((run, [f"could not parse valuation_summary.json: {exc}"]))
-            checked += 1
-            continue
-        violations = eval_scenario_basis_coherence(sidecar)
-        if violations is None:
-            continue  # N/A — not counted as checked
-        checked += 1
+            decision = json.load(open(dr_path, encoding="utf-8")) if os.path.exists(dr_path) else {}
+        except Exception:
+            decision = {}
+        decision_date = decision.get("decision_date")
+
+        sc_path = os.path.join(run_dir, "valuation", "valuation_summary.json")
+        sidecar, parse_error = None, None
+        if os.path.exists(sc_path):
+            try:
+                sidecar = json.load(open(sc_path, encoding="utf-8"))
+            except Exception as exc:
+                parse_error = f"could not parse valuation_summary.json: {exc}"
+
+        violations = None if parse_error else eval_scenario_basis_coherence(sidecar)
+        if parse_error:
+            violations = [parse_error]
+
         if violations:
+            checked += 1
             failures.append((run, violations))
-    return checked, failures
+        elif violations is not None:
+            checked += 1
+
+        verdict = eval_bf_basis_enforcement(decision_date, sidecar, violations)
+        if verdict == "fail":
+            why = violations or [f"no valuation_summary.json — required for runs dated on/after {BF_ENFORCE_DATE}"]
+            enforced.append((run, why))
+    return checked, failures, enforced
 
 
 def _selftest() -> int:
@@ -344,6 +408,28 @@ def _selftest() -> int:
     check("partial declaration is reported", any("missing on" in v for v in out))
     check("partial declaration is NOT a period mismatch", not any("PERIOD" in v for v in out))
 
+    # ---- the dated enforcement gate ----
+    v_none, v_ok, v_bad = None, [], ["something"]
+    sc = {"scenarios": []}
+    check("a run before the gate is never enforced",
+          eval_bf_basis_enforcement("2026-07-10", sc, v_bad) == "na")
+    check("an UNDATED run is na, not a silent pass",
+          eval_bf_basis_enforcement(None, sc, v_bad) == "na")
+    check("a malformed date is na",
+          eval_bf_basis_enforcement("Oct 2026", sc, v_bad) == "na")
+    check("past the gate, findings fail",
+          eval_bf_basis_enforcement("2026-12-01", sc, v_bad) == "fail")
+    check("past the gate, a clean run passes",
+          eval_bf_basis_enforcement("2026-12-01", sc, v_ok) == "pass")
+    check("past the gate, nothing-to-judge passes",
+          eval_bf_basis_enforcement("2026-12-01", sc, v_none) == "pass")
+    check("past the gate, a MISSING sidecar fails (the BURL hole)",
+          eval_bf_basis_enforcement("2026-12-01", None, v_none) == "fail")
+    check("before the gate, a missing sidecar is still na",
+          eval_bf_basis_enforcement("2026-07-10", None, v_none) == "na")
+    check("the gate date is in the future relative to the corpus",
+          BF_ENFORCE_DATE > "2026-10-01")
+
     # A sensitivity case is excluded from the weighted set.
     sens = {"scenarios": [ntm("Bull"), ntm("Base"),
                           {"label": "Stress", "metric_basis": "FY2022 GAAP trough EPS",
@@ -358,10 +444,11 @@ if __name__ == "__main__":
 
     if len(sys.argv) > 1 and sys.argv[1] == "selftest":
         sys.exit(1 if _selftest() else 0)
-    checked, failures = scan_committed(sys.argv[1] if len(sys.argv) > 1 else ".")
-    print(f"checked {checked} sidecars with a declared basis; {len(failures)} with findings\n")
+    checked, failures, enforced = scan_committed(sys.argv[1] if len(sys.argv) > 1 else ".")
+    print(f"checked {checked} run(s) with a judgeable basis; {len(failures)} with findings; "
+          f"{len(enforced)} past the {BF_ENFORCE_DATE} gate\n")
     for run, violations in failures:
-        print(f"  {run}")
+        print(f"  {run}{'   [ENFORCED]' if any(run == r for r, _ in enforced) else ''}")
         for v in violations:
             print(f"      - {v}")
-    sys.exit(0)
+    sys.exit(1 if enforced else 0)
