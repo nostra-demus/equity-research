@@ -16,8 +16,10 @@ The gap this closes: CLAUDE.md §16 requires "method validity matched to busines
 makes that concrete — a bank/lender/insurer is balance-sheet-funded and must be valued on an
 equity-side method (DDM / residual income / P-B / embedded value), never an enterprise-value or
 unlevered-cashflow method (FCFF DCF, EV/EBITDA, EV/EBIT, EV/Sales, net-debt/EBITDA); a REIT must
-never be valued on an EBITDA-DCF (depreciation is economically real for a REIT, so an
-EBITDA-based DCF overstates cash flow). The valuation module's own agents already populate
+not be headlined on an EBITDA / FCFF DCF or an EV multiple (the valuation module's Business-Type
+Method Map, the stricter rule per CLAUDE.md §23). Only the HEADLINE method is judged — a method
+named solely as a cross-check or an explicit exclusion is not the one the call is priced on
+(`headline_method`). The valuation module's own agents already populate
 `decision_record.json.business_type` and `.primary_valuation_method` (synthesizer.md), and
 `scripts/eval.py` check W has graded that pair against `SECTOR_FORBIDDEN` since SECTOR_DATE —
 but, like checks AA/AB/AG/AN before this module existed for them, W was defined only inline in
@@ -45,21 +47,77 @@ import re
 # token (a hyphen-literal list would silently miss the spaced spellings). Banks / lenders / insurers are
 # balance-sheet-funded financials: SECTOR_OVERLAYS.md values them on equity-side methods (DDM / residual
 # income / P-B / embedded value) and says "NOT FCFF/EV ... never net-debt/EBITDA" — so EVERY enterprise-
-# value / unlevered-cashflow method is a category error, not just FCFF. REITs explicitly forbid
-# EBITDA-DCF (depreciation non-economic); FCFF is NOT listed forbidden for a REIT there, so the gate does
-# not invent that ban. Tokens are separator-free — "evebit" matches both EV/EBIT and EV/EBITDA; bare "ev"
-# is deliberately NOT a token (it would false-match "revenue"/"leverage"/"level"). "evsales" AND
-# "evrevenue" are both listed because "EV/Revenue" is used interchangeably with "EV/Sales" in this repo;
-# without the "evrevenue" spelling a bank quoted on "EV/Revenue" would slip the gate (an EV method is a
-# category error for a balance-sheet-funded financial regardless of which synonym is written).
+# value / unlevered-cashflow method is a category error, not just FCFF. REITs: SECTOR_OVERLAYS.md names only
+# EBITDA-DCF, but the valuation module's Business-Type Method Map — a Hard Rule and "the single source of
+# truth" for method validity (.claude/agents/valuation/MODULE_RULES.md) — says a REIT must "NOT use: EBITDA /
+# FCFF DCF (depreciation is non-economic)", and 99_valuation-synthesis.md's checklist bars "an operating-FCFF
+# DCF or EV multiple" as the headline for a financial or REIT. CLAUDE.md §23 takes the stricter module rule,
+# so a REIT's forbidden set covers FCFF and every EV multiple as well. Tokens are separator-free — "evebit"
+# matches both EV/EBIT and EV/EBITDA; bare "ev" is deliberately NOT a token (it would false-match
+# "revenue"/"leverage"/"level"). "evsales" AND "evrevenue" are both listed because "EV/Revenue" is used
+# interchangeably with "EV/Sales" in this repo; without the "evrevenue" spelling a bank quoted on
+# "EV/Revenue" would slip the gate (an EV method is a category error regardless of which synonym is written).
 SECTOR_DATE = "2026-06-18"
 _FIN_INSTITUTION_FORBIDDEN = ["fcff", "evebit", "evsales", "evrevenue", "ebitdadcf", "netdebtebitda", "enterprisevalue"]
+_REIT_FORBIDDEN = ["ebitdadcf", "fcff", "evebit", "evsales", "evrevenue", "enterprisevalue"]
 SECTOR_FORBIDDEN = {
     # lowercase key = substring matched against business_type (case-insensitive)
-    # value = forbidden tokens, matched against the separator-stripped primary_valuation_method
+    # value = forbidden tokens, matched against the separator-stripped HEADLINE of primary_valuation_method
     "bank": _FIN_INSTITUTION_FORBIDDEN, "lender": _FIN_INSTITUTION_FORBIDDEN, "insur": _FIN_INSTITUTION_FORBIDDEN,
-    "reit": ["ebitdadcf"], "real estate": ["ebitdadcf"],
+    "reit": _REIT_FORBIDDEN, "real estate": _REIT_FORBIDDEN,
 }
+
+# Only the method a call is PRICED on can break the sector rule — 99_valuation-synthesis.md judges "the
+# headline". The free-form field routinely also names methods it merely cross-checks or rules out, and
+# reading those mentions as use flags doctrine-valid calls: "Sum-of-the-parts / NAV (corroborated by
+# normalized FCFF DCF)" (EMAAR_2026-07-10, a REIT priced on NAV) or "Residual income; FCFF DCF not
+# applicable". Every committed record uses one of two grammatical shapes, so the cut follows the grammar:
+#   - a PARTICIPLE puts the secondary method AFTER it — "corroborated by X", "cross-checked against X",
+#     "cross-validated by X" — so the rest of that ;-clause is dropped;
+#   - a NOUN puts it BEFORE — "with X cross-check", "X as a capped cross-check", "X not applicable",
+#     "X excluded" — so that with-phrase, or that comma / "+" leg, is dropped.
+# A parenthetical aside that only corroborates or excludes is dropped on its own, without taking the
+# headline in front of it. Anything not marked as a cross-check or an exclusion still counts: a blend
+# ("60% NAV + 40% FCFF DCF") prices the call on every leg it names, so each leg is judged.
+_AFTER = re.compile(r"\b(?:corroborated|cross[\s-]?checked|cross[\s-]?validated|sanity[\s-]?checked)\b", re.I)
+_XCHECK_NOUN = re.compile(r"\b(?:cross[\s-]?checks?|corroboration|sanity[\s-]?checks?)\b", re.I)
+_WITH_XCHECK = re.compile(r"\bwith\b(?=[^;]*" + _XCHECK_NOUN.pattern + r")", re.I)
+_EXCLUDED = re.compile(r"\bnot\s+(?:applicable|used|relied|meaningful)\b|\bn/a\b|\binapplicable\b|"
+                       r"\bexclud\w*|\breject\w*|\bignored\b|\bdisregard\w*", re.I)
+_ASIDE = re.compile(r"\(([^()]*)\)")
+
+
+def _top_level_split(text, seps):
+    """Split on any character in `seps`, but only outside parentheses — "(Multiples-First; 80% combined
+    weight)" is one aside, not two clauses (ORCL_2026-08-14)."""
+    parts, depth, cur = [], 0, []
+    for ch in text:
+        depth += (ch == "(") - (ch == ")" and depth > 0)
+        if ch in seps and depth == 0:
+            parts.append("".join(cur)); cur = []
+        else:
+            cur.append(ch)
+    parts.append("".join(cur))
+    return parts
+
+
+def headline_method(primary_valuation_method):
+    """The part of a free-form primary_valuation_method the call is priced on: cross-checks and explicit
+    exclusions removed per the grammar note above. Returns "" when nothing but asides remains."""
+    text = primary_valuation_method
+    while True:  # innermost-first, so a nested aside cannot shield an outer one
+        stripped = _ASIDE.sub(lambda m: " " if (_AFTER.search(m.group(1)) or _XCHECK_NOUN.search(m.group(1))
+                                                or _EXCLUDED.search(m.group(1))) else m.group(0), text)
+        if stripped == text: break
+        text = stripped
+    kept = []
+    for clause in _top_level_split(text, ";"):
+        for rx in (_AFTER, _WITH_XCHECK):
+            m = rx.search(clause)
+            if m: clause = clause[:m.start()]
+        kept += [seg for seg in _top_level_split(clause, ",+")
+                 if seg.strip() and not (_EXCLUDED.search(seg) or _XCHECK_NOUN.search(seg))]
+    return " ".join(seg.strip() for seg in kept)
 
 
 def eval_w_sector_valuation(business_type, primary_valuation_method):
@@ -78,7 +136,9 @@ def eval_w_sector_valuation(business_type, primary_valuation_method):
     # qualifier — so a free-form aside ("SaaS / subscription software (insurance vertical)", "Generic
     # operating company (banking software vendor)") is not mis-read as a financial/REIT and made to wrongly
     # forbid an otherwise-valid method. business_type routinely carries such parentheticals (synthesizer.md).
-    bt_l = bt.lower().split("(", 1)[0]; pvm_norm = re.sub(r'[^a-z0-9]+', '', pvm.lower())
+    # Judge only the HEADLINE method (see headline_method): a method named solely as a cross-check or an
+    # explicit exclusion is not the method the call is priced on.
+    bt_l = bt.lower().split("(", 1)[0]; pvm_norm = re.sub(r'[^a-z0-9]+', '', headline_method(pvm).lower())
     hits = []
     for sec, fmethods in SECTOR_FORBIDDEN.items():
         if sec in bt_l:

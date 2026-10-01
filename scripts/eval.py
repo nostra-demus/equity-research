@@ -1022,7 +1022,9 @@ def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
-    # PASS (incl. REIT-on-FCFF, which SECTOR_OVERLAYS.md does NOT forbid), and N/A when a field is unset.
+    # PASS, and N/A when a field is unset. A REIT headlined on FCFF DCF / an EV multiple FAILS (the valuation
+    # Business-Type Method Map, stricter than SECTOR_OVERLAYS.md, per §23); only the HEADLINE method is judged,
+    # so a method named solely as a cross-check or an explicit exclusion does not count.
     W=eval_w_sector_valuation
     cases=[  # (business_type, primary_valuation_method, expect: "fail"|"clean"|"na")
         ("Bank / lender","FCFF DCF","fail"),
@@ -1041,7 +1043,16 @@ if scope=="selftest":
         ("Bank / lender","P/B vs ROE","clean"),
         ("Insurer","embedded value / VNB","clean"),            # must NOT false-match 'enterprisevalue'
         ("REIT / real estate","NAV + DDM on FFO/AFFO","clean"),
-        ("REIT / real estate","FCFF DCF","clean"),             # doctrine does NOT forbid FCFF for a REIT
+        ("REIT / real estate","FCFF DCF","fail"),              # Method Map: REIT "Do NOT use: EBITDA / FCFF DCF"
+        ("REIT / real estate","EV/EBITDA","fail"),             # 99_valuation-synthesis: no EV multiple as a REIT headline
+        ("REIT / real estate","EV/EBIT","fail"),
+        ("REIT / real estate","Sum-of-the-parts / NAV (corroborated by normalized FCFF DCF)","clean"),  # EMAAR_2026-07-10: FCFF only corroborates
+        ("REIT / real estate","NAV with FCFF DCF cross-check","clean"),      # "with X cross-check": X is not the headline
+        ("REIT / real estate","FCFF DCF with NAV cross-check","fail"),       # ...but here FCFF IS the headline
+        ("REIT / real estate","FCFF DCF (EV/EBITDA rejected)","fail"),       # an excluding aside never hides the headline
+        ("REIT / real estate","60% NAV + 40% FCFF DCF","fail"),              # a weighted blend prices every leg it names
+        ("Bank / lender","Residual income; FCFF DCF not applicable","clean"),# an explicit exclusion is not use
+        ("Bank / lender","Forward P/TBV with peer NTM P/E and residual-income cross-check","clean"),  # NU_2026-08-31
         ("Generic operating company","FCFF DCF","clean"),      # untracked sector — no constraint
         ("Commodity producer / miner","mid-cycle FCFF DCF","clean"),
         ("Bank / lender","EV/Revenue","fail"),                 # EV/Revenue == EV/Sales synonym — still an EV method

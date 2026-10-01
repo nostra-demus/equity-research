@@ -18,9 +18,11 @@ PRE-SECTOR_DATE folder, so the check W violation can ONLY appear if the live cal
 gates on `_live_date`.
 
 Also covers: N/A when either field is blank/absent (the additive/optional
-convention shared with `scenarios[]`/`edge_score`), and clean when the method is
-not on the forbidden list for that sector (including REIT-on-FCFF, which
-SECTOR_OVERLAYS.md does NOT forbid).
+convention shared with `scenarios[]`/`edge_score`), and clean when the HEADLINE
+method is not on the forbidden list for that sector. A REIT headlined on FCFF DCF
+is forbidden (the valuation Business-Type Method Map, stricter than
+SECTOR_OVERLAYS.md per §23); a method named only as a cross-check or an explicit
+exclusion is not the headline.
 
 Assertions check presence/absence of the check-W-SPECIFIC violation substring in
 the GATE line, so unrelated checks firing on the fixture never give a false result.
@@ -140,7 +142,10 @@ def main():
     cases = [
         ("Bank on FCFF DCF (forbidden)", "Bank / lender", "FCFF DCF", [W_MSG], []),
         ("REIT on EBITDA-DCF (forbidden)", "REIT / real estate", "EBITDA-DCF", [W_MSG], []),
-        ("REIT on FCFF DCF (doctrine does NOT forbid this)", "REIT / real estate", "FCFF DCF", [], [W_MSG]),
+        ("REIT on FCFF DCF (Method Map forbids it)", "REIT / real estate", "FCFF DCF", [W_MSG], []),
+        ("REIT on NAV, FCFF only corroborating (EMAAR_2026-07-10 shape)", "REIT / real estate",
+         "Sum-of-the-parts / NAV (corroborated by normalized FCFF DCF)", [], [W_MSG]),
+        ("bank naming FCFF only to exclude it", "Bank / lender", "Residual income; FCFF DCF not applicable", [], [W_MSG]),
         ("Bank on DDM (clean)", "Bank / lender", "DDM / residual income", [], [W_MSG]),
         ("Generic operator on FCFF DCF (untracked sector)", "Generic operating company", "FCFF DCF", [], [W_MSG]),
         ("business_type unset -> N/A", None, "FCFF DCF", [], [W_MSG]),
