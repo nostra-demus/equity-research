@@ -323,8 +323,44 @@ def eval_multiple_metric_basis(sidecar):
 
 # Membership is a binary the probability arithmetic depends on, so these lists are closed ON PURPOSE,
 # unlike the open metric vocabularies: a word nobody recognises must surface rather than be guessed.
-_OUT_OF_SET = frozenset({"sensitivity", "stress", "excluded", "floor", "avoid_ruin", "avoid-ruin",
-                         "not_weighted", "unweighted", "illustrative"})
+# THE SCHEMA'S OWN ENUM, AND NOTHING ELSE. frameworks/valuation_summary.schema.json admits exactly
+# `weighted | sensitivity | null` for set_membership, and valuation_summary_checks (AP) keys on the
+# literal "sensitivity". An earlier revision here honoured nine spellings, so `set_membership: "stress"`
+# bought a silent exit from THIS gate while AP still counted the case as weighted and the schema
+# rejected the value outright — a word that dodged the basis comparison and was invisible everywhere
+# else. The premise was wrong: "stress" was never a compliant run, it was a schema-invalid one.
+_MEMBERSHIP_OUT = frozenset({"sensitivity"})
+_MEMBERSHIP_IN = frozenset({"weighted"})
+
+
+_MISSING = object()  # "field absent", which is NOT the same as an explicit null
+
+
+def _membership_of(case) -> str:
+    """Normalised set_membership. Absent / null means "weighted" — the schema's stated default."""
+    return str(case.get("set_membership") or "weighted").strip().lower()
+
+
+def _membership_violations(cases):
+    """A set_membership outside the schema enum is a finding, not an exit and not a silent inclusion.
+
+    Only "sensitivity" removes a case (the schema enum, and the one word AP recognises). Anything else
+    keeps the case IN the comparison, so a typo can never quietly drop a real down-leg out of the
+    probability-weighted set — but it is REPORTED rather than guessed either way, naming the value and
+    the two it is allowed to be.
+    """
+    out = []
+    for case in cases:
+        got = _membership_of(case)
+        if got in _MEMBERSHIP_OUT or got in _MEMBERSHIP_IN:
+            continue
+        out.append(
+            f"set_membership {str(case.get('set_membership'))!r} on case "
+            f"{str(case.get('label') or '?')!r} is not one of the two values "
+            "frameworks/valuation_summary.schema.json admits (weighted, sensitivity) — the case stays "
+            "in the weighted comparison, and valuation_summary_checks counts it as weighted too"
+        )
+    return out
 
 
 def _weighted_cases(sidecar):
@@ -358,8 +394,7 @@ def _weighted_cases(sidecar):
     # hard-failed a compliant run. Treating anything non-"weighted" as excluded is the opposite and
     # worse failure: a typo would quietly drop a real down-leg out of the probability-weighted set
     # without anyone deciding to. So unrecognised stays IN and is reported.
-    return [case for case in cases
-            if str(case.get("set_membership") or "weighted").strip().lower() not in _OUT_OF_SET]
+    return [case for case in cases if _membership_of(case) not in _MEMBERSHIP_OUT]
 
 
 def _cited(value) -> bool:
@@ -419,6 +454,10 @@ def eval_scenario_basis_coherence(sidecar):
         return None  # wholly undeclared -> N/A here; presence is a separate, later gate
 
     violations = list(note_violations)
+    # Every declared case, not just the weighted ones: a value that tried to remove a case must be
+    # reported even though the removal is refused.
+    violations.extend(_membership_violations(
+        [c for c in (sidecar.get("scenarios") or []) if isinstance(c, dict)]))
 
     undeclared = [case for case, norm in normalised if norm is None]
     if undeclared:
@@ -989,12 +1028,31 @@ def _selftest() -> int:
           normalise_metric_basis("FY27E Revenue at the FY21-trough EBIT margin")[1] == "REVENUE")
     check("[7] a bare year is a fiscal year",
           normalise_metric_basis("2026")[0] == normalise_metric_basis("FY2026")[0] == "FY26")
-    check("[8] 'stress' and 'excluded' leave the weighted set",
-          eval_scenario_basis_coherence({"scenarios": [ntm("bull"), ntm("base"),
-              {"label": "x", "metric_basis": "FY2022 trough EPS", "set_membership": "stress"}]}) == [])
-    check("[8] an UNRECOGNISED membership keeps the case IN (a typo must not drop a down-leg)",
-          eval_scenario_basis_coherence({"scenarios": [ntm("bull"), ntm("base"),
-              {"label": "x", "metric_basis": "FY2022 trough EPS", "set_membership": "weighed"}]}) != [])
+    # ---- F12: the exit is the SCHEMA ENUM, not a vocabulary of near-synonyms ----
+    # These two branches used to assert the opposite: that "stress" and "excluded" left the set. They
+    # were asserting the escape hatch. The schema admits `weighted | sensitivity | null`, and AP keys on
+    # the literal "sensitivity", so any other word bought a silent exit from THIS gate while AP counted
+    # the case as weighted — the BURL-class mismatch dodged by one word nothing else recognised.
+    def _mem(value):
+        return eval_scenario_basis_coherence({"scenarios": [ntm("bull"), ntm("base"), dict(
+            {"label": "x", "metric_basis": "FY2022 trough EPS"},
+            **({} if value is _MISSING else {"set_membership": value}))]}) or []
+
+    check("[8][F12] 'sensitivity' is the ONE word that leaves the set (schema enum + AP)",
+          _mem("sensitivity") == [])
+    for bad in ("stress", "excluded", "avoid_ruin", "illustrative", "unweighted", "weighed"):
+        out = _mem(bad)
+        check(f"[8][F12] {bad!r} does NOT buy an exit — it is reported",
+              any("is not one of the two values" in v and repr(bad) in v for v in out))
+        check(f"[8][F12] and the case {bad!r} tried to remove stays in the comparison",
+              any("mix earnings PERIODS" in v for v in out))
+    check("[8][F12] a schema-valid 'weighted' is neither reported nor excluded",
+          _mem("weighted") and not any("is not one of the two" in v for v in _mem("weighted")))
+    check("[8][F12] absent and null both default to weighted, silently",
+          not any("is not one of the two" in v for v in _mem(_MISSING))
+          and not any("is not one of the two" in v for v in _mem(None)))
+    check("[8][F12] the reported value names the offending case, not just the value",
+          any("'x'" in v for v in _mem("stress")))
     check("[3] a corrupt sidecar FAILS rather than reporting and passing",
           eval_bf_basis_enforcement(_after, None, ["could not parse valuation_summary.json"]) == "fail")
     check("[4] deleting every metric_basis does not convert a fail into a pass",
