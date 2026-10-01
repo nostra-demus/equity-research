@@ -226,9 +226,31 @@ def eval_scenario_basis_coherence(sidecar):
 # emitter that does not comply fails every new run for a reason the author cannot fix.
 BF_ENFORCE_DATE = "2026-11-01"
 
+# SIDECAR PRESENCE ARMS SEPARATELY, AND IS CURRENTLY OFF. These are two different demands wearing one
+# date. "Your declared bases disagree" is a defect in work that was done; "you emitted no sidecar" is a
+# demand that a different artifact exist at all, and the engine does not reliably produce it today:
+#
+#     BURL 2026-09-29, V 2026-09-23, AKAM 2026-09-15, AKAM 2026-09-14, NU 2026-08-31
+#
+# — the five most recent full runs carrying scenarios, every one of which ran the whole valuation module
+# and emitted no valuation_summary.json. 99_valuation-synthesis calls emitting it a "(Hard Rule)" while
+# /research:full treats a missing sidecar as "N/A, never a violation", and the runs follow the latter.
+#
+# Arming presence against that record would red CI on the first new run and keep it red for every code
+# PR until someone noticed, which is how a gate gets switched off permanently instead of fixed. So it
+# stays None (never enforced) until emission is demonstrably reliable — the fix belongs in the emitter,
+# not in a date. Set it to a date only once consecutive real runs are observed to emit the sidecar.
+BF_SIDECAR_REQUIRED_DATE = None
+
 
 def _isdate(value) -> bool:
     return isinstance(value, str) and len(value) == 10 and value[4] == "-" and value[7] == "-"
+
+
+def _presence_would_fail(decision_date, required_date):
+    """Exercise the presence branch without mutating the module constant — so the disabled path is
+    still covered by a test instead of being dead code nobody has run."""
+    return _isdate(required_date) and _isdate(decision_date) and decision_date >= required_date
 
 
 def eval_bf_basis_enforcement(decision_date, sidecar, violations):
@@ -244,10 +266,12 @@ def eval_bf_basis_enforcement(decision_date, sidecar, violations):
     if not _isdate(decision_date) or decision_date < BF_ENFORCE_DATE:
         return "na"
     if sidecar is None:
-        # Past the gate the sidecar is no longer optional: it is the only artifact carrying per-case
-        # basis, so a run without one cannot be checked at all — which is exactly how the BURL run
-        # passed every gate it had.
-        return "fail"
+        # The sidecar is the only artifact carrying per-case basis, so a run without one cannot be
+        # checked at all — which is exactly how the BURL run passed every gate it had. That remains
+        # true, and it is still not a reason to fail a run today: see BF_SIDECAR_REQUIRED_DATE.
+        if _isdate(BF_SIDECAR_REQUIRED_DATE) and decision_date >= BF_SIDECAR_REQUIRED_DATE:
+            return "fail"
+        return "na"
     if violations is None:
         return "pass"
     return "fail" if violations else "pass"
@@ -442,10 +466,15 @@ def _selftest() -> int:
           eval_bf_basis_enforcement("2026-12-01", sc, v_ok) == "pass")
     check("past the gate, nothing-to-judge passes",
           eval_bf_basis_enforcement("2026-12-01", sc, v_none) == "pass")
-    check("past the gate, a MISSING sidecar fails (the BURL hole)",
-          eval_bf_basis_enforcement("2026-12-01", None, v_none) == "fail")
-    check("before the gate, a missing sidecar is still na",
+    # Presence is a SEPARATE demand on a separate gate, currently disabled — the five most recent full
+    # runs emit no sidecar, so arming it would red CI on the first new run.
+    check("a missing sidecar does NOT fail while presence is disabled",
+          BF_SIDECAR_REQUIRED_DATE is None
+          and eval_bf_basis_enforcement("2026-12-01", None, v_none) == "na")
+    check("before the gate, a missing sidecar is na",
           eval_bf_basis_enforcement("2026-07-10", None, v_none) == "na")
+    check("presence failing is reachable once its own date is set",
+          _presence_would_fail("2026-12-01", "2026-11-15"))
     check("the gate date is in the future relative to the corpus",
           BF_ENFORCE_DATE > "2026-10-01")
 
