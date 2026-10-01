@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T01:24:24Z",
+  "generated_at": "2026-10-01T01:30:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-033",
@@ -1930,44 +1930,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261001-038",
-      "headline": "BOJ debated need for more rate hikes at September meeting, summary shows",
+      "inbox_id": "INB-20261001-065",
+      "headline": "JPMorgan Elevated Doug Petno and Troy Rohrbaugh to Co-Presidents as Jamie Dimon's Board Accelerates Succession Planning. Here's What That Reshuffle Signals for JPMorgan's Next Chapter.",
       "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/boj-debated-need-more-rate-hikes-september-meeting-summary-shows-2026-10-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.nasdaq.com/articles/jpmorgan-elevated-doug-petno-and-troy-rohrbaugh-co-presidents-jamie-dimons-board",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:31:43Z",
+      "found_at": "2026-10-01T00:35:00Z",
       "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "BOJ summary indicates internal debate regarding further rate hikes, signaling potential policy shifts.",
+      "prelim_note": "JPMorgan elevated two executives to Co-Presidents and accelerated succession planning, signaling governance quality and reduced continuity tail risk, but no near-term profit or capital catalyst.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "BOJ summary indicates internal debate regarding further rate hikes, signaling potential policy shifts.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
+      "triage_score": 69,
+      "triage_reason": "JPMorgan elevated two executives to Co-Presidents and accelerated succession planning, signaling governance quality and reduced continuity tail risk, but no near-term profit or capital catalyst.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 52,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 52,
         "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
+        "event_id": "management",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "macro_sector"
+        "management"
       ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JPMorgan Chase",
+          "ticker": "JPM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193880,9 +193886,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 461002,
-    "news_picked_today": 64,
-    "news_dropped_today": 1952
+    "news_seen_today": 481313,
+    "news_picked_today": 71,
+    "news_dropped_today": 2065
   },
   "book_momentum": {
     "live_count": 8,
