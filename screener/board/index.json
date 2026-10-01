@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T23:33:04Z",
+  "generated_at": "2026-10-01T23:38:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-545",
@@ -989,6 +989,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-632",
+      "headline": "Nike plans more job cuts, geographic changes after forecasting sharp revenue drop",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/nike-plans-more-job-cuts-geographic-changes-after-forecasting-sharp-revenue-drop",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T23:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Nike is planning job cuts and restructuring following a forecast of a sharp revenue drop.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nike is planning job cuts and restructuring following a forecast of a sharp revenue drop.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": "NKE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-629",
       "headline": "Nike plans more job cuts to boost sputtering turnaround, forecasts steep revenue drop",
       "headline_en": null,
@@ -1942,55 +1992,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-362",
-      "headline": "Billionaire Weston family closes in on £7bn Boots takeover",
-      "headline_en": null,
-      "url": "https://www.cityam.com/billionaire-weston-family-closes-in-on-7bn-boots-takeover/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T09:33:54Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Weston family is nearing a 7 billion pound acquisition of Boots.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Weston family is nearing a 7 billion pound acquisition of Boots.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boots",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192606,9 +192607,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5476536,
-    "news_picked_today": 1715,
-    "news_dropped_today": 26869
+    "news_seen_today": 5488181,
+    "news_picked_today": 1728,
+    "news_dropped_today": 26928
   },
   "book_momentum": {
     "live_count": 8,
