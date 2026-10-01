@@ -626,6 +626,7 @@ from valuation_summary_checks import (
 # is pure + module-level (mirrors AP) so the same core is finish-gate-ready.
 from valuation_basis_checks import (
     scan_committed as scan_basis_committed, _selftest as _vb_selftest, BF_ENFORCE_DATE,
+    BF_EMITTER_CANARY_PROVEN,
 )
 
 
@@ -5147,7 +5148,8 @@ apchecked, apfailures = scan_committed(".")
 if apfailures: suite_pass=False
 
 # BF — scenario basis coherence. DATED, not report-only: every run is measured and published, and a run
-# DATED on/after BF_ENFORCE_DATE fails the suite on its findings. The split exists because retro-failing
+# DATED on/after BF_ENFORCE_DATE fails the suite on its findings — once BF_EMITTER_CANARY_PROVEN is also
+# True (valuation_basis_checks.bf_armed); before both hold, every finding is report-only. The split exists because retro-failing
 # runs whose authors were never told the rule would say nothing about their analysis — so the committed
 # corpus (two thirds of which predates the rule, and 8 of 21 full runs of which emit no sidecar at all)
 # is reported and never failed, while anything written after the date is held to it.
@@ -5211,7 +5213,8 @@ for r,v in apfailures:
 # BF must say so in the log too. It can set suite_pass=False, and research_check.py's fallback line for an
 # unexplained suite failure points the operator AT this log — so a gate that fires here silently produces a
 # blocked push naming no check and nothing to fix.
-print(f"  scenario basis coherence (BF: one weighted set, one basis — enforced from {BF_ENFORCE_DATE}):",
+print(f"  scenario basis coherence (BF: one weighted set, one basis — enforced from {BF_ENFORCE_DATE} once the emitter canary is proven"
+      f" — canary proven: {BF_EMITTER_CANARY_PROVEN}):",
       f"PASS ({bachecked} judgeable set(s), {len(bafailures)} pre-gate finding(s))" if not baenforced
       else "FAIL "+";".join(r for r,_ in baenforced))
 for r,v in bafailures:
