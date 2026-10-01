@@ -774,9 +774,28 @@ viol.extend(hc.eval_aj_decision_audit_trail(_live_date, _thesis_text_ak) or [])
 # scripts/valuation_summary_checks.py). valuation_summary.json is §25 DATA that reaches main WITHOUT CI, so
 # a malformed or decision_record-contradicting sidecar would drive the cockpit Playground with levers that
 # disagree with the committed thesis before the retrospective eval ever runs — stamp PROVISIONAL now.
-# Soft-presence: a run that emits no sidecar is N/A, never a violation.
+# Presence: REQUIRED of a run that actually produced scenario levels, soft for one that did not.
+# 99_valuation-synthesis calls emitting this file a "(Hard Rule)" while this gate used to treat its
+# absence as "N/A, never a violation", and the runs followed the gate: emission worked through
+# NVT 2026-09-07 and then silently stopped — AKAM 09-14, AKAM 09-15, V 09-23 and BURL 09-29 each ran the
+# whole valuation module and wrote 99's markdown, none wrote the sidecar, and nothing said so for three
+# weeks. A Hard Rule nothing checks is a suggestion.
+#
+# Checked HERE rather than in eval.py's corpus scan on purpose: this gate is per-run and pre-publish, so
+# it reaches the run that can still fix it, while a corpus-wide presence rule would red CI on every code
+# PR for runs whose authors were never told (valuation_basis_checks.BF_SIDECAR_REQUIRED_DATE stays None
+# for that reason). The gate loop runs twice, so the normal outcome is that the agent is told, emits it,
+# and the run goes clean; one that still cannot ships PROVISIONAL with the reason named.
+#
+# A run with no scenario levels has nothing to put in the sidecar, so absence there stays soft.
 import valuation_summary_checks as vsc
 _vs_path = os.path.join(run, "valuation", "valuation_summary.json")
+_vs_levels = d.get("scenarios") if isinstance(d, dict) else None
+if not os.path.exists(_vs_path) and isinstance(_vs_levels, list) and _vs_levels:
+    viol.append(f"valuation/valuation_summary.json was not emitted, though this run produced {len(_vs_levels)} "
+                "scenario level(s) — it is the only artifact carrying per-case basis, so without it the fair "
+                "value is not re-derivable and no basis check can read the run (99_valuation-synthesis "
+                "'Structured Emission', Hard Rule)")
 if os.path.exists(_vs_path):
     # soft-presence is only for an ABSENT file; a present-but-unreadable/invalid sidecar is an integrity
     # failure (else a truncated JSON would collapse to None and PASS the gate, shipping a broken lever set).
