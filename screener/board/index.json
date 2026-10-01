@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T05:45:03Z",
+  "generated_at": "2026-10-01T05:52:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-121",
@@ -145,6 +145,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-276",
+      "headline": "Motilal Oswal Alternates sells over 2% stake in Molbio Diagnostics for ₹306 cr",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/motilal-oswal-alternates-sells-over-2-stake-in-molbio-diagnostics-for-306-cr/article71531191.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T04:06:17Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Motilal Oswal Alternates sold over 2% stake in Molbio Diagnostics for ₹306 crore, indicating a significant ownership change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Motilal Oswal Alternates sold over 2% stake in Molbio Diagnostics for ₹306 crore, indicating a significant ownership change.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Molbio Diagnostics",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -748,6 +797,49 @@
           "listing_country": "AU"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-269",
+      "headline": "Russian air strikes injure two in Ukraine's Kyiv, Odesa, officials say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/europe/russian-air-strikes-injure-two-ukraines-kyiv-odesa-officials-say-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T04:19:45Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Escalation of Russian air strikes in Ukraine increases geopolitical risk and potential supply chain disruptions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Escalation of Russian air strikes in Ukraine increases geopolitical risk and potential supply chain disruptions.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1910,115 +2002,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-084",
-      "headline": "Passengers and crew foil co-pilot's apparent attempt to crash FlyDubai flight to Israel",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/01/dubai-israel-flight-pilot-crash-indian.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T01:09:18Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "A co-pilot's attempted sabotage of a FlyDubai flight, thwarted by crew and passengers, creates operational, safety, regulatory investigation, and litigation risk for the airline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A co-pilot's attempted sabotage of a FlyDubai flight, thwarted by crew and passengers, creates operational, safety, regulatory investigation, and litigation risk for the airline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FlyDubai",
-          "ticker": null,
-          "listing_country": "AE"
-        },
-        {
-          "name": "Emirates Group Holdings",
-          "ticker": "EK",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-055",
-      "headline": "ASX falls; Meteoric up 57pc after Lynas buyout",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-slip-us-rate-bets-drop-though-bond-yields-press-higher-20261001-p611w8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T01:00:49Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Meteoric Resources shares rose 57% following the announcement of a buyout by Lynas Rare Earths.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Meteoric Resources shares rose 57% following the announcement of a buyout by Lynas Rare Earths.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meteoric Resources",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Lynas Rare Earths",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192647,9 +192630,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1249160,
-    "news_picked_today": 389,
-    "news_dropped_today": 7819
+    "news_seen_today": 1264434,
+    "news_picked_today": 419,
+    "news_dropped_today": 7957
   },
   "book_momentum": {
     "live_count": 8,
