@@ -632,21 +632,32 @@ def scan_committed(root="."):
         # check here that can see a run like BURL, whose bases lived in prose and which emitted no
         # sidecar at all.
         md_path = os.path.join(run_dir, "valuation", "02_multiples-own-history.md")
+        label_viol = []
         if os.path.exists(md_path):
             try:
-                label_viol = eval_statistic_label(open(md_path, encoding="utf-8").read())
-            except Exception:
-                label_viol = None
-            if label_viol:
-                violations = (violations or []) + label_viol
+                label_viol = eval_statistic_label(open(md_path, encoding="utf-8").read()) or []
+            except Exception as exc:
+                # A markdown this module cannot decode is REPORTED, not silently skipped. Swallowing it
+                # disabled the one check here that can see a run with no sidecar, and the finding count
+                # simply fell with nothing saying why.
+                label_viol = [f"could not read 02_multiples-own-history.md ({exc}) — the statistic-label "
+                              "check could not run on this run"]
 
-        if violations:
+        # THE BASIS GATE IS ARMED BY BASIS VIOLATIONS ONLY. The label findings are reported alongside
+        # them but kept out of the gate's input: they answer a different question (does 02's output name
+        # its statistic correctly), their remedy lives in a different artifact, and the gate's own
+        # precondition — the declared-basis fields — says nothing about 02's template, which sits on an
+        # independent branch stack. Arming them on that date would hard-fail every run for obeying a
+        # prompt that still mandates the column, and would make a run with NO sidecar fail on the label
+        # alone, contradicting this module's documented soft presence and BF_SIDECAR_REQUIRED_DATE=None.
+        verdict = eval_bf_basis_enforcement(decision_date, sidecar, violations)
+
+        reported = (violations or []) + label_viol
+        if reported:
             checked += 1
-            failures.append((run, violations))
+            failures.append((run, reported))
         elif violations is not None:
             checked += 1
-
-        verdict = eval_bf_basis_enforcement(decision_date, sidecar, violations)
         if verdict == "fail":
             why = violations or [f"no valuation_summary.json — required for runs dated on/after {BF_ENFORCE_DATE}"]
             enforced.append((run, why))
@@ -891,6 +902,12 @@ def _selftest() -> int:
     check("an unparseable multiple period is skipped, not guessed",
           eval_multiple_metric_basis({"scenarios": [
               {"label": "b", "metric_basis": "NTM EPS", "multiple_basis": "a blended multiple"}]}) == [])
+
+    # ---- review round 5 regressions ----
+    check("[F9] a label finding alone never arms the basis gate",
+          eval_bf_basis_enforcement(_after, None, None) == "na")
+    check("[F9] and a basis violation still does",
+          eval_bf_basis_enforcement(_after, {"scenarios": []}, ["basis mismatch"]) == "fail")
 
     # ---- review round 4 regressions ----
     check("[F1] a non-dict decision_record does not crash the harness",

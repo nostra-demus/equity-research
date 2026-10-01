@@ -209,6 +209,25 @@ def suite_contract_failures(report):
     return out
 
 
+def bf_failures(report):
+    """
+    Run -> [violation, ...] from eval.py's BF scenario-basis-coherence scan
+    (report['scenario_basis_coherence']['enforced']).
+
+    Read separately for the same reason as AP, and it matters more here: the BF scan walks run FOLDERS,
+    including sidecar-only partial runs the per-run loop never scores, so an enforced run can be absent
+    from report['runs'] entirely. Surfacing it only through suite_contract_failures meant a scoped
+    `--changed` push exited 0 and reported the run PASS while the same defect reddened a required job on
+    every unrelated code PR afterwards — the regression research-check.yml exists to prevent.
+    """
+    out = {}
+    for entry in (report.get("scenario_basis_coherence") or {}).get("enforced") or []:
+        run = entry.get("run")
+        if run:
+            out[run] = entry.get("violations") or []
+    return out
+
+
 def run_eval(root="."):
     """Run the eval harness over every run and return the JSON report it writes (it prints `WROTE <path>`)."""
     result = subprocess.run([sys.executable, "scripts/eval.py", "all"], cwd=root, capture_output=True, text=True)
@@ -229,6 +248,11 @@ def status_of(report, run, root="."):
     """
     ap = ap_failures(report).get(run)
     ap_fails = [f"AP_valuation_summary_integrity: {v}" for v in ap] if ap else []
+    bf = bf_failures(report).get(run)
+    bf_fails = [f"BF_scenario_basis_coherence: {v}" for v in bf] if bf else []
+    ap_fails = ap_fails + bf_fails
+    if bf is not None and ap is None:
+        ap = bf  # so the no-scored-entry branch below treats a BF-only run as present, as it does for AP
     entry = (report.get("runs") or {}).get(run)
     if entry is None:
         if ap is not None:
@@ -498,6 +522,12 @@ def main(argv=None):
     ap_touched = [run for run in touched_runs if run in _ap and run not in scope_runs]
     if ap_touched:
         scope_runs = sorted(set(scope_runs) | set(ap_touched))
+    # Same fold for BF: a touched run the basis gate enforced against belongs in a scoped push's scope,
+    # or the push that publishes it exits 0 and the defect surfaces later on someone else's PR.
+    _bf = bf_failures(report)
+    bf_touched = [run for run in touched_runs if run in _bf and run not in scope_runs]
+    if bf_touched:
+        scope_runs = sorted(set(scope_runs) | set(bf_touched))
     # A partial run's sidecar may instead have been CORRECTED, not newly broken: it no longer appears in
     # `_ap`, so ap_touched above never re-adds it, and — with no scored decision record either — it would
     # otherwise vanish from scope with any AP-failure issue left open forever (the nightly --all sweep

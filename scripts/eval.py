@@ -4746,6 +4746,12 @@ FRAMEWORK_CONTRACTS={
  "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","AQ_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_aq_forensic_mosaic_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS","FORENSIC_TAGS","MOSAIC_MIN_DISTINCT_TAGS","MOSAIC_MIN_DISTINCT_MODULES"],
  "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM"],
  "scripts/valuation_summary_checks.py":["eval_ap_valuation_summary_integrity","scan_committed","_selftest","_REQUIRED","level_from_multiple"],
+ # BF — without this row the whole basis-check module could be deleted and the suite would still
+ # print PASS, which is the hole this registry exists to close (see its own comment above).
+ "scripts/valuation_basis_checks.py":["eval_scenario_basis_coherence","eval_bf_basis_enforcement",
+                                      "eval_statistic_label","eval_multiple_metric_basis",
+                                      "case_basis_detail","normalise_metric_basis","scan_committed",
+                                      "_selftest","BF_ENFORCE_DATE","BF_SIDECAR_REQUIRED_DATE"],
  ".claude/agents/module-memo-writer.md":["_memo.md","module synthesis","condenser"],
  "frameworks/MODULE_PIPELINE.md":["Step 4.9","module-memo-writer","_memo.md","_dossier.md"],
  ".claude/commands/research/rerun.md":["module-memo-writer","_dossier.md","10B.3","forensic-mosaic","--data-needs-prewrite","Publication-time data-needs route gate"],
