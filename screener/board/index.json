@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-01T00:37:57Z",
+  "generated_at": "2026-10-01T00:54:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261001-033",
+      "headline": "Nidec Shares Plunge After Auditor Withholds Opinion on Earnings",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-01/nidec-shares-plunge-after-auditor-withholds-opinion-on-earnings",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:25:33Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Auditor withholding opinion on earnings is a major red flag indicating potential accounting issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Auditor withholding opinion on earnings is a major red flag indicating potential accounting issues.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nidec",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261001-008",
       "headline": "Australia's Lynas Rare Earths to buy Meteoric Resources in $672 million deal",
@@ -151,6 +200,110 @@
           "name": "nib Holdings",
           "ticker": "NHF",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-041",
+      "headline": "CHM: FY2026 Annual Report, creditor update and Board changes",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CHM?key=2924-03143098-2A1701052",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T00:16:13Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "FY26 annual report bundled with separate creditor update and board changes signals potential debt stress or restructuring plus management turnover.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "FY26 annual report bundled with separate creditor update and board changes signals potential debt stress or restructuring plus management turnover.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHM",
+          "ticker": "CHM",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-037",
+      "headline": "Australia's Ampol to buy EV charging operator Evie Networks for $156 million",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/australias-ampol-buy-ev-charging-operator-evie-networks-156-million-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:41:44Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Ampol is acquiring Evie Networks for $156 million to expand its EV charging footprint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Ampol is acquiring Evie Networks for $156 million to expand its EV charging footprint.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ampol",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Evie Networks",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -412,6 +565,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-036",
+      "headline": "Cosmo Robotics Shares Plunge Amid Pre-IPO Revenue Inflation Probe",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277991",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T03:54:49Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Cosmo Robotics is under investigation for revenue inflation, causing a significant share price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Cosmo Robotics is under investigation for revenue inflation, causing a significant share price decline.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cosmo Robotics",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-034",
+      "headline": "MetaMask exits Ethereum validators as it investigates security incident",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/metamask-exits-lido-validators-as-it-investigates-security-incident?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:15:55Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "MetaMask is investigating a security incident, leading to the suspension of Ethereum validator services.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "MetaMask is investigating a security incident, leading to the suspension of Ethereum validator services.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MetaMask",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -718,6 +969,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-031",
+      "headline": "We're raising our Micron price target after an incredible quarter and robust guidance",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/30/were-raising-our-micron-price-target-after-an-incredible-quarter-and-robust-outlook.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:07:47Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Analyst upgrade following strong quarterly results and robust guidance from Micron.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Analyst upgrade following strong quarterly results and robust guidance from Micron.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Micron",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-040",
+      "headline": "RAN: Entitlement Offer to raise up to $1.69m and Ops Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RAN?key=2924-03143102-2A1701053",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T00:21:13Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Entitlement offer of A$1.69m plus unspecified operations update flagged price-sensitive by issuer, but modest raise size and ops detail undefined.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "Entitlement offer of A$1.69m plus unspecified operations update flagged price-sensitive by issuer, but modest raise size and ops detail undefined.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RAN",
+          "ticker": "RAN",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-039",
+      "headline": "South Korea ordered to pay Elliott $48.49 million in Samsung merger case",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/south-korea-ordered-pay-elliott-4849-million-samsung-merger-case-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:25:44Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "South Korea ordered to pay $48.49 million to Elliott in relation to the Samsung merger case.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "South Korea ordered to pay $48.49 million to Elliott in relation to the Samsung merger case.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-011",
       "headline": "OSS: Development Plan for Takalar Seaweed Innovation Centre",
       "headline_en": null,
@@ -951,6 +1349,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-038",
+      "headline": "BOJ debated need for more rate hikes at September meeting, summary shows",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/boj-debated-need-more-rate-hikes-september-meeting-summary-shows-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:31:43Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "BOJ summary indicates internal debate regarding further rate hikes, signaling potential policy shifts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "BOJ summary indicates internal debate regarding further rate hikes, signaling potential policy shifts.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-016",
       "headline": "JAV: Coogee Au-Cu Diamond Hole Intersects Key Structure [price-sensitive]",
       "headline_en": null,
@@ -995,6 +1436,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-042",
+      "headline": "ALM: Company Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ALM?key=2924-03143089-6A1347149",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T00:04:28Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Company presentation released, marked as price-sensitive but lacks specific financial guidance or event details.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Company presentation released, marked as price-sensitive but lacks specific financial guidance or event details.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ALM",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-043",
+      "headline": "VIS: Updated Estimated Distribution [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VIS?key=2924-03143088-2A1701013",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T00:04:18Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Updated distribution estimate for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Updated distribution estimate for shareholders.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VIS",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1147,6 +1686,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-035",
+      "headline": "FlyDubai says flights to and from Israel will be suspended while the investigation continues",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/europe/flydubai-says-flights-to-and-from-israel-will-be-suspended-while-the-investigation-continues-4166277",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:27:31Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "FlyDubai has suspended flights to Israel due to ongoing security concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "FlyDubai has suspended flights to Israel due to ongoing security concerns.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FlyDubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-023",
       "headline": "WZR: Change in substantial holding",
       "headline_en": null,
@@ -1196,45 +1784,93 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261001-024",
-      "headline": "AAA: Estimated Distribution Announcement [price-sensitive]",
+      "inbox_id": "INB-20261001-032",
+      "headline": "RBI’s Success on Dollar Flows Raises Stakes in Inflation Fight",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AAA?key=2924-03141405-2A1700261",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T07:01:26Z",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-01/rbi-s-success-on-dollar-flows-raises-stakes-in-inflation-fight",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:00:00Z",
       "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Routine announcement of an estimated distribution for an ETF or fund.",
+      "prelim_note": "RBI's management of dollar flows is impacting the inflation outlook for the Indian economy.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Routine announcement of an estimated distribution for an ETF or fund.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
+      "triage_score": 57,
+      "triage_reason": "RBI's management of dollar flows is impacting the inflation outlook for the Indian economy.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
         "event": 0,
         "size": 0,
-        "recency": 0,
+        "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
+        "scope_id": "policy",
+        "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
       },
       "event_types": [
-        "capital_actions"
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-029",
+      "headline": "IMG Completes Acquisition of World Nomads, Expanding Global Travel Insurance Distribution",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/img-completes-acquisition-of-world-nomads-expanding-global-travel-insurance-distribution-302895147.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-01T00:18:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "IMG has completed the acquisition of World Nomads to expand its global travel insurance distribution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "IMG has completed the acquisition of World Nomads to expand its global travel insurance distribution.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "AAA",
+          "name": "IMG",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "World Nomads",
           "ticker": null,
           "listing_country": null
         }
@@ -1245,50 +1881,98 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261001-017",
-      "headline": "TLS: Update - Notification of buy-back - TLS",
+      "inbox_id": "INB-20261001-028",
+      "headline": "Incubeta Completes Acquisition of XPON’s Specialist GMP and GCP Division",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TLS?key=2924-03141427-3A702803",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T07:13:26Z",
+      "url": "http://www.businesswire.com/news/home/20260930269903/en/Incubeta-Completes-Acquisition-of-XPON%E2%80%99s-Specialist-GMP-and-GCP-Division/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-01T00:00:00Z",
       "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Update or notification on ongoing buyback program; routine capital-management disclosure with no new quantified program scope or timing.",
+      "prelim_note": "Incubeta has completed the acquisition of XPON's specialist divisions, expanding its service capabilities.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "Update or notification on ongoing buyback program; routine capital-management disclosure with no new quantified program scope or timing.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
+      "triage_score": 53,
+      "triage_reason": "Incubeta has completed the acquisition of XPON's specialist divisions, expanding its service capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "capital_actions"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Telstra Corporation Limited",
-          "ticker": "TLS",
+          "name": "Incubeta",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "XPON",
+          "ticker": null,
           "listing_country": null
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-030",
+      "headline": "Iran war live: Trump hints US could strike Iran, warns time coming",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/10/1/iran-war-live-trump-hints-us-could-strike-iran-warns-time-coming?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-01T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Geopolitical escalation risk regarding potential US strikes on Iran poses a significant threat to global energy markets and stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Geopolitical escalation risk regarding potential US strikes on Iran poses a significant threat to global energy markets and stability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -151546,78 +152230,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9652af888bb5",
-      "idea_version": "IDEAV-f389334e4802534c",
-      "idea_version_started_at": "2026-09-29T13:10:26Z",
-      "ticker": "00565",
-      "company": "Art Group Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling a material deterioration in earnings and margins.",
-      "why_now": "The filing was released on 2026-09-29.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-872d2d4d1b98"
-      ],
-      "primary_source_event_id": "EVT-872d2d4d1b98",
-      "source_headlines": [
-        "ART GROUP HOLD (00565): PROFIT WARNING"
-      ],
-      "source_headline": "ART GROUP HOLD (00565): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092901797.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-29T12:54:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T13:10:26Z",
-      "updated_at": "2026-09-29T13:10:26Z",
-      "decay_at": "2026-10-01T00:54:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d99505bc75b0",
       "idea_version": "IDEAV-11208c4dd4e3a05e",
       "idea_version_started_at": "2026-09-30T09:32:50Z",
@@ -153452,6 +154064,78 @@
       "surfaced_at": "2026-09-29T14:12:15Z",
       "updated_at": "2026-09-29T14:12:15Z",
       "decay_at": "2026-09-30T23:40:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-9652af888bb5",
+      "idea_version": "IDEAV-f389334e4802534c",
+      "idea_version_started_at": "2026-09-29T13:10:26Z",
+      "ticker": "00565",
+      "company": "Art Group Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling a material deterioration in earnings and margins.",
+      "why_now": "The filing was released on 2026-09-29.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-872d2d4d1b98"
+      ],
+      "primary_source_event_id": "EVT-872d2d4d1b98",
+      "source_headlines": [
+        "ART GROUP HOLD (00565): PROFIT WARNING"
+      ],
+      "source_headline": "ART GROUP HOLD (00565): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092901797.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T12:54:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T13:10:26Z",
+      "updated_at": "2026-09-29T13:10:26Z",
+      "decay_at": "2026-10-01T00:54:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155981,9 +156665,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 556,
+    "total_count": 557,
     "shown_count": 500,
-    "hidden_count": 56,
+    "hidden_count": 57,
     "side_counts": {
       "long": {
         "total_count": 287,
@@ -155991,9 +156675,9 @@
         "hidden_count": 37
       },
       "short": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       }
     },
     "retention": {
@@ -156012,6 +156696,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9652af888bb5",
+        "idea_version": "IDEAV-f389334e4802534c",
+        "idea_version_started_at": "2026-09-29T13:10:26Z",
+        "ticker": "00565",
+        "company": "Art Group Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, signaling a material deterioration in earnings and margins.",
+        "why_now": "The filing was released on 2026-09-29.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-872d2d4d1b98"
+        ],
+        "primary_source_event_id": "EVT-872d2d4d1b98",
+        "source_headlines": [
+          "ART GROUP HOLD (00565): PROFIT WARNING"
+        ],
+        "source_headline": "ART GROUP HOLD (00565): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092901797.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-29T12:54:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T13:10:26Z",
+        "updated_at": "2026-09-29T13:10:26Z",
+        "decay_at": "2026-10-01T00:54:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T00:54:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7c601055fcc6",
         "idea_version": "IDEAV-3dc4c8644e0d8955",
@@ -193102,87 +193861,12 @@
         "archived_at": "2026-09-08T12:03:16Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-15541783b8ad",
-        "idea_version": "IDEAV-bdd6e9b9f1e5b408",
-        "idea_version_started_at": "2026-09-06T18:05:43Z",
-        "ticker": "LICHSGFIN",
-        "company": "LIC Housing Finance",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The CBI has registered a fraud case involving a ₹1,322 crore loan, creating significant credit loss risk and potential governance scrutiny for the lender.",
-        "why_now": "The registration of the case by the CBI was reported on September 5, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7640e2af3dc4"
-        ],
-        "primary_source_event_id": "EVT-7640e2af3dc4",
-        "source_headlines": [
-          "CBI Registers Case Against Subhash Chandra Over Alleged ₹1,322 Crore LIC Housing Finance Loan Fraud"
-        ],
-        "source_headline": "CBI Registers Case Against Subhash Chandra Over Alleged ₹1,322 Crore LIC Housing Finance Loan Fraud",
-        "source_url": "https://www.freepressjournal.in/business/cbi-registers-case-against-subhash-chandra-over-alleged-1322-crore-lic-housing-finance-loan-fraud",
-        "source_name": "Free Press Journal",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-05T10:37:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T10:44:15Z",
-        "updated_at": "2026-09-06T18:05:43Z",
-        "decay_at": "2026-09-06T22:37:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-08T12:03:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1182,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -193192,7 +193876,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3073,
+    "inbox_unconsumed": 3087,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -193201,9 +193885,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 87240,
-    "news_picked_today": 27,
-    "news_dropped_today": 909
+    "news_seen_today": 191912,
+    "news_picked_today": 43,
+    "news_dropped_today": 1277
   },
   "book_momentum": {
     "live_count": 8,
