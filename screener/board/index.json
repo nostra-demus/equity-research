@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T07:14:19Z",
+  "generated_at": "2026-10-01T07:26:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-121",
@@ -1611,6 +1611,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-306",
+      "headline": "Directions under Section 35A read with Section 56 of the Banking Regulation Act, 1949 – Innovative Co-operative Urban Bank Limited, New Delhi – Extension of Period",
+      "headline_en": null,
+      "url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63707",
+      "source_name": "Reserve Bank of India (RBI) — Press Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-01T06:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "The Reserve Bank of India extended regulatory restrictions on Innovative Co-operative Urban Bank Limited under Section 35A.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The Reserve Bank of India extended regulatory restrictions on Innovative Co-operative Urban Bank Limited under Section 35A.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Innovative Co-operative Urban Bank Limited",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-241",
       "headline": "VIG: Disclosure under Listing Rule 4.3D Year Ended 30 June 2025 [price-sensitive]",
       "headline_en": null,
@@ -1962,55 +2011,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-298",
-      "headline": "Micron earnings: AI chip demand drives fresh memory boom",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/micron-earnings-ai-chip-demand-drives-fresh-memory-boom/slideshow/134609446.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T05:30:54Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Micron reported strong earnings driven by AI chip demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Micron reported strong earnings driven by AI chip demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Micron",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192564,9 +192564,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1565737,
-    "news_picked_today": 538,
-    "news_dropped_today": 9350
+    "news_seen_today": 1600806,
+    "news_picked_today": 555,
+    "news_dropped_today": 9525
   },
   "book_momentum": {
     "live_count": 8,
