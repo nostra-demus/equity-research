@@ -1,0 +1,19 @@
+table,governance_need_or_source,best_available_source_or_period,period_or_as_of,confidence_1_to_5_or_age,missing_or_stale,replacement_source_or_impact
+source_coverage_matrix,Board composition,"2026 DEF 14A, Proposal 1 / Corporate Governance",2026 annual meeting,5,N,none needed
+source_coverage_matrix,Compensation,"2026 DEF 14A, CD&A / executive compensation",FY2025,5,N,none needed
+source_coverage_matrix,Ownership,"2026 DEF 14A, Ownership of Securities",2026-03-25,5,N,later 13F/13D/13G if needed
+source_coverage_matrix,Insider trades,"Capital IQ Insider Trading, Form 4 rows",through filed 2026-08-05,4,N,SEC Form 4 archive
+source_coverage_matrix,Related-party transactions,"2026 DEF 14A, Certain Relationships",FY2025 to proxy date,5,N,none needed
+source_coverage_matrix,Auditor report,"FY2025 10-K, Deloitte reports / ICFR",FY ended 2026-01-31,5,N,none needed
+source_coverage_matrix,Secretarial / compliance report,N/A for US issuer,n/a,5,N/A,SEC disclosure-control / ICFR report
+source_coverage_matrix,AGM voting,proxy's prior say-on-pay summary only; formal result source absent,2025 vote result; meeting-result file absent,2,Y,8-K / vote-results filing
+source_coverage_matrix,Capital-allocation history,FY2024/FY2025 annual filings; financials annual workbook,FY2022–FY2026,5,N,none needed
+source_coverage_matrix,Legal / regulatory cases,filing legal/contingency note only; no external sweep,FY2025,2,Y,"SEC, court, regulator, and exchange database sweep by 07/12"
+data_freshness,FY2025 10-K,FY ended 2026-01-31,2026-01-31,8.0 months,No for annual history; needs latest interim context,"Primary financial, audit, contingency and group baseline"
+data_freshness,2026 DEF 14A,ownership record date / FY2025 pay,2026-03-25 / 2026-04-02 filing,6.2 / 5.9 months,No for annual governance; ownership needs current Form 4/beneficial-holder cross-check,"Board, pay, ownership and RPT baseline"
+data_freshness,2026 Q2 10-Q / earnings release,quarter ended 2026-08-01,2026-08-27 filing / release,1.1 months,No,Recent operating and management context
+data_freshness,Q2 2027 earnings-call transcript,Q2 2027,2026-08-27,1.1 months,No,Candor and current commentary
+data_freshness,Insider Trading workbook,all history,latest Form 4 filed 2026-08-05,1.8 months,No,Recent insider behaviour
+data_freshness,Ownership History workbook,quarter history,latest 2026-06-30,3.0 months,"No, but not a real-time ownership record",Holder trend only
+data_freshness,Auditors workbook,FY1994–FY2026,FY2026,8.0 months,No for annual auditor history,Audit continuity cross-check
+data_freshness,CIQ profile / market fields,LTM financials,financials 2026-08-01; quote 2026-09-28,1.9 / 0.0 months,No,"Supplementary, vendor-only context"
