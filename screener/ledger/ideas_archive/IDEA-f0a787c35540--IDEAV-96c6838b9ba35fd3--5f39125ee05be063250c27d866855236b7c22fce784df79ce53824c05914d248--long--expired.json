@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-14T19:12:09Z",
+  "archived_at": "2026-10-01T01:46:30Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-fdd6333c0914",
-    "idea_version": "IDEAV-5fcfac9900d2bdaa",
-    "idea_version_started_at": "2026-09-11T23:39:38Z",
-    "ticker": "CCR",
-    "company": "C&C Group",
-    "exchange": "LSE",
+    "idea_id": "IDEA-f0a787c35540",
+    "idea_version": "IDEAV-96c6838b9ba35fd3",
+    "idea_version_started_at": "2026-09-28T00:37:06Z",
+    "ticker": "EXT",
+    "company": "EXT",
+    "exchange": "ASX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "Acquiring Asahi UK's wholesale business strengthens C&C Group's distribution network and market share in the UK beverage sector, providing immediate scale and synergy potential.",
-    "why_now": "The acquisition was reported on 2026-09-11.",
-    "conviction": 65,
+    "reason": "The $3.2m federal government contract expansion provides a predictable, high-margin revenue stream that improves the company's forward earnings visibility.",
+    "why_now": "The contract expansion was officially announced on 2026-09-28.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 14,
-      "impact": 19,
+      "evidence": 25,
+      "impact": 14,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,7 +36,6 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
-      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -53,26 +52,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-01a6183756fd"
+      "EVT-424378040de9"
     ],
-    "primary_source_event_id": "EVT-01a6183756fd",
+    "primary_source_event_id": "EVT-424378040de9",
     "source_headlines": [
-      "C&C Group to acquire Asahi UK’s wholesale business"
+      "EXT: $3.2m Federal Government contract expansion [price-sensitive]"
     ],
-    "source_headline": "C&C Group to acquire Asahi UK’s wholesale business",
-    "source_url": "https://finance.yahoo.com/small-business/articles/c-c-group-acquire-asahi-165428446.html",
-    "source_name": "Yahoo Finance",
-    "materiality_max": 100,
-    "newest_source_at": "2026-09-11T16:54:28Z",
+    "source_headline": "EXT: $3.2m Federal Government contract expansion [price-sensitive]",
+    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EXT?key=2924-03140559-3A702647",
+    "source_name": "ASX (Australia Exchange Filing)",
+    "materiality_max": 74,
+    "newest_source_at": "2026-09-28T00:00:59Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-11T20:03:47Z",
-    "updated_at": "2026-09-11T23:39:38Z",
-    "decay_at": "2026-09-13T04:54:28Z",
+    "surfaced_at": "2026-09-28T00:37:06Z",
+    "updated_at": "2026-09-28T00:37:06Z",
+    "decay_at": "2026-09-29T12:00:59Z",
     "status": "live",
     "promoted_signal_id": null
   }

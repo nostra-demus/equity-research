@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-70b8068a4e51",
-  "idea_version": "IDEAV-be22929168ec6abe",
-  "idea_version_started_at": "2026-09-30T16:19:46Z",
+  "idea_version": "IDEAV-a2131b49c3dc59da",
+  "idea_version_started_at": "2026-10-01T01:46:19Z",
   "ticker": "PARA",
   "company": "Paramount Global",
   "exchange": "NASDAQ",
@@ -11,9 +11,9 @@
   "listing_verification_source": null,
   "direction": "long",
   "pair_with": null,
-  "reason": "The ability to cut pricing on a large $30 billion high-grade bond sale signals strong investor demand and improved credit market access for the company.",
-  "why_now": "The bond pricing update occurred on 2026-09-30.",
-  "conviction": 60,
+  "reason": "Court approval of the Warner Bros. Discovery deal and the appointment of a new co-CEO provide clarity on the company's strategic direction and leadership stability.",
+  "why_now": "The court approval and management announcement occurred on 2026-09-30.",
+  "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
@@ -23,7 +23,7 @@
     "specificity": 7,
     "timing": 10,
     "expression": 0,
-    "corroboration": 0,
+    "corroboration": 7,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -49,17 +48,19 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-eb8f9e9ecf87"
+    "EVT-a343c4925090",
+    "EVT-e44cad35e11b"
   ],
-  "primary_source_event_id": "EVT-eb8f9e9ecf87",
+  "primary_source_event_id": "EVT-a343c4925090",
   "source_headlines": [
-    "Paramount Cuts Pricing on $30 Billion High-Grade Bond Sale"
+    "Paramount gets court green light on Warner Bros deal, names Mattel’s Kreiz co-CEO",
+    "Paramount receives court approval for Warner Bros deal and appoints Mattel's Kreiz as co-CEO"
   ],
-  "source_headline": "Paramount Cuts Pricing on $30 Billion High-Grade Bond Sale",
-  "source_url": "https://www.bloomberg.com/news/articles/2026-09-30/paramount-cuts-pricing-on-30-billion-high-grade-bond-sale",
-  "source_name": "Bloomberg",
-  "materiality_max": 100,
-  "newest_source_at": "2026-09-30T14:09:01Z",
+  "source_headline": "Paramount gets court green light on Warner Bros deal, names Mattel’s Kreiz co-CEO",
+  "source_url": "https://www.straitstimes.com/business/paramount-gets-court-green-light-on-warner-bros-deal-names-mattels-kreiz-co-ceo",
+  "source_name": "The Straits Times",
+  "materiality_max": 93,
+  "newest_source_at": "2026-09-30T23:55:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -67,8 +68,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-30T16:19:46Z",
-  "updated_at": "2026-09-30T16:19:46Z",
-  "decay_at": "2026-10-02T02:09:01Z",
+  "updated_at": "2026-10-01T01:46:19Z",
+  "decay_at": "2026-10-02T11:55:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
