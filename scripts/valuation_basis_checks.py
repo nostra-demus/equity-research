@@ -112,6 +112,50 @@ def normalise_metric_basis(raw):
     return (period, measure)
 
 
+def case_basis(case):
+    """A case's (period, measure), preferring what the author DECLARED over what prose implies.
+
+    `metric_period` / `metric_measure` are authoritative when present; `metric_basis` is parsed only to
+    fill what they leave out. The declared path exists because the parsed one is lossy and fails
+    silently: "FY2026E EBITDA at FY2021-trough margin applied to FY2026E consensus revenue" is a FY26
+    case — a trough margin re-based onto a forward denominator, exactly what 07 mandates — and reading
+    a period token out of that sentence called it a trough case and reported a mismatch against the
+    run's own forward base. The check was flagging the remedy. A declared field ends that argument
+    rather than deferring it to the next prose variant.
+
+    Returns None only when neither route says anything, so callers can still tell "undeclared" from
+    "declared and unparseable".
+    """
+    if not isinstance(case, dict):
+        return None
+    period = case.get("metric_period")
+    measure = case.get("metric_measure")
+    period = period.strip() if isinstance(period, str) and period.strip() else None
+    measure = measure.strip() if isinstance(measure, str) and measure.strip() else None
+
+    if period is not None:
+        # Normalise the DECLARED token through the same vocabulary, so "FY2027" and "FY27" and a
+        # free-text "FY2027E EBITDA" all compare equal. A declared token the vocabulary does not
+        # recognise is kept verbatim rather than discarded — the author may be naming a measure or
+        # period this engine has not met, which the open vocabulary exists to allow.
+        parsed = normalise_metric_basis(period)
+        if parsed and parsed[0] is not None:
+            period = parsed[0]
+    if measure is not None:
+        parsed = normalise_metric_basis(measure)
+        if parsed and parsed[1] is not None:
+            measure = parsed[1]
+
+    if period is not None and measure is not None:
+        return (period, measure)
+
+    inferred = normalise_metric_basis(case.get("metric_basis"))
+    if inferred is None:
+        return (period, measure) if (period is not None or measure is not None) else None
+    return (period if period is not None else inferred[0],
+            measure if measure is not None else inferred[1])
+
+
 def _weighted_cases(sidecar):
     """The cases that enter the probability-weighted result.
 
@@ -164,7 +208,7 @@ def eval_scenario_basis_coherence(sidecar):
     if len(cases) < 2:
         return None  # nothing to compare
 
-    normalised = [(case, normalise_metric_basis(case.get("metric_basis"))) for case in cases]
+    normalised = [(case, case_basis(case)) for case in cases]
     declared = [(case, norm) for case, norm in normalised if norm is not None]
     if not declared:
         return None  # wholly undeclared -> N/A here; presence is a separate, later gate
@@ -450,6 +494,40 @@ def _selftest() -> int:
     out = eval_scenario_basis_coherence(partial)
     check("partial declaration is reported", any("missing on" in v for v in out))
     check("partial declaration is NOT a period mismatch", not any("PERIOD" in v for v in out))
+
+    # ---- declared basis beats parsed prose ----
+    check("a declared period wins over the prose",
+          case_basis({"metric_period": "FY2026", "metric_basis": "FY2021-trough margin"})[0] == "FY26")
+    check("a declared measure wins over the prose",
+          case_basis({"metric_measure": "EBITDA", "metric_basis": "NTM EPS"})[1] == "EBITDA")
+    check("declared tokens normalise (FY2027 == FY27)",
+          case_basis({"metric_period": "FY2027"}) [0] == case_basis({"metric_period": "FY27"})[0])
+    check("a half-declared case fills the rest from prose",
+          case_basis({"metric_period": "NTM", "metric_basis": "something EBITDA-ish"}) == ("NTM", "EBITDA"))
+    check("no declaration falls back to the prose entirely",
+          case_basis({"metric_basis": "NTM EPS"}) == ("NTM", "EPS"))
+    check("nothing declared and no prose is still undeclared",
+          case_basis({"label": "bear"}) is None)
+    check("an unrecognised declared token is kept, not dropped",
+          case_basis({"metric_measure": "embedded_value"})[1] == "embedded_value")
+
+    # THE REGRESSION THIS FIELD EXISTS FOR: the re-based bear that the prose parser misread.
+    haier_declared = {"scenarios": [
+        {"label": "bull", "metric_period": "FY2026", "metric_measure": "EBITDA",
+         "metric_basis": "FY2026E EBITDA (consensus base + bull uplifts)"},
+        {"label": "base", "metric_period": "FY2026", "metric_measure": "EBITDA",
+         "metric_basis": "FY2026E consensus EBITDA"},
+        {"label": "bear_cyclical", "metric_period": "FY2026", "metric_measure": "EBITDA",
+         "metric_basis": "FY2026E EBITDA at FY2021-trough margin applied to FY2026E consensus revenue"}]}
+    check("a declared FY26 bear is clean even though its prose says trough",
+          eval_scenario_basis_coherence(haier_declared) == [])
+    burl_declared = {"scenarios": [
+        {"label": "Bull", "metric_period": "NTM", "metric_measure": "EPS", "metric_basis": "NTM EPS $13.00"},
+        {"label": "Base", "metric_period": "NTM", "metric_measure": "EPS", "metric_basis": "NTM EPS $12.06"},
+        {"label": "Bear", "metric_period": "trough", "metric_measure": "EPS",
+         "metric_basis": "FY2022 diluted GAAP trough EPS $3.49"}]}
+    check("a declared trough bear against a declared NTM base still fires",
+          any("PERIOD" in v for v in eval_scenario_basis_coherence(burl_declared)))
 
     # ---- the dated enforcement gate ----
     v_none, v_ok, v_bad = None, [], ["something"]
