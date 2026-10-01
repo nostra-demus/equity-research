@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T21:04:37Z",
+  "generated_at": "2026-10-01T21:05:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-545",
@@ -150257,6 +150257,75 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-b7aecb0b2227",
+      "idea_version": "IDEAV-614eb9bd58cbec8d",
+      "idea_version_started_at": "2026-10-01T21:04:55Z",
+      "ticker": "SGRP",
+      "company": "SPAR Group, Inc.",
+      "exchange": "OQB",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has received a delisting notification from the exchange, which typically indicates severe financial distress or regulatory non-compliance.",
+      "why_now": "The 25-NSE filing was processed on 2026-10-01.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 77,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6f337bbe6467"
+      ],
+      "primary_source_event_id": "EVT-6f337bbe6467",
+      "source_headlines": [
+        "25-NSE - SPAR Group, Inc. (0001004989) (Subject)"
+      ],
+      "source_headline": "25-NSE - SPAR Group, Inc. (0001004989) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1004989/000135445726000934/0001354457-26-000934-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T19:32:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T21:04:55Z",
+      "updated_at": "2026-10-01T21:04:55Z",
+      "decay_at": "2026-10-03T07:32:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-aadc0ff37abc",
       "idea_version": "IDEAV-f0209184942afc7f",
       "idea_version_started_at": "2026-09-30T13:55:27Z",
@@ -152249,75 +152318,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
-    },
-    {
-      "idea_id": "IDEA-8e38ef15bf4e",
-      "idea_version": "IDEAV-556c9010c4834b5a",
-      "idea_version_started_at": "2026-09-29T06:22:55Z",
-      "ticker": "RTX",
-      "company": "RTX Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a $20.7 billion contract from the Department of War to accelerate production of air-to-air missiles, providing significant long-term revenue visibility.",
-      "why_now": "The contract award was officially announced on September 28, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 80,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2ebacdd5e187"
-      ],
-      "primary_source_event_id": "EVT-2ebacdd5e187",
-      "source_headlines": [
-        "Department of War and RTX Accelerate Advanced Medium-Range Air-to-Air Missile Production Through $20.7B Award"
-      ],
-      "source_headline": "Department of War and RTX Accelerate Advanced Medium-Range Air-to-Air Missile Production Through $20.7B Award",
-      "source_url": "https://www.war.gov/News/Releases/Release/Article/4613107/department-of-war-and-rtx-accelerate-advanced-medium-range-air-to-air-missile-p/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T21:00:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T06:22:55Z",
-      "updated_at": "2026-09-29T06:22:55Z",
-      "decay_at": "2026-09-30T09:00:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     },
     {
       "idea_id": "IDEA-7c601055fcc6",
@@ -155396,14 +155396,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 543,
     "shown_count": 500,
-    "hidden_count": 44,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 26
       },
       "short": {
         "total_count": 267,
@@ -155413,12 +155413,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 624,
+      "evicted_count": 625,
       "oldest_retained_at": "2026-09-05T19:20:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 419,
-          "oldest_retained_at": "2026-09-14T22:17:00Z"
+          "evicted_count": 420,
+          "oldest_retained_at": "2026-09-14T23:19:07Z"
         },
         "short": {
           "evicted_count": 205,
@@ -158690,8 +158690,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-30T09:00:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T21:04:59Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -192591,8 +192591,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1197,
-    "live_count": 28,
+    "surfaced_total": 1198,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
