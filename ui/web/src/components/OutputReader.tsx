@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useStore } from '../lib/store'
@@ -26,7 +26,8 @@ function sigFromOutputPath(path?: string): string | undefined {
   return SIG_FROM_PATH_RE.exec(path || '')?.[1]
 }
 
-export function OutputReader({ output }: { output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string; embedUrl?: string; publishedCalls?: boolean } }) {
+export function OutputReader({ output, escapeEnabled = true }: { escapeEnabled?: boolean; output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string; embedUrl?: string; publishedCalls?: boolean } }) {
+  const reduce = useReducedMotion()
   const close = useStore((s) => s.closeOutput)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const researchNodes = useStore((s) => s.nodesByKey)
@@ -80,10 +81,15 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   }, [output.path, output.body, output.embedUrl, output.publishedCalls])
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && (promptView ? setPromptView(false) : close())
+    if (!escapeEnabled) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      if (promptView) setPromptView(false)
+      else close()
+    }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [close, promptView])
+  }, [escapeEnabled, close, promptView])
 
   // which orb this panel is about: an agent node, the master synthesizer (the Memo), or none
   const isMaster = output.nodeKey === 'master/synthesizer'
@@ -346,9 +352,9 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   }
 
   return (
-    <motion.div className="reader" initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
+    <motion.div role="region" aria-label="Report" className="reader" initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ duration: reduce ? 0 : 0.24, ease: [0.16, 1, 0.3, 1] }}>
       <div className="reader__head">
-        <div style={{ minWidth: 0 }}>
+        <div className="reader__heading">
           <div className="reader__title">
             {/* the chip tells the truth about NOW: a running orb never wears a stale "Not run" */}
             {busy || pendingHere ? (
@@ -358,11 +364,12 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
             ) : (
               <span className="reader__done">✓ Completed</span>
             )}{' '}
-            {output.title}
+            <span className="reader__titletext" title={output.title}>{output.title}</span>
           </div>
           {output.verdict ? <div className="reader__verdict">{output.verdict}</div> : output.path ? <div className="reader__path">{output.path}</div> : null}
         </div>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
+        <button className="btn btn--ghost reader__close" style={{ height: 30 }} onClick={close} aria-label="Close report">Close ✕</button>
+        <div className="reader__actions">
           {runButton()}
           {chatButton()}
           {promptButton()}
@@ -387,7 +394,6 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
               )}
             </div>
           )}
-          <button className="btn btn--ghost" style={{ height: 30 }} onClick={close}>Close ✕</button>
         </div>
       </div>
       <div className="reader__body">

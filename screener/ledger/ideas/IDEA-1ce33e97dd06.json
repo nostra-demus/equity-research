@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-1ce33e97dd06",
+  "idea_version": "IDEAV-f6865f601d5843d9",
+  "idea_version_started_at": "2026-10-01T22:02:01Z",
+  "ticker": "NKE",
+  "company": "Nike",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Nike's quarterly sales miss and subsequent announcement of further job cuts and geographic restructuring indicate significant operational headwinds and weakening consumer demand.",
+  "why_now": "The restructuring and sales miss were announced on 2026-10-01.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-0184bcadff19"
+  ],
+  "primary_source_event_id": "EVT-0184bcadff19",
+  "source_headlines": [
+    "Nike plans more job cuts, geographic changes after quarterly sales miss"
+  ],
+  "source_headline": "Nike plans more job cuts, geographic changes after quarterly sales miss",
+  "source_url": "https://www.reuters.com/business/retail-consumer/nike-quarterly-sales-miss-estimates-china-weakness-competition-weigh-2026-10-01/",
+  "source_name": "Reuters — Latest (news sitemap)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-01T20:51:44Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-01T22:02:01Z",
+  "updated_at": "2026-10-01T22:02:01Z",
+  "decay_at": "2026-10-03T08:51:44Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

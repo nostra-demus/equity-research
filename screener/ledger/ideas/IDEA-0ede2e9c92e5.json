@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-0ede2e9c92e5",
-  "idea_version": "IDEAV-ec443794e4e1f49d",
-  "idea_version_started_at": "2026-09-27T15:35:26Z",
+  "idea_version": "IDEAV-fa47640bb0188f54",
+  "idea_version_started_at": "2026-09-29T18:17:07Z",
   "ticker": "PARA",
   "company": "Paramount Global",
   "exchange": "NASDAQ",
@@ -11,15 +11,15 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "Paramount is reportedly in talks to sell itself to Warner Bros. Discovery, which would likely result in a sale below its current market valuation.",
-  "why_now": "Negotiations are ongoing and represent a potential near-term catalyst for a transaction.",
-  "conviction": 60,
+  "reason": "The company is taking on $44 billion in new debt to fund an acquisition, significantly increasing its leverage and interest expense burden.",
+  "why_now": "The debt sale was announced today, September 29, 2026, creating immediate pressure on the balance sheet.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 16,
+    "impact": 23,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "price and market expectations",
     "independent confirmation",
     "live price, liquidity, and consensus"
   ],
@@ -45,22 +44,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "unknown",
-  "thesis_type": "company_specific",
+  "priced_in": "room",
+  "thesis_type": "balance_sheet_survival",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-64957b949ac2"
+    "EVT-82843b4cd32d"
   ],
-  "primary_source_event_id": "EVT-64957b949ac2",
+  "primary_source_event_id": "EVT-82843b4cd32d",
   "source_headlines": [
-    "Paramount Warner Deal Tests Hollywood’s Future"
+    "Paramount Just Launched a $44 Billion Debt Sale to Buy Warner Bros."
   ],
-  "source_headline": "Paramount Warner Deal Tests Hollywood’s Future",
-  "source_url": "https://www.bloomberg.com/news/videos/2026-09-27/paramount-warner-deal-tests-hollywood-s-future-video",
-  "source_name": "Bloomberg",
-  "materiality_max": 91,
-  "newest_source_at": "2026-09-27T14:52:56Z",
+  "source_headline": "Paramount Just Launched a $44 Billion Debt Sale to Buy Warner Bros.",
+  "source_url": "https://247wallst.com/investing/2026/09/29/paramount-just-launched-a-44-billion-debt-sale-to-buy-warner-bros/",
+  "source_name": "24/7 Wall St.",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-29T17:05:57Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -68,8 +67,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-09-27T15:35:26Z",
-  "updated_at": "2026-09-27T15:35:26Z",
-  "decay_at": "2026-09-29T02:52:56Z",
+  "updated_at": "2026-09-29T18:17:07Z",
+  "decay_at": "2026-10-01T05:05:57Z",
   "status": "live",
   "promoted_signal_id": null
 }
