@@ -628,6 +628,23 @@ from valuation_basis_checks import (
     scan_committed as scan_basis_committed, _selftest as _vb_selftest, BF_ENFORCE_DATE,
 )
 
+
+def bf_gate_split(enforced, results):
+    """(gating, deferred) — BF enforcement filtered by release-gate eligibility, like every per-run gate.
+
+    The per-run loop gates a run only when results[run]["gate_eligible"] is true (it has RUN_METADATA and
+    is not validly superseded); an incomplete or corrected-away run is evaluated and reported but cannot
+    block a release. BF used to bypass that and fail the suite on any dated run, so a validly superseded
+    run reddened CI that its own replacement could never clear. A run outside `results` (not scored in
+    this invocation) is deferred too. The one exception is a scan that could not run at all — keyed by
+    a parenthesised pseudo-run, never a folder name — which fails closed.
+    """
+    gating, deferred = [], []
+    for run, why in enforced:
+        eligible = (results.get(run) or {}).get("gate_eligible") is True
+        (gating if eligible or str(run).startswith("(") else deferred).append((run, why))
+    return gating, deferred
+
 # ── Check AN (§4a supersession-integrity) — module-level so `eval.py selftest` drives it fixture-free ──
 def _an_valid_sidecar(run_dir):
     """A run's corrections sidecar, but ONLY if it passes the schema gate the resolver applies
@@ -3535,6 +3552,20 @@ if scope=="selftest":
     # normaliser, soft presence, the period/measure split, the cited cross-metric escape and the
     # sensitivity exclusion.
     if _vb_selftest() != 0: bad += 1
+    # BF honours gate eligibility (review 4151448479): only a gate-eligible run's BF finding gates.
+    _bfr = {"A": {"gate_eligible": True}, "B": {"gate_eligible": False}}
+    for _nm, _got, _want in [
+        ("BF gates an eligible run", bf_gate_split([("A", ["x"])], _bfr), ([("A", ["x"])], [])),
+        ("BF defers a non-eligible (superseded / incomplete) run", bf_gate_split([("B", ["x"])], _bfr),
+         ([], [("B", ["x"])])),
+        ("BF defers a run this invocation did not score", bf_gate_split([("C", ["x"])], _bfr),
+         ([], [("C", ["x"])])),
+        ("BF fails closed when the scan itself could not run", bf_gate_split([("(BF scan)", ["x"])], _bfr),
+         ([("(BF scan)", ["x"])], [])),
+    ]:
+        _ok = _got == _want
+        print(f"  [{'ok' if _ok else 'XX'}] {_nm}")
+        if not _ok: bad += 1
     print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)+len(angatecases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(bbcases)} check-BB + {len(becases)} check-BE + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(bccases)} check-BC + {len(bdcases)} check-BD + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
@@ -5120,7 +5151,16 @@ if apfailures: suite_pass=False
 # runs whose authors were never told the rule would say nothing about their analysis — so the committed
 # corpus (two thirds of which predates the rule, and 8 of 21 full runs of which emit no sidecar at all)
 # is reported and never failed, while anything written after the date is held to it.
-bachecked, bafailures, baenforced = scan_basis_committed(".")
+# A scan that raises must not take the whole report down with it (review 4147748162): the per-run
+# defects are already violations inside the scan, so anything reaching here is a checker failure, and it
+# fails closed under a pseudo-run name that research_check.py prints like any other enforced run.
+try:
+    bachecked, bafailures, baenforced = scan_basis_committed(".")
+except Exception as _bf_exc:
+    _bf_msg = [f"the BF scenario-basis scan could not run ({type(_bf_exc).__name__}: {_bf_exc})"]
+    bachecked, bafailures, baenforced = 0, [("(BF scan)", _bf_msg)], [("(BF scan)", _bf_msg)]
+# Only a gate-eligible run's BF finding gates, exactly as `not warn_only` filters the per-run checks.
+baenforced, badeferred = bf_gate_split(baenforced, results)
 # Findings on runs dated on/after BF_ENFORCE_DATE fail the suite; everything earlier reports only. The
 # gate is dated rather than switched so the two thirds of the corpus that predates the rule — including
 # the 34 run folders that emit no sidecar at all — is never retro-failed.
@@ -5142,6 +5182,7 @@ out={"schema_version":"1.0","generated_at":today,"scope":scope,"n_runs":len(resu
      "valuation_summary_integrity":{"checked":apchecked,"failures":[{"run":r,"violations":v} for r,v in apfailures]},
      "scenario_basis_coherence":{"checked":bachecked,"enforce_date":BF_ENFORCE_DATE,
                                  "enforced":[{"run":r,"violations":v} for r,v in baenforced],
+                                 "not_gate_eligible":[{"run":r,"violations":v} for r,v in badeferred],
                                  "findings":[{"run":r,"violations":v} for r,v in bafailures]}}
 os.makedirs("analyses/eval",exist_ok=True)
 of=f"analyses/eval/{today}_eval_report.json"; k=2
@@ -5175,6 +5216,8 @@ print(f"  scenario basis coherence (BF: one weighted set, one basis — enforced
       else "FAIL "+";".join(r for r,_ in baenforced))
 for r,v in bafailures:
     print(f"     {'FAIL' if any(r==e for e,_ in baenforced) else 'FINDING'} {r}: {'; '.join(v)}")
+for r,v in badeferred:
+    print(f"     PAST-GATE, NOT GATE-ELIGIBLE (reported, not gating) {r}: {'; '.join(v)}")
 for r,v in baenforced:
     if not any(r==f for f,_ in bafailures):
         print(f"     FAIL {r}: {'; '.join(v)}")
