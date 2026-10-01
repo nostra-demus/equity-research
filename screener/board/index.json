@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T05:38:50Z",
+  "generated_at": "2026-10-01T05:45:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-121",
@@ -1009,6 +1009,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-258",
+      "headline": "Adani Ports' Colombo West terminal doubles capacity to 3.2 million TEUs with $750 million investment",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/renewables/adani-ports-colombo-west-terminal-doubles-capacity-to-3-2-million-teus-with-750-million-investment/articleshow/134607899.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T04:32:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Adani Ports announces $750 million investment to double Colombo West terminal capacity to 3.2M TEUs, a major port-expansion capex.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Adani Ports announces $750 million investment to double Colombo West terminal capacity to 3.2M TEUs, a major port-expansion capex.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Ports and Special Economic Zone",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-075",
       "headline": "SCHEDULE 13D/A - Ho Michael (0001999337) (Filed by)",
       "headline_en": null,
@@ -1714,6 +1763,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-252",
+      "headline": "SK ecoplant Sells CENVIRO Stake to Veolia",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278039",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T07:47:19Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "SK ecoplant sells its stake in CENVIRO to Veolia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "SK ecoplant sells its stake in CENVIRO to Veolia.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK ecoplant",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Veolia",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-248",
+      "headline": "Jardines' DFI Retail swaps Maxim's stake for Starbucks license and $340m",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/business-deals/jardines-dfi-retail-swaps-maxim-s-stake-for-starbucks-license-and-340m",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T04:53:31Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "DFI Retail is swapping a stake in Maxim's for a Starbucks license and $340m in cash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "DFI Retail is swapping a stake in Maxim's for a Starbucks license and $340m in cash.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DFI Retail",
+          "ticker": null,
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-156",
       "headline": "LG CNS Signs Co-Investment Pact with General Atlantic",
       "headline_en": null,
@@ -1867,158 +2019,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-089",
-      "headline": "Moderna has been on a tear since mid-August. Citi now sees it plunging 60%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/access/moderna-has-been-on-a-tear-since-mid-august-citi-now-sees-it-plunging-20002561.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:54:38Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Citi analyst projects a 60% downside for Moderna stock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Citi analyst projects a 60% downside for Moderna stock.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Moderna",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-136",
-      "headline": "Ampol goes large on EV charging in $225m purchase of Evie network",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/transport/ampol-goes-large-on-ev-charging-in-225m-purchase-of-evie-network-20261001-p611yk?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:50:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Ampol is acquiring the Evie network for $225 million to expand its EV charging infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Ampol is acquiring the Evie network for $225 million to expand its EV charging infrastructure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ampol",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Evie Networks",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-047",
-      "headline": "DraftKings' 2026 Outlook: Driving Long-Term Profitability From Sports to Predictions",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/draftkings-2026-outlook-driving-long-term-profitability-sports-predictions",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:20:01Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "DraftKings provided a 2026 outlook focused on long-term profitability, signaling a shift in strategic financial expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "DraftKings provided a 2026 outlook focused on long-term profitability, signaling a shift in strategic financial expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DraftKings",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192647,9 +192647,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1218540,
-    "news_picked_today": 367,
-    "news_dropped_today": 7769
+    "news_seen_today": 1249160,
+    "news_picked_today": 389,
+    "news_dropped_today": 7819
   },
   "book_momentum": {
     "live_count": 8,
