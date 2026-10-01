@@ -91,14 +91,21 @@ def normalise_metric_basis(raw):
         match = re.search(rx, text, re.I)
         if match:
             hits.append((match.start(), name))
-    period = min(hits)[1] if hits else None
+    at, period = min(hits) if hits else (0, None)
     if period == "FY_REL":
-        match = re.search(r"\bFY\s?\+\s?(\d)\b", text, re.I)
+        match = re.search(r"\bFY\s?\+\s?(\d)\b", text[at:], re.I)
         period = f"FY+{match.group(1)}" if match else "FY+?"
     elif period == "FY":
         # Keep the YEAR: FY27 and FY29 are different periods, and a set mixing them is the same defect
         # as mixing NTM with a trough. Two digits, so FY2027 and FY27 compare equal.
-        match = re.search(r"(?:FY\s?\+?|CY\s?)(\d{2,4})", text, re.I) or re.search(r"\b(20\d{2})E\b", text)
+        #
+        # Read the year FROM THE TOKEN THAT WON ON POSITION (`text[at:]`), not from the whole string.
+        # The year regex below is deliberately looser than the _PERIOD_PATTERNS one (it accepts a
+        # two-digit CY and needs no trailing word boundary), so searching from position 0 could lift a
+        # year out of a token the period scan had already rejected: "CY26 normalized EBITDA rolled to
+        # FY2029E" is an FY29 metric whose period used to resolve to FY26, inventing a mismatch
+        # against an FY29 set — or hiding a real one.
+        match = re.search(r"(?:FY\s?\+?|CY\s?)(\d{2,4})", text[at:], re.I) or re.search(r"\b(20\d{2})E\b", text[at:])
         period = f"FY{match.group(1)[-2:]}" if match else "FY"
 
     measure = next((name for name, rx in _MEASURE_PATTERNS if re.search(rx, text, re.I)), None)
@@ -117,28 +124,22 @@ def _weighted_cases(sidecar):
     if not cases:
         return []
 
-    def label(case):
-        return str(case.get("label") or "").strip().lower()
-
-    # The AVOID-RUIN FLOOR IS NOT THE 12-MONTH BEAR. 07 §"Which case it becomes" makes the
-    # structural-reset the headline Bear ONLY when the moat trajectory is confirmed eroding; in every
-    # other firing it is carried to §24 / Kill Criteria as "the multi-year permanent-impairment
-    # scenario, NOT the 12-month bear". So where a run states a cyclical bear AND a structural one, the
-    # structural case is a floor outside the weighted set — counting it produced six "partial
-    # declaration" findings against runs that had followed the prompt exactly. Where it is the ONLY
-    # bear it IS the headline, and it counts.
-    structural = [c for c in cases if "structural" in label(c) or "avoid_ruin" in label(c) or "avoid-ruin" in label(c)]
-    other_bears = [c for c in cases if "bear" in label(c) and c not in structural]
-    floors = structural if (structural and other_bears) else []
-
-    out = []
-    for case in cases:
-        if str(case.get("set_membership") or "weighted").lower() == "sensitivity":
-            continue
-        if case in floors:
-            continue
-        out.append(case)
-    return out
+    # MEMBERSHIP IS DECLARED, NEVER GUESSED FROM THE LABEL. An earlier revision excluded a
+    # `bear_structural` case whenever a cyclical bear sat beside it, on the reading that 07
+    # §"Which case it becomes" carries the avoid-ruin floor to §24 rather than pricing it. The committed
+    # corpus says otherwise: in EVERY run that emits one — HAIER, ORCL, SMPL, UBER, TSLA, DHER — the
+    # master synthesizer gives the structural case a real probability inside the set that sums to 100%
+    # (ORCL: 20% at $31.44 against a $133.77 base, on an impaired-FCFF DCF, i.e. a different MEASURE
+    # from the NTM EBITDA the other three cases are priced on). Guessing it out of the set therefore
+    # blessed the exact BURL-class defect this check exists to catch, on five of the six runs that had
+    # one. So the ONLY thing that removes a case from the weighted set is the run saying so —
+    # `set_membership: "sensitivity"`, the field 99_valuation-synthesis emits for a case 07
+    # deliberately held outside the weighted aggregate.
+    #
+    # The six "partial declaration" findings this exclusion was added to silence were true findings:
+    # those structural cases really do carry weight and really do not declare a basis.
+    return [case for case in cases
+            if str(case.get("set_membership") or "weighted").lower() != "sensitivity"]
 
 
 def _cited(value) -> bool:
@@ -350,14 +351,29 @@ def _selftest() -> int:
     check("a prior-trough margin cited as a COMPARISON is not a period mismatch",
           not any("PERIOD" in v for v in eval_scenario_basis_coherence(indiamart)))
 
-    # REGRESSION — the avoid-ruin floor is not the 12-month bear (07 "Which case it becomes").
+    # REGRESSION — membership is DECLARED, never guessed from the label. The ORCL shape: a
+    # `bear_structural` case that the committed decision_record weights at 20% on an impaired-FCFF DCF
+    # while the other three cases are priced on NTM EBITDA. Excluding it by label reported this set as
+    # clean, which is the BURL defect wearing a different label.
+    orcl = {"scenarios": [
+        {"label": "bull", "metric_basis": "NTM (FY2027) EBITDA"},
+        {"label": "base", "metric_basis": "NTM (FY2027) consensus EBITDA"},
+        {"label": "bear_cyclical", "metric_basis": "NTM (FY2027) EBITDA, pullback"},
+        {"label": "bear_structural", "metric_basis":
+            "24-36 month structural reset — declining-perpetuity (impaired FCFF) DCF"}]}
+    out_o = eval_scenario_basis_coherence(orcl)
+    check("a weighted structural case on another MEASURE is caught", any("MEASURE" in v for v in out_o))
     floor = {"scenarios": [
         {"label": "bull", "metric_basis": "NTM EBITDA"},
         {"label": "base", "metric_basis": "NTM EBITDA"},
         {"label": "bear_cyclical", "metric_basis": "NTM EBITDA"},
         {"label": "bear_structural"}]}
-    check("a structural floor beside a cyclical bear is excluded from the weighted set",
-          eval_scenario_basis_coherence(floor) == [])
+    check("an UNdeclared structural floor is still part of the set it was emitted into",
+          any("missing on" in v for v in eval_scenario_basis_coherence(floor)))
+    declared_floor = dict(floor, scenarios=floor["scenarios"][:3] + [
+        {"label": "bear_structural", "set_membership": "sensitivity"}])
+    check("a structural floor DECLARED as a sensitivity is excluded",
+          eval_scenario_basis_coherence(declared_floor) == [])
     lone = {"scenarios": [
         {"label": "bull", "metric_basis": "NTM EBITDA"},
         {"label": "base", "metric_basis": "NTM EBITDA"},
@@ -374,6 +390,9 @@ def _selftest() -> int:
     check("mid-cycle is first-class", normalise_metric_basis("mid-cycle EBITDA")[0] == "mid_cycle")
     check("FY keeps its year", normalise_metric_basis("FY27E EBITDA")[0] == "FY27")
     check("FY27 == FY2027", normalise_metric_basis("FY27E EPS") == normalise_metric_basis("FY2027E EPS"))
+    # REGRESSION — the year comes from the token that won on position, not from anywhere in the string.
+    check("the year is read from the winning period token",
+          normalise_metric_basis("CY26 normalized EBITDA rolled to FY2029E")[0] == "FY29")
     check("blank is undeclared", normalise_metric_basis("   ") is None)
     check("non-string is undeclared", normalise_metric_basis(None) is None)
 
@@ -447,8 +466,18 @@ if __name__ == "__main__":
     checked, failures, enforced = scan_committed(sys.argv[1] if len(sys.argv) > 1 else ".")
     print(f"checked {checked} run(s) with a judgeable basis; {len(failures)} with findings; "
           f"{len(enforced)} past the {BF_ENFORCE_DATE} gate\n")
+    # Print the UNION. A run past the gate with NO sidecar is enforced without ever appearing in
+    # `failures` (there was nothing to judge), so iterating failures alone exits 1 against a count line
+    # and no explanation — the author is told the gate fired and not which run or why.
+    enforced_by_run = dict(enforced)
     for run, violations in failures:
-        print(f"  {run}{'   [ENFORCED]' if any(run == r for r, _ in enforced) else ''}")
+        print(f"  {run}{'   [ENFORCED]' if run in enforced_by_run else ''}")
         for v in violations:
+            print(f"      - {v}")
+    for run, why in enforced:
+        if any(run == r for r, _ in failures):
+            continue
+        print(f"  {run}   [ENFORCED]")
+        for v in why:
             print(f"      - {v}")
     sys.exit(1 if enforced else 0)
