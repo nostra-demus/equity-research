@@ -52,6 +52,7 @@ DECODED_SUITE_GATES = collections.Counter({
     "ExceptHandler -> False": 1, "jmiss -> False": 1,       # §24 framework contracts -> suite_contract_failures()
     "azfails -> False": 1,                                  # AZ                      -> suite_contract_failures()
     "apfailures -> False": 1,                               # AP                      -> ap_failures()/status_of()
+    "baenforced -> False": 1,                               # BF                      -> _bf_enforced_failures()
 })
 
 
@@ -101,6 +102,22 @@ def _require_trusted_shape(report):
                            f"so a renamed or dropped section could hide a real regression behind an inherited one")
     if not isinstance(report.get("runs"), dict):
         bad(f"'runs' section is missing or not an object (got {type(report.get('runs')).__name__})")
+    # BF (scenario_basis_coherence) is optional — a base that predates the basis check has no such section —
+    # but when present, every `enforced` entry is read by _bf_enforced_failures(), so it must have the shape
+    # eval.py emits ({"run": str, "violations": [str, ...]}); a drifted entry could otherwise hide a BF failure.
+    bf = report.get("scenario_basis_coherence")
+    # A report-only BF (the first version of the check, which never fails the suite) emits `"enforced": false`;
+    # any other value must be a list. A head that dropped it while BF still failed the suite would
+    # leave suite_pass=False unexplained, which failure_keys() already gates on.
+    if bf is not None:
+        enforced = bf.get("enforced", []) if isinstance(bf, dict) else None
+        if enforced is False:
+            enforced = []
+        if not isinstance(enforced, list):
+            bad("'scenario_basis_coherence' section is not an object, or its 'enforced' is neither false nor a list")
+        for i, entry in enumerate(enforced):
+            if not isinstance(entry, dict) or not isinstance(entry.get("violations"), list):
+                bad(f"'scenario_basis_coherence.enforced[{i}]' is not an object with a 'violations' list")
     vsi = report.get("valuation_summary_integrity")
     if not isinstance(vsi, dict) or not isinstance(vsi.get("failures"), list):
         bad("'valuation_summary_integrity' section is missing, not an object, or lacks its 'failures' list")
@@ -256,6 +273,13 @@ def failure_keys(report, root="."):
     if unattributed:
         accounted = True
         keys |= unattributed
+    # BF: eval.py fails the suite on any ENFORCED basis finding (`if baenforced: suite_pass=False`). Each enforced
+    # violation is its own identity under its run, so an additional or new BF failure gates even when an
+    # unrelated inherited failure has already set `accounted`.
+    bf_keys = _bf_enforced_failures(report, root)
+    if bf_keys:
+        accounted = True
+        keys |= bf_keys
     # Suite-level contract failures: one identity per missing anchor / per AZ correspondence failure (see
     # _suite_contract_elements), so deleting an ADDITIONAL protected anchor from a file the base already fails
     # gates, while restoring one anchor as another stays missing does not over-gate.
@@ -271,6 +295,21 @@ def failure_keys(report, root="."):
         # eval.py failed the suite for a reason none of the readers above name: never let that pass silently,
         # regardless of whether some OTHER, already-explained failure already populated `keys`.
         keys.add((SUITE, "suite_pass=False (unexplained by any known reader)"))
+    return keys
+
+
+def _bf_enforced_failures(report, root="."):
+    """Every ENFORCED BF (scenario-basis coherence) violation as (run, identity) keys. A missing section (a base
+    that predates the check) yields none; an entry with no run is keyed under (suite); an entry with no
+    violations still gets one key, since eval.py fails the suite on the entry's presence alone."""
+    keys = set()
+    seen = collections.Counter()
+    for entry in ((report.get("scenario_basis_coherence") or {}).get("enforced") or []):  # false/absent: none
+        run = entry.get("run") or SUITE
+        for violation in (entry.get("violations") or ["(enforced, no violations recorded)"]):
+            ident = _identity("BF_scenario_basis_coherence", violation, root)
+            seen[(run, ident)] += 1
+            keys.add((run, _tag(ident, seen[(run, ident)])))
     return keys
 
 
