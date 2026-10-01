@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T03:30:10Z",
+  "generated_at": "2026-10-01T03:40:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-121",
@@ -142,6 +142,55 @@
           "name": "LG Electronics",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-167",
+      "headline": "PwC refuses to sign off Nidec accounts despite $4bn charge",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/62ea4dd5-69ef-4fcf-8f07-ee1b3e4cdd9a?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T03:06:38Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "PwC refuses to sign off Nidec's accounts citing a $4bn charge, signaling material accounting disagreement and auditor confidence loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PwC refuses to sign off Nidec's accounts citing a $4bn charge, signaling material accounting disagreement and auditor confidence loss.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nidec Corporation",
+          "ticker": null,
+          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -1872,6 +1921,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-169",
+      "headline": "Xiaomi Auto September deliveries top 40,000 as Sky Nomad adds volume",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/10/01/xiaomi-auto-sept-2026-deliveries/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T02:50:50Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Xiaomi Auto reported monthly deliveries exceeding 40,000 units.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Xiaomi Auto reported monthly deliveries exceeding 40,000 units.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Xiaomi",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-138",
       "headline": "Why Capitec hiked loan impairments by R1bn",
       "headline_en": null,
@@ -1916,114 +2014,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-098",
-      "headline": "ASX falls; Meteoric up 50pc after Lynas buyout",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-slip-us-rate-bets-drop-though-bond-yields-press-higher-20261001-p611w8?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T01:59:47Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Meteoric Resources shares rose 50% following a buyout offer from Lynas.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Meteoric Resources shares rose 50% following a buyout offer from Lynas.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meteoric Resources",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Lynas Rare Earths",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-086",
-      "headline": "Anthropic Plans to Spend $518 Billion on Cloud and Data Centers. More Than $100 Billion Is Already Promised to Amazon.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/anthropic-plans-spend-518-billion-cloud-and-data-centers-more-100-billion-already-promised",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:57:01Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "$518 billion capex commitment for AI-infrastructure compute and data centers, with $100+ billion to Amazon, reshapes sector supply/capacity and cloud-provider economics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "$518 billion capex commitment for AI-infrastructure compute and data centers, with $100+ billion to Amazon, reshapes sector supply/capacity and cloud-provider economics.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Amazon.com, Inc.",
-          "ticker": "AMZN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193295,9 +193285,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 874795,
-    "news_picked_today": 192,
-    "news_dropped_today": 5064
+    "news_seen_today": 892144,
+    "news_picked_today": 202,
+    "news_dropped_today": 5246
   },
   "book_momentum": {
     "live_count": 8,
