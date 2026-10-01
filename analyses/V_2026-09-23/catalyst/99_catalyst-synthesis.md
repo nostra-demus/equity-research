@@ -1,0 +1,68 @@
+# Catalyst Module — V (Synthesis)
+
+## Abstract
+
+Visa has one material operating catalyst with a dated vendor estimate and three filed debt-maturity months, but the event that matters most is not issuer-confirmed. [analyses/V_2026-09-23/catalyst/01_catalyst-calendar.md, §§1–3] The nearest event is the expected 27 October 2026 FQ4/FY26 release, which tests the $12.097bn revenue bar and whether cross-border activity offsets incentive and marketing pressure. That release is also the key two-sided catalyst: meeting the bar with supportive FY27 commentary helps, while a miss and weaker guide hurt. The biggest bearish calendar event is the same October release; the April, August and September 2027 maturities are funding checkpoints, not proven stress. [analyses/V_2026-09-23/catalyst/01_catalyst-calendar.md, §§1, 4–5] Verdict: catalysts exist, but material timing remains vague.
+
+## 1. Catalyst Verdict
+
+- **Verdict:** Catalysts exist but timing vague
+- Catalyst strength /100: **54**
+- Timing visibility /100: **58**
+- Catalyst risk /100 *(higher = worse)*: **44**
+- Data quality /100: **84** *(triage found 23 sources, 44 workbook tabs and 59 text extracts with zero extraction failures; the key timing gap is the absence of issuer confirmation, not a failed read)* [analyses/V_2026-09-23/catalyst/00_catalyst-data-triage.md, §§1–3]
+- Overall usefulness /100: **74**
+- Nearest dated catalyst (one line): **27 October 2026 expected — FQ4 FY2026 and FY2026 results; Capital IQ-derived, not issuer-confirmed.** [data/V/Visa Inc NYSE V Events Calendar.xls, 2026 Events Calendar, Oct-27-2026—CIQ Derived]
+- Single most important catalyst (one line): **The expected FQ4/FY26 release, because it tests the open outlook, the $12.097bn vendor revenue bar and whether cross-border strength can offset incentive and marketing pressure.** [analyses/V_2026-09-23/catalyst/01_catalyst-calendar.md, §§1–3]
+- Biggest bearish catalyst (one line): **The expected 27 October result misses the $12.097bn vendor bar, particularly at or below the $11.855bn material-miss screen, while FY27 commentary confirms weaker cross-border activity or heavier incentive and marketing costs.** [analyses/V_2026-09-23/earnings/05_beat-miss-setup.md, §4]
+- Any §24-flagged catalyst (one line): **None — no serial-M&A, unproven-turnaround or fast-changing-industry launch event is scheduled in the reproduced calendar.** [analyses/V_2026-09-23/catalyst/01_catalyst-calendar.md, §1]
+
+## 1A. Module Disconfirmation
+
+- **Strongest bear point:** The expected 27 October 2026 release can skew down if revenue misses the $12.097bn vendor bar—especially at or below the $11.855bn material-miss screen—and guidance confirms weaker cross-border activity or more incentive and marketing pressure. The date remains vendor-estimated. [analyses/V_2026-09-23/earnings/05_beat-miss-setup.md, §§1, 4–5]
+- **Strongest bull point:** No material bullish catalyst has an issuer-proven date. The strongest candidate is the expected 27 October release: matched-basis FQ4 revenue at or above $12.097bn, 12.8% above FQ4 FY25's reported $10.724bn, plus FY27 commentary that does not confirm the demand and cost concerns. [data/V/Visa Inc NYSE V Events Calendar.xls, 2026 Events Calendar, Oct-27-2026—CIQ Derived]; [Visa FY25 Form 10-K, Consolidated Statements of Operations, p.60]
+- **Single killer risk:** Treating 27 October as firm, or treating the undated interchange-litigation and Brazil settlement-rule outcomes as scheduled resolutions, would create timing conviction that the evidence does not support. [Visa Q3 FY26 Form 10-Q, Note 16—Legal Matters; MD&A—Liquidity and Capital Resources]
+- **Disconfirming evidence already visible:** Three of the four evidenced events are ordinary note maturities, and Visa said it had sufficient liquidity for the $1.500bn April 2027 payment; $12.359bn of cash at 30 June 2026 also exceeded the full $2.750bn named 2027 maturity build of $1.500bn + $0.500bn + $0.750bn. Proven timing therefore does not by itself make these material upside or distress catalysts. [Visa Q3 FY26 Form 10-Q, Consolidated Balance Sheets; MD&A—Liquidity and Capital Resources; Note 8 (Debt), pp.4, 17–18]
+
+## 2. Consolidated 12-Month Calendar
+
+| Date / Window | Catalyst | Category | Why It Matters | Evidence It Exists | Bullish Trigger | Bearish Trigger | Timing (Proven / Vague) | §24 Flag |
+|---|---|---|---|---|---|---|---|---|
+| 27 October 2026 (4:00 p.m. ET expected) | FQ4 FY2026 and FY2026 results | Earnings / guidance | This is the only scheduled operating update in the evidence set that can test both the open FY26 outlook and whether the June/July cross-border activity and cost pressures carry into FY27. The date itself is not company-confirmed. | The Capital IQ calendar lists an **estimated** 27 October release date and says future events may change. Visa's Q3 materials give FQ4/FY26 revenue, expense and EPS-growth outlooks. [data/V/Visa Inc NYSE V Events Calendar.xls, 2026 Events Calendar, Oct-27-2026—CIQ Derived]; [Visa Q3 FY26 Financial Results Presentation, pp.13, 20–21] | FQ4 revenue at or above the $12.097bn vendor bar—**12.8%** above reported FQ4 FY25 revenue of $10.724bn on the matched FQ4/FQ4 basis—and FY27 commentary that does not confirm a normalization in cross-border activity or a larger incentive/cost drag. The $12.097bn bar is 43 days old as of 23 September and needs refreshing. [Capital IQ Estimates, FQ4 FY2026 Consensus]; [Visa FY25 Form 10-K, Consolidated Statements of Operations, p.60]; [Visa Q3 FY26 Earnings Call, CFO prepared remarks and Q&A, 2026-07-28] | Revenue below the $12.097bn bar, especially at or below the $11.855bn material-miss screen (2% below consensus), coupled with a guide that points below the low-double-digit GAAP revenue-growth area. The $11.855bn screen remains **10.5%** above the same FQ4 FY25 $10.724bn base, so it is a test of the Street bar, not proof of year-on-year contraction. [analyses/V_2026-09-23/earnings/05_beat-miss-setup.md, §4]; [Visa Q3 FY26 Financial Results Presentation, p.20] | **Vague** — a dated Capital IQ estimate, not an issuer-confirmed release date. | — |
+| April 2027 | $1.500bn of 1.90% senior notes mature | Refinancing / balance sheet | This is the first named contractual senior-note maturity. It is a funding and cash-allocation checkpoint, but not a proven refinancing stress: Visa said it had sufficient liquidity and reported $12.359bn cash at 30 June 2026. | The Q3 filing names the $1.500bn April 2027 payment and says Visa has sufficient liquidity; the debt note identifies the 1.90% notes. [Visa Q3 FY26 Form 10-Q, MD&A—Liquidity and Capital Resources; Note 8 (Debt), pp.17–18] | Payment from cash, operating cash flow, or a normal refinance without a material fall in liquidity or a new settlement/legal cash call. Cash at 30 June was $12.359bn versus the $1.500bn named maturity; this is a point-in-time coverage observation, not a forecast. [Visa Q3 FY26 Form 10-Q, Consolidated Balance Sheets and Note 8, pp.4, 17–18] | A drop in usable liquidity, an adverse settlement or legal cash call, or financing-market disruption that makes the payment coincide with a materially higher funding cost. The filing does not quantify future settlement guarantees or additional legal-loss ranges. [Visa Q3 FY26 Form 10-Q, Notes 9 and 16, pp.19, 24–27] | **Proven** — contractual maturity month disclosed in the filing; the supplied note does not state a day. | — |
+| August 2027 | $0.500bn of 0.75% senior notes mature | Refinancing / balance sheet | The first of two later-FY27 note maturities tests whether Visa's cash-return pace, acquisition spending and contingent cash needs still leave the balance sheet self-funded. It is small relative to the June cash balance, so it is not a standalone distress catalyst. | [Visa Q3 FY26 Form 10-Q, Note 8 (Debt), pp.17–18] | The note is repaid or refinanced while liquidity remains sufficient for the remaining September maturity and operating needs. The June cash balance of $12.359bn was 8.2 times this $0.500bn maturity; this is only a dated balance-sheet comparison. [Visa Q3 FY26 Form 10-Q, Consolidated Balance Sheets and Note 8, pp.4, 17–18] | Cash depletion from continued discretionary returns, acquisitions, settlement collateral or litigation makes a previously small maturity require costly refinancing. No current revolver-availability amount or covenant headroom is disclosed. [analyses/V_2026-09-23/balance-sheet-survival/99_balance-sheet-survival-synthesis.md, §§3A, 4] | **Proven** — contractual maturity month disclosed in the filing; the supplied note does not state a day. | — |
+| September 2027 | $0.750bn of 2.75% senior notes mature | Refinancing / balance sheet | Together with the August note, this creates a $1.250bn two-month funding sequence = $0.500bn in August + $0.750bn in September. It matters mainly if the cash cushion has weakened by then, not because the disclosed principal alone is large. | [Visa Q3 FY26 Form 10-Q, Note 8 (Debt), pp.17–18] | The $0.750bn payment is met without forcing a change in capital returns or a credit-negative funding action. At 30 June 2026, cash of $12.359bn was 16.5 times this maturity; that comparison will need updating when FY26 results report. [Visa Q3 FY26 Form 10-Q, Consolidated Balance Sheets and Note 8, pp.4, 17–18] | A concurrent fall in cash and a material unquantified settlement/legal payment erode the self-funded read. The risk is the conjunction of these factors; the filing does not forecast either. [Visa Q3 FY26 Form 10-Q, Notes 9 and 16, pp.19, 24–27] | **Proven** — contractual maturity month disclosed in the filing; the supplied note does not state a day. | — |
+
+No future AGM, dividend record/ex-date, buyback completion date, scheduled regulatory decision, legal hearing, operational launch, or market-structure event is proven in the frozen evidence. The 27 January 2026 annual meeting and the September 2026 dividend payment are already past. The relationship graph covers only recently disclosed customers and suppliers and supplies no dated customer or supplier event; it is a tier-5 vendor view, not a full counterparty base. [data/V/relationships.json, scope notes and concentration, retrieved 2026-09-23]; [FY26 DEF 14A, Notice of 2026 Annual Meeting]; [Visa Q3 FY26 Earnings Release, Capital Return, 2026-07-28]
+
+## 3. Score Cap Application
+
+| Cap Trigger | Applied? (Y/N) | Affected Score | Final Cap |
+|---|---|---|---|
+| No scheduled-event data at all | N — one vendor-estimated results date and three filed maturity months are present | Timing visibility; usefulness | Not applied |
+| All catalysts undated / thematic | N — April, August and September 2027 are contractual maturity months | Catalyst strength; verdict | Not applied |
+| Upstream modules did not run | N — all five dependency modules ran | Overall usefulness | Not applied |
+| §24-flagged catalyst is the main bullish catalyst | N — the calendar contains no §24-flagged event | Catalyst strength | Not applied |
+
+No score cap applies. That does not upgrade the verdict: the only material operating catalyst still lacks an issuer-confirmed date, while the proven maturity months are not currently identified as stress events.
+
+## 4. Note To The Final Synthesizer
+
+- The nearest dated, evidenced catalyst is the expected 27 October 2026 FQ4/FY26 release. It tests the $12.097bn vendor revenue bar and whether cross-border activity can offset incentive and marketing pressure, but the date is Capital IQ-derived rather than issuer-confirmed.
+- The single most important catalyst is that same FQ4/FY26 release. A buyer can plan around the vendor estimate but cannot time the event precisely until Visa confirms the date.
+- The near-term calendar does not skew clearly bullish: the October print is two-sided, while the three proven maturity months are funding checkpoints rather than positive operating events.
+- The biggest negative catalyst is the expected October result missing the $12.097bn vendor bar—particularly at or below $11.855bn—alongside FY27 commentary that confirms weaker activity or heavier incentive and marketing costs.
+- No scheduled event carries a §24 flag. The calendar must not substitute undated product, M&A, turnaround or regulatory hopes for an evidenced catalyst.
+- Timing is mixed but not strong: the April, August and September 2027 maturity months are proven, while the only material operating event has a vague date. This should limit timing-based conviction under `CLAUDE.md` §17.
+- The biggest missing scheduled-event data point is an issuer-confirmed FQ4/FY26 release date; the current 27 October date remains a vendor estimate.
+- **Explicit handoff:** the master synthesizer's "Catalyst Calendar" (§7) section should defer to this synthesis; its catalyst-timing confidence caps (`CLAUDE.md` §17) should be driven by the Timing-visibility read here.
+
+## 5. Simple Summary
+
+- There are real calendar events, but the only material operating event has an estimated date rather than an issuer-confirmed one.
+- The nearest event is the expected FQ4/FY26 result on 27 October 2026.
+- That result is also the most important catalyst because it tests the revenue bar, demand strength and cost pressure.
+- The biggest calendar risk is a revenue miss plus weaker FY27 commentary.
+- The April, August and September 2027 debt maturities are proven, but current evidence does not show a funding crisis.
+- The thesis cannot lean heavily on timing until Visa confirms the earnings date or another material event receives a firm schedule.
+- This module is useful to the master synthesizer because it separates one vague but material event from three proven but lower-impact funding dates.

@@ -1,0 +1,34 @@
+{
+  "schema_version": "qualified-idea-admission/v1",
+  "admission_id": "V-2026-09-23-3-6m|57079a925222eb2b",
+  "status": "not_applicable",
+  "run_root": "analyses/V_2026-09-23",
+  "frozen_at": "2026-09-24T06:34:17.614062Z",
+  "assessment": {
+    "schema_version": "idea-assessment/v1",
+    "assessment_id": "V-2026-09-23-3-6m",
+    "run_root": "analyses/V_2026-09-23",
+    "created_at": "2026-09-24T06:32:34Z",
+    "ticker": "V",
+    "company": "Visa Inc.",
+    "status": "not_assessable",
+    "gaps": [
+      "Deterministic market snapshot unavailable: the canonical feed could not be read, so quote, liquidity, and ordinary-move evidence were not created."
+    ],
+    "candidate": null
+  },
+  "assessment_sha256": "57079a925222eb2ba4899778576d85f89cea65518214f8fc263e1445bb4b6475",
+  "candidate": null,
+  "candidate_sha256": null,
+  "decision_authority": null,
+  "decision_authority_sha256": null,
+  "market_evidence_sha256": null,
+  "market_evidence": null,
+  "projection_manifest_sha256": "691fc7d24aacf3138806c4d3b69e2b62541655d5ed07d1d5845337735b38d9a5",
+  "integrity_evidence": null,
+  "integrity_evidence_sha256": null,
+  "gaps": [
+    "Deterministic market snapshot unavailable: the canonical feed could not be read, so quote, liquidity, and ordinary-move evidence were not created."
+  ],
+  "admission_sha256": "d117a6c7616d5dc1b6f06266a49774b9375511b4a471ac527624621b8238fb0f"
+}

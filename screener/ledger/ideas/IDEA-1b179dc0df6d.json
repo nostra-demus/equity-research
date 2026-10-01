@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-1b179dc0df6d",
+  "idea_version": "IDEAV-2a92d8f3e40bd7a8",
+  "idea_version_started_at": "2026-09-29T09:29:53Z",
+  "ticker": "LHA.DE",
+  "company": "Lufthansa",
+  "exchange": "XETRA",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Rising jet fuel costs are expected to exceed previous forecasts by over €1.5 billion, creating a significant headwind for operating margins.",
+  "why_now": "The CEO's warning was issued today, September 29, 2026, indicating that the impact of fuel price volatility is live and material for the current fiscal period.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "commodity_conditional",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-d4b368c3e0fd"
+  ],
+  "primary_source_event_id": "EVT-d4b368c3e0fd",
+  "source_headlines": [
+    "Lufthansa CEO says jet fuel hit to top €1.5 billion forecast"
+  ],
+  "source_headline": "Lufthansa CEO says jet fuel hit to top €1.5 billion forecast",
+  "source_url": "https://www.reuters.com/business/energy/lufthansa-ceo-says-jet-fuel-hit-top-15-billion-forecast-2026-09-29/",
+  "source_name": "Reuters — Latest (news sitemap)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-09-29T08:18:54Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-09-29T09:29:53Z",
+  "updated_at": "2026-09-29T09:29:53Z",
+  "decay_at": "2026-09-30T20:18:54Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

@@ -1,0 +1,312 @@
+{
+  "schema_version": "1.0",
+  "ticker": "V",
+  "run_root": "analyses/V_2026-09-23",
+  "verified_at": "2026-09-24T06:22:43.264526Z",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/V_2026-09-23/final_thesis.md",
+  "decision_record_path": "analyses/V_2026-09-23/decision_record.json",
+  "final_thesis_sha256": "3bb117a5c6d0ffab8da61d1a8461d2f7255d5de77108011f2886d4f18bb5711e",
+  "decision_record_sha256": "fba2f8ff626f99d198ea80eece3ea336dada303971a6dedcf4158fc85ba357a1",
+  "claims_checked": 10,
+  "claim_checks": [
+    {
+      "claim": "At the $364.15 pool close, the 12-month bull/base/bear values are $425.88/$331.56/$283.37 and the probability-weighted expected return is -7.74%.",
+      "citation": "final_thesis.md §§1, 6 and 14; valuation/07_scenario-and-fair-value.md §§2–4; Company Comparable Analysis Visa Inc.xls, Financial Data, 2026-08-17",
+      "source_checked": "Frozen-generation corpus.txt, ciq_facts.json, valuation/01_price-and-capital-structure.md, and valuation/07_scenario-and-fair-value.md",
+      "status": "inference-labeled",
+      "evidence": "Resolver: 364.15 hit_count=5. Modeled targets 425.88/331.56/283.37 each have hit_count=0, as expected for explicitly modeled outputs rather than raw-source facts. The raw NTM EBITDA base of 34,971.48 has hit_count=3. Recomputing each EV-to-equity bridge gives $425.8762/$331.5564/$283.3739; rounded scenario returns and weights reconcile to -7.7394%.",
+      "severity": "info"
+    },
+    {
+      "claim": "Strict net debt is $11.499bn and strict leverage is 0.41x on $28.338bn filing-derived GAAP LTM EBITDA; the separate CIQ vendor EBITDA is $31.094bn.",
+      "citation": "Q3 FY2026 Form 10-Q, Balance Sheet and Note 8; FY2025 Form 10-K, pp.60, 65; balance-sheet-survival/99_balance-sheet-survival-synthesis.md §§1–3",
+      "source_checked": "Exact-generation Q3 FY2026 Form 10-Q and FY2025 Form 10-K extracts; CIQ Financials quarterly extract; ciq_facts.json",
+      "status": "inference-labeled",
+      "evidence": "Resolver: total debt 23,858 hit_count=18; cash 12,359 hit_count=5; strict net debt 11,499 hit_count=0 because it is calculated; filing-derived EBITDA 28,338 hit_count=0 because it is calculated; CIQ vendor EBITDA 31,094 hit_count=6; preferred stock 514 hit_count=23. $23.858bn - $12.359bn = $11.499bn, and $11.499bn / $28.338bn = 0.4058x. The vendor and filing-derived EBITDA bases remain separately labeled.",
+      "severity": "info"
+    },
+    {
+      "claim": "Q3 incentives grew 18% versus 14% net-revenue growth, GAAP-derived EBITDA margin fell 157bp to 62.3%, and LTM CFO fell 3.9% while revenue rose 14.4%.",
+      "citation": "Q3 FY2026 Form 10-Q, pp.4, 10, 33–35; earnings/99_earnings-synthesis.md §§2–5",
+      "source_checked": "Exact-generation Q3 FY2026 Form 10-Q and FY2025 Form 10-K extracts; CIQ quarterly financials extract",
+      "status": "inference-labeled",
+      "evidence": "Resolver: Q3 revenue 11,633 hit_count=21; Q3 EBIT 6,877 hit_count=5; Q3 D&A 367 hit_count=24; Q3 incentives 4,680 hit_count=10; LTM revenue 44,488 hit_count=7; LTM CFO 22,580 hit_count=1. Filed text states incentive growth of 18% and net-revenue growth of 14%. (6,877+367)/11,633=62.271%; prior (6,177+317)/10,172=63.842%; change=-157.1bp. The cash-flow and LTM growth figures are explicitly derived and their causal gap remains labeled unknown.",
+      "severity": "info"
+    },
+    {
+      "claim": "The matched FQ4 FY2026 revenue consensus is $12.09664bn, 12.8% above the $10.724bn prior-year standalone quarter; the bull/bear triggers are $12.33857bn/$11.85471bn.",
+      "citation": "VisaIncNYSEVEstimatesReport.xls, Consensus and Surprise; FY2025 Form 10-K, quarterly data; earnings/99_earnings-synthesis.md §§6–8",
+      "source_checked": "Frozen-generation CIQ estimates extract, FY2025 filing extract, ciq_facts.json, and earnings/05_beat-miss-setup.md",
+      "status": "inference-labeled",
+      "evidence": "Resolver: consensus 12,096.64 hit_count=2; matched prior quarter 10,724 hit_count=9; calculated thresholds 12,338.57 and 11,854.71 each hit_count=0. $12.09664bn/$10.724bn-1=12.7997%; multiplying consensus by 1.02 and 0.98 gives the published thresholds. Both periods are standalone quarters, so no cumulative-period restatement is required.",
+      "severity": "info"
+    },
+    {
+      "claim": "Five-year standardized return on capital is 22.4% versus an inferred 7.8% business-model cost of capital, while the valuation uses a 9.04% modeled WACC and shows a 7.15% market-implied WACC.",
+      "citation": "CIQ Financials, Ratios FY21–FY25; business-model/99_business-model-synthesis.md §§2–3; valuation/04_intrinsic-dcf.md and 05_reverse-dcf.md",
+      "source_checked": "Frozen-generation CIQ ratios extract and the cited business-model and valuation workbooks",
+      "status": "inference-labeled",
+      "evidence": "Resolver: 22.4 hit_count=3. The 7.8%, 9.04%, and 7.15% figures have hit_count=0 as analyst/model outputs, and each is explicitly labeled inferred, modeled, or market-implied. The 22.4% figure equals the average of the vendor annual return-on-capital series 16.5%, 20.8%, 23.1%, 24.8%, and 26.9%. The thesis discloses the period mismatch and does not treat the different WACC bases as one anchor.",
+      "severity": "info"
+    },
+    {
+      "claim": "Recognized litigation plus estimated gross unrecognized tax benefits total $3.005bn, or 8.5% of $35.178bn equity; $168.6bn is a maximum daily gross unsettled-payment flow, not debt or expected loss.",
+      "citation": "Q3 FY2026 Form 10-Q, Notes 15–16 and balance sheet; management-governance/10_contingent-liabilities-and-commitments.md; balance-sheet-survival/06_off-balance-sheet-and-contingencies.md",
+      "source_checked": "Exact-generation Q3 FY2026 Form 10-Q and FY2025 Form 10-K extracts",
+      "status": "inference-labeled",
+      "evidence": "Resolver: litigation accrual 1,274 hit_count=5; FY2025 gross UTP 1,672 hit_count=7; UTP increase 59 hit_count=29 but only filing context was accepted; equity 35,178 hit_count=6; 3,005 hit_count=6 but the corpus contexts are unrelated ownership/chart values, so the legal total remains a calculated inference rather than a source hit; settlement maximum 168.6 hit_count=1 and collateral 9.5 hit_count=1. $1.274bn+$1.672bn+$0.059bn=$3.005bn; $3.005bn/$35.178bn=8.542%. Filing context confirms maximum daily/average gross settlement exposure and collateral, not a balance-sheet debt or forecast loss. Publication-layer build carriage is assessed separately in Section B.",
+      "severity": "info"
+    },
+    {
+      "claim": "Recurring litigation exclusions were $906m/$434m/$2.533bn in FY2023–FY2025, and FY2025 adjusted net income exceeded GAAP by $2.484bn, or 12.4%.",
+      "citation": "FY2025 Annual Report, non-GAAP reconciliation; management-governance/06_candor-and-disclosure-quality.md",
+      "source_checked": "Exact-generation FY2025 Annual Report extract and governance disclosure-candor workpaper",
+      "status": "inference-labeled",
+      "evidence": "Resolver: 906 hit_count=17; 434 hit_count=4; 2,533 hit_count=6. The $2.484bn gap has no relevant literal corpus hit because it is calculated from adjusted net income of $22.542bn less GAAP net income of $20.058bn; $2.484bn/$20.058bn=12.38%, rounded to 12.4%. The report labels the gap and does not substitute adjusted income for GAAP.",
+      "severity": "info"
+    },
+    {
+      "claim": "A 2019 SEC order and $50m penalty concerned KPMG, not Visa or a named Visa engagement partner.",
+      "citation": "final_thesis.md §9 cites FY2026 DEF 14A pp.11, 27–29 and FY2025 Annual Report Auditor Reports; management-governance/99 cites SEC Release 34-86118 / AAER-4051, 2019-06-17",
+      "source_checked": "Frozen manifest plus exact-generation FY2026 proxy and FY2025 Annual Report extracts",
+      "status": "miscited",
+      "evidence": "Resolver for 50 returns hit_count=82, but the only literal '$50' context is an unrelated chart axis; cited-source contextual hits for a KPMG penalty are 0. The Visa proxy/annual report support KPMG's appointment and clean current opinions, not the 2019 order or penalty. The upstream-named SEC order/PCAOB materials are absent from the 23-source frozen manifest, so the amount cannot be verified from the bound evidence.",
+      "severity": "medium"
+    },
+    {
+      "claim": "The five-year business-quality evidence shows that Visa's share position improved.",
+      "citation": "final_thesis.md Chapter A attributes the roll-up to business-model/99_business-model-synthesis.md",
+      "source_checked": "business-model/99_business-model-synthesis.md §§3–4; business-model/08_competitive-map.md; business-model/09_moat.md",
+      "status": "unsupported",
+      "evidence": "No numeric resolver target applies to this narrative claim. The cited synthesis says 'Position-versus-peers trend not disclosed' and that one CY2024 snapshot cannot establish share direction; it also says the moat is strong and stable, not proven to be widening. No bound filing or vendor series establishes a five-year improvement in competitive share.",
+      "severity": "medium"
+    },
+    {
+      "claim": "Every independent valuation value except the bull case is below the $364.15 anchor.",
+      "citation": "final_thesis.md Decision Audit Trail; valuation/99_valuation-synthesis.md §§2–4",
+      "source_checked": "valuation/03_relative-valuation-peers.md, valuation/07_scenario-and-fair-value.md, valuation/99_valuation-synthesis.md, and final_thesis.md valuation tables",
+      "status": "miscited",
+      "evidence": "Resolver: $364.15 hit_count=5; modeled $367.62 peer value hit_count=0, as expected for a derived value. The cited valuation work shows an independent-method range of $243.23–$367.62, so the $367.62 peer value is $3.47 (0.95%) above the anchor. The $425.88 bull case is a scenario, not an independent valuation method. The sentence is false, although the base value remains below price and the decision is unchanged.",
+      "severity": "medium"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Strict net debt = total debt - cash equivalents",
+      "reported": "$11.499bn",
+      "recomputed": "$23.858bn - $12.359bn = $11.499bn",
+      "ties": true,
+      "detail": "Exact tie. The strict basis excludes $1.433bn current investments."
+    },
+    {
+      "quantity": "Broad CIQ net debt including current investments",
+      "reported": "$10.066bn",
+      "recomputed": "$23.858bn - $12.359bn - $1.433bn = $10.066bn",
+      "ties": true,
+      "detail": "Exact tie and consistently labeled broad/vendor rather than bare net debt."
+    },
+    {
+      "quantity": "Filing-derived GAAP LTM EBITDA",
+      "reported": "$28.338bn",
+      "recomputed": "$6.464bn FY2025 Q4 + $21.874bn FY2026 9M = $28.338bn",
+      "ties": true,
+      "detail": "Exact tie. It is visibly separated from CIQ standardized LTM EBITDA of $31.094bn."
+    },
+    {
+      "quantity": "Strict net leverage",
+      "reported": "0.41x",
+      "recomputed": "$11.499bn / $28.338bn = 0.4058x",
+      "ties": true,
+      "detail": "Rounds to 0.41x."
+    },
+    {
+      "quantity": "Q3 FY2026 GAAP-derived EBITDA margin and year-over-year change",
+      "reported": "62.3%, down 157bp",
+      "recomputed": "(6,877+367)/11,633=62.271%; prior (6,177+317)/10,172=63.842%; change=-157.1bp",
+      "ties": true,
+      "detail": "Ties within stated rounding and uses the same standalone-quarter basis."
+    },
+    {
+      "quantity": "LTM free cash flow",
+      "reported": "$21.013bn",
+      "recomputed": "$22.580bn CFO - $1.567bn total capex = $21.013bn",
+      "ties": true,
+      "detail": "Exact tie to the constitution's CFO-minus-total-capex definition."
+    },
+    {
+      "quantity": "Strict enterprise-value bridge",
+      "reported": "$680.449bn",
+      "recomputed": "$668.435925bn market cap + $11.499bn strict net debt + $0.514bn preferred = $680.448925bn",
+      "ties": true,
+      "detail": "Ties within rounding. The separate CIQ EV of $679.016bn uses broad net debt and differs by the $1.433bn current-investment balance."
+    },
+    {
+      "quantity": "Bull/base/bear EV-to-equity targets",
+      "reported": "$425.88 / $331.56 / $283.37",
+      "recomputed": "(36.720054×22.34-11.499-0.514)/1.898=$425.8762; (34.97148×18.338-11.499-0.514)/1.898=$331.5564; (31.474332×17.47-11.499-0.514)/1.898=$283.3739",
+      "ties": true,
+      "detail": "All three targets tie to rounding; USD billions and billions of diluted shares produce USD per share."
+    },
+    {
+      "quantity": "Scenario probability sum",
+      "reported": "20% + 50% + 30%",
+      "recomputed": "100%",
+      "ties": true,
+      "detail": "Exact tie."
+    },
+    {
+      "quantity": "Probability-weighted target price",
+      "reported": "$335.97",
+      "recomputed": "0.20×$425.88 + 0.50×$331.56 + 0.30×$283.37 = $335.967",
+      "ties": true,
+      "detail": "Rounds to $335.97."
+    },
+    {
+      "quantity": "Probability-weighted expected return",
+      "reported": "-7.74% (decision record -7.739393%)",
+      "recomputed": "$335.967/$364.15 - 1 = -7.739393%",
+      "ties": true,
+      "detail": "Exact tie using displayed scenario targets; using unrounded model targets changes only the fourth decimal place."
+    },
+    {
+      "quantity": "Risk/reward",
+      "reported": "-0.35x",
+      "recomputed": "-7.739393% / 22.183166% = -0.348886x",
+      "ties": true,
+      "detail": "Rounds to -0.35x."
+    },
+    {
+      "quantity": "Base margin of safety",
+      "reported": "-9.83%",
+      "recomputed": "($331.56-$364.15)/$331.56 = -9.8293%",
+      "ties": true,
+      "detail": "Ties to the explicitly stated fair-value-denominator convention."
+    },
+    {
+      "quantity": "Matched FQ4 revenue growth and ±2% triggers",
+      "reported": "12.8%; $12.33857bn / $11.85471bn",
+      "recomputed": "$12.09664bn/$10.724bn-1=12.7997%; $12.09664bn×1.02=$12.3385728bn; ×0.98=$11.8547072bn",
+      "ties": true,
+      "detail": "Ties within rounding. The bar and comparable are both standalone FQ4 figures."
+    },
+    {
+      "quantity": "Legal/tax red-flag magnitude",
+      "reported": "$3.005bn; 8.5% of equity",
+      "recomputed": "$1.274bn + $1.672bn + $0.059bn = $3.005bn; $3.005bn/$35.178bn = 8.542%",
+      "ties": true,
+      "detail": "Arithmetic ties. The underlying measures are explicitly named as recognized litigation and gross UTP; their publication-layer component carriage is a separate failed check below."
+    },
+    {
+      "quantity": "FY2023–FY2025 shareholder cash returns",
+      "reported": "$59.732bn",
+      "recomputed": "Buybacks $18.316bn+$16.713bn+$12.101bn plus dividends $4.634bn+$4.217bn+$3.751bn = $59.732bn",
+      "ties": true,
+      "detail": "Exact tie; the final thesis carries this build on the line where the total appears."
+    },
+    {
+      "quantity": "Cost-of-capital reality test",
+      "reported": "9.04% modeled WACC; 7.15% market-implied WACC; 4.11% lease rate not treated as group WACC",
+      "recomputed": "No comparable company-disclosed group impairment rate exists in the bound pool; 9.04% is not more than 3pp below a company group rate and exceeds two-thirds of 7.15%",
+      "ties": true,
+      "detail": "The DCF rate passes the command's mechanical escalation test. The 7.8% business-model estimate is visibly a different, preliminary basis."
+    },
+    {
+      "quantity": "Quality-haircut double-count test",
+      "reported": "5% peer-multiple adjustment for growth/regulatory durability, not for Visa's current margin",
+      "recomputed": "No own-margin/peer-margin mechanical haircut is applied to EV/EBITDA",
+      "ties": true,
+      "detail": "Pass. Current profitability already sits in the EBITDA denominator; the stated adjustment addresses factors outside that denominator."
+    },
+    {
+      "quantity": "Matched-basis ratio test",
+      "reported": "Settlement exposure is labeled maximum-daily/average gross flow with collateral; it is not divided by period-end cash or used as a threshold",
+      "recomputed": "No clean peak-over-point-in-time percentage was published",
+      "ties": true,
+      "detail": "Pass. Strict leverage, cash coverage, margins, and the legal/equity ratio use matched bases or state their bases."
+    },
+    {
+      "quantity": "Itemized aggregate carriage at every publication layer (§15)",
+      "reported": "$3.005bn legal/tax total in final Part II and decision_record; $26.552bn 9M cash uses in the final governance chapter; $5.678bn 24-month maturities in final Chapter C",
+      "recomputed": "$1.274+$1.672+$0.059=$3.005bn; $16.430+$3.852+$0.705+$5.565=$26.552bn; $3.000+$2.678=$5.678bn",
+      "ties": false,
+      "detail": "The arithmetic is correct, but the cited final/decision layers omit the numeric components beside these headline totals. Other layers contain some or all builds, which does not satisfy the rule that aggregates travel with their build wherever quoted. A reader cannot rebuild each total from the line that uses it. This is a high-severity §15 publication failure, not a core arithmetic break."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "Total debt, cash, and net debt",
+      "values_by_module": {
+        "balance-sheet-survival": "$23.858bn debt; $12.359bn cash; $11.499bn strict net debt; $10.066bn broad vendor net debt",
+        "earnings": "$11.499bn strict net debt where used",
+        "management-governance": "$11.499bn strict net debt",
+        "valuation": "$11.499bn strict net debt; $10.066bn broad CIQ net debt",
+        "final_thesis": "$23.858bn debt; $12.359bn cash; $11.499bn strict; $10.066bn broad"
+      },
+      "consistent": true,
+      "detail": "All like-for-like strict values agree. The $1.433bn strict-to-broad difference is current investments and is labeled every time the broad basis is used."
+    },
+    {
+      "anchor": "Diluted share count and market-cap share count",
+      "values_by_module": {
+        "valuation": "1,898m diluted working shares for per-share value; 1,835.606m vendor market-cap shares",
+        "earnings": "1,898m Q3 diluted Class A weighted-average shares",
+        "final_thesis": "1,898m diluted working shares; vendor market cap retained as supplied"
+      },
+      "consistent": true,
+      "detail": "The two counts serve different disclosed purposes and are not silently interchanged: filed diluted shares drive per-share targets, while the vendor's point-in-time count is embedded in the supplied market capitalization."
+    },
+    {
+      "anchor": "ROIC and cost of capital",
+      "values_by_module": {
+        "business-model": "22.4% five-year standardized return on capital; 7.8% inferred cost of capital with period mismatch",
+        "valuation": "9.04% modeled DCF WACC; 7.15% market-implied WACC",
+        "final_thesis": "22.4% vs inferred 7.8% in the business-quality discussion; 9.04%/7.15% in valuation"
+      },
+      "consistent": true,
+      "detail": "Different cost-of-capital bases are explicitly named and not presented as one shared value. The final thesis preserves the timing/basis qualifier."
+    },
+    {
+      "anchor": "Market capitalization and enterprise value",
+      "values_by_module": {
+        "valuation": "$668.4359bn vendor market cap; $680.4489bn strict-basis EV",
+        "ciq_facts": "$679.0159bn vendor EV on broad net-debt basis",
+        "final_thesis": "Scenario engine uses the strict $11.499bn net-debt bridge and $0.514bn preferred stock"
+      },
+      "consistent": true,
+      "detail": "The $1.433bn difference between strict and broad EV is exactly current investments. It is a labeled basis difference, not an anchor conflict."
+    },
+    {
+      "anchor": "Current price",
+      "values_by_module": {
+        "valuation": "$364.15, CIQ close as of 2026-08-17",
+        "earnings": "$364.15 where valuation context is used",
+        "catalyst": "$364.15 admitted pool anchor; later web context not substituted",
+        "final_thesis": "$364.15, 26 trading days stale",
+        "decision_record": "$364.15, 2026-08-17"
+      },
+      "consistent": true,
+      "detail": "All decision-bearing layers use the same dated pool price and preserve the staleness qualifier."
+    },
+    {
+      "anchor": "EBITDA provenance and basis",
+      "values_by_module": {
+        "earnings": "$28.338bn filing-derived GAAP LTM EBITDA",
+        "balance-sheet-survival": "$28.338bn filing-derived GAAP LTM EBITDA for strict leverage",
+        "valuation": "$31.094bn CIQ standardized LTM EBITDA; $34.97148bn NTM consensus EBITDA",
+        "final_thesis": "$28.338bn filing-derived and $31.094bn vendor LTM values both named; scenarios use $34.97148bn NTM vendor base",
+        "decision_record": "$36.720bn/$34.971bn/$31.474bn NTM vendor scenario EBITDA"
+      },
+      "consistent": true,
+      "detail": "Values differ only by explicitly labeled definition or horizon. No filing-derived EBITDA is attributed to CIQ, and no CIQ standardized EBITDA is cited to a filing."
+    }
+  ],
+  "fidelity_checks": [],
+  "contradiction_checks": [],
+  "integrity_score": 56,
+  "verdict": "Material issues",
+  "blocking_findings": [
+    "High — §15 aggregate-build carriage failure: the final thesis and decision record quote $3.005bn, $26.552bn, and $5.678bn headline totals at decision-bearing or module-roll-up layers without carrying the itemized numeric builds beside each quotation. The sums themselves are correct, but the published layers are not independently rebuildable as required."
+  ],
+  "notes": "Frozen evidence generation 2c6c2e4c3a237a9ced375db945b76e2003908d5d1621f6a1928b270574ef9c90 was validated against its exact raw_prefix: 23 sources and 59 generation-bound extracts, with zero missing/escaping extracts, extraction failures, or hash mismatches. Corpus SHA-256 was 1b63bb5aef0f0c01da77c51d5c6eec07ec959c92307dcb685819cd8e98e42442; ciq_facts SHA-256 was b2c93d261c77ff8fb644d4b36fefa4bd78527ebc026f4d8d27987b8f37c1dfae; relationships SHA-256 was 2824ab808ea6521b043d596fcf62148cf62b8993902356358ced02c06cfb327c. The deterministic ciq_facts conflicts array is empty. Core scenario, return, net-debt, leverage, EV-bridge, consensus-period, and margin math all tie, and no cross-module anchor conflict or Section-C3 unaddressed contradiction was found. Score: 100 - 20 (one high aggregate-build carriage failure) - 8 (KPMG penalty miscitation) - 8 (unsupported share-position direction) - 8 (false all-independent-values-below-price statement) = 56. The rating remains Watchlist on the verified valuation and operating evidence, but the dossier is Material until the append-only correction process resolves the high publication-layer build defect. Only analyses/V_2026-09-23/verification_report_v2.json was added; no existing run artifact was edited. This v2 pass binds the current finish-gate-stamped thesis and decision bytes; verification_report.json remains unchanged and binds the earlier pre-stamp bytes. Commit and git steps were skipped at the caller's instruction."
+}

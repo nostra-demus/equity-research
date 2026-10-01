@@ -1,0 +1,482 @@
+{
+  "schema_version": "1.0",
+  "ticker": "V",
+  "company_name": "Visa Inc.",
+  "exchange": "New York Stock Exchange",
+  "currency": "USD",
+  "decision_date": "2026-09-23",
+  "run_root": "analyses/V_2026-09-23",
+  "final_thesis_path": "analyses/V_2026-09-23/final_thesis.md",
+  "decision": "Watchlist",
+  "suggested_action": "Monitor only; do not open a position at the stale $364.15 pool anchor. Refresh the price and FQ4 consensus, then reassess after Visa files FY2026 results.",
+  "paper_treatment": "No trade, track opportunity cost",
+  "basket": "Watchlist",
+  "entry_price": 364.15,
+  "entry_price_source": "CIQ Comps→Financial Data 'Day Close Price Latest' (subject row) as-of 2026-08-17; USD",
+  "entry_price_timestamp": "2026-08-17",
+  "benchmark": "",
+  "sector_benchmark": "",
+  "time_horizon": "12 months",
+  "scenario_horizon_days": 365,
+  "expected_return_pct": -7.73939310723602,
+  "downside_risk_pct": 22.183166277632836,
+  "margin_of_safety_pct": -9.829291832549155,
+  "risk_reward": -0.3488858628373357,
+  "scenarios": [
+    {
+      "scenario_id": "bull-operating-proof-and-multiple",
+      "label": "bull",
+      "probability": 20,
+      "probability_basis": "judgment",
+      "return_pct": 16.951805574625855,
+      "price_target": 425.88,
+      "conditions": [
+        "NTM vendor EBITDA reaches $36.720bn, 5% above the $34.971bn consensus base",
+        "The market pays 22.34x NTM EV/EBITDA as payment activity, pricing and mix offset incentive and marketing pressure"
+      ],
+      "source": "analyses/V_2026-09-23/valuation/07_scenario-and-fair-value.md, §§2–4",
+      "joint_probability_basis": "The 20% judgment probability applies to the conjunction. Operating upside can support both the EBITDA result and investor confidence, but multiple normalization is a separate condition, so the probability deliberately discounts the need for both to occur."
+    },
+    {
+      "scenario_id": "base-consensus-and-lower-multiple",
+      "label": "base",
+      "probability": 50,
+      "probability_basis": "judgment",
+      "return_pct": -8.949608677742681,
+      "price_target": 331.56,
+      "conditions": [
+        "NTM vendor EBITDA reaches the $34.971bn consensus",
+        "The market pays 18.338x NTM EV/EBITDA as the moat remains stable rather than widening and incentive and regulatory concerns persist"
+      ],
+      "source": "analyses/V_2026-09-23/valuation/07_scenario-and-fair-value.md, §§2–4",
+      "joint_probability_basis": "The 50% judgment probability applies to the linked central earnings and valuation path. Earnings delivery and the warranted multiple are partly related, but the probability is not a product of independent marginal odds."
+    },
+    {
+      "scenario_id": "bear-activity-incentives-and-floor-multiple",
+      "label": "bear",
+      "probability": 30,
+      "probability_basis": "judgment",
+      "return_pct": -22.183166277632836,
+      "price_target": 283.37,
+      "conditions": [
+        "NTM vendor EBITDA is $31.474bn, 10% below consensus, as payment activity and travel-linked cross-border commerce soften while incentive intensity stays elevated",
+        "The market pays 17.47x NTM EV/EBITDA, the observed own-history low"
+      ],
+      "source": "analyses/V_2026-09-23/valuation/07_scenario-and-fair-value.md, §§2–4",
+      "joint_probability_basis": "The 30% judgment probability recognizes that a demand miss, incentive pressure, or regulatory setback can lower both expected EBITDA and the multiple. The two conditions are correlated rather than independent."
+    }
+  ],
+  "idea_valuation_bridge": {
+    "source_horizon_days": 365,
+    "method": "catalyst_partial_convergence",
+    "convergence_fraction": 0.35,
+    "rationale": "The expected FQ4/FY2026 result can reveal part of the earnings path within the Ideas horizon, but it cannot fully resolve the 12-month regulatory and valuation-multiple outcome.",
+    "source": "analyses/V_2026-09-23/valuation/99_valuation-synthesis.md, §§2–5; analyses/V_2026-09-23/catalyst/99_catalyst-synthesis.md, §§1–2"
+  },
+  "confidence_score": 42.0,
+  "data_sufficiency_score": 78,
+  "confidence_inputs": {
+    "data_sufficiency": 78,
+    "corroboration": 65,
+    "evidence_tier": 88,
+    "staleness_penalty": 6,
+    "edge_score": 35,
+    "edge_proof_present": true,
+    "decision": "Watchlist",
+    "expected_return_pct": -7.73939310723602,
+    "modules_absent": [
+      "options"
+    ],
+    "critical_governance_unresolved": false,
+    "catalyst_timing_weak": true,
+    "rating_cap_ceiling": 60,
+    "downgrades": [
+      {
+        "type": "single_variable",
+        "points": 6,
+        "reason": "The value range remains highly sensitive to the discount-rate and multiple anchor."
+      },
+      {
+        "type": "specialist_conflict",
+        "points": 10,
+        "reason": "The strong-moat growth evidence does not resolve the 51.14% valuation-method spread or the cash-conversion and incentive conflict."
+      }
+    ],
+    "calibration_haircut": 0,
+    "exceptional_evidence": false
+  },
+  "analysis_confidence": 71.2,
+  "conviction": 42.0,
+  "sizing_hint": {
+    "band": "watch",
+    "action": "monitor only — no position (track opportunity cost)"
+  },
+  "confidence_breakdown": {
+    "analysis_confidence": 71.2,
+    "analysis_confidence_build": "0.5*dataSuff(78) + 0.25*corrob(65) + 0.25*tier(88) - stale(6) = 71.2",
+    "direction": "neutral",
+    "documented_ceiling": 60.0,
+    "documented_ceiling_sources": [
+      100.0,
+      80.0,
+      70.0,
+      60.0,
+      100.0
+    ],
+    "unknown_absent_keys": [],
+    "direction_ceiling": 58.0,
+    "direction_ceiling_reason": "neutral: min(documented 60, non-committal 58)",
+    "understanding_capped_to_ceiling": 58.0,
+    "downgrades": [
+      {
+        "type": "single_variable",
+        "points": 6,
+        "reason": "The value range remains highly sensitive to the discount-rate and multiple anchor."
+      },
+      {
+        "type": "specialist_conflict",
+        "points": 10,
+        "reason": "The strong-moat growth evidence does not resolve the 51.14% valuation-method spread or the cash-conversion and incentive conflict."
+      }
+    ],
+    "calibration_haircut": 0,
+    "downgrade_points_total": 16.0,
+    "conviction_hard_max": 85.0,
+    "conviction": 42.0,
+    "formula": "conviction = clamp( min( min(analysis_confidence, direction_ceiling) - sum(max(0,downgrades)) - max(0,calibration_haircut), direction_ceiling ), 0, hard_max )"
+  },
+  "rating_cap": "The RF-EQ-001 + RF-OBS-001 + RF-DISC-002 cross-module forensic mosaic is a compound High flag and caps any long at Starter Position Only, with no edge bypass. No Critical governance, solvency, fraud, or going-concern lock fired. The no-proven-edge ceiling is 60 and valuation confidence is separately capped at 55 by the 51.14% method spread. Watchlist is stricter than each positive-rating ceiling.",
+  "thesis_type": [
+    "Company-specific"
+  ],
+  "variant_perception_summary": "Visa's network quality and double-digit activity growth are widely visible. The possible edge is that the market may underweight the recent quality gap: incentives grew faster than net revenue, reported margin fell, and cash from operations declined while revenue rose. That hypothesis is not proven because the cash divergence is unexplained and the four-quarter beat record is favorable; therefore there is no proven variant perception yet.",
+  "what_everyone_knows": "Visa has a strong global payment network, June-2026 LTM revenue grew 14.4%, Q3 payment volume and processed transactions each grew 10%, and revenue plus vendor-defined normalized EPS beat consensus in each of the last four quarters. The four-quarter sample is judgmental evidence, not an empirical base rate.",
+  "what_is_priced_in": "At the $364.15 pool anchor, a 9.04% WACC requires roughly 19.67% annual free-cash-flow growth for five years. A lower 7.15% implied WACC reconciles the modeled base cash path to price, so the reverse-DCF is a demanding conditional hurdle rather than proof the market is wrong.",
+  "what_market_may_be_missing": "Q3 client incentives grew 18% versus 14% net-revenue growth, GAAP-derived EBITDA margin fell 157 basis points to 62.3%, and LTM CFO fell 3.9% while revenue rose 14.4%. The cause of the cash divergence is not proven from available data, so this is an earnings-quality hypothesis rather than a misconduct claim.",
+  "edge_score": 35,
+  "edge_proof": "The no-position thesis is weakened if Visa reports FQ4 FY2026 revenue of at least $12.339bn, GAAP-derived EBITDA margin of at least the matched 60.3% prior-year quarter, and better full-year CFO/EBITDA conversion. It is strengthened by revenue at or below $11.855bn, margin below 60.3%, or further cash-conversion deterioration.",
+  "killer_risk": "Visa earns the bull-case $36.720bn of NTM vendor EBITDA and the market pays 22.34x, producing $425.88 per share and making the no-position call too cautious.",
+  "kill_criteria": [
+    {
+      "condition": "FQ4 FY2026 revenue is at or below $11.85471bn.",
+      "comparable_basis": "FQ4 FY2025 revenue was $10.724bn on the same standalone U.S.-GAAP quarter basis; the threshold still implies 10.5% growth, and the last two matched surprise outcomes were beats.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Visa's FY2026 earnings release, vendor-expected around 2026-10-27 but not issuer-confirmed.",
+      "module_source": "earnings"
+    },
+    {
+      "condition": "FQ4 FY2026 GAAP-derived EBITDA margin is below 60.3%.",
+      "comparable_basis": "FQ4 FY2025 GAAP-derived EBITDA margin was 60.3% on the same standalone-quarter EBIT-plus-D&A basis. The matched analogue passed in Q2 FY2026 at 67.4% versus 59.8% and failed in Q3 at 62.3% versus 63.8%, so the adverse condition did not fire in both periods.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Visa's FY2026 earnings release and Form 10-K; derive the standalone FQ4 result from annual and nine-month filed data if necessary.",
+      "module_source": "earnings"
+    },
+    {
+      "condition": "FY2026 CFO divided by GAAP-derived EBITDA is below 70%.",
+      "comparable_basis": "The same annual filing-derived ratio was 91.5% in FY2025 and about 81% in FY2024, so the threshold did not fire in either prior period.",
+      "stub_arithmetic": "With 9M FY2026 CFO of $16.342bn and GAAP-derived EBITDA of $21.874bn, the trigger requires Q4 CFO < 0.70 × ($21.874bn + Q4 GAAP-derived EBITDA) − $16.342bn.",
+      "fired_last_two_periods": false,
+      "monitor": "Visa's FY2026 Form 10-K cash-flow statement, operating income, and depreciation and amortization.",
+      "module_source": "earnings"
+    },
+    {
+      "condition": "Strict net debt divided by GAAP-derived LTM EBITDA exceeds 0.75x at FY2026 year-end.",
+      "comparable_basis": "The same strict debt-minus-cash and filing-derived EBITDA ratio was 0.36x at FY2024 year-end and 0.32x at FY2025 year-end; the trigger did not fire in either annual period.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Visa's FY2026 Form 10-K debt, cash, operating income, and depreciation and amortization.",
+      "module_source": "balance-sheet-survival"
+    },
+    {
+      "condition": "A final DOJ or European Commission remedy materially restricts Visa's core debit conduct or pricing.",
+      "comparable_basis": "FY2025 and Q3 FY2026 filings both described open but unresolved matters and contained no final adverse conduct remedy, so the trigger did not fire in either period.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Visa material-event filings and the named DOJ case docket or European Commission decision when issued; no reliable decision date is in the frozen pool.",
+      "module_source": "management-governance"
+    }
+  ],
+  "forecast_ledger": [
+    {
+      "forecast_id": "FC-V-FQ4FY26-REVENUE",
+      "prediction": "Visa's FQ4 FY2026 standalone GAAP net revenue is at least $12.09664bn.",
+      "probability": 55,
+      "probability_basis": "judgment",
+      "time_window": "2026-10-20 to 2026-11-15",
+      "window_start": "2026-10-20T00:00:00Z",
+      "window_end": "2026-11-15T23:59:59Z",
+      "status_as_of": "2026-09-23T23:59:59Z",
+      "evidence_today": "Frozen FQ4 revenue consensus is $12.09664bn as of 2026-08-11, versus reported FQ4 FY2025 revenue of $10.724bn. Revenue beat consensus in each of the last four reported quarters, but n=4 is too small for an empirical frequency.",
+      "source_citation": "data/V/VisaIncNYSEVEstimatesReport.xls, Consensus and Surprise; data/V/Visa-Fiscal-2025-Annual-Report.pdf, p.60",
+      "metric": "FQ4 FY2026 standalone GAAP net revenue, USD billions",
+      "threshold": "At least $12.09664bn",
+      "causal_steps": [
+        "Payment volume and processed transactions sustain gross revenue through the FQ4 service-revenue and processing cycle.",
+        "Client incentives, cross-border mix, pricing, and value-added services determine whether reported net revenue clears the pinned bar."
+      ],
+      "confirmation_trigger": "Visa's FQ4/FY2026 earnings release reports standalone FQ4 GAAP net revenue at or above $12.09664bn.",
+      "falsification_trigger": "The same earnings release reports standalone FQ4 GAAP net revenue below $12.09664bn.",
+      "stock_bullish_trigger": "FQ4 revenue is at least $12.33857bn and FY2027 commentary does not confirm weaker activity or heavier incentive and marketing costs.",
+      "stock_bearish_trigger": "FQ4 revenue is at or below $11.85471bn or FY2027 commentary confirms weaker activity or heavier incentive and marketing costs.",
+      "owner_module": "earnings",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "revenue"
+    },
+    {
+      "forecast_id": "FC-V-FQ4FY26-EBITDA-MARGIN",
+      "prediction": "Visa's FQ4 FY2026 GAAP-derived EBITDA margin is at least 60.3%.",
+      "probability": 50,
+      "probability_basis": "judgment",
+      "time_window": "2026-10-20 to 2026-12-15",
+      "window_start": "2026-10-20T00:00:00Z",
+      "window_end": "2026-12-15T23:59:59Z",
+      "status_as_of": "2026-09-23T23:59:59Z",
+      "evidence_today": "The matched margin test passed in Q2 FY2026 at 67.4% versus 59.8% and failed in Q3 at 62.3% versus 63.8%; FQ4 FY2025 was 60.3%. Management expects incentive growth slightly above Q3 and some marketing expense shifted into FQ4.",
+      "source_citation": "data/V/Visa_Inc_-_Form_10-Q(Jul-29-2026).doc, pp.4 and 33–35; data/V/Visa Inc., Q3 2026 Earnings Call, Jul 28, 2026.rtf, CFO prepared remarks",
+      "metric": "FQ4 FY2026 standalone GAAP-derived EBITDA margin, percent",
+      "threshold": "At least 60.3%",
+      "causal_steps": [
+        "Reported net revenue absorbs the disclosed rise in client incentives.",
+        "Recurring operating expenses and the timing of marketing determine whether EBIT plus depreciation and amortization remains at or above 60.3% of revenue."
+      ],
+      "confirmation_trigger": "Visa's FY2026 earnings release or Form 10-K permits a standalone-FQ4 derivation at or above 60.3%.",
+      "falsification_trigger": "The same filed data permit a standalone-FQ4 derivation below 60.3%.",
+      "stock_bullish_trigger": "FQ4 GAAP-derived EBITDA margin is at least 60.3% and full-year CFO/EBITDA conversion improves.",
+      "stock_bearish_trigger": "FQ4 GAAP-derived EBITDA margin is below 60.3% or full-year CFO/EBITDA conversion deteriorates further.",
+      "owner_module": "earnings",
+      "confidence_score": 50,
+      "status": "open",
+      "forecast_type": "margin_or_cost"
+    }
+  ],
+  "module_scores": {
+    "business-model": {
+      "score": 80,
+      "verdict": "High-quality business — worth deeper work; strong stable moat, no hard disqualifier, and incomplete cohort-level unit economics."
+    },
+    "earnings": {
+      "score": 74,
+      "verdict": "Mixed earnings setup with material concerns; growth is real, but margin, incentives, and recent cash conversion conflict with it."
+    },
+    "balance-sheet-survival": {
+      "score": 75,
+      "verdict": "Solid, not Fortress; strict leverage is low and maturities are cash-covered, but covenant headroom and revolver availability are not assessable."
+    },
+    "catalyst": {
+      "score": 74,
+      "verdict": "Catalysts exist but timing vague; the expected FQ4/FY2026 date is vendor-derived rather than issuer-confirmed."
+    },
+    "competitive-intel": {
+      "score": 0,
+      "verdict": "Not assessable; no eligible peer call or comparable-window result, so the module receives zero directional weight."
+    },
+    "management-governance": {
+      "score": 78,
+      "verdict": "Standard/mixed stewardship; gate PASS, Governance Score 65, confidence-adjusted 45, four High flags and zero Critical flags."
+    },
+    "valuation": {
+      "score": 78,
+      "verdict": "Fairly valued, leaning expensive; $331.56 base value is below the $364.15 pool price and the independent-method spread is 51.14%."
+    }
+  },
+  "red_flags": [
+    {
+      "id": "RF-01",
+      "severity": "High",
+      "source_module": "earnings",
+      "description": "The initial 18.9% FQ4 growth comparison used Q3 FY2025 revenue. The audited matched FQ4 FY2025 revenue is $10.724bn, making the $12.09664bn bar 12.8%; the high-bar conclusion is rejected.",
+      "rating_impact": "Process-reliability penalty and explicit comparator correction; no issuer verdict lock."
+    },
+    {
+      "id": "RF-02",
+      "severity": "High",
+      "source_module": "earnings",
+      "description": "Q3 client incentives grew 18%, faster than 14% net-revenue growth, and management expects slightly faster incentive growth plus deferred marketing spend in FQ4.",
+      "rating_impact": "Prevents a clean earnings-acceleration call and supports the no-position stance."
+    },
+    {
+      "id": "RF-DISC-002",
+      "severity": "High",
+      "source_module": "management-governance",
+      "description": "Litigation provisions excluded from non-GAAP results recurred at $906m, $434m, and $2.533bn in FY2023–FY2025; FY2025 adjusted net income was $2.484bn, or 12.4%, above GAAP net income.",
+      "rating_impact": "Raises disclosure and earnings-quality risk and contributes to the forensic mosaic; it is not evidence of fraud."
+    },
+    {
+      "id": "RF-AUD-007",
+      "severity": "High",
+      "source_module": "management-governance",
+      "description": "A 2019 SEC order and $50m penalty concerned KPMG, not Visa or a named Visa engagement partner; current audit and ICFR opinions are unqualified.",
+      "rating_impact": "Audit-quality monitoring flag only; no issuer-misconduct conclusion or hard lock."
+    },
+    {
+      "id": "RF-FIN-003",
+      "severity": "High",
+      "source_module": "management-governance",
+      "description": "Recognized litigation plus estimated gross unrecognized tax benefits total $3.005bn, equal to 8.5% of June 2026 equity, while possible-loss tails remain partly unquantified.",
+      "rating_impact": "Raises contingent-liability risk; no hard lock because the module found zero Critical flags."
+    },
+    {
+      "id": "RF-REG-001",
+      "severity": "High",
+      "source_module": "management-governance",
+      "description": "The DOJ debit-network action and European Commission fee inquiry are open and disclosed; timing and the economic remedy range are unquantified.",
+      "rating_impact": "Supports a multiple and conviction discount; a conduct-changing final remedy is the thesis killer."
+    },
+    {
+      "id": "FORENSIC-MOSAIC-RF-EQ-001-RF-OBS-001-RF-DISC-002",
+      "severity": "High",
+      "source_module": "cross-module",
+      "description": "RF-EQ-001 recent accrual/cash divergence, RF-OBS-001 contingent-liability uncertainty, and RF-DISC-002 recurring adjusted exclusions fire across earnings, balance-sheet-survival, and governance. The components retain their qualifiers: annual cash conversion remains sound, contingent exposure is partly recognized, and no fraud or misstatement is proven.",
+      "rating_impact": "Compound High flag; caps any long rating at Starter Position Only, with no edge bypass."
+    }
+  ],
+  "missing_data": [
+    "A fresh pool-verified V price; the admitted $364.15 close is dated 2026-08-17",
+    "A refreshed FQ4 FY2026 consensus and revision set using the matched $10.724bn prior-year quarter",
+    "An issuer-confirmed FQ4/FY2026 earnings-release date",
+    "Comparable-window Mastercard and American Express earnings calls and results",
+    "Executed covenant definitions, current revolver availability, and tested headroom",
+    "Sector-level historical multiple data needed to test whether own-history and peer anchors are cycle-distorted",
+    "A complete legal, court, regulator, and entity-network sweep; 18 entity branches remain unexplored",
+    "Incentive-adjusted cohort contribution, retention, contract duration, and payback data",
+    "Options, borrow, and current traded-liquidity data"
+  ],
+  "data_needs_schema_version": "2.0",
+  "data_needs": [
+    {
+      "need_id": "fy26-filed-results",
+      "priority": 1,
+      "series": "Visa's filed FY2026 results with standalone FQ4 net revenue, operating income and depreciation and amortization; full-year CFO and total capex; and client incentives",
+      "why_it_caps": "This single filing resolves the stale consensus bar and the linked incentive, margin, and cash-conversion conflict that currently blocks an entry decision.",
+      "expected_impact": {
+        "if_supportive": "FQ4 revenue of at least $12.339bn, GAAP-derived EBITDA margin at or above 60.3%, and improving full-year cash conversion would weaken the Watchlist thesis and require a fresh valuation review.",
+        "if_adverse": "Revenue at or below $11.855bn, margin below 60.3%, or weaker cash conversion would strengthen the no-position conclusion."
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "earnings",
+          "agent": "beat-miss-setup",
+          "why": "This orb owns the matched FQ4 consensus bar and material beat/miss thresholds.",
+          "confidence": 0.98
+        },
+        {
+          "module": "earnings",
+          "agent": "margin-drivers",
+          "why": "This orb owns the incentive, expense, and GAAP-derived margin bridge.",
+          "confidence": 0.97
+        },
+        {
+          "module": "earnings",
+          "agent": "earnings-quality",
+          "why": "This orb owns the CFO, FCF, and cash-conversion test.",
+          "confidence": 0.95
+        }
+      ],
+      "suggested_source": {
+        "name": "Visa FY2026 earnings release and Form 10-K",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "official public company and SEC filings"
+      },
+      "tier": 5,
+      "cadence": "quarterly"
+    }
+  ],
+  "review_schedule": {
+    "30d": "2026-10-23",
+    "90d": "2026-12-22",
+    "180d": "2027-03-22",
+    "365d": "2027-09-23"
+  },
+  "created_by": "synthesizer",
+  "notes": "The $364.15 entry anchor is pool-verified but 26 trading days stale at the decision date. No trade is created. Scenario levels are the valuation module's 12-month fair values; probabilities are master judgment. The decision is Watchlist, not Avoid or Short Candidate. No prior identity-matched V decision record was available.",
+  "business_type": "Generic operating company (global payments-network and transaction processor)",
+  "primary_valuation_method": "Multiples-led NTM EV/EBITDA with intrinsic DCF as a cross-check",
+  "calibration_feedback": {
+    "source_summary": "analyses/performance/2026-09-19_calibration_summary.json",
+    "status": "checked_no_action",
+    "haircut_points": 0,
+    "modules_flagged": [],
+    "flagged_forecast_types": [],
+    "flagged_thesis_types": [],
+    "leading_error_categories_flagged": [],
+    "error_defense_evidence": {
+      "bad base rate": "The FQ4 revenue bar is matched to audited FQ4 FY2025 revenue, and the four-quarter beat history is labelled judgment rather than an empirical frequency [analyses/V_2026-09-23/earnings/05_beat-miss-setup.md, §§1 and 6].",
+      "valuation multiple error": "The thesis carries the 51.14% independent-method dispersion, does not assume sector-cycle stability, and uses own-history and peer multiples as conditional anchors rather than independent proof of mispricing [analyses/V_2026-09-23/valuation/07_scenario-and-fair-value.md, §§1–5].",
+      "bad causal inference": "Only the filed 1 percentage-point FX contribution is treated as directly explained; the remaining 13.4 percentage points, about 93% of Q3 revenue growth, remain an explicit residual [analyses/V_2026-09-23/earnings/02_revenue-drivers.md, §6a; analyses/V_2026-09-23/earnings/99_earnings-synthesis.md, §§2–3].",
+      "false negative": "The scenario set retains the valuation module's $425.88 bull case, a 16.95% upside state, rather than narrowing the distribution around the negative base case [analyses/V_2026-09-23/valuation/07_scenario-and-fair-value.md, §3; analyses/V_2026-09-23/final_thesis.md, §8].",
+      "timing error": "The expected 2026-10-27 FQ4/FY2026 date is repeatedly labelled Capital IQ-derived and not issuer-confirmed; proven debt-maturity months are kept separate [analyses/V_2026-09-23/catalyst/99_catalyst-synthesis.md, §§1–2]."
+    },
+    "rationale": "The latest as-of calibration summary is Pre-data: 16 decisions, 21 reviews, four resolved forecasts, and one directional outcome leave module, forecast-type, and thesis-type slices below their publication floors. Its five leading error categories each have a cited current-run defense, so the always-on error-taxonomy check found no reason for the fixed haircut."
+  },
+  "integrity_gate": {
+    "status": "provisional",
+    "violations": [
+      "verify-evidence verdict = Material issues (not Clean/Minor — integrity 56/100, see verification_report.json)"
+    ],
+    "gate": "research:full step 10B"
+  },
+  "confidence_haircut": 0,
+  "pre_mortem_verdict": "Survives",
+  "post_review_confidence_score": 42.0,
+  "post_mortem_decision": "Watchlist",
+  "post_mortem_basket": "Watchlist",
+  "execution_provenance": {
+    "schema_version": "1.0",
+    "source": "cockpit_runtime",
+    "coverage": "cockpit_top_level_processes",
+    "provider_mode": "partially_observed",
+    "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+    "decision_author": {
+      "attempt_id": "44eac1ce-f879-4a99-bd67-1a28640b87e0",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "recorded"
+    },
+    "contributors": [
+      {
+        "provider": "codex",
+        "model": "gpt-5.6-sol",
+        "reasoning_level": "max",
+        "attribution": "configured",
+        "scopes": [
+          "memo",
+          "memo-writer",
+          "module-memo-writer"
+        ]
+      },
+      {
+        "provider": "codex",
+        "model": "gpt-5.6-sol",
+        "reasoning_level": "max",
+        "attribution": "recorded",
+        "scopes": [
+          "catalyst",
+          "master",
+          "module",
+          "rerun",
+          "research",
+          "synthesizer",
+          "valuation"
+        ]
+      },
+      {
+        "provider": "codex",
+        "model": "gpt-5.6-terra",
+        "reasoning_level": "xhigh",
+        "attribution": "configured",
+        "scopes": [
+          "specialists"
+        ]
+      }
+    ],
+    "cli_versions": {
+      "codex": "codex-cli 0.149.0"
+    }
+  }
+}
