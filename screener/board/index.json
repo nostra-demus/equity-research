@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T11:21:37Z",
+  "generated_at": "2026-10-01T11:24:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-396",
@@ -1808,6 +1808,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-398",
+      "headline": "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process - NCLAT - Receipt of Copy of Adjournment Order",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BGRENERGY_01102026164135_NCLATORDERCOPY.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T11:12:43Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "BGR Energy is under formal Corporate Insolvency Resolution Process (CIRP) via NCLAT; distress-stage survival risk for equity holders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "BGR Energy is under formal Corporate Insolvency Resolution Process (CIRP) via NCLAT; distress-stage survival risk for equity holders.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BGR Energy Systems Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-364",
       "headline": "Reliance Industries Limited: We wish to inform that the Company has today allotted 13,00,000 Unsecured, Redeemable, Non-Convertible Debentures (\"NCDs\") of the face value of Rs. 1,00,000 each (\"PPD Series R\"), issued on private placement basis.",
       "headline_en": null,
@@ -1949,55 +1998,6 @@
           "name": "Coffee Day Enterprises Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-090",
-      "headline": "MRE: Continuation of Suspension from Quotation [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MRE?key=2924-03143151-2A1701071",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-01T01:44:34Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "MRE remains suspended from quotation, indicating ongoing operational or financial uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "MRE remains suspended from quotation, indicating ongoing operational or financial uncertainty.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MRE",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -192693,9 +192693,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2977704,
-    "news_picked_today": 769,
-    "news_dropped_today": 14711
+    "news_seen_today": 2994854,
+    "news_picked_today": 771,
+    "news_dropped_today": 14781
   },
   "book_momentum": {
     "live_count": 8,
