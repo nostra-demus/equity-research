@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T08:27:28Z",
+  "generated_at": "2026-10-01T08:33:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-121",
@@ -1068,6 +1068,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-337",
+      "headline": "Coffee Day Enterprises Limited: Coffee Day Enterprises Limited has informed the Exchange about One time Settlement with Kemfin Services Private Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/COFFEEDAY_01102026131025_ONE_TIME_SETTLEMENT_STOCK_EXCHANGE_SIGNED.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T07:40:50Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "One-time settlement with a related party could affect capital structure, contingent liabilities, or legal obligations, but no transaction size is disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "One-time settlement with a related party could affect capital structure, contingent liabilities, or legal obligations, but no transaction size is disclosed.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coffee Day Enterprises Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-090",
       "headline": "MRE: Continuation of Suspension from Quotation [price-sensitive]",
       "headline_en": null,
@@ -1950,55 +2000,6 @@
       "companies": [
         {
           "name": "Kapston Services Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-335",
-      "headline": "Avalon Technologies Limited: Avalon Technologies Limited has informed the Exchange regarding 'Disclosures under Reg 29(2) of SEBI (SAST) Regulations, 2011'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/AVALON2022_01102026130418_SEBI_SAST_Disclosure_-_Company_final.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-01T07:34:44Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Disclosure of share transaction under SEBI SAST regulations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Disclosure of share transaction under SEBI SAST regulations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avalon Technologies Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -192483,9 +192484,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2019328,
-    "news_picked_today": 608,
-    "news_dropped_today": 10144
+    "news_seen_today": 2093212,
+    "news_picked_today": 610,
+    "news_dropped_today": 10190
   },
   "book_momentum": {
     "live_count": 8,
