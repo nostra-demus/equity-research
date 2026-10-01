@@ -422,7 +422,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §18/§13 module verdict-lock caps — a balance-sheet-survival "Distress risk" or management-governance "Serious governance concerns" or business-model "Low-quality business" synthesis verdict capping the headline at Watchlist or lower (checks AA/AB, via `scripts/rating_caps.py`) — the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation, the Decision Audit Trail structural check, and red-flag severity reconciliation (checks AI/AJ/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §18/§13 module verdict-lock caps — a balance-sheet-survival "Distress risk" or management-governance "Serious governance concerns" or business-model "Low-quality business" synthesis verdict capping the headline at Watchlist or lower (checks AA/AB, via `scripts/rating_caps.py`) — the §16 sector ↔ valuation-method consistency check, that a bank/lender/insurer/REIT is never headlined on a method `frameworks/SECTOR_OVERLAYS.md` or the valuation Business-Type Method Map forbids for it (check W, via `scripts/sector_valuation_checks.py`) — the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation, the Decision Audit Trail structural check, and red-flag severity reconciliation (checks AI/AJ/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 The §18 Phase 6 calibration-feedback gate also verifies that decision_record.json carries calibration_feedback consistent with the as-of calibration_summary.json and that an applied haircut reaches confidence_inputs.calibration_haircut (check AG, via scripts/calibration_gate_checks.py). Fresh publication requires valid confidence_inputs for an applied haircut; retrospective legacy tolerance does not apply.
 
@@ -662,6 +662,27 @@ _bm_verdict = rc.extract_synthesis_verdict(_bm_txt)
 _bm_disq = rc.extract_bm_disqualifier_triggered(_bm_txt)
 viol.extend(rc.eval_aa_module_verdict_lock(dec, _live_date, _bss_verdict, _mg_verdict, _tt24) or [])
 viol.extend(rc.eval_ab_bm_verdict_lock(dec, _live_date, _bm_verdict, _bm_disq) or [])
+# check W — §16 sector ↔ valuation-method consistency (live pre-publish; mirrors eval.py check W via
+# scripts/sector_valuation_checks.py, a shared detection module following the same rating_caps.py /
+# headline_checks.py / scenario_integrity_checks.py extraction pattern). CLAUDE.md §16 requires
+# "method validity matched to business type"; frameworks/SECTOR_OVERLAYS.md makes it concrete — a
+# bank/lender/insurer must never be valued on an enterprise-value / unlevered-cashflow method (FCFF
+# DCF, EV/EBITDA, EV/EBIT, EV/Sales, net-debt/EBITDA), and a REIT must never be valued on an
+# EBITDA-DCF (depreciation is economically real for a REIT, so an EBITDA-based DCF overstates cash
+# flow). `business_type`/`primary_valuation_method` are additive/optional fields the valuation
+# module already populates (synthesizer.md) — N/A when either is unset, exactly eval.py check W's
+# own convention. Gate on `_live_date`, NOT `ddte` (decision_date) — the same AA/AB/BB/BD/BE
+# rerun-safety precedent: a standalone `/research:rerun`'s decision_date stays pinned to the run's
+# original pre-SECTOR_DATE suffix (synthesizer.md), so gating on `ddte` would make this check
+# permanently N/A on the ordinary rerun path even when a freshly regenerated `primary_valuation_method`
+# uses a forbidden token. Unconditional on `dec` (not folded into `viol.extend(... or [])` against it):
+# a mismatched method is a structural defect regardless of the headline decision.
+import sector_valuation_checks as svc
+if _isdate(_live_date) and _live_date >= svc.SECTOR_DATE:
+    _w_hits = svc.eval_w_sector_valuation(d.get("business_type"), d.get("primary_valuation_method"))
+    if _w_hits:
+        viol.append(f"business_type={d.get('business_type')!r} but primary_valuation_method={d.get('primary_valuation_method')!r} "
+                    f"uses forbidden method token(s) {_w_hits!r} for its sector — CLAUDE.md §16 / frameworks/SECTOR_OVERLAYS.md")
 # check BB — §16 Sector Cycle Reality Test compounding cap (live pre-publish; mirrors eval.py check
 # BB via scripts/rating_caps.py, same shared detection module as AC/AD/AE/AF above). Mechanizes
 # valuation/MODULE_RULES.md's Sector Cycle Reality Test compounding rule (CLAUDE.md §16): when
@@ -778,9 +799,28 @@ viol.extend(hc.eval_aj_decision_audit_trail(_live_date, _thesis_text_ak) or [])
 # scripts/valuation_summary_checks.py). valuation_summary.json is §25 DATA that reaches main WITHOUT CI, so
 # a malformed or decision_record-contradicting sidecar would drive the cockpit Playground with levers that
 # disagree with the committed thesis before the retrospective eval ever runs — stamp PROVISIONAL now.
-# Soft-presence: a run that emits no sidecar is N/A, never a violation.
+# Presence: REQUIRED of a run that actually produced scenario levels, soft for one that did not.
+# 99_valuation-synthesis calls emitting this file a "(Hard Rule)" while this gate used to treat its
+# absence as "N/A, never a violation", and the runs followed the gate: emission worked through
+# NVT 2026-09-07 and then silently stopped — AKAM 09-14, AKAM 09-15, V 09-23 and BURL 09-29 each ran the
+# whole valuation module and wrote 99's markdown, none wrote the sidecar, and nothing said so for three
+# weeks. A Hard Rule nothing checks is a suggestion.
+#
+# Checked HERE rather than in eval.py's corpus scan on purpose: this gate is per-run and pre-publish, so
+# it reaches the run that can still fix it, while a corpus-wide presence rule would red CI on every code
+# PR for runs whose authors were never told (valuation_basis_checks.BF_SIDECAR_REQUIRED_DATE stays None
+# for that reason). The gate loop runs twice, so the normal outcome is that the agent is told, emits it,
+# and the run goes clean; one that still cannot ships PROVISIONAL with the reason named.
+#
+# A run with no scenario levels has nothing to put in the sidecar, so absence there stays soft.
 import valuation_summary_checks as vsc
 _vs_path = os.path.join(run, "valuation", "valuation_summary.json")
+_vs_levels = d.get("scenarios") if isinstance(d, dict) else None
+if not os.path.exists(_vs_path) and isinstance(_vs_levels, list) and _vs_levels:
+    viol.append(f"valuation/valuation_summary.json was not emitted, though this run produced {len(_vs_levels)} "
+                "scenario level(s) — it is the only artifact carrying per-case basis, so without it the fair "
+                "value is not re-derivable and no basis check can read the run (99_valuation-synthesis "
+                "'Structured Emission', Hard Rule)")
 if os.path.exists(_vs_path):
     # soft-presence is only for an ABSENT file; a present-but-unreadable/invalid sidecar is an integrity
     # failure (else a truncated JSON would collapse to None and PASS the gate, shipping a broken lever set).
@@ -938,7 +978,7 @@ if viol:
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §18/§13 module verdict-lock caps (BSS/MG/BM), §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), Decision Audit Trail structural check (§8/§22), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, and HARD GATE 11 kill-criteria presence + trigger-test schema and the §18 Phase 6 calibration-feedback gate all satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §18/§13 module verdict-lock caps (BSS/MG/BM), §16 sector ↔ valuation-method consistency (check W), §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), Decision Audit Trail structural check (§8/§22), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, and HARD GATE 11 kill-criteria presence + trigger-test schema and the §18 Phase 6 calibration-feedback gate all satisfied")
 PY
 ```
 
