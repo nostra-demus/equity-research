@@ -49,9 +49,11 @@ import re
 _PERIOD_PATTERNS = (
     ("mid_cycle", r"mid[-\s]?cycle|through[-\s]?cycle|normali[sz]ed cycle"),
     ("trough", r"\btrough\b|\bdownturn\b|\brecession\b"),
-    ("LTM", r"\bLTM\b|\bTTM\b|trailing twelve"),
+    ("LTM", r"\bLTM\b|\bTTM\b|trailing twelve|\btrailing\b"),
     ("NTM", r"\bNTM\b|next twelve|forward twelve"),
-    ("FY", r"\bFY\s?\+?\d{2,4}E?\b|\bCY\s?\d{4}\b|\b20\d{2}E\b"),
+    # FY+1 / FY+2 are documented in the sidecar schema's own metric_basis examples, so they must parse.
+    ("FY_REL", r"\bFY\s?\+\s?\d\b"),
+    ("FY", r"\bFY\s?\d{2,4}E?\b|\bCY\s?\d{4}\b|\b20\d{2}E\b"),
 )
 
 _MEASURE_PATTERNS = (
@@ -76,8 +78,24 @@ def normalise_metric_basis(raw):
         return None
     text = raw.strip()
 
-    period = next((name for name, rx in _PERIOD_PATTERNS if re.search(rx, text, re.I)), None)
-    if period == "FY":
+    # THE PERIOD IS THE ONE THE METRIC IS STATED ON — the EARLIEST period token in the string — not any
+    # period word appearing anywhere in it. This distinction is the whole check.
+    #
+    # "FY2026E EBITDA at FY2021-trough EBIT margin applied to FY2026E consensus revenue" is a FY26 metric
+    # that happens to source its margin from a trough year: it is re-based, which is exactly what the
+    # module now requires. Scanning for the word "trough" anywhere classified it as a trough-period case
+    # and flagged two runs (HAIER, INDIAMART) that had done the right thing — a check that punishes
+    # compliance is worse than no check, so position decides, not presence.
+    hits = []
+    for name, rx in _PERIOD_PATTERNS:
+        match = re.search(rx, text, re.I)
+        if match:
+            hits.append((match.start(), name))
+    period = min(hits)[1] if hits else None
+    if period == "FY_REL":
+        match = re.search(r"\bFY\s?\+\s?(\d)\b", text, re.I)
+        period = f"FY+{match.group(1)}" if match else "FY+?"
+    elif period == "FY":
         # Keep the YEAR: FY27 and FY29 are different periods, and a set mixing them is the same defect
         # as mixing NTM with a trough. Two digits, so FY2027 and FY27 compare equal.
         match = re.search(r"(?:FY\s?\+?|CY\s?)(\d{2,4})", text, re.I) or re.search(r"\b(20\d{2})E\b", text)
@@ -95,11 +113,29 @@ def _weighted_cases(sidecar):
     an escape hatch — scenario_integrity_checks' span test still governs what the remaining set must
     contain, and a set that loses its whole down-leg fails there instead.
     """
+    cases = [c for c in (sidecar.get("scenarios") or []) if isinstance(c, dict)]
+    if not cases:
+        return []
+
+    def label(case):
+        return str(case.get("label") or "").strip().lower()
+
+    # The AVOID-RUIN FLOOR IS NOT THE 12-MONTH BEAR. 07 §"Which case it becomes" makes the
+    # structural-reset the headline Bear ONLY when the moat trajectory is confirmed eroding; in every
+    # other firing it is carried to §24 / Kill Criteria as "the multi-year permanent-impairment
+    # scenario, NOT the 12-month bear". So where a run states a cyclical bear AND a structural one, the
+    # structural case is a floor outside the weighted set — counting it produced six "partial
+    # declaration" findings against runs that had followed the prompt exactly. Where it is the ONLY
+    # bear it IS the headline, and it counts.
+    structural = [c for c in cases if "structural" in label(c) or "avoid_ruin" in label(c) or "avoid-ruin" in label(c)]
+    other_bears = [c for c in cases if "bear" in label(c) and c not in structural]
+    floors = structural if (structural and other_bears) else []
+
     out = []
-    for case in (sidecar.get("scenarios") or []):
-        if not isinstance(case, dict):
-            continue
+    for case in cases:
         if str(case.get("set_membership") or "weighted").lower() == "sensitivity":
+            continue
+        if case in floors:
             continue
         out.append(case)
     return out
@@ -142,8 +178,19 @@ def eval_scenario_basis_coherence(sidecar):
             " — a set is only comparable if every case says what it is measured on"
         )
 
-    periods = {norm[0] for _, norm in declared}
-    measures = {norm[1] for _, norm in declared}
+    # A basis that parses to no period is UNKNOWN, not a period of its own. Letting None join the set
+    # manufactured mismatches out of thin air — EMAAR read ['LTM', None] and ORCL ['NTM', None], which
+    # together with the trough bug accounted for every period finding this check originally reported.
+    periods = {norm[0] for _, norm in declared if norm[0] is not None}
+    measures = {norm[1] for _, norm in declared if norm[1] is not None}
+
+    unparsed = [c for c, norm in declared if norm[0] is None]
+    if unparsed and periods:
+        labels = ", ".join(str(c.get("label") or "?") for c in unparsed)
+        violations.append(
+            f"metric_basis on {labels} names no period that can be read against the rest of the set "
+            f"{sorted(periods)} — state the period (NTM / LTM / FY+1 / FY20XX / mid-cycle / trough)"
+        )
 
     if len(periods) > 1:
         detail = "; ".join(
@@ -210,8 +257,56 @@ def _selftest() -> int:
     check("free-text suffix is ignored",
           normalise_metric_basis("NTM Revenue (CIQ consensus)") == normalise_metric_basis("NTM revenue"))
     check("EBITDA is not read as EBIT", normalise_metric_basis("NTM EBITDA")[1] == "EBITDA")
-    check("trough beats the forward token",
-          normalise_metric_basis("FY2022 GAAP trough EPS")[0] == "trough")
+    # The PERIOD is the one the metric is stated on. "FY2022 ... trough EPS" is an FY22 metric that
+    # happens to be a trough; a sentence that OPENS on the downturn is a trough case. Either way the
+    # outcome that matters is identical — both mismatch a forward base — and that is what is asserted,
+    # not an internal label.
+    check("a metric stated on a fiscal year reads as that year",
+          normalise_metric_basis("FY2022 GAAP trough EPS")[0] == "FY22")
+    check("a sentence opening on the downturn reads as a trough",
+          normalise_metric_basis("A consumer downturn recreates the FY2022 GAAP EPS trough")[0] == "trough")
+    check("FY+1 parses (the schema documents it)", normalise_metric_basis("FY+1 EPS")[0] == "FY+1")
+    check("bare 'trailing' parses", normalise_metric_basis("trailing EPS")[0] == "LTM")
+
+    # REGRESSION — the real strings this check originally flagged in error. Both bears are re-based onto
+    # the forward denominator, which is precisely the remedy the module now mandates, so a check that
+    # fires on them punishes compliance.
+    haier = {"scenarios": [
+        {"label": "bull", "metric_basis": "FY2026E EBITDA (consensus base + bull-case uplifts)"},
+        {"label": "base", "metric_basis": "FY2026E consensus EBITDA (Capital IQ)"},
+        {"label": "bear_cyclical", "metric_basis":
+            "FY2026E EBITDA at FY2021-trough (5.91%) EBIT margin applied to FY2026E consensus revenue"}]}
+    check("a trough MARGIN re-based onto a forward period is not a period mismatch",
+          not any("PERIOD" in v for v in eval_scenario_basis_coherence(haier)))
+    indiamart = {"scenarios": [
+        {"label": "bull", "metric_basis": "FY27E EBITDA (Street consensus + favorable levers)"},
+        {"label": "base", "metric_basis": "FY27E EBITDA (Street consensus, 15 analysts)"},
+        {"label": "bear", "metric_basis":
+            "FY27E EBITDA (FY27E revenue x 24% EBIT margin - below the FY23/FY24 prior-trough margin)"}]}
+    check("a prior-trough margin cited as a COMPARISON is not a period mismatch",
+          not any("PERIOD" in v for v in eval_scenario_basis_coherence(indiamart)))
+
+    # REGRESSION — the avoid-ruin floor is not the 12-month bear (07 "Which case it becomes").
+    floor = {"scenarios": [
+        {"label": "bull", "metric_basis": "NTM EBITDA"},
+        {"label": "base", "metric_basis": "NTM EBITDA"},
+        {"label": "bear_cyclical", "metric_basis": "NTM EBITDA"},
+        {"label": "bear_structural"}]}
+    check("a structural floor beside a cyclical bear is excluded from the weighted set",
+          eval_scenario_basis_coherence(floor) == [])
+    lone = {"scenarios": [
+        {"label": "bull", "metric_basis": "NTM EBITDA"},
+        {"label": "base", "metric_basis": "NTM EBITDA"},
+        {"label": "bear_structural"}]}
+    check("a structural bear that is the ONLY bear still counts",
+          any("missing on" in v for v in eval_scenario_basis_coherence(lone)))
+
+    # An unknown period must not masquerade as a different one.
+    unknown = {"scenarios": [{"label": "a", "metric_basis": "NTM EPS"},
+                             {"label": "b", "metric_basis": "BVPS (AED per share)"}]}
+    out_u = eval_scenario_basis_coherence(unknown)
+    check("an unparseable period is reported as unknown, not as a mismatch",
+          any("names no period" in v for v in out_u) and not any("PERIOD" in v for v in out_u))
     check("mid-cycle is first-class", normalise_metric_basis("mid-cycle EBITDA")[0] == "mid_cycle")
     check("FY keeps its year", normalise_metric_basis("FY27E EBITDA")[0] == "FY27")
     check("FY27 == FY2027", normalise_metric_basis("FY27E EPS") == normalise_metric_basis("FY2027E EPS"))
