@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T04:29:37Z",
+  "generated_at": "2026-10-01T04:37:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-121",
@@ -191,6 +191,55 @@
           "name": "Nidec Corporation",
           "ticker": null,
           "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-204",
+      "headline": "Walgreens-owner Sycamore nears $9 billion sale of Boots, WSJ reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/walgreens-owner-sycamore-nears-9-billion-sale-boots-wsj-reports-2026-09-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T02:46:46Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Walgreens-owner Sycamore is reportedly nearing a $9 billion sale of its Boots unit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Walgreens-owner Sycamore is reportedly nearing a $9 billion sale of its Boots unit.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Walgreens Boots Alliance, Inc.",
+          "ticker": "WBA",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1962,55 +2011,6 @@
           "name": "Xiaomi",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-138",
-      "headline": "Why Capitec hiked loan impairments by R1bn",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/companies-and-deals/why-capitec-hiked-loan-impairments-by-r1bn/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T02:03:12Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Capitec Bank increased loan impairments by R1 billion, affecting reported profit, provision levels, and credit-quality metrics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Capitec Bank increased loan impairments by R1 billion, affecting reported profit, provision levels, and credit-quality metrics.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 18,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Capitec Bank",
-          "ticker": "CAP",
-          "listing_country": "ZA"
         }
       ],
       "size_bucket": "large",
@@ -193285,9 +193285,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1057356,
-    "news_picked_today": 265,
-    "news_dropped_today": 6119
+    "news_seen_today": 1073367,
+    "news_picked_today": 301,
+    "news_dropped_today": 6251
   },
   "book_momentum": {
     "live_count": 8,
