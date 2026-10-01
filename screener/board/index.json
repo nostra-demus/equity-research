@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-01T13:10:11Z",
+  "generated_at": "2026-10-01T13:15:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261001-421",
+      "headline": "Siti Networks Limited: Siti Networks Limited has informed the Exchange regarding 'Disclosure in compliance with Para 3(C2) of SEBI Circular No. SEBI/HO/CFD/CMD1/CIR/2019/140 dated November 21, 2019, of default on payment of interest/repayment of principal amount on loans from Bank(s)'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SITINET_01102026183035_Quarterly.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T13:00:47Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Siti Networks Limited disclosed a default on interest and principal payments to banks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Siti Networks Limited disclosed a default on interest and principal payments to banks.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Siti Networks Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261001-396",
       "headline": "Shree Pushkar Chemicals & Fertilisers Limited: Shree Pushkar Chemicals & Fertilisers Limited has informed the Exchange about Amalgamation/Merger",
@@ -1946,55 +1995,6 @@
       "companies": [
         {
           "name": "Cupid Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-398",
-      "headline": "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process - NCLAT - Receipt of Copy of Adjournment Order",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BGRENERGY_01102026164135_NCLATORDERCOPY.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-01T11:12:43Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "BGR Energy is under formal Corporate Insolvency Resolution Process (CIRP) via NCLAT; distress-stage survival risk for equity holders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "BGR Energy is under formal Corporate Insolvency Resolution Process (CIRP) via NCLAT; distress-stage survival risk for equity holders.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BGR Energy Systems Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -192552,9 +192552,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3727050,
-    "news_picked_today": 867,
-    "news_dropped_today": 16677
+    "news_seen_today": 3777685,
+    "news_picked_today": 885,
+    "news_dropped_today": 16731
   },
   "book_momentum": {
     "live_count": 8,
