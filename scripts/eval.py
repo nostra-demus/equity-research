@@ -307,30 +307,14 @@ def eval_ay_fixture_integrity(decision_date, status):
     return "fail" if status=="provisional" else "pass"
 
 # ── Check AZ (verify-evidence Section C3 — named-metric contradiction sweep, CLAUDE.md §3) ──
-# CLAUDE.md §3 requires that a directional verdict resting on one metric, while a different metric in
-# the engine's own tables points the other way, name that second metric and say why it does not overturn
-# the verdict — the exact AMZN worked example the doctrine itself documents (moat "confirmed" off a
-# gross-margin decline while EBITDA margin, net margin, cash conversion, and market share were all up).
-# verify-evidence.md Section C already reconciles NUMERIC anchors across modules, and Section C2 catches
-# a directional claim that drops its qualifier/basis between an upstream sub-agent and the thesis — but
-# neither ever swept the run's OWN module tables for a same-family, opposite-direction metric that was
-# never named anywhere at all. Section C3 (added alongside this check) closes that hole; this is the
-# purely-structural half — it does not grade the sweep's content (that is inherently a judgment call, the
-# same way Section A/B/C are), only that a run dated on/after AZ_DATE actually carries the field, so a
-# future verify-evidence run cannot silently regress to omitting the section it is now instructed to run.
-# Same "additive schema, forward-looking gate" convention as checks T2/W/AX — see those for precedent.
-AZ_DATE="2026-08-21"
-def eval_az_contradiction_sweep(decision_date, verification_report):
-    """Core of check AZ. `verification_report` is the parsed verification_report.json dict, or None if
-    no report exists for this run. Returns 'pass' | 'fail' | 'na'. Side-effect-free + module-level so
-    the selftest can drive the date gate without a run fixture."""
-    if not (isdate(decision_date) and decision_date>=AZ_DATE):
-        return "na"
-    if verification_report is None:
-        return "na"  # report existence itself is gated by check O for conviction runs; not re-litigated here
-    if not isinstance(verification_report, dict):
-        return "fail"  # a report that parses to a non-dict JSON type can't carry contradiction_checks[] — fail, don't crash
-    return "pass" if isinstance(verification_report.get("contradiction_checks"), list) else "fail"
+# Detection logic extracted to scripts/verify_evidence_checks.py (importable, side-effect-free) so the
+# SAME function also runs LIVE in the /research:full Step 10B.2 finish-gate — before a violation ships,
+# not only when someone remembers to run this eval harness afterward. See that module's docstring for
+# the full doctrine rationale and the AMZN worked example (moat "confirmed" off a gross-margin decline
+# while EBITDA margin, net margin, cash conversion, and market share were all up over the same period).
+# Import (not copy): eval.py is the single caller of this function for retrospective grading;
+# verify_evidence_checks.py is the single source of the detection logic, imported by both callers.
+from verify_evidence_checks import AZ_DATE, eval_az_contradiction_sweep
 
 # ── Check Y (§11 data-sufficiency cap) — module-level so `eval.py selftest` can drive it ──
 # CLAUDE.md §11 / synthesizer.md Rating Cap Rules: data_sufficiency_score < 30 → the decision MUST be the
@@ -605,72 +589,14 @@ from valuation_basis_checks import (
     scan_committed as scan_basis_committed, _selftest as _vb_selftest, BF_ENFORCE_DATE,
 )
 
-# ── Check AN (§4a supersession-integrity) — module-level so `eval.py selftest` drives it fixture-free ──
-def _an_valid_sidecar(run_dir):
-    """A run's corrections sidecar, but ONLY if it passes the schema gate the resolver applies
-    (schema == 'corrections/v1'); else {} — so AN honors exactly the sidecars ledger_records honors."""
-    try:
-        with open(os.path.join(run_dir, "corrections.json")) as f:
-            c = json.load(f)
-        return c if (isinstance(c, dict) and c.get("schema") == "corrections/v1") else {}
-    except Exception:
-        return {}
-
-def _an_terminal_replacement_violations(run_root, source_run_root=None):
-    """Return why a supersession target is not a complete published correction.
-
-    A targeted correction is not a second full run, so it does not invent RUN_METADATA or rebuilt
-    module tiers. It must, however, carry every terminal user-facing artifact plus valid runtime
-    provenance before it is allowed to retire the prior standing call.
-    """
-    if not source_run_root:
-        return ["supersession source run root is unavailable"]
-    return [f"supersession target {run_root!r} is not a valid terminal publication: {error}"
-            for error in supersession_target_violations(source_run_root, run_root)]
-
-def eval_an_supersession_integrity(corrections, source_run_root=None):
-    """Check AN: an append-only corrections.json that declares `superseded_by` (DECISION_LEDGER §4a)
-    must point at a real, existing run folder carrying a decision record, AND the supersession CHAIN
-    from it must terminate on a LIVE (non-superseded) record — a dangling, circular (A→B→A), or
-    chain-ends-on-another-superseded-run supersession would silently drop every call in the chain
-    from the standing set with no live replacement. Returns None (no sidecar / no supersession → N/A)
-    or a list of violations (empty = valid)."""
-    if not isinstance(corrections, dict):
-        return None
-    sup = corrections.get("superseded_by")
-    if not isinstance(sup, dict):
-        return None
-    tgt = sup.get("run_root")
-    if not (isinstance(tgt, str) and tgt.strip()):
-        return ["superseded_by present but carries no run_root"]
-    tgt = tgt.strip()
-    if not os.path.isdir(tgt):
-        return [f"superseded_by.run_root {tgt!r} does not exist"]
-    if not os.path.exists(os.path.join(tgt, "decision_record.json")):
-        return [f"superseded_by target {tgt!r} has no decision_record.json"]
-    # walk the chain to its terminal live record, detecting cycles
-    seen, cur = set(), tgt
-    while True:
-        if cur in seen:
-            return [f"supersession chain is circular at {cur!r} — no live replacement record"]
-        seen.add(cur)
-        nxt_sup = _an_valid_sidecar(cur).get("superseded_by")
-        nxt = nxt_sup.get("run_root") if isinstance(nxt_sup, dict) else None
-        if not (isinstance(nxt, str) and nxt.strip()):
-            return _an_terminal_replacement_violations(cur, source_run_root)
-        nxt = nxt.strip()
-        if not (os.path.isdir(nxt) and os.path.exists(os.path.join(nxt, "decision_record.json"))):
-            return [f"supersession chain: {cur!r} is superseded by {nxt!r} which does not exist"]
-        cur = nxt
-
-def eval_release_gate_eligible(has_run_metadata, supersession_result):
-    """Only a complete standing run gates releases; valid corrected-away runs remain advisory.
-
-    `supersession_result` is exactly eval_an_supersession_integrity's result: [] means a valid chain,
-    None means no supersession, and a non-empty list is malformed authority that must fail closed.
-    """
-    valid_supersession = isinstance(supersession_result, list) and len(supersession_result) == 0
-    return bool(has_run_metadata) and not valid_supersession
+# ── Check AN (§4a supersession-integrity) ──
+# Detection logic extracted to scripts/supersession_integrity_checks.py — see that module's docstring.
+# Same rationale as the AP/AI/AK imports above: live pre-commit gate (scripts/corrections_prewrite_gate.py,
+# called from commit-run.sh) + retrospective eval, one source of detection logic, imported by both callers.
+from supersession_integrity_checks import (
+    _an_valid_sidecar, _an_terminal_replacement_violations,
+    eval_an_supersession_integrity, eval_release_gate_eligible,
+)
 
 # ── Checks AM/AR (§8 bear-case / bull-case sanity) — detection logic moved to
 # scripts/scenario_integrity_checks.py, imported further below alongside AT/AU/AV/BA/BC, so the
