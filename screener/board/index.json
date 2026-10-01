@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T01:16:22Z",
+  "generated_at": "2026-10-01T01:24:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-033",
@@ -203,6 +203,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-061",
+      "headline": "XRG: Continuation of Suspension from Quotation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XRG?key=2924-03143118-2A1701061",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T00:55:19Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Continuation of trading suspension signals ongoing compliance breach or survival risk; affects shareholder liquidity and listing continuity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Continuation of trading suspension signals ongoing compliance breach or survival risk; affects shareholder liquidity and listing continuity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XRG",
+          "ticker": "XRG",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -668,6 +717,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-062",
+      "headline": "KLV: Highlights of the Annual Report for FY 2026 [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KLV?key=2924-03143112-6A1347155",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T00:42:44Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Annual report FY 2026 highlights disclosed and flagged price-sensitive, but headline reveals no numbers, guidance change, or directional signal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Annual report FY 2026 highlights disclosed and flagged price-sensitive, but headline reveals no numbers, guidance change, or directional signal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 63,
+      "rank_factors": {
+        "materiality": 63,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KLV",
+          "ticker": "KLV",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1870,106 +1968,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-049",
-      "headline": "Noel and son move to shield Trusts as Tata Sons tussle heats up",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/tata-trusts-vs-tata-sons-venu-srinivasan-11790770650447.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:30:57Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Contested governance tussle over trust control within the Tata family ecosystem may affect dividend and strategic policy at listed Tata subsidiaries (TCS, Tata Steel, Tata Motors), but the headline confirms no specific event, outcome, or quantified impact on any named tradable co",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Contested governance tussle over trust control within the Tata family ecosystem may affect dividend and strategic policy at listed Tata subsidiaries (TCS, Tata Steel, Tata Motors), but the headline confirms no specific event, outcome, or quantified impact on any named tradable co",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "ownership_activist",
-        "strategic_review"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-051",
-      "headline": "Flipkart weighs ESOP cash-out amid staff unease, senior departures",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/flipkart-esop-buyback-amid-ipo-delay-walmart-11790751077575.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:15:36Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Flipkart is considering an ESOP cash-out amid reports of senior leadership departures and internal staff dissatisfaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Flipkart is considering an ESOP cash-out amid reports of senior leadership departures and internal staff dissatisfaction.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flipkart",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193882,9 +193880,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 420194,
-    "news_picked_today": 62,
-    "news_dropped_today": 1618
+    "news_seen_today": 461002,
+    "news_picked_today": 64,
+    "news_dropped_today": 1952
   },
   "book_momentum": {
     "live_count": 8,
