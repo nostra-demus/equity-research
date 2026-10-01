@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T13:47:59Z",
+  "generated_at": "2026-10-01T13:57:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-421",
@@ -536,6 +536,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-425",
+      "headline": "Digi International To Buy Disruptive Technologies For $130 Mln In Cash",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/digi-international-buy-disruptive-technologies-130-mln-cash",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T12:35:26Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Digi International to acquire Disruptive Technologies for $130 million cash.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Digi International to acquire Disruptive Technologies for $130 million cash.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Digi International",
+          "ticker": "DGII",
+          "listing_country": "US"
+        },
+        {
+          "name": "Disruptive Technologies",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1908,21 +1962,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261001-389",
-      "headline": "Wipro Limited: Wipro Limited has informed the Exchange to please refer to our earlier letters dated April 15, 2026, June 23, 2026, and September 30, 2026, respectively informing that Wipro Limited, through its subsidiaries, had signed a definitive agreement to acquire select customer contracts of Alpha Net Consulting LLC and its subsidiaries and that the transaction was expected to be completed by December 31, 2026.In continuation to the aforesaid letters, it is hereby informed that the said tra",
+      "inbox_id": "INB-20261001-428",
+      "headline": "SC 14D9/A - ACV Auctions Inc. (0001637873) (Subject)",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/Wipro_Secretarial_01102026155838_Reg30SEIntimation01102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-01T10:29:30Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/1637873/000119312526409981/0001193125-26-409981-index.htm",
+      "source_name": "SEC EDGAR — Latest SC 14D9 (Target's Tender-Offer Response)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-01T13:04:09Z",
       "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Wipro completed the acquisition of select customer contracts from Alpha Net Consulting LLC.",
+      "prelim_note": "ACV Auctions Inc. filed a target's tender-offer response, indicating an ongoing M&A process.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 99,
-      "triage_reason": "Wipro completed the acquisition of select customer contracts from Alpha Net Consulting LLC.",
-      "region": "IN",
+      "triage_reason": "ACV Auctions Inc. filed a target's tender-offer response, indicating an ongoing M&A process.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
@@ -1938,55 +1992,6 @@
         "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
         "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wipro Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-012",
-      "headline": "NHF: nib Group concludes sale of nib Travel",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NHF?key=2924-03143067-2A1701003",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T23:51:38Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "nib Holdings concludes sale of nib Travel subsidiary; no deal valuation or subsidiary revenue/profit contribution disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "nib Holdings concludes sale of nib Travel subsidiary; no deal valuation or subsidiary revenue/profit contribution disclosed.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
         "size_bucket": "large"
       },
       "event_types": [
@@ -1995,9 +2000,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "nib Holdings",
-          "ticker": "NHF",
-          "listing_country": "AU"
+          "name": "ACV Auctions Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -192553,9 +192558,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3962324,
-    "news_picked_today": 937,
-    "news_dropped_today": 17063
+    "news_seen_today": 3979112,
+    "news_picked_today": 946,
+    "news_dropped_today": 17246
   },
   "book_momentum": {
     "live_count": 8,
