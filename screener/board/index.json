@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T10:23:38Z",
+  "generated_at": "2026-10-01T10:31:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-373",
@@ -242,6 +242,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-387",
+      "headline": "Industrie: Investoren im Blick – Varta hofft auf schnelle Lösung bei Insolvenzverfahren",
+      "headline_en": "Industry: Investors in focus — Varta hopes for quick solution in insolvency proceedings",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/industrie-varta-hofft-auf-schnelle-loesung-bei-insolvenzverfahren/100258952.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T10:09:19Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Varta is in formal insolvency proceedings, seeking expedited restructuring, putting equity at severe capital-loss risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Varta is in formal insolvency proceedings, seeking expedited restructuring, putting equity at severe capital-loss risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Varta",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1957,55 +2006,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-146",
-      "headline": "DME: Delay in release of the 2026 Audit Financial Reports [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DME?key=2924-03143173-2A1701098",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-01T02:22:24Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Delay in releasing audited financial reports is a significant red flag for governance and transparency.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Delay in releasing audited financial reports is a significant red flag for governance and transparency.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DME",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192625,9 +192625,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2751411,
-    "news_picked_today": 700,
-    "news_dropped_today": 13196
+    "news_seen_today": 2769209,
+    "news_picked_today": 710,
+    "news_dropped_today": 13450
   },
   "book_momentum": {
     "live_count": 8,
