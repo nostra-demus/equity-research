@@ -791,11 +791,32 @@ viol.extend(hc.eval_aj_decision_audit_trail(_live_date, _thesis_text_ak) or [])
 import valuation_summary_checks as vsc
 _vs_path = os.path.join(run, "valuation", "valuation_summary.json")
 _vs_levels = d.get("scenarios") if isinstance(d, dict) else None
-if not os.path.exists(_vs_path) and isinstance(_vs_levels, list) and _vs_levels:
+# [review fix F11] REQUIRE THE ARTIFACT ONLY FROM A PASS THAT RAN THE VALUATION MODULE. The rule above
+# keys off `decision_record.scenarios` alone, and this block runs verbatim in TWO callers. A
+# `/research:full` run executes every module, so valuation's 99 always runs and can always emit —
+# default REQUIRED. But a standalone `/research:rerun` re-runs only the selected orb, its own module's
+# 99, and the 99 of each module downstream of it (rerun.md, "You re-run ONLY"), then runs this gate
+# verbatim at its Step 8A. When `valuation` is not in that cascade, NO step in the pass writes this
+# file, so requiring it stamps PROVISIONAL on a run that has no way to clear it — the gate's own stated
+# purpose is to "reach the run that can still fix it", and this is the case that cannot.
+# Measured: five committed folders carry scenario levels in decision_record.json and no sidecar
+# (AKAM_2026-09-14, AKAM_2026-09-15, BURL_2026-09-29, NU_2026-08-31, V_2026-09-23 — the four that ran
+# after emission silently stopped, plus NU). Every future rerun of one of those outside the valuation
+# cascade would ship flagged, permanently, on an artifact that pass cannot produce.
+# The default is REQUIRED, so a caller that forgets to declare its scope keeps the Hard Rule's teeth;
+# only an explicit out-of-scope declaration relaxes it, and that case is PRINTED rather than dropped, so
+# the operator still sees the gap and can clear it with `/research:rerun <TICKER> valuation`.
+_vs_in_scope = globals().get("_VALUATION_MODULE_IN_SCOPE", True)
+if not os.path.exists(_vs_path) and isinstance(_vs_levels, list) and _vs_levels and _vs_in_scope:
     viol.append(f"valuation/valuation_summary.json was not emitted, though this run produced {len(_vs_levels)} "
                 "scenario level(s) — it is the only artifact carrying per-case basis, so without it the fair "
                 "value is not re-derivable and no basis check can read the run (99_valuation-synthesis "
                 "'Structured Emission', Hard Rule)")
+elif not os.path.exists(_vs_path) and isinstance(_vs_levels, list) and _vs_levels:
+    print(f"GATE-NOTE: valuation/valuation_summary.json is absent and this pass did not run the valuation "
+          f"module, so nothing here could emit it — not a violation of this pass. The run still carries "
+          f"{len(_vs_levels)} scenario level(s) with no per-case basis artifact; clear it with "
+          f"`/research:rerun <TICKER> valuation` (99_valuation-synthesis 'Structured Emission', Hard Rule)")
 if os.path.exists(_vs_path):
     # soft-presence is only for an ABSENT file; a present-but-unreadable/invalid sidecar is an integrity
     # failure (else a truncated JSON would collapse to None and PASS the gate, shipping a broken lever set).
