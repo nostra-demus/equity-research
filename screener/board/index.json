@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-01T02:17:03Z",
+  "generated_at": "2026-10-01T02:25:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261001-121",
+      "headline": "BSA: Proposed to Acquire Eonetics' Aerial Infrastructure Business [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BSA?key=2924-03143166-2A1701072",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T02:06:39Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "BSA announced a proposed acquisition of Eonetics' aerial infrastructure business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BSA announced a proposed acquisition of Eonetics' aerial infrastructure business.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BSA Limited",
+          "ticker": "BSA",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-126",
+      "headline": "Doosan Enerbility-led consortium wins 840 bln-won plant deal in Vietnam",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261001004400320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T02:05:25Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Doosan Enerbility won a plant construction contract worth 840 billion won in Vietnam.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Doosan Enerbility won a plant construction contract worth 840 billion won in Vietnam.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Doosan Enerbility",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261001-033",
       "headline": "Nidec Shares Plunge After Auditor Withholds Opinion on Earnings",
@@ -660,6 +758,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-137",
+      "headline": "Transurban spends $4.5b to boost stakes in Sydney toll roads",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/infrastructure/transurban-spends-4-5b-to-boost-stakes-in-sydney-toll-roads-20261001-p611yp?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:32:23Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Transurban is spending $4.5 billion to increase its ownership stakes in Sydney toll roads.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Transurban is spending $4.5 billion to increase its ownership stakes in Sydney toll roads.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Transurban",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-135",
+      "headline": "Rio Tinto smelter bailouts near $5b as Tasmanian plant gets $200m",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/manufacturing/rio-tinto-smelter-bailouts-near-5b-as-tasmanian-plant-gets-200m-20261001-p611yt?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T01:04:20Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Rio Tinto is involved in a $5 billion smelter bailout program, including a $200 million investment in Tasmania.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Rio Tinto is involved in a $5 billion smelter bailout program, including a $200 million investment in Tasmania.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rio Tinto",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-003",
       "headline": "Paramount gets court green light on Warner Bros deal, names Mattel’s Kreiz co-CEO",
       "headline_en": null,
@@ -1071,6 +1267,60 @@
       "companies": [
         {
           "name": "Moderna",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-136",
+      "headline": "Ampol goes large on EV charging in $225m purchase of Evie network",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/transport/ampol-goes-large-on-ev-charging-in-225m-purchase-of-evie-network-20261001-p611yk?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:50:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Ampol is acquiring the Evie network for $225 million to expand its EV charging infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Ampol is acquiring the Evie network for $225 million to expand its EV charging infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ampol",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Evie Networks",
           "ticker": null,
           "listing_country": null
         }
@@ -1774,252 +2024,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-099",
-      "headline": "AirAsia Indonesia Mulls Share Sales, Liability Restructuring",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-01/airasia-indonesia-mulls-share-sales-liability-restructuring",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T01:44:49Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "AirAsia Indonesia is considering share sales and liability restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "AirAsia Indonesia is considering share sales and liability restructuring.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "strategic_review",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AirAsia Indonesia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-104",
-      "headline": "Growpital case: Sebi to refund money directly to investors for first time",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/ipos/fpos/growpital-case-sebi-to-refund-money-directly-to-investors-for-first-time/articleshow/134605764.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T01:31:56Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "SEBI will refund money directly to investors in the Growpital case for the first time, setting a precedent for regulatory action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "SEBI will refund money directly to investors in the Growpital case for the first time, setting a precedent for regulatory action.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Growpital",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-034",
-      "headline": "MetaMask exits Ethereum validators as it investigates security incident",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/metamask-exits-lido-validators-as-it-investigates-security-incident?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:15:55Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "MetaMask is investigating a security incident, leading to the suspension of Ethereum validator services.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "MetaMask is investigating a security incident, leading to the suspension of Ethereum validator services.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MetaMask",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-027",
-      "headline": "SAN: Placement",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SAN?key=2924-03141395-6A1346304",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T06:54:21Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "SAN announced a placement, which typically results in equity dilution for existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "SAN announced a placement, which typically results in equity dilution for existing shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SAN",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-025",
-      "headline": "Aastha Spintex Limited: Aastha Spintex Limited has informed the Exchange that the Board of Directors at its meeting held on September 29, 2026, have considered and approved bonus at the ratio of 1 : 1, i.e 1 Equity Shares for every 1 Equity Shares held.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/9081535400_29092026122608_BM_Outcome_for_Allotment_of_Bonus_Shares_sign.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T06:56:32Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Aastha Spintex Limited approved a 1:1 bonus share issue, which increases liquidity and signals management confidence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Aastha Spintex Limited approved a 1:1 bonus share issue, which increases liquidity and signals management confidence.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aastha Spintex Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -150913,76 +150917,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-da27b1ea58fb",
-      "idea_version": "IDEAV-dc34c3134228dee9",
-      "idea_version_started_at": "2026-09-29T16:06:24Z",
-      "ticker": "CCL",
-      "company": "Carnival Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Strong consumer demand for cruise travel is driving higher pricing power and occupancy, leading to an increase in the annual profit forecast.",
-      "why_now": "The guidance hike was announced today, September 29, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1c337004f5dc"
-      ],
-      "primary_source_event_id": "EVT-1c337004f5dc",
-      "source_headlines": [
-        "Carnival raises annual profit forecast on strong demand"
-      ],
-      "source_headline": "Carnival raises annual profit forecast on strong demand",
-      "source_url": "https://www.reuters.com/business/carnival-raises-annual-profit-forecast-demand-grows-2026-09-29/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-29T14:22:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T16:06:24Z",
-      "updated_at": "2026-09-29T16:06:24Z",
-      "decay_at": "2026-10-01T02:22:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-2c8697fc45c7",
       "idea_version": "IDEAV-7777b0b37ce565a4",
       "idea_version_started_at": "2026-09-30T16:19:46Z",
@@ -153255,6 +153189,76 @@
       "surfaced_at": "2026-09-26T15:19:48Z",
       "updated_at": "2026-09-28T03:32:24Z",
       "decay_at": "2026-09-29T14:36:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-da27b1ea58fb",
+      "idea_version": "IDEAV-dc34c3134228dee9",
+      "idea_version_started_at": "2026-09-29T16:06:24Z",
+      "ticker": "CCL",
+      "company": "Carnival Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Strong consumer demand for cruise travel is driving higher pricing power and occupancy, leading to an increase in the annual profit forecast.",
+      "why_now": "The guidance hike was announced today, September 29, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1c337004f5dc"
+      ],
+      "primary_source_event_id": "EVT-1c337004f5dc",
+      "source_headlines": [
+        "Carnival raises annual profit forecast on strong demand"
+      ],
+      "source_headline": "Carnival raises annual profit forecast on strong demand",
+      "source_url": "https://www.reuters.com/business/carnival-raises-annual-profit-forecast-demand-grows-2026-09-29/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T14:22:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T16:06:24Z",
+      "updated_at": "2026-09-29T16:06:24Z",
+      "decay_at": "2026-10-01T02:22:49Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -156070,14 +156074,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 549,
     "shown_count": 500,
-    "hidden_count": 48,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
         "total_count": 269,
@@ -156101,6 +156105,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-da27b1ea58fb",
+        "idea_version": "IDEAV-dc34c3134228dee9",
+        "idea_version_started_at": "2026-09-29T16:06:24Z",
+        "ticker": "CCL",
+        "company": "Carnival Corporation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Strong consumer demand for cruise travel is driving higher pricing power and occupancy, leading to an increase in the annual profit forecast.",
+        "why_now": "The guidance hike was announced today, September 29, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1c337004f5dc"
+        ],
+        "primary_source_event_id": "EVT-1c337004f5dc",
+        "source_headlines": [
+          "Carnival raises annual profit forecast on strong demand"
+        ],
+        "source_headline": "Carnival raises annual profit forecast on strong demand",
+        "source_url": "https://www.reuters.com/business/carnival-raises-annual-profit-forecast-demand-grows-2026-09-29/",
+        "source_name": "Reuters — Latest, next page (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-29T14:22:49Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T16:06:24Z",
+        "updated_at": "2026-09-29T16:06:24Z",
+        "decay_at": "2026-10-01T02:22:49Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T02:22:49Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-be560624e06e",
         "idea_version": "IDEAV-bb336048078104aa",
@@ -185738,82 +185815,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-06f821eb0804",
-        "idea_version": "IDEAV-2ec06f01116ac547",
-        "idea_version_started_at": "2026-09-13T22:07:30Z",
-        "ticker": "ZAI",
-        "company": "Z.AI",
-        "exchange": null,
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company raised $5 billion through the sale of new shares and convertible bonds.",
-        "why_now": "The capital raise was reported on September 13, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4c7461e1eb2a"
-        ],
-        "primary_source_event_id": "EVT-4c7461e1eb2a",
-        "source_headlines": [
-          "Chinese company Z.AI raises $5 billion with sale of new shares, convertible bonds: document"
-        ],
-        "source_headline": "La china Z.AI recauda 5.000 millones de dólares con venta de nuevas acciones, bonos convertibles: documento",
-        "source_url": "https://www.reuters.com/es/negocio/E2PXTBQLQNKDTEXVOOVGN4Z6AA-2026-09-13/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T20:02:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T22:07:30Z",
-        "updated_at": "2026-09-13T22:07:30Z",
-        "decay_at": "2026-09-15T08:02:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:07:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-aae3ef159f69",
         "idea_version": "IDEAV-258508e813aac783",
         "idea_version_started_at": "2026-09-13T20:00:11Z",
@@ -193271,7 +193272,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1183,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -193290,9 +193291,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 639453,
-    "news_picked_today": 136,
-    "news_dropped_today": 3032
+    "news_seen_today": 658727,
+    "news_picked_today": 157,
+    "news_dropped_today": 3203
   },
   "book_momentum": {
     "live_count": 8,
