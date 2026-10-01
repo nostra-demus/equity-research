@@ -9,14 +9,14 @@ WHAT THIS MODULE ACTUALLY COVERS, which is less than the audit found. It impleme
 basis defects: a weighted scenario set whose cases are measured on different periods or measures. The
 other two are NOT here and should not be assumed to be —
 
-  · the bull multiple drawn from an LTM band and applied to an NTM denominator is a mismatch WITHIN one
-    case, between a multiple and its metric. Nothing here reads `multiple_basis` (check AP already
-    requires it); the within-case comparison is unimplemented.
-  · the min-max range position printed under the word "percentile" is a `02` reporting defect with no
-    check anywhere. The prompt fix removes the column that prescribed it; nothing verifies the output.
+  · the bull multiple drawn from an LTM band and applied to an NTM denominator — a mismatch WITHIN one
+    case, between a multiple and its metric. `eval_multiple_metric_basis` below.
+  · the min-max range position printed under the word "percentile" — a `02` reporting defect that
+    reaches no JSON. `eval_statistic_label` below reads 02's markdown, which is why it is the only
+    check here that can see a run like BURL, whose bases lived in prose and which emitted no sidecar.
 
-AND IT CANNOT SEE A RUN WITH NO SIDECAR, which is BURL's own shape — it carried its bases in prose and
-emitted no valuation_summary.json at all. That gap is closed at the LIVE finish gate in
+TWO OF THE THREE CANNOT SEE A RUN WITH NO SIDECAR, which is BURL's own shape — it carried its bases in
+prose and emitted no valuation_summary.json at all. That gap is closed at the LIVE finish gate in
 `/research:full`, which now refuses to let a run with scenario levels publish without one; it is not
 closed here, and `BF_SIDECAR_REQUIRED_DATE` below stays None on purpose.
 
