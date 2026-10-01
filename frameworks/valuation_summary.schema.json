@@ -15,7 +15,7 @@
     "schema_version": {
       "type": "string",
       "pattern": "^[0-9]+(\\.[0-9]+){0,3}$",
-      "description": "Dotted numeric version ('1.5'). Versioned rules gate on it, so an unparseable value is REJECTED rather than grandfathered. 1.5 adds the basis-declaration fields: scenarios[].set_membership, scenarios[].metric_period, scenarios[].metric_measure and the root cross_metric_reconciliation. They stay OPTIONAL at 1.5 — the emitter has not been proven to write them on a real run yet — but the version exists so a later rule CAN require them of sidecars that declare it, which is impossible if the fields ship with no version to gate on."
+      "description": "Dotted numeric version ('1.5'). Versioned rules gate on it, so an unparseable value is REJECTED rather than grandfathered. 1.5 adds the basis-declaration fields: scenarios[].set_membership, scenarios[].metric_period, scenarios[].metric_measure and the root cross_metric_reconciliation. The version exists so a rule CAN require them of sidecars that declare it, which is impossible if the fields ship with no version to gate on — and at 1.5 check AP (scripts/valuation_summary_checks.py) does: every scenario carries a numeric `level`; a case with multiple_kind 'applied' carries numeric forward_metric AND multiple; and every WEIGHTED case (set_membership absent or 'weighted') declares metric_period and metric_measure. set_membership and cross_metric_reconciliation stay optional (each is required only when true of the case set). Below 1.5 those three rules do not apply, so every run written before them stays valid. At EVERY version a scenario row with no fair-value level at all (no numeric level, no forward_metric×multiple, no derivation) is rejected — a label is not a case."
     },
     "ticker": {
       "type": "string"
@@ -251,7 +251,7 @@
               "number",
               "null"
             ],
-            "description": "the derived per-share fair-value LEVEL (= metric x multiple, bridged for basis='ev'); price-independent"
+            "description": "the derived per-share fair-value LEVEL (= metric x multiple, bridged for basis='ev'); price-independent REQUIRED as a number on every case at schema_version >= 1.5; below 1.5 a row must still carry a level OR a derivable forward_metric×multiple OR a derivation — a label alone is not a case."
           },
           "drivers": {
             "type": [
@@ -450,14 +450,14 @@
               "string",
               "null"
             ],
-            "description": "The period this case's forward metric is stated on, DECLARED rather than inferred. Controlled but open vocabulary: 'NTM', 'LTM', 'FY+1', 'FY+2', 'FY2027' (or any 'FY<year>'), 'mid_cycle', 'trough'. Open because a closed enum would have nowhere to put a business type nobody has met yet. When present this is authoritative and metric_basis is NOT parsed for the period — which is the point: reading the period out of prose misreads it, and 'a trough margin applied to FY27E revenue' is a FY27 case that a regex will call a trough."
+            "description": "The period this case's forward metric is stated on, DECLARED rather than inferred. Controlled but open vocabulary: 'NTM', 'LTM', 'FY+1', 'FY+2', 'FY2027' (or any 'FY<year>'), 'mid_cycle', 'trough'. Open because a closed enum would have nowhere to put a business type nobody has met yet. When present this is authoritative and metric_basis is NOT parsed for the period — which is the point: reading the period out of prose misreads it, and 'a trough margin applied to FY27E revenue' is a FY27 case that a regex will call a trough. REQUIRED on every weighted case (set_membership absent or 'weighted') at schema_version >= 1.5; optional on a declared 'sensitivity' case and below 1.5."
           },
           "metric_measure": {
             "type": [
               "string",
               "null"
             ],
-            "description": "The measure this case's forward metric is stated on, DECLARED rather than inferred. Controlled but open vocabulary: 'EPS', 'EBITDA', 'EBIT', 'REVENUE', 'FCF', 'BVPS', 'NAV', 'FFO'. Open for the same reason as metric_period — a bank's embedded value and a REIT's AFFO must have somewhere to go. When present this is authoritative and metric_basis is NOT parsed for the measure."
+            "description": "The measure this case's forward metric is stated on, DECLARED rather than inferred. Controlled but open vocabulary: 'EPS', 'EBITDA', 'EBIT', 'REVENUE', 'FCF', 'BVPS', 'NAV', 'FFO'. Open for the same reason as metric_period — a bank's embedded value and a REIT's AFFO must have somewhere to go. When present this is authoritative and metric_basis is NOT parsed for the measure. REQUIRED on every weighted case (set_membership absent or 'weighted') at schema_version >= 1.5; optional on a declared 'sensitivity' case and below 1.5."
           }
         }
       }

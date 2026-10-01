@@ -97,11 +97,16 @@ def write_fixture(root, thesis_md):
     # audit table varies. The gate now requires valuation/valuation_summary.json of any run carrying
     # scenario levels — 99_valuation-synthesis has always called emitting it a Hard Rule, and the gate
     # used to treat its absence as soft, which is how four consecutive runs shipped without one. A
-    # minimal sidecar keeps this fixture a well-formed run rather than one that only looks like it.
+    # minimal sidecar with one real case keeps this fixture a well-formed run rather than one that only
+    # looks like it.
     os.makedirs(os.path.join(root, "valuation"), exist_ok=True)
     with open(os.path.join(root, "valuation", "valuation_summary.json"), "w", encoding="utf-8") as f:
+        # ONE REAL CASE, not three bare labels: AP rejects a row with no fair-value level ("a label is not
+        # a case"), and a labels-only sidecar is exactly the shape that used to pass the guard while
+        # recording nothing. 7.00 EPS × 15.0x = 105.00 per share, equity basis, so the level reproduces.
         json.dump({"schema_version": "1.2", "ticker": "TEST", "basis": "equity",
-                   "scenarios": [{"label": "bull"}, {"label": "base"}, {"label": "bear"}]}, f)
+                   "scenarios": [{"label": "base", "forward_metric": 7.0, "multiple": 15.0,
+                                  "level": 105.0}]}, f)
     with open(os.path.join(root, "final_thesis.md"), "w", encoding="utf-8") as f:
         f.write(thesis_md)
 
