@@ -1,0 +1,131 @@
+{
+  "schema_version": "1.0",
+  "source": "cockpit_supervisor",
+  "epoch_id": "129c3609-5d40-458f-970c-89068df26d55",
+  "attempts": [
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "77ffe490-7ece-462d-adbe-d60646254722",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "recorded",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "research",
+        "module",
+        "balance-sheet-survival"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-29T14:42:28.947Z",
+      "prior_unobserved": true
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "77ffe490-7ece-462d-adbe-d60646254722",
+      "provider": "codex",
+      "model": "gpt-5.6-terra",
+      "reasoning_level": "xhigh",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "specialists"
+      ],
+      "role": "specialist",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-29T14:42:28.947Z",
+      "prior_unobserved": true
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "77ffe490-7ece-462d-adbe-d60646254722",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-29T14:42:28.947Z",
+      "prior_unobserved": true
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "6ca5165f-77f9-4b2a-a411-90658f91fbe3",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "recorded",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "research",
+        "module",
+        "management-governance"
+      ],
+      "role": "module_synthesis",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-29T14:42:30.024Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "6ca5165f-77f9-4b2a-a411-90658f91fbe3",
+      "provider": "codex",
+      "model": "gpt-5.6-terra",
+      "reasoning_level": "xhigh",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "specialists"
+      ],
+      "role": "specialist",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-29T14:42:30.024Z"
+    },
+    {
+      "schema_version": "1.0",
+      "event": "attempt_started",
+      "attempt_id": "6ca5165f-77f9-4b2a-a411-90658f91fbe3",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "configured",
+      "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+      "cli_version": "codex-cli 0.149.0",
+      "scope": [
+        "memo",
+        "module-memo-writer"
+      ],
+      "role": "memo",
+      "decision_author": false,
+      "decision_artifacts": [],
+      "decision_artifacts_optional": false,
+      "started_at": "2026-09-29T14:42:30.024Z"
+    }
+  ],
+  "written_at": "2026-09-29T15:52:45.037Z"
+}

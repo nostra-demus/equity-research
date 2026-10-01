@@ -1,0 +1,615 @@
+{
+  "schema_version": "1.0",
+  "ticker": "BURL",
+  "company_name": "Burlington Stores, Inc.",
+  "exchange": "NYSE",
+  "currency": "USD",
+  "decision_date": "2026-09-29",
+  "run_root": "analyses/BURL_2026-09-29",
+  "final_thesis_path": "analyses/BURL_2026-09-29/final_thesis.md",
+  "decision": "Watchlist",
+  "suggested_action": "Do not buy now; monitor the November Q3 FY2026 window and revalue only after transaction-led comparable sales, refund-excluded margin, and the Q4 outlook are known.",
+  "paper_treatment": "No trade, track opportunity cost",
+  "basket": "Watchlist",
+  "entry_price": 254.69,
+  "entry_price_source": "data/BURL/Company Comparable Analysis Burlington Stores Inc.xls, Financial Data, 2026-09-28; frozen ciq_facts.json",
+  "entry_price_timestamp": "2026-09-28",
+  "benchmark": "S&P 500",
+  "sector_benchmark": "",
+  "time_horizon": "12 months",
+  "scenario_horizon_days": 365,
+  "expected_return_pct": -3.8792257253916516,
+  "downside_risk_pct": 73.96442734304448,
+  "margin_of_safety_pct": -7.45960086072318,
+  "risk_reward": -0.05244718122942985,
+  "scenarios": [
+    {
+      "scenario_id": "bull-traffic-margin-rerating",
+      "label": "Bull",
+      "probability": 25,
+      "probability_basis": "judgment",
+      "return_pct": 45.522007145942126,
+      "price_target": 370.63,
+      "conditions": [
+        "NTM EPS reaches $13.00 as sales finish near the top of guidance and mature-store traffic improves",
+        "Underlying merchandise-margin gains survive the planned H2 value investment",
+        "SG&A leverage follows the sales result",
+        "The market pays 28.51x NTM P/E, the low end of the disputed historical band"
+      ],
+      "source": "analyses/BURL_2026-09-29/valuation/07_scenario-and-fair-value.md, §§2–6",
+      "joint_probability_basis": "Traffic, merchandise margin, and SG&A leverage share an operating-leverage driver, but the 28.51x rerating is a separate condition. The 25% judgment probability deliberately discounts the need for both operating delivery and multiple expansion."
+    },
+    {
+      "scenario_id": "base-guidance-blend",
+      "label": "Base",
+      "probability": 60,
+      "probability_basis": "judgment",
+      "return_pct": -6.941772350700854,
+      "price_target": 237.01,
+      "conditions": [
+        "The 70% matched-peer NTM P/E and 30% FCFF DCF blend holds, using $12.06 NTM EPS and a 19.65x base-equivalent P/E"
+      ],
+      "source": "analyses/BURL_2026-09-29/valuation/07_scenario-and-fair-value.md, §§2–6",
+      "joint_probability_basis": null
+    },
+    {
+      "scenario_id": "bear-cyclical-trough",
+      "label": "Bear (cyclical trough)",
+      "probability": 15,
+      "probability_basis": "judgment",
+      "return_pct": -73.96442734304448,
+      "price_target": 66.31,
+      "conditions": [
+        "A consumer and markdown downturn recreates the FY2022 $3.49 GAAP EPS trough and the market pays a judgmental 19.0x P/E"
+      ],
+      "source": "analyses/BURL_2026-09-29/valuation/07_scenario-and-fair-value.md, §§2–6",
+      "joint_probability_basis": null
+    }
+  ],
+  "idea_valuation_bridge": {
+    "source_horizon_days": 365,
+    "method": "catalyst_partial_convergence",
+    "convergence_fraction": 0.3,
+    "rationale": "The November Q3 result and FY2026 close can reveal part, but not all, of the one-year valuation gap.",
+    "source": "analyses/BURL_2026-09-29/catalyst/99_catalyst-synthesis.md, §§1–4; analyses/BURL_2026-09-29/valuation/07_scenario-and-fair-value.md, §§2–6"
+  },
+  "confidence_score": 50.0,
+  "data_sufficiency_score": 78,
+  "confidence_inputs": {
+    "data_sufficiency": 78,
+    "corroboration": 62,
+    "evidence_tier": 86,
+    "staleness_penalty": 0,
+    "edge_score": 42,
+    "edge_proof_present": true,
+    "decision": "Watchlist",
+    "modules_absent": [
+      "options"
+    ],
+    "critical_governance_unresolved": false,
+    "catalyst_timing_weak": true,
+    "rating_cap_ceiling": 60,
+    "downgrades": [
+      {
+        "type": "valuation_sensitivity",
+        "points": 8,
+        "reason": "Valid valuation methods span $133.46-$302.88, a 126.94% spread, and scenario value is sensitive to cash conversion."
+      }
+    ],
+    "calibration_haircut": 0
+  },
+  "analysis_confidence": 76.0,
+  "conviction": 50.0,
+  "sizing_hint": {
+    "band": "watch",
+    "action": "monitor only — no position (track opportunity cost)"
+  },
+  "confidence_breakdown": {
+    "analysis_confidence": 76.0,
+    "analysis_confidence_build": "0.5*dataSuff(78) + 0.25*corrob(62) + 0.25*tier(86) - stale(0) = 76.0",
+    "direction": "neutral",
+    "documented_ceiling": 60.0,
+    "documented_ceiling_sources": [
+      100.0,
+      80.0,
+      70.0,
+      60.0,
+      100.0
+    ],
+    "unknown_absent_keys": [],
+    "direction_ceiling": 58.0,
+    "direction_ceiling_reason": "neutral: min(documented 60, non-committal 58)",
+    "understanding_capped_to_ceiling": 58.0,
+    "downgrades": [
+      {
+        "type": "valuation_sensitivity",
+        "points": 8,
+        "reason": "Valid valuation methods span $133.46-$302.88, a 126.94% spread, and scenario value is sensitive to cash conversion."
+      }
+    ],
+    "calibration_haircut": 0,
+    "downgrade_points_total": 8.0,
+    "conviction_hard_max": 85.0,
+    "conviction": 50.0,
+    "formula": "conviction = clamp( min( min(analysis_confidence, direction_ceiling) - sum(max(0,downgrades)) - max(0,calibration_haircut), direction_ceiling ), 0, hard_max )"
+  },
+  "rating_cap": "Maximum Starter Position Only because RF-EQ-001, RF-OBS-001, and RF-DISC-002 form a mechanically triggered High cross-module accounting-integrity mosaic. The components do not prove fraud. No Critical governance, solvency, fraud, accounting, or going-concern verdict-lock fired. The actual Watchlist rating is more conservative than the cap.",
+  "thesis_type": [
+    "Company-specific",
+    "Sector-cycle"
+  ],
+  "variant_perception_summary": "The possible edge is that capacity-led growth and a finite refund may be receiving more credit than mature-store traffic and recurring cash generation warrant. The claim is testable in Q3, but the evidence is public and no current peer call or external dataset proves consensus wrong. There is no proven variant perception yet.",
+  "what_everyone_knows": "Burlington is adding stores quickly, Q2 sales grew 11%, management raised FY2026 guidance, and sell-side coverage is favourable.",
+  "what_is_priced_in": "At $254.69, the reverse-DCF requires 46.75% annual FCFF growth through FY2030 to $1.641bn or a 13.85% EBIT margin, versus a 7.8% LTM EBIT margin.",
+  "what_market_may_be_missing": "Q2 growth was mainly capacity-led: 9.4 of 11.0 percentage points came from new and non-comparable stores while transactions were relatively flat. The market may be giving earnings growth credit before store and supply-chain spending is proven in free cash flow.",
+  "edge_score": 42,
+  "edge_proof": "The next Q3 filing must show the transaction response to the value investment and a refund-excluded margin bridge; the FY2026 filing must then show whether free cash flow and store-cohort returns support the DCF path. If transactions and normalised margin hold while cash conversion improves, the engine's caution is wrong.",
+  "killer_risk": "The planned H2 value investment fails to lift traffic, leaving more inventory to mark down and weakening sales, margin, cash conversion, and the warranted multiple at the same time.",
+  "kill_criteria": [
+    {
+      "condition": "Q3 FY2026 sales growth is above 11%, comparable-store sales are above 3%, and adjusted EBIT-margin decline is smaller than 60bp.",
+      "comparable_basis": "Standalone Q3 FY2026 versus standalone Q3 FY2025, using the company-adjusted basis for margin. The exact conjunction passed Q1 FY2026 but not Q2 FY2026, so it did not fire in both recent periods.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Company Q3 FY2026 Form 10-Q and earnings call in November 2026; the exact release day is not set.",
+      "module_source": "analyses/BURL_2026-09-29/catalyst/99_catalyst-synthesis.md; analyses/BURL_2026-09-29/earnings/05_beat-miss-setup.md"
+    },
+    {
+      "condition": "Q3 FY2026 sales growth is below 9%, comparable-store sales are below 1%, or adjusted EBIT-margin decline is greater than 80bp.",
+      "comparable_basis": "Standalone Q3 FY2026 versus standalone Q3 FY2025. Neither Q1 FY2026 nor Q2 FY2026 would have fired the exact downside test.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Company Q3 FY2026 Form 10-Q and earnings call in November 2026.",
+      "module_source": "analyses/BURL_2026-09-29/catalyst/99_catalyst-synthesis.md; analyses/BURL_2026-09-29/earnings/05_beat-miss-setup.md"
+    },
+    {
+      "condition": "FY2026 free cash flow, defined as CFO less total cash capex, is below $0.",
+      "comparable_basis": "FY2026 full-year U.S.-GAAP cash flow versus FY2025 on the same CFO-less-total-cash-capex definition. Negative annual FCF fired in FY2024 but not FY2025, so it did not fire in both periods.",
+      "stub_arithmetic": "H1 FY2026 CFO of $334.624m less cash capex of $532.384m was negative $197.760m, so H2 must exceed positive $197.760m for FY2026 FCF to finish above zero.",
+      "fired_last_two_periods": false,
+      "monitor": "FY2026 Form 10-K, expected around March 2027.",
+      "module_source": "analyses/BURL_2026-09-29/earnings/06_earnings-quality.md; analyses/BURL_2026-09-29/balance-sheet-survival/03_liquidity-runway.md"
+    },
+    {
+      "condition": "A filed compliance certificate or debt note discloses a maintenance-covenant breach, or ABL availability is unavailable when needed.",
+      "comparable_basis": "Event test against the prior quarterly filing's clean disclosed status; no breach or unavailable ABL was disclosed in either of the last two relevant filings.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "Each Form 10-Q or Form 10-K debt note and any credit-agreement exhibit or compliance certificate.",
+      "module_source": "analyses/BURL_2026-09-29/balance-sheet-survival/04_coverage-and-covenants.md"
+    },
+    {
+      "condition": "Auditor resignation over a disagreement, qualified or going-concern opinion, material restatement, or material ICFR weakness.",
+      "comparable_basis": "FY2026 auditor and ICFR reports versus clean FY2025 and FY2024 annual reports on the same annual basis; the adverse event did not fire in either prior period.",
+      "stub_arithmetic": null,
+      "fired_last_two_periods": false,
+      "monitor": "SEC current reports and the FY2026 Form 10-K.",
+      "module_source": "analyses/BURL_2026-09-29/management-governance/08_audit-and-assurance-quality.md; analyses/BURL_2026-09-29/management-governance/11_accounting-forensics.md"
+    }
+  ],
+  "forecast_ledger": [
+    {
+      "forecast_id": "FC-BURL-Q3FY26-SALES",
+      "prediction": "Burlington's Q3 FY2026 standalone total-sales growth exceeds 11.0% year over year.",
+      "probability": 35,
+      "probability_basis": "judgment",
+      "time_window": "2026-11-01 to 2026-11-30",
+      "window_start": "2026-11-01T00:00:00Z",
+      "window_end": "2026-11-30T23:59:59Z",
+      "status_as_of": "2026-09-29T23:59:59Z",
+      "evidence_today": "Q1 FY2026 sales grew 14%, Q2 grew 11%, and management's Q3 FY2026 guidance is 9-11% versus standalone Q3 FY2025.",
+      "source_citation": "data/BURL/BURL_Q2_2026_Earnings_PR.pdf, Outlook, 2026-08-27; data/BURL/Burlington_Stores_Inc_-_Form_10-Q(Aug-27-2026).doc, MD&A",
+      "metric": "Q3 FY2026 standalone total-sales growth",
+      "threshold": "Greater than 11.0% year over year versus Q3 FY2025",
+      "causal_steps": [
+        "New and non-comparable stores continue to add capacity-led sales.",
+        "The Q3 value investment lifts mature-store transactions enough for total growth to exceed the top of guidance."
+      ],
+      "confirmation_trigger": "The Q3 FY2026 Form 10-Q reports total-sales growth greater than 11.0% versus standalone Q3 FY2025.",
+      "falsification_trigger": "The same filing reports total-sales growth at or below 11.0%; there is no residual outcome.",
+      "stock_bullish_trigger": "Q3 sales growth is above 11%, comps are above 3%, and adjusted EBIT-margin decline is smaller than 60bp.",
+      "stock_bearish_trigger": "Q3 sales growth is below 9%, comps are below 1%, or adjusted EBIT-margin decline is greater than 80bp.",
+      "owner_module": "earnings",
+      "confidence_score": 58,
+      "status": "open",
+      "forecast_type": "revenue"
+    },
+    {
+      "forecast_id": "FC-BURL-Q3FY26-ADJ-EBIT-MARGIN",
+      "prediction": "Burlington's Q3 FY2026 adjusted EBIT-margin decline is within 60-80bp versus standalone Q3 FY2025.",
+      "probability": 55,
+      "probability_basis": "judgment",
+      "time_window": "2026-11-01 to 2026-11-30",
+      "window_start": "2026-11-01T00:00:00Z",
+      "window_end": "2026-11-30T23:59:59Z",
+      "status_as_of": "2026-09-29T23:59:59Z",
+      "evidence_today": "Management guides a 60-80bp decline as it reinvests about $22.2m in Q3. Q1's 20bp increase and Q2's 100bp refund-excluded increase did not already sit inside that range.",
+      "source_citation": "data/BURL/BURL_Q2_2026_Earnings_PR.pdf, Outlook, 2026-08-27; data/BURL/Burlington Stores, Inc., Q2 2027 Earnings Call, Aug 27, 2026.rtf, prepared remarks",
+      "metric": "Q3 FY2026 adjusted EBIT-margin year-over-year change",
+      "threshold": "Decline of 60-80bp inclusive versus Q3 FY2025",
+      "causal_steps": [
+        "The planned Q3 value investment lowers reported adjusted EBIT margin from the prior-year quarter.",
+        "Merchandise-margin gains and sales leverage offset enough of the investment to keep the decline within the guided band."
+      ],
+      "confirmation_trigger": "The Q3 FY2026 earnings release reports an adjusted EBIT-margin decline of 60-80bp inclusive versus standalone Q3 FY2025.",
+      "falsification_trigger": "The same release reports a decline smaller than 60bp or greater than 80bp; there is no residual outcome.",
+      "stock_bullish_trigger": "The Q3 adjusted EBIT-margin decline is smaller than 60bp and sales and comps also clear their upper guidance bounds.",
+      "stock_bearish_trigger": "The Q3 adjusted EBIT-margin decline is greater than 80bp or the Q4 outlook shows further unplanned deterioration.",
+      "owner_module": "earnings",
+      "confidence_score": 60,
+      "status": "open",
+      "forecast_type": "margin_or_cost"
+    }
+  ],
+  "module_scores": {
+    "business-model": {
+      "score": 74,
+      "verdict": "Average business — worth deeper work only if valuation is cheap; no automatic disqualifier."
+    },
+    "earnings": {
+      "score": 78,
+      "verdict": "Mixed earnings setup; next-quarter setup Balanced; seven High execution and quality flags."
+    },
+    "balance-sheet-survival": {
+      "score": 75,
+      "verdict": "Adequate; near-term maturities are cash-covered, but Parent cash access and contractual covenant headroom remain unclear."
+    },
+    "catalyst": {
+      "score": 78,
+      "verdict": "Catalysts exist but timing vague; the material Q3 operating event has no company-set release day."
+    },
+    "competitive-intel": {
+      "score": 0,
+      "verdict": "Insufficient benchmark evidence; zero eligible peer calls and zero directional weight."
+    },
+    "management-governance": {
+      "score": 82,
+      "verdict": "Standard / mixed; Non-Negotiable Gate PASS, Governance Score 69, two High flags and zero Critical flags."
+    },
+    "valuation": {
+      "score": 78,
+      "verdict": "Fairly valued; $237.01 base is below the $254.69 price and the valid method spread is 126.94%."
+    }
+  },
+  "red_flags": [
+    {
+      "id": "EARN-CAPACITY-LED-GROWTH",
+      "severity": "High",
+      "source_module": "earnings",
+      "description": "New and non-comparable stores supplied about 86% of Q2's dollar sales increase while mature-store transactions were relatively flat.",
+      "rating_impact": "Prevents a broad-demand-acceleration conclusion and supports Watchlist."
+    },
+    {
+      "id": "EARN-REFUND-MARGIN",
+      "severity": "High",
+      "source_module": "earnings",
+      "description": "The $55.5m Q2 tariff refund added about 185bp to reported gross margin and is planned for H2 reinvestment.",
+      "rating_impact": "Reported Q2 margin cannot be extrapolated into H2."
+    },
+    {
+      "id": "EARN-Q3-CONJUNCTION",
+      "severity": "High",
+      "source_module": "earnings",
+      "description": "The Q3 upside case requires store ramp, mature-store demand, and value-investment conversion to work together.",
+      "rating_impact": "Lowers beat conviction; the miss path needs fewer conditions."
+    },
+    {
+      "id": "EARN-Q4-UNRESOLVED",
+      "severity": "High",
+      "source_module": "earnings",
+      "description": "Q4 is the larger seasonal quarter and carries about 60% of the planned refund reinvestment, so a Q3 beat alone does not settle the year.",
+      "rating_impact": "Prevents a one-quarter upgrade without a credible Q4 outlook."
+    },
+    {
+      "id": "EARN-REFUND-CASH",
+      "severity": "High",
+      "source_module": "earnings",
+      "description": "Reported trailing FCF of $412.5m includes up to $55.5m of non-recurring refund cash; the normalised read is about $357.0m.",
+      "rating_impact": "Requires normalised cash conversion in valuation and monitoring."
+    },
+    {
+      "id": "EARN-CORRELATED-DOWNSIDE",
+      "severity": "High",
+      "source_module": "earnings",
+      "description": "Demand, weather, markdown, and selling-cost leverage can worsen together, but the filing gives no operating coefficients for that chain.",
+      "rating_impact": "The downside range remains a bound rather than a measured distribution."
+    },
+    {
+      "id": "EARN-ACCELERATION-FRAMING",
+      "severity": "High",
+      "source_module": "earnings",
+      "description": "Capacity-led growth, flat mature-store transactions, and refund-aided reported results support a mixed verdict rather than proven acceleration.",
+      "rating_impact": "Bars an acceleration-led positive rating on current evidence."
+    },
+    {
+      "id": "RF-DISC-002",
+      "severity": "High",
+      "source_module": "management-governance",
+      "description": "FY2025 adjusted profit excluded $21.8m of lease, impairment, and litigation costs in categories also used in prior years. The FY2025 adjusted-versus-GAAP net-income gap was 2.5%.",
+      "rating_impact": "Raises adjustment-discipline risk and contributes to the forensic mosaic; it does not prove manipulation."
+    },
+    {
+      "id": "RF-AUD-007",
+      "severity": "High",
+      "source_module": "management-governance",
+      "description": "Deloitte has 43-year tenure and historical PCAOB orders from 2007, 2013, and 2018. None was tied to BURL, current audit and ICFR opinions are clean, and the current signing partner is unidentified.",
+      "rating_impact": "Monitoring flag and governance-confidence limit; no issuer-misconduct conclusion or hard lock."
+    },
+    {
+      "id": "BM-DISTRIBUTION-CONCENTRATION",
+      "severity": "Medium",
+      "source_module": "business-model",
+      "description": "Six distribution centres handled more than 99% of FY2025 merchandise units, with three in New Jersey and three in Southern California; the current split is not disclosed.",
+      "rating_impact": "Raises execution risk but does not trigger an Avoid-Big-Risks cap."
+    },
+    {
+      "id": "RF-EQ-001",
+      "severity": "Medium",
+      "source_module": "earnings",
+      "description": "Receivables and inventory grew faster than revenue and COGS in FY2025. CFO/EBITDA was 99.2%, DIO fell 3.4 days, and the working-capital cash effect was roughly neutral.",
+      "rating_impact": "Mechanical forensic signal only; it contributes to the mosaic but does not prove uncollected earnings."
+    },
+    {
+      "id": "RF-OBS-001",
+      "severity": "Medium",
+      "source_module": "balance-sheet-survival",
+      "description": "Recognised leases and gross purchase and lease commitments create a large fixed-cash exposure. The $8.352bn build mixes multi-year payments, inventory purchases, and letters of credit.",
+      "rating_impact": "Mechanical forensic signal only; the aggregate is not a simultaneous loss or one-period cash call."
+    },
+    {
+      "id": "FORENSIC-MOSAIC-RF-EQ-001-RF-OBS-001-RF-DISC-002",
+      "severity": "High",
+      "source_module": "cross-module",
+      "description": "RF-EQ-001, RF-OBS-001, and RF-DISC-002 are three distinct tagged problems across earnings, balance-sheet survival, and governance. Each retains its qualifier, and the combination does not prove fraud.",
+      "rating_impact": "Compound High accounting-integrity flag; caps any long at Starter Position Only with no edge-score bypass."
+    }
+  ],
+  "missing_data": [
+    "Q3 transaction response, basket split, and refund-excluded gross- and adjusted-EBIT-margin bridge",
+    "Filed new-store cohort build cost, contribution, and cash payback",
+    "Current covenant-compliance certificate, covenant EBITDA, addback caps, and ABL borrowing-base sensitivity",
+    "Matched forward capex, working-capital, and FCFF consensus through FY2030",
+    "An eligible Ross or TJX current call on an overlapping calendar window",
+    "Complete person and entity registry, court, sanctions, PEP, licence, and legal-history screens",
+    "Options, borrow, and current detailed positioning data",
+    "Sector-level historical multiple series",
+    "Company-confirmed Q3 FY2026 release day"
+  ],
+  "data_needs_schema_version": "2.0",
+  "data_needs": [
+    {
+      "need_id": "q3-transaction-margin-bridge",
+      "priority": 1,
+      "series": "Q3 FY2026 filed transaction and basket response plus refund-excluded gross-margin and adjusted-EBIT-margin bridges",
+      "why_it_caps": "This is the first observation that can test whether the value investment creates mature-store demand without sacrificing more recurring margin than guided, the main unresolved operating and valuation question behind Watchlist.",
+      "expected_impact": {
+        "if_supportive": "Transaction-led comparable sales and refund-excluded margin above the cited thresholds would weaken the no-position thesis and require a fresh valuation review.",
+        "if_adverse": "Weak transactions, a larger margin decline, or an adverse Q4 outlook would strengthen or reject the operating bull case."
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "earnings",
+          "agent": "revenue-drivers",
+          "why": "This orb owns the transaction, basket, comparable-sales, and new-store revenue bridge.",
+          "confidence": 0.98
+        },
+        {
+          "module": "earnings",
+          "agent": "margin-drivers",
+          "why": "This orb owns the refund-excluded gross- and adjusted-EBIT-margin bridge.",
+          "confidence": 0.98
+        }
+      ],
+      "suggested_source": {
+        "name": "Burlington Q3 FY2026 Form 10-Q and earnings release",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "official public company and SEC filings"
+      },
+      "tier": 5,
+      "cadence": "quarterly"
+    },
+    {
+      "need_id": "new-store-cohort-economics",
+      "priority": 2,
+      "series": "New-store cohort build cost, contribution after occupancy and payroll, cash payback, and mature sales by opening vintage",
+      "why_it_caps": "Capacity-led growth is the main sales driver, but filed unit economics do not prove that the $1.104bn FY2025 capex programme creates value.",
+      "expected_impact": {
+        "if_supportive": "Cohorts meeting disclosed cash-return and payback hurdles would strengthen the case that current capex becomes durable free cash flow.",
+        "if_adverse": "Weak contribution, long payback, or poor mature sales would weaken the peer-led valuation and the expansion thesis."
+      },
+      "filing_required": false,
+      "entry_orbs": [
+        {
+          "module": "business-model",
+          "agent": "unit-economics",
+          "why": "This orb owns store-level contribution, build cost, and payback evidence.",
+          "confidence": 0.97
+        }
+      ],
+      "suggested_source": {
+        "name": "Company annual or quarterly filing and investor disclosure on store cohorts",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "official public filing or company disclosure"
+      },
+      "tier": 5,
+      "cadence": "quarterly"
+    },
+    {
+      "need_id": "live-covenant-headroom",
+      "priority": 3,
+      "series": "Current covenant-compliance certificate with covenant EBITDA, maintenance thresholds, addback caps, springing tests, cure rights, and ABL borrowing-base availability",
+      "why_it_caps": "Accounting leverage is low, but contractual headroom and survival without a waiver are Not assessable.",
+      "expected_impact": {
+        "if_supportive": "Wide filed headroom and stable borrowing-base availability would narrow the residual survival risk.",
+        "if_adverse": "Tight headroom, aggressive addbacks, or reduced availability would make solvency a more important downside driver."
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "balance-sheet-survival",
+          "agent": "coverage-and-covenants",
+          "why": "This orb owns the lender-test definition and headroom calculation.",
+          "confidence": 0.99
+        }
+      ],
+      "suggested_source": {
+        "name": "Filed credit-agreement exhibit, compliance certificate, or debt-note disclosure",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "official public SEC filing"
+      },
+      "tier": 5,
+      "cadence": "event_driven"
+    },
+    {
+      "need_id": "matched-forward-fcff-consensus",
+      "priority": 4,
+      "series": "Matched Capital IQ consensus for capex, working capital, and FCFF through FY2030 on definitions consistent with the valuation model",
+      "why_it_caps": "The DCF and peer P/E values disagree by more than 100%, and current price implies a demanding cash path that cannot be tested against a matched consensus series.",
+      "expected_impact": {
+        "if_supportive": "A matched cash-flow series near the reverse-DCF path would reduce the apparent expectations gap, subject to realised cash conversion.",
+        "if_adverse": "A materially lower matched cash path would reinforce the DCF warning and the lack of margin of safety."
+      },
+      "filing_required": false,
+      "entry_orbs": [
+        {
+          "module": "valuation",
+          "agent": "intrinsic-dcf",
+          "why": "This orb owns the forward FCFF build and cash-conversion assumptions.",
+          "confidence": 0.96
+        },
+        {
+          "module": "valuation",
+          "agent": "reverse-dcf",
+          "why": "This orb owns the price-implied cash-flow hurdle.",
+          "confidence": 0.96
+        }
+      ],
+      "suggested_source": {
+        "name": "Capital IQ estimates export with capex, working capital, and cash-flow line items",
+        "acquisition": "manual",
+        "access": "licensed",
+        "licensing_basis": "licensed Capital IQ subscription; confirm export and reuse rights"
+      },
+      "tier": 5,
+      "cadence": "quarterly"
+    },
+    {
+      "need_id": "current-peer-call",
+      "priority": 5,
+      "series": "Ross Stores or TJX Companies management call covering an overlapping calendar window and BURL-relevant U.S. off-price demand, pricing, margin, and inventory claims",
+      "why_it_caps": "The competitive-intel module has 0% coverage and cannot independently corroborate or contradict BURL's operating narrative.",
+      "expected_impact": {
+        "if_supportive": "A matched peer signal consistent with BURL's demand and margin claims would add independent context without proving BURL execution.",
+        "if_adverse": "A matched peer contradiction would weaken the operating setup or require a company-specific explanation."
+      },
+      "filing_required": false,
+      "entry_orbs": [
+        {
+          "module": "competitive-intel",
+          "agent": "peer-claim-extraction",
+          "why": "This orb owns admissible peer claims and matched-window extraction.",
+          "confidence": 0.99
+        }
+      ],
+      "suggested_source": {
+        "name": "Ross Stores or TJX Companies overlapping-window earnings call transcript",
+        "acquisition": "manual",
+        "access": "licensed",
+        "licensing_basis": "licensed transcript provider or issuer-hosted public transcript; confirm source rights"
+      },
+      "tier": 5,
+      "cadence": "quarterly"
+    }
+  ],
+  "review_schedule": {
+    "30d": "2026-10-29",
+    "90d": "2026-12-28",
+    "180d": "2027-03-28",
+    "365d": "2027-09-29"
+  },
+  "created_by": "synthesizer",
+  "notes": "No paper trade is created. Scenario levels are the valuation module's 12-month fair values and probabilities are master judgment. Competitive-intel contributes zero directional weight. No earlier exact-listing BURL decision record was available.",
+  "business_type": "Retail / consumer",
+  "primary_valuation_method": "Matched peer NTM P/E with FCFF DCF cross-check",
+  "calibration_feedback": {
+    "source_summary": "analyses/performance/2026-09-19_calibration_summary.json",
+    "status": "checked_no_action",
+    "haircut_points": 0,
+    "modules_flagged": [],
+    "flagged_forecast_types": [],
+    "flagged_thesis_types": [],
+    "leading_error_categories_flagged": [],
+    "error_defense_evidence": {
+      "bad base rate": "Own-history reversion is excluded as an admissible anchor and sector multiple history is marked Not assessable [analyses/BURL_2026-09-29/valuation/02_multiples-own-history.md, §§1–6; analyses/BURL_2026-09-29/valuation/03_relative-valuation-peers.md, §6].",
+      "valuation multiple error": "The thesis exposes the 126.94% valid-method spread, gives own-history values no weight, and caps valuation confidence at 55 before reporting 50 [analyses/BURL_2026-09-29/valuation/99_valuation-synthesis.md, §§1–4].",
+      "bad causal inference": "The Q2 sales bridge prints 9.4pp plus 1.6pp equals 11.0pp with zero residual, while the margin bridge prints 130bp of named drivers against a 100bp result and names the negative 30bp residual [analyses/BURL_2026-09-29/earnings/02_revenue-drivers.md, §§4–7; analyses/BURL_2026-09-29/earnings/03_margin-drivers.md, §§2–5].",
+      "false negative": "The scenario set preserves the valuation module's $370.63 Bull, a 45.52% upside state, and the dossier presents a full bull steelman [analyses/BURL_2026-09-29/valuation/07_scenario-and-fair-value.md, §§2–6; analyses/BURL_2026-09-29/final_thesis.md, §9A].",
+      "timing error": "The catalyst module and dossier label the Q3 date as a company-confirmed November window, not a confirmed November 25 release, and separate hard governance dates from the vague operating event [analyses/BURL_2026-09-29/catalyst/99_catalyst-synthesis.md, §§1–4]."
+    },
+    "rationale": "The latest summary is Pre-data: 16 decisions, 21 reviews, four resolved forecasts, and one resolved directional call leave module, forecast-type, and thesis-type slices below their floors. The always-on error-taxonomy check covered bad base rate (2), valuation multiple error (2), bad causal inference (3), false negative (2), and timing error (2); each has a cited current-run defense, so no haircut applies."
+  },
+  "integrity_gate": {
+    "status": "pass",
+    "violations": [],
+    "gate": "research:full step 10B"
+  },
+  "confidence_haircut": 0,
+  "pre_mortem_verdict": "Survives",
+  "post_review_confidence_score": 50.0,
+  "post_mortem_decision": "Watchlist",
+  "post_mortem_basket": "Watchlist",
+  "execution_provenance": {
+    "schema_version": "1.0",
+    "source": "cockpit_runtime",
+    "coverage": "cockpit_top_level_processes",
+    "provider_mode": "partially_observed",
+    "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+    "decision_author": {
+      "attempt_id": "14d0b9ac-95ce-4b13-a5d1-006f944f1b53",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "recorded"
+    },
+    "contributors": [
+      {
+        "provider": "codex",
+        "model": "gpt-5.6-sol",
+        "reasoning_level": "max",
+        "attribution": "configured",
+        "scopes": [
+          "memo",
+          "memo-writer"
+        ]
+      },
+      {
+        "provider": "codex",
+        "model": "gpt-5.6-sol",
+        "reasoning_level": "max",
+        "attribution": "recorded",
+        "scopes": [
+          "master",
+          "rerun",
+          "research",
+          "synthesizer"
+        ]
+      },
+      {
+        "provider": "codex",
+        "model": "gpt-5.6-terra",
+        "reasoning_level": "xhigh",
+        "attribution": "configured",
+        "scopes": [
+          "specialists"
+        ]
+      }
+    ],
+    "cli_versions": {
+      "codex": "codex-cli 0.149.0"
+    }
+  }
+}

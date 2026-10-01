@@ -77,16 +77,26 @@ State the reporting currency. Use the anchor EV and market cap from `01`. Use th
 
 ## 2. Historical Multiple Bands (3–5 years)
 
-| Multiple | Min | Mean | Median | Max | Current | Percentile of Range |
-|---|---:|---:|---:|---:|---:|---:|
-| P / E | | | | | | |
-| EV / EBITDA | | | | | | |
-| EV / EBIT | | | | | | |
-| EV / Sales | | | | | | |
+| Multiple | Basis (LTM / NTM / FY) | Observations (n, window) | Min | Mean | Median | Max | Current | Rank percentile | Range position |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|
+| P / E | | | | | | | | | |
+| EV / EBITDA | | | | | | | | | |
+| EV / EBIT | | | | | | | | | |
+| EV / Sales | | | | | | | | | |
+
+**The two right-hand columns are different statistics and neither may be labelled as the other.**
+- **Rank percentile** = `count(historical observations ≤ current) / count(observations)`. This is the percentile.
+- **Range position** = `(current − min) / (max − min)`. This is where the level sits between the extremes. It is NOT a percentile: on a series with one distant outlier the two disagree by tens of points, and a single word — "percentile" — is how a range position gets read as a frequency. Report both, name each, and use the rank percentile whenever you say the word *percentile* in prose.
+
+**The Basis column is load-bearing, not bookkeeping.** A band built from P/**LTM** EPS observations may not be applied to an **NTM** denominator, and a band built from an NTM series may not be scored against an LTM current. That mismatch is invisible once the band is reduced to four numbers, and it travels: a band minimum carried into `07` as "the bottom of the historical range" is only the bottom of the range **on its own basis**. Where the current multiple and the band are on different bases, say so in this column and do not report a rank percentile or a range position across them — state *"not comparable — LTM band vs NTM current"*.
+
+**Exclude partial periods.** The observation set is settled period-ends only; a part-way current period is the "Current" column, never a member of the historical distribution. State `n` and the window so a reader can rebuild the set. With fewer than ~8 observations, report the band and write *"not assessable"* in both statistic columns rather than a confident number off a thin series.
 
 If history is unavailable, state the partial-data note and skip the implied-value table below.
 
 Report the full **min / mean / median / max** band, not just the mean: these bands are the anchors `07_scenario-and-fair-value` uses to set the **bull** multiple (toward the upper band) and the **bear** multiple (toward the lower band), so the scenario multiples stay inside the company's own evidenced range.
+
+**A band you have disowned is not an anchor.** If §5 flags this band cycle-elevated/depressed, if the Basis column says the band and the current multiple are not comparable, or if you otherwise state that this method's basis is unreliable, then say in one line, here, that the band is **not admissible as a `07` scenario anchor** — and name which basis `07` should use instead (the peer-derived multiple, or a stated forward multiple with its reason). A method cannot be simultaneously too unreliable to carry weight and reliable enough to set a quarter of the probability-weighted target. Whichever you choose, `07` must be able to read your decision without inferring it.
 
 ## 3. Re-Rating / De-Rating Read
 
