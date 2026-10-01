@@ -3,11 +3,25 @@
 
 WHY THIS EXISTS. CLAUDE.md is strong on citation (§5) and hygiene (§15), and the engine obeys both.
 It is weak on the thing those rules cannot express: whether two numbers of the same KIND were measured
-the same way. Seven of the thirteen findings in the 2026-09-30 BURL audit were that one failure —
-a bull multiple drawn from an LTM band applied to an NTM denominator, a bear on a GAAP trough priced
-into a weighted set against a forward normalized base, a min-max range position printed under the word
-"percentile". Each is individually forbidden by prose that was in force when the run shipped, and the
-run's own truth-integrity gate returned `Clean` / integrity 100 on all of them.
+the same way. Seven of the thirteen findings in the 2026-09-30 BURL audit were that one failure.
+
+WHAT THIS MODULE ACTUALLY COVERS, which is less than the audit found. It implements ONE of BURL's three
+basis defects: a weighted scenario set whose cases are measured on different periods or measures. The
+other two are NOT here and should not be assumed to be —
+
+  · the bull multiple drawn from an LTM band and applied to an NTM denominator is a mismatch WITHIN one
+    case, between a multiple and its metric. Nothing here reads `multiple_basis` (check AP already
+    requires it); the within-case comparison is unimplemented.
+  · the min-max range position printed under the word "percentile" is a `02` reporting defect with no
+    check anywhere. The prompt fix removes the column that prescribed it; nothing verifies the output.
+
+AND IT CANNOT SEE A RUN WITH NO SIDECAR, which is BURL's own shape — it carried its bases in prose and
+emitted no valuation_summary.json at all. That gap is closed at the LIVE finish gate in
+`/research:full`, which now refuses to let a run with scenario levels publish without one; it is not
+closed here, and `BF_SIDECAR_REQUIRED_DATE` below stays None on purpose.
+
+Each defect is individually forbidden by prose that was in force when the run shipped, and the run's own
+truth-integrity gate returned `Clean` / integrity 100 on all of them.
 
 So prose does not bind here, and an LLM auditor did not either. Only arithmetic over the artifacts does.
 
@@ -53,7 +67,10 @@ _PERIOD_PATTERNS = (
     ("NTM", r"\bNTM\b|next twelve|forward twelve"),
     # FY+1 / FY+2 are documented in the sidecar schema's own metric_basis examples, so they must parse.
     ("FY_REL", r"\bFY\s?\+\s?\d\b"),
-    ("FY", r"\bFY\s?\d{2,4}E?\b|\bCY\s?\d{4}\b|\b20\d{2}E\b"),
+    # A BARE YEAR counts: metric_period is declared by a person, and "2026" means FY2026 to every one of
+    # them. Without this, "2026" parsed to nothing while "FY2026" parsed to FY26, and two cases meaning
+    # the same year read as a mismatch — a spelling bug dressed as a basis defect.
+    ("FY", r"\bFY\s?\d{2,4}E?\b|\bCY\s?\d{4}\b|\b20\d{2}E?\b"),
 )
 
 _MEASURE_PATTERNS = (
@@ -105,10 +122,20 @@ def normalise_metric_basis(raw):
         # year out of a token the period scan had already rejected: "CY26 normalized EBITDA rolled to
         # FY2029E" is an FY29 metric whose period used to resolve to FY26, inventing a mismatch
         # against an FY29 set — or hiding a real one.
-        match = re.search(r"(?:FY\s?\+?|CY\s?)(\d{2,4})", text[at:], re.I) or re.search(r"\b(20\d{2})E\b", text[at:])
+        match = (re.search(r"(?:FY\s?\+?|CY\s?)(\d{2,4})", text[at:], re.I)
+                 or re.search(r"\b(20\d{2})E?\b", text[at:]))
         period = f"FY{match.group(1)[-2:]}" if match else "FY"
 
-    measure = next((name for name, rx in _MEASURE_PATTERNS if re.search(rx, text, re.I)), None)
+    # MEASURE BY POSITION TOO. This was fixed for periods and left on pattern precedence for measures,
+    # which is the same bug wearing the other hat: "FY27E Revenue at the FY21-trough EBIT margin" is a
+    # REVENUE case, and precedence made EBIT win because EBIT is listed first. The metric is the one the
+    # case is stated on — the earliest mention — not whichever pattern happens to sit higher in a list.
+    m_hits = []
+    for name, rx in _MEASURE_PATTERNS:
+        match = re.search(rx, text, re.I)
+        if match:
+            m_hits.append((match.start(), name))
+    measure = min(m_hits)[1] if m_hits else None
     return (period, measure)
 
 
@@ -156,6 +183,13 @@ def case_basis(case):
             measure if measure is not None else inferred[1])
 
 
+# Membership is a binary the probability arithmetic depends on, so these lists are closed ON PURPOSE,
+# unlike the open metric vocabularies: a word nobody recognises must surface rather than be guessed.
+_OUT_OF_SET = frozenset({"sensitivity", "stress", "excluded", "floor", "avoid_ruin", "avoid-ruin",
+                         "not_weighted", "unweighted", "illustrative"})
+_IN_SET = frozenset({"weighted", ""})
+
+
 def _weighted_cases(sidecar):
     """The cases that enter the probability-weighted result.
 
@@ -182,8 +216,13 @@ def _weighted_cases(sidecar):
     #
     # The six "partial declaration" findings this exclusion was added to silence were true findings:
     # those structural cases really do carry weight and really do not declare a basis.
+    # Any of the OUT_OF_SET words removes a case; an UNRECOGNISED value does not. Honouring only the
+    # literal "sensitivity" meant "stress" or "excluded" silently re-entered the weighted set and
+    # hard-failed a compliant run. Treating anything non-"weighted" as excluded is the opposite and
+    # worse failure: a typo would quietly drop a real down-leg out of the probability-weighted set
+    # without anyone deciding to. So unrecognised stays IN and is reported.
     return [case for case in cases
-            if str(case.get("set_membership") or "weighted").lower() != "sensitivity"]
+            if str(case.get("set_membership") or "weighted").strip().lower() not in _OUT_OF_SET]
 
 
 def _cited(value) -> bool:
@@ -268,7 +307,18 @@ def eval_scenario_basis_coherence(sidecar):
 # prompt change, and a prompt change cannot be validated by replaying frozen artifacts — the artifacts
 # were produced by the old prompt. If the canary has not run, move the date; an armed gate against an
 # emitter that does not comply fails every new run for a reason the author cannot fix.
-BF_ENFORCE_DATE = "2026-11-01"
+# MOVED OUT from 2026-11-01. The date is not the hard part; the precondition is, and it was not met:
+# both sanctioned remedies — `set_membership` and `cross_metric_reconciliation` — plus the declared
+# `metric_period` / `metric_measure` fields live on a DIFFERENT branch stack and exist in no schema or
+# emitter this file can reach. Arming against unreachable escapes means the dominant corpus shape (a
+# `bear_structural` with no declared basis: six runs, seven of the nine current findings) fails with
+# nothing its author can write to fix it. That is not a gate, it is a trap.
+#
+# THE PRECONDITION, in order: the schema + emitter changes land, a frozen-input canary proves a real run
+# actually writes those fields, and only then does this date move into range. If the canary has not run,
+# move it again — an armed gate against a non-complying emitter fails every new run for a reason the
+# author cannot fix, which is how a gate gets switched off permanently instead of fixed.
+BF_ENFORCE_DATE = "2026-12-15"
 
 # SIDECAR PRESENCE ARMS SEPARATELY, AND IS CURRENTLY OFF. These are two different demands wearing one
 # date. "Your declared bases disagree" is a defect in work that was done; "you emitted no sidecar" is a
@@ -309,6 +359,11 @@ def eval_bf_basis_enforcement(decision_date, sidecar, violations):
     """
     if not _isdate(decision_date) or decision_date < BF_ENFORCE_DATE:
         return "na"
+    # VIOLATIONS ARE READ FIRST. A corrupt sidecar arrives here as sidecar=None WITH a parse-error
+    # violation in hand; checking presence first swallowed it and returned na, so an unreadable lever
+    # file was reported and never enforced — the one shape that most deserves to fail.
+    if violations:
+        return "fail"
     if sidecar is None:
         # The sidecar is the only artifact carrying per-case basis, so a run without one cannot be
         # checked at all — which is exactly how the BURL run passed every gate it had. That remains
@@ -316,9 +371,18 @@ def eval_bf_basis_enforcement(decision_date, sidecar, violations):
         if _isdate(BF_SIDECAR_REQUIRED_DATE) and decision_date >= BF_SIDECAR_REQUIRED_DATE:
             return "fail"
         return "na"
+    # A SET THAT DECLARES NOTHING IS NOT A CLEAN SET. eval_scenario_basis_coherence returns None when
+    # no weighted case declares a basis at all, which is right for reporting — there is nothing to
+    # compare — but passing the gate on it creates the worst possible incentive: delete every
+    # metric_basis and a hard failure becomes a pass. That is also BURL's own shape, which carried its
+    # bases in prose and emitted no sidecar at all. Past the gate, two or more weighted cases that
+    # declare nothing is a failure.
     if violations is None:
+        weighted = _weighted_cases(sidecar)
+        if len(weighted) >= 2 and not any(case_basis(c) for c in weighted):
+            return "fail"
         return "pass"
-    return "fail" if violations else "pass"
+    return "pass" if not violations else "fail"
 
 
 def scan_committed(root="."):
@@ -530,31 +594,54 @@ def _selftest() -> int:
           any("PERIOD" in v for v in eval_scenario_basis_coherence(burl_declared)))
 
     # ---- the dated enforcement gate ----
+    # Derived from the constant, never hardcoded: moving BF_ENFORCE_DATE is a routine, expected act
+    # (it has already moved once), and a test that pins a literal date turns every such move into a
+    # false failure — which is exactly what happened the first time it moved.
+    _after = str(int(BF_ENFORCE_DATE[:4]) + 1) + BF_ENFORCE_DATE[4:]
+    _before = str(int(BF_ENFORCE_DATE[:4]) - 1) + BF_ENFORCE_DATE[4:]
     v_none, v_ok, v_bad = None, [], ["something"]
     sc = {"scenarios": []}
     check("a run before the gate is never enforced",
-          eval_bf_basis_enforcement("2026-07-10", sc, v_bad) == "na")
+          eval_bf_basis_enforcement(_before, sc, v_bad) == "na")
     check("an UNDATED run is na, not a silent pass",
           eval_bf_basis_enforcement(None, sc, v_bad) == "na")
     check("a malformed date is na",
           eval_bf_basis_enforcement("Oct 2026", sc, v_bad) == "na")
     check("past the gate, findings fail",
-          eval_bf_basis_enforcement("2026-12-01", sc, v_bad) == "fail")
+          eval_bf_basis_enforcement(_after, sc, v_bad) == "fail")
     check("past the gate, a clean run passes",
-          eval_bf_basis_enforcement("2026-12-01", sc, v_ok) == "pass")
+          eval_bf_basis_enforcement(_after, sc, v_ok) == "pass")
     check("past the gate, nothing-to-judge passes",
-          eval_bf_basis_enforcement("2026-12-01", sc, v_none) == "pass")
+          eval_bf_basis_enforcement(_after, sc, v_none) == "pass")
     # Presence is a SEPARATE demand on a separate gate, currently disabled — the five most recent full
     # runs emit no sidecar, so arming it would red CI on the first new run.
     check("a missing sidecar does NOT fail while presence is disabled",
           BF_SIDECAR_REQUIRED_DATE is None
-          and eval_bf_basis_enforcement("2026-12-01", None, v_none) == "na")
+          and eval_bf_basis_enforcement(_after, None, v_none) == "na")
     check("before the gate, a missing sidecar is na",
-          eval_bf_basis_enforcement("2026-07-10", None, v_none) == "na")
+          eval_bf_basis_enforcement(_before, None, v_none) == "na")
     check("presence failing is reachable once its own date is set",
-          _presence_would_fail("2026-12-01", "2026-11-15"))
+          _presence_would_fail(_after, "2026-11-15"))
     check("the gate date is in the future relative to the corpus",
           BF_ENFORCE_DATE > "2026-10-01")
+
+    # ---- review round 3 regressions ----
+    check("[5] measure reads by position, not pattern order",
+          normalise_metric_basis("FY27E Revenue at the FY21-trough EBIT margin")[1] == "REVENUE")
+    check("[7] a bare year is a fiscal year",
+          normalise_metric_basis("2026")[0] == normalise_metric_basis("FY2026")[0] == "FY26")
+    check("[8] 'stress' and 'excluded' leave the weighted set",
+          eval_scenario_basis_coherence({"scenarios": [ntm("bull"), ntm("base"),
+              {"label": "x", "metric_basis": "FY2022 trough EPS", "set_membership": "stress"}]}) == [])
+    check("[8] an UNRECOGNISED membership keeps the case IN (a typo must not drop a down-leg)",
+          eval_scenario_basis_coherence({"scenarios": [ntm("bull"), ntm("base"),
+              {"label": "x", "metric_basis": "FY2022 trough EPS", "set_membership": "weighed"}]}) != [])
+    check("[3] a corrupt sidecar FAILS rather than reporting and passing",
+          eval_bf_basis_enforcement(_after, None, ["could not parse valuation_summary.json"]) == "fail")
+    check("[4] deleting every metric_basis does not convert a fail into a pass",
+          eval_bf_basis_enforcement(_after, {"scenarios": [{"label": "a"}, {"label": "b"}]}, None) == "fail")
+    check("[4] but a single case with nothing to compare still passes",
+          eval_bf_basis_enforcement(_after, {"scenarios": [{"label": "a"}]}, None) == "pass")
 
     # A sensitivity case is excluded from the weighted set.
     sens = {"scenarios": [ntm("Bull"), ntm("Base"),
