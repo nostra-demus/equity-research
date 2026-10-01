@@ -199,7 +199,15 @@ Bullet list, no prose paragraphs. **Surface what the numbers MEAN — do not res
 - Whether this module is useful for the master synthesizer
 ```
 
-## Structured Emission — `valuation_summary.json` (Hard Rule)
+## Structured Emission — `valuation_summary.json` (Hard Rule — gated)
+
+**This is now checked, and it was not before.** Emission worked through 2026-09-07 and then stopped for
+three weeks — four runs (AKAM ×2, V, BURL) completed the whole module, wrote the markdown below, and
+emitted no sidecar, because `/research:full`'s finish gate treated its absence as "N/A, never a
+violation" while this section called it a Hard Rule. The gate now requires it of any run that produced
+scenario levels: skip it and the run is stamped **PROVISIONAL** with that reason named. Nothing else
+carries per-case basis, so a run without it cannot be re-derived or basis-checked at all — which is
+precisely how BURL's bear passed four quality gates on a different earnings definition from its base.
 
 Alongside the markdown, write `analyses/{TICKER}_{DATE}/valuation/valuation_summary.json` — the machine-readable **levers** behind the fair value, conforming to `frameworks/valuation_summary.schema.json`. This is what makes the fair value re-derivable (`scripts/valuation_math.py`) and gives the cockpit valuation **Playground** inputs to move without re-running the module. It carries INPUTS; the master synthesizer's `decision_record.json` carries the scenario OUTPUTS (probabilities + returns) — do NOT write scenario probabilities here (that boundary is the master's).
 
