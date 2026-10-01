@@ -5109,10 +5109,11 @@ if azfails: suite_pass = False
 apchecked, apfailures = scan_committed(".")
 if apfailures: suite_pass=False
 
-# BF — scenario basis coherence. REPORT-ONLY for now: the ungated replay finds 4 real period mismatches and
-# 6 partial declarations across the committed corpus, and retro-failing runs whose authors were never told
-# the rule would say nothing about their analysis. Findings are published so the corpus can be drained
-# first; the enforcement flip is a separate, reviewed change once it is clean.
+# BF — scenario basis coherence. DATED, not report-only: every run is measured and published, and a run
+# DATED on/after BF_ENFORCE_DATE fails the suite on its findings. The split exists because retro-failing
+# runs whose authors were never told the rule would say nothing about their analysis — so the committed
+# corpus (two thirds of which predates the rule, and 8 of 21 full runs of which emit no sidecar at all)
+# is reported and never failed, while anything written after the date is held to it.
 bachecked, bafailures, baenforced = scan_basis_committed(".")
 # Findings on runs dated on/after BF_ENFORCE_DATE fail the suite; everything earlier reports only. The
 # gate is dated rather than switched so the two thirds of the corpus that predates the rule — including
@@ -5150,6 +5151,17 @@ for j in jchecks:
 print("  valuation summary integrity (AP: lever sidecar ↔ decision_record):", f"PASS ({apchecked} committed sidecar(s))" if not apfailures else "FAIL "+";".join(r for r,_ in apfailures))
 for r,v in apfailures:
     print(f"     FAIL {r}: {'; '.join(v)}")
+# BF must say so in the log too. It can set suite_pass=False, and research_check.py's fallback line for an
+# unexplained suite failure points the operator AT this log — so a gate that fires here silently produces a
+# blocked push naming no check and nothing to fix.
+print(f"  scenario basis coherence (BF: one weighted set, one basis — enforced from {BF_ENFORCE_DATE}):",
+      f"PASS ({bachecked} judgeable set(s), {len(bafailures)} pre-gate finding(s))" if not baenforced
+      else "FAIL "+";".join(r for r,_ in baenforced))
+for r,v in bafailures:
+    print(f"     {'FAIL' if any(r==e for e,_ in baenforced) else 'FINDING'} {r}: {'; '.join(v)}")
+for r,v in baenforced:
+    if not any(r==f for f,_ in bafailures):
+        print(f"     FAIL {r}: {'; '.join(v)}")
 retro_runs={nm:r["retrospective_advisories"] for nm,r in results.items() if r.get("retrospective_advisories")}
 if retro_runs:
     n=sum(len(v) for v in retro_runs.values())
