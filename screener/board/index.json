@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-01T18:32:13Z",
+  "generated_at": "2026-10-01T18:43:01Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261001-515",
+      "headline": "25-NSE - AMAZE HOLDINGS, INC. (0001880343) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1880343/000114331326000051/0001143313-26-000051-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-01T18:03:03Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Amaze Holdings, Inc. received a delisting notification.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amaze Holdings, Inc. received a delisting notification.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amaze Holdings, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261001-501",
       "headline": "D/A - EQUIDEFI LTD. (0001905438) (Filer)",
@@ -1940,60 +1989,6 @@
           "name": "Doosan Enerbility",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-295",
-      "headline": "Lynas Rare Earths to Buy Meteoric Resources in $672 Million Deal",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/lynas-rare-earths-to-buy-meteoric-resources-in-672-million-deal-2701e09b?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T04:56:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Lynas Rare Earths announced a $672 million acquisition of Meteoric Resources.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lynas Rare Earths announced a $672 million acquisition of Meteoric Resources.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lynas Rare Earths",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Meteoric Resources",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -192544,9 +192539,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4835903,
-    "news_picked_today": 1281,
-    "news_dropped_today": 22191
+    "news_seen_today": 4862721,
+    "news_picked_today": 1287,
+    "news_dropped_today": 22305
   },
   "book_momentum": {
     "live_count": 8,
