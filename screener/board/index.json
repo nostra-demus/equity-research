@@ -1,6 +1,813 @@
 {
-  "generated_at": "2026-10-01T00:07:59Z",
+  "generated_at": "2026-10-01T00:18:57Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261001-008",
+      "headline": "Australia's Lynas Rare Earths to buy Meteoric Resources in $672 million deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/australias-lynas-rare-earths-buy-meteoric-resources-672-million-deal-2026-09-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T23:47:19Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Lynas Rare Earths to acquire Meteoric Resources in a $672 million deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lynas Rare Earths to acquire Meteoric Resources in a $672 million deal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lynas Rare Earths",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Meteoric Resources",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-004",
+      "headline": "Lynas to buy Meteoric for $968m to secure Brazilian rare earths",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/mining/lynas-to-buy-meteoric-for-968million-to-secure-brazil-rare-earths-20261001-p611yh?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T23:45:12Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Lynas announced a $968 million acquisition of Meteoric Resources to expand in Brazil.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lynas announced a $968 million acquisition of Meteoric Resources to expand in Brazil.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lynas Rare Earths",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Meteoric Resources",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-012",
+      "headline": "NHF: nib Group concludes sale of nib Travel",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NHF?key=2924-03143067-2A1701003",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T23:51:38Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "nib Holdings concludes sale of nib Travel subsidiary; no deal valuation or subsidiary revenue/profit contribution disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "nib Holdings concludes sale of nib Travel subsidiary; no deal valuation or subsidiary revenue/profit contribution disclosed.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "nib Holdings",
+          "ticker": "NHF",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-003",
+      "headline": "Paramount gets court green light on Warner Bros deal, names Mattel’s Kreiz co-CEO",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/paramount-gets-court-green-light-on-warner-bros-deal-names-mattels-kreiz-co-ceo",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T23:55:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Paramount received court approval for a Warner Bros deal and appointed a new co-CEO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Paramount received court approval for a Warner Bros deal and appointed a new co-CEO.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount Global",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-009",
+      "headline": "Paramount recebe aprovação judicial para acordo com Warner Bros e nomeia Kreiz, da Mattel, como co-CEO",
+      "headline_en": "Paramount receives court approval for Warner Bros deal and appoints Mattel's Kreiz as co-CEO",
+      "url": "https://www.reuters.com/pt/negocio/SRHFFTIW7VM7DIPKBRQL6LGPYU-2026-09-30/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T23:43:44Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Paramount received court approval for a Warner Bros deal and appointed a new co-CEO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Paramount received court approval for a Warner Bros deal and appointed a new co-CEO.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount Global",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-010",
+      "headline": "CHW: Nasdaq Bound - Chilwa Launches US IPO and Dual Listing [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CHW?key=2924-03143072-6A1347142",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T23:54:48Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Chilwa launches Nasdaq IPO with dual ASX listing, a capital-raise and market-access event; no valuation or size disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Chilwa launches Nasdaq IPO with dual ASX listing, a capital-raise and market-access event; no valuation or size disclosed.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 73,
+      "rank_factors": {
+        "materiality": 73,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chilwa",
+          "ticker": "CHW",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-002",
+      "headline": "Micron shares waver in extended trade despite strong Q4 results, Q1 guidance",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/micron-technology-q4-results-q1-guidance-memory-chip-dram-hbm-products-share-price-returns-20002546.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T23:56:24Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Micron reported Q4 results and Q1 guidance, showing mixed market reaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Micron reported Q4 results and Q1 guidance, showing mixed market reaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Micron Technology",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-006",
+      "headline": "Micron Gives Bullish Forecast, Warns on Margins",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-09-30/micron-gives-bullish-forecast-warns-on-margins-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T23:53:07Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Micron provided a bullish revenue forecast but warned on margin pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Micron provided a bullish revenue forecast but warned on margin pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Micron Technology",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-005",
+      "headline": "Gina Rinehart Backed Lynas to Buy Rare Earths Miner Meteoric",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-09-30/gina-rinehart-backed-lynas-to-buy-rare-earths-miner-meteoric",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T23:40:47Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Confirmation of Lynas acquisition of Meteoric Resources with backing from Gina Rinehart.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Confirmation of Lynas acquisition of Meteoric Resources with backing from Gina Rinehart.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lynas Rare Earths",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Meteoric Resources",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-013",
+      "headline": "SNT: Syntara expands SNT-9465 skin scarring study [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SNT?key=2924-03143063-2A1701001",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T23:49:53Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Expansion of SNT-9465 clinical trial for skin scarring indicates trial progression but lacks quantification of enrollment, data triggers, or timeline acceleration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Expansion of SNT-9465 clinical trial for skin scarring indicates trial progression but lacks quantification of enrollment, data triggers, or timeline acceleration.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Syntara",
+          "ticker": "SNT",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-011",
+      "headline": "OSS: Development Plan for Takalar Seaweed Innovation Centre",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OSS?key=2924-03143070-2A1701008",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T23:53:18Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "OSS announces a development plan for Takalar seaweed innovation centre; no capex size, funding, or timeline confirmed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "OSS announces a development plan for Takalar seaweed innovation centre; no capex size, funding, or timeline confirmed.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-014",
+      "headline": "VKA: VIKINGS GRAVITY SEPARATION PRODUCES 69.3% WO3 CONCENTRATE [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VKA?key=2924-03143062-6A1347146",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T23:47:49Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Gravity separation achieving 69.3% WO3 concentrate validates process feasibility but lacks capex, capac, production rate, or project-economics quantification.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Gravity separation achieving 69.3% WO3 concentrate validates process feasibility but lacks capex, capac, production rate, or project-economics quantification.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vikings",
+          "ticker": "VKA",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-016",
+      "headline": "JAV: Coogee Au-Cu Diamond Hole Intersects Key Structure [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.JAV?key=2924-03143059-6A1347145",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T23:46:03Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Diamond hole at Coogee Au-Cu intersected key geological structure, supporting exploration thesis de-risking, but lacks assay, width, grade, and ore-body quantification.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Diamond hole at Coogee Au-Cu intersected key geological structure, supporting exploration thesis de-risking, but lacks assay, width, grade, and ore-body quantification.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JAV",
+          "ticker": "JAV",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-015",
+      "headline": "USL: Application for quotation of securities - USL",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.USL?key=2924-03143060-3A703081",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T23:47:23Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Application for quotation of securities signals capital raise or new listing event, but size, pricing, dilution, and use-of-proceeds are undisclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Application for quotation of securities signals capital raise or new listing event, but size, pricing, dilution, and use-of-proceeds are undisclosed.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "USL",
+          "ticker": "USL",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-001",
+      "headline": "Nebius Chief Revenue Officer Liquidates Entire Directly-Held Shares for $1.5 Million",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nebius-chief-revenue-officer-liquidates-entire-directly-held-shares-15-million",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-09-30T23:38:10Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Chief Revenue Officer liquidated entire directly-held stake worth $1.5 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Chief Revenue Officer liquidated entire directly-held stake worth $1.5 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nebius Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-017",
+      "headline": "TLS: Update - Notification of buy-back - TLS",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TLS?key=2924-03141427-3A702803",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T07:13:26Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Update or notification on ongoing buyback program; routine capital-management disclosure with no new quantified program scope or timing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Update or notification on ongoing buyback program; routine capital-management disclosure with no new quantified program scope or timing.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Telstra Corporation Limited",
+          "ticker": "TLS",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260930-532",
       "headline": "YAL: Yancoal completes Kestrel acquisition [price-sensitive]",
@@ -150250,78 +151057,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-72095f495ca7",
-      "idea_version": "IDEAV-12b862ad24e10c8e",
-      "idea_version_started_at": "2026-09-29T14:12:15Z",
-      "ticker": "SCHOL.O",
-      "company": "Scholastic Corporation",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Scholastic is acquiring Cottage Door Press for $71 million, which is expected to expand its publishing portfolio and revenue streams.",
-      "why_now": "The acquisition is announced and shares are climbing in pre-market trading, indicating immediate market reaction.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b23e3a605938"
-      ],
-      "primary_source_event_id": "EVT-b23e3a605938",
-      "source_headlines": [
-        "Scholastic To Buy Cottage Door Press For $71 Mln, Shares Climb In Pre-Market"
-      ],
-      "source_headline": "Scholastic To Buy Cottage Door Press For $71 Mln, Shares Climb In Pre-Market",
-      "source_url": "https://www.nasdaq.com/articles/scholastic-buy-cottage-door-press-71-mln-shares-climb-pre-market",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-29T12:14:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T14:12:15Z",
-      "updated_at": "2026-09-29T14:12:15Z",
-      "decay_at": "2026-10-01T00:14:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-be560624e06e",
       "idea_version": "IDEAV-bb336048078104aa",
       "idea_version_started_at": "2026-09-29T14:12:15Z",
@@ -152161,6 +152896,78 @@
       "surfaced_at": "2026-09-29T14:12:15Z",
       "updated_at": "2026-09-29T14:12:15Z",
       "decay_at": "2026-10-01T00:02:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-72095f495ca7",
+      "idea_version": "IDEAV-12b862ad24e10c8e",
+      "idea_version_started_at": "2026-09-29T14:12:15Z",
+      "ticker": "SCHOL.O",
+      "company": "Scholastic Corporation",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Scholastic is acquiring Cottage Door Press for $71 million, which is expected to expand its publishing portfolio and revenue streams.",
+      "why_now": "The acquisition is announced and shares are climbing in pre-market trading, indicating immediate market reaction.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b23e3a605938"
+      ],
+      "primary_source_event_id": "EVT-b23e3a605938",
+      "source_headlines": [
+        "Scholastic To Buy Cottage Door Press For $71 Mln, Shares Climb In Pre-Market"
+      ],
+      "source_headline": "Scholastic To Buy Cottage Door Press For $71 Mln, Shares Climb In Pre-Market",
+      "source_url": "https://www.nasdaq.com/articles/scholastic-buy-cottage-door-press-71-mln-shares-climb-pre-market",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T12:14:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T14:12:15Z",
+      "updated_at": "2026-09-29T14:12:15Z",
+      "decay_at": "2026-10-01T00:14:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -154689,14 +155496,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 553,
+    "total_count": 554,
     "shown_count": 500,
-    "hidden_count": 53,
+    "hidden_count": 54,
     "side_counts": {
       "long": {
-        "total_count": 286,
+        "total_count": 287,
         "shown_count": 250,
-        "hidden_count": 36
+        "hidden_count": 37
       },
       "short": {
         "total_count": 267,
@@ -154720,6 +155527,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-72095f495ca7",
+        "idea_version": "IDEAV-12b862ad24e10c8e",
+        "idea_version_started_at": "2026-09-29T14:12:15Z",
+        "ticker": "SCHOL.O",
+        "company": "Scholastic Corporation",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Scholastic is acquiring Cottage Door Press for $71 million, which is expected to expand its publishing portfolio and revenue streams.",
+        "why_now": "The acquisition is announced and shares are climbing in pre-market trading, indicating immediate market reaction.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b23e3a605938"
+        ],
+        "primary_source_event_id": "EVT-b23e3a605938",
+        "source_headlines": [
+          "Scholastic To Buy Cottage Door Press For $71 Mln, Shares Climb In Pre-Market"
+        ],
+        "source_headline": "Scholastic To Buy Cottage Door Press For $71 Mln, Shares Climb In Pre-Market",
+        "source_url": "https://www.nasdaq.com/articles/scholastic-buy-cottage-door-press-71-mln-shares-climb-pre-market",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-29T12:14:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T14:12:15Z",
+        "updated_at": "2026-09-29T14:12:15Z",
+        "decay_at": "2026-10-01T00:14:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T00:14:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0be9db75a97c",
         "idea_version": "IDEAV-f8f594d47e1fecab",
@@ -184209,82 +185091,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-2aedf447b3f7",
-        "idea_version": "IDEAV-e1273991742b3326",
-        "idea_version_started_at": "2026-09-13T21:29:53Z",
-        "ticker": "IDEA",
-        "company": "Vodafone Idea",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is seeking a massive ₹35,000-crore loan to fund a decade-long capex cycle, which is critical for network competitiveness and 5G rollout.",
-        "why_now": "The news of the loan pursuit for long-term capex emerged on September 13, 2024.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2dc33fe1bbb0"
-        ],
-        "primary_source_event_id": "EVT-2dc33fe1bbb0",
-        "source_headlines": [
-          "Vi eyes ₹35,000-crore loan to fund next decade's capex"
-        ],
-        "source_headline": "Vi eyes ₹35,000-crore loan to fund next decade's capex",
-        "source_url": "https://economictimes.indiatimes.com/industry/telecom/telecom-news/vi-eyes-35000-crore-loan-to-fund-next-decades-capex/articleshow/134220187.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T18:58:55Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T21:29:53Z",
-        "updated_at": "2026-09-13T21:29:53Z",
-        "decay_at": "2026-09-15T06:58:55Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:07:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d671968eea99",
         "idea_version": "IDEAV-fb87869fb0ffed48",
         "idea_version_started_at": "2026-09-13T18:51:17Z",
@@ -191898,7 +192704,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1182,
-    "live_count": 37,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -191908,7 +192714,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3047,
+    "inbox_unconsumed": 3063,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -191917,9 +192723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 22111,
+    "news_picked_today": 17,
+    "news_dropped_today": 247
   },
   "book_momentum": {
     "live_count": 8,
