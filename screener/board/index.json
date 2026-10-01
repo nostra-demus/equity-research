@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T22:02:17Z",
+  "generated_at": "2026-10-01T22:07:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-545",
@@ -989,6 +989,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-574",
+      "headline": "Nike shares drop as retailer posts disappointing sales, announces layoffs as part of restructuring",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/01/nike-nke-q1-2027-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T21:34:44Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Company reported disappointing sales and announced layoffs as part of a restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported disappointing sales and announced layoffs as part of a restructuring.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-557",
       "headline": "Nike plans more job cuts, geographic changes after quarterly sales miss",
       "headline_en": null,
@@ -1905,55 +1955,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Official investigation launched into a security incident involving FlyDubai.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FlyDubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-345",
-      "headline": "UAE assembles specialist team to investigate if flydubai incident was terrorism",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/business/transport/uae-assembles-specialist-team-to-investigate-if-flydubai-incident-was-terrorism",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T08:18:42Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "UAE authorities are investigating a potential terrorist incident involving a FlyDubai flight.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UAE authorities are investigating a potential terrorist incident involving a FlyDubai flight.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 70,
@@ -192599,9 +192600,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5235953,
-    "news_picked_today": 1514,
-    "news_dropped_today": 25798
+    "news_seen_today": 5248573,
+    "news_picked_today": 1528,
+    "news_dropped_today": 25856
   },
   "book_momentum": {
     "live_count": 8,
