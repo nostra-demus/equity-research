@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T00:25:53Z",
+  "generated_at": "2026-10-01T00:37:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-008",
@@ -412,6 +412,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-027",
+      "headline": "SAN: Placement",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SAN?key=2924-03141395-6A1346304",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T06:54:21Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "SAN announced a placement, which typically results in equity dilution for existing shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "SAN announced a placement, which typically results in equity dilution for existing shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SAN",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-025",
+      "headline": "Aastha Spintex Limited: Aastha Spintex Limited has informed the Exchange that the Board of Directors at its meeting held on September 29, 2026, have considered and approved bonus at the ratio of 1 : 1, i.e 1 Equity Shares for every 1 Equity Shares held.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/9081535400_29092026122608_BM_Outcome_for_Allotment_of_Bonus_Shares_sign.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T06:56:32Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Aastha Spintex Limited approved a 1:1 bonus share issue, which increases liquidity and signals management confidence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Aastha Spintex Limited approved a 1:1 bonus share issue, which increases liquidity and signals management confidence.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aastha Spintex Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -943,6 +1041,55 @@
           "name": "USL",
           "ticker": "USL",
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-026",
+      "headline": "BND: Estimated Distribution Announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BND?key=2924-03141398-2A1700260",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T06:55:36Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "BND announced an estimated distribution, which is a routine but price-sensitive event for income-focused investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "BND announced an estimated distribution, which is a routine but price-sensitive event for income-focused investors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BND",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -149406,75 +149553,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-7c601055fcc6",
-      "idea_version": "IDEAV-3dc4c8644e0d8955",
-      "idea_version_started_at": "2026-09-29T14:12:15Z",
-      "ticker": "BGRENERGY.NS",
-      "company": "BGR Energy Systems Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered Corporate Insolvency Resolution Process, signaling severe financial distress and a high probability of substantial shareholder value erosion.",
-      "why_now": "The initiation of the Corporate Insolvency Resolution Process is a critical and immediate event.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 78,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cba7776d5a05"
-      ],
-      "primary_source_event_id": "EVT-cba7776d5a05",
-      "source_headlines": [
-        "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/BGRENERGY_29092026180521_NCLTOrderAdjourment.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-29T12:36:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T14:12:15Z",
-      "updated_at": "2026-09-29T14:12:15Z",
-      "decay_at": "2026-10-01T00:36:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e6d1d0d41652",
       "idea_version": "IDEAV-613ce08e5427ded4",
       "idea_version_started_at": "2026-09-30T05:19:29Z",
@@ -151540,78 +151618,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fdfb53f77b2d",
-      "idea_version": "IDEAV-3f1e108e12ddebf1",
-      "idea_version_started_at": "2026-09-29T13:10:26Z",
-      "ticker": "BGRENERGY",
-      "company": "BGR Energy Systems Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a high risk of insolvency and significant impairment to shareholder value.",
-      "why_now": "The filing was made public on 2026-09-29.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cba7776d5a05"
-      ],
-      "primary_source_event_id": "EVT-cba7776d5a05",
-      "source_headlines": [
-        "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/BGRENERGY_29092026180521_NCLTOrderAdjourment.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-29T12:36:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T13:10:26Z",
-      "updated_at": "2026-09-29T13:10:26Z",
-      "decay_at": "2026-10-01T00:36:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d99505bc75b0",
       "idea_version": "IDEAV-11208c4dd4e3a05e",
       "idea_version_started_at": "2026-09-30T09:32:50Z",
@@ -152033,6 +152039,75 @@
       "surfaced_at": "2026-09-29T06:22:55Z",
       "updated_at": "2026-09-29T06:22:55Z",
       "decay_at": "2026-09-30T09:00:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7c601055fcc6",
+      "idea_version": "IDEAV-3dc4c8644e0d8955",
+      "idea_version_started_at": "2026-09-29T14:12:15Z",
+      "ticker": "BGRENERGY.NS",
+      "company": "BGR Energy Systems Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered Corporate Insolvency Resolution Process, signaling severe financial distress and a high probability of substantial shareholder value erosion.",
+      "why_now": "The initiation of the Corporate Insolvency Resolution Process is a critical and immediate event.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 78,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cba7776d5a05"
+      ],
+      "primary_source_event_id": "EVT-cba7776d5a05",
+      "source_headlines": [
+        "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/BGRENERGY_29092026180521_NCLTOrderAdjourment.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T12:36:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T14:12:15Z",
+      "updated_at": "2026-09-29T14:12:15Z",
+      "decay_at": "2026-10-01T00:36:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -153377,6 +153452,78 @@
       "surfaced_at": "2026-09-29T14:12:15Z",
       "updated_at": "2026-09-29T14:12:15Z",
       "decay_at": "2026-09-30T23:40:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-fdfb53f77b2d",
+      "idea_version": "IDEAV-3f1e108e12ddebf1",
+      "idea_version_started_at": "2026-09-29T13:10:26Z",
+      "ticker": "BGRENERGY",
+      "company": "BGR Energy Systems Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a high risk of insolvency and significant impairment to shareholder value.",
+      "why_now": "The filing was made public on 2026-09-29.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cba7776d5a05"
+      ],
+      "primary_source_event_id": "EVT-cba7776d5a05",
+      "source_headlines": [
+        "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/BGRENERGY_29092026180521_NCLTOrderAdjourment.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-29T12:36:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T13:10:26Z",
+      "updated_at": "2026-09-29T13:10:26Z",
+      "decay_at": "2026-10-01T00:36:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155834,9 +155981,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 554,
+    "total_count": 556,
     "shown_count": 500,
-    "hidden_count": 54,
+    "hidden_count": 56,
     "side_counts": {
       "long": {
         "total_count": 287,
@@ -155844,9 +155991,9 @@
         "hidden_count": 37
       },
       "short": {
-        "total_count": 267,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 19
       }
     },
     "retention": {
@@ -155865,6 +156012,153 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7c601055fcc6",
+        "idea_version": "IDEAV-3dc4c8644e0d8955",
+        "idea_version_started_at": "2026-09-29T14:12:15Z",
+        "ticker": "BGRENERGY.NS",
+        "company": "BGR Energy Systems Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has entered Corporate Insolvency Resolution Process, signaling severe financial distress and a high probability of substantial shareholder value erosion.",
+        "why_now": "The initiation of the Corporate Insolvency Resolution Process is a critical and immediate event.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 78,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cba7776d5a05"
+        ],
+        "primary_source_event_id": "EVT-cba7776d5a05",
+        "source_headlines": [
+          "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/BGRENERGY_29092026180521_NCLTOrderAdjourment.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-29T12:36:23Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T14:12:15Z",
+        "updated_at": "2026-09-29T14:12:15Z",
+        "decay_at": "2026-10-01T00:36:23Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T00:36:23Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-fdfb53f77b2d",
+        "idea_version": "IDEAV-3f1e108e12ddebf1",
+        "idea_version_started_at": "2026-09-29T13:10:26Z",
+        "ticker": "BGRENERGY",
+        "company": "BGR Energy Systems Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has entered the Corporate Insolvency Resolution Process, signaling a high risk of insolvency and significant impairment to shareholder value.",
+        "why_now": "The filing was made public on 2026-09-29.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cba7776d5a05"
+        ],
+        "primary_source_event_id": "EVT-cba7776d5a05",
+        "source_headlines": [
+          "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/BGRENERGY_29092026180521_NCLTOrderAdjourment.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-29T12:36:23Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T13:10:26Z",
+        "updated_at": "2026-09-29T13:10:26Z",
+        "decay_at": "2026-10-01T00:36:23Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T00:36:23Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-72095f495ca7",
         "idea_version": "IDEAV-12b862ad24e10c8e",
@@ -192883,166 +193177,12 @@
         "archived_at": "2026-09-08T12:03:16Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-cb9b882c0756",
-        "idea_version": "IDEAV-97797391891ec002",
-        "idea_version_started_at": "2026-09-05T13:02:11Z",
-        "ticker": "ZEEL",
-        "company": "Zee Entertainment Enterprises",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A fresh CBI FIR against founder Subhash Chandra for a ₹1,322 crore fraud case involving LIC Housing Finance renews governance risks and potential asset freezes for Essel Group entities.",
-        "why_now": "The CBI lodged the FIR on September 5, 2026, creating immediate headline risk and potential forced selling by institutional holders.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "governance_turnaround",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b7a6222eefcf",
-          "EVT-d0edf79961c1",
-          "EVT-7640e2af3dc4"
-        ],
-        "primary_source_event_id": "EVT-b7a6222eefcf",
-        "source_headlines": [
-          "Subhash Chandra case: CBI lodges FIR against Essel Group chairman, three others in Rs 1,322 cr fraud case",
-          "CBI files case against Subhash Chandra for allegedly defrauding LIC Housing of ₹1,322 crore",
-          "CBI Registers Case Against Subhash Chandra Over Alleged ₹1,322 Crore LIC Housing Finance Loan Fraud"
-        ],
-        "source_headline": "Subhash Chandra case: CBI lodges FIR against Essel Group chairman, three others in Rs 1,322 cr fraud case",
-        "source_url": "https://economictimes.indiatimes.com/news/company/corporate-trends/cbi-lodges-fir-against-subhash-chandra-three-others-in-rs-1322-crore-fraud-case-lic-housing-finance/articleshow/133794433.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-05T10:37:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T13:02:11Z",
-        "updated_at": "2026-09-05T13:02:11Z",
-        "decay_at": "2026-09-06T22:37:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-08T12:03:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-9033b1d67836",
-        "idea_version": "IDEAV-271d2a951da11553",
-        "idea_version_started_at": "2026-09-05T20:32:18Z",
-        "ticker": "CAMP",
-        "company": "Campbell Soup Company",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Campbell's is cutting 13% of its salaried workforce and closing plants as part of a turnaround effort, indicating significant operational challenges.",
-        "why_now": "The workforce reduction and plant closures are immediate actions in a turnaround effort.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-21f6eddbc19c"
-        ],
-        "primary_source_event_id": "EVT-21f6eddbc19c",
-        "source_headlines": [
-          "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort"
-        ],
-        "source_headline": "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort",
-        "source_url": "https://www.foxbusiness.com/markets/campbells-cuts-13-salaried-workforce-closes-plants-part-turnaround-effort",
-        "source_name": "Fox Business — Markets",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-04T21:58:12Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T20:32:18Z",
-        "updated_at": "2026-09-05T20:32:18Z",
-        "decay_at": "2026-09-06T09:58:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-07T22:41:34Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1182,
-    "live_count": 36,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -193052,7 +193192,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3070,
+    "inbox_unconsumed": 3073,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -193061,9 +193201,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 65653,
-    "news_picked_today": 24,
-    "news_dropped_today": 408
+    "news_seen_today": 87240,
+    "news_picked_today": 27,
+    "news_dropped_today": 909
   },
   "book_momentum": {
     "live_count": 8,
