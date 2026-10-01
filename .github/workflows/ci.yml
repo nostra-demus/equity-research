@@ -147,6 +147,9 @@ jobs:
       - name: Live finish-gate AG regression (Step 10B.1 gates the §18 calibration-feedback gate on _live_date)
         run: python3 scripts/test_live_gate_ag.py
 
+      - name: Live finish-gate W regression (Step 10B.1 §16 sector ↔ valuation-method check gates on _live_date)
+        run: python3 scripts/test_live_gate_w.py
+
       - name: Live finish-gate AQ regression (Step 10B.1 §13 forensic-mosaic cap reads all 4 owning modules incl. business-model, and MG's two RF-REG-002 source specialists)
         run: python3 scripts/test_live_gate_aq.py
 
