@@ -77,7 +77,11 @@ def undecoded_suite_gates(root="."):
             found[f"{context} -> {ast.unparse(stmt.value)}"] += 1
         else:
             found[f"{type(stmt).__name__} write to suite_pass (line {node.lineno})"] += 1
-    return sorted((found - DECODED_SUITE_GATES).elements())
+    # Both directions: an extra write is one this gate cannot name, and a DELETED expected write (e.g. dropping
+    # `suite_pass = suite_pass and run_pass`) means eval.py no longer fails the suite on that condition, so the
+    # exit status stops vouching for the comparison (Codex #732, r4117707224).
+    return sorted((found - DECODED_SUITE_GATES).elements()) + \
+        [f"expected suite_pass write no longer present: {gate}" for gate in sorted((DECODED_SUITE_GATES - found).elements())]
 
 
 def _require_trusted_shape(report):
@@ -147,13 +151,18 @@ def _require_trusted_shape(report):
             bad(f"'runs[{name!r}].checks' is not a list (got {type(entry['checks']).__name__})")
 
 
-def run_harness(root=".", quiet=False):
+def run_harness(root=".", quiet=False, require_complete=True):
     """Run `scripts/eval.py all` in root and return its report, refusing one that cannot be trusted.
 
     The report must carry a boolean suite_pass that agrees with the harness's own exit status (eval.py exits
     0 exactly when suite_pass is true). A missing, non-boolean, or contradicting suite_pass raises: the key
     comparison is only sound on a report whose overall verdict is known. The suite-level sections
     failure_keys() reads must likewise be present and correctly typed (_require_trusted_shape).
+
+    With require_complete (the change under test), the harness must also print eval.py's `EVAL COMPLETE`
+    sentinel AFTER its `WROTE` line: an uncaught exception after the report is written also exits 1, which
+    would otherwise read as a normal failing-suite exit (Codex #732, r4117707230). The base is exempt: it is
+    the already-merged commit and may predate the sentinel, and a base that crashes only loses inherited keys.
     """
     result = subprocess.run([sys.executable, "scripts/eval.py", "all"], cwd=root, capture_output=True, text=True)
     if not quiet:
@@ -162,6 +171,12 @@ def run_harness(root=".", quiet=False):
     wrote = [line for line in result.stdout.splitlines() if line.startswith("WROTE ")]
     if not wrote:
         raise RuntimeError(f"the eval harness wrote no report (exit {result.returncode})")
+    if require_complete:
+        lines = result.stdout.splitlines()
+        last_wrote = max(i for i, line in enumerate(lines) if line.startswith("WROTE "))
+        if "EVAL COMPLETE" not in lines[last_wrote + 1:]:
+            raise RuntimeError("the eval harness wrote its report but never printed EVAL COMPLETE (crashed after "
+                               f"writing it? exit {result.returncode})")
     with open(os.path.join(root, wrote[-1][len("WROTE "):].strip()), encoding="utf-8") as handle:
         report = json.load(handle)
     verdict = report.get("suite_pass")
@@ -171,6 +186,14 @@ def run_harness(root=".", quiet=False):
         raise RuntimeError(f"the eval report says suite_pass={verdict} but the harness exited {result.returncode}")
     _require_trusted_shape(report)
     return report
+
+def _tag(ident, n):
+    """The n-th identical repeat of an identity. Literal '#' in the diagnostic text is escaped first, so a real
+    detail that happens to end ' #2' can never collide with the synthetic second-occurrence key (Codex #732,
+    r4119535841)."""
+    ident = ident.replace("#", "\\#")
+    return ident if n == 1 else f"{ident} #{n}"
+
 
 def _identity(check, detail, root):
     """One failure's identity: its check name plus its FULL detail text (whitespace-normalized, and the checkout's
@@ -225,7 +248,7 @@ def failure_keys(report, root="."):
             else:
                 ident = name
             seen[ident] += 1
-            keys.add((run, ident if seen[ident] == 1 else f"{ident} #{seen[ident]}"))
+            keys.add((run, _tag(ident, seen[ident])))
     # Raw AP violation entries with no (or a falsy) `run`: ap_failures() drops these entirely (`if run:`), so
     # the per-run loop above never sees them — even though eval.py hard-fails the whole suite on their presence.
     # Keyed under (suite) so an entry like this can never hide behind an unrelated already-explained failure.
@@ -243,7 +266,7 @@ def failure_keys(report, root="."):
     for element in elements:
         ident = " ".join(element.split())
         seen[ident] += 1
-        keys.add((SUITE, ident if seen[ident] == 1 else f"{ident} #{seen[ident]}"))
+        keys.add((SUITE, _tag(ident, seen[ident])))
     if report.get("suite_pass") is False and not accounted:
         # eval.py failed the suite for a reason none of the readers above name: never let that pass silently,
         # regardless of whether some OTHER, already-explained failure already populated `keys`.
@@ -271,13 +294,13 @@ def _unattributed_ap_failures(report, root="."):
         if run:
             ident = "AP_valuation_summary_integrity (attributed, no violations recorded)"
             seen[ident] += 1
-            out.add((run, ident if seen[ident] == 1 else f"{ident} #{seen[ident]}"))
+            out.add((run, _tag(ident, seen[ident])))
             continue
         violations = entry.get("violations") or ["(unattributed AP failure: no run and no violations recorded)"]
         for violation in violations:
             ident = _identity("AP_valuation_summary_integrity (no run)", violation, root)
             seen[ident] += 1
-            out.add((SUITE, ident if seen[ident] == 1 else f"{ident} #{seen[ident]}"))
+            out.add((SUITE, _tag(ident, seen[ident])))
     return out
 
 
@@ -324,7 +347,7 @@ def base_failure_keys(base, root="."):
             return None, f"could not check out base {base}: {add.stderr.strip()[:200]}"
         added = True
         try:
-            report = run_harness(worktree, quiet=True)
+            report = run_harness(worktree, quiet=True, require_complete=False)
         except Exception as error:  # the base's own harness crashed or wrote nothing
             return None, f"the eval harness on base {base} produced no report ({error})"
         return failure_keys(report, worktree), None

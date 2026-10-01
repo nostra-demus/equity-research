@@ -134,6 +134,12 @@ _dup = lambda n: report({"R_2026-09-01": {"pass": False, "warn_only": False, "de
 new, _ = split(failure_keys(_dup(2)), failure_keys(_dup(1)))
 check("an additional IDENTICAL failure is counted, so it gates", new == {("R_2026-09-01", "Q: same #2")}, sorted(new))
 
+# Codex #732 (r4119535841): a real detail ending ' #2' must not collide with the synthetic 2nd-occurrence key.
+_same = lambda details: report({"R_2026-09-01": {"pass": False, "warn_only": False, "decision": "Watchlist",
+                                                 "checks": [{"check": "Q", "status": "FAIL", "detail": d} for d in details]}})
+new, _ = split(failure_keys(_same(["same", "same #2"])), failure_keys(_same(["same", "same"])))
+check("a distinct failure whose text ends ' #2' is not mistaken for the 2nd identical failure", len(new) == 1, sorted(new))
+
 # Codex (#732): confirmed defect — an AP failure entry with a missing/falsy `run` hard-fails the suite in
 # eval.py (apfailures -> False) but research_check.ap_failures() drops it (`if run:`), so it was invisible to
 # every reader here. Worse, the old guard only added the generic `suite_pass=False` marker `if ... and not
@@ -170,6 +176,13 @@ check("every way the real scripts/eval.py can fail the suite is one this gate ca
       undecoded_suite_gates(_repo) == [], undecoded_suite_gates(_repo))
 
 
+_d = tempfile.mkdtemp(prefix="gate-ast-")
+os.makedirs(os.path.join(_d, "scripts"))
+open(os.path.join(_d, "scripts", "eval.py"), "w").write("suite_pass = True\n")
+check("a DELETED expected suite_pass write is caught (two-way comparison)",
+      any("no longer present" in g for g in undecoded_suite_gates(_d)), undecoded_suite_gates(_d))
+shutil.rmtree(_d, ignore_errors=True)
+
 for label, body in (("augmented `suite_pass &= ok`", "suite_pass = True\nsuite_pass &= ok\n"),
                     ("walrus `(suite_pass := False)`", "suite_pass = True\n(suite_pass := False)\n"),
                     ("tuple target `suite_pass, x = False, 1`", "suite_pass = True\nsuite_pass, x = False, 1\n"),
@@ -185,12 +198,29 @@ for label, body in (("augmented `suite_pass &= ok`", "suite_pass = True\nsuite_p
 # ---- end to end: real main(), real git worktree, stand-in harness ---------------------------------------
 FAKE_EVAL = r'''
 import json, os, sys
+# inert stand-ins for every suite_pass write the real eval.py has (the gate compares them in both directions)
+suite_pass = True
+warn_only = run_pass = jmiss = azfails = apfailures = False
+if not warn_only:
+    suite_pass = suite_pass and run_pass
+try:
+    pass
+except Exception:
+    suite_pass = False
+if jmiss:
+    suite_pass = False
+if azfails:
+    suite_pass = False
+if apfailures:
+    suite_pass = False
 state = json.load(open("state.json"))
 if state.get("crash"):
     sys.exit(3)
 os.makedirs("analyses/eval", exist_ok=True)
 json.dump(state["report"], open("analyses/eval/r.json", "w"))
 print("WROTE analyses/eval/r.json")
+if not state.get("no_complete"):
+    print("EVAL COMPLETE")
 sys.exit(state["rc"] if "rc" in state else (0 if state["report"].get("suite_pass") else 1))
 '''
 
@@ -258,6 +288,14 @@ open(os.path.join(root3, "scripts", "eval.py"), "a").write("\nif os.environ.get(
 rc, out = gate(root3, BASE_STATE, sha3)
 check("e2e: eval.py gains a suite failure the gate cannot name -> strict, the inherited failure still gates",
       rc == 1 and "cannot name" in out, out[-400:])
+
+rc, out = gate(root, {"report": BASE, "no_complete": True}, sha)
+check("e2e: a head harness that wrote its report but never printed EVAL COMPLETE (crash after WROTE) is refused",
+      rc == 2 and "EVAL COMPLETE" in out, out[-400:])
+root5, sha5 = sandbox({"report": BASE, "no_complete": True})
+rc, out = gate(root5, BASE_STATE, sha5)
+check("e2e: a base that predates the sentinel is still usable (only the change must print it)",
+      rc == 0 and "compared against base" in out, out[-400:])
 
 _no_verdict = {k: v for k, v in BASE.items() if k != "suite_pass"}
 rc, out = gate(root, {"report": _no_verdict, "rc": 1}, sha)
