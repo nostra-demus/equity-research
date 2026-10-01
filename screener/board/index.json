@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T04:37:40Z",
+  "generated_at": "2026-10-01T04:46:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-121",
@@ -1359,6 +1359,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-220",
+      "headline": "NuScale Raised $985 Million With Almost No Revenue. Here's How Long the Cash Lasts",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/09/30/nuscale-raised-985-million-with-almost-no-revenue/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T02:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "NuScale's high capital raise relative to its minimal revenue highlights significant liquidity and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "NuScale's high capital raise relative to its minimal revenue highlights significant liquidity and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NuScale",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-066",
       "headline": "Paramount-Warner Bros. Deal Cleared Despite Merger Opposition",
       "headline_en": null,
@@ -1965,55 +2014,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-169",
-      "headline": "Xiaomi Auto September deliveries top 40,000 as Sky Nomad adds volume",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/10/01/xiaomi-auto-sept-2026-deliveries/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T02:50:50Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Xiaomi Auto reported monthly deliveries exceeding 40,000 units.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Xiaomi Auto reported monthly deliveries exceeding 40,000 units.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Xiaomi",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193285,9 +193285,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1073367,
-    "news_picked_today": 301,
-    "news_dropped_today": 6251
+    "news_seen_today": 1089210,
+    "news_picked_today": 330,
+    "news_dropped_today": 6414
   },
   "book_momentum": {
     "live_count": 8,
