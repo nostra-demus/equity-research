@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T18:43:43Z",
+  "generated_at": "2026-10-01T18:58:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-515",
@@ -884,6 +884,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-527",
+      "headline": "Barbie-Maker Mattel Draws Takeover Interest From Authentic Brands Group",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/retail/barbie-maker-mattel-draws-takeover-interest-from-authentic-brands-group-21270470?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T18:32:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Mattel is reportedly drawing takeover interest from Authentic Brands Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mattel is reportedly drawing takeover interest from Authentic Brands Group.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mattel",
+          "ticker": "MAT",
+          "listing_country": "US"
+        },
+        {
+          "name": "Authentic Brands Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1939,56 +1993,6 @@
           "name": "Fresenius SE & Co. KGaA",
           "ticker": "FRE",
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-152",
-      "headline": "Doosan Enerbility Wins 838 Billion Won Vietnam Power Plant Deal",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278010",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T05:07:01Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Doosan Enerbility secured a power plant construction contract worth 838 billion won in Vietnam.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Doosan Enerbility secured a power plant construction contract worth 838 billion won in Vietnam.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Doosan Enerbility",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -192397,9 +192401,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4862721,
-    "news_picked_today": 1287,
-    "news_dropped_today": 22305
+    "news_seen_today": 4902952,
+    "news_picked_today": 1309,
+    "news_dropped_today": 22403
   },
   "book_momentum": {
     "live_count": 8,
