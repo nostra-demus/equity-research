@@ -61,9 +61,13 @@ def extract_step_10b1_block(md_text):
     return "\n".join(lines[start:end])
 
 
-def write_fixture(root, thesis_md):
+def write_fixture(root, thesis_md, sidecar=True, price_targets=False):
     """A pre-cutoff record that passes the other live checks. Only the audit
-    table varies, so a populated table must produce a real GATE: PASS."""
+    table varies, so a populated table must produce a real GATE: PASS.
+
+    `sidecar` / `price_targets` drive the valuation-sidecar PRESENCE cases: the gate requires
+    valuation_summary.json only of a run whose scenarios carry fair-value LEVELS (a numeric
+    price_target), matching 99's own "no fair-value levels -> may omit it"."""
     os.makedirs(root, exist_ok=True)
     rec = {
         "ticker": "TEST", "decision_date": PRE_CUTOFF_DATE, "decision": "Watchlist",
@@ -91,8 +95,18 @@ def write_fixture(root, thesis_md):
         # status="not_available" the only value AG accepts.
         "calibration_feedback": {"status": "not_available"},
     }
+    if price_targets:
+        # 120/105/85 against entry 100 at 30/40/30 reproduces the same returns (20/5/-15): probability-
+        # weighted target 103.5 -> ER 3.5, risk/reward (103.5-100)/(100-85) = 0.2333, so check M stays clean.
+        for s, t in zip(rec["scenarios"], (120, 105, 85)):
+            s["price_target"] = t
+        rec["risk_reward"] = 0.2333
     with open(os.path.join(root, "decision_record.json"), "w", encoding="utf-8") as f:
         json.dump(rec, f)
+    if not sidecar:
+        with open(os.path.join(root, "final_thesis.md"), "w", encoding="utf-8") as f:
+            f.write(thesis_md)
+        return
     # The fixture's contract (see the docstring) is that it passes every OTHER live check so only the
     # audit table varies. The gate now requires valuation/valuation_summary.json of any run carrying
     # scenario levels — 99_valuation-synthesis has always called emitting it a Hard Rule, and the gate
@@ -227,6 +241,30 @@ def main():
             else:
                 bad += 1
                 print(f"  [XX] pre-cutoff folder, {name}: expected {verdict} "
+                      f"with {diagnostics!r}. Got:\n{output}")
+        # Valuation-sidecar PRESENCE is keyed on fair-value LEVELS, not on scenario rows: a run whose
+        # scenarios carry only probability/return has nothing to put in the sidecar (99: "no fair-value
+        # levels -> may omit it"), while a run with price targets that skips the sidecar is the Hard-Rule
+        # breach the gate exists to name.
+        presence = [
+            ("no sidecar, return-only scenarios", dict(sidecar=False, price_targets=False), "PASS", []),
+            ("no sidecar, scenarios with price targets", dict(sidecar=False, price_targets=True),
+             "PROVISIONAL", ["valuation/valuation_summary.json was not emitted, though this run produced 3"]),
+            ("sidecar present, scenarios with price targets", dict(sidecar=True, price_targets=True), "PASS", []),
+        ]
+        for index, (name, kw, verdict, diagnostics) in enumerate(presence):
+            sandbox = os.path.join(tmp, f"presence{index}", "sandbox")
+            os.makedirs(sandbox, exist_ok=True)
+            run_root = os.path.join(sandbox, "analyses", f"TEST_{PRE_CUTOFF_DATE}")
+            write_fixture(run_root, THESIS_WITH_DAT, **kw)
+            output = run_block(block_path, run_root, sandbox)
+            gates = [line for line in output.splitlines() if line.startswith("GATE:")]
+            if (len(gates) == 1 and gates[0].startswith(f"GATE: {verdict} — ")
+                    and all(message in gates[0] for message in diagnostics)):
+                print(f"  [ok] sidecar presence, {name} -> {verdict}")
+            else:
+                bad += 1
+                print(f"  [XX] sidecar presence, {name}: expected {verdict} "
                       f"with {diagnostics!r}. Got:\n{output}")
     finally:
         shutil.rmtree(tmp, ignore_errors=True)

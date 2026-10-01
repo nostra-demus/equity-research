@@ -784,13 +784,18 @@ viol.extend(hc.eval_aj_decision_audit_trail(_live_date, _thesis_text_ak) or [])
 # Checked HERE rather than in eval.py's corpus scan on purpose: this gate is per-run and pre-publish, so
 # it reaches the run that can still fix it, while a corpus-wide presence rule would red CI on every code
 # PR for runs whose authors were never told (valuation_basis_checks.BF_SIDECAR_REQUIRED_DATE stays None
-# for that reason). The gate loop runs twice, so the normal outcome is that the agent is told, emits it,
-# and the run goes clean; one that still cannot ships PROVISIONAL with the reason named.
+# for that reason). The gate loop runs twice and 10B.1a routes every violation that starts with
+# `valuation_summary.json` / `valuation/valuation_summary.json` to valuation `99` with an EMIT-ONLY instruction
+# (the master cannot write this file), so the normal outcome is that the module's own synthesis emits it from
+# its existing report and the run goes clean; one that still cannot ships PROVISIONAL with the reason named.
 #
-# A run with no scenario levels has nothing to put in the sidecar, so absence there stays soft.
+# "Scenario levels" means rows carrying a numeric price_target — a fair-value LEVEL. A run whose scenarios
+# carry only probability/return (no fair-value levels) is the case 99 itself says "may omit it", so absence
+# there stays soft: keying on any scenario row at all demanded a level artifact of a run that had none.
 import valuation_summary_checks as vsc
 _vs_path = os.path.join(run, "valuation", "valuation_summary.json")
-_vs_levels = d.get("scenarios") if isinstance(d, dict) else None
+_vs_scen = d.get("scenarios") if isinstance(d, dict) else None
+_vs_levels = [s for s in _vs_scen if isinstance(s, dict) and _isnum(s.get("price_target"))] if isinstance(_vs_scen, list) else None
 # [review fix F11] REQUIRE THE ARTIFACT ONLY FROM A PASS THAT RAN THE VALUATION MODULE. The rule above
 # keys off `decision_record.scenarios` alone, and this block runs verbatim in TWO callers. A
 # `/research:full` run executes every module, so valuation's 99 always runs and can always emit —
@@ -822,7 +827,8 @@ if os.path.exists(_vs_path):
     # failure (else a truncated JSON would collapse to None and PASS the gate, shipping a broken lever set).
     try: _vs_sidecar = json.load(open(_vs_path, encoding="utf-8"))
     except Exception as _e: viol.append(f"valuation_summary.json exists but is not readable/valid JSON ({_e}) — integrity failure, not soft-absence")
-    else: viol.extend(vsc.eval_ap_valuation_summary_integrity(_vs_sidecar, d) or [])
+    # Prefixed so 10B.1a can route them to the file's only writer (valuation `99`), not to the master.
+    else: viol.extend(f"valuation_summary.json: {_v}" for _v in (vsc.eval_ap_valuation_summary_integrity(_vs_sidecar, d) or []))
 # checks AT/AU/AV — §10 scenario-span check, sign-check presence, §10 conjunction-disclosure check
 # (live pre-publish; mirrors eval.py checks AT/AU/AV via scripts/scenario_integrity_checks.py, the
 # same shared-detection-module pattern as rating_caps.py / headline_checks.py / valuation_summary_checks.py
@@ -994,7 +1000,9 @@ attestation failure stops before re-gating or committing. In `shadow`, record th
 as usual. A pre-remediation attestation never authorizes rewritten bytes.
 
 1. Split the verbatim violation list before any dispatch. A **BB violation** is one whose text starts
-   `§16 Sector Cycle Reality Test compounding trigger fired`; every other entry is a **master-owned
+   `§16 Sector Cycle Reality Test compounding trigger fired`; a **sidecar violation** is one whose text starts
+   `valuation_summary.json` or `valuation/valuation_summary.json` (the missing, unreadable, integrity (AP) and
+   basis (BF) findings on the valuation lever sidecar); every other entry is a **master-owned
    violation**. Pass only the master-owned list to `.claude/agents/synthesizer.md`. If that list is empty,
    skip this initial master pass. This exclusion is mandatory: the master does not own valuation `99`,
    and letting it react to BB before the module correction can change downstream scores from stale inputs.
@@ -1046,6 +1054,26 @@ as usual. A pre-remediation attestation never authorizes rewritten bytes.
      number."* Skip this propagation when valuation was absent, refused the correction, or failed the
      byte-scope guard. Without the derived-tier refresh and this post-module propagation, the second gate
      can pass while reader-facing outputs still carry the pre-cap score.
+
+   - **Route sidecar violations only to the valuation owner, emit-only.** `valuation/valuation_summary.json`
+     is written by `.claude/agents/valuation/99_valuation-synthesis.md` ("Structured Emission") and by no
+     other step — the master does not own it and cannot clear these. When the sidecar list is non-empty,
+     resolve the exact valuation `99` path with the same glob as BB. If no non-empty file exists, do not
+     dispatch and do not create the sidecar here: leave the violations PROVISIONAL for the second gate (the
+     same never-regenerate-a-missing-module rule as BB). Otherwise save the `99` markdown bytes to a `mktemp`
+     path outside `<RUN_ROOT>`, then dispatch `99` against the same run with: *"The finish-gate rejected the
+     valuation lever sidecar: <the sidecar violations, verbatim>. Write or correct ONLY
+     `valuation/valuation_summary.json`, from the levels, metrics, multiples and bases already stated in your
+     existing report and `07_scenario-and-fair-value.md`, per the Structured Emission section and
+     `frameworks/valuation_summary.schema.json`. Do not edit any markdown, re-run any specialist, or change a
+     level, a basis, or a case's `set_membership` to clear a check — record what the reports actually say. If
+     a violation reflects the analysis itself (a weighted case genuinely built on a different period, or a
+     decision_record price_target that disagrees with your level), leave that line and say in one line why it
+     needs `/research:rerun <TICKER> valuation` or a master correction."* After the normal output check,
+     compare the `99` markdown with the saved bytes: if they differ at all, atomically restore the saved
+     original. Delete the temporary file. Attest the new exact sidecar bytes under
+     `valuation/99_valuation-synthesis`. Do not refresh derived tiers or run a master propagation pass — no
+     markdown, level or score changed.
 2. Re-run 10B.1 verbatim. Its banner logic is idempotent — it strips the old banner and re-stamps only what still fails.
 3. Run this loop **once**. If violations remain after the second gate, ship PROVISIONAL with the remaining reasons; that is now an honest record of what could not be fixed rather than of what nobody tried to fix.
 
