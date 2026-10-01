@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T08:18:39Z",
+  "generated_at": "2026-10-01T08:27:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-121",
@@ -46,6 +46,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-334",
+      "headline": "Sanofi expands Regeneron partnership with up to $8 billion deal in win for new CEO",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/sanofi-pay-regeneron-1-billion-upfront-expanded-immunology-deal-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T07:58:31Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Sanofi expands partnership with Regeneron in a deal worth up to $8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sanofi expands partnership with Regeneron in a deal worth up to $8 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sanofi",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Regeneron",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1411,6 +1465,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-329",
+      "headline": "UAE investigates if Flydubai attack was ‘terrorist activity’",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/8ead762e-88a0-4227-80b5-7aa605caf6ea?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T08:06:17Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Investigation into potential terrorist activity involving an airline incident.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Investigation into potential terrorist activity involving an airline incident.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-332",
+      "headline": "UAE investigation to determine if flydubai incident was linked to 'terrorist activity'",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/news/uae/2026/10/01/uae-attorney-general-says-investigation-will-look-at-whether-incident-was-linked-to-terrorist-activity/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T07:36:20Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Investigation into potential terrorist activity involving an airline incident.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Investigation into potential terrorist activity involving an airline incident.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-258",
       "headline": "Adani Ports' Colombo West terminal doubles capacity to 3.2 million TEUs with $750 million investment",
       "headline_en": null,
@@ -1759,20 +1911,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261001-308",
-      "headline": "Belrise Industries Limited: Belrise Industries Limited has informed the Exchange regarding Change in Auditors of the company.",
+      "inbox_id": "INB-20261001-326",
+      "headline": "Kapston Services Limited: Kapston Services Limited has informed the Exchange about Disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 Disposal of shares",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BELRISE_01102026123217_BELRISE_IntimationofAppofJointStatutoryAuditor_30092026.pdf",
+      "url": "https://nsearchives.nseindia.com/corporate/KAPSTON_01102026134347_KAPSTONREG29.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-01T07:02:30Z",
+      "found_at": "2026-10-01T08:14:17Z",
       "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Change in company auditors is a material governance event.",
+      "prelim_note": "Disclosure of share disposal under SEBI SAST regulations.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 94,
-      "triage_reason": "Change in company auditors is a material governance event.",
+      "triage_reason": "Disclosure of share disposal under SEBI SAST regulations.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -1780,48 +1932,48 @@
         "materiality": 50,
         "source_tier": 8,
         "scope": 6,
-        "event": 4,
-        "size": 1,
+        "event": 6,
+        "size": -1,
         "recency": 5,
         "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
       },
       "event_types": [
-        "management"
+        "ownership_activist"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Belrise Industries Limited",
+          "name": "Kapston Services Limited",
           "ticker": null,
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261001-306",
-      "headline": "Directions under Section 35A read with Section 56 of the Banking Regulation Act, 1949 – Innovative Co-operative Urban Bank Limited, New Delhi – Extension of Period",
+      "inbox_id": "INB-20261001-335",
+      "headline": "Avalon Technologies Limited: Avalon Technologies Limited has informed the Exchange regarding 'Disclosures under Reg 29(2) of SEBI (SAST) Regulations, 2011'.",
       "headline_en": null,
-      "url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63707",
-      "source_name": "Reserve Bank of India (RBI) — Press Releases",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-01T06:40:00Z",
+      "url": "https://nsearchives.nseindia.com/corporate/AVALON2022_01102026130418_SEBI_SAST_Disclosure_-_Company_final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T07:34:44Z",
       "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "The Reserve Bank of India extended regulatory restrictions on Innovative Co-operative Urban Bank Limited under Section 35A.",
+      "prelim_note": "Disclosure of share transaction under SEBI SAST regulations.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The Reserve Bank of India extended regulatory restrictions on Innovative Co-operative Urban Bank Limited under Section 35A.",
+      "triage_score": 94,
+      "triage_reason": "Disclosure of share transaction under SEBI SAST regulations.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -1829,176 +1981,29 @@
         "materiality": 50,
         "source_tier": 8,
         "scope": 6,
-        "event": 4,
-        "size": 0,
+        "event": 6,
+        "size": -1,
         "recency": 5,
         "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
       },
       "event_types": [
-        "regulatory"
+        "ownership_activist"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Innovative Co-operative Urban Bank Limited",
+          "name": "Avalon Technologies Limited",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-241",
-      "headline": "VIG: Disclosure under Listing Rule 4.3D Year Ended 30 June 2025 [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VIG?key=2924-03143228-6A1347217",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-01T04:13:09Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "VIG disclosed year-end financial results under Listing Rule 4.3D, which is price-sensitive information.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "VIG disclosed year-end financial results under Listing Rule 4.3D, which is price-sensitive information.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VIG",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-296",
-      "headline": "Arla Foods to Invest Millions to Tap Protein-Rich Dairy Demand, CEO Says",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/arla-foods-to-invest-millions-to-tap-protein-rich-dairy-demand-ceo-says-3e1ad1da?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T05:03:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Arla Foods announced a multi-million investment to expand protein-rich dairy production capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Arla Foods announced a multi-million investment to expand protein-rich dairy production capacity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Arla Foods",
-          "ticker": null,
-          "listing_country": "DK"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-135",
-      "headline": "Rio Tinto smelter bailouts near $5b as Tasmanian plant gets $200m",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/manufacturing/rio-tinto-smelter-bailouts-near-5b-as-tasmanian-plant-gets-200m-20261001-p611yt?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T01:04:20Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Rio Tinto is involved in a $5 billion smelter bailout program, including a $200 million investment in Tasmania.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Rio Tinto is involved in a $5 billion smelter bailout program, including a $200 million investment in Tasmania.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rio Tinto",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mega",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192478,9 +192483,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1945910,
-    "news_picked_today": 597,
-    "news_dropped_today": 10131
+    "news_seen_today": 2019328,
+    "news_picked_today": 608,
+    "news_dropped_today": 10144
   },
   "book_momentum": {
     "live_count": 8,
