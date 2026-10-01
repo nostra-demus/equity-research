@@ -89,7 +89,9 @@ def write_fixture(root, verification_report):
 
 def run_block(block_path, run_root):
     env = dict(os.environ)
-    env["PYTHONPATH"] = os.path.join(REPO_ROOT, "scripts") + os.pathsep + env.get("PYTHONPATH", "")
+    pythonpath = env.get("PYTHONPATH", "")
+    # No trailing separator when PYTHONPATH is unset: an empty entry means the CWD on sys.path.
+    env["PYTHONPATH"] = os.path.join(REPO_ROOT, "scripts") + (os.pathsep + pythonpath if pythonpath else "")
     proc = subprocess.run(
         [sys.executable, block_path, run_root],
         cwd=REPO_ROOT, capture_output=True, text=True, timeout=30, env=env,
