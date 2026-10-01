@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-fc426f81932d",
-  "idea_version": "IDEAV-929164ede4691ce2",
+  "idea_id": "IDEA-80657c4063b1",
+  "idea_version": "IDEAV-93f6cc7c00a3cae9",
   "idea_version_started_at": "2026-10-01T05:01:30Z",
-  "ticker": "6594",
-  "company": "Nidec",
-  "exchange": "TSE",
+  "ticker": "CHM",
+  "company": "CHM",
+  "exchange": "ASX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The auditor's refusal to provide an opinion on earnings creates significant uncertainty regarding the company's financial health and potential accounting irregularities.",
-  "why_now": "The news broke on 2026-10-01 and represents an immediate, critical governance and financial reporting risk.",
-  "conviction": 85,
+  "reason": "The combination of default distress, creditor updates, and executive exits signals a high probability of insolvency or severe capital structure impairment.",
+  "why_now": "The annual report and creditor update were filed on 2026-10-01.",
+  "conviction": 80,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 14,
-    "impact": 19,
+    "evidence": 25,
+    "impact": 16,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -45,30 +44,30 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "governance_turnaround",
+  "thesis_type": "balance_sheet_survival",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-25a8014ab713"
+    "EVT-147198e0dc75"
   ],
-  "primary_source_event_id": "EVT-25a8014ab713",
+  "primary_source_event_id": "EVT-147198e0dc75",
   "source_headlines": [
-    "Nidec Shares Plunge After Auditor Withholds Opinion on Earnings"
+    "CHM: FY2026 Annual Report, creditor update and Board changes"
   ],
-  "source_headline": "Nidec Shares Plunge After Auditor Withholds Opinion on Earnings",
-  "source_url": "https://www.bloomberg.com/news/articles/2026-10-01/nidec-shares-plunge-after-auditor-withholds-opinion-on-earnings",
-  "source_name": "Bloomberg",
-  "materiality_max": 100,
-  "newest_source_at": "2026-10-01T00:25:33Z",
+  "source_headline": "CHM: FY2026 Annual Report, creditor update and Board changes",
+  "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CHM?key=2924-03143098-2A1701052",
+  "source_name": "ASX (Australia Exchange Filing)",
+  "materiality_max": 98,
+  "newest_source_at": "2026-10-01T00:16:13Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-28T05:43:18Z",
+  "surfaced_at": "2026-10-01T05:01:30Z",
   "updated_at": "2026-10-01T05:01:30Z",
-  "decay_at": "2026-10-02T12:25:33Z",
+  "decay_at": "2026-10-02T12:16:13Z",
   "status": "live",
   "promoted_signal_id": null
 }
