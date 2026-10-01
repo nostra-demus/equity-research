@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T09:46:44Z",
+  "generated_at": "2026-10-01T10:06:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-348",
@@ -1416,6 +1416,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-364",
+      "headline": "Reliance Industries Limited: We wish to inform that the Company has today allotted 13,00,000 Unsecured, Redeemable, Non-Convertible Debentures (\"NCDs\") of the face value of Rs. 1,00,000 each (\"PPD Series R\"), issued on private placement basis.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/kavinavora_01102026150203_SE_01102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T09:32:20Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Reliance Industries Limited has allotted 13,00,000 NCDs at a face value of Rs 1,00,000 each, totaling Rs 13,000 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Reliance Industries Limited has allotted 13,00,000 NCDs at a face value of Rs 1,00,000 each, totaling Rs 13,000 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-321",
       "headline": "Shriram Finance Limited: Shriram Finance Limited has informed the Exchange about General Updates regarding tender Offer for purchase of certain Senior Secured Notes issued under the USD 3,500,000,000 Global Medium Term Note Programme (GMTN Programme) - Senior Secured Notes purchased and Settlement announcement",
       "headline_en": null,
@@ -1920,55 +1969,6 @@
       "source_name": "Financial Times",
       "input_nature": "news_headline",
       "found_at": "2026-10-01T08:06:17Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Investigation into potential terrorist activity involving an airline incident.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Investigation into potential terrorist activity involving an airline incident.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flydubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-332",
-      "headline": "UAE investigation to determine if flydubai incident was linked to 'terrorist activity'",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/news/uae/2026/10/01/uae-attorney-general-says-investigation-will-look-at-whether-incident-was-linked-to-terrorist-activity/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T07:36:20Z",
       "sweep_file": "screener/inbox/2026-10-01_sweep.json",
       "prelim_note": "Investigation into potential terrorist activity involving an airline incident.",
       "dedup_status": "new",
@@ -192557,9 +192557,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2486336,
-    "news_picked_today": 672,
-    "news_dropped_today": 12312
+    "news_seen_today": 2628604,
+    "news_picked_today": 675,
+    "news_dropped_today": 12837
   },
   "book_momentum": {
     "live_count": 8,
