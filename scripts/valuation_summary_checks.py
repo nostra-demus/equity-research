@@ -549,7 +549,28 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
     dr_scen = decision.get("scenarios") if isinstance(decision, dict) else None
     if isinstance(dr_scen, list) and dr_scen:
         dr_by = {str(s.get("label", "")).strip().lower(): s for s in dr_scen if isinstance(s, dict)}
-        sc_set, dr_set = set(labels), set(dr_by)
+        # A case the sidecar DECLARES as a sensitivity is not an orphan when the thesis omits it — that is
+        # the whole point of the declaration. `07` holds such a case outside the weighted set (an
+        # un-rebasable historical trough, an avoid-ruin floor carried to Kill Criteria), so the master
+        # synthesizer has nothing to weight and the thesis legitimately does not hold it as a case. Without
+        # this, a run that follows 99's `set_membership` instruction exactly is hard-failed here for
+        # obeying it.
+        _sens = {str(s.get("label", "")).strip().lower()
+                 for s in (scen if isinstance(scen, list) else [])
+                 if isinstance(s, dict) and str(s.get("set_membership") or "").strip().lower() == "sensitivity"}
+        # The reverse is a real defect, and it is the escape hatch the field would otherwise open: a case
+        # declared OUT of the weighted set here while the frozen thesis still weights it. The basis checks
+        # (scripts/valuation_basis_checks.py) skip a declared sensitivity, so this would let a bear built on
+        # a different period or measure keep its probability while becoming invisible to the gate.
+        for lab in sorted(_sens):
+            drs = dr_by.get(lab)
+            prob = drs.get("probability") if isinstance(drs, dict) else None
+            if _isnum(prob) and float(prob) > 0:
+                det.append(f"scenario {lab!r} is declared `set_membership: sensitivity` (outside the weighted set) "
+                           f"but decision_record weights it at {prob}% — a case cannot be excluded from the basis "
+                           f"checks and still carry probability; either weight it and declare it weighted, or "
+                           f"drop its probability and carry it as a floor")
+        sc_set, dr_set = set(labels) - _sens, set(dr_by)
         for lab in sorted(sc_set - dr_set):
             near = sorted(d for d in dr_set - sc_set if d.startswith(lab) or lab.startswith(d))
             hint = (f" — the thesis calls it {' / '.join(repr(n) for n in near)}; use the thesis's own label, "
@@ -679,6 +700,22 @@ def _selftest() -> int:
     ]}
     rn = eval_ap_valuation_summary_integrity(ok_sidecar, dr_split)
     check("a renamed case is caught as an orphan", any("'bear' has no decision_record counterpart" in v for v in rn))
+
+    # A DECLARED sensitivity case (99: `set_membership`) is held outside the weighted set on purpose, so the
+    # thesis omitting it is correct, not an orphan lever.
+    sens_sc = dict(ok_sidecar, scenarios=list(ok_sidecar["scenarios"]) + [
+        {"label": "bear_structural", "level": 3, "set_membership": "sensitivity"}])
+    check("a declared sensitivity case absent from the thesis is not an orphan",
+          not any("bear_structural" in v for v in eval_ap_valuation_summary_integrity(sens_sc, dr_match)))
+    # ...and the reverse is the escape hatch: excluded from the basis checks while still carrying weight.
+    dr_weighted = {"scenarios": list(dr_match["scenarios"]) + [
+        {"label": "bear_structural", "price_target": 3, "probability": 20}]}
+    check("a sensitivity case the thesis still weights is caught",
+          any("still carry probability" in v for v in eval_ap_valuation_summary_integrity(sens_sc, dr_weighted)))
+    dr_zero = {"scenarios": list(dr_match["scenarios"]) + [
+        {"label": "bear_structural", "price_target": 3, "probability": 0}]}
+    check("a sensitivity case the thesis carries at 0% is fine",
+          not any("still carry probability" in v for v in eval_ap_valuation_summary_integrity(sens_sc, dr_zero)))
     check("and the message quotes the thesis's own label",
           any("bear_cyclical" in v and "bear_structural" in v and "never a second name" in v for v in rn))
     # a thesis case the module never derived is NOT a defect (the master owns the case set, §10/§22): the

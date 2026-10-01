@@ -252,37 +252,14 @@ if scope=="--data-needs-prewrite":
 # /research:calibrate and /research:track already read) and is used only in the main scan loop.
 from ledger_records import resolve_integrity_status, supersession_target_violations
 
-# ── Check W (sector ↔ valuation-method consistency) — module-level so the `selftest` scope can drive it ──
-# Method substrings SECTOR_OVERLAYS.md forbids per sector type, matched against a SEPARATOR-STRIPPED,
-# lowercased primary_valuation_method so "EBITDA-DCF" / "EBITDA DCF" / "ebitdadcf" all collapse to one
-# token (the old hyphen-literal list silently missed the spaced spellings). Banks / lenders / insurers are
-# balance-sheet-funded financials: SECTOR_OVERLAYS.md values them on equity-side methods (DDM / residual
-# income / P-B / embedded value) and says "NOT FCFF/EV ... never net-debt/EBITDA" — so EVERY enterprise-
-# value / unlevered-cashflow method is a category error, not just FCFF (the old list caught only "fcff").
-# REITs explicitly forbid EBITDA-DCF (depreciation non-economic); FCFF is NOT listed forbidden for a REIT
-# there, so the gate does not invent that ban. Tokens are separator-free — "evebit" matches both EV/EBIT
-# and EV/EBITDA; bare "ev" is deliberately NOT a token (it would false-match "revenue"/"leverage"/"level").
-SECTOR_DATE="2026-06-18"
-_FIN_INSTITUTION_FORBIDDEN=["fcff","evebit","evsales","ebitdadcf","netdebtebitda","enterprisevalue"]
-SECTOR_FORBIDDEN={
-    # lowercase key = substring matched against business_type (case-insensitive)
-    # value = forbidden tokens, matched against the separator-stripped primary_valuation_method
-    "bank":_FIN_INSTITUTION_FORBIDDEN,"lender":_FIN_INSTITUTION_FORBIDDEN,"insur":_FIN_INSTITUTION_FORBIDDEN,
-    "reit":["ebitdadcf"],"real estate":["ebitdadcf"],
-}
-def eval_w_sector_valuation(business_type, primary_valuation_method):
-    """Core of check W. Returns None when N/A (either field blank), else the list of forbidden-method
-    tokens present (empty list = clean). Separator-stripped substring match so hyphen/space spellings
-    collapse. Side-effect-free + module-level so `eval.py selftest` can exercise it without a run fixture."""
-    bt=(business_type or "").strip(); pvm=(primary_valuation_method or "").strip()
-    if not bt or not pvm: return None
-    bt_l=bt.lower(); pvm_norm=re.sub(r'[^a-z0-9]+','',pvm.lower())
-    hits=[]
-    for sec,fmethods in SECTOR_FORBIDDEN.items():
-        if sec in bt_l:
-            for fm in fmethods:
-                if fm in pvm_norm and fm not in hits: hits.append(fm)
-    return hits
+# ── Check W (sector ↔ valuation-method consistency) ──
+# Detection logic extracted to scripts/sector_valuation_checks.py (importable, side-effect-free) so the
+# SAME function also runs LIVE in the /research:full Step 10B.1 finish-gate — before a violation ships,
+# not only when someone remembers to run this eval harness afterward. See sector_valuation_checks.py's
+# module docstring for the full doctrine rationale.
+# Import (not copy): eval.py is the single caller of this function for retrospective grading;
+# sector_valuation_checks.py is the single source of the detection logic, imported by both callers.
+from sector_valuation_checks import SECTOR_DATE, _FIN_INSTITUTION_FORBIDDEN, SECTOR_FORBIDDEN, eval_w_sector_valuation
 
 # ── Check X (conviction-run evidence-integrity floor) — module-level so `eval.py selftest` can drive it ──
 # A run in a conviction basket (Selected/Short) dated >= VERIFY_FLOOR_DATE must carry a verify-evidence
@@ -625,7 +602,7 @@ from valuation_summary_checks import (
 # switch carried the whole -74% bear leg while the run's own truth gate returned integrity 100. Detection
 # is pure + module-level (mirrors AP) so the same core is finish-gate-ready.
 from valuation_basis_checks import (
-    scan_committed as scan_basis_committed, _selftest as _vb_selftest,
+    scan_committed as scan_basis_committed, _selftest as _vb_selftest, BF_ENFORCE_DATE,
 )
 
 # ── Check AN (§4a supersession-integrity) — module-level so `eval.py selftest` drives it fixture-free ──
@@ -781,7 +758,9 @@ from scenario_integrity_checks import (
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
-    # PASS (incl. REIT-on-FCFF, which SECTOR_OVERLAYS.md does NOT forbid), and N/A when a field is unset.
+    # PASS, and N/A when a field is unset. A REIT headlined on FCFF DCF / an EV multiple FAILS (the valuation
+    # Business-Type Method Map, stricter than SECTOR_OVERLAYS.md, per §23); only the HEADLINE method is judged,
+    # so a method named solely as a cross-check or an explicit exclusion does not count.
     W=eval_w_sector_valuation
     cases=[  # (business_type, primary_valuation_method, expect: "fail"|"clean"|"na")
         ("Bank / lender","FCFF DCF","fail"),
@@ -800,11 +779,26 @@ if scope=="selftest":
         ("Bank / lender","P/B vs ROE","clean"),
         ("Insurer","embedded value / VNB","clean"),            # must NOT false-match 'enterprisevalue'
         ("REIT / real estate","NAV + DDM on FFO/AFFO","clean"),
-        ("REIT / real estate","FCFF DCF","clean"),             # doctrine does NOT forbid FCFF for a REIT
+        ("REIT / real estate","FCFF DCF","fail"),              # Method Map: REIT "Do NOT use: EBITDA / FCFF DCF"
+        ("REIT / real estate","EV/EBITDA","fail"),             # 99_valuation-synthesis: no EV multiple as a REIT headline
+        ("REIT / real estate","EV/EBIT","fail"),
+        ("REIT / real estate","Sum-of-the-parts / NAV (corroborated by normalized FCFF DCF)","clean"),  # EMAAR_2026-07-10: FCFF only corroborates
+        ("REIT / real estate","NAV with FCFF DCF cross-check","clean"),      # "with X cross-check": X is not the headline
+        ("REIT / real estate","FCFF DCF with NAV cross-check","fail"),       # ...but here FCFF IS the headline
+        ("REIT / real estate","FCFF DCF (EV/EBITDA rejected)","fail"),       # an excluding aside never hides the headline
+        ("REIT / real estate","60% NAV + 40% FCFF DCF","fail"),              # a weighted blend prices every leg it names
+        ("Bank / lender","Residual income; FCFF DCF not applicable","clean"),# an explicit exclusion is not use
+        ("Bank / lender","Forward P/TBV with peer NTM P/E and residual-income cross-check","clean"),  # NU_2026-08-31
         ("Generic operating company","FCFF DCF","clean"),      # untracked sector — no constraint
         ("Commodity producer / miner","mid-cycle FCFF DCF","clean"),
+        ("Bank / lender","EV/Revenue","fail"),                 # EV/Revenue == EV/Sales synonym — still an EV method
+        ("Bank / lender","EV / Revenue vs peers","fail"),      # separator-robust spelling of the same
+        ("SaaS / subscription software (insurance vertical)","FCFF DCF","clean"),  # parenthetical aside must NOT match 'insur'
+        ("Generic operating company (banking software vendor)","FCFF DCF","clean"),# 'banking' in a qualifier must NOT match 'bank'
         ("","FCFF DCF","na"),
         ("Bank / lender","","na"),
+        (["Bank / lender"],"FCFF DCF","na"),                   # non-string business_type -> N/A, never a crash
+        ("Bank / lender",123,"na"),                            # non-string primary_valuation_method -> N/A, never a crash
     ]
     bad=0
     for bt,pvm,exp in cases:
@@ -4835,17 +4829,24 @@ if azfails: suite_pass = False
 apchecked, apfailures = scan_committed(".")
 if apfailures: suite_pass=False
 
-# BF — scenario basis coherence. REPORT-ONLY for now: the ungated replay finds 4 real period mismatches and
-# 6 partial declarations across the committed corpus, and retro-failing runs whose authors were never told
-# the rule would say nothing about their analysis. Findings are published so the corpus can be drained
-# first; the enforcement flip is a separate, reviewed change once it is clean.
-bachecked, bafailures = scan_basis_committed(".")
+# BF — scenario basis coherence. DATED, not report-only: every run is measured and published, and a run
+# DATED on/after BF_ENFORCE_DATE fails the suite on its findings. The split exists because retro-failing
+# runs whose authors were never told the rule would say nothing about their analysis — so the committed
+# corpus (two thirds of which predates the rule, and 8 of 21 full runs of which emit no sidecar at all)
+# is reported and never failed, while anything written after the date is held to it.
+bachecked, bafailures, baenforced = scan_basis_committed(".")
+# Findings on runs dated on/after BF_ENFORCE_DATE fail the suite; everything earlier reports only. The
+# gate is dated rather than switched so the two thirds of the corpus that predates the rule — including
+# the 34 run folders that emit no sidecar at all — is never retro-failed.
+if baenforced: suite_pass=False
 
 out={"schema_version":"1.0","generated_at":today,"scope":scope,"n_runs":len(results),
      "suite_pass":suite_pass,"runs":results,"source_contracts_s24":jchecks,
      "governance_flag_cap_correspondence":{"pass":not azfails,"failures":azfails},
      "valuation_summary_integrity":{"checked":apchecked,"failures":[{"run":r,"violations":v} for r,v in apfailures]},
-     "scenario_basis_coherence":{"checked":bachecked,"enforced":False,"findings":[{"run":r,"violations":v} for r,v in bafailures]}}
+     "scenario_basis_coherence":{"checked":bachecked,"enforce_date":BF_ENFORCE_DATE,
+                                 "enforced":[{"run":r,"violations":v} for r,v in baenforced],
+                                 "findings":[{"run":r,"violations":v} for r,v in bafailures]}}
 os.makedirs("analyses/eval",exist_ok=True)
 of=f"analyses/eval/{today}_eval_report.json"; k=2
 while os.path.exists(of): of=f"analyses/eval/{today}_eval_report_v{k}.json"; k+=1
@@ -4870,6 +4871,17 @@ for j in jchecks:
 print("  valuation summary integrity (AP: lever sidecar ↔ decision_record):", f"PASS ({apchecked} committed sidecar(s))" if not apfailures else "FAIL "+";".join(r for r,_ in apfailures))
 for r,v in apfailures:
     print(f"     FAIL {r}: {'; '.join(v)}")
+# BF must say so in the log too. It can set suite_pass=False, and research_check.py's fallback line for an
+# unexplained suite failure points the operator AT this log — so a gate that fires here silently produces a
+# blocked push naming no check and nothing to fix.
+print(f"  scenario basis coherence (BF: one weighted set, one basis — enforced from {BF_ENFORCE_DATE}):",
+      f"PASS ({bachecked} judgeable set(s), {len(bafailures)} pre-gate finding(s))" if not baenforced
+      else "FAIL "+";".join(r for r,_ in baenforced))
+for r,v in bafailures:
+    print(f"     {'FAIL' if any(r==e for e,_ in baenforced) else 'FINDING'} {r}: {'; '.join(v)}")
+for r,v in baenforced:
+    if not any(r==f for f,_ in bafailures):
+        print(f"     FAIL {r}: {'; '.join(v)}")
 retro_runs={nm:r["retrospective_advisories"] for nm,r in results.items() if r.get("retrospective_advisories")}
 if retro_runs:
     n=sum(len(v) for v in retro_runs.values())
