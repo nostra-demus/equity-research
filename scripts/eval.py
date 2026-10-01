@@ -625,7 +625,7 @@ from valuation_summary_checks import (
 # switch carried the whole -74% bear leg while the run's own truth gate returned integrity 100. Detection
 # is pure + module-level (mirrors AP) so the same core is finish-gate-ready.
 from valuation_basis_checks import (
-    scan_committed as scan_basis_committed, _selftest as _vb_selftest,
+    scan_committed as scan_basis_committed, _selftest as _vb_selftest, BF_ENFORCE_DATE,
 )
 
 # ── Check AN (§4a supersession-integrity) — module-level so `eval.py selftest` drives it fixture-free ──
@@ -5113,13 +5113,19 @@ if apfailures: suite_pass=False
 # 6 partial declarations across the committed corpus, and retro-failing runs whose authors were never told
 # the rule would say nothing about their analysis. Findings are published so the corpus can be drained
 # first; the enforcement flip is a separate, reviewed change once it is clean.
-bachecked, bafailures = scan_basis_committed(".")
+bachecked, bafailures, baenforced = scan_basis_committed(".")
+# Findings on runs dated on/after BF_ENFORCE_DATE fail the suite; everything earlier reports only. The
+# gate is dated rather than switched so the two thirds of the corpus that predates the rule — including
+# the 34 run folders that emit no sidecar at all — is never retro-failed.
+if baenforced: suite_pass=False
 
 out={"schema_version":"1.0","generated_at":today,"scope":scope,"n_runs":len(results),
      "suite_pass":suite_pass,"runs":results,"source_contracts_s24":jchecks,
      "governance_flag_cap_correspondence":{"pass":not azfails,"failures":azfails},
      "valuation_summary_integrity":{"checked":apchecked,"failures":[{"run":r,"violations":v} for r,v in apfailures]},
-     "scenario_basis_coherence":{"checked":bachecked,"enforced":False,"findings":[{"run":r,"violations":v} for r,v in bafailures]}}
+     "scenario_basis_coherence":{"checked":bachecked,"enforce_date":BF_ENFORCE_DATE,
+                                 "enforced":[{"run":r,"violations":v} for r,v in baenforced],
+                                 "findings":[{"run":r,"violations":v} for r,v in bafailures]}}
 os.makedirs("analyses/eval",exist_ok=True)
 of=f"analyses/eval/{today}_eval_report.json"; k=2
 while os.path.exists(of): of=f"analyses/eval/{today}_eval_report_v{k}.json"; k+=1
