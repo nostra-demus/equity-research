@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-01T13:57:49Z",
+  "generated_at": "2026-10-01T14:02:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261001-429",
+      "headline": "Amber Enterprises India Limited: Pursuant to Regulation 30 of SEBI LODR Regulations, we wish to update the exchange on the Scheme of Amalgamation of AmberPR Technoplast India Private Limited with and into the Company. In context of hearing held on 25th September 2026, the Company has received an order dated 25th September 2026 received on 1st October 2026, passed by Hon'ble National Company Law Tribunal, in CP(CAA) No. 18/Chd/Pb/2026 connected with CA(CAA) No. 11/Chd/Pb/2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AMBER_01102026185615_IntimationDisclosureRegulation30AmberOrderdated25092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T13:26:47Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "NCLT court order dated 25 Sept 2026 approves scheme of amalgamation of AmberPR Technoplast into Amber Enterprises India Limited; confirmed M&A from primary judicial source.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "NCLT court order dated 25 Sept 2026 approves scheme of amalgamation of AmberPR Technoplast into Amber Enterprises India Limited; confirmed M&A from primary judicial source.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amber Enterprises India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "AmberPR Technoplast India Private Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261001-421",
       "headline": "Siti Networks Limited: Siti Networks Limited has informed the Exchange regarding 'Disclosure in compliance with Para 3(C2) of SEBI Circular No. SEBI/HO/CFD/CMD1/CIR/2019/140 dated November 21, 2019, of default on payment of interest/repayment of principal amount on loans from Bank(s)'.",
@@ -1957,55 +2011,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-428",
-      "headline": "SC 14D9/A - ACV Auctions Inc. (0001637873) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1637873/000119312526409981/0001193125-26-409981-index.htm",
-      "source_name": "SEC EDGAR — Latest SC 14D9 (Target's Tender-Offer Response)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-01T13:04:09Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "ACV Auctions Inc. filed a target's tender-offer response, indicating an ongoing M&A process.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "ACV Auctions Inc. filed a target's tender-offer response, indicating an ongoing M&A process.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ACV Auctions Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192558,9 +192563,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3979112,
-    "news_picked_today": 946,
-    "news_dropped_today": 17246
+    "news_seen_today": 3995677,
+    "news_picked_today": 951,
+    "news_dropped_today": 17361
   },
   "book_momentum": {
     "live_count": 8,
