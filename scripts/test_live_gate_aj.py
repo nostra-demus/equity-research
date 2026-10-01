@@ -93,6 +93,15 @@ def write_fixture(root, thesis_md):
     }
     with open(os.path.join(root, "decision_record.json"), "w", encoding="utf-8") as f:
         json.dump(rec, f)
+    # The fixture's contract (see the docstring) is that it passes every OTHER live check so only the
+    # audit table varies. The gate now requires valuation/valuation_summary.json of any run carrying
+    # scenario levels — 99_valuation-synthesis has always called emitting it a Hard Rule, and the gate
+    # used to treat its absence as soft, which is how four consecutive runs shipped without one. A
+    # minimal sidecar keeps this fixture a well-formed run rather than one that only looks like it.
+    os.makedirs(os.path.join(root, "valuation"), exist_ok=True)
+    with open(os.path.join(root, "valuation", "valuation_summary.json"), "w", encoding="utf-8") as f:
+        json.dump({"schema_version": "1.2", "ticker": "TEST", "basis": "equity",
+                   "scenarios": [{"label": "bull"}, {"label": "base"}, {"label": "bear"}]}, f)
     with open(os.path.join(root, "final_thesis.md"), "w", encoding="utf-8") as f:
         f.write(thesis_md)
 

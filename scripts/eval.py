@@ -5170,4 +5170,5 @@ if retro_runs:
         for a in adv:
             print(f"     ADVISORY {nm}: {a['check']} — {a['detail']}")
 print("WROTE", of)
+print("EVAL COMPLETE")   # completion sentinel: scripts/eval_code_gate.py refuses a head run that exits without it (a crash after WROTE)
 sys.exit(0 if suite_pass else 1)   # [review fix] non-zero exit on FAIL so CI / hooks / automation gating on $? see the regression
