@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T02:07:29Z",
+  "generated_at": "2026-10-01T02:11:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-033",
@@ -1278,6 +1278,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-098",
+      "headline": "ASX falls; Meteoric up 50pc after Lynas buyout",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-slip-us-rate-bets-drop-though-bond-yields-press-higher-20261001-p611w8?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T01:59:47Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Meteoric Resources shares rose 50% following a buyout offer from Lynas.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Meteoric Resources shares rose 50% following a buyout offer from Lynas.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meteoric Resources",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Lynas Rare Earths",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-086",
       "headline": "Anthropic Plans to Spend $518 Billion on Cloud and Data Centers. More Than $100 Billion Is Already Promised to Amazon.",
       "headline_en": null,
@@ -1381,6 +1435,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-097",
+      "headline": "HUDCO shares in focus after H1 loan sanctions cross ₹1 lakh crore; disbursements up 46%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/hudco-share-price-q2-business-update-h1-loan-sanctions-disbursements-up-20002589.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T01:51:57Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "HUDCO reported H1 loan sanctions exceeding ₹1 lakh crore with a 46% increase in disbursements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "HUDCO reported H1 loan sanctions exceeding ₹1 lakh crore with a 46% increase in disbursements.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HUDCO",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-050",
       "headline": "Dilip Buildcon aims to double coal output by FY29 in major mining push",
       "headline_en": null,
@@ -1474,6 +1577,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-099",
+      "headline": "AirAsia Indonesia Mulls Share Sales, Liability Restructuring",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-01/airasia-indonesia-mulls-share-sales-liability-restructuring",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T01:44:49Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "AirAsia Indonesia is considering share sales and liability restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "AirAsia Indonesia is considering share sales and liability restructuring.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "strategic_review",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AirAsia Indonesia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1864,148 +2017,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-018",
-      "headline": "SCHEDULE 13D/A - Cadre Holdings, Inc. (0001860543) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1860543/000110465926112476/0001104659-26-112476-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-30T23:47:36Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Amended 13D filing for Cadre Holdings; specific amendment detail and stake direction unknown from headline alone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Amended 13D filing for Cadre Holdings; specific amendment detail and stake direction unknown from headline alone.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cadre Holdings, Inc.",
-          "ticker": "CDRE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-022",
-      "headline": "Mahindra & Mahindra Financial Services Limited: Mahindra & Mahindra Financial Services Limited has informed the Exchange regarding allotment of 125000 NCDs at its meeting held on September 29, 2026",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/M_MFIN_29092026123730_20260929-SEs_Intimationsigneed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T07:10:14Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Allotment of 125,000 NCDs at board meeting 29 Sept 2026 confirmed; capital structure event but face value and terms not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Allotment of 125,000 NCDs at board meeting 29 Sept 2026 confirmed; capital structure event but face value and terms not disclosed in headline.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 54,
-      "rank_factors": {
-        "materiality": 54,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mahindra & Mahindra Financial Services Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-057",
-      "headline": "BREAKING NEWS: BOJ member cites need to accelerate pace of rate hikes if inflation quickens",
-      "headline_en": null,
-      "url": "https://english.kyodonews.net/articles/-/86841",
-      "source_name": "Kyodo News (Japan Wire)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:25:25Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "A Bank of Japan member signaled a potential acceleration in the pace of interest rate hikes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "A Bank of Japan member signaled a potential acceleration in the pace of interest rate hikes.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193276,9 +193287,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 600587,
-    "news_picked_today": 109,
-    "news_dropped_today": 2891
+    "news_seen_today": 620007,
+    "news_picked_today": 115,
+    "news_dropped_today": 2909
   },
   "book_momentum": {
     "live_count": 8,
