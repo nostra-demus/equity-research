@@ -589,44 +589,59 @@ def _norm_label(value) -> str:
     return re.sub(r"[^a-z0-9]+", "_", str(value or "").lower()).strip("_")
 
 
+def _positive(prob) -> bool:
+    return isinstance(prob, (int, float)) and not isinstance(prob, bool) and prob > 0
+
+
 def _refused_exclusions(cases, decision_scenarios):
     """(ids of sensitivity cases whose exclusion is refused, violations).
 
     THE DECISION RECORD OWNS THE PROBABILITIES, NOT THIS SIDECAR. The sidecar is written before the
     master synthesizer weights anything, so `set_membership: sensitivity` is a claim the frozen
-    decision_record can contradict. A case the record still weights (>0) is a weighted case hidden from
-    this gate; a case whose label matches no record scenario cannot be shown to carry no weight. Either
-    way the exclusion is refused and the case stays in the comparison. With no decision record (a
-    partial run) there is nothing to join, and the declaration stands.
+    decision_record can contradict. Two contradictions refuse the exclusion (the case stays in the
+    comparison and the refusal is reported):
+
+      (a) the case's label matches a record scenario carrying >0 probability — a weighted case hidden
+          from this gate;
+      (b) the record weights (>0) a scenario that matches NO sidecar case at all — the rename evasion
+          (sidecar `bear` marked sensitivity, record `Bear (structural)` at 30%). The weighted leg has
+          no visible counterpart, so no sensitivity exclusion in this sidecar can be shown to be honest;
+          every one not explicitly recorded at 0% is refused.
+
+    A sensitivity case simply ABSENT from the record is honoured: the master leaves it out of the
+    weighting or holds it at 0% (the sibling stack's synthesizer contract), and AP treats such a case as
+    not an orphan. With no decision record (a partial run) there is nothing to join.
     """
     if not isinstance(decision_scenarios, list):
         return set(), []
     recorded = [s for s in decision_scenarios if isinstance(s, dict)]
     if not recorded:
         return set(), []
+
+    def keys(s):
+        return {k for k in (_norm_label(s.get("label")), _norm_label(s.get("scenario_id"))) if k}
+
+    sidecar_keys = {_norm_label(c.get("label")) for c in cases} - {""}
+    orphans = [s for s in recorded if _positive(s.get("probability")) and not (keys(s) & sidecar_keys)]
     refused, out = set(), []
     for case in cases:
         if _membership_of(case) not in _MEMBERSHIP_OUT:
             continue
         key = _norm_label(case.get("label"))
-        match = [s for s in recorded
-                 if key and key in (_norm_label(s.get("label")), _norm_label(s.get("scenario_id")))]
+        match = [s for s in recorded if key and key in keys(s)]
         label = str(case.get("label") or "?")
-        prob = None
-        for s in match:
-            p = s.get("probability")
-            if isinstance(p, (int, float)) and not isinstance(p, bool) and p > 0:
-                prob = p
-        if not match:
-            refused.add(id(case))
-            out.append(f"case {label!r} is declared set_membership: sensitivity but matches no scenario "
-                       "in decision_record.json, so nothing shows it carries no probability — it stays "
-                       "in the weighted comparison (record it there at 0%, or use its recorded label)")
-        elif prob is not None:
+        weighted = [s.get("probability") for s in match if _positive(s.get("probability"))]
+        if weighted:
             refused.add(id(case))
             out.append(f"case {label!r} is declared set_membership: sensitivity but decision_record.json "
-                       f"weights it at {prob} — a weighted case cannot leave the basis comparison; it "
-                       "stays in")
+                       f"weights it at {weighted[0]} — a weighted case cannot leave the basis comparison; "
+                       "it stays in")
+        elif orphans and not match:
+            refused.add(id(case))
+            names = ", ".join(repr(str(s.get("label") or s.get("scenario_id") or "?")) for s in orphans)
+            out.append(f"case {label!r} is declared set_membership: sensitivity while decision_record.json "
+                       f"weights {names}, which matches no case in this sidecar — a renamed weighted leg "
+                       "cannot be excluded through a sensitivity label; the case stays in")
     return refused, out
 
 
@@ -834,7 +849,7 @@ def eval_scenario_basis_coherence(sidecar, notes=None, decision_scenarios=None):
 
 
 # ── enforcement gate ──────────────────────────────────────────────────────────────────────────────
-# The rule is armed by DATE, not by merging this file. Two thirds of the committed corpus predates it —
+# The rule is armed by DATE AND the emitter-canary flag below, not by merging this file. Two thirds of the committed corpus predates it —
 # 34 of 51 run folders emit no sidecar at all — and failing work whose authors were never told the rule
 # is enforcement by ambush. The established idiom in eval.py (AY_DATE, AZ_DATE, SECTOR_DATE) is a dated
 # forward gate, and this follows it exactly.
@@ -851,15 +866,20 @@ def eval_scenario_basis_coherence(sidecar, notes=None, decision_scenarios=None):
 # `bear_structural` with no declared basis: six runs, seven of the nine current findings) fails with
 # nothing its author can write to fix it. That is not a gate, it is a trap.
 #
-# THE PRECONDITION, in order: the schema + emitter changes land, a frozen-input canary proves a real run
-# actually writes those fields, and only then does this date move into range. If the canary has not run,
-# move it again — an armed gate against a non-complying emitter fails every new run for a reason the
-# author cannot fix, which is how a gate gets switched off permanently instead of fixed.
+# THE PRECONDITION, in order: the schema + emitter changes land, then a frozen-input canary proves a real
+# run actually writes those fields. ARMING NEEDS BOTH the date AND the canary flag below: a run dated on or
+# after BF_ENFORCE_DATE is enforced only while BF_EMITTER_CANARY_PROVEN is True; until then it is reported
+# exactly like a pre-gate run. So the date arriving can neither arm the gate against a non-complying
+# emitter (which fails every new run for a reason its author cannot fix) nor break CI on that day.
 BF_ENFORCE_DATE = "2026-12-15"
-# Set True ONLY once that frozen-input canary has been observed to emit the declared fields. Until then the
-# selftest fails on the day BF_ENFORCE_DATE arrives, so the date cannot pass silently — the reviewer's
-# point was that a selftest pinned to a literal "today" stayed green whether or not the canary ever ran.
+# Set True ONLY once that frozen-input canary has been observed to emit the declared fields. The
+# precondition is now code, not a comment: without this flag no date arms the gate.
 BF_EMITTER_CANARY_PROVEN = False
+
+
+def bf_armed(decision_date) -> bool:
+    """True when a run of this date is ENFORCED: date on/after BF_ENFORCE_DATE AND the canary has run."""
+    return bool(BF_EMITTER_CANARY_PROVEN) and _isdate(decision_date) and decision_date >= BF_ENFORCE_DATE
 
 # SIDECAR PRESENCE ARMS SEPARATELY, AND IS CURRENTLY OFF. These are two different demands wearing one
 # date. "Your declared bases disagree" is a defect in work that was done; "you emitted no sidecar" is a
@@ -908,13 +928,16 @@ def eval_bf_basis_enforcement(decision_date, sidecar, violations):
 
     `violations` is eval_scenario_basis_coherence's result for this run (None = nothing to judge).
 
+    ARMED ONLY BY BOTH the date (decision_date >= BF_ENFORCE_DATE) AND BF_EMITTER_CANARY_PROVEN; any
+    run short of either is 'na' (report-only) — see `bf_armed`.
+
     An UNDATED run is 'na'. That is deliberate and it is a known hole: a run carrying no decision_date
     cannot be placed on either side of a forward gate, and guessing from the folder name would make the
     gate depend on a filename convention rather than on the thesis's own stated date. It is reported by
     the scan so the hole is visible rather than silent.
     """
-    if not _isdate(decision_date) or decision_date < BF_ENFORCE_DATE:
-        return "na"
+    if not bf_armed(decision_date):
+        return "na"  # before the date, or before the emitter canary: report-only
     # VIOLATIONS ARE READ FIRST. A corrupt sidecar arrives here as sidecar=None WITH a parse-error
     # violation in hand; checking presence first swallowed it and returned na, so an unreadable lever
     # file was reported and never enforced — the one shape that most deserves to fail.
@@ -1053,7 +1076,20 @@ def scan_committed(root="."):
 
 
 def _selftest() -> int:
-    """Drive every branch fixture-free. Returns the number of failed assertions."""
+    """Drive every branch fixture-free. Returns the number of failed assertions.
+
+    The enforcement branches are exercised ARMED (canary flag set for the duration, then restored);
+    the unarmed behaviour has its own explicit [canary] assertions."""
+    global BF_EMITTER_CANARY_PROVEN
+    saved = BF_EMITTER_CANARY_PROVEN
+    BF_EMITTER_CANARY_PROVEN = True
+    try:
+        return _selftest_body()
+    finally:
+        BF_EMITTER_CANARY_PROVEN = saved
+
+
+def _selftest_body() -> int:
     failed = 0
 
     def check(name, condition):
@@ -1280,10 +1316,20 @@ def _selftest() -> int:
           eval_bf_basis_enforcement(_before, None, v_none) == "na")
     check("presence failing is reachable once its own date is set",
           _presence_would_fail(_after, "2026-11-15"))
-    import datetime as _dt
-    check("the gate is not armed before its emitter canary has run (derived from today, not a literal)",
-          _isdate(BF_ENFORCE_DATE)
-          and (BF_EMITTER_CANARY_PROVEN or BF_ENFORCE_DATE > _dt.date.today().isoformat()))
+    # ARMING NEEDS THE CANARY FLAG AS WELL AS THE DATE — asserted both ways, independent of today.
+    global BF_EMITTER_CANARY_PROVEN
+    _armed_flag = BF_EMITTER_CANARY_PROVEN
+    try:
+        BF_EMITTER_CANARY_PROVEN = False
+        check("[canary] without the canary flag a post-date run with findings is report-only",
+              eval_bf_basis_enforcement(_after, sc, v_bad) == "na" and not bf_armed(_after))
+        BF_EMITTER_CANARY_PROVEN = True
+        check("[canary] with the canary flag a post-date run with findings is enforced",
+              eval_bf_basis_enforcement(_after, sc, v_bad) == "fail" and bf_armed(_after))
+        check("[canary] with the flag, a pre-date run is still report-only",
+              eval_bf_basis_enforcement(_before, sc, v_bad) == "na")
+    finally:
+        BF_EMITTER_CANARY_PROVEN = _armed_flag
 
     # ---- statistic label (02's markdown) ----
     check("the prescribed legacy header is caught",
@@ -1511,9 +1557,14 @@ def _selftest() -> int:
             E(_sens, decision_scenarios=[{"label": "bull", "probability": 40},
                                          {"label": "base", "probability": 45},
                                          {"label": "Bear", "probability": 15}])))
-    chk("[4151643264] a 'sensitivity' case matching no decision-record scenario is refused",
-        lambda: any("matches no scenario" in v for v in E(_sens, decision_scenarios=[
-            {"label": "bull", "probability": 50}, {"label": "base", "probability": 50}])))
+    chk("[#5 sibling contract] a 'sensitivity' case ABSENT from the decision record is honoured",
+        lambda: E(_sens, decision_scenarios=[
+            {"label": "bull", "probability": 50}, {"label": "base", "probability": 50}]) == [])
+    chk("[4151643264] the rename evasion is refused: sidecar 'bear' sensitivity vs record 'Bear (structural)' 30%",
+        lambda: (lambda out: any("matches no case in this sidecar" in v for v in out)
+                 and any("PERIOD" in v for v in out))(E(_sens, decision_scenarios=[
+            {"label": "bull", "probability": 30}, {"label": "base", "probability": 40},
+            {"label": "Bear (structural)", "probability": 30}])))
     chk("[4151643264] a 'sensitivity' case the record carries at 0% is honoured",
         lambda: E(_sens, decision_scenarios=[{"label": "bull", "probability": 50},
                                              {"label": "base", "probability": 50},
