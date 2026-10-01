@@ -15,7 +15,7 @@
     "schema_version": {
       "type": "string",
       "pattern": "^[0-9]+(\\.[0-9]+){0,3}$",
-      "description": "dotted numeric version ('1.3'). Versioned rules gate on it, so an unparseable value is REJECTED rather than grandfathered as pre-1.3"
+      "description": "Dotted numeric version ('1.5'). Versioned rules gate on it, so an unparseable value is REJECTED rather than grandfathered. 1.5 adds the basis-declaration fields: scenarios[].set_membership, scenarios[].metric_period, scenarios[].metric_measure and the root cross_metric_reconciliation. They stay OPTIONAL at 1.5 — the emitter has not been proven to write them on a real run yet — but the version exists so a later rule CAN require them of sidecars that declare it, which is impossible if the fields ship with no version to gate on."
     },
     "ticker": {
       "type": "string"
