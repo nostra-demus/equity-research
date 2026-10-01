@@ -113,6 +113,15 @@ def write_fixture(root, calibration_feedback, confidence_inputs=None):
         del rec["confidence_inputs"]
     with open(os.path.join(root, "decision_record.json"), "w", encoding="utf-8") as f:
         json.dump(rec, f)
+    # The live gate now requires valuation/valuation_summary.json of any run carrying scenario
+    # levels (99 has always called emitting it a Hard Rule; the gate used to treat its absence as
+    # soft, which is how four consecutive runs shipped without one). This fixture's contract is
+    # that it passes every OTHER live check, so it writes a minimal valid one — the same two
+    # lines the AJ fixture already carries.
+    os.makedirs(os.path.join(root, "valuation"), exist_ok=True)
+    with open(os.path.join(root, "valuation", "valuation_summary.json"), "w", encoding="utf-8") as f:
+        json.dump({"schema_version": "1.2", "ticker": "TEST", "basis": "equity",
+                   "scenarios": [{"label": "bull"}, {"label": "base"}, {"label": "bear"}]}, f)
     with open(os.path.join(root, "final_thesis.md"), "w", encoding="utf-8") as f:
         f.write(THESIS_WITH_DAT)
 
