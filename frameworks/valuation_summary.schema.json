@@ -123,7 +123,7 @@
               "string",
               "null"
             ],
-            "description": "The period AND measure this case's forward metric is stated on — 'NTM EPS', 'FY+1 EBITDA', 'FY2027E revenue', 'mid-cycle EBITDA', 'trailing EPS'. Both halves are read mechanically by scripts/valuation_basis_checks.py: every WEIGHTED case in one set must share the period and the measure, because a set pricing its bear on a different denominator reports a downside that is an artefact of the definition change rather than of the downturn. State the period the metric is ON, not one merely mentioned: a trough MARGIN applied to forward revenue is a forward case."
+            "description": "Human-readable statement of the period AND measure this case's forward metric is stated on — 'NTM EPS', 'FY+1 EBITDA', 'mid-cycle EBITDA'. PREFER declaring metric_period and metric_measure alongside it: those are read authoritatively, while this string is only parsed when they are absent, and parsing prose for a period is lossy. Keep writing it regardless — it carries the derivation a reader needs and the two declared fields cannot."
           },
           "multiple": {
             "type": [
@@ -444,6 +444,20 @@
               null
             ],
             "description": "Whether this case enters the probability-weighted result. Default when absent: 'weighted'. Use 'sensitivity' for a case 07 deliberately held OUTSIDE the weighted set — a historical-trough level that could not be re-based onto the forward denominator, or an avoid-ruin / structural-reset floor carried to Kill Criteria rather than priced as the 12-month bear (07 'Which case it becomes'). A sensitivity case carries no probability and contributes to no weighted aggregate."
+          },
+          "metric_period": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The period this case's forward metric is stated on, DECLARED rather than inferred. Controlled but open vocabulary: 'NTM', 'LTM', 'FY+1', 'FY+2', 'FY2027' (or any 'FY<year>'), 'mid_cycle', 'trough'. Open because a closed enum would have nowhere to put a business type nobody has met yet. When present this is authoritative and metric_basis is NOT parsed for the period — which is the point: reading the period out of prose misreads it, and 'a trough margin applied to FY27E revenue' is a FY27 case that a regex will call a trough."
+          },
+          "metric_measure": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The measure this case's forward metric is stated on, DECLARED rather than inferred. Controlled but open vocabulary: 'EPS', 'EBITDA', 'EBIT', 'REVENUE', 'FCF', 'BVPS', 'NAV', 'FFO'. Open for the same reason as metric_period — a bank's embedded value and a REIT's AFFO must have somewhere to go. When present this is authoritative and metric_basis is NOT parsed for the measure."
           }
         }
       }
