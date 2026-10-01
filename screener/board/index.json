@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-01T17:13:00Z",
+  "generated_at": "2026-10-01T17:22:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261001-501",
+      "headline": "D/A - EQUIDEFI LTD. (0001905438) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1905438/000121390026105607/0001213900-26-105607-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-01T16:53:02Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Delisting removes a security from exchange trading and signals insolvency, regulatory disqualification, or other survival-level distress for the equity holder.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delisting removes a security from exchange trading and signals insolvency, regulatory disqualification, or other survival-level distress for the equity holder.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EquiDefi Ltd.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-502",
+      "headline": "D - Cookie Finance, Inc. (0002045506) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2045506/000204550626000002/0002045506-26-000002-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-01T16:53:01Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Delisting removes a security from exchange trading and signals insolvency, regulatory disqualification, or other survival-level distress for the equity holder.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delisting removes a security from exchange trading and signals insolvency, regulatory disqualification, or other survival-level distress for the equity holder.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cookie Finance, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261001-480",
       "headline": "SECUREKLOUD TECHNOLOGIES LIMITED: Defaults on Payment of Interest/Principal",
@@ -737,6 +835,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-491",
+      "headline": "Accenture's Q4 revenue at $18.7 billion; raises FY27 operating margin outlook",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/companies/accentures-q4-revenue-at-187-billion-raises-fy27-operating-margin-outlook-4167403",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T16:53:13Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Accenture reported $18.7 billion in Q4 revenue and raised FY27 operating margin outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Accenture reported $18.7 billion in Q4 revenue and raised FY27 operating margin outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accenture",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1854,153 +2002,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-167",
-      "headline": "PwC refuses to sign off Nidec accounts despite $4bn charge",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/62ea4dd5-69ef-4fcf-8f07-ee1b3e4cdd9a?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T03:06:38Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "PwC refuses to sign off Nidec's accounts citing a $4bn charge, signaling material accounting disagreement and auditor confidence loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PwC refuses to sign off Nidec's accounts citing a $4bn charge, signaling material accounting disagreement and auditor confidence loss.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nidec Corporation",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-204",
-      "headline": "Walgreens-owner Sycamore nears $9 billion sale of Boots, WSJ reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/walgreens-owner-sycamore-nears-9-billion-sale-boots-wsj-reports-2026-09-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T02:46:46Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Walgreens-owner Sycamore is reportedly nearing a $9 billion sale of its Boots unit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Walgreens-owner Sycamore is reportedly nearing a $9 billion sale of its Boots unit.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Walgreens Boots Alliance, Inc.",
-          "ticker": "WBA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-159",
-      "headline": "Nidec shares sink after auditor withholds opinion on results",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/01/markets/nidec-shares-sink/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T02:41:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Nidec shares fell after its auditor withheld an opinion on the company's financial results, signaling a major accounting risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nidec shares fell after its auditor withheld an opinion on the company's financial results, signaling a major accounting risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nidec",
-          "ticker": "6594",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -151762,78 +151763,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5dcc3d54eb17",
-      "idea_version": "IDEAV-f9bb4ed7308d2599",
-      "idea_version_started_at": "2026-09-30T08:50:19Z",
-      "ticker": "NLCINDIA",
-      "company": "NLC India",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 38.91% increase in profit after tax to ₹3,769 crore and declared a 38.5% dividend, signaling strong operational performance and shareholder value.",
-      "why_now": "The earnings and dividend announcement occurred on 2026-09-30.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-802381ba2dff"
-      ],
-      "primary_source_event_id": "EVT-802381ba2dff",
-      "source_headlines": [
-        "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore"
-      ],
-      "source_headline": "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore",
-      "source_url": "https://www.freepressjournal.in/business/nlc-india-declares-385-dividend-for-fy26-profit-after-tax-up-3891-to-3769-crore",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-30T05:20:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-30T08:50:19Z",
-      "updated_at": "2026-09-30T08:50:19Z",
-      "decay_at": "2026-10-01T17:20:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fa0d140ee7df",
       "idea_version": "IDEAV-56f9fc0daac67d9a",
       "idea_version_started_at": "2026-10-01T01:46:19Z",
@@ -153303,6 +153232,78 @@
       "surfaced_at": "2026-09-29T09:11:29Z",
       "updated_at": "2026-09-29T09:11:29Z",
       "decay_at": "2026-09-30T17:30:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5dcc3d54eb17",
+      "idea_version": "IDEAV-f9bb4ed7308d2599",
+      "idea_version_started_at": "2026-09-30T08:50:19Z",
+      "ticker": "NLCINDIA",
+      "company": "NLC India",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 38.91% increase in profit after tax to ₹3,769 crore and declared a 38.5% dividend, signaling strong operational performance and shareholder value.",
+      "why_now": "The earnings and dividend announcement occurred on 2026-09-30.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-802381ba2dff"
+      ],
+      "primary_source_event_id": "EVT-802381ba2dff",
+      "source_headlines": [
+        "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore"
+      ],
+      "source_headline": "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore",
+      "source_url": "https://www.freepressjournal.in/business/nlc-india-declares-385-dividend-for-fy26-profit-after-tax-up-3891-to-3769-crore",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T05:20:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T08:50:19Z",
+      "updated_at": "2026-09-30T08:50:19Z",
+      "decay_at": "2026-10-01T17:20:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155334,14 +155335,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 544,
+    "total_count": 545,
     "shown_count": 500,
-    "hidden_count": 44,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       },
       "short": {
         "total_count": 267,
@@ -155365,6 +155366,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5dcc3d54eb17",
+        "idea_version": "IDEAV-f9bb4ed7308d2599",
+        "idea_version_started_at": "2026-09-30T08:50:19Z",
+        "ticker": "NLCINDIA",
+        "company": "NLC India",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 38.91% increase in profit after tax to ₹3,769 crore and declared a 38.5% dividend, signaling strong operational performance and shareholder value.",
+        "why_now": "The earnings and dividend announcement occurred on 2026-09-30.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-802381ba2dff"
+        ],
+        "primary_source_event_id": "EVT-802381ba2dff",
+        "source_headlines": [
+          "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore"
+        ],
+        "source_headline": "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore",
+        "source_url": "https://www.freepressjournal.in/business/nlc-india-declares-385-dividend-for-fy26-profit-after-tax-up-3891-to-3769-crore",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-30T05:20:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-30T08:50:19Z",
+        "updated_at": "2026-09-30T08:50:19Z",
+        "decay_at": "2026-10-01T17:20:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T17:20:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-90b902d53889",
         "idea_version": "IDEAV-21d26439d698bf8a",
@@ -185151,80 +185227,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5f7f48248919",
-        "idea_version": "IDEAV-9f8e2e53bbb3734f",
-        "idea_version_started_at": "2026-09-14T01:06:30Z",
-        "ticker": "REZ",
-        "company": "Resources & Energy Investments",
-        "exchange": null,
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Resources & Energy Investments received a $428,000 R&D Tax Incentive Refund, improving its cash position and potentially reducing its need for external financing.",
-        "why_now": "The company announced the receipt of the refund on September 14, 2026, providing an immediate cash flow boost.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 13,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-35aa7acd5601"
-        ],
-        "primary_source_event_id": "EVT-35aa7acd5601",
-        "source_headlines": [
-          "REZ: R&D Tax Incentive Refund of $428,000 Received"
-        ],
-        "source_headline": "REZ: R&D Tax Incentive Refund of $428,000 Received",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.REZ?key=2924-03135077-2A1696910",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 88,
-        "newest_source_at": "2026-09-14T00:16:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T01:06:30Z",
-        "updated_at": "2026-09-14T01:06:30Z",
-        "decay_at": "2026-09-15T12:16:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-85576f21dc9f",
         "idea_version": "IDEAV-5f32aeda55eb4426",
         "idea_version_started_at": "2026-09-14T00:41:52Z",
@@ -192528,7 +192530,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1193,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -192547,9 +192549,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4645353,
-    "news_picked_today": 1150,
-    "news_dropped_today": 21026
+    "news_seen_today": 4659441,
+    "news_picked_today": 1177,
+    "news_dropped_today": 21263
   },
   "book_momentum": {
     "live_count": 8,
