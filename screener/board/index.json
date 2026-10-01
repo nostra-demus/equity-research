@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T05:01:15Z",
+  "generated_at": "2026-10-01T05:01:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-121",
@@ -150978,6 +150978,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-fc426f81932d",
+      "idea_version": "IDEAV-929164ede4691ce2",
+      "idea_version_started_at": "2026-10-01T05:01:30Z",
+      "ticker": "6594",
+      "company": "Nidec",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The auditor's refusal to provide an opinion on earnings creates significant uncertainty regarding the company's financial health and potential accounting irregularities.",
+      "why_now": "The news broke on 2026-10-01 and represents an immediate, critical governance and financial reporting risk.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-25a8014ab713"
+      ],
+      "primary_source_event_id": "EVT-25a8014ab713",
+      "source_headlines": [
+        "Nidec Shares Plunge After Auditor Withholds Opinion on Earnings"
+      ],
+      "source_headline": "Nidec Shares Plunge After Auditor Withholds Opinion on Earnings",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-01/nidec-shares-plunge-after-auditor-withholds-opinion-on-earnings",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T00:25:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-28T05:43:18Z",
+      "updated_at": "2026-10-01T05:01:30Z",
+      "decay_at": "2026-10-02T12:25:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5fb7af495786",
       "idea_version": "IDEAV-d8f49ee22b72a862",
       "idea_version_started_at": "2026-09-30T23:23:27Z",
@@ -151550,78 +151622,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fc426f81932d",
-      "idea_version": "IDEAV-1a6eaba2437c7b04",
-      "idea_version_started_at": "2026-09-30T05:19:29Z",
-      "ticker": "6594",
-      "company": "Nidec",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sudden resignation of the CEO coupled with an accounting scandal creates significant governance risk and uncertainty regarding the company's financial integrity.",
-      "why_now": "The news broke on 2026-09-30 and the market is currently reacting to the leadership vacuum and potential regulatory scrutiny.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3a8bf6d73a03"
-      ],
-      "primary_source_event_id": "EVT-3a8bf6d73a03",
-      "source_headlines": [
-        "Nidec Shares Sink as CEO Resigns Amid Accounting Scandal"
-      ],
-      "source_headline": "Nidec Shares Sink as CEO Resigns Amid Accounting Scandal",
-      "source_url": "https://www.bloomberg.com/news/videos/2026-09-30/nidec-shares-sink-as-ceo-resigns-amid-accounting-scandal-video",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-30T02:28:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T05:43:18Z",
-      "updated_at": "2026-09-30T05:19:29Z",
-      "decay_at": "2026-10-01T14:28:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-02a86175523b",
       "idea_version": "IDEAV-f25ea1d334d8503f",
       "idea_version_started_at": "2026-09-30T02:00:49Z",
@@ -151976,6 +151976,77 @@
       "surfaced_at": "2026-10-01T01:46:19Z",
       "updated_at": "2026-10-01T01:46:19Z",
       "decay_at": "2026-10-02T11:51:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-80657c4063b1",
+      "idea_version": "IDEAV-93f6cc7c00a3cae9",
+      "idea_version_started_at": "2026-10-01T05:01:30Z",
+      "ticker": "CHM",
+      "company": "CHM",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The combination of default distress, creditor updates, and executive exits signals a high probability of insolvency or severe capital structure impairment.",
+      "why_now": "The annual report and creditor update were filed on 2026-10-01.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-147198e0dc75"
+      ],
+      "primary_source_event_id": "EVT-147198e0dc75",
+      "source_headlines": [
+        "CHM: FY2026 Annual Report, creditor update and Board changes"
+      ],
+      "source_headline": "CHM: FY2026 Annual Report, creditor update and Board changes",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CHM?key=2924-03143098-2A1701052",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-01T00:16:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T05:01:30Z",
+      "updated_at": "2026-10-01T05:01:30Z",
+      "decay_at": "2026-10-02T12:16:13Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -152690,76 +152761,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-52e98452feee",
-      "idea_version": "IDEAV-85ee33ca7114f155",
-      "idea_version_started_at": "2026-09-28T02:57:09Z",
-      "ticker": "NEM",
-      "company": "Newmont",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The rejection of a $27 billion takeover bid signals management's confidence in the company's standalone valuation and future gold production margins, likely forcing a higher bid or a strategic premium adjustment.",
-      "why_now": "The bid rejection was reported on September 28, 2026, creating immediate volatility and potential for a follow-up offer.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-40c0321a5bb6"
-      ],
-      "primary_source_event_id": "EVT-40c0321a5bb6",
-      "source_headlines": [
-        "Australia’s biggest gold miner rejects $27bn takeover bid"
-      ],
-      "source_headline": "Australia’s biggest gold miner rejects $27bn takeover bid",
-      "source_url": "https://www.ft.com/content/bce81a18-05cf-43a6-9c86-b3238b732230?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T02:42:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T02:57:09Z",
-      "updated_at": "2026-09-28T02:57:09Z",
-      "decay_at": "2026-09-29T14:42:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-000581c2d4b0",
       "idea_version": "IDEAV-c3234b6d80f23e22",
       "idea_version_started_at": "2026-09-29T10:02:00Z",
@@ -152964,76 +152965,6 @@
       "surfaced_at": "2026-09-29T06:22:55Z",
       "updated_at": "2026-09-29T06:22:55Z",
       "decay_at": "2026-09-30T09:39:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-0448efa62005",
-      "idea_version": "IDEAV-9e9db2598360c1ed",
-      "idea_version_started_at": "2026-09-28T03:32:24Z",
-      "ticker": "AAPL",
-      "company": "Apple",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Apple was reportedly ordered by a San Diego jury to pay Taction Technology more than $5.7 billion in a patent case, which will be a significant financial hit.",
-      "why_now": "The jury's reported award was announced on September 28, 2026, creating an immediate negative catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-503578612fbf"
-      ],
-      "primary_source_event_id": "EVT-503578612fbf",
-      "source_headlines": [
-        "San Diego Jury Reportedly Awards Taction Technology More Than $5.7 Bln In Apple Patent Case"
-      ],
-      "source_headline": "San Diego Jury Reportedly Awards Taction Technology More Than $5.7 Bln In Apple Patent Case",
-      "source_url": "https://www.nasdaq.com/articles/san-diego-jury-reportedly-awards-taction-technology-more-57-bln-apple-patent-case",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T02:36:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-26T15:19:48Z",
-      "updated_at": "2026-09-28T03:32:24Z",
-      "decay_at": "2026-09-29T14:36:47Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155337,365 +155268,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-6dedf05fd8fd",
-      "idea_version": "IDEAV-fd65239c2a212381",
-      "idea_version_started_at": "2026-09-28T04:46:17Z",
-      "ticker": "COALINDIA",
-      "company": "Coal India Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company's unit SECL is hiring banks for an $800 million IPO, which will likely unlock significant value for the parent company and improve its balance sheet.",
-      "why_now": "The hiring of banks on September 28, 2026, signals the formal start of the monetization process.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ead773bd5e00"
-      ],
-      "primary_source_event_id": "EVT-ead773bd5e00",
-      "source_headlines": [
-        "Coal India Unit SECL said to hire banks for $800 million IPO"
-      ],
-      "source_headline": "Coal India Unit SECL said to hire banks for $800 million IPO",
-      "source_url": "https://www.thehindubusinessline.com/markets/coal-india-unit-secl-said-to-hire-banks-for-800-million-ipo/article71518166.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T02:10:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T04:46:17Z",
-      "updated_at": "2026-09-28T04:46:17Z",
-      "decay_at": "2026-09-29T14:10:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-bee4cf1b394c",
-      "idea_version": "IDEAV-e2599f94bff2162c",
-      "idea_version_started_at": "2026-09-28T04:46:17Z",
-      "ticker": "NST",
-      "company": "Northern Star Resources",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The rejection of a multi-billion dollar takeover offer often leads to a short-term price drop as the 'takeover premium' built into the stock price evaporates.",
-      "why_now": "The rejection was reported on September 28, 2026, following the earlier bid speculation.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2dd7568cf8f0"
-      ],
-      "primary_source_event_id": "EVT-2dd7568cf8f0",
-      "source_headlines": [
-        "Northern Star: Gold producer rejects multi-billion takeover offer"
-      ],
-      "source_headline": "Northern Star: Goldproduzent weist milliardenschweres Übernahmeangebot zurück",
-      "source_url": "https://www.handelsblatt.com/finanzen/maerkte/devisen-rohstoffe/northern-star-goldproduzent-weist-milliardenschweres-uebernahmeangebot-zurueck/100257818.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T04:04:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T04:46:17Z",
-      "updated_at": "2026-09-28T04:46:17Z",
-      "decay_at": "2026-09-29T16:04:53Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-faf4a80af724",
-      "idea_version": "IDEAV-d7a40b8b80d3f7b3",
-      "idea_version_started_at": "2026-09-28T04:46:17Z",
-      "ticker": "GODREJPROP",
-      "company": "Godrej Properties",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A new ₹6,000 crore luxury residential project in South Mumbai significantly expands the company's high-margin development pipeline in a premium market.",
-      "why_now": "The partnership for the Marine Lines project was announced on September 28, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b0b292141c44"
-      ],
-      "primary_source_event_id": "EVT-b0b292141c44",
-      "source_headlines": [
-        "Godrej Properties, MICL partner for ₹6,000 crore Marine Lines project in south Mumbai"
-      ],
-      "source_headline": "Godrej Properties, MICL partner for ₹6,000 crore Marine Lines project in south Mumbai",
-      "source_url": "https://www.livemint.com/industry/real-estate/godrej-properties-micl-marine-lines-luxury-project-mumbai-11790560841762.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T04:17:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T02:17:49Z",
-      "updated_at": "2026-09-28T04:46:17Z",
-      "decay_at": "2026-09-29T16:17:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-353ee6d92397",
-      "idea_version": "IDEAV-af94d9c89c45f066",
-      "idea_version_started_at": "2026-09-28T03:32:24Z",
-      "ticker": "PNJ",
-      "company": "Phu Nhuan Jewelry",
-      "exchange": "HOSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Phu Nhuan Jewelry (PNJ) is forecasting a loss following a diamond scandal, which will negatively impact its financial performance.",
-      "why_now": "The company's forecast for a loss was reported on September 28, 2026, providing a fresh catalyst for a potential price decline.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f4302708f46d"
-      ],
-      "primary_source_event_id": "EVT-f4302708f46d",
-      "source_headlines": [
-        "Vietnam Jeweler PNJ Forecasts Loss After Diamond Scandal"
-      ],
-      "source_headline": "Vietnam Jeweler PNJ Forecasts Loss After Diamond Scandal",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-09-28/vietnam-jewelry-giant-pnj-forecasts-loss-after-diamond-scandal",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T01:47:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T03:32:24Z",
-      "updated_at": "2026-09-28T03:32:24Z",
-      "decay_at": "2026-09-29T13:47:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a4151217c05f",
-      "idea_version": "IDEAV-bf106862d6d941ab",
-      "idea_version_started_at": "2026-09-28T03:12:56Z",
-      "ticker": "MANINFRA",
-      "company": "Man Infraconstruction Limited",
-      "exchange": "BSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a collaboration for its Marine Lines project that unlocks over ₹6,000 crore in revenue potential and provides an immediate ₹300 crore capital recoupment.",
-      "why_now": "The press release and exchange filing were issued on September 28, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-58e2719b6365"
-      ],
-      "primary_source_event_id": "EVT-58e2719b6365",
-      "source_headlines": [
-        "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"MICL unlocks ₹6,000+ Crores overall revenue potential from Marine Lines Project and Recoups ₹300+ Crores Investment through Landmark Collaboration with Godrej Properties Group \"."
-      ],
-      "source_headline": "Man Infraconstruction Limited: Man Infraconstruction Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"MICL unlocks ₹6,000+ Crores overall revenue potential from Marine Lines Project and Recoups ₹300+ Crores Investment through Landmark Collaboration with Godrej Properties Group \".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/kunjalparekh_28092026081058_MICL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T02:45:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T03:12:56Z",
-      "updated_at": "2026-09-28T03:12:56Z",
-      "decay_at": "2026-09-29T14:45:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d8f7377dbcbf",
       "idea_version": "IDEAV-1bb0b0aea3e64790",
       "idea_version_started_at": "2026-09-29T11:56:52Z",
@@ -155837,221 +155409,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-699b27265ce6",
-      "idea_version": "IDEAV-b16bde90d1ed76f2",
-      "idea_version_started_at": "2026-09-28T04:16:28Z",
-      "ticker": "CDL",
-      "company": "City Developments Limited",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "CDL's Kwek clan plans to invest US$3.9 billion in Singapore, China, and Japan, which should enhance the company's asset base and future earnings potential.",
-      "why_now": "The investment plan was announced on September 28, 2026, signaling a clear forward-looking capital allocation strategy.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9ed682a3e67c"
-      ],
-      "primary_source_event_id": "EVT-9ed682a3e67c",
-      "source_headlines": [
-        "CDL’s Kwek clan looks to invest US$3.9b in Singapore, China, Japan to raise confidence"
-      ],
-      "source_headline": "CDL’s Kwek clan looks to invest US$3.9b in Singapore, China, Japan to raise confidence",
-      "source_url": "https://www.scmp.com/news/asia/southeast-asia/article/3368989/cdls-kwek-clan-looks-invest-us39b-singapore-china-japan-raise-confidence?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "materiality_max": 95,
-      "newest_source_at": "2026-09-28T02:27:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T04:16:28Z",
-      "updated_at": "2026-09-28T04:16:28Z",
-      "decay_at": "2026-09-29T14:27:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-cd610332b346",
-      "idea_version": "IDEAV-5a9a84931362fd33",
-      "idea_version_started_at": "2026-09-28T03:56:13Z",
-      "ticker": "LUPIN",
-      "company": "Lupin Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company received tentative U.S. FDA approval for a novel Apixaban oral suspension, providing a path to enter a high-volume anticoagulant market.",
-      "why_now": "The approval was announced via exchange filing on September 28, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-715ed379df1d"
-      ],
-      "primary_source_event_id": "EVT-715ed379df1d",
-      "source_headlines": [
-        "Lupin Limited: Lupin Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"Lupin Receives Tentative Approval from U.S. FDA for Novel Apixaban Oral Suspension\"."
-      ],
-      "source_headline": "Lupin Limited: Lupin Limited has informed the Exchange regarding a press release dated September 28, 2026, titled \"Lupin Receives Tentative Approval from U.S. FDA for Novel Apixaban Oral Suspension\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/Lupin2_28092026091311_SELetterPressRelease.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 91,
-      "newest_source_at": "2026-09-28T03:43:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T03:56:13Z",
-      "updated_at": "2026-09-28T03:56:13Z",
-      "decay_at": "2026-09-29T15:43:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-f74b0e3c1b77",
-      "idea_version": "IDEAV-be979c7205abc26c",
-      "idea_version_started_at": "2026-09-28T02:35:28Z",
-      "ticker": "H5G",
-      "company": "Hafary Holdings",
-      "exchange": "SGX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The founding family has launched a privatization offer at 64 cents per share, creating a near-term arbitrage opportunity between the current market price and the offer price.",
-      "why_now": "The offer was announced on 2026-09-28; the stock should trade toward the offer price as the market prices in the certainty of the deal.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cd1e91a52830"
-      ],
-      "primary_source_event_id": "EVT-cd1e91a52830",
-      "source_headlines": [
-        "Hafary’s founding family offers 64 cents a share to take company private"
-      ],
-      "source_headline": "Hafary’s founding family offers 64 cents a share to take company private",
-      "source_url": "https://www.straitstimes.com/business/hafarys-founding-family-offers-64-cents-a-share-to-take-company-private",
-      "source_name": "The Straits Times",
-      "materiality_max": 88,
-      "newest_source_at": "2026-09-28T02:25:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T02:35:28Z",
-      "updated_at": "2026-09-28T02:35:28Z",
-      "decay_at": "2026-09-29T14:25:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -156064,33 +155421,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 551,
+    "total_count": 541,
     "shown_count": 500,
-    "hidden_count": 51,
+    "hidden_count": 41,
     "side_counts": {
       "long": {
-        "total_count": 282,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 32
+        "hidden_count": 25
       },
       "short": {
-        "total_count": 269,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 16
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 601,
-      "oldest_retained_at": "2026-09-05T09:20:37Z",
+      "evicted_count": 611,
+      "oldest_retained_at": "2026-09-05T10:30:32Z",
       "side_counts": {
         "long": {
-          "evicted_count": 402,
-          "oldest_retained_at": "2026-09-13T13:56:00Z"
+          "evicted_count": 409,
+          "oldest_retained_at": "2026-09-13T22:00:48Z"
         },
         "short": {
-          "evicted_count": 199,
-          "oldest_retained_at": "2026-09-05T09:20:37Z"
+          "evicted_count": 202,
+          "oldest_retained_at": "2026-09-05T10:30:32Z"
         }
       }
     },
@@ -159216,8 +158573,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T16:17:49Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T05:01:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -159291,8 +158648,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T16:04:53Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T05:01:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -159365,8 +158722,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T15:43:36Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T05:01:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -159439,8 +158796,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T14:45:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T05:01:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -159512,8 +158869,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T14:42:40Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T05:01:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -159585,8 +158942,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T14:36:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T05:01:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -159660,8 +159017,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T14:27:04Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T05:01:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -159735,8 +159092,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T14:25:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T05:01:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -159810,8 +159167,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T14:10:32Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T05:01:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -159885,8 +159242,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-29T13:47:23Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T05:01:37Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -193265,8 +192622,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1183,
-    "live_count": 30,
+    "surfaced_total": 1184,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
