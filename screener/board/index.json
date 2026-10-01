@@ -1,6 +1,251 @@
 {
-  "generated_at": "2026-10-01T15:16:40Z",
+  "generated_at": "2026-10-01T19:51:22Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261001-515",
+      "headline": "25-NSE - AMAZE HOLDINGS, INC. (0001880343) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1880343/000114331326000051/0001143313-26-000051-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-01T18:03:03Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Amaze Holdings, Inc. received a delisting notification.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amaze Holdings, Inc. received a delisting notification.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amaze Holdings, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-501",
+      "headline": "D/A - EQUIDEFI LTD. (0001905438) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1905438/000121390026105607/0001213900-26-105607-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-01T16:53:02Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Delisting removes a security from exchange trading and signals insolvency, regulatory disqualification, or other survival-level distress for the equity holder.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delisting removes a security from exchange trading and signals insolvency, regulatory disqualification, or other survival-level distress for the equity holder.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EquiDefi Ltd.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-502",
+      "headline": "D - Cookie Finance, Inc. (0002045506) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2045506/000204550626000002/0002045506-26-000002-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-01T16:53:01Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Delisting removes a security from exchange trading and signals insolvency, regulatory disqualification, or other survival-level distress for the equity holder.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delisting removes a security from exchange trading and signals insolvency, regulatory disqualification, or other survival-level distress for the equity holder.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cookie Finance, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-511",
+      "headline": "25-NSE - Pitanium Ltd (0002046573) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2046573/000135445726000933/0001354457-26-000933-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-01T16:03:52Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Pitanium Ltd is being delisted from the exchange, indicating a potential distress or regulatory event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pitanium Ltd is being delisted from the exchange, indicating a potential distress or regulatory event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pitanium Ltd",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-480",
+      "headline": "SECUREKLOUD TECHNOLOGIES LIMITED: Defaults on Payment of Interest/Principal",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SECURKLOUD_01102026212923_E28_default_SD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T16:03:09Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "The company has defaulted on its debt obligations, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has defaulted on its debt obligations, indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SECUREKLOUD TECHNOLOGIES LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261001-429",
       "headline": "Amber Enterprises India Limited: Pursuant to Regulation 30 of SEBI LODR Regulations, we wish to update the exchange on the Scheme of Amalgamation of AmberPR Technoplast India Private Limited with and into the Company. In context of hearing held on 25th September 2026, the Company has received an order dated 25th September 2026 received on 1st October 2026, passed by Hon'ble National Company Law Tribunal, in CP(CAA) No. 18/Chd/Pb/2026 connected with CA(CAA) No. 11/Chd/Pb/2026.",
@@ -350,6 +595,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-477",
+      "headline": "CHEUK NANG HOLD (00131): Positive Profit Alert",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1001/2026092801795.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T10:12:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "A positive profit alert indicates an expected increase in earnings, which is a material financial event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A positive profit alert indicates an expected increase in earnings, which is a material financial event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHEUK NANG HOLD",
+          "ticker": "00131",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-373",
       "headline": "YANCOAL AUS (03668): Yancoal successfully completes the acquisition of an 80% interest in the Kestrel Coal Mine",
       "headline_en": null,
@@ -595,6 +889,158 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-527",
+      "headline": "Barbie-Maker Mattel Draws Takeover Interest From Authentic Brands Group",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/retail/barbie-maker-mattel-draws-takeover-interest-from-authentic-brands-group-21270470?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T18:32:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Mattel is reportedly drawing takeover interest from Authentic Brands Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mattel is reportedly drawing takeover interest from Authentic Brands Group.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mattel",
+          "ticker": "MAT",
+          "listing_country": "US"
+        },
+        {
+          "name": "Authentic Brands Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-510",
+      "headline": "TotalEnergies investirá US$10 bi na Argentina, afirma CEO",
+      "headline_en": "TotalEnergies will invest US$10 billion in Argentina, says CEO",
+      "url": "https://www.reuters.com/pt/negocio/4BS7LOK6WNJQXFZWIKO5RFEWZM-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T17:29:30Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "TotalEnergies announced a $10 billion investment in Argentina, a significant capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TotalEnergies announced a $10 billion investment in Argentina, a significant capital expenditure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TotalEnergies",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-507",
+      "headline": "Sonnenstrom: Solarspezialist Energiekonzepte Deutschland meldet Insolvenz an",
+      "headline_en": "Solar specialist Energiekonzepte Deutschland files for insolvency",
+      "url": "https://www.handelsblatt.com/unternehmen/energie/solarenergie-solarspezialist-energiekonzepte-deutschland-meldet-insolvenz-an/100258988.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T17:11:43Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Energiekonzepte Deutschland has filed for insolvency.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Energiekonzepte Deutschland has filed for insolvency.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Energiekonzepte Deutschland",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-455",
       "headline": "‎Raydan raises proposed capital cut to 80%",
       "headline_en": null,
@@ -639,6 +1085,105 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-491",
+      "headline": "Accenture's Q4 revenue at $18.7 billion; raises FY27 operating margin outlook",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/companies/accentures-q4-revenue-at-187-billion-raises-fy27-operating-margin-outlook-4167403",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T16:53:13Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Accenture reported $18.7 billion in Q4 revenue and raised FY27 operating margin outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Accenture reported $18.7 billion in Q4 revenue and raised FY27 operating margin outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accenture",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-465",
+      "headline": "Accenture rallies more than 20% after earnings beat, heads for best day ever",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/01/accenture-rallies-more-than-20percent-after-earnings-beat-heads-for-best-day-ever.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T15:30:14Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Accenture reported an earnings beat and saw a 20% stock price increase, indicating a significant positive shift in market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Accenture reported an earnings beat and saw a 20% stock price increase, indicating a significant positive shift in market expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accenture",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1451,561 +1996,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-152",
-      "headline": "Doosan Enerbility Wins 838 Billion Won Vietnam Power Plant Deal",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278010",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T05:07:01Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Doosan Enerbility secured a power plant construction contract worth 838 billion won in Vietnam.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Doosan Enerbility secured a power plant construction contract worth 838 billion won in Vietnam.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Doosan Enerbility",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-295",
-      "headline": "Lynas Rare Earths to Buy Meteoric Resources in $672 Million Deal",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/lynas-rare-earths-to-buy-meteoric-resources-in-672-million-deal-2701e09b?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T04:56:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Lynas Rare Earths announced a $672 million acquisition of Meteoric Resources.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lynas Rare Earths announced a $672 million acquisition of Meteoric Resources.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lynas Rare Earths",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Meteoric Resources",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-153",
-      "headline": "LG Electronics to Build U.S. Chiller Plant for AI Data Centers",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277999",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T04:33:55Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "LG Electronics is expanding its manufacturing capacity with a new U.S. chiller plant to serve the AI data center market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LG Electronics is expanding its manufacturing capacity with a new U.S. chiller plant to serve the AI data center market.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-276",
-      "headline": "Motilal Oswal Alternates sells over 2% stake in Molbio Diagnostics for ₹306 cr",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/motilal-oswal-alternates-sells-over-2-stake-in-molbio-diagnostics-for-306-cr/article71531191.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T04:06:17Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Motilal Oswal Alternates sold over 2% stake in Molbio Diagnostics for ₹306 crore, indicating a significant ownership change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Motilal Oswal Alternates sold over 2% stake in Molbio Diagnostics for ₹306 crore, indicating a significant ownership change.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Molbio Diagnostics",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-236",
-      "headline": "Australia's Lynas Rare Earths to buy Meteoric Resources for $672 million",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/australias-lynas-rare-earths-buy-meteoric-resources-672-million-deal-2026-09-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T03:54:37Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Lynas Rare Earths announced a $672 million acquisition of Meteoric Resources.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lynas Rare Earths announced a $672 million acquisition of Meteoric Resources.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lynas Rare Earths",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Meteoric Resources",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-167",
-      "headline": "PwC refuses to sign off Nidec accounts despite $4bn charge",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/62ea4dd5-69ef-4fcf-8f07-ee1b3e4cdd9a?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T03:06:38Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "PwC refuses to sign off Nidec's accounts citing a $4bn charge, signaling material accounting disagreement and auditor confidence loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PwC refuses to sign off Nidec's accounts citing a $4bn charge, signaling material accounting disagreement and auditor confidence loss.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nidec Corporation",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-204",
-      "headline": "Walgreens-owner Sycamore nears $9 billion sale of Boots, WSJ reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/walgreens-owner-sycamore-nears-9-billion-sale-boots-wsj-reports-2026-09-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T02:46:46Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Walgreens-owner Sycamore is reportedly nearing a $9 billion sale of its Boots unit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Walgreens-owner Sycamore is reportedly nearing a $9 billion sale of its Boots unit.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Walgreens Boots Alliance, Inc.",
-          "ticker": "WBA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-159",
-      "headline": "Nidec shares sink after auditor withholds opinion on results",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/01/markets/nidec-shares-sink/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T02:41:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Nidec shares fell after its auditor withheld an opinion on the company's financial results, signaling a major accounting risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nidec shares fell after its auditor withheld an opinion on the company's financial results, signaling a major accounting risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nidec",
-          "ticker": "6594",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-126",
-      "headline": "Doosan Enerbility-led consortium wins 840 bln-won plant deal in Vietnam",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261001004400320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T02:05:25Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Doosan Enerbility won a plant construction contract worth 840 billion won in Vietnam.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Doosan Enerbility won a plant construction contract worth 840 billion won in Vietnam.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Doosan Enerbility",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-033",
-      "headline": "Nidec Shares Plunge After Auditor Withholds Opinion on Earnings",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-01/nidec-shares-plunge-after-auditor-withholds-opinion-on-earnings",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:25:33Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Auditor withholding opinion on earnings is a major red flag indicating potential accounting issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Auditor withholding opinion on earnings is a major red flag indicating potential accounting issues.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "accounting_restatement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nidec",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-008",
-      "headline": "Australia's Lynas Rare Earths to buy Meteoric Resources in $672 million deal",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/australias-lynas-rare-earths-buy-meteoric-resources-672-million-deal-2026-09-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-09-30T23:47:19Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Lynas Rare Earths to acquire Meteoric Resources in a $672 million deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lynas Rare Earths to acquire Meteoric Resources in a $672 million deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lynas Rare Earths",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Meteoric Resources",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -150481,76 +150471,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-90b902d53889",
-      "idea_version": "IDEAV-21d26439d698bf8a",
-      "idea_version_started_at": "2026-09-30T05:39:46Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $150 billion share buyback authorization significantly reduces the float and signals management confidence in long-term cash flow generation.",
-      "why_now": "The announcement occurred on 2026-09-30, providing an immediate catalyst for capital return expectations.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2cb5799a3c60"
-      ],
-      "primary_source_event_id": "EVT-2cb5799a3c60",
-      "source_headlines": [
-        "Nvidia Approves Record $150 Billion Buyback"
-      ],
-      "source_headline": "Nvidia Approves Record $150 Billion Buyback",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277875",
-      "source_name": "Business Korea — All English Articles",
-      "materiality_max": 98,
-      "newest_source_at": "2026-09-30T03:54:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T07:11:10Z",
-      "updated_at": "2026-09-30T05:39:46Z",
-      "decay_at": "2026-10-01T15:54:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-48413a08f7ae",
       "idea_version": "IDEAV-e29b6932c762d787",
       "idea_version_started_at": "2026-10-01T10:19:20Z",
@@ -150831,6 +150751,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-a2af7914e260",
+      "idea_version": "IDEAV-cb8b1fb610ba1a43",
+      "idea_version_started_at": "2026-10-01T18:43:27Z",
+      "ticker": "ACN",
+      "company": "Accenture",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a significant earnings beat for Q4 and provided an upbeat fiscal 2027 outlook, indicating strong demand for its consulting and technology services.",
+      "why_now": "The earnings and guidance were released on 2026-10-01, triggering a 20% pre-market move.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0f6abac0664b",
+        "EVT-f5657276298e"
+      ],
+      "primary_source_event_id": "EVT-0f6abac0664b",
+      "source_headlines": [
+        "Accenture shares jump 20% in pre-market as Q4 earnings, 2027 outlook beat estimates",
+        "Accenture Shares Spike 20% Pre-Market On Q4 Earnings Beat, Upbeat Forecast"
+      ],
+      "source_headline": "Accenture shares jump 20% in pre-market as Q4 earnings, 2027 outlook beat estimates",
+      "source_url": "https://www.livemint.com/market/stock-market-news/accenture-shares-jump-20-in-pre-market-as-q4-earnings-2027-outlook-beat-estimates-11790855697898.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T12:13:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T18:43:27Z",
+      "updated_at": "2026-10-01T18:43:27Z",
+      "decay_at": "2026-10-03T00:13:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2c8697fc45c7",
       "idea_version": "IDEAV-7777b0b37ce565a4",
       "idea_version_started_at": "2026-09-30T16:19:46Z",
@@ -150896,6 +150888,148 @@
       "surfaced_at": "2026-09-30T16:19:46Z",
       "updated_at": "2026-09-30T16:19:46Z",
       "decay_at": "2026-10-02T01:53:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a5ec7bbbdbd2",
+      "idea_version": "IDEAV-beeae642ea1c1ad2",
+      "idea_version_started_at": "2026-10-01T19:27:53Z",
+      "ticker": "SECUREKLOUD",
+      "company": "SecureKloud Technologies Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has officially defaulted on interest and principal payments, signaling severe liquidity distress and potential insolvency.",
+      "why_now": "The default was disclosed in an exchange filing on October 1, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-732ec67cdf52"
+      ],
+      "primary_source_event_id": "EVT-732ec67cdf52",
+      "source_headlines": [
+        "SECUREKLOUD TECHNOLOGIES LIMITED: Defaults on Payment of Interest/Principal"
+      ],
+      "source_headline": "SECUREKLOUD TECHNOLOGIES LIMITED: Defaults on Payment of Interest/Principal",
+      "source_url": "https://nsearchives.nseindia.com/corporate/SECURKLOUD_01102026212923_E28_default_SD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T16:03:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T19:27:53Z",
+      "updated_at": "2026-10-01T19:27:53Z",
+      "decay_at": "2026-10-03T04:03:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-fcc665b98933",
+      "idea_version": "IDEAV-5cd3b330cd494a3e",
+      "idea_version_started_at": "2026-10-01T19:27:53Z",
+      "ticker": "PTNM",
+      "company": "Pitanium Ltd",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is subject to a 25-NSE delisting notification, which typically follows a failure to meet exchange listing standards or severe financial distress.",
+      "why_now": "The delisting notification was filed on October 1, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5af6f8be825b"
+      ],
+      "primary_source_event_id": "EVT-5af6f8be825b",
+      "source_headlines": [
+        "25-NSE - Pitanium Ltd (0002046573) (Subject)"
+      ],
+      "source_headline": "25-NSE - Pitanium Ltd (0002046573) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2046573/000135445726000933/0001354457-26-000933-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T16:03:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T19:27:53Z",
+      "updated_at": "2026-10-01T19:27:53Z",
+      "decay_at": "2026-10-03T04:03:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -151837,150 +151971,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5dcc3d54eb17",
-      "idea_version": "IDEAV-f9bb4ed7308d2599",
-      "idea_version_started_at": "2026-09-30T08:50:19Z",
-      "ticker": "NLCINDIA",
-      "company": "NLC India",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 38.91% increase in profit after tax to ₹3,769 crore and declared a 38.5% dividend, signaling strong operational performance and shareholder value.",
-      "why_now": "The earnings and dividend announcement occurred on 2026-09-30.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-802381ba2dff"
-      ],
-      "primary_source_event_id": "EVT-802381ba2dff",
-      "source_headlines": [
-        "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore"
-      ],
-      "source_headline": "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore",
-      "source_url": "https://www.freepressjournal.in/business/nlc-india-declares-385-dividend-for-fy26-profit-after-tax-up-3891-to-3769-crore",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-30T05:20:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-30T08:50:19Z",
-      "updated_at": "2026-09-30T08:50:19Z",
-      "decay_at": "2026-10-01T17:20:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-17fd34c8a14c",
-      "idea_version": "IDEAV-481ba6216b7f46b4",
-      "idea_version_started_at": "2026-09-30T05:39:46Z",
-      "ticker": "PRESTIGE",
-      "company": "Prestige Estates Projects Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of a 27% stake in the hospitality arm by CPP Investments for ₹3,000 crore provides a significant liquidity injection and validates the valuation of the company's hotel assets.",
-      "why_now": "The deal was announced on 2026-09-30.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0ac56edef06d"
-      ],
-      "primary_source_event_id": "EVT-0ac56edef06d",
-      "source_headlines": [
-        "Prestige Estates shares gain as CPP Investments to acquire 27% stake in hospitality arm for ₹3,000 crore"
-      ],
-      "source_headline": "Prestige Estates shares gain as CPP Investments to acquire 27% stake in hospitality arm for ₹3,000 crore",
-      "source_url": "https://www.cnbctv18.com/market/prestige-estates-projects-share-price-cppib-investment-3000-crore-hospitality-arm-expansion-ipo-plans-20001528.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-30T03:53:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-30T05:39:46Z",
-      "updated_at": "2026-09-30T05:39:46Z",
-      "decay_at": "2026-10-01T15:53:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fa0d140ee7df",
       "idea_version": "IDEAV-56f9fc0daac67d9a",
       "idea_version_started_at": "2026-10-01T01:46:19Z",
@@ -152259,79 +152249,6 @@
       "surfaced_at": "2026-10-01T11:02:09Z",
       "updated_at": "2026-10-01T11:02:09Z",
       "decay_at": "2026-10-02T21:44:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-669e750ceb07",
-      "idea_version": "IDEAV-318316218afa88ad",
-      "idea_version_started_at": "2026-09-30T05:39:46Z",
-      "ticker": "PBF",
-      "company": "PB Fintech",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 53% price target cut by a major brokerage suggests a fundamental reassessment of the company's growth trajectory and margin sustainability.",
-      "why_now": "The analyst downgrade was reported on 2026-09-30.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-710bc8d29a52"
-      ],
-      "primary_source_event_id": "EVT-710bc8d29a52",
-      "source_headlines": [
-        "Bernstein cuts PB Fintech share price target by 53%. More pressure after Rs 37,000 m-cap rout?"
-      ],
-      "source_headline": "Bernstein cuts PB Fintech share price target by 53%. More pressure after Rs 37,000 m-cap rout?",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bernstein-cuts-pb-fintech-share-price-target-by-53-more-pressure-after-rs-37000-m-cap-rout/articleshow/134579716.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 96,
-      "newest_source_at": "2026-09-30T03:32:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-30T05:39:46Z",
-      "updated_at": "2026-09-30T05:39:46Z",
-      "decay_at": "2026-10-01T15:32:41Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -152889,6 +152806,76 @@
       "surfaced_at": "2026-09-29T11:16:34Z",
       "updated_at": "2026-09-29T11:16:34Z",
       "decay_at": "2026-09-30T22:38:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-90b902d53889",
+      "idea_version": "IDEAV-21d26439d698bf8a",
+      "idea_version_started_at": "2026-09-30T05:39:46Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A $150 billion share buyback authorization significantly reduces the float and signals management confidence in long-term cash flow generation.",
+      "why_now": "The announcement occurred on 2026-09-30, providing an immediate catalyst for capital return expectations.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2cb5799a3c60"
+      ],
+      "primary_source_event_id": "EVT-2cb5799a3c60",
+      "source_headlines": [
+        "Nvidia Approves Record $150 Billion Buyback"
+      ],
+      "source_headline": "Nvidia Approves Record $150 Billion Buyback",
+      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277875",
+      "source_name": "Business Korea — All English Articles",
+      "materiality_max": 98,
+      "newest_source_at": "2026-09-30T03:54:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T07:11:10Z",
+      "updated_at": "2026-09-30T05:39:46Z",
+      "decay_at": "2026-10-01T15:54:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -153459,6 +153446,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-5dcc3d54eb17",
+      "idea_version": "IDEAV-f9bb4ed7308d2599",
+      "idea_version_started_at": "2026-09-30T08:50:19Z",
+      "ticker": "NLCINDIA",
+      "company": "NLC India",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 38.91% increase in profit after tax to ₹3,769 crore and declared a 38.5% dividend, signaling strong operational performance and shareholder value.",
+      "why_now": "The earnings and dividend announcement occurred on 2026-09-30.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-802381ba2dff"
+      ],
+      "primary_source_event_id": "EVT-802381ba2dff",
+      "source_headlines": [
+        "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore"
+      ],
+      "source_headline": "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore",
+      "source_url": "https://www.freepressjournal.in/business/nlc-india-declares-385-dividend-for-fy26-profit-after-tax-up-3891-to-3769-crore",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T05:20:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T08:50:19Z",
+      "updated_at": "2026-09-30T08:50:19Z",
+      "decay_at": "2026-10-01T17:20:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-17fd34c8a14c",
+      "idea_version": "IDEAV-481ba6216b7f46b4",
+      "idea_version_started_at": "2026-09-30T05:39:46Z",
+      "ticker": "PRESTIGE",
+      "company": "Prestige Estates Projects Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of a 27% stake in the hospitality arm by CPP Investments for ₹3,000 crore provides a significant liquidity injection and validates the valuation of the company's hotel assets.",
+      "why_now": "The deal was announced on 2026-09-30.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0ac56edef06d"
+      ],
+      "primary_source_event_id": "EVT-0ac56edef06d",
+      "source_headlines": [
+        "Prestige Estates shares gain as CPP Investments to acquire 27% stake in hospitality arm for ₹3,000 crore"
+      ],
+      "source_headline": "Prestige Estates shares gain as CPP Investments to acquire 27% stake in hospitality arm for ₹3,000 crore",
+      "source_url": "https://www.cnbctv18.com/market/prestige-estates-projects-share-price-cppib-investment-3000-crore-hospitality-arm-expansion-ipo-plans-20001528.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T03:53:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T05:39:46Z",
+      "updated_at": "2026-09-30T05:39:46Z",
+      "decay_at": "2026-10-01T15:53:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9c1fb5bd088d",
       "idea_version": "IDEAV-e1c08ae772655aa8",
       "idea_version_started_at": "2026-09-30T04:07:30Z",
@@ -153670,78 +153801,6 @@
       "surfaced_at": "2026-09-29T23:33:49Z",
       "updated_at": "2026-09-29T23:33:49Z",
       "decay_at": "2026-10-01T10:49:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e8778e3ed285",
-      "idea_version": "IDEAV-f584f36f24898996",
-      "idea_version_started_at": "2026-09-29T20:20:56Z",
-      "ticker": "HLAG",
-      "company": "Hapag-Lloyd",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its 2026 earnings outlook, indicating stronger-than-expected operational performance in the shipping sector.",
-      "why_now": "The guidance update was released on 2026-09-28.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ccdae2a871a0"
-      ],
-      "primary_source_event_id": "EVT-ccdae2a871a0",
-      "source_headlines": [
-        "Germany's Hapag-Lloyd raises 2026 earnings outlook"
-      ],
-      "source_headline": "Germany's Hapag-Lloyd raises 2026 earnings outlook",
-      "source_url": "https://www.reuters.com/business/germanys-hapag-lloyd-raises-2026-earnings-outlook-2026-09-28/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T17:46:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T20:20:56Z",
-      "updated_at": "2026-09-29T20:20:56Z",
-      "decay_at": "2026-09-30T05:46:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -154902,148 +154961,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-b017da00cfa7",
-      "idea_version": "IDEAV-f9e88d7625e84af1",
-      "idea_version_started_at": "2026-09-29T05:54:11Z",
-      "ticker": "02238",
-      "company": "GAC Group",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The proposed acquisition of a 50% equity interest in a target company, combined with a capital raise, signals a major strategic pivot or expansion for the automotive group.",
-      "why_now": "The announcement on 2026-09-28 includes the resumption of trading, providing an immediate entry point.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b8af40852bfa"
-      ],
-      "primary_source_event_id": "EVT-b8af40852bfa",
-      "source_headlines": [
-        "GAC GROUP (02238): INSIDE INFORMATION (1) POTENTIAL MAJOR AND CONNECTED TRANSACTION - PROPOSED ACQUISITION OF 50% EQUITY INTEREST IN THE TARGET COMPANY BY WAY OF ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROPOSED NON-PUBLIC ISSUANCE OF A SHARES UNDER SPECIFIC MANDATE TO RAISE SUPPORTING FUNDS; AND (3) RESUMPTION OF TRADING IN A SHARES"
-      ],
-      "source_headline": "GAC GROUP (02238): INSIDE INFORMATION (1) POTENTIAL MAJOR AND CONNECTED TRANSACTION - PROPOSED ACQUISITION OF 50% EQUITY INTEREST IN THE TARGET COMPANY BY WAY OF ISSUE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROPOSED NON-PUBLIC ISSUANCE OF A SHARES UNDER SPECIFIC MANDATE TO RAISE SUPPORTING FUNDS; AND (3) RESUMPTION OF TRADING IN A SHARES",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0928/2026092802059.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T14:46:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T05:54:11Z",
-      "updated_at": "2026-09-29T05:54:11Z",
-      "decay_at": "2026-09-30T02:46:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c7045bed7a33",
-      "idea_version": "IDEAV-ad273e3a5ff39775",
-      "idea_version_started_at": "2026-09-29T05:54:11Z",
-      "ticker": "ANUPAM",
-      "company": "Anupam Rasayan India Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of Bliss GVS Pharma accelerates the company's strategy to build an integrated global pharmaceutical platform, potentially improving margins through vertical integration.",
-      "why_now": "The acquisition was formally concluded and announced on 2026-09-28.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-07226e4e2a1b"
-      ],
-      "primary_source_event_id": "EVT-07226e4e2a1b",
-      "source_headlines": [
-        "Anupam Rasayan India Limited: Anupam Rasayan India Limited has informed the Exchange regarding a press release titled \"Anupam Rasayan Concludes Acquisition of Bliss GVS Pharma, Marks Third Strategic Step Towards Building an Integrated Global Pharma Platform\"."
-      ],
-      "source_headline": "Anupam Rasayan India Limited: Anupam Rasayan India Limited has informed the Exchange regarding a press release titled \"Anupam Rasayan Concludes Acquisition of Bliss GVS Pharma, Marks Third Strategic Step Towards Building an Integrated Global Pharma Platform\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/ANURAS_28092026195741_ARILSLDSTX20260928064PressRelease.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T14:28:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T05:54:11Z",
-      "updated_at": "2026-09-29T05:54:11Z",
-      "decay_at": "2026-09-30T02:28:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d8f7377dbcbf",
       "idea_version": "IDEAV-1bb0b0aea3e64790",
       "idea_version_started_at": "2026-09-29T11:56:52Z",
@@ -155109,6 +155026,79 @@
       "surfaced_at": "2026-09-29T11:56:52Z",
       "updated_at": "2026-09-29T11:56:52Z",
       "decay_at": "2026-09-30T23:17:04Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-669e750ceb07",
+      "idea_version": "IDEAV-318316218afa88ad",
+      "idea_version_started_at": "2026-09-30T05:39:46Z",
+      "ticker": "PBF",
+      "company": "PB Fintech",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 53% price target cut by a major brokerage suggests a fundamental reassessment of the company's growth trajectory and margin sustainability.",
+      "why_now": "The analyst downgrade was reported on 2026-09-30.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-710bc8d29a52"
+      ],
+      "primary_source_event_id": "EVT-710bc8d29a52",
+      "source_headlines": [
+        "Bernstein cuts PB Fintech share price target by 53%. More pressure after Rs 37,000 m-cap rout?"
+      ],
+      "source_headline": "Bernstein cuts PB Fintech share price target by 53%. More pressure after Rs 37,000 m-cap rout?",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bernstein-cuts-pb-fintech-share-price-target-by-53-more-pressure-after-rs-37000-m-cap-rout/articleshow/134579716.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 96,
+      "newest_source_at": "2026-09-30T03:32:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T05:39:46Z",
+      "updated_at": "2026-09-30T05:39:46Z",
+      "decay_at": "2026-10-01T15:32:41Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155339,9 +155329,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
         "total_count": 275,
@@ -155349,19 +155339,19 @@
         "hidden_count": 25
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 621,
+      "evicted_count": 624,
       "oldest_retained_at": "2026-09-05T19:20:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 416,
-          "oldest_retained_at": "2026-09-14T06:13:01Z"
+          "evicted_count": 419,
+          "oldest_retained_at": "2026-09-14T22:17:00Z"
         },
         "short": {
           "evicted_count": 205,
@@ -155370,6 +155360,305 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5dcc3d54eb17",
+        "idea_version": "IDEAV-f9bb4ed7308d2599",
+        "idea_version_started_at": "2026-09-30T08:50:19Z",
+        "ticker": "NLCINDIA",
+        "company": "NLC India",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported a 38.91% increase in profit after tax to ₹3,769 crore and declared a 38.5% dividend, signaling strong operational performance and shareholder value.",
+        "why_now": "The earnings and dividend announcement occurred on 2026-09-30.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-802381ba2dff"
+        ],
+        "primary_source_event_id": "EVT-802381ba2dff",
+        "source_headlines": [
+          "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore"
+        ],
+        "source_headline": "NLC India Declares 38.5% Dividend For FY26, Profit After Tax Up 38.91% To ₹3,769 Crore",
+        "source_url": "https://www.freepressjournal.in/business/nlc-india-declares-385-dividend-for-fy26-profit-after-tax-up-3891-to-3769-crore",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-30T05:20:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-30T08:50:19Z",
+        "updated_at": "2026-09-30T08:50:19Z",
+        "decay_at": "2026-10-01T17:20:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T17:20:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-90b902d53889",
+        "idea_version": "IDEAV-21d26439d698bf8a",
+        "idea_version_started_at": "2026-09-30T05:39:46Z",
+        "ticker": "NVDA",
+        "company": "Nvidia",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A $150 billion share buyback authorization significantly reduces the float and signals management confidence in long-term cash flow generation.",
+        "why_now": "The announcement occurred on 2026-09-30, providing an immediate catalyst for capital return expectations.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2cb5799a3c60"
+        ],
+        "primary_source_event_id": "EVT-2cb5799a3c60",
+        "source_headlines": [
+          "Nvidia Approves Record $150 Billion Buyback"
+        ],
+        "source_headline": "Nvidia Approves Record $150 Billion Buyback",
+        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=277875",
+        "source_name": "Business Korea — All English Articles",
+        "materiality_max": 98,
+        "newest_source_at": "2026-09-30T03:54:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T07:11:10Z",
+        "updated_at": "2026-09-30T05:39:46Z",
+        "decay_at": "2026-10-01T15:54:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T15:54:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-17fd34c8a14c",
+        "idea_version": "IDEAV-481ba6216b7f46b4",
+        "idea_version_started_at": "2026-09-30T05:39:46Z",
+        "ticker": "PRESTIGE",
+        "company": "Prestige Estates Projects Ltd",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of a 27% stake in the hospitality arm by CPP Investments for ₹3,000 crore provides a significant liquidity injection and validates the valuation of the company's hotel assets.",
+        "why_now": "The deal was announced on 2026-09-30.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0ac56edef06d"
+        ],
+        "primary_source_event_id": "EVT-0ac56edef06d",
+        "source_headlines": [
+          "Prestige Estates shares gain as CPP Investments to acquire 27% stake in hospitality arm for ₹3,000 crore"
+        ],
+        "source_headline": "Prestige Estates shares gain as CPP Investments to acquire 27% stake in hospitality arm for ₹3,000 crore",
+        "source_url": "https://www.cnbctv18.com/market/prestige-estates-projects-share-price-cppib-investment-3000-crore-hospitality-arm-expansion-ipo-plans-20001528.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-30T03:53:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-30T05:39:46Z",
+        "updated_at": "2026-09-30T05:39:46Z",
+        "decay_at": "2026-10-01T15:53:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T15:53:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-669e750ceb07",
+        "idea_version": "IDEAV-318316218afa88ad",
+        "idea_version_started_at": "2026-09-30T05:39:46Z",
+        "ticker": "PBF",
+        "company": "PB Fintech",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A 53% price target cut by a major brokerage suggests a fundamental reassessment of the company's growth trajectory and margin sustainability.",
+        "why_now": "The analyst downgrade was reported on 2026-09-30.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-710bc8d29a52"
+        ],
+        "primary_source_event_id": "EVT-710bc8d29a52",
+        "source_headlines": [
+          "Bernstein cuts PB Fintech share price target by 53%. More pressure after Rs 37,000 m-cap rout?"
+        ],
+        "source_headline": "Bernstein cuts PB Fintech share price target by 53%. More pressure after Rs 37,000 m-cap rout?",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bernstein-cuts-pb-fintech-share-price-target-by-53-more-pressure-after-rs-37000-m-cap-rout/articleshow/134579716.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 96,
+        "newest_source_at": "2026-09-30T03:32:41Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-30T05:39:46Z",
+        "updated_at": "2026-09-30T05:39:46Z",
+        "decay_at": "2026-10-01T15:32:41Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T15:32:41Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e6d1d0d41652",
         "idea_version": "IDEAV-613ce08e5427ded4",
@@ -158260,8 +158549,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-30T05:46:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T18:43:30Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -158334,8 +158623,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-30T02:46:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T18:43:30Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -158408,8 +158697,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-30T02:28:18Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T18:43:30Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -184932,80 +185221,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5f7f48248919",
-        "idea_version": "IDEAV-9f8e2e53bbb3734f",
-        "idea_version_started_at": "2026-09-14T01:06:30Z",
-        "ticker": "REZ",
-        "company": "Resources & Energy Investments",
-        "exchange": null,
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Resources & Energy Investments received a $428,000 R&D Tax Incentive Refund, improving its cash position and potentially reducing its need for external financing.",
-        "why_now": "The company announced the receipt of the refund on September 14, 2026, providing an immediate cash flow boost.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 13,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-35aa7acd5601"
-        ],
-        "primary_source_event_id": "EVT-35aa7acd5601",
-        "source_headlines": [
-          "REZ: R&D Tax Incentive Refund of $428,000 Received"
-        ],
-        "source_headline": "REZ: R&D Tax Incentive Refund of $428,000 Received",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.REZ?key=2924-03135077-2A1696910",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 88,
-        "newest_source_at": "2026-09-14T00:16:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T01:06:30Z",
-        "updated_at": "2026-09-14T01:06:30Z",
-        "decay_at": "2026-09-15T12:16:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-85576f21dc9f",
         "idea_version": "IDEAV-5f32aeda55eb4426",
         "idea_version_started_at": "2026-09-14T00:41:52Z",
@@ -185072,152 +185287,6 @@
         "surfaced_at": "2026-09-14T00:41:52Z",
         "updated_at": "2026-09-14T00:41:52Z",
         "decay_at": "2026-09-15T12:00:35Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-65f4ff924ce7",
-        "idea_version": "IDEAV-0a3e8bb9e769d472",
-        "idea_version_started_at": "2026-09-14T00:41:52Z",
-        "ticker": "BAM",
-        "company": "Brookfield Asset Management",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The firm is pursuing a $1.5 billion acquisition of PGP Glass to expand its industrial and packaging footprint in Asia.",
-        "why_now": "Reports on September 14, 2026, indicate active negotiations for the acquisition from Blackstone.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-277b2ef226a1"
-        ],
-        "primary_source_event_id": "EVT-277b2ef226a1",
-        "source_headlines": [
-          "Brookfield looks to buy PGP Glass for up to $1.5 bn from Blackstone"
-        ],
-        "source_headline": "Brookfield looks to buy PGP Glass for up to $1.5 bn from Blackstone",
-        "source_url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/paper-/-wood-/-glass/-plastic/-marbles/brookfield-looks-to-buy-pgp-glass-for-up-to-1-5-bn-from-blackstone/articleshow/134219911.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-14T00:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T00:41:52Z",
-        "updated_at": "2026-09-14T00:41:52Z",
-        "decay_at": "2026-09-15T12:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-bef5e8661aed",
-        "idea_version": "IDEAV-49787ff48e8063a4",
-        "idea_version_started_at": "2026-09-14T00:41:52Z",
-        "ticker": "BX",
-        "company": "Blackstone Inc.",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Blackstone is reportedly in talks to sell PGP Glass to Brookfield for up to $1.5 billion, representing a significant exit and liquidity event for its private equity portfolio.",
-        "why_now": "The deal is currently being negotiated with a specific valuation target of $1.5 billion reported on September 14, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-277b2ef226a1"
-        ],
-        "primary_source_event_id": "EVT-277b2ef226a1",
-        "source_headlines": [
-          "Brookfield looks to buy PGP Glass for up to $1.5 bn from Blackstone"
-        ],
-        "source_headline": "Brookfield looks to buy PGP Glass for up to $1.5 bn from Blackstone",
-        "source_url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/paper-/-wood-/-glass/-plastic/-marbles/brookfield-looks-to-buy-pgp-glass-for-up-to-1-5-bn-from-blackstone/articleshow/134219911.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-14T00:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T00:41:52Z",
-        "updated_at": "2026-09-14T00:41:52Z",
-        "decay_at": "2026-09-15T12:00:00Z",
         "status": "expired",
         "promoted_signal_id": null,
         "feedback": null,
@@ -192450,91 +192519,12 @@
         "archived_at": "2026-09-08T16:47:42Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-193e9ee8df21",
-        "idea_version": "IDEAV-5bbebbaadac6e480",
-        "idea_version_started_at": "2026-09-05T15:28:18Z",
-        "ticker": "XLE",
-        "company": "The Energy Select Sector SPDR Fund",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Escalation of conflict in the Middle East, including strikes on Iranian oil infrastructure and tankers, poses a significant risk to global oil supply and prices.",
-        "why_now": "Recent military actions and warnings occurred on September 5, 2026, directly impacting oil-related geopolitical stability.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 23,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "macro_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-83741ece1fef",
-          "EVT-4e741fbd62f6",
-          "EVT-b4eae7fd3928"
-        ],
-        "primary_source_event_id": "EVT-4e741fbd62f6",
-        "source_headlines": [
-          "US military strikes three Iranian crude oil carriers, Central Command says",
-          "Explosions near Iran's Kharg Island raise fears of escalation in US war on Iran",
-          "U.S. military strikes Iranian tankers and warns it will destroy Tehran’s oil fleet if necessary after Navy aircraft carrier and destroyer are targeted"
-        ],
-        "source_headline": "US military strikes three Iranian crude oil carriers, Central Command says",
-        "source_url": "https://www.reuters.com/world/middle-east/us-military-strikes-three-iranian-crude-oil-carriers-central-command-says-2026-09-05/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-05T15:05:31Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T15:28:18Z",
-        "updated_at": "2026-09-05T15:28:18Z",
-        "decay_at": "2026-09-07T03:05:31Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-08T15:48:29Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1193,
-    "live_count": 30,
+    "surfaced_total": 1196,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -192553,9 +192543,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4337007,
-    "news_picked_today": 1033,
-    "news_dropped_today": 18479
+    "news_seen_today": 4993750,
+    "news_picked_today": 1369,
+    "news_dropped_today": 23303
   },
   "book_momentum": {
     "live_count": 8,
