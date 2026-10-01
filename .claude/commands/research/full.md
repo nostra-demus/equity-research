@@ -418,7 +418,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §18/§13 module verdict-lock caps — a balance-sheet-survival "Distress risk" or management-governance "Serious governance concerns" or business-model "Low-quality business" synthesis verdict capping the headline at Watchlist or lower (checks AA/AB, via `scripts/rating_caps.py`) — the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation, the Decision Audit Trail structural check, and red-flag severity reconciliation (checks AI/AJ/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §18/§13 module verdict-lock caps — a balance-sheet-survival "Distress risk" or management-governance "Serious governance concerns" or business-model "Low-quality business" synthesis verdict capping the headline at Watchlist or lower (checks AA/AB, via `scripts/rating_caps.py`) — the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation, the Decision Audit Trail structural check, and red-flag severity reconciliation (checks AI/AJ/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module) — and the valuation-sidecar basis comparability check, that weighted cases on one horizon share one period and one measure and each multiple matches its metric's basis (check BF, via `scripts/valuation_basis_checks.py`; report-only as a `GATE-NOTE` before its `BF_ENFORCE_DATE`, a violation on/after it, judged on the date the gate runs). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 The §18 Phase 6 calibration-feedback gate also verifies that decision_record.json carries calibration_feedback consistent with the as-of calibration_summary.json and that an applied haircut reaches confidence_inputs.calibration_haircut (check AG, via scripts/calibration_gate_checks.py). Fresh publication requires valid confidence_inputs for an applied haircut; retrospective legacy tolerance does not apply.
 
@@ -829,6 +829,44 @@ if os.path.exists(_vs_path):
     except Exception as _e: viol.append(f"valuation_summary.json exists but is not readable/valid JSON ({_e}) — integrity failure, not soft-absence")
     # Prefixed so 10B.1a can route them to the file's only writer (valuation `99`), not to the master.
     else: viol.extend(f"valuation_summary.json: {_v}" for _v in (vsc.eval_ap_valuation_summary_integrity(_vs_sidecar, d) or []))
+# check BF — basis comparability of the sidecar's cases (scripts/valuation_basis_checks.py, the same pure core
+# eval.py's BF scan replays). Without this call the checker ran only retrospectively, so the run that could
+# still fix a bear priced on a different period or measure from its base never heard about it. Called exactly
+# as the scan calls it: the set's coherence (one period + one measure across weighted cases) plus the
+# within-case multiple/metric match, judged by eval_bf_basis_enforcement. Enforced on `_live_date`, NOT on
+# `ddte` — the AJ/AA/BB precedent: decision_date never advances on a rerun, so keying on it would leave every
+# folder first written before BF_ENFORCE_DATE exempt forever, however often its thesis is regenerated. Before
+# BF_ENFORCE_DATE a finding is REPORT-ONLY (GATE-NOTE, no banner); on/after it a failure stamps PROVISIONAL.
+# Runs only on a readable sidecar: an absent or unreadable one is already a named violation above.
+_vbc = None
+try:
+    import importlib.util as _ilu
+    if _ilu.find_spec("valuation_basis_checks") is not None:
+        import valuation_basis_checks as _vbc
+except Exception as _e:
+    print(f"GATE-NOTE: check BF could not load scripts/valuation_basis_checks.py ({_e}) — basis comparability NOT checked on this pass")
+else:
+    if _vbc is None:
+        print("GATE-NOTE: check BF not run — scripts/valuation_basis_checks.py is not present in this checkout, so "
+              "the sidecar's basis comparability was NOT checked on this pass")
+if _vbc is not None and os.path.exists(_vs_path) and isinstance(globals().get("_vs_sidecar"), dict):
+    _bf_date = getattr(_vbc, "BF_ENFORCE_DATE", None)
+    try:
+        _bf_v = _vbc.eval_scenario_basis_coherence(_vs_sidecar)
+        _bf_w = _vbc.eval_multiple_metric_basis(_vs_sidecar)
+        if _bf_w: _bf_v = (_bf_v or []) + list(_bf_w)
+        _bf_verdict = _vbc.eval_bf_basis_enforcement(_live_date, _vs_sidecar, _bf_v)
+    except Exception as _e:
+        # A crashing validator is never silence: report-only before the date, a violation from it.
+        _bf_v, _bf_verdict = [f"the BF basis check raised {type(_e).__name__}: {_e}"], (
+            "fail" if isinstance(_bf_date, str) and _live_date >= _bf_date else "na")
+    if _bf_verdict == "fail":
+        viol.extend(f"valuation_summary.json basis (BF): {_v}" for _v in (_bf_v or [
+            "two or more weighted cases declare no earnings basis at all — a set that declares nothing is not a "
+            "clean set (declare metric_period / metric_measure per case)"]))
+    elif _bf_v:
+        print(f"GATE-NOTE: check BF (report-only until {_bf_date}, judged on today's date {_live_date}) — "
+              + "; ".join(_bf_v))
 # checks AT/AU/AV — §10 scenario-span check, sign-check presence, §10 conjunction-disclosure check
 # (live pre-publish; mirrors eval.py checks AT/AU/AV via scripts/scenario_integrity_checks.py, the
 # same shared-detection-module pattern as rating_caps.py / headline_checks.py / valuation_summary_checks.py

@@ -21,6 +21,12 @@ that split is exactly why this live-only regression exists.
 Expected verdicts are pinned to synthesizer.md Step 5 ("a genuine, non-blank,
 non-placeholder ... cell") and CLAUDE.md §8/§22 — never to current code output.
 
+It also carries the two other live-only valuation-sidecar wirings in the same shared block, for the
+same reason (each is invisible to the retrospective eval): sidecar PRESENCE is required only of a run
+whose scenarios carry fair-value levels (numeric price_target), and check BF is called on the sidecar and
+enforced on `_live_date` against BF_ENFORCE_DATE (report-only before it), via a stub checker so the
+wiring is tested whether or not scripts/valuation_basis_checks.py is in this checkout.
+
 Self-contained, fixture-free (temp sandbox only, never touches analyses/), and
 exits nonzero on failure so CI fails loudly.
 """
@@ -140,7 +146,25 @@ THESIS_WITH_DAT = (
 )
 
 
-def run_block(block_path, run_root, sandbox):
+# A stand-in for scripts/valuation_basis_checks.py with the SAME public names and call shape, so the BF
+# wiring in the live block is exercised whether or not the real checker is in this checkout (it lands on a
+# sibling stack). Prepended to PYTHONPATH it shadows the real module for these cases only; the real
+# checker's own logic is covered by its own selftest. {date} is BF_ENFORCE_DATE; the stub always reports
+# one coherence finding, so the date alone decides report-only vs violation.
+BF_STUB = """
+BF_ENFORCE_DATE = {date!r}
+def eval_scenario_basis_coherence(sidecar):
+    return ["weighted cases mix earnings PERIODS ['LTM', 'NTM'] — stub"]
+def eval_multiple_metric_basis(sidecar):
+    return None
+def eval_bf_basis_enforcement(decision_date, sidecar, violations):
+    if decision_date < BF_ENFORCE_DATE:
+        return "na"
+    return "fail" if violations else "pass"
+"""
+
+
+def run_block(block_path, run_root, sandbox, extra_path=None):
     """Execute the extracted gate block exactly as full.md does, but with CWD set to an
     empty `sandbox` dir (never REPO_ROOT) so check AG's `_calib_summary_asof` — which
     globs `analyses/performance/*_calibration_summary.json` relative to CWD — never sees
@@ -152,6 +176,8 @@ def run_block(block_path, run_root, sandbox):
     A crashed or hung validator must fail the test, never count as AJ silence."""
     env = dict(os.environ)
     env["PYTHONPATH"] = os.path.join(REPO_ROOT, "scripts") + os.pathsep + env.get("PYTHONPATH", "")
+    if extra_path:
+        env["PYTHONPATH"] = extra_path + os.pathsep + env["PYTHONPATH"]
     try:
         proc = subprocess.run(
             [sys.executable, block_path, run_root],
@@ -179,6 +205,14 @@ def main():
               "(rerun on a pre-AJ_DATE folder would bypass the Decision Audit Trail gate)")
     else:
         print("  [ok] full.md Step 10B.1 AJ call gates on `_live_date`")
+
+    # Static guard: the live BF call must be judged on _live_date, never ddte — decision_date never
+    # advances on a rerun, so a ddte-keyed BF would exempt every pre-BF_ENFORCE_DATE folder forever.
+    if not re.search(r"eval_bf_basis_enforcement\(\s*_live_date\s*,", block):
+        bad += 1
+        print("  [XX] full.md Step 10B.1 BF call is missing or does NOT gate on `_live_date`")
+    else:
+        print("  [ok] full.md Step 10B.1 BF call gates on `_live_date`")
 
     tmp = tempfile.mkdtemp(prefix="aj_live_gate_")
     try:
@@ -266,6 +300,32 @@ def main():
                 bad += 1
                 print(f"  [XX] sidecar presence, {name}: expected {verdict} "
                       f"with {diagnostics!r}. Got:\n{output}")
+        # BF wiring: the live block calls the basis checker on the run's sidecar and enforces on TODAY's
+        # date against BF_ENFORCE_DATE — report-only (GATE-NOTE, no banner) before it, a violation after it.
+        # The fixture's decision_date is pre-cutoff on purpose: an armed date must still bite on a rerun.
+        bf_cases = [
+            ("BF armed (date passed)", "2000-01-01", "PROVISIONAL",
+             ["valuation_summary.json basis (BF): weighted cases mix earnings PERIODS"], None),
+            ("BF not yet armed", "2999-12-31", "PASS", [], "GATE-NOTE: check BF (report-only until 2999-12-31"),
+        ]
+        for index, (name, date, verdict, diagnostics, note) in enumerate(bf_cases):
+            sandbox = os.path.join(tmp, f"bf{index}", "sandbox")
+            stub_dir = os.path.join(tmp, f"bf{index}", "stub")
+            os.makedirs(sandbox, exist_ok=True)
+            os.makedirs(stub_dir, exist_ok=True)
+            with open(os.path.join(stub_dir, "valuation_basis_checks.py"), "w", encoding="utf-8") as f:
+                f.write(BF_STUB.format(date=date))
+            run_root = os.path.join(sandbox, "analyses", f"TEST_{PRE_CUTOFF_DATE}")
+            write_fixture(run_root, THESIS_WITH_DAT)
+            output = run_block(block_path, run_root, sandbox, extra_path=stub_dir)
+            gates = [line for line in output.splitlines() if line.startswith("GATE:")]
+            if (len(gates) == 1 and gates[0].startswith(f"GATE: {verdict} — ")
+                    and all(message in gates[0] for message in diagnostics)
+                    and (note is None or note in output)):
+                print(f"  [ok] {name} -> {verdict}")
+            else:
+                bad += 1
+                print(f"  [XX] {name}: expected {verdict} with {diagnostics!r} / note {note!r}. Got:\n{output}")
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
