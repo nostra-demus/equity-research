@@ -5124,6 +5124,16 @@ bachecked, bafailures, baenforced = scan_basis_committed(".")
 # Findings on runs dated on/after BF_ENFORCE_DATE fail the suite; everything earlier reports only. The
 # gate is dated rather than switched so the two thirds of the corpus that predates the rule — including
 # the 34 run folders that emit no sidecar at all — is never retro-failed.
+# DECLARE THIS GATE WHEN PR #732 AND THIS STACK MEET. #732 adds scripts/eval_code_gate.py, which AST-
+# enumerates every `suite_pass` write in this file and is strict BOTH ways — an undeclared write fails,
+# and a declared write that has gone missing fails too. Measured: that gate reports 0 findings against
+# main's eval.py and exactly one against this file, `baenforced -> False`. So whichever of the two lands
+# SECOND must add this single entry to eval_code_gate.DECODED_SUITE_GATES, beside the `apfailures`
+# line it mirrors:
+#     "baenforced -> False": 1,                               # BF  -> bf_failures()/status_of()
+# It cannot be added here: eval_code_gate.py does not exist on this branch, and creating a second copy
+# of #732's file to hold one line is exactly the parallel component CLAUDE.md §2 forbids. Registering it
+# early on #732 instead would red #732's own CI, which would then expect a write main does not yet have.
 if baenforced: suite_pass=False
 
 out={"schema_version":"1.0","generated_at":today,"scope":scope,"n_runs":len(results),
