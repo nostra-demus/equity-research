@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T17:43:00Z",
+  "generated_at": "2026-10-01T17:47:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-501",
@@ -786,6 +786,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-510",
+      "headline": "TotalEnergies investirá US$10 bi na Argentina, afirma CEO",
+      "headline_en": "TotalEnergies will invest US$10 billion in Argentina, says CEO",
+      "url": "https://www.reuters.com/pt/negocio/4BS7LOK6WNJQXFZWIKO5RFEWZM-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T17:29:30Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "TotalEnergies announced a $10 billion investment in Argentina, a significant capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TotalEnergies announced a $10 billion investment in Argentina, a significant capital expenditure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TotalEnergies",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1948,55 +1997,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-276",
-      "headline": "Motilal Oswal Alternates sells over 2% stake in Molbio Diagnostics for ₹306 cr",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/motilal-oswal-alternates-sells-over-2-stake-in-molbio-diagnostics-for-306-cr/article71531191.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T04:06:17Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Motilal Oswal Alternates sold over 2% stake in Molbio Diagnostics for ₹306 crore, indicating a significant ownership change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Motilal Oswal Alternates sold over 2% stake in Molbio Diagnostics for ₹306 crore, indicating a significant ownership change.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Molbio Diagnostics",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192544,9 +192544,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4701306,
-    "news_picked_today": 1212,
-    "news_dropped_today": 21492
+    "news_seen_today": 4715072,
+    "news_picked_today": 1216,
+    "news_dropped_today": 21512
   },
   "book_momentum": {
     "live_count": 8,
