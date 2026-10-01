@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T07:27:04Z",
+  "generated_at": "2026-10-01T07:33:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-121",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-320",
+      "headline": "Landsec to buy Metrocentre in £516 million deal",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/intu-london-kent-gateshead-press-association-b3059491.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T07:02:39Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Landsec is acquiring Metrocentre for £516 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Landsec is acquiring Metrocentre for £516 million.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Landsec",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1611,6 +1660,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-308",
+      "headline": "Belrise Industries Limited: Belrise Industries Limited has informed the Exchange regarding Change in Auditors of the company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BELRISE_01102026123217_BELRISE_IntimationofAppofJointStatutoryAuditor_30092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T07:02:30Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Change in company auditors is a material governance event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Change in company auditors is a material governance event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Belrise Industries Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-306",
       "headline": "Directions under Section 35A read with Section 56 of the Banking Regulation Act, 1949 – Innovative Co-operative Urban Bank Limited, New Delhi – Extension of Period",
       "headline_en": null,
@@ -1912,105 +2010,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-244",
-      "headline": "ALA: The path to first patient dosing [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ALA?key=2924-03143221-3A703107",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-01T03:54:44Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "ASX price-sensitive clinical-stage biotech milestone; company announcing clear path to first-patient dosing, but no regulatory approval date, trial timeline, or program detail disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "ASX price-sensitive clinical-stage biotech milestone; company announcing clear path to first-patient dosing, but no regulatory approval date, trial timeline, or program detail disclosed.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 56,
-      "rank_factors": {
-        "materiality": 56,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 14,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ALA",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-010",
-      "headline": "CHW: Nasdaq Bound - Chilwa Launches US IPO and Dual Listing [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CHW?key=2924-03143072-6A1347142",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T23:54:48Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Chilwa launches Nasdaq IPO with dual ASX listing, a capital-raise and market-access event; no valuation or size disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Chilwa launches Nasdaq IPO with dual ASX listing, a capital-raise and market-access event; no valuation or size disclosed.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 73,
-      "rank_factors": {
-        "materiality": 73,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chilwa",
-          "ticker": "CHW",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192492,9 +192491,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1600806,
-    "news_picked_today": 555,
-    "news_dropped_today": 9525
+    "news_seen_today": 1618401,
+    "news_picked_today": 576,
+    "news_dropped_today": 9912
   },
   "book_momentum": {
     "live_count": 8,
