@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T00:18:57Z",
+  "generated_at": "2026-10-01T00:25:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-008",
@@ -471,6 +471,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-018",
+      "headline": "SCHEDULE 13D/A - Cadre Holdings, Inc. (0001860543) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1860543/000110465926112476/0001104659-26-112476-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-30T23:47:36Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Amended 13D filing for Cadre Holdings; specific amendment detail and stake direction unknown from headline alone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "Amended 13D filing for Cadre Holdings; specific amendment detail and stake direction unknown from headline alone.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cadre Holdings, Inc.",
+          "ticker": "CDRE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-022",
+      "headline": "Mahindra & Mahindra Financial Services Limited: Mahindra & Mahindra Financial Services Limited has informed the Exchange regarding allotment of 125000 NCDs at its meeting held on September 29, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/M_MFIN_29092026123730_20260929-SEs_Intimationsigneed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T07:10:14Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Allotment of 125,000 NCDs at board meeting 29 Sept 2026 confirmed; capital structure event but face value and terms not disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Allotment of 125,000 NCDs at board meeting 29 Sept 2026 confirmed; capital structure event but face value and terms not disclosed in headline.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 54,
+      "rank_factors": {
+        "materiality": 54,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahindra & Mahindra Financial Services Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-013",
       "headline": "SNT: Syntara expands SNT-9465 skin scarring study [price-sensitive]",
       "headline_en": null,
@@ -564,6 +663,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-019",
+      "headline": "SCHEDULE 13D/A - KANDERS WARREN B (0000935577) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/935577/000110465926112476/0001104659-26-112476-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-30T23:47:36Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Amended 13D filing by Warren B. Kanders; subject company not identified in headline, so materiality cannot be assessed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Amended 13D filing by Warren B. Kanders; subject company not identified in headline, so materiality cannot be assessed.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-014",
       "headline": "VKA: VIKINGS GRAVITY SEPARATION PRODUCES 69.3% WO3 CONCENTRATE [price-sensitive]",
       "headline_en": null,
@@ -608,6 +750,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-020",
+      "headline": "PHC Holdings Corporation(6523)",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
+      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T23:27:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Trading halt on JPX for PHC Holdings Corporation; reason and duration not disclosed, likely precedes material announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Trading halt on JPX for PHC Holdings Corporation; reason and duration not disclosed, likely precedes material announcement.",
+      "region": "JP",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PHC Holdings Corporation",
+          "ticker": "6523",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-021",
+      "headline": "TOHO HOLDINGS CO.,LTD.(8129)",
+      "headline_en": null,
+      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
+      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-30T23:27:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Trading halt on JPX for TOHO HOLDINGS CO., LTD.; reason and duration not disclosed, likely precedes material announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Trading halt on JPX for TOHO HOLDINGS CO., LTD.; reason and duration not disclosed, likely precedes material announcement.",
+      "region": "JP",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TOHO HOLDINGS CO., LTD.",
+          "ticker": "8129",
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -755,6 +995,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-023",
+      "headline": "WZR: Change in substantial holding",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WZR?key=2924-03141406-2A1700262",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T07:02:01Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Routine disclosure of a change in substantial shareholding.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Routine disclosure of a change in substantial shareholding.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WZR",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-024",
+      "headline": "AAA: Estimated Distribution Announcement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AAA?key=2924-03141405-2A1700261",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-09-29T07:01:26Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Routine announcement of an estimated distribution for an ETF or fund.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "Routine announcement of an estimated distribution for an ETF or fund.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AAA",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192714,7 +193052,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3063,
+    "inbox_unconsumed": 3070,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -192723,9 +193061,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 22111,
-    "news_picked_today": 17,
-    "news_dropped_today": 247
+    "news_seen_today": 65653,
+    "news_picked_today": 24,
+    "news_dropped_today": 408
   },
   "book_momentum": {
     "live_count": 8,
