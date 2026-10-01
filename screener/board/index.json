@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T00:54:08Z",
+  "generated_at": "2026-10-01T01:12:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-033",
@@ -471,6 +471,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-047",
+      "headline": "DraftKings' 2026 Outlook: Driving Long-Term Profitability From Sports to Predictions",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/draftkings-2026-outlook-driving-long-term-profitability-sports-predictions",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:20:01Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "DraftKings provided a 2026 outlook focused on long-term profitability, signaling a shift in strategic financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "DraftKings provided a 2026 outlook focused on long-term profitability, signaling a shift in strategic financial expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DraftKings",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-002",
       "headline": "Micron shares waver in extended trade despite strong Q4 results, Q1 guidance",
       "headline_en": null,
@@ -565,6 +614,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-050",
+      "headline": "Dilip Buildcon aims to double coal output by FY29 in major mining push",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/dilip-buildcon-aims-to-double-coal-output-by-fy29-in-major-mining-push-11790768412755.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:30:37Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Dilip Buildcon announced a plan to double coal output by FY29, a major capacity-expansion commitment increasing capex and revenue growth; no investment amount, milestone sequence, or funding details disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Dilip Buildcon announced a plan to double coal output by FY29, a major capacity-expansion commitment increasing capex and revenue growth; no investment amount, milestone sequence, or funding details disclosed.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dilip Buildcon",
+          "ticker": "DIPL",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -761,6 +859,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-052",
+      "headline": "CMS finalizes model that aims to bring most-favored nation pricing to Part B",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/payers/cms-finalizes-model-aims-bring-most-favored-nation-pricing-part-b",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T01:05:02Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "CMS finalized a model to implement most-favored nation pricing for Part B drugs, which is expected to pressure pharmaceutical pricing and margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "CMS finalized a model to implement most-favored nation pricing for Part B drugs, which is expected to pressure pharmaceutical pricing and margins.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -964,6 +1105,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-048",
+      "headline": "Planet Fitness COO Dumps 23% of His Direct Equity Stake After the Stock Crashed",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/planet-fitness-coo-dumps-23-his-direct-equity-stake-after-stock-crashed",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:12:25Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Planet Fitness COO sold 23% of his direct equity stake following a stock decline, signaling possible loss of management confidence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Planet Fitness COO sold 23% of his direct equity stake following a stock decline, signaling possible loss of management confidence.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Planet Fitness",
+          "ticker": "PLNT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1392,6 +1582,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-049",
+      "headline": "Noel and son move to shield Trusts as Tata Sons tussle heats up",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-trusts-vs-tata-sons-venu-srinivasan-11790770650447.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:30:57Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Contested governance tussle over trust control within the Tata family ecosystem may affect dividend and strategic policy at listed Tata subsidiaries (TCS, Tata Steel, Tata Motors), but the headline confirms no specific event, outcome, or quantified impact on any named tradable co",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Contested governance tussle over trust control within the Tata family ecosystem may affect dividend and strategic policy at listed Tata subsidiaries (TCS, Tata Steel, Tata Motors), but the headline confirms no specific event, outcome, or quantified impact on any named tradable co",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "ownership_activist",
+        "strategic_review"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-051",
+      "headline": "Flipkart weighs ESOP cash-out amid staff unease, senior departures",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/flipkart-esop-buyback-amid-ipo-delay-walmart-11790751077575.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:15:36Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Flipkart is considering an ESOP cash-out amid reports of senior leadership departures and internal staff dissatisfaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Flipkart is considering an ESOP cash-out amid reports of senior leadership departures and internal staff dissatisfaction.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flipkart",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-016",
       "headline": "JAV: Coogee Au-Cu Diamond Hole Intersects Key Structure [price-sensitive]",
       "headline_en": null,
@@ -1681,298 +1971,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-035",
-      "headline": "FlyDubai says flights to and from Israel will be suspended while the investigation continues",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/europe/flydubai-says-flights-to-and-from-israel-will-be-suspended-while-the-investigation-continues-4166277",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:27:31Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "FlyDubai has suspended flights to Israel due to ongoing security concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "FlyDubai has suspended flights to Israel due to ongoing security concerns.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FlyDubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-023",
-      "headline": "WZR: Change in substantial holding",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WZR?key=2924-03141406-2A1700262",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-29T07:02:01Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Routine disclosure of a change in substantial shareholding.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Routine disclosure of a change in substantial shareholding.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WZR",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-032",
-      "headline": "RBI’s Success on Dollar Flows Raises Stakes in Inflation Fight",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-01/rbi-s-success-on-dollar-flows-raises-stakes-in-inflation-fight",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "RBI's management of dollar flows is impacting the inflation outlook for the Indian economy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "RBI's management of dollar flows is impacting the inflation outlook for the Indian economy.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-029",
-      "headline": "IMG Completes Acquisition of World Nomads, Expanding Global Travel Insurance Distribution",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/img-completes-acquisition-of-world-nomads-expanding-global-travel-insurance-distribution-302895147.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-01T00:18:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "IMG has completed the acquisition of World Nomads to expand its global travel insurance distribution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "IMG has completed the acquisition of World Nomads to expand its global travel insurance distribution.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IMG",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "World Nomads",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-028",
-      "headline": "Incubeta Completes Acquisition of XPON’s Specialist GMP and GCP Division",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20260930269903/en/Incubeta-Completes-Acquisition-of-XPON%E2%80%99s-Specialist-GMP-and-GCP-Division/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
-      "source_name": "Business Wire — Merger/Acquisition News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-01T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Incubeta has completed the acquisition of XPON's specialist divisions, expanding its service capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Incubeta has completed the acquisition of XPON's specialist divisions, expanding its service capabilities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Incubeta",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "XPON",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-030",
-      "headline": "Iran war live: Trump hints US could strike Iran, warns time coming",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/10/1/iran-war-live-trump-hints-us-could-strike-iran-warns-time-coming?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-10-01T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Geopolitical escalation risk regarding potential US strikes on Iran poses a significant threat to global energy markets and stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Geopolitical escalation risk regarding potential US strikes on Iran poses a significant threat to global energy markets and stability.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193885,9 +193883,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 191912,
-    "news_picked_today": 43,
-    "news_dropped_today": 1277
+    "news_seen_today": 379015,
+    "news_picked_today": 53,
+    "news_dropped_today": 1603
   },
   "book_momentum": {
     "live_count": 8,
