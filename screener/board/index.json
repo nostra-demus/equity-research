@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T11:24:59Z",
+  "generated_at": "2026-10-01T11:36:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-396",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-402",
+      "headline": "SKYFAME REALTY SKYFAME B3311 SKYFAME B3311B SKYFAME B3111B SKYFAME B3211 SKYFAME B3111 (00059 05311 05379 05567 05602 05855): (1)QUARTERLY UPDATE ON RESUMPTION PROGRESS; (2)INSIDE INFORMATION WINDING UP PETITION IN HONG KONG AND (3)CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1001/2026100100061.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T10:37:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Winding-up petition in Hong Kong and trading suspension for Skyfame Realty indicate involuntary liquidation proceedings and going-concern failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Winding-up petition in Hong Kong and trading suspension for Skyfame Realty indicate involuntary liquidation proceedings and going-concern failure.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Skyfame Realty",
+          "ticker": "00059",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1951,56 +2000,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-337",
-      "headline": "Coffee Day Enterprises Limited: Coffee Day Enterprises Limited has informed the Exchange about One time Settlement with Kemfin Services Private Limited",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/COFFEEDAY_01102026131025_ONE_TIME_SETTLEMENT_STOCK_EXCHANGE_SIGNED.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-01T07:40:50Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "One-time settlement with a related party could affect capital structure, contingent liabilities, or legal obligations, but no transaction size is disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "One-time settlement with a related party could affect capital structure, contingent liabilities, or legal obligations, but no transaction size is disclosed.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit",
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Coffee Day Enterprises Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -192693,9 +192692,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2994854,
-    "news_picked_today": 771,
-    "news_dropped_today": 14781
+    "news_seen_today": 3096521,
+    "news_picked_today": 775,
+    "news_dropped_today": 15089
   },
   "book_momentum": {
     "live_count": 8,
