@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T01:30:38Z",
+  "generated_at": "2026-10-01T01:37:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261001-033",
@@ -208,31 +208,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261001-061",
-      "headline": "XRG: Continuation of Suspension from Quotation [price-sensitive]",
+      "inbox_id": "INB-20261001-073",
+      "headline": "TER: Continuation of Suspension from Quotation [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XRG?key=2924-03143118-2A1701061",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TER?key=2924-03143123-2A1701064",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-01T00:55:19Z",
+      "found_at": "2026-10-01T01:04:04Z",
       "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Continuation of trading suspension signals ongoing compliance breach or survival risk; affects shareholder liquidity and listing continuity.",
+      "prelim_note": "Continuation of suspension from quotation signals unresolved disclosure, compliance, or distress issues and pending material announcement (M&A, enforcement, insolvency), creating trading and survival risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 98,
-      "triage_reason": "Continuation of trading suspension signals ongoing compliance breach or survival risk; affects shareholder liquidity and listing continuity.",
+      "triage_reason": "Continuation of suspension from quotation signals unresolved disclosure, compliance, or distress issues and pending material announcement (M&A, enforcement, insolvency), creating trading and survival risk.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 62,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 62,
+        "materiality": 70,
         "source_tier": 8,
         "scope": 6,
         "event": 9,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 8,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -241,13 +241,14 @@
         "size_bucket": "unknown"
       },
       "event_types": [
+        "regulatory",
         "default_distress"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "XRG",
-          "ticker": "XRG",
+          "name": "TER",
+          "ticker": null,
           "listing_country": "AU"
         }
       ],
@@ -356,6 +357,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-068",
+      "headline": "SCHEDULE 13D - ONE Nuclear Energy Inc. (0001846416) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1846416/000149315226045190/0001493152-26-045190-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-01T01:15:21Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Schedule 13D filed on ONE Nuclear Energy Inc, indicating >5% ownership stake or major shareholder action; filer identity and intent not specified in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Schedule 13D filed on ONE Nuclear Energy Inc, indicating >5% ownership stake or major shareholder action; filer identity and intent not specified in headline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 18,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ONE Nuclear Energy Inc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -511,6 +561,110 @@
         {
           "name": "Chilwa",
           "ticker": "CHW",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-066",
+      "headline": "Paramount-Warner Bros. Deal Cleared Despite Merger Opposition",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/rickellis/2026/09/30/paramount-warner-bros-deal-cleared-despite-merger-opposition/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T00:32:16Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Regulatory approval of a major media-sector merger between Paramount and Warner Bros.; specifics of deal value and timing not stated.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Regulatory approval of a major media-sector merger between Paramount and Warner Bros.; specifics of deal value and timing not stated.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": "PARA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": "WBD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-071",
+      "headline": "MXT: Continuation of Suspension from Quotation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MXT?key=2924-03143129-2A1701068",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T01:08:14Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Ongoing trading suspension (ASX price-sensitive flag) blocks liquidity and signals pending disclosure or distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Ongoing trading suspension (ASX price-sensitive flag) blocks liquidity and signals pending disclosure or distress.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unknown issuer",
+          "ticker": "MXT",
           "listing_country": "AU"
         }
       ],
@@ -1452,6 +1606,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-072",
+      "headline": "MEK: Application for quotation of securities - MEK",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MEK?key=2924-03143124-6A1347159",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T01:04:44Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "MEK's application for quotation of securities is a capital-market event, but the headline does not specify security type, size, timing, or dilution, limiting materiality confirmation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "MEK's application for quotation of securities is a capital-market event, but the headline does not specify security type, size, timing, or dilution, limiting materiality confirmation.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MEK",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-059",
       "headline": "SCHEDULE 13D/A - SOUNDTHINKING, INC. (0001351636) (Subject)",
       "headline_en": null,
@@ -1778,202 +1981,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-014",
-      "headline": "VKA: VIKINGS GRAVITY SEPARATION PRODUCES 69.3% WO3 CONCENTRATE [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VKA?key=2924-03143062-6A1347146",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T23:47:49Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Gravity separation achieving 69.3% WO3 concentrate validates process feasibility but lacks capex, capac, production rate, or project-economics quantification.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Gravity separation achieving 69.3% WO3 concentrate validates process feasibility but lacks capex, capac, production rate, or project-economics quantification.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vikings",
-          "ticker": "VKA",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-020",
-      "headline": "PHC Holdings Corporation(6523)",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
-      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T23:27:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Trading halt on JPX for PHC Holdings Corporation; reason and duration not disclosed, likely precedes material announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Trading halt on JPX for PHC Holdings Corporation; reason and duration not disclosed, likely precedes material announcement.",
-      "region": "JP",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PHC Holdings Corporation",
-          "ticker": "6523",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-021",
-      "headline": "TOHO HOLDINGS CO.,LTD.(8129)",
-      "headline_en": null,
-      "url": "https://www.jpx.co.jp/english/markets/equities/suspended/index.html",
-      "source_name": "Japan Exchange Group (JPX) — Trading Halts (Equities)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-09-30T23:27:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Trading halt on JPX for TOHO HOLDINGS CO., LTD.; reason and duration not disclosed, likely precedes material announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Trading halt on JPX for TOHO HOLDINGS CO., LTD.; reason and duration not disclosed, likely precedes material announcement.",
-      "region": "JP",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TOHO HOLDINGS CO., LTD.",
-          "ticker": "8129",
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-065",
-      "headline": "JPMorgan Elevated Doug Petno and Troy Rohrbaugh to Co-Presidents as Jamie Dimon's Board Accelerates Succession Planning. Here's What That Reshuffle Signals for JPMorgan's Next Chapter.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/jpmorgan-elevated-doug-petno-and-troy-rohrbaugh-co-presidents-jamie-dimons-board",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T00:35:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "JPMorgan elevated two executives to Co-Presidents and accelerated succession planning, signaling governance quality and reduced continuity tail risk, but no near-term profit or capital catalyst.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "JPMorgan elevated two executives to Co-Presidents and accelerated succession planning, signaling governance quality and reduced continuity tail risk, but no near-term profit or capital catalyst.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JPMorgan Chase",
-          "ticker": "JPM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193886,9 +193893,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 481313,
-    "news_picked_today": 71,
-    "news_dropped_today": 2065
+    "news_seen_today": 501504,
+    "news_picked_today": 79,
+    "news_dropped_today": 2273
   },
   "book_momentum": {
     "live_count": 8,
