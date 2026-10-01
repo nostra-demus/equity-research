@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.0",
+  "ticker": "BURL",
+  "run_root": "analyses/BURL_2026-09-29",
+  "verified_at": "2026-09-29T22:44:19Z",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/BURL_2026-09-29/final_thesis.md",
+  "decision_record_path": "analyses/BURL_2026-09-29/decision_record.json",
+  "final_thesis_sha256": "953ee30945eae60e6faac12cde2debb621b936d9781f55491af3842dc357bca6",
+  "decision_record_sha256": "9febce6747954359f212d63b7843222976f767c64563563d361273d521e62979",
+  "claims_checked": 10,
+  "claim_checks": [
+    {
+      "claim": "Current price is $254.69 on 2026-09-28 for BURL common stock on NYSE in USD.",
+      "citation": "data/BURL/Company Comparable Analysis Burlington Stores Inc.xls, Financial Data, 2026-09-28; frozen ciq_facts.json",
+      "source_checked": "Frozen exact-generation corpus and ciq_facts.json",
+      "status": "verified",
+      "evidence": "resolve_citations hit_count=4; deterministic current_price=254.69 with the same date and line.",
+      "severity": "info"
+    },
+    {
+      "claim": "Q2 sales rose 11%; $254.8m came from new/non-comparable stores and $42.0m from comparable stores, yielding the 9.4pp plus 1.6pp bridge.",
+      "citation": "Q2 FY2026 Form 10-Q, MD&A—Net Sales",
+      "source_checked": "Frozen Form 10-Q extract",
+      "status": "verified",
+      "evidence": "The filing states $296.8m/11.0% total growth, $254.8m new/non-comparable and $42.0m comparable. The recomputed bridge is 9.43pp plus 1.55pp, and $254.8m/$296.8m=85.85%.",
+      "severity": "info"
+    },
+    {
+      "claim": "Q2 reported gross margin was 46.2%, including a $55.5m tariff refund; the refund-excluded rate was about 44.3%, up 60bp.",
+      "citation": "Q2 FY2026 Form 10-Q, pp.3,20; Q2 FY2026 earnings call, prepared remarks",
+      "source_checked": "Frozen 10-Q and transcript extracts",
+      "status": "verified",
+      "evidence": "Resolver hit counts are 46.2=8, 55.5=9 and 44.3=3; source context matches the cited margin and refund discussion.",
+      "severity": "info"
+    },
+    {
+      "claim": "Strict net debt is $1,215.8m and strict net leverage is 0.84x.",
+      "citation": "Q2 FY2026 Form 10-Q, pp.5,10,12–13; FY2025 Form 10-K, p.29",
+      "source_checked": "Frozen filing extracts and balance-sheet-survival synthesis",
+      "status": "verified",
+      "evidence": "$1,919.5m financial debt less $703.7m cash equals $1,215.8m; divided by $1,440.2m filing-derived LTM EBITDA equals 0.844x. Displayed one-decimal debt components differ from the carrying-value total by only $0.1m rounding.",
+      "severity": "info"
+    },
+    {
+      "claim": "Lease-inclusive vendor net debt is $5,202.4m and 3.82x $1,360.7m LTM EBITDA.",
+      "citation": "CIQ Financials, Balance Sheet and Income Statement, Q2/LTM 2026-08-01 — vendor export",
+      "source_checked": "Frozen ciq_facts.json and CIQ extracts",
+      "status": "verified",
+      "evidence": "ciq_facts reports all three values and 5202.4/1360.7=3.823x. The vendor/lease-inclusive basis remains labelled everywhere.",
+      "severity": "info"
+    },
+    {
+      "claim": "Q3 consensus is $2,992.38m revenue, $279m EBITDA and $1.73093 normalized EPS; FY consensus is $12,828.72m revenue and $11.80109 normalized EPS.",
+      "citation": "data/BURL/BurlingtonStores,IncNYSEBURLEstimatesReport.xls, Consensus, 2026-09-28",
+      "source_checked": "Frozen Consensus extract",
+      "status": "verified",
+      "evidence": "All values have literal context-confirmed hits in the cited extract. BURL reports a standalone U.S. quarter, so the Q3 bar is on the filed basis.",
+      "severity": "info"
+    },
+    {
+      "claim": "Mean and median sell-side targets are $364.75 and $367.50 from 16 targets.",
+      "citation": "data/BURL/BurlingtonStores,IncNYSEBURLEstimatesReport.xls, Consensus and Recommendations, 2026-09-28",
+      "source_checked": "Frozen Consensus extract and ciq_facts.json",
+      "status": "verified",
+      "evidence": "Resolver hit_count is 2 for $364.75 and 1 for $367.50; the row states 16/16 estimates and ciq_facts matches.",
+      "severity": "info"
+    },
+    {
+      "claim": "Base fair value is $237.01 from a 70% $281.39 peer value and 30% $133.46 DCF; valid methods span $133.46–$302.88, or 126.94% of the low.",
+      "citation": "valuation/99_valuation-synthesis.md, §§1–5",
+      "source_checked": "Valuation 03, 04, 07 and 99",
+      "status": "verified",
+      "evidence": "The executed module calculations give $237.011 and 126.94%. Own-history values are visibly excluded rather than counted as corroboration.",
+      "severity": "info"
+    },
+    {
+      "claim": "The price implies 46.75% annual FCFF growth through FY2030 or a 13.85% EBIT margin.",
+      "citation": "valuation/05_reverse-dcf.md, §§2–5",
+      "source_checked": "Valuation 04 and 05 executed model outputs",
+      "status": "inference-labeled",
+      "evidence": "Executed roots are 46.7489617700% and 13.8539329743%; both are explicitly model inference, not filing facts.",
+      "severity": "info"
+    },
+    {
+      "claim": "Normalized LTM FCF is $357.0m versus $412.5m reported CFO-minus-capex FCF.",
+      "citation": "FY2025 Form 10-K, pp.45–46; Q2 FY2026 Form 10-Q, p.20; valuation/04, §1",
+      "source_checked": "Valuation 04 cash-flow bridge and frozen Q2 filing",
+      "status": "verified",
+      "evidence": "$412.5m-$55.5m=$357.0m. The report distinguishes operating FCF, CIQ levered FCF and unlevered FCFF.",
+      "severity": "info"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Scenario probabilities",
+      "reported": "25% / 60% / 15%",
+      "recomputed": "100%",
+      "ties": true,
+      "detail": "The scenario set sums to 100%."
+    },
+    {
+      "quantity": "Probability-weighted target and expected return",
+      "reported": "$244.81 and -3.879226%",
+      "recomputed": "$244.8095 and -3.8792257%",
+      "ties": true,
+      "detail": "Both target-weighted and probability×return calculations reconcile."
+    },
+    {
+      "quantity": "Downside, risk/reward and margin of safety",
+      "reported": "73.964427%; -0.052447x; -7.459601%",
+      "recomputed": "73.964427%; -0.052447x; -7.459601%",
+      "ties": true,
+      "detail": "All three use the correct entry, bear, weighted-target and base-value denominators."
+    },
+    {
+      "quantity": "Strict net debt and leverage",
+      "reported": "$1,215.8m and 0.84x",
+      "recomputed": "$1,919.5m-$703.7m=$1,215.8m; /$1,440.2m=0.844x",
+      "ties": true,
+      "detail": "Strict financial-debt basis; leases are shown separately."
+    },
+    {
+      "quantity": "DCF EV bridge",
+      "reported": "$9,743.5m EV to $8,527.7m equity and $133.46/share",
+      "recomputed": "$9,743.5m-$1,215.8m=$8,527.7m; /63.896m=$133.46",
+      "ties": true,
+      "detail": "Minority and preferred are zero; the share-count proxy is disclosed."
+    },
+    {
+      "quantity": "Q2 sales attribution",
+      "reported": "9.4pp + 1.6pp = 11.0pp",
+      "recomputed": "$254.8m+$42.0m=$296.8m; approximately 9.43pp+1.55pp=10.98pp",
+      "ties": true,
+      "detail": "Difference is ordinary rounding."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "Price and tradable line",
+      "values_by_module": {"final_thesis": "BURL · NYSE · USD, $254.69 on 2026-09-28", "valuation": "$254.69 on 2026-09-28", "ciq_facts": "$254.69 on 2026-09-28"},
+      "consistent": true,
+      "detail": "No share-class or date mismatch."
+    },
+    {
+      "anchor": "Strict net debt",
+      "values_by_module": {"final_thesis": "$1,215.8m strict", "balance-sheet-survival": "$1,215.8m strict", "valuation": "$1,215.8m strict"},
+      "consistent": true,
+      "detail": "The $5,202.4m CIQ measure is separately labelled lease-inclusive/vendor, not strict."
+    },
+    {
+      "anchor": "Cash and financial debt",
+      "values_by_module": {"final_thesis": "$703.7m / $1,919.5m", "balance-sheet-survival": "$703.7m / $1,919.5m", "valuation": "$703.7m / $1,919.5m"},
+      "consistent": true,
+      "detail": "All modules use the same point-in-time basis."
+    },
+    {
+      "anchor": "EBITDA provenance",
+      "values_by_module": {"balance-sheet-survival": "$1,440.2m filing-derived GAAP EBITDA and $1,360.7m CIQ-standard EBITDA", "valuation": "$1,360.7m CIQ-standard where vendor multiples are used", "ciq_facts": "$1,360.7m CIQ-standard"},
+      "consistent": true,
+      "detail": "Different values carry different bases and source types; none is cited as the other."
+    },
+    {
+      "anchor": "ROIC and cost of capital",
+      "values_by_module": {"business-model": "7.8% LTM ROIC; business cost of capital not assessable", "valuation": "10.26% model WACC; 6.2% lease rate only a comparator"},
+      "consistent": true,
+      "detail": "The final thesis does not invent a measured ROIC-WACC spread."
+    }
+  ],
+  "fidelity_checks": [],
+  "contradiction_checks": [
+    {
+      "verdict_word": "proven",
+      "claim": "Moat direction is mixed, not proven widening or confirmed erosion.",
+      "metric_family": "profitability, cash conversion and capital efficiency",
+      "contradicting_metric": "Gross margin, cash conversion and store count improved while EBIT margin and ROIC fell",
+      "contradicting_value": "+250bp gross margin, +22.4pp cash conversion, +38.8% stores; -70bp EBIT margin, -170bp ROIC",
+      "contradicting_source": "business-model/99_business-model-synthesis.md, §§1A,3–4",
+      "addressed": true,
+      "severity": "info"
+    }
+  ],
+  "integrity_score": 100,
+  "verdict": "Clean",
+  "blocking_findings": [],
+  "notes": "Final immutable audit rerun after pre-mortem propagation. The canonical citation resolver and deterministic CIQ sidecar were checked against the frozen generation. The added post-mortem fields preserve the original Watchlist and confidence, so no new scorecard conflict exists. No pinned input was edited."
+}

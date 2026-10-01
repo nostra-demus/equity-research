@@ -1,0 +1,36 @@
+{
+  "schema_version": "qualified-idea-admission/v1",
+  "admission_id": "BURL-2026-09-29-3-6m|f4afa5712f4e8843",
+  "status": "not_applicable",
+  "run_root": "analyses/BURL_2026-09-29",
+  "frozen_at": "2026-09-29T22:57:17.860357Z",
+  "assessment": {
+    "schema_version": "idea-assessment/v1",
+    "assessment_id": "BURL-2026-09-29-3-6m",
+    "run_root": "analyses/BURL_2026-09-29",
+    "created_at": "2026-09-29T22:54:48Z",
+    "ticker": "BURL",
+    "company": "Burlington Stores, Inc.",
+    "status": "not_assessable",
+    "gaps": [
+      "Canonical market evidence capture failed because the required data/_market feed is inaccessible in this run.",
+      "A source-bound quote, measured 60-session liquidity, ordinary five-session move, and canonical evidence digest are unavailable."
+    ],
+    "candidate": null
+  },
+  "assessment_sha256": "f4afa5712f4e8843a918eb33c494a9fabab92065641f9c199eb1d9f24c0f2555",
+  "candidate": null,
+  "candidate_sha256": null,
+  "decision_authority": null,
+  "decision_authority_sha256": null,
+  "market_evidence_sha256": null,
+  "market_evidence": null,
+  "projection_manifest_sha256": "38c74158c4b0406ff873ee7ba36f6c3054323f50d6917e42b278fb08cbf3733f",
+  "integrity_evidence": null,
+  "integrity_evidence_sha256": null,
+  "gaps": [
+    "Canonical market evidence capture failed because the required data/_market feed is inaccessible in this run.",
+    "A source-bound quote, measured 60-session liquidity, ordinary five-session move, and canonical evidence digest are unavailable."
+  ],
+  "admission_sha256": "f42d2324f2530fbc2f302062f7a043d2f2f99f8a449dd6e4c0ff69e0de9df5c2"
+}
