@@ -263,7 +263,27 @@ def basis_detail(raw):
     if m_hit:
         breaks = [b.end() for b in _PHRASE_BREAK.finditer(text, 0, m_hit[0])]
         phrase_start = breaks[-1] if breaks else 0
-    attached = [h for h in p_hits if m_hit and h[0] >= phrase_start and h[1] <= m_hit[0]]
+
+    def _attached(h):
+        # The period stated in the measure's OWN noun phrase.
+        if not m_hit:
+            return False
+        if h[0] >= phrase_start and h[1] <= m_hit[0]:
+            return True
+        # An interim written "<interim> of FY26 EBITDA": the "of" is part of the interim's own
+        # year-attachment (_INTERIM_YEAR consumes "of FY26"), not a phrase boundary. But _PHRASE_BREAK
+        # counts "of" as a break, so the interim TOKEN lands before phrase_start while the bare FY token
+        # it resolves to sits inside the phrase — which let "first half of FY26 EBITDA" read as FY26,
+        # collapsing a half-year into the full year (CLAUDE.md §17/§27: a half-year is not the year).
+        # Admit the interim when the YEAR it resolves to falls inside the measure's phrase, so the
+        # specific interim period wins over the bare year it is built from.
+        if h[2] in _INTERIM_KINDS:
+            year = _INTERIM_YEAR.match(text, h[1])
+            if year and phrase_start < year.end() <= m_hit[0]:
+                return True
+        return False
+
+    attached = [h for h in p_hits if _attached(h)]
     p_hit = attached[0] if attached else (p_hits[0] if p_hits else None)
     period = _resolve_period(p_hit, text) if p_hit else None
 
@@ -1635,6 +1655,18 @@ def _selftest_body() -> int:
     chk("[4151395622] H2 is neither H1 nor the full year",
         lambda: len({N("H2 FY26 EPS")[0], N("H1 FY26 EPS")[0], N("FY2026 EPS")[0]}) == 3)
     chk("[4151395622] a yearless interim is an unknown period", lambda: N("H1 EPS")[0] is None)
+    # The "of" spelling of an interim must keep its number and year. "first half of FY26 EBITDA" put
+    # the interim token before the "of" phrase-break while the bare FY token sat in the measure phrase,
+    # so it collapsed to FY26 — a half-year read as the full year (§17/§27). Red on the pre-fix parser.
+    chk("[interim-of] an interim written with 'of FYxx' keeps its number and year",
+        lambda: N("first half of FY26 EBITDA")[0] == "H1-FY26"
+        and N("H2 of FY26 EBITDA")[0] == "H2-FY26"
+        and N("Q1 of FY26 EPS")[0] == "Q1-FY26"
+        and N("9M of FY26 revenue")[0] == "9M-FY26")
+    chk("[interim-of] a half-year 'of' leg against a full-year base still mismatches",
+        lambda: any("PERIOD" in v for v in E(_set("FY2026 EBITDA", "first half of FY26 EBITDA"))))
+    chk("[interim-of] 'EBITDA of 2026 crore' is still money, not FY26 (no regression)",
+        lambda: N("EBITDA of 2026 crore")[0] is None)
 
     # 4151395628 / 4151395634 (#15)
     chk("[4151395628] GMV is not revenue", lambda: N("NTM GMV")[1] == "GMV" != N("NTM revenue")[1])
