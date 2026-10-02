@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T23:54:32Z",
+  "generated_at": "2026-10-02T23:55:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1260",
@@ -152901,16 +152901,16 @@
     },
     {
       "idea_id": "IDEA-8c05409f139b",
-      "idea_version": "IDEAV-cb3277d850db9140",
-      "idea_version_started_at": "2026-10-02T22:01:37Z",
+      "idea_version": "IDEAV-0359fb3494c3c62e",
+      "idea_version_started_at": "2026-10-02T23:54:55Z",
       "ticker": "MAXN",
-      "company": "Maxeon Solar Technologies",
+      "company": "Maxeon Solar Technologies, Ltd.",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "The company has received a formal delisting notification from the Nasdaq, signaling severe financial distress and loss of liquidity.",
-      "why_now": "The SEC filing was published on 2026-10-02.",
-      "conviction": 85,
+      "reason": "The company is facing an official delisting notification (Form 25-NSE) filed by Nasdaq, which will severely restrict equity liquidity and trigger institutional selling.",
+      "why_now": "The Form 25-NSE delisting notification was filed on October 2, 2026, making the transition to over-the-counter trading imminent.",
+      "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 45,
       "trade_score_basis": "event_driven_v3",
@@ -152929,7 +152929,6 @@
         "verified listing",
         "live liquidity",
         "dated catalyst",
-        "priced-in risk",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -152941,8 +152940,8 @@
         "basis": "not_enough_outcomes",
         "evidenceIds": []
       },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
+      "priced_in": "room",
+      "thesis_type": "company_specific",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
@@ -152966,8 +152965,150 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-10-02T22:01:37Z",
-      "updated_at": "2026-10-02T22:01:37Z",
+      "updated_at": "2026-10-02T23:54:55Z",
       "decay_at": "2026-10-04T08:30:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-936025bbcdb3",
+      "idea_version": "IDEAV-78acbe3d08e19ae6",
+      "idea_version_started_at": "2026-10-02T23:54:55Z",
+      "ticker": "00389",
+      "company": "China Tontine Wines Group Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The conditional voluntary cash partial offer by Mr. Wang He to acquire 56,320,200 shares has officially lapsed due to failure to meet acceptance levels, removing a key valuation floor for the stock.",
+      "why_now": "The lapse of the partial offer was formally announced on October 2, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6cbe4874af63"
+      ],
+      "primary_source_event_id": "EVT-6cbe4874af63",
+      "source_headlines": [
+        "TONTINE WINES (00389): ANNOUNCEMENT - CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY I WIN SECURITIES LIMITED FOR AND ON BEHALF OF MR. WANG HE TO ACQUIRE 56,320,200 SHARES IN CHINA TONTINE WINES GROUP LIMITED (STOCK CODE: 389) (OTHER THAN THOSE ALREADY OWNED BY MR. WANG HE AND PARTIES ACTING IN CONCERT WITH HIM) (1) LEVEL OF ACCEPTANCE ON THE FIRST CLOSING DATE; AND (2) LAPSE OF THE PARTIAL OFFER"
+      ],
+      "source_headline": "TONTINE WINES (00389): ANNOUNCEMENT - CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY I WIN SECURITIES LIMITED FOR AND ON BEHALF OF MR. WANG HE TO ACQUIRE 56,320,200 SHARES IN CHINA TONTINE WINES GROUP LIMITED (STOCK CODE: 389) (OTHER THAN THOSE ALREADY OWNED BY MR. WANG HE AND PARTIES ACTING IN CONCERT WITH HIM) (1) LEVEL OF ACCEPTANCE ON THE FIRST CLOSING DATE; AND (2) LAPSE OF THE PARTIAL OFFER",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026100203027.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T10:36:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-02T23:54:55Z",
+      "updated_at": "2026-10-02T23:54:55Z",
+      "decay_at": "2026-10-03T22:36:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-c1554a7fc3c8",
+      "idea_version": "IDEAV-af2d0981313ab726",
+      "idea_version_started_at": "2026-10-02T23:54:55Z",
+      "ticker": "00197",
+      "company": "Heng Tai Consumables Group Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is delaying the publication of its 2026 annual results and annual report, leading to an immediate suspension of trading and signaling severe accounting or operational distress.",
+      "why_now": "The delay and trading suspension announcement was filed on October 2, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4e9bee398af9"
+      ],
+      "primary_source_event_id": "EVT-4e9bee398af9",
+      "source_headlines": [
+        "HENG TAI (00197): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS; (2) DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; (3) POSTPONEMENT OF BOARD MEETING; AND (4) SUSPENSION OF TRADING"
+      ],
+      "source_headline": "HENG TAI (00197): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS; (2) DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; (3) POSTPONEMENT OF BOARD MEETING; AND (4) SUSPENSION OF TRADING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026093002043.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T10:11:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-02T23:54:55Z",
+      "updated_at": "2026-10-02T23:54:55Z",
+      "decay_at": "2026-10-03T22:11:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155115,151 +155256,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-02a86175523b",
-      "idea_version": "IDEAV-f25ea1d334d8503f",
-      "idea_version_started_at": "2026-09-30T02:00:49Z",
-      "ticker": "PAR",
-      "company": "Paradigm Biopharmaceuticals",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered voluntary administration, indicating a total loss of equity value for shareholders as the business undergoes insolvency proceedings.",
-      "why_now": "The filing was made on 2026-09-29.",
-      "conviction": 95,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a782c4b362ce",
-        "EVT-dbf75ec53a86"
-      ],
-      "primary_source_event_id": "EVT-a782c4b362ce",
-      "source_headlines": [
-        "PAR: Board Initiates Voluntary Administration [price-sensitive]",
-        "PAR: Appointment of Voluntary Administrators [price-sensitive]"
-      ],
-      "source_headline": "PAR: Board Initiates Voluntary Administration [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PAR?key=2924-03141899-3A702881",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-29T23:51:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-30T02:00:49Z",
-      "updated_at": "2026-09-30T02:00:49Z",
-      "decay_at": "2026-10-01T11:51:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-aa2a7b63a414",
-      "idea_version": "IDEAV-849a173aea6f83d8",
-      "idea_version_started_at": "2026-09-29T23:33:49Z",
-      "ticker": "DRO",
-      "company": "DroneShield",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The US$500M IDIQ procurement vehicle represents a massive increase in the company's total addressable contract value and provides long-term revenue visibility.",
-      "why_now": "Contract award announced 2026-09-29.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b139def55f45"
-      ],
-      "primary_source_event_id": "EVT-b139def55f45",
-      "source_headlines": [
-        "DRO: DroneShield Awarded US$500M US IDIQ Procurement Vehicle"
-      ],
-      "source_headline": "DRO: DroneShield Awarded US$500M US IDIQ Procurement Vehicle",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DRO?key=2924-03141779-2A1700430",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-29T22:49:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T23:33:49Z",
-      "updated_at": "2026-09-29T23:33:49Z",
-      "decay_at": "2026-10-01T10:49:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-fa0d140ee7df",
       "idea_version": "IDEAV-56f9fc0daac67d9a",
       "idea_version_started_at": "2026-10-01T01:46:19Z",
@@ -155689,77 +155685,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-36170b9aa8ef",
-      "idea_version": "IDEAV-7ca0ad97af6df0f8",
-      "idea_version_started_at": "2026-09-30T02:20:53Z",
-      "ticker": "EMP",
-      "company": "Empire Energy Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The approval of the Judith2 appraisal well drilling environment plan removes a key regulatory hurdle for the company's exploration and production operations.",
-      "why_now": "The approval was officially announced on September 29, 2026, providing an immediate catalyst for development.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-460657a7ad63"
-      ],
-      "primary_source_event_id": "EVT-460657a7ad63",
-      "source_headlines": [
-        "EMP: Approval of Judith2 Appraisal Well Drilling Environment Plan [price-sensitive]"
-      ],
-      "source_headline": "EMP: Approval of Judith2 Appraisal Well Drilling Environment Plan [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EMP?key=2924-03141907-2A1700521",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 90,
-      "newest_source_at": "2026-09-29T23:52:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-30T02:20:53Z",
-      "updated_at": "2026-09-30T02:20:53Z",
-      "decay_at": "2026-10-01T11:52:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5bbb270a4da2",
       "idea_version": "IDEAV-16af2eb8fb676391",
       "idea_version_started_at": "2026-09-30T02:20:53Z",
@@ -155913,33 +155838,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 535,
+    "total_count": 532,
     "shown_count": 500,
-    "hidden_count": 35,
+    "hidden_count": 32,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 24
       },
       "short": {
-        "total_count": 259,
+        "total_count": 258,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 8
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 656,
-      "oldest_retained_at": "2026-09-07T00:42:20Z",
+      "evicted_count": 659,
+      "oldest_retained_at": "2026-09-07T03:05:31Z",
       "side_counts": {
         "long": {
-          "evicted_count": 436,
-          "oldest_retained_at": "2026-09-15T11:24:22Z"
+          "evicted_count": 438,
+          "oldest_retained_at": "2026-09-15T11:53:50Z"
         },
         "short": {
-          "evicted_count": 220,
-          "oldest_retained_at": "2026-09-07T00:42:20Z"
+          "evicted_count": 221,
+          "oldest_retained_at": "2026-09-07T03:05:31Z"
         }
       }
     },
@@ -158392,8 +158317,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-01T11:52:59Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-02T23:55:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -158469,8 +158394,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-01T11:51:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-02T23:55:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -158543,8 +158468,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-01T10:49:44Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-02T23:55:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -193104,8 +193029,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1208,
-    "live_count": 16,
+    "surfaced_total": 1210,
+    "live_count": 18,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
