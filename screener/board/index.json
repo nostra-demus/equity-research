@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T00:29:55Z",
+  "generated_at": "2026-10-02T00:36:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-050",
@@ -95,6 +95,55 @@
         },
         {
           "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-096",
+      "headline": "Pritzker Family Weighs Over $1 Billion Sale of Propane Business",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-01/pritzker-family-weighs-over-1-billion-sale-of-propane-business",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:17:28Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Pritzker Family is exploring a sale of a business unit valued at over $1 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pritzker Family is exploring a sale of a business unit valued at over $1 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pritzker Family",
           "ticker": null,
           "listing_country": null
         }
@@ -290,6 +339,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-092",
+      "headline": "Neros Says Gauntlet II Order For Drones And Explosive Payloads Is $100 Million",
+      "headline_en": null,
+      "url": "https://www.defensedaily.com/neros-says-gauntlet-ii-order-for-drones-and-explosive-payloads-is-100-million/unmanned-systems/",
+      "source_name": "Defense Daily",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:25:45Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Neros secured a specific $100 million order for drones and payloads.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Neros secured a specific $100 million order for drones and payloads.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Neros",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -588,6 +686,55 @@
           "name": "YPF",
           "ticker": null,
           "listing_country": "AR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-102",
+      "headline": "Vedanta plans $200 million push to lift Rajasthan oil output",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/vedanta-plans-200-million-push-to-lift-rajasthan-oil-output/articleshow/134626265.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:08:08Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Vedanta announces $200 million capex to increase Rajasthan oil output, a capacity-expansion commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Vedanta announces $200 million capex to increase Rajasthan oil output, a capacity-expansion commitment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vedanta",
+          "ticker": "VEDANTA.NS",
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1766,180 +1913,44 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261002-051",
-      "headline": "Autoridades de la Fed enfrían las expectativas de una subida de tasas en octubre",
-      "headline_en": "Fed officials cool expectations for an October rate hike",
-      "url": "https://www.reuters.com/es/negocio/3ZD572ROR5KDLI2QMM2JZUYXMQ-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "inbox_id": "INB-20261002-104",
+      "headline": "Carney Puts Oil Pipeline at Center of Bid to Keep Alberta in Canada",
+      "headline_en": null,
+      "url": "https://www.wsj.com/world/americas/carney-puts-oil-pipeline-at-center-of-bid-to-keep-alberta-in-canada-28636738?mod=rss_worldnews",
+      "source_name": "The Wall Street Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-10-01T20:21:44Z",
+      "found_at": "2026-10-01T19:02:00Z",
       "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Fed officials cooling expectations for an October rate hike shifts market interest rate outlooks.",
+      "prelim_note": "The oil pipeline is a central political issue affecting energy infrastructure and regional economic stability in Canada.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Fed officials cooling expectations for an October rate hike shifts market interest rate outlooks.",
-      "region": "US",
+      "triage_score": 79,
+      "triage_reason": "The oil pipeline is a central political issue affecting energy infrastructure and regional economic stability in Canada.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 50,
         "source_tier": 0,
         "scope": 2,
-        "event": 0,
+        "event": 4,
         "size": 0,
         "recency": 3,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
         "source_tier_id": "news",
-        "event_id": null,
+        "event_id": "regulatory",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "macro_sector"
+        "regulatory"
       ],
-      "issuer_linkage": "macro",
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-074",
-      "headline": "Federal Reserve vice chair says it ‘may take more time’ before hiking rates again",
-      "headline_en": null,
-      "url": "https://thehill.com/business/6124140-federal-reserves-future-inflation-hikes-jefferson/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T19:44:11Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Federal Reserve Vice Chair signals possible delay in future rate hikes, affecting discount rates, financing costs, and equity valuations economy-wide.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Federal Reserve Vice Chair signals possible delay in future rate hikes, affecting discount rates, financing costs, and equity valuations economy-wide.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 67,
-      "rank_factors": {
-        "materiality": 67,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-073",
-      "headline": "Fed's Jefferson says central bank 'may take more time' before hiking rates again",
-      "headline_en": null,
-      "url": "https://thehill.com/business/6124140-federal-reserves-future-inflation-hikes-jefferson/",
-      "source_name": "The Hill — Business News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T19:44:11Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Federal Reserve Vice Chair Jefferson signals possible delay in future rate hikes, affecting discount rates, financing costs, and equity valuations economy-wide.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 75,
-      "triage_reason": "Federal Reserve Vice Chair Jefferson signals possible delay in future rate hikes, affecting discount rates, financing costs, and equity valuations economy-wide.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 67,
-      "rank_factors": {
-        "materiality": 67,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-060",
-      "headline": "Google Just Went Nuclear in Georgia. These 2 Industrial Stocks Get Paid to Build It.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/01/google-just-went-nuclear-in-georgia-these-2-indust/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T20:05:00Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Google announces nuclear power plant commitment in Georgia for data-center energy supply, a strategic infrastructure capex, but deal size, timeline, and official confirmation are absent from the headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Google announces nuclear power plant commitment in Georgia for data-center energy supply, a strategic infrastructure capex, but deal size, timeline, and official confirmation are absent from the headline.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 57,
-      "rank_factors": {
-        "materiality": 57,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alphabet Inc.",
-          "ticker": "GOOG",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194549,9 +194560,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 66994,
-    "news_picked_today": 45,
-    "news_dropped_today": 123
+    "news_seen_today": 88943,
+    "news_picked_today": 107,
+    "news_dropped_today": 301
   },
   "book_momentum": {
     "live_count": 8,
