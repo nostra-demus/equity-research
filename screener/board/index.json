@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T22:01:18Z",
+  "generated_at": "2026-10-02T22:01:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1260",
@@ -152900,6 +152900,152 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-8c05409f139b",
+      "idea_version": "IDEAV-cb3277d850db9140",
+      "idea_version_started_at": "2026-10-02T22:01:37Z",
+      "ticker": "MAXN",
+      "company": "Maxeon Solar Technologies",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has received a formal delisting notification from the Nasdaq, signaling severe financial distress and loss of liquidity.",
+      "why_now": "The SEC filing was published on 2026-10-02.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e7ee1588c7e",
+        "EVT-378ef9d235f4"
+      ],
+      "primary_source_event_id": "EVT-1e7ee1588c7e",
+      "source_headlines": [
+        "25-NSE - Maxeon Solar Technologies, Ltd. (0001796898) (Subject)",
+        "25-NSE - Nasdaq Stock Market LLC (0001354457) (Filed by)"
+      ],
+      "source_headline": "25-NSE - Maxeon Solar Technologies, Ltd. (0001796898) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1796898/000135445726000941/0001354457-26-000941-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T20:30:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-02T22:01:37Z",
+      "updated_at": "2026-10-02T22:01:37Z",
+      "decay_at": "2026-10-04T08:30:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-961ba303e1c1",
+      "idea_version": "IDEAV-1f44156cbe2736c3",
+      "idea_version_started_at": "2026-10-02T22:01:37Z",
+      "ticker": "PTSB",
+      "company": "Permanent TSB Group Holdings",
+      "exchange": "ISE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The potential acquisition by Axis Capital provides a floor and a premium catalyst for the stock.",
+      "why_now": "The news of a weighed offer emerged on 2026-10-02, making it a live M&A event.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9c753e9720cc"
+      ],
+      "primary_source_event_id": "EVT-9c753e9720cc",
+      "source_headlines": [
+        "Axis Capital weighs possible offer for Irish bank PTSB"
+      ],
+      "source_headline": "Axis Capital weighs possible offer for Irish bank PTSB",
+      "source_url": "https://www.reuters.com/business/finance/axis-capital-weighs-possible-offer-irish-bank-ptsb-2026-10-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T17:12:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-02T22:01:37Z",
+      "updated_at": "2026-10-02T22:01:37Z",
+      "decay_at": "2026-10-04T05:12:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0157f621dab9",
       "idea_version": "IDEAV-4d68350450b93aa9",
       "idea_version_started_at": "2026-10-02T21:12:37Z",
@@ -193025,8 +193171,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1206,
-    "live_count": 15,
+    "surfaced_total": 1208,
+    "live_count": 17,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
