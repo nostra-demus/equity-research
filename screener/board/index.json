@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T14:05:33Z",
+  "generated_at": "2026-10-02T14:21:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1011",
@@ -839,6 +839,104 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-1032",
+      "headline": "Integra LifeSciences Cuts FY26 Guidance Following Cincinnati Facility Flooding; Stock Tumbles 11.4%",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/integra-lifesciences-cuts-fy26-guidance-following-cincinnati-facility-flooding-stock",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T12:40:18Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Integra LifeSciences cuts FY26 guidance due to facility flooding, causing an 11.4% stock drop.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Integra LifeSciences cuts FY26 guidance due to facility flooding, causing an 11.4% stock drop.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Integra LifeSciences",
+          "ticker": "IART",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-1040",
+      "headline": "Broadcom Is Lending One of Its Biggest Customers $42 Billion to Buy Its Chips",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/10/02/broadcom-is-lending-one-of-its-biggest-customers-42-billion-to-buy-its-chips/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T12:12:37Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Broadcom is providing $42 billion in financing to a major customer, indicating a massive long-term commercial commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Broadcom is providing $42 billion in financing to a major customer, indicating a massive long-term commercial commitment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Broadcom",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1887,106 +1985,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-444",
-      "headline": "Apollo to back $15 billion AI infrastructure project in Japan",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/02/companies/apollo-japan-ai/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T02:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Apollo Global Management to back a $15 billion AI infrastructure project in Japan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Apollo Global Management to back a $15 billion AI infrastructure project in Japan.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apollo Global Management",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-370",
-      "headline": "Nike plans job cuts, India campus as China sales fall 26% in first quarter",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/nike-plans-job-cuts-india-campus-as-china-sales-fall-26-in-first-quarter-20003491.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T02:29:31Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Nike's China sales fell 26% in Q1 with announced job cuts and India campus expansion, signaling material margin erosion and strategic operational response.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nike's China sales fell 26% in Q1 with announced job cuts and India campus expansion, signaling material margin erosion and strategic operational response.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "earnings_revenue_margin",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nike",
-          "ticker": "NKE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153387,77 +153385,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6db68aeee87f",
-      "idea_version": "IDEAV-14d23cee72147b31",
-      "idea_version_started_at": "2026-10-01T06:46:42Z",
-      "ticker": "BSA",
-      "company": "BSA Limited",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The proposed acquisition of Eonetics' aerial infrastructure business expands the company's service capabilities in a specialized sector.",
-      "why_now": "The announcement was filed on 2026-10-01, initiating the market's assessment of the deal's accretion potential.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-45705a386ca6"
-      ],
-      "primary_source_event_id": "EVT-45705a386ca6",
-      "source_headlines": [
-        "BSA: Proposed to Acquire Eonetics' Aerial Infrastructure Business [price-sensitive]"
-      ],
-      "source_headline": "BSA: Proposed to Acquire Eonetics' Aerial Infrastructure Business [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BSA?key=2924-03143166-2A1701072",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-01T02:06:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T06:46:42Z",
-      "updated_at": "2026-10-01T06:46:42Z",
-      "decay_at": "2026-10-02T14:06:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1398b6438111",
       "idea_version": "IDEAV-34f2df35fedabf49",
       "idea_version_started_at": "2026-10-01T11:02:09Z",
@@ -154293,6 +154220,77 @@
       "surfaced_at": "2026-09-30T16:19:46Z",
       "updated_at": "2026-09-30T16:19:46Z",
       "decay_at": "2026-10-02T01:53:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-6db68aeee87f",
+      "idea_version": "IDEAV-14d23cee72147b31",
+      "idea_version_started_at": "2026-10-01T06:46:42Z",
+      "ticker": "BSA",
+      "company": "BSA Limited",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The proposed acquisition of Eonetics' aerial infrastructure business expands the company's service capabilities in a specialized sector.",
+      "why_now": "The announcement was filed on 2026-10-01, initiating the market's assessment of the deal's accretion potential.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-45705a386ca6"
+      ],
+      "primary_source_event_id": "EVT-45705a386ca6",
+      "source_headlines": [
+        "BSA: Proposed to Acquire Eonetics' Aerial Infrastructure Business [price-sensitive]"
+      ],
+      "source_headline": "BSA: Proposed to Acquire Eonetics' Aerial Infrastructure Business [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BSA?key=2924-03143166-2A1701072",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T02:06:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T06:46:42Z",
+      "updated_at": "2026-10-01T06:46:42Z",
+      "decay_at": "2026-10-02T14:06:39Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -156031,14 +156029,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 535,
+    "total_count": 536,
     "shown_count": 500,
-    "hidden_count": 35,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 26
       },
       "short": {
         "total_count": 260,
@@ -156062,6 +156060,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6db68aeee87f",
+        "idea_version": "IDEAV-14d23cee72147b31",
+        "idea_version_started_at": "2026-10-01T06:46:42Z",
+        "ticker": "BSA",
+        "company": "BSA Limited",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The proposed acquisition of Eonetics' aerial infrastructure business expands the company's service capabilities in a specialized sector.",
+        "why_now": "The announcement was filed on 2026-10-01, initiating the market's assessment of the deal's accretion potential.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-45705a386ca6"
+        ],
+        "primary_source_event_id": "EVT-45705a386ca6",
+        "source_headlines": [
+          "BSA: Proposed to Acquire Eonetics' Aerial Infrastructure Business [price-sensitive]"
+        ],
+        "source_headline": "BSA: Proposed to Acquire Eonetics' Aerial Infrastructure Business [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BSA?key=2924-03143166-2A1701072",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-01T02:06:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-01T06:46:42Z",
+        "updated_at": "2026-10-01T06:46:42Z",
+        "decay_at": "2026-10-02T14:06:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-02T14:06:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f1c4b0c2b232",
         "idea_version": "IDEAV-f68fab5b7814e967",
@@ -185091,81 +185163,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d050d16f752c",
-        "idea_version": "IDEAV-58f4d4283a5d1546",
-        "idea_version_started_at": "2026-09-14T10:01:52Z",
-        "ticker": "ADRILLING",
-        "company": "Arabian Drilling",
-        "exchange": "TADAWUL",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Securing a SAR 2 billion contract for 8 land rigs provides immediate revenue visibility and confirms strong demand for the company's drilling services in the region.",
-        "why_now": "The contract was announced on 2026-09-14.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c8cefc95d9e4"
-        ],
-        "primary_source_event_id": "EVT-c8cefc95d9e4",
-        "source_headlines": [
-          "‎Arabian Drilling inks SAR 2B contract for 8 land rigs"
-        ],
-        "source_headline": "‎Arabian Drilling inks SAR 2B contract for 8 land rigs",
-        "source_url": "https://www.argaam.com/en/article/articledetail/id/1936137",
-        "source_name": "Argaam — Main News (English)",
-        "materiality_max": 98,
-        "newest_source_at": "2026-09-14T09:20:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T10:01:52Z",
-        "updated_at": "2026-09-14T10:01:52Z",
-        "decay_at": "2026-09-15T21:20:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-eedc68441ca9",
         "idea_version": "IDEAV-d87138c5224caec6",
         "idea_version_started_at": "2026-09-14T09:21:20Z",
@@ -193216,7 +193213,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1203,
-    "live_count": 18,
+    "live_count": 17,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -193235,9 +193232,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1120904,
-    "news_picked_today": 2486,
-    "news_dropped_today": 9202
+    "news_seen_today": 1132546,
+    "news_picked_today": 2533,
+    "news_dropped_today": 9539
   },
   "book_momentum": {
     "live_count": 8,
