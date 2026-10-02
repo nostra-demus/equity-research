@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-02T06:02:49Z",
+  "generated_at": "2026-10-02T06:07:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261002-621",
+      "headline": "WEC: Acquisition of South Galilee Coal Project [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WEC?key=2924-03143892-2A1701527",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-02T05:49:50Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Company is acquiring a coal project, which is a material expansion of its asset base.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company is acquiring a coal project, which is a material expansion of its asset base.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WEC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261002-156",
       "headline": "JIU RONG HOLD (02358): SUSPENSION OF TRADING",
@@ -396,6 +445,109 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-625",
+      "headline": "Onsemi Revises Synaptics $5.7 Bln Merger Agreement At $123/shr",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/onsemi-revises-synaptics-57-bln-merger-agreement-123-shr",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T05:36:52Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Revised $5.7 billion merger agreement is a major corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Revised $5.7 billion merger agreement is a major corporate event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Onsemi",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Synaptics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-624",
+      "headline": "Bitget `not expecting to recover a lot' from $388 million hack, CEO tells CNBC",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/02/bitget-crypto-stolen-hack-recovery.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T05:25:22Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Company confirms a $388 million loss from a hack with low recovery expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company confirms a $388 million loss from a hack with low recovery expectations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bitget",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1867,154 +2019,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-488",
-      "headline": "EEUU frena exportaciones de partes de aviones a China, Trump busca ventaja en negociaciones, dicen fuentes",
-      "headline_en": "US halts aircraft parts exports to China, Trump seeks leverage in negotiations, sources say",
-      "url": "https://www.reuters.com/es/negocio/B43SG7LG6JJVJOTX7XK2PGOEJI-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T13:55:45Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "US export restrictions on aircraft parts to China represent a significant escalation in trade tensions affecting aerospace supply chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "US export restrictions on aircraft parts to China represent a significant escalation in trade tensions affecting aerospace supply chains.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-558",
-      "headline": "NOU: Scheme Booklet Registered with ASIC [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NOU?key=2924-03143820-2A1701491",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-02T04:21:54Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Registration of a scheme booklet is a key milestone in a formal acquisition process.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Registration of a scheme booklet is a key milestone in a formal acquisition process.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NOU",
-          "ticker": "NOU",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-160",
-      "headline": "CHAMPION TECH (00092): EXCHANGE NOTICE - TRADING HALT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026100200147.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-02T00:59:00Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Trading halt of Champion Technology indicates potential material event or distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Trading halt of Champion Technology indicates potential material event or distress.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Champion Technology",
-          "ticker": "00092",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194475,9 +194479,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 633542,
-    "news_picked_today": 1068,
-    "news_dropped_today": 3948
+    "news_seen_today": 648205,
+    "news_picked_today": 1082,
+    "news_dropped_today": 3958
   },
   "book_momentum": {
     "live_count": 8,
