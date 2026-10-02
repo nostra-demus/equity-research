@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T09:57:16Z",
+  "generated_at": "2026-10-02T10:04:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-879",
@@ -549,6 +549,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-896",
+      "headline": "Galeria erneut in Schieflage - Insolvenzantrag gestellt",
+      "headline_en": "Galeria once again in trouble — insolvency application filed.",
+      "url": "https://www.reuters.com/de/firma/galeria-erneut-schieflage-insolvenzantrag-gestellt-2026-10-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T09:47:40Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Galeria filed for insolvency in Germany, a survival-level event for the retail operator.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Galeria filed for insolvency in Germany, a survival-level event for the retail operator.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 88,
+      "rank_factors": {
+        "materiality": 88,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Galeria",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-884",
       "headline": "Warenhäuser: Galeria beantragt zum vierten Mal Insolvenz – das endgültige Aus droht",
       "headline_en": "Department Stores: Galeria Files for Bankruptcy for the Fourth Time — Final Collapse Threatened",
@@ -594,55 +643,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-885",
-      "headline": "Warenhauskette Galeria erneut in Schieflage - Insolvenzantrag gestellt",
-      "headline_en": "Department store chain Galeria in trouble again — insolvency filing submitted.",
-      "url": "https://www.reuters.com/de/firma/warenhauskette-galeria-erneut-schieflage-insolvenzantrag-gestellt-2026-10-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T09:17:43Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Insolvency filing submitted for German retailer Galeria Karstadt Kaufhof — a survival-threatening solvency event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Insolvency filing submitted for German retailer Galeria Karstadt Kaufhof — a survival-threatening solvency event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Galeria Karstadt Kaufhof",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194119,9 +194119,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 915103,
-    "news_picked_today": 1781,
-    "news_dropped_today": 6643
+    "news_seen_today": 924849,
+    "news_picked_today": 1786,
+    "news_dropped_today": 6686
   },
   "book_momentum": {
     "live_count": 8,
