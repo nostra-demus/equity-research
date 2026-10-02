@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-02T08:09:03Z",
+  "generated_at": "2026-10-02T08:20:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261002-839",
+      "headline": "PACIFIC LEGEND (08547): (1) INSIDE INFORMATION; (2) DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 30 JUNE 2026; AND (3) POSSIBLE SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1002/2026093002515.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-02T07:33:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Pacific Legend delays annual results publication and faces possible trading suspension, signaling accounting issue, audit failure, or going-concern risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pacific Legend delays annual results publication and faces possible trading suspension, signaling accounting issue, audit failure, or going-concern risk.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 88,
+      "rank_factors": {
+        "materiality": 88,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pacific Legend",
+          "ticker": "08547",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261002-621",
       "headline": "WEC: Acquisition of South Galilee Coal Project [price-sensitive]",
@@ -445,6 +495,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-840",
+      "headline": "Warenhäuser: Galeria beantragt zum vierten Mal Insolvenz",
+      "headline_en": "Department stores: Galeria files for insolvency for the fourth time.",
+      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/warenhaeuser-galeria-beantragt-zum-vierten-mal-insolvenz/100259202.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T08:07:51Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Galeria files for insolvency for the fourth time, signaling acute capital distress and likelihood of liquidation or radical restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Galeria files for insolvency for the fourth time, signaling acute capital distress and likelihood of liquidation or radical restructuring.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Galeria",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,114 +2021,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-824",
-      "headline": "Sanofi va verser jusqu'à $8 md à Regeneron pour développer ensemble des anticorps",
-      "headline_en": "Sanofi to pay up to $8 billion to Regeneron to jointly develop antibodies",
-      "url": "https://www.reuters.com/fr/affaires/sanofi-va-verser-1-md-regeneron-pour-dvelopper-ensemble-des-anticorps-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T07:57:14Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Sanofi will pay up to $8 billion to Regeneron to jointly develop antibodies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sanofi will pay up to $8 billion to Regeneron to jointly develop antibodies.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sanofi",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Regeneron",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-836",
-      "headline": "Sanofi zahlt für neue Antikörper bis zu acht Milliarden Dollar an Regeneron",
-      "headline_en": "Sanofi pays up to eight billion dollars to Regeneron for new antibodies",
-      "url": "https://www.reuters.com/de/firma/sanofi-zahlt-fr-neue-antikrper-bis-zu-acht-milliarden-dollar-an-regeneron-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T07:49:43Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Sanofi will pay up to $8 billion to Regeneron for new antibodies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sanofi will pay up to $8 billion to Regeneron for new antibodies.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sanofi",
-          "ticker": null,
-          "listing_country": "FR"
-        },
-        {
-          "name": "Regeneron",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194490,9 +194481,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 803992,
-    "news_picked_today": 1526,
-    "news_dropped_today": 5458
+    "news_seen_today": 815890,
+    "news_picked_today": 1535,
+    "news_dropped_today": 5473
   },
   "book_momentum": {
     "live_count": 8,
