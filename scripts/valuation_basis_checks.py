@@ -190,6 +190,82 @@ _OUT_OF_SET = frozenset({"sensitivity", "stress", "excluded", "floor", "avoid_ru
 _IN_SET = frozenset({"weighted", ""})
 
 
+# ── a statistic may not be labelled as a different statistic ──────────────────────────────────────
+# `(current - min) / (max - min)` is a RANGE POSITION. The word "percentile" means a rank against the
+# distribution, and the two disagree by tens of points whenever one observation sits far from the rest.
+# 02_multiples-own-history used to MANDATE a column headed "Percentile of Range" — the arithmetic was
+# right and the name was not, and 19 committed runs print it, across a bank, a REIT, SaaS, a platform
+# and a retailer. The template fix removes the column; this verifies the output, which is the half a
+# prompt change cannot verify about itself.
+#
+# Deliberately narrow: it flags a header that CONFLATES the two words, not every use of either. "Rank
+# percentile" and "Range position" are the correct replacements and must both pass.
+_CONFLATED_LABEL = re.compile(r"percentile[^|]{0,24}\brange\b|\brange\b[^|]{0,24}percentile", re.I)
+
+
+def eval_statistic_label(markdown_text):
+    """Core of the statistic-label check. Returns None when there is nothing to read, else a list of
+    violation strings (empty = pass).
+
+    Reads 02's own report rather than a sidecar because this defect lives in the prose table and never
+    reaches JSON — which is also why it survived nineteen runs unnoticed.
+    """
+    if not isinstance(markdown_text, str) or not markdown_text.strip():
+        return None
+    violations = []
+    for number, line in enumerate(markdown_text.split("\n"), start=1):
+        if not line.lstrip().startswith("|"):
+            continue
+        for cell in line.split("|"):
+            if _CONFLATED_LABEL.search(cell):
+                violations.append(
+                    f"line {number}: column {cell.strip()!r} labels a range position as a percentile — "
+                    "they are different statistics and disagree whenever one observation is an outlier. "
+                    "Report both, named: 'Rank percentile' = count(obs <= current)/count(obs), "
+                    "'Range position' = (current - min)/(max - min)"
+                )
+                break
+    return violations
+
+
+# ── a multiple and the metric it is applied to must share a period ────────────────────────────────
+def eval_multiple_metric_basis(sidecar):
+    """Core of the within-case basis check. Returns None when nothing declares both, else violations.
+
+    A multiple lifted from an LTM band and applied to an NTM metric is not the figure its sentence
+    claims: BURL's bull took 28.51x, the MINIMUM of the P/LTM EPS band, and applied it to NTM EPS of
+    $13.00 — on the matched NTM band (min 20.70, median 28.44) that multiple sits at the 56th
+    percentile, not at the bottom of the range, and the memo then called it "the 28.51x NTM P/E".
+
+    HONEST SCOPE: this is PREVENTIVE, not retrospective. Every one of the 42 committed case-pairs
+    carrying both fields already agrees, and it would not have caught BURL either — BURL emitted no
+    sidecar, so there was nothing to read. It locks in behaviour that is currently correct.
+    """
+    if not isinstance(sidecar, dict):
+        return None
+    pairs = []
+    for case in (sidecar.get("scenarios") or []):
+        if not isinstance(case, dict):
+            continue
+        metric, multiple = case.get("metric_basis"), case.get("multiple_basis")
+        if metric and multiple:
+            pairs.append((case, metric, multiple))
+    if not pairs:
+        return None
+
+    violations = []
+    for case, metric, multiple in pairs:
+        metric_period = (case_basis(case) or (None, None))[0]
+        multiple_period = (normalise_metric_basis(multiple) or (None, None))[0]
+        if metric_period and multiple_period and metric_period != multiple_period:
+            violations.append(
+                f"{case.get('label') or '?'}: the multiple is measured on {multiple_period} "
+                f"({multiple!r}) and the metric on {metric_period} ({metric!r}) — a band minimum is only "
+                "the bottom of the range ON ITS OWN BASIS, and only the bare number travels downstream"
+            )
+    return violations
+
+
 def _weighted_cases(sidecar):
     """The cases that enter the probability-weighted result.
 
@@ -424,6 +500,23 @@ def scan_committed(root="."):
         if parse_error:
             violations = [parse_error]
 
+        # The within-case multiple/metric comparison rides on the same sidecar.
+        within = None if parse_error else eval_multiple_metric_basis(sidecar)
+        if within:
+            violations = (violations or []) + within
+
+        # The statistic-label check reads 02's MARKDOWN, not the sidecar — which is why it is the only
+        # check here that can see a run like BURL, whose bases lived in prose and which emitted no
+        # sidecar at all.
+        md_path = os.path.join(run_dir, "valuation", "02_multiples-own-history.md")
+        if os.path.exists(md_path):
+            try:
+                label_viol = eval_statistic_label(open(md_path, encoding="utf-8").read())
+            except Exception:
+                label_viol = None
+            if label_viol:
+                violations = (violations or []) + label_viol
+
         if violations:
             checked += 1
             failures.append((run, violations))
@@ -624,6 +717,37 @@ def _selftest() -> int:
           _presence_would_fail(_after, "2026-11-15"))
     check("the gate date is in the future relative to the corpus",
           BF_ENFORCE_DATE > "2026-10-01")
+
+    # ---- statistic label (02's markdown) ----
+    check("the prescribed legacy header is caught",
+          len(eval_statistic_label("| Multiple | Min | Max | Current | Percentile of Range |")) == 1)
+    check("the corrected headers pass",
+          eval_statistic_label("| Multiple | Rank percentile | Range position |") == [])
+    check("'percentile' alone is fine", eval_statistic_label("| Multiple | Rank percentile |") == [])
+    check("'range' alone is fine", eval_statistic_label("| Multiple | Range position |") == [])
+    check("a conflation in the other word order is caught",
+          len(eval_statistic_label("| Range as a percentile |")) == 1)
+    check("prose outside a table is not a column label",
+          eval_statistic_label("The rank percentile and the range position differ.") == [])
+    check("empty input is nothing to judge", eval_statistic_label("") is None)
+
+    # ---- multiple vs metric, within one case ----
+    check("an LTM multiple on an NTM metric is caught (the BURL bull)",
+          len(eval_multiple_metric_basis({"scenarios": [
+              {"label": "bull", "metric_basis": "NTM EPS $13.00",
+               "multiple_basis": "P/LTM EPS band minimum 28.51x"}]})) == 1)
+    check("a matched pair passes",
+          eval_multiple_metric_basis({"scenarios": [
+              {"label": "bull", "metric_basis": "NTM EPS", "multiple_basis": "EV/NTM EBITDA"}]}) == [])
+    check("a declared metric_period still wins here too",
+          eval_multiple_metric_basis({"scenarios": [
+              {"label": "bull", "metric_period": "NTM", "metric_basis": "prose saying trough",
+               "multiple_basis": "P/NTM EPS"}]}) == [])
+    check("no multiple_basis is nothing to judge",
+          eval_multiple_metric_basis({"scenarios": [{"label": "b", "metric_basis": "NTM EPS"}]}) is None)
+    check("an unparseable multiple period is skipped, not guessed",
+          eval_multiple_metric_basis({"scenarios": [
+              {"label": "b", "metric_basis": "NTM EPS", "multiple_basis": "a blended multiple"}]}) == [])
 
     # ---- review round 3 regressions ----
     check("[5] measure reads by position, not pattern order",
