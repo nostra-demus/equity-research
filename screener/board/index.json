@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T12:39:32Z",
+  "generated_at": "2026-10-02T12:52:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-973",
@@ -790,6 +790,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-1008",
+      "headline": "Reliance Plans Rs 1 Lakh Crore Biogas Investment In Andhra Pradesh, Anant Ambani Projects Over 3 Lakh Jobs",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/reliance-plans-rs-1-lakh-crore-biogas-investment-in-andhra-pradesh-anant-ambani-projects-over-3-lakh-jobs",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T11:44:54Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Reliance Industries announced a major Rs 1 lakh crore investment in biogas infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance Industries announced a major Rs 1 lakh crore investment in biogas infrastructure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1938,60 +1987,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-080",
-      "headline": "SoftBank completes final phase of $30 billion investment in OpenAI",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/softbank-completes-final-phase-30-billion-investment-openai-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T19:38:12Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "SoftBank finalized a $30 billion investment in OpenAI, a massive capital injection into the AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SoftBank finalized a $30 billion investment in OpenAI, a massive capital injection into the AI sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193527,9 +193522,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1057453,
-    "news_picked_today": 2192,
-    "news_dropped_today": 8392
+    "news_seen_today": 1064319,
+    "news_picked_today": 2228,
+    "news_dropped_today": 8476
   },
   "book_momentum": {
     "live_count": 8,
