@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T16:29:37Z",
+  "generated_at": "2026-10-02T16:38:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1059",
@@ -1051,6 +1051,168 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-1213",
+      "headline": "Reliance to invest ₹1 lakh crore in Andhra Pradesh CBG plants, says Anant Ambani",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/reliance-industries-to-invest-rs-1-lakh-crore-in-andhra-pradesh-cbg-plants-says-anant-ambani-20003715.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T15:15:18Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Reliance announces a major ₹1 lakh crore investment in Andhra Pradesh CBG plants.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance announces a major ₹1 lakh crore investment in Andhra Pradesh CBG plants.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-1216",
+      "headline": "Übernahme: Dachkonzern von Paramount und Warner wird Skydance heißen",
+      "headline_en": "Acquisition: The holding company of Paramount and Warner will be called Skydance",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/uebernahme-dachkonzern-von-paramount-und-warner-wird-skydance-heissen/100259398.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T15:13:54Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Paramount Global and Warner Bros. Discovery are being acquired and consolidated into Skydance, reshaping ownership, control, and governance of two large public media companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount Global and Warner Bros. Discovery are being acquired and consolidated into Skydance, reshaping ownership, control, and governance of two large public media companies.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount Global",
+          "ticker": "PARA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": "WBD",
+          "listing_country": "US"
+        },
+        {
+          "name": "Skydance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-1225",
+      "headline": "Caterpillar and Ultium Cells make $1B facility investments",
+      "headline_en": null,
+      "url": "https://www.manufacturingdive.com/news/caterpillar-ultium-cells-1b-facility-investments-avio-usa-genentech/831996/",
+      "source_name": "Manufacturing Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T15:01:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Caterpillar and Ultium Cells announce $1B in facility investments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Caterpillar and Ultium Cells announce $1B in facility investments.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Caterpillar",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Ultium Cells",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-1064",
       "headline": "Volvo Car Pulls Guidance as Chinese Auto Market Worsens",
       "headline_en": null,
@@ -1661,55 +1823,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261002-1148",
-      "headline": "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/andhra-pradesh/reliance-plans-rs-1-lakh-crore-investment-in-andhra-pradesh-says-anant-ambani-4168163",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T12:42:04Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Reliance announces ₹1 lakh crore (~₹100,000 crore or ~$12B USD) investment in Andhra Pradesh; named capex commitment reshaping multi-year capital plans and analyst forecasts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reliance announces ₹1 lakh crore (~₹100,000 crore or ~$12B USD) investment in Andhra Pradesh; named capex commitment reshaping multi-year capital plans and analyst forecasts.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 9,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries Limited",
-          "ticker": "RELIANCE",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261002-1032",
       "headline": "Integra LifeSciences Cuts FY26 Guidance Following Cincinnati Facility Flooding; Stock Tumbles 11.4%",
       "headline_en": null,
@@ -1901,109 +2014,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-968",
-      "headline": "Novartis strikes up to $7.8 billion mRNA deal with China's Abogen",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/novartis-strikes-about-78-billion-mrna-deal-with-chinas-abogen-2026-10-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T10:57:18Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Novartis announced a deal worth up to $7.8 billion for mRNA technology.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Novartis announced a deal worth up to $7.8 billion for mRNA technology.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis",
-          "ticker": null,
-          "listing_country": "CH"
-        },
-        {
-          "name": "Abogen",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-995",
-      "headline": "CareTrust REIT To Buy 45 New Care Homes For £1.1 Bln From LNT Care Developments",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/caretrust-reit-buy-45-new-care-homes-ps11-bln-lnt-care-developments",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T10:52:25Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "CareTrust REIT is acquiring 45 care homes for 1.1 billion GBP, a significant expansion of its portfolio.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CareTrust REIT is acquiring 45 care homes for 1.1 billion GBP, a significant expansion of its portfolio.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CareTrust REIT",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193252,9 +193262,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1187401,
-    "news_picked_today": 2860,
-    "news_dropped_today": 11180
+    "news_seen_today": 1188568,
+    "news_picked_today": 2926,
+    "news_dropped_today": 11354
   },
   "book_momentum": {
     "live_count": 8,
