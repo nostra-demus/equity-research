@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T04:45:44Z",
+  "generated_at": "2026-10-02T04:49:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -1775,6 +1775,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-555",
+      "headline": "Bajaj Finance QIP: Board approves ₹11,700 crore fundraise; ₹5,800 crore warrant issue to Bajaj Finserv",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/bajaj-finance-qip-warrants-preferential-issue-bajaj-finserv-promoter-board-approval-egm-sebi-20003496.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T03:46:44Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Bajaj Finance board approved a ₹11,700 crore fundraise via QIP and warrants.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Bajaj Finance board approved a ₹11,700 crore fundraise via QIP and warrants.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-494",
       "headline": "Bajaj Finance plans ₹17,500 crore raise, with parent Bajaj Finserv in for ₹5,800 crore",
       "headline_en": null,
@@ -1972,55 +2021,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-166",
-      "headline": "HENG TAI (00197): EXCHANGE NOTICE - SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026100200127.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-02T00:54:00Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Trading suspension halts liquidity and signals an underlying corporate event (pending announcement, restructuring, default, or regulatory action); affects investment decisions immediately.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Trading suspension halts liquidity and signals an underlying corporate event (pending announcement, restructuring, default, or regulatory action); affects investment decisions immediately.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HENG TAI",
-          "ticker": "00197",
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194629,9 +194629,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 531461,
-    "news_picked_today": 855,
-    "news_dropped_today": 3033
+    "news_seen_today": 539805,
+    "news_picked_today": 866,
+    "news_dropped_today": 3046
   },
   "book_momentum": {
     "live_count": 8,
