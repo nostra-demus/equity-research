@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T21:16:30Z",
+  "generated_at": "2026-10-02T21:26:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1260",
@@ -1140,6 +1140,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-1294",
+      "headline": "Amazon to invest $1 bil into data center communities amid backlash against data center rollouts",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/tech/amazon-to-invest-1b-into-data-center-communities-amid-backlash-against-data-center-rollouts",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T20:51:42Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Amazon will invest $1 billion into data center communities, indicating a significant capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amazon will invest $1 billion into data center communities, indicating a significant capital expenditure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-1295",
+      "headline": "OpenAI says three staffers fired for mishandling 'sensitive' info",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/tech/openai-says-three-staffers-fired-for-mishandling-%27sensitive%27-info",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T20:51:36Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Firing of staffers for mishandling sensitive information by a major AI company could indicate internal control issues or security breaches.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Firing of staffers for mishandling sensitive information by a major AI company could indicate internal control issues or security breaches.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-1272",
       "headline": "Paramount and Warner Bros. Discovery to Merge Into Skydance (SKYD). Will Skydance Achieve David Ellison’s \"Quality Storytelling\" Vision?",
       "headline_en": null,
@@ -1916,104 +2015,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-1075",
-      "headline": "Independence Blue Cross to pay $22.5M to resolve MA fraud allegations",
-      "headline_en": null,
-      "url": "https://www.healthcaredive.com/news/independence-blue-cross-to-pay-to-resolve-ma-fraud-allegations/831998/",
-      "source_name": "Healthcare Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T13:51:27Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "A $22.5M settlement for fraud allegations is a material financial and legal event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $22.5M settlement for fraud allegations is a material financial and legal event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Independence Blue Cross",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-1165",
-      "headline": "Tesla posts stronger-than-expected quarterly deliveries",
-      "headline_en": null,
-      "url": "https://www.foxbusiness.com/markets/tesla-posts-stronger-than-expected-quarterly-deliveries",
-      "source_name": "Fox Business — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T13:46:12Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Tesla reported quarterly vehicle deliveries that exceeded analyst expectations, a key metric for revenue growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tesla reported quarterly vehicle deliveries that exceeded analyst expectations, a key metric for revenue growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193052,9 +193053,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1203420,
-    "news_picked_today": 3429,
-    "news_dropped_today": 15923
+    "news_seen_today": 1203803,
+    "news_picked_today": 3461,
+    "news_dropped_today": 16251
   },
   "book_momentum": {
     "live_count": 8,
