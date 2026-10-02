@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T02:30:06Z",
+  "generated_at": "2026-10-02T02:41:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -1103,6 +1103,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-354",
+      "headline": "Synopsys shares jump on robust growth outlook, OpenAI and AWS deals",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/synopsys-shares-jump-robust-growth-outlook-openai-aws-deals-2026-10-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T16:22:12Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Synopsys shares rose following a strong growth outlook and new commercial partnerships with OpenAI and AWS.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Synopsys shares rose following a strong growth outlook and new commercial partnerships with OpenAI and AWS.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Synopsys",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-166",
       "headline": "HENG TAI (00197): EXCHANGE NOTICE - SUSPENSION OF TRADING",
       "headline_en": null,
@@ -1299,6 +1349,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-367",
+      "headline": "Boeing averts strike as engineers ratify deal: 32% pay hike over 4 years, 10% immediate raise | What the contract offers",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/boeing-averts-strike-as-engineers-ratify-deal-32-pay-hike-over-4-years-10-immediate-raise-what-the-contract-offers-11790904955036.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T02:13:32Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Boeing engineers ratify strike settlement: 32% pay hike over 4 years, 10% immediate—resolves operational risk and supply-chain disruption but materially increases labor costs and near-term margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Boeing engineers ratify strike settlement: 32% pay hike over 4 years, 10% immediate—resolves operational risk and supply-chain disruption but materially increases labor costs and near-term margins.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": "BA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1895,104 +1995,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-121",
-      "headline": "Mattel attracts takeover interest from Authentic Brands Group, source says",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/mattel-attracts-takeover-interest-from-authentic-brands-group-source-says",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T00:16:00Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Mattel is reportedly attracting takeover interest from Authentic Brands Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Mattel is reportedly attracting takeover interest from Authentic Brands Group.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mattel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-117",
-      "headline": "QYUNS-B (02509): VOLUNTARY ANNOUNCEMENT PHASE III CLINICAL STUDY RESULTS OF OTURKIBART (QX005N) FOR TREATMENT OF PRURIGO NODULARIS PRESENTED AS A LATE-BREAKING ORAL PRESENTATION AT EADV 2026",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026100200049.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-02T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "QYUNS-B reported positive Phase III clinical trial results for its drug candidate Oturkibart.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "QYUNS-B reported positive Phase III clinical trial results for its drug candidate Oturkibart.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "QYUNS-B",
-          "ticker": "02509",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194601,9 +194603,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 267163,
-    "news_picked_today": 425,
-    "news_dropped_today": 1639
+    "news_seen_today": 286717,
+    "news_picked_today": 463,
+    "news_dropped_today": 1793
   },
   "book_momentum": {
     "live_count": 8,
