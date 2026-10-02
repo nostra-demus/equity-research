@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T11:27:28Z",
+  "generated_at": "2026-10-02T11:31:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-945",
@@ -691,6 +691,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-948",
+      "headline": "Galeria in Schieflage - Erneut Insolvenzantrag gestellt",
+      "headline_en": "Galeria in difficulty - Insolvency petition filed again",
+      "url": "https://www.reuters.com/de/welt/galeria-schieflage-erneut-insolvenzantrag-gestellt-2026-10-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T10:43:45Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Galeria files for insolvency again, a critical solvency and survival event threatening shareholder capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Galeria files for insolvency again, a critical solvency and survival event threatening shareholder capital.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Galeria",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1936,61 +1985,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-455",
-      "headline": "Sanofi, Regeneron to Expand Alliance in Up to $8 Billion Deal",
-      "headline_en": null,
-      "url": "https://www.wsj.com/health/pharma/sanofi-regeneron-to-expand-alliance-in-deal-valued-at-up-to-8-billion-5b924eba?mod=rss_Technology",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T14:48:00Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Sanofi and Regeneron are expanding their alliance in a deal valued up to $8 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sanofi and Regeneron are expanding their alliance in a deal valued up to $8 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sanofi",
-          "ticker": "SNY",
-          "listing_country": "US"
-        },
-        {
-          "name": "Regeneron Pharmaceuticals",
-          "ticker": "REGN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193881,9 +193875,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 994600,
-    "news_picked_today": 2025,
-    "news_dropped_today": 7623
+    "news_seen_today": 1002690,
+    "news_picked_today": 2029,
+    "news_dropped_today": 7643
   },
   "book_momentum": {
     "live_count": 8,
