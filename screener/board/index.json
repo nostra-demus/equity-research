@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-02T12:11:31Z",
+  "generated_at": "2026-10-02T12:19:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261002-973",
+      "headline": "HATCHER GROUP (08365): COMPLETION OF DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITION OF 51% EQUITY INTEREST IN THE TARGET COMPANY INVOLVING ISSUANCE OF CONSIDERATION SHARES UNDER GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1002/2026100203267.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-02T11:52:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Hatcher Group completed 51% equity acquisition with share issuance under general mandate; controlling stake is HKEX-defined discloseable transaction, but headline omits target identity, deal value, and share count, preventing accretion/dilution assessment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hatcher Group completed 51% equity acquisition with share issuance under general mandate; controlling stake is HKEX-defined discloseable transaction, but headline omits target identity, deal value, and share count, preventing accretion/dilution assessment.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 68,
+      "rank_factors": {
+        "materiality": 68,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 2,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hatcher Group",
+          "ticker": "08365",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261002-945",
       "headline": "MAX SIGHT GROUP (08483): JOINT ANNOUNCEMENT (1) CLOSE OF MANDATORY UNCONDITIONAL CASH OFFER BY CENTRAL CHINA INTERNATIONAL CAPITAL LIMITED FOR AND ON BEHALF OF CWT LIMITED TO ACQUIRE ALL THE ISSUED SHARES IN THE SHARE CAPITAL OF MAX SIGHT GROUP HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY CWT LIMITED AND/OR PARTIES ACTING IN CONCERT WITH IT); (2) RESULTS OF THE OFFER; (3) SETTLEMENT OF THE OFFER; AND (4) PUBLIC FLOAT OF THE COMPANY",
@@ -745,6 +795,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-995",
+      "headline": "CareTrust REIT To Buy 45 New Care Homes For £1.1 Bln From LNT Care Developments",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/caretrust-reit-buy-45-new-care-homes-ps11-bln-lnt-care-developments",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T10:52:25Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "CareTrust REIT is acquiring 45 care homes for 1.1 billion GBP, a significant expansion of its portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CareTrust REIT is acquiring 45 care homes for 1.1 billion GBP, a significant expansion of its portfolio.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CareTrust REIT",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1893,110 +1992,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-254",
-      "headline": "Sanofi, Regeneron expand tie-up with $8 billion drug-development deal, settle legal dispute",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/sanofi-pay-regeneron-1-billion-upfront-expanded-immunology-deal-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T17:21:34Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Sanofi and Regeneron expanded their partnership with an $8 billion drug-development deal and settled a legal dispute.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sanofi and Regeneron expanded their partnership with an $8 billion drug-development deal and settled a legal dispute.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sanofi",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Regeneron",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-304",
-      "headline": "Google Faces $3.2 Billion Damage Claims on Ad-Tech Monopoly",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-01/google-to-face-3-2-billion-damage-claims-over-ad-tech-monopoly",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T16:49:33Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Google faces $3.2 billion in damage claims over alleged ad-tech monopoly.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Google faces $3.2 billion in damage claims over alleged ad-tech monopoly.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Google",
-          "ticker": "GOOGL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -153540,77 +153535,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-80657c4063b1",
-      "idea_version": "IDEAV-93f6cc7c00a3cae9",
-      "idea_version_started_at": "2026-10-01T05:01:30Z",
-      "ticker": "CHM",
-      "company": "CHM",
-      "exchange": "ASX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The combination of default distress, creditor updates, and executive exits signals a high probability of insolvency or severe capital structure impairment.",
-      "why_now": "The annual report and creditor update were filed on 2026-10-01.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-147198e0dc75"
-      ],
-      "primary_source_event_id": "EVT-147198e0dc75",
-      "source_headlines": [
-        "CHM: FY2026 Annual Report, creditor update and Board changes"
-      ],
-      "source_headline": "CHM: FY2026 Annual Report, creditor update and Board changes",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CHM?key=2924-03143098-2A1701052",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-01T00:16:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T05:01:30Z",
-      "updated_at": "2026-10-01T05:01:30Z",
-      "decay_at": "2026-10-02T12:16:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1398b6438111",
       "idea_version": "IDEAV-34f2df35fedabf49",
       "idea_version_started_at": "2026-10-01T11:02:09Z",
@@ -155959,6 +155883,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-80657c4063b1",
+      "idea_version": "IDEAV-93f6cc7c00a3cae9",
+      "idea_version_started_at": "2026-10-01T05:01:30Z",
+      "ticker": "CHM",
+      "company": "CHM",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The combination of default distress, creditor updates, and executive exits signals a high probability of insolvency or severe capital structure impairment.",
+      "why_now": "The annual report and creditor update were filed on 2026-10-01.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-147198e0dc75"
+      ],
+      "primary_source_event_id": "EVT-147198e0dc75",
+      "source_headlines": [
+        "CHM: FY2026 Annual Report, creditor update and Board changes"
+      ],
+      "source_headline": "CHM: FY2026 Annual Report, creditor update and Board changes",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CHM?key=2924-03143098-2A1701052",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-01T00:16:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T05:01:30Z",
+      "updated_at": "2026-10-01T05:01:30Z",
+      "decay_at": "2026-10-02T12:16:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d99505bc75b0",
       "idea_version": "IDEAV-11208c4dd4e3a05e",
       "idea_version_started_at": "2026-09-30T09:32:50Z",
@@ -156327,9 +156322,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 537,
     "shown_count": 500,
-    "hidden_count": 36,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
         "total_count": 275,
@@ -156337,9 +156332,9 @@
         "hidden_count": 25
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -156358,6 +156353,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-80657c4063b1",
+        "idea_version": "IDEAV-93f6cc7c00a3cae9",
+        "idea_version_started_at": "2026-10-01T05:01:30Z",
+        "ticker": "CHM",
+        "company": "CHM",
+        "exchange": "ASX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The combination of default distress, creditor updates, and executive exits signals a high probability of insolvency or severe capital structure impairment.",
+        "why_now": "The annual report and creditor update were filed on 2026-10-01.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-147198e0dc75"
+        ],
+        "primary_source_event_id": "EVT-147198e0dc75",
+        "source_headlines": [
+          "CHM: FY2026 Annual Report, creditor update and Board changes"
+        ],
+        "source_headline": "CHM: FY2026 Annual Report, creditor update and Board changes",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CHM?key=2924-03143098-2A1701052",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 98,
+        "newest_source_at": "2026-10-01T00:16:13Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-01T05:01:30Z",
+        "updated_at": "2026-10-01T05:01:30Z",
+        "decay_at": "2026-10-02T12:16:13Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-02T12:16:13Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fa0d140ee7df",
         "idea_version": "IDEAV-56f9fc0daac67d9a",
@@ -193434,88 +193503,12 @@
         "archived_at": "2026-09-09T11:02:03Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-aaed0a1c84fe",
-        "idea_version": "IDEAV-9e5a19a904e69bf3",
-        "idea_version_started_at": "2026-09-06T05:34:45Z",
-        "ticker": "QAN",
-        "company": "Qantas Airways",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "An engine fire incident on a flight creates immediate reputational risk, potential regulatory scrutiny, and increased maintenance/operational costs.",
-        "why_now": "The incident occurred on 2026-09-06, and the market typically reacts to safety-related operational failures with a short-term sell-off.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-406bd580d8cb"
-        ],
-        "primary_source_event_id": "EVT-406bd580d8cb",
-        "source_headlines": [
-          "Flames burst from Qantas plane engine after New Zealand takeoff"
-        ],
-        "source_headline": "Flames burst from Qantas plane engine after New Zealand takeoff",
-        "source_url": "https://www.aljazeera.com/video/newsfeed/2026/9/6/flames-burst-from-qantas-plane-engine-after-new-zealand-takeoff?traffic_source=rss",
-        "source_name": "Al Jazeera — All news",
-        "materiality_max": 85,
-        "newest_source_at": "2026-09-06T05:02:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-06T05:34:45Z",
-        "updated_at": "2026-09-06T05:34:45Z",
-        "decay_at": "2026-09-07T17:02:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-09T05:11:44Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1202,
-    "live_count": 21,
+    "live_count": 20,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -193534,9 +193527,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1035103,
-    "news_picked_today": 2135,
-    "news_dropped_today": 8065
+    "news_seen_today": 1038980,
+    "news_picked_today": 2161,
+    "news_dropped_today": 8111
   },
   "book_momentum": {
     "live_count": 8,
