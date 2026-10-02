@@ -652,6 +652,48 @@ with tempfile.TemporaryDirectory() as tmp:
           and "bull level below base level" in _open_actions[0]["body"])
 
 
+# ---- a scoped push that publishes a post-gate BF violation FAILS (81cf230ba) ----
+# BF used to surface only through suite_contract_failures, which a scoped --changed push never charges to
+# itself, and status_of never read it: the push that published the run exited 0 and reported it PASS,
+# and the defect then reddened every unrelated code PR afterwards. Covered for both shapes: a scored run
+# whose per-run checks all pass, and a sidecar-only partial run absent from report['runs'].
+for _bf_run, _scored in (("BFSCORED_2026-12-20", True), ("BFPARTIAL_2026-12-20", False)):
+    with tempfile.TemporaryDirectory() as tmp:
+        _git(tmp, "init", "-q")
+        _git(tmp, "config", "user.email", "t@t.t")
+        _git(tmp, "config", "user.name", "t")
+        _git(tmp, "commit", "-qm", "root", "--allow-empty")
+        base = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+        os.makedirs(os.path.join(tmp, "analyses", _bf_run, "valuation"))
+        if _scored:
+            with open(os.path.join(tmp, "analyses", _bf_run, "decision_record.json"), "w") as handle:
+                handle.write('{"decision_date": "2026-12-20"}\n')
+        with open(os.path.join(tmp, "analyses", _bf_run, "valuation", "valuation_summary.json"), "w") as handle:
+            handle.write("{}\n")
+        _git(tmp, "add", "-A")
+        _git(tmp, "commit", "-qm", "publish a run past the BF gate")
+        head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=tmp, capture_output=True, text=True).stdout.strip()
+        bf_report = os.path.join(tmp, "report.json")
+        with open(bf_report, "w", encoding="utf-8") as handle:
+            json.dump({"suite_pass": False,
+                       "runs": {_bf_run: run_entry()} if _scored else {},
+                       "scenario_basis_coherence": {"checked": 1, "enforce_date": "2026-12-15", "findings": [],
+                                                    "enforced": [{"run": _bf_run, "violations": [
+                                                        "weighted cases mix earnings PERIODS ['FY22', 'NTM']"]}]}},
+                      handle)
+        op = os.path.join(tmp, "bf-out.json")
+        code = main(["--changed", base, head, "--root", tmp, "--report", bf_report, "--json-out", op])
+        with open(op, encoding="utf-8") as handle:
+            bf_out = json.load(handle)
+        _entry = bf_out["in_scope"].get(_bf_run) or {}
+        check(f"a scoped push publishing a post-gate BF violation exits 1 ({'scored' if _scored else 'partial'} run)",
+              code == 1, f"exit {code}")
+        check(f"and the run reads FAIL naming the BF check ({'scored' if _scored else 'partial'} run)",
+              _entry.get("status") == "FAIL"
+              and any(str(f).startswith("BF_scenario_basis_coherence") for f in _entry.get("fails") or []),
+              f"got {_entry!r}")
+
+
 # ---- full-corpus issues record the real SHA, not the literal 'HEAD' (Codex P2) ----
 check("resolve_head leaves an explicit ref untouched", resolve_head("abc1234", ".") == "abc1234")
 _resolved = resolve_head("HEAD", _root)
