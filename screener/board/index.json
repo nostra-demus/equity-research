@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T01:31:19Z",
+  "generated_at": "2026-10-02T01:41:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -548,6 +548,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-206",
+      "headline": "RSOLEC seeks to invest Rs 5,000 crore in Tumakuru for solar ingot plant: M B Patil",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/companies/rsolec-seeks-to-invest-rs-5000-crore-in-tumakuru-for-solar-ingot-plant-m-b-patil-4167398",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T18:10:48Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "RSOLEC announced a major capital expenditure of Rs 5,000 crore for a new solar ingot plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "RSOLEC announced a major capital expenditure of Rs 5,000 crore for a new solar ingot plant.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RSOLEC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1929,55 +1978,6 @@
           "name": "YPF",
           "ticker": null,
           "listing_country": "AR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-102",
-      "headline": "Vedanta plans $200 million push to lift Rajasthan oil output",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/vedanta-plans-200-million-push-to-lift-rajasthan-oil-output/articleshow/134626265.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T19:08:08Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Vedanta announces $200 million capex to increase Rajasthan oil output, a capacity-expansion commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Vedanta announces $200 million capex to increase Rajasthan oil output, a capacity-expansion commitment.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vedanta",
-          "ticker": "VEDANTA.NS",
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -194588,9 +194588,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 175250,
-    "news_picked_today": 233,
-    "news_dropped_today": 895
+    "news_seen_today": 185777,
+    "news_picked_today": 262,
+    "news_dropped_today": 1010
   },
   "book_momentum": {
     "live_count": 8,
