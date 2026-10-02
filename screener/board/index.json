@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T01:41:14Z",
+  "generated_at": "2026-10-02T01:48:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -1388,6 +1388,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-208",
+      "headline": "Don Quijote operator to acquire Toys R Us Japan's business",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261002/p2g/00m/0bu/008000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T01:30:09Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Don Quijote acquiring Toys R Us Japan's retail business; confirmed M&A transaction with no disclosed deal value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Don Quijote acquiring Toys R Us Japan's retail business; confirmed M&A transaction with no disclosed deal value.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Don Quijote",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Toys R Us Japan",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-121",
       "headline": "Mattel attracts takeover interest from Authentic Brands Group, source says",
       "headline_en": null,
@@ -1929,55 +1983,6 @@
           "name": "JA Solar",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-089",
-      "headline": "YPF investors ask U.S. Supreme Court to revive $16.1 billion judgment against Argentina",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/government/ypf-investors-ask-us-supreme-court-revive-161-billion-judgment-against-argentina-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T19:33:06Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Investors are seeking to revive a $16.1 billion judgment against Argentina, posing a significant sovereign risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Investors are seeking to revive a $16.1 billion judgment against Argentina, posing a significant sovereign risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "YPF",
-          "ticker": null,
-          "listing_country": "AR"
         }
       ],
       "size_bucket": "large",
@@ -194588,9 +194593,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 185777,
-    "news_picked_today": 262,
-    "news_dropped_today": 1010
+    "news_seen_today": 206513,
+    "news_picked_today": 270,
+    "news_dropped_today": 1098
   },
   "book_momentum": {
     "live_count": 8,
