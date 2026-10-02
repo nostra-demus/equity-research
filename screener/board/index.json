@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T03:39:33Z",
+  "generated_at": "2026-10-02T03:43:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -1269,6 +1269,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-486",
+      "headline": "Accenture shares surge 22% as consultancy confounds AI fears",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/e1074ce0-cd16-4a91-9934-50df917b3b20?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T13:57:13Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Significant 22% share price move following earnings report indicates a major beat or guidance surprise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Significant 22% share price move following earnings report indicates a major beat or guidance surprise.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accenture",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-120",
       "headline": "SAMSONITE (01910): Closing of the Acquisition of BEIS, LLC",
       "headline_en": null,
@@ -1944,50 +1993,6 @@
         "operations"
       ],
       "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-467",
-      "headline": "UK banks tumble as gilt yields hit highest sine 1998, budget jitters mount",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/finance/uk-banks-tumble-gilt-yields-hit-highest-sine-1998-budget-jitters-mount-2026-10-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T14:43:18Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "UK banks tumbling as gilt yields hit their highest since 1998 and budget jitters mount indicates severe market stress and potential financial instability in the UK.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "UK banks tumbling as gilt yields hit their highest since 1998 and budget jitters mount indicates severe market stress and potential financial instability in the UK.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 7,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -194598,9 +194603,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 396864,
-    "news_picked_today": 652,
-    "news_dropped_today": 2444
+    "news_seen_today": 405622,
+    "news_picked_today": 663,
+    "news_dropped_today": 2481
   },
   "book_momentum": {
     "live_count": 8,
