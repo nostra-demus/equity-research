@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T19:31:25Z",
+  "generated_at": "2026-10-02T19:39:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1059",
@@ -938,6 +938,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-1236",
+      "headline": "Adani Group committed to investment plans of over ₹6 lakh crore in Maharashtra across energy, airports and infra",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/adani-group-to-invest-over-6-lakh-crore-in-maharashtra-across-energy-airports-and-infra/articleshow/134645574.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T19:19:03Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Adani Group announced a major capital expenditure plan of over ₹6 lakh crore in Maharashtra.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Adani Group announced a major capital expenditure plan of over ₹6 lakh crore in Maharashtra.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1970,55 +2019,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-1040",
-      "headline": "Broadcom Is Lending One of Its Biggest Customers $42 Billion to Buy Its Chips",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/02/broadcom-is-lending-one-of-its-biggest-customers-42-billion-to-buy-its-chips/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T12:12:37Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Broadcom is providing $42 billion in financing to a major customer, indicating a massive long-term commercial commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Broadcom is providing $42 billion in financing to a major customer, indicating a massive long-term commercial commitment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Broadcom",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193270,9 +193270,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1200061,
-    "news_picked_today": 3320,
-    "news_dropped_today": 13927
+    "news_seen_today": 1200335,
+    "news_picked_today": 3330,
+    "news_dropped_today": 14085
   },
   "book_momentum": {
     "live_count": 8,
