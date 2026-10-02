@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T15:22:36Z",
+  "generated_at": "2026-10-02T15:31:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1059",
@@ -992,6 +992,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-1126",
+      "headline": "Macquarie Capital takes Zerra stake after $30b Queensland data centre deal",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/financial-services/macquarie-capital-takes-zerra-stake-after-30b-queensland-data-centre-deal-20261003-p6129z?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T14:01:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Macquarie Capital is taking a stake in Zerra after a $30 billion data center deal in Queensland, indicating a significant investment and M&A activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Macquarie Capital is taking a stake in Zerra after a $30 billion data center deal in Queensland, indicating a significant investment and M&A activity.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Macquarie Capital",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Zerra",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-1065",
       "headline": "Restaurant owner closes locations, files Chapter 11 bankruptcy",
       "headline_en": null,
@@ -1339,6 +1393,55 @@
           "name": "Nike",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-1148",
+      "headline": "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/andhra-pradesh/reliance-plans-rs-1-lakh-crore-investment-in-andhra-pradesh-says-anant-ambani-4168163",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T12:42:04Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Reliance announces ₹1 lakh crore (~₹100,000 crore or ~$12B USD) investment in Andhra Pradesh; named capex commitment reshaping multi-year capital plans and analyst forecasts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance announces ₹1 lakh crore (~₹100,000 crore or ~$12B USD) investment in Andhra Pradesh; named capex commitment reshaping multi-year capital plans and analyst forecasts.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 9,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries Limited",
+          "ticker": "RELIANCE",
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mega",
@@ -1893,105 +1996,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-926",
-      "headline": "IG Group shares slump after revenue targets cut",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/ig-group-shares-london-press-association-b3060306.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T09:43:47Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "IG Group cut its revenue targets, a direct negative impact on financial expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IG Group cut its revenue targets, a direct negative impact on financial expectations.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IG Group",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-884",
-      "headline": "Warenhäuser: Galeria beantragt zum vierten Mal Insolvenz – das endgültige Aus droht",
-      "headline_en": "Department Stores: Galeria Files for Bankruptcy for the Fourth Time — Final Collapse Threatened",
-      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/galeria-warenhauskette-beantragt-zum-vierten-mal-insolvenz/100259202.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T09:36:54Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Galeria filed for bankruptcy for the fourth time with final collapse threatened—a survival event and quantified insolvency risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Galeria filed for bankruptcy for the fourth time with final collapse threatened—a survival event and quantified insolvency risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "default_distress",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Galeria",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193240,9 +193244,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1166613,
-    "news_picked_today": 2663,
-    "news_dropped_today": 10369
+    "news_seen_today": 1168412,
+    "news_picked_today": 2734,
+    "news_dropped_today": 10538
   },
   "book_momentum": {
     "live_count": 8,
