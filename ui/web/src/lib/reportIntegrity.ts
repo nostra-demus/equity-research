@@ -5,6 +5,16 @@ export interface ReportIntegrityView {
   }
 }
 
+/** Execution ending is not evidence approval. Keep the same precedence on every report entry point. */
+export function reportStatus(input: { running: boolean; queued: boolean; pending: boolean; loading: boolean; failed: boolean; warning: boolean }): { label: string; tone: 'running' | 'pending' | 'done' } {
+  if (input.running) return { label: input.queued ? 'Queued' : 'Running', tone: 'running' }
+  if (input.pending) return { label: 'Not run', tone: 'pending' }
+  if (input.loading) return { label: 'Loading', tone: 'pending' }
+  if (input.failed) return { label: 'Unavailable', tone: 'pending' }
+  if (input.warning) return { label: 'Unverified', tone: 'pending' }
+  return { label: 'Completed', tone: 'done' }
+}
+
 const FINISH_GATE_HEADER = /^>\s*(?:⚠️\s*)?(?:\[WARNING\]\s*)?\*\*PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED\.\*\*\s*$/
 
 /**

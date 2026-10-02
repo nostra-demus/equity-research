@@ -73,6 +73,7 @@ Write `<RUN_ROOT>/expectations_gap.json` (if it exists, `_v2`, `_v3`, …). Sche
   "decision_record_path": "",
   "final_thesis_sha256": "",
   "decision_record_sha256": "",
+  "decision_record_hash_basis": "research-analytical-json/v1",
   "current_price": null,
   "price_is_indicative": null,
   "consensus_expectations": "",
@@ -92,6 +93,16 @@ Write `<RUN_ROOT>/expectations_gap.json` (if it exists, `_v2`, `_v3`, …). Sche
   "notes": ""
 }
 ```
+
+**Canonical hash basis (supersedes the raw decision-file hash instruction below):** immediately before
+writing a new audit, run `python3 scripts/research_audit_outcome.py <RUN_ROOT> --hashes` and copy its
+three fields verbatim. The thesis hash binds exact bytes. The decision hash binds canonical JSON of
+ALL analytical fields, excluding only the supervisor-owned `execution_provenance` object, which is
+stamped after provider exit and independently validated. This exclusion never covers a score, rating,
+cap, integrity status, edge, forecast, or any other analytical field. Never calculate a substitute hash,
+modify a prior audit hash, or edit the runtime provenance. If hashing fails, stop visibly.
+
+
 
 Before reading either input, resolve the exact canonical paths shown above. Immediately before writing the
 report, compute SHA-256 over the exact bytes you audited (`sha256sum` on Linux or `shasum -a 256` on macOS)

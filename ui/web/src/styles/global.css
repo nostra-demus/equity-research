@@ -579,29 +579,18 @@ a { color: inherit; }
 
 /* ---------- output reader ---------- */
 .reader {
-  /* z-index 55 > the pipeline panel (50): the output reader is OPENED FROM the pipeline (the
-     "read: why this might be mispriced" / shortlist buttons), so it must paint ABOVE it — at equal
-     z-index the later-in-DOM pipeline covered it and the reader opened invisibly behind the panel. */
-  position: absolute; top: 0; right: 0; bottom: 0; width: min(720px, 64%); z-index: 55;
-  background: var(--surface-1); border-left: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);
+  position: relative; min-width: 0; min-height: 0; width: 100%; flex: 1;
+  background: var(--surface-1); border-left: 1px solid var(--hairline-strong);
   display: flex; flex-direction: column;
 }
 
 /* ---- chat with your data (closed-book Q&A side panel) ---- */
-/* z-index 56 > the reader (55): chat is usually opened FROM an open output, so it floats above it; a
-   narrower width leaves a sliver of the reader visible behind, signalling "I came from that document". */
+/* News chat uses the overlay shell; Workspace supplies the docked geometry for report conversations. */
 .chatpanel {
   position: absolute; top: 0; right: 0; bottom: 0; width: min(560px, 52%); z-index: 56;
   background: var(--surface-1); border-left: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);
   display: flex; flex-direction: column; will-change: transform;
 }
-/* Chat is usually opened FROM an open module output. Rather than the chat floating OVER the reader (which
-   crushed it to an unusable sliver and hid the reader's own Chat/Prompt/Download/Close controls), TILE the
-   two: the reader docks flush to the LEFT of the chat, both fully visible. Percentage widths keep them
-   side-by-side with no overlap at every screen width; the px caps stop them ballooning on very wide ones.
-   Layout only (right/width), so it doesn't fight the reader's framer translateX enter/exit. */
-.app--dual .chatpanel { width: min(520px, 42%); }
-.app--dual .reader { right: min(520px, 42%); width: min(640px, 46%); }
 .chatpanel__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--hairline); }
 .chatpanel__title { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; min-width: 0; }
 .chatpanel__badge { font-size: 10px; font-weight: 700; letter-spacing: 0.3px; color: var(--accent-ink); background: var(--accent); padding: 2px 8px; border-radius: var(--r-pill); flex-shrink: 0; }
