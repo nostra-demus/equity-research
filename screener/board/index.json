@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T15:49:39Z",
+  "generated_at": "2026-10-02T15:57:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1059",
@@ -1144,6 +1144,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-1165",
+      "headline": "Tesla posts stronger-than-expected quarterly deliveries",
+      "headline_en": null,
+      "url": "https://www.foxbusiness.com/markets/tesla-posts-stronger-than-expected-quarterly-deliveries",
+      "source_name": "Fox Business — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T13:46:12Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Tesla reported quarterly vehicle deliveries that exceeded analyst expectations, a key metric for revenue growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tesla reported quarterly vehicle deliveries that exceeded analyst expectations, a key metric for revenue growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-1045",
       "headline": "Blackstone, Banks Gather $60 Billon for Broadcom AI Chip Deal",
       "headline_en": null,
@@ -1602,6 +1651,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-1185",
+      "headline": "MTR Corp pays out HK$2.25 billion for high-speed rail construction delays",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/hong-kong/transport/article/3369614/mtr-corp-pays-out-hk225-billion-high-speed-rail-construction-delays?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T12:19:53Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "MTR Corp is paying HK$2.25 billion for construction delays, a direct hit to cash flow.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MTR Corp is paying HK$2.25 billion for construction delays, a direct hit to cash flow.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MTR Corp",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-1040",
       "headline": "Broadcom Is Lending One of Its Biggest Customers $42 Billion to Buy Its Chips",
       "headline_en": null,
@@ -1901,105 +1999,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-943",
-      "headline": "Nike shares plummet 10% after weak revenue outlook and layoff plans underway",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/02/nike-nke-stock-q1-earnings-layoffs.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T10:11:09Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Nike issues weak revenue outlook (guidance cut) and announces layoff plans; direct hit to earnings and cost structure confirmed by 10% intraday stock decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nike issues weak revenue outlook (guidance cut) and announces layoff plans; direct hit to earnings and cost structure confirmed by 10% intraday stock decline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nike",
-          "ticker": "NKE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-936",
-      "headline": "Nike restructuring plan: World's largest footwear major announces job cuts, targets $2.5 billion savings",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/nike-restructuring-plan-worlds-largest-footwear-major-announces-job-cuts-targets-2-5-billion-savings-559237-2026-10-02?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T10:06:24Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Nike announced a restructuring plan targeting $2.5 billion in savings through job cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nike announced a restructuring plan targeting $2.5 billion in savings through job cuts.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nike",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193248,9 +193247,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1175799,
-    "news_picked_today": 2784,
-    "news_dropped_today": 10680
+    "news_seen_today": 1180216,
+    "news_picked_today": 2806,
+    "news_dropped_today": 10730
   },
   "book_momentum": {
     "live_count": 8,
