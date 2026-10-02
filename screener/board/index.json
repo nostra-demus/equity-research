@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T20:03:55Z",
+  "generated_at": "2026-10-02T20:08:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1251",
@@ -992,6 +992,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-1255",
+      "headline": "Tesla Just Lined Up $30 Billion in Credit: What It Means for AI, Capex, and the Investment Case",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/02/tesla-just-lined-up-30-billion-in-credit-what-it-m/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T19:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Tesla has secured $30 billion in credit, significantly impacting its capital structure and capacity for future investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tesla has secured $30 billion in credit, significantly impacting its capital structure and capacity for future investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-1236",
       "headline": "Adani Group committed to investment plans of over ₹6 lakh crore in Maharashtra across energy, airports and infra",
       "headline_en": null,
@@ -1966,55 +2016,6 @@
           "name": "Mahindra Group",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-1058",
-      "headline": "FMC Consensus Price Target Lowered by 26.18% to $13.75",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/fmc-consensus-price-target-lowered-2618-1375",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T12:54:26Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Analyst consensus price target cut of 26.18% indicates a significant shift in market expectations for FMC.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Analyst consensus price target cut of 26.18% indicates a significant shift in market expectations for FMC.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FMC",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -192914,9 +192915,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1200820,
-    "news_picked_today": 3363,
-    "news_dropped_today": 14502
+    "news_seen_today": 1200855,
+    "news_picked_today": 3370,
+    "news_dropped_today": 14530
   },
   "book_momentum": {
     "live_count": 8,
