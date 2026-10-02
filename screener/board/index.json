@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T04:09:44Z",
+  "generated_at": "2026-10-02T04:17:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -1564,6 +1564,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-494",
+      "headline": "Bajaj Finance plans ₹17,500 crore raise, with parent Bajaj Finserv in for ₹5,800 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/bajaj-finance-qip-warrants-preferential-issue-bajaj-finserv-promoter-board-approval-egm-sebi-20003496.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T03:46:44Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Bajaj Finance plans a significant ₹17,500 crore capital raise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Bajaj Finance plans a significant ₹17,500 crore capital raise.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Bajaj Finserv",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-014",
       "headline": "US Navy awards RTX’s Raytheon $24.4B for SM-6 missiles amid stockpile concerns",
       "headline_en": null,
@@ -1958,50 +2012,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-019",
-      "headline": "US tells France and Germany to release diesel stocks or face US export ban, sources say",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/us-tells-france-germany-release-diesel-stocks-or-face-us-export-ban-sources-say-2026-10-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T22:20:17Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "A threatened US export ban on diesel to France and Germany represents a major geopolitical and commodity supply shock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A threatened US export ban on diesel to France and Germany represents a major geopolitical and commodity supply shock.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194610,9 +194620,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 448820,
-    "news_picked_today": 738,
-    "news_dropped_today": 2790
+    "news_seen_today": 465510,
+    "news_picked_today": 761,
+    "news_dropped_today": 2863
   },
   "book_momentum": {
     "live_count": 8,
