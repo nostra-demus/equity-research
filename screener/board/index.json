@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T00:58:32Z",
+  "generated_at": "2026-10-02T01:05:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-116",
@@ -453,6 +453,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-126",
+      "headline": "SCHEDULE 13D/A - ADVENT INTERNATIONAL, L.P. (0001034196) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1034196/000114036126038313/0001140361-26-038313-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-02T00:30:16Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Advent International, a major global PE firm, files amended Schedule 13D on Definitive Healthcare Corp., signaling a change in beneficial ownership or control intent that could materially affect capital structure, governance, valuation risk, and management direction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Advent International, a major global PE firm, files amended Schedule 13D on Definitive Healthcare Corp., signaling a change in beneficial ownership or control intent that could materially affect capital structure, governance, valuation risk, and management direction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 8,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Definitive Healthcare Corp.",
+          "ticker": "DH",
+          "listing_country": "US"
+        },
+        {
+          "name": "Advent International, L.P.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-019",
       "headline": "US tells France and Germany to release diesel stocks or face US export ban, sources say",
       "headline_en": null,
@@ -841,6 +895,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-130",
+      "headline": "FCT: FirstWave completes A$1.06 million placement to fund growth [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FCT?key=2924-03143681-2A1701388",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-02T00:26:49Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "FirstWave Cloud Technology raised A$1.06 million via a placement to fund growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "FirstWave Cloud Technology raised A$1.06 million via a placement to fund growth.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FirstWave Cloud Technology",
+          "ticker": "FCT",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-044",
       "headline": "Nio's Riskiest Asset Is Valued at $2.4 Billion, But Its Potential Just Skyrocketed",
       "headline_en": null,
@@ -885,6 +988,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-124",
+      "headline": "Man Charged by US With Illegally Shipping Nvidia Chips to China",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-02/man-charged-by-us-with-illegally-shipping-nvidia-chips-to-china",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T00:03:06Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "A criminal charge for illegally shipping Nvidia chips to China highlights ongoing enforcement of export controls on high-end semiconductors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "A criminal charge for illegally shipping Nvidia chips to China highlights ongoing enforcement of export controls on high-end semiconductors.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1823,153 +1975,6 @@
           "name": "Boeing",
           "ticker": "BA",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-042",
-      "headline": "Federal report says pilots werent warned about wind before Amazon cargo plane crashed in Miami",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/federal-report-says-pilots-werent-warned-about-wind-before-amazon-cargo-plane-crashed-in-miami-11790886872413.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T20:34:32Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "A federal report highlights safety failures regarding an Amazon cargo plane crash, posing potential regulatory and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A federal report highlights safety failures regarding an Amazon cargo plane crash, posing potential regulatory and operational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-068",
-      "headline": "Boeing White-Collar Workers Ratify New Contract and Avert Strike",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-01/boeing-white-collar-workers-ratify-new-contract-and-avert-strike",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T19:45:13Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Boeing averts white-collar worker strike by ratifying new contract, eliminating near-term operational disruption risk, though labor-cost terms are unspecified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Boeing averts white-collar worker strike by ratifying new contract, eliminating near-term operational disruption risk, though labor-cost terms are unspecified.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": "BA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-075",
-      "headline": "Airbus staff in Spain vote in favour of deal after weeks of strikes",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/world-at-work/airbus-staff-spain-vote-favour-deal-after-weeks-strikes-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T19:44:36Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Airbus Spain strike resolved after weeks; production and delivery rates normalize, removing cash-flow and revenue-timing disruption risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Airbus Spain strike resolved after weeks; production and delivery rates normalize, removing cash-flow and revenue-timing disruption risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Airbus SE",
-          "ticker": "AIR",
-          "listing_country": "NL"
         }
       ],
       "size_bucket": "mega",
@@ -194580,9 +194585,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 110943,
-    "news_picked_today": 151,
-    "news_dropped_today": 497
+    "news_seen_today": 121780,
+    "news_picked_today": 161,
+    "news_dropped_today": 607
   },
   "book_momentum": {
     "live_count": 8,
