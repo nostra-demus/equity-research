@@ -252,37 +252,14 @@ if scope=="--data-needs-prewrite":
 # /research:calibrate and /research:track already read) and is used only in the main scan loop.
 from ledger_records import resolve_integrity_status, supersession_target_violations
 
-# ── Check W (sector ↔ valuation-method consistency) — module-level so the `selftest` scope can drive it ──
-# Method substrings SECTOR_OVERLAYS.md forbids per sector type, matched against a SEPARATOR-STRIPPED,
-# lowercased primary_valuation_method so "EBITDA-DCF" / "EBITDA DCF" / "ebitdadcf" all collapse to one
-# token (the old hyphen-literal list silently missed the spaced spellings). Banks / lenders / insurers are
-# balance-sheet-funded financials: SECTOR_OVERLAYS.md values them on equity-side methods (DDM / residual
-# income / P-B / embedded value) and says "NOT FCFF/EV ... never net-debt/EBITDA" — so EVERY enterprise-
-# value / unlevered-cashflow method is a category error, not just FCFF (the old list caught only "fcff").
-# REITs explicitly forbid EBITDA-DCF (depreciation non-economic); FCFF is NOT listed forbidden for a REIT
-# there, so the gate does not invent that ban. Tokens are separator-free — "evebit" matches both EV/EBIT
-# and EV/EBITDA; bare "ev" is deliberately NOT a token (it would false-match "revenue"/"leverage"/"level").
-SECTOR_DATE="2026-06-18"
-_FIN_INSTITUTION_FORBIDDEN=["fcff","evebit","evsales","ebitdadcf","netdebtebitda","enterprisevalue"]
-SECTOR_FORBIDDEN={
-    # lowercase key = substring matched against business_type (case-insensitive)
-    # value = forbidden tokens, matched against the separator-stripped primary_valuation_method
-    "bank":_FIN_INSTITUTION_FORBIDDEN,"lender":_FIN_INSTITUTION_FORBIDDEN,"insur":_FIN_INSTITUTION_FORBIDDEN,
-    "reit":["ebitdadcf"],"real estate":["ebitdadcf"],
-}
-def eval_w_sector_valuation(business_type, primary_valuation_method):
-    """Core of check W. Returns None when N/A (either field blank), else the list of forbidden-method
-    tokens present (empty list = clean). Separator-stripped substring match so hyphen/space spellings
-    collapse. Side-effect-free + module-level so `eval.py selftest` can exercise it without a run fixture."""
-    bt=(business_type or "").strip(); pvm=(primary_valuation_method or "").strip()
-    if not bt or not pvm: return None
-    bt_l=bt.lower(); pvm_norm=re.sub(r'[^a-z0-9]+','',pvm.lower())
-    hits=[]
-    for sec,fmethods in SECTOR_FORBIDDEN.items():
-        if sec in bt_l:
-            for fm in fmethods:
-                if fm in pvm_norm and fm not in hits: hits.append(fm)
-    return hits
+# ── Check W (sector ↔ valuation-method consistency) ──
+# Detection logic extracted to scripts/sector_valuation_checks.py (importable, side-effect-free) so the
+# SAME function also runs LIVE in the /research:full Step 10B.1 finish-gate — before a violation ships,
+# not only when someone remembers to run this eval harness afterward. See sector_valuation_checks.py's
+# module docstring for the full doctrine rationale.
+# Import (not copy): eval.py is the single caller of this function for retrospective grading;
+# sector_valuation_checks.py is the single source of the detection logic, imported by both callers.
+from sector_valuation_checks import SECTOR_DATE, _FIN_INSTITUTION_FORBIDDEN, SECTOR_FORBIDDEN, eval_w_sector_valuation
 
 # ── Check X (conviction-run evidence-integrity floor) — module-level so `eval.py selftest` can drive it ──
 # A run in a conviction basket (Selected/Short) dated >= VERIFY_FLOOR_DATE must carry a verify-evidence
@@ -330,30 +307,14 @@ def eval_ay_fixture_integrity(decision_date, status):
     return "fail" if status=="provisional" else "pass"
 
 # ── Check AZ (verify-evidence Section C3 — named-metric contradiction sweep, CLAUDE.md §3) ──
-# CLAUDE.md §3 requires that a directional verdict resting on one metric, while a different metric in
-# the engine's own tables points the other way, name that second metric and say why it does not overturn
-# the verdict — the exact AMZN worked example the doctrine itself documents (moat "confirmed" off a
-# gross-margin decline while EBITDA margin, net margin, cash conversion, and market share were all up).
-# verify-evidence.md Section C already reconciles NUMERIC anchors across modules, and Section C2 catches
-# a directional claim that drops its qualifier/basis between an upstream sub-agent and the thesis — but
-# neither ever swept the run's OWN module tables for a same-family, opposite-direction metric that was
-# never named anywhere at all. Section C3 (added alongside this check) closes that hole; this is the
-# purely-structural half — it does not grade the sweep's content (that is inherently a judgment call, the
-# same way Section A/B/C are), only that a run dated on/after AZ_DATE actually carries the field, so a
-# future verify-evidence run cannot silently regress to omitting the section it is now instructed to run.
-# Same "additive schema, forward-looking gate" convention as checks T2/W/AX — see those for precedent.
-AZ_DATE="2026-08-21"
-def eval_az_contradiction_sweep(decision_date, verification_report):
-    """Core of check AZ. `verification_report` is the parsed verification_report.json dict, or None if
-    no report exists for this run. Returns 'pass' | 'fail' | 'na'. Side-effect-free + module-level so
-    the selftest can drive the date gate without a run fixture."""
-    if not (isdate(decision_date) and decision_date>=AZ_DATE):
-        return "na"
-    if verification_report is None:
-        return "na"  # report existence itself is gated by check O for conviction runs; not re-litigated here
-    if not isinstance(verification_report, dict):
-        return "fail"  # a report that parses to a non-dict JSON type can't carry contradiction_checks[] — fail, don't crash
-    return "pass" if isinstance(verification_report.get("contradiction_checks"), list) else "fail"
+# Detection logic extracted to scripts/verify_evidence_checks.py (importable, side-effect-free) so the
+# SAME function also runs LIVE in the /research:full Step 10B.2 finish-gate — before a violation ships,
+# not only when someone remembers to run this eval harness afterward. See that module's docstring for
+# the full doctrine rationale and the AMZN worked example (moat "confirmed" off a gross-margin decline
+# while EBITDA margin, net margin, cash conversion, and market share were all up over the same period).
+# Import (not copy): eval.py is the single caller of this function for retrospective grading;
+# verify_evidence_checks.py is the single source of the detection logic, imported by both callers.
+from verify_evidence_checks import AZ_DATE, eval_az_contradiction_sweep
 
 # ── Check Y (§11 data-sufficiency cap) — module-level so `eval.py selftest` can drive it ──
 # CLAUDE.md §11 / synthesizer.md Rating Cap Rules: data_sufficiency_score < 30 → the decision MUST be the
@@ -628,72 +589,14 @@ from valuation_basis_checks import (
     scan_committed as scan_basis_committed, _selftest as _vb_selftest, BF_ENFORCE_DATE,
 )
 
-# ── Check AN (§4a supersession-integrity) — module-level so `eval.py selftest` drives it fixture-free ──
-def _an_valid_sidecar(run_dir):
-    """A run's corrections sidecar, but ONLY if it passes the schema gate the resolver applies
-    (schema == 'corrections/v1'); else {} — so AN honors exactly the sidecars ledger_records honors."""
-    try:
-        with open(os.path.join(run_dir, "corrections.json")) as f:
-            c = json.load(f)
-        return c if (isinstance(c, dict) and c.get("schema") == "corrections/v1") else {}
-    except Exception:
-        return {}
-
-def _an_terminal_replacement_violations(run_root, source_run_root=None):
-    """Return why a supersession target is not a complete published correction.
-
-    A targeted correction is not a second full run, so it does not invent RUN_METADATA or rebuilt
-    module tiers. It must, however, carry every terminal user-facing artifact plus valid runtime
-    provenance before it is allowed to retire the prior standing call.
-    """
-    if not source_run_root:
-        return ["supersession source run root is unavailable"]
-    return [f"supersession target {run_root!r} is not a valid terminal publication: {error}"
-            for error in supersession_target_violations(source_run_root, run_root)]
-
-def eval_an_supersession_integrity(corrections, source_run_root=None):
-    """Check AN: an append-only corrections.json that declares `superseded_by` (DECISION_LEDGER §4a)
-    must point at a real, existing run folder carrying a decision record, AND the supersession CHAIN
-    from it must terminate on a LIVE (non-superseded) record — a dangling, circular (A→B→A), or
-    chain-ends-on-another-superseded-run supersession would silently drop every call in the chain
-    from the standing set with no live replacement. Returns None (no sidecar / no supersession → N/A)
-    or a list of violations (empty = valid)."""
-    if not isinstance(corrections, dict):
-        return None
-    sup = corrections.get("superseded_by")
-    if not isinstance(sup, dict):
-        return None
-    tgt = sup.get("run_root")
-    if not (isinstance(tgt, str) and tgt.strip()):
-        return ["superseded_by present but carries no run_root"]
-    tgt = tgt.strip()
-    if not os.path.isdir(tgt):
-        return [f"superseded_by.run_root {tgt!r} does not exist"]
-    if not os.path.exists(os.path.join(tgt, "decision_record.json")):
-        return [f"superseded_by target {tgt!r} has no decision_record.json"]
-    # walk the chain to its terminal live record, detecting cycles
-    seen, cur = set(), tgt
-    while True:
-        if cur in seen:
-            return [f"supersession chain is circular at {cur!r} — no live replacement record"]
-        seen.add(cur)
-        nxt_sup = _an_valid_sidecar(cur).get("superseded_by")
-        nxt = nxt_sup.get("run_root") if isinstance(nxt_sup, dict) else None
-        if not (isinstance(nxt, str) and nxt.strip()):
-            return _an_terminal_replacement_violations(cur, source_run_root)
-        nxt = nxt.strip()
-        if not (os.path.isdir(nxt) and os.path.exists(os.path.join(nxt, "decision_record.json"))):
-            return [f"supersession chain: {cur!r} is superseded by {nxt!r} which does not exist"]
-        cur = nxt
-
-def eval_release_gate_eligible(has_run_metadata, supersession_result):
-    """Only a complete standing run gates releases; valid corrected-away runs remain advisory.
-
-    `supersession_result` is exactly eval_an_supersession_integrity's result: [] means a valid chain,
-    None means no supersession, and a non-empty list is malformed authority that must fail closed.
-    """
-    valid_supersession = isinstance(supersession_result, list) and len(supersession_result) == 0
-    return bool(has_run_metadata) and not valid_supersession
+# ── Check AN (§4a supersession-integrity) ──
+# Detection logic extracted to scripts/supersession_integrity_checks.py — see that module's docstring.
+# Same rationale as the AP/AI/AK imports above: live pre-commit gate (scripts/corrections_prewrite_gate.py,
+# called from commit-run.sh) + retrospective eval, one source of detection logic, imported by both callers.
+from supersession_integrity_checks import (
+    _an_valid_sidecar, _an_terminal_replacement_violations,
+    eval_an_supersession_integrity, eval_release_gate_eligible,
+)
 
 # ── Checks AM/AR (§8 bear-case / bull-case sanity) — detection logic moved to
 # scripts/scenario_integrity_checks.py, imported further below alongside AT/AU/AV/BA/BC, so the
@@ -701,177 +604,6 @@ def eval_release_gate_eligible(has_run_metadata, supersession_result):
 # long with an all-upside "bear" case (or a Short Candidate with an all-downside "bull" case)
 # ships, not only when someone remembers to run this eval harness afterward. See that module's
 # docstring and each check's own comment block for the EMAAR_2026-07-03 case that motivated them.
-
-# ── Check AO (§19 / DECISION_LEDGER §6 forecast RESOLVABILITY) — a forecast the calibration loop can score ──
-AO_DATE = "2026-07-18"
-# The mechanically-verifiable subset of resolvability (the full semantic requirement — outcome-space
-# exhaustiveness + a ≤90-day quota — is enforced at AUTHORING time by the synthesizer prompt). Check T
-# already requires the trigger/window FIELDS to be non-empty; AO requires them to be RESOLVABLE: a pinned
-# numeric bar or a named settleable document (not a bare "beats consensus"), triggers that actually
-# partition the outcome space (not identical text), and — at the record level — at least one near-term
-# (≤90-day) proof point so the whole call is not un-checkable until years out.
-_AO_NAMED_DOC = re.compile(r"\b(10-?k|10-?q|8-?k|20-?f|6-?k|annual report|"
-                           r"(?:quarterly|annual|interim|half-?year|full-?year|year-?end|first-quarter|"
-                           r"second-quarter|third-quarter|fourth-quarter|q[1-4]|h[12]|fy\s?\d{2,4})\s+"
-                           r"(?:results?|report|filing|earnings|numbers)|"
-                           r"filing|filed|transcript|nse|bse|sec|sebi|def ?14a|proxy|press release|"
-                           # A regulatory DISCLOSURE settles exactly like the 'filing|filed' already above it
-                           # ("no such disclosure by 2026-09-30" is checked the same way as "not filed by …"),
-                           # and a COURT/tribunal DOCKET is a public primary record that outranks an 8-K under
-                           # §4 — the list was SEC/India-filing-centric and simply had no vocabulary for either,
-                           # so a securities-litigation or deal-closing forecast settled on the docket read as
-                           # unresolvable. §27: name the local forum, not a US-only one.
-                           r"disclos(?:e|ed|es|ure|ures|ing)|docket|court|tribunal|nclt|nclat|"
-                           # NOT bare 'guidance' / 'rating' — an event noun with no numeric bar and no
-                           # settlement source ('guidance improves', 'rating worsens') is calibration-dead.
-                           # A legitimate use carries its own context that already matches here: a period-
-                           # qualified 'guidance raised in the Q1 results', an 'investor day', or a named
-                           # rating agency (crisil/icra/care) — those settle it; the bare noun does not.
-                           r"crisil|icra|care|circular|prospectus|"
-                           r"investor\s+(?:presentation|day|deck|update|briefing))\b", re.I)
-_AO_CONSENSUS = re.compile(r"\b(consensus|estimate|estimates|expectation|expectations|street|analysts?)\b", re.I)
-_AO_MONTHS = {"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sep":9,"oct":10,"nov":11,"dec":12}
-_AO_MONTH_RE = re.compile(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(\d{4})\b", re.I)
-_AO_ISO_RE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
-# Period / date TOKENS (a fiscal year, quarter, half, calendar date) — digits that only LABEL a period,
-# not a pinned threshold. Stripped before asking "is there a real number here?", so 'FY27 EPS beats
-# consensus' is correctly seen as pinning NO consensus value. Deliberately does NOT strip a bare
-# four-digit number ('revenue above ₹2,026 cr', 'price > 2026'): a standalone 2026 is ambiguous, and
-# wrongly reading a real threshold as a year would FALSELY fail a settleable ledger (a false-positive
-# eval gate blocks valid PRs — worse than letting a weak year-only reference pass). Years are stripped
-# only in an explicit date context (FY__, ISO date, Month YYYY).
-_AO_PERIOD_TOKENS = re.compile(
-    # `fy26`, and also the Indian fiscal-YEAR-RANGE spelling `FY26-27` / `FY2026-27` / `FY26/27` — the
-    # optional second-year group strips the trailing `-27` that would otherwise survive and be misread as
-    # a pinned number (CLAUDE.md §27 makes an Indian company the default case, where `FY26-27` is routine).
-    # COMPACT quarter+fiscal-year with no boundary between them ('Q1FY27', 'Q1 FY27', 'H1FY2027') — the
-    # standalone `\bq[1-4]\b` / `\bfy…` alternatives can't strip these ('Q1FY27' has no boundary either
-    # side of the join), so a bare 'Q1FY27 EPS beats consensus' would keep '27' and read as a pinned
-    # number. Matched FIRST so the whole compact label is consumed.
-    r"\b(?:q[1-4]|[1-4]q|h[12])\s?fy\s?\d{2,4}(?:\s?[-/]\s?\d{2,4})?\b|"
-    r"\bfy\s?\d{2,4}(?:\s?[-/]\s?\d{2,4})?\b|\bq[1-4]\b|\b[1-4]q\b|\bh[12]\b|\b\d{4}-\d{2}-\d{2}\b|"
-    r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{4}\b", re.I)
-
-def _ao_pins_a_number(text):
-    """True if `text` carries a numeric threshold that is NOT merely a period/date LABEL. Strips fiscal
-    years, quarters, halves, and calendar dates first, then looks for a remaining digit. 'FY27 EPS beats
-    consensus' → False (only the fiscal year); 'FY27 EPS above ₹42' → True (42 survives); 'revenue above
-    2026 cr' → True (a bare four-digit threshold is kept, not mistaken for a year)."""
-    return bool(re.search(r"\d", _AO_PERIOD_TOKENS.sub(" ", text or "")))
-
-# A falsification that is the DATED NEGATION of an already-resolvable confirmation is fully settleable, and
-# used to fail anyway. The canonical shape of a BINARY EVENT forecast is "confirmation: <event> disclosed in
-# an 8-K by 2026-09-30" / "falsification: no such disclosure by 2026-09-30" — the scorer reads BOTH fields of
-# the SAME entry, so the anaphora ('no such') resolves against its own sibling, and the deadline is explicit.
-# Demanding that this half separately restate a number or a document name does not make it more resolvable;
-# it pushes authors toward vaguer prose that happens to carry a digit. AO's own comment block already names
-# the priority: "a false-positive eval gate blocks valid PRs — worse than letting a weak year-only reference
-# pass."
-#
-# Deliberately NARROW — all three must hold, or the trigger fails exactly as before:
-#   (a) the trigger OPENS with / carries a negation,
-#   (b) it carries a back-reference marker — 'no such' (anaphoric), an explicit 'within the window/period',
-#       or an explicit calendar date (the deadline), and
-#   (c) its SIBLING confirmation is itself resolvable (pins a number or names a settleable document).
-# The one-sided-vagueness defect this check exists to catch is untouched: a bare "margin does not improve"
-# beside a numbered "margin above 12%" confirmation has a negation but NO back-reference marker, so it still
-# fails — as its selftest case (_fc_onesided) asserts.
-# Separators are `[\s\-_]+`, not a bare `\s+`, so ordinary formatting variation ('time frame' /
-# 'time-frame', 'no  such' across a wrapped line) cannot false-NEGATIVE its way into a spurious AO
-# failure — the same convention check AU already uses for `\bsign[\s\-_]*check` (Gemini #405).
-_AO_NEGATION = re.compile(r"^\W*(?:no|none|neither|not|never)\b|"
-                          r"\b(?:does|do|did|is|are|was|were|has|have|had|will|would)[\s\-_]+not\b|"
-                          r"\bfails?[\s\-_]+to\b|\bno[\s\-_]+such\b", re.I)
-_AO_BACKREF = re.compile(r"\bno[\s\-_]+such\b|"
-                         r"\bwithin[\s\-_]+the[\s\-_]+(?:window|period|time[\s\-_]*frame)\b", re.I)
-
-def _ao_is_negated_mirror(trigger, sibling):
-    """True when `trigger` is the dated negation of an already-resolvable `sibling` confirmation — see the
-    block comment above for why that is settleable and why the test is this narrow."""
-    if not trigger or not sibling:
-        return False
-    if not (_ao_pins_a_number(sibling) or _AO_NAMED_DOC.search(sibling)):
-        return False  # (c) nothing resolvable to mirror — both halves vague is the real defect
-    if not _AO_NEGATION.search(trigger):
-        return False  # (a)
-    # (b) an explicit anaphor/window phrase, or a real calendar date acting as the deadline
-    return bool(_AO_BACKREF.search(trigger)
-                or _AO_ISO_RE.search(trigger) or _AO_MONTH_RE.search(trigger))
-
-def _ao_earliest_date(time_window, not_before=None):
-    """Best-effort EARLIEST confidently-parseable resolution date (YYYY-MM-DD) from a free-text
-    time_window — an ISO date, or a 'Month YYYY'. Biased to the earliest match so a genuinely near-term
-    window is never misread as long. Returns None when nothing is confidently parseable (ambiguity is
-    never failed) — fiscal-quarter-only text ('Q1 FY27' with no month) is deliberately treated as
-    unparseable, since Q1 spans different calendar months across jurisdictions.
-
-    When `not_before` (the decision date) is given, prefer the earliest candidate ON OR AFTER it: a
-    window that names both a reporting-PERIOD label and a later resolution date ('quarter ended June
-    2026; results August 2026') must resolve on the future date, not be misread as already-stale by the
-    period label. Only when NO candidate is on/after not_before does it fall back to the earliest overall
-    — so a genuinely all-before-decision window still surfaces as stale."""
-    cands = []
-    for m in _AO_ISO_RE.finditer(time_window or ""):
-        y, mo, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
-        try:
-            datetime.date(y, mo, d)  # only a REAL calendar date is a candidate (skip 2026-02-31)
-            cands.append(f"{y:04d}-{mo:02d}-{d:02d}")
-        except ValueError:
-            continue
-    for m in _AO_MONTH_RE.finditer(time_window or ""):
-        mo = _AO_MONTHS[m.group(1)[:3].lower()]
-        cands.append(f"{int(m.group(2)):04d}-{mo:02d}-01")  # 1st of the month = earliest it could resolve
-    if not cands:
-        return None
-    if not_before and isinstance(not_before, str):
-        future = [c for c in cands if c >= not_before[:10]]  # ISO strings compare as dates (YYYY-MM-DD)
-        if future:
-            return min(future)
-    return min(cands)
-
-def _ao_month_last(y, mo):
-    """Last calendar day of month mo/year y as YYYY-MM-DD (no `calendar` import: first of next month − 1 day)."""
-    first_next = datetime.date(y + (mo // 12), (mo % 12) + 1, 1)
-    last = first_next - datetime.timedelta(days=1)
-    return f"{last.year:04d}-{last.month:02d}-{last.day:02d}"
-
-def _ao_latest_date(time_window):
-    """Best-effort LATEST plausible resolution date (YYYY-MM-DD) from a free-text time_window — an ISO date
-    is a POINT; a 'Month YYYY' resolves BY its last day. Used only for the stale test: a window is 'already
-    stale' only if its LATEST plausible resolution is before the decision (the whole window has elapsed), so
-    'results July 2026' is not stale-failed on a 2026-07-18 decision just because the month began on the 1st.
-    Returns None when nothing is confidently parseable."""
-    cands = []
-    for m in _AO_ISO_RE.finditer(time_window or ""):
-        y, mo, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
-        try:
-            datetime.date(y, mo, d)
-            cands.append(f"{y:04d}-{mo:02d}-{d:02d}")
-        except ValueError:
-            continue
-    for m in _AO_MONTH_RE.finditer(time_window or ""):
-        cands.append(_ao_month_last(int(m.group(2)), _AO_MONTHS[m.group(1)[:3].lower()]))
-    return max(cands) if cands else None
-
-def _ao_has_impossible_iso(time_window):
-    """True if the window contains an ISO-shaped YYYY-MM-DD token that is NOT a real calendar date
-    (e.g. 2026-02-31). Such a window can never settle on a real date and must be flagged, not silently
-    dropped to 'undateable' (which would suppress the near-term-quota failure)."""
-    for m in _AO_ISO_RE.finditer(time_window or ""):
-        try:
-            datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
-        except ValueError:
-            return True
-    return False
-
-def _ao_days_after(decision_date, target):
-    try:
-        d0 = datetime.datetime.strptime(decision_date[:10], "%Y-%m-%d").date()
-        d1 = datetime.datetime.strptime(target[:10], "%Y-%m-%d").date()
-        return (d1 - d0).days
-    except (ValueError, TypeError):
-        return None
-
 
 # ---- check AS: a forecast whose window has ELAPSED but was never resolved ---------------------------
 # WHY: check AO proves a forecast is RESOLVABLE at authoring time. Nothing asked whether it was ever
@@ -920,13 +652,17 @@ def eval_aw_kill_criteria_overdue(decision_date, kill_criteria, today):
 # never call it. See that module's check-BA comment block for the full doctrine rationale.
 
 
-# ── Checks AT/AU/AV/AM/AR (§10 scenario span + conjunction disclosure + sign-check presence;
-# §8 bear-case / bull-case sanity) ──────────────────────────────────────────────────────────────
+# ── Checks AT/AU/AV/AM/AR/AO (§10 scenario span + conjunction disclosure + sign-check presence;
+# §8 bear-case / bull-case sanity; §19 forecast resolvability) ───────────────────────────────────
 # Detection logic extracted to scripts/scenario_integrity_checks.py (importable, side-effect-free)
 # so the SAME functions also run LIVE in the /research:full Step 10B.1 finish-gate — before a
 # violation ships, not only when someone remembers to run this eval harness afterward. See that
 # module's docstring for the full doctrine rationale, the AMZN_2026-07-10 case that motivated
-# AT/AU/AV, and the EMAAR_2026-07-03 case that motivated AM/AR.
+# AT/AU/AV, and the EMAAR_2026-07-03 case that motivated AM/AR. AO closes the same class of hole
+# for §19: a forecast_ledger entry with an unpinned "beats consensus" trigger, identical
+# confirmation/falsification text, or zero near-term (<=90-day) proof point could ship live,
+# print `GATE: PASS`, and commit straight to `main` (CLAUDE.md §25/§28) — undetected until a later
+# manual `/research:eval` run, silently starving the AG calibration-feedback gate's own input.
 # Import (not copy): eval.py is the single caller of these functions for retrospective grading;
 # scenario_integrity_checks.py is the single source of the detection logic, imported by both callers.
 from scenario_integrity_checks import (
@@ -940,122 +676,17 @@ from scenario_integrity_checks import (
     eval_ar_short_bull_case_sanity,
     AM_DATE,
     AR_DATE,
+    AO_DATE,
+    eval_ao_forecast_resolvability,
+    _ao_earliest_date,
 )
-
-
-def eval_ao_forecast_resolvability(decision_date, forecast_ledger):
-    """Check AO: every forecast must be mechanically RESOLVABLE (so it can enter the Brier score), and
-    the record must carry a near-term proof point. Per entry: triggers must (a) carry a pinned numeric
-    bar OR name a settleable document, (b) not reference consensus/estimates without a number, and (c)
-    not be identical confirmation==falsification text. Per record: at least one forecast must resolve
-    within 90 days of the decision (≥2 or ≥40% is the authoring-time target; the gate fails only the
-    clear case — every dateable forecast settles beyond a quarter). Returns None (pre-gate / empty
-    ledger) or a list of violations (empty = pass)."""
-    if not (isdate(decision_date) and decision_date >= AO_DATE):
-        return None
-    if forecast_ledger is not None and not isinstance(forecast_ledger, list):
-        return None  # a malformed (non-list) forecast_ledger is a STRUCTURAL defect for check A/T to flag,
-                     # not AO's — return N/A rather than TypeError-crash the whole eval harness on one record
-    fl = forecast_ledger or []
-    if not fl:
-        return None  # empty forecast_ledger is allowed (§19)
-    issues = []
-    near_term = parseable_long = undateable = 0
-    for i, e in enumerate(fl):
-        if not isinstance(e, dict):
-            continue  # T flags non-object entries
-        ct = str(e.get("confirmation_trigger") or "").strip()
-        ft = str(e.get("falsification_trigger") or "").strip()
-        both = ct + " ⋮ " + ft
-        if ct and ft and ct.lower() == ft.lower():
-            issues.append(f"forecast_ledger[{i}] confirmation and falsification triggers are identical — the outcome space is not partitioned")
-        # A consensus reference must pin its number in a trigger that ACTUALLY references consensus — an
-        # unrelated number in the other trigger ('revenue below 2026 cr' alongside 'EPS beats consensus')
-        # does not settle the EPS-vs-consensus call. Check the consensus-referencing triggers specifically.
-        cons_triggers = [t for t in (ct, ft) if _AO_CONSENSUS.search(t)]
-        if any(not _ao_pins_a_number(t) for t in cons_triggers):
-            # EACH consensus-referencing trigger needs its OWN pinned number, not just a period digit and not
-            # a number borrowed from the other side: 'FY27 EPS beats consensus' / 'FY27 EPS below consensus in
-            # Q1 results' names a document but never pins the consensus value on the falsification side, so the
-            # miss cannot be settled. One pinned side does not excuse an unpinned consensus side.
-            issues.append(f"forecast_ledger[{i}] references consensus/estimates but pins no number in the "
-                          f"consensus trigger (a fiscal-year/quarter digit, a named document, or an unrelated "
-                          f"number in the other trigger is not the consensus value) — each consensus-referencing "
-                          f"trigger must pin its own value; a bare 'beats/misses consensus' cannot be settled (§5)")
-        else:
-            # Validate EACH trigger INDEPENDENTLY — a number/document on only ONE side masks an unresolvable
-            # other half ('margin above 12%' confirmation with a vague 'margin does not improve' falsification).
-            # Each non-empty trigger must pin a real threshold (not just a fiscal-period label) or name a
-            # settleable document. (An empty trigger is check T's job, not AO's — skip it here.)
-            for side, trig in (("confirmation", ct), ("falsification", ft)):
-                if trig and not _ao_pins_a_number(trig) and not _AO_NAMED_DOC.search(trig):
-                    # A falsification that is the dated negation of a resolvable confirmation settles fine
-                    # (see _ao_is_negated_mirror). Only the falsification side may mirror — a confirmation
-                    # that merely negates something is not a positive, checkable claim.
-                    if side == "falsification" and _ao_is_negated_mirror(trig, ct):
-                        continue
-                    issues.append(f"forecast_ledger[{i}] the {side} trigger carries no pinned numeric bar (a "
-                                  f"fiscal-year/quarter label is not a threshold) and names no settleable document — "
-                                  f"not mechanically resolvable (§5/§19)")
-        window = str(e.get("time_window") or "")
-        if _ao_has_impossible_iso(window):
-            issues.append(f"forecast_ledger[{i}] time_window contains an impossible calendar date (e.g. a 31st of a "
-                          f"short month) — it can never settle on a real date")
-            continue  # do not let an impossible date fall through to 'undateable' and suppress the quota
-        tgt = _ao_earliest_date(window, decision_date)
-        latest = _ao_latest_date(window)   # LATEST plausible resolution (month → its last day); for the stale test
-        if tgt:
-            e_days = _ao_days_after(decision_date, tgt)
-            l_days = _ao_days_after(decision_date, latest) if latest else e_days
-            if e_days is None:
-                undateable += 1  # a date we couldn't place relative to the decision → treat as undateable
-            elif l_days is not None and l_days < 0:
-                # The WHOLE window — even its last plausible day — is before the decision → genuinely stale
-                # (it can never be a future proof point). A 'Month YYYY' is a RANGE: 'results July 2026' on a
-                # 2026-07-18 decision is NOT stale (the month runs to the 31st), only 'January 2026' is. Flag
-                # it (a defect), and do NOT count it as undateable (which would suppress the quota failure).
-                issues.append(f"forecast_ledger[{i}] time_window resolves by {latest}, BEFORE the decision date "
-                              f"{decision_date} — already stale at decision, cannot provide a future proof point")
-            else:
-                # Resolves on/after the decision (at least partly). Near-term if the EARLIEST plausible
-                # resolution — never before the decision itself — is within 90 days (a same-month window is 0
-                # days out → near-term, never misread as long).
-                eff = max(e_days, 0)
-                if eff <= 90:
-                    near_term += 1
-                else:
-                    parseable_long += 1
-        else:
-            undateable += 1      # no confidently-parseable date in the window
-    # Near-term quota (§19: ≥2 OR ≥40% of the dateable forecasts resolve within 90 days), measured over the
-    # dateable set. An undateable (unknown-timing) forecast is given the benefit of the doubt — it MIGHT be
-    # near-term but the parser can't place it, so it must not FALSE-FAIL a record whose vague windows may all
-    # be soon. BUT that benefit is withdrawn once the record ALSO carries a demonstrably long-dated (>90d)
-    # forecast: a ledger with clearly-long forecasts and zero near-term ones cannot be rescued by leaving one
-    # forecast undated (the loophole). So apply the quota when there are no undateable forecasts OR at least
-    # one is provably long. A 5-forecast ledger with 1 near-term / 4 long (20%) fails; 1-of-2 (50%) or a lone
-    # near-term passes; an all-undateable ledger is failed ONLY when it is also genuinely UNBOUNDED (below).
-    dateable = near_term + parseable_long
-    if (undateable == 0 or parseable_long > 0) and dateable >= 1 and near_term < 2 and near_term < 0.4 * dateable:
-        pct = round(100.0 * near_term / dateable)
-        issues.append(f"insufficient near-term proof points — only {near_term} of {dateable} dateable forecasts "
-                      f"({pct}%) resolve within 90 days of the decision; §19 wants ≥2 or ≥40%, else the call cannot "
-                      f"be checked for months")
-    elif dateable == 0 and undateable > 0 and not any(
-            _AO_PERIOD_TOKENS.search(str(e.get("time_window") or "")) for e in fl if isinstance(e, dict)):
-        # Every window is undateable AND none even names a bounded fiscal period (Q/H/FY), month, or date —
-        # the ledger is genuinely unbounded ('over the next few years'), so it carries NO checkable near-term
-        # proof point at all (§19). A fiscal-period label like 'Q1 FY27' is unpinnable to a calendar date but
-        # IS a bounded near-term-ish period, so it keeps the benefit of the doubt and does not trip this.
-        issues.append("no dateable near-term proof point — every forecast window is vague and unbounded "
-                      "(e.g. 'over the next few years') with no fiscal period (Q/H/FY), month, or date to settle "
-                      "on; §19 requires at least one checkable near-term proof point")
-    return issues
 
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
-    # PASS (incl. REIT-on-FCFF, which SECTOR_OVERLAYS.md does NOT forbid), and N/A when a field is unset.
+    # PASS, and N/A when a field is unset. A REIT headlined on FCFF DCF / an EV multiple FAILS (the valuation
+    # Business-Type Method Map, stricter than SECTOR_OVERLAYS.md, per §23); only the HEADLINE method is judged,
+    # so a method named solely as a cross-check or an explicit exclusion does not count.
     W=eval_w_sector_valuation
     cases=[  # (business_type, primary_valuation_method, expect: "fail"|"clean"|"na")
         ("Bank / lender","FCFF DCF","fail"),
@@ -1074,11 +705,26 @@ if scope=="selftest":
         ("Bank / lender","P/B vs ROE","clean"),
         ("Insurer","embedded value / VNB","clean"),            # must NOT false-match 'enterprisevalue'
         ("REIT / real estate","NAV + DDM on FFO/AFFO","clean"),
-        ("REIT / real estate","FCFF DCF","clean"),             # doctrine does NOT forbid FCFF for a REIT
+        ("REIT / real estate","FCFF DCF","fail"),              # Method Map: REIT "Do NOT use: EBITDA / FCFF DCF"
+        ("REIT / real estate","EV/EBITDA","fail"),             # 99_valuation-synthesis: no EV multiple as a REIT headline
+        ("REIT / real estate","EV/EBIT","fail"),
+        ("REIT / real estate","Sum-of-the-parts / NAV (corroborated by normalized FCFF DCF)","clean"),  # EMAAR_2026-07-10: FCFF only corroborates
+        ("REIT / real estate","NAV with FCFF DCF cross-check","clean"),      # "with X cross-check": X is not the headline
+        ("REIT / real estate","FCFF DCF with NAV cross-check","fail"),       # ...but here FCFF IS the headline
+        ("REIT / real estate","FCFF DCF (EV/EBITDA rejected)","fail"),       # an excluding aside never hides the headline
+        ("REIT / real estate","60% NAV + 40% FCFF DCF","fail"),              # a weighted blend prices every leg it names
+        ("Bank / lender","Residual income; FCFF DCF not applicable","clean"),# an explicit exclusion is not use
+        ("Bank / lender","Forward P/TBV with peer NTM P/E and residual-income cross-check","clean"),  # NU_2026-08-31
         ("Generic operating company","FCFF DCF","clean"),      # untracked sector — no constraint
         ("Commodity producer / miner","mid-cycle FCFF DCF","clean"),
+        ("Bank / lender","EV/Revenue","fail"),                 # EV/Revenue == EV/Sales synonym — still an EV method
+        ("Bank / lender","EV / Revenue vs peers","fail"),      # separator-robust spelling of the same
+        ("SaaS / subscription software (insurance vertical)","FCFF DCF","clean"),  # parenthetical aside must NOT match 'insur'
+        ("Generic operating company (banking software vendor)","FCFF DCF","clean"),# 'banking' in a qualifier must NOT match 'bank'
         ("","FCFF DCF","na"),
         ("Bank / lender","","na"),
+        (["Bank / lender"],"FCFF DCF","na"),                   # non-string business_type -> N/A, never a crash
+        ("Bank / lender",123,"na"),                            # non-string primary_valuation_method -> N/A, never a crash
     ]
     bad=0
     for bt,pvm,exp in cases:
@@ -1795,6 +1441,7 @@ if scope=="selftest":
     BM_SYNTH_NEG = "RF-DISQ-001 not triggered — fewer than 2 disqualifiers in the near-miss band."
     BM_SYNTH_CLEAN = "Business-model synthesis: clean, no forensic flags."
     BM_SPEC_BOTH = "Disqualifier-scan + red-flags-sweep specialists (combined).\nRF-DISQ-001 (multiple sub-threshold disqualifier near-misses)\n\nRF-RFS-001 (aggressive accounting practice pattern)"
+    MG_SPEC_REG2_ONLY = "Candor specialist (06): clean.\n\nRegulatory-legal-and-compliance specialist (12).\nRF-REG-002 (delayed results / material-disclosure timeliness)\nResults filed late in 5 of the last 12 quarters."
     aqcases=[  # (decision, decision_date, module_synth_txt, module_specialist_txt, expect: None|[]|[tags])
         # pre-gate: always None (N/A), regardless of how many tags would otherwise fire
         ("Strong Buy","2026-07-23",{"earnings":EQ_SYNTH_BOTH,"balance-sheet-survival":OBS_SYNTH_1},{},None),
@@ -1860,6 +1507,15 @@ if scope=="selftest":
         ("Strong Buy","2026-07-24",
          {"earnings":EQ_SYNTH_CLEAN,"balance-sheet-survival":OBS_SYNTH_CLEAN,"management-governance":MG_SYNTH_CLEAN},
          {},[]),
+        # management-governance's RF-REG-002 sourced ONLY from the 12_regulatory-legal-and-compliance
+        # specialist (12 owns A7-01, per MODULE_RULES.md — not 06), with the MG synthesis clean: proves
+        # the 06+12 combined-specialist-text caller wiring reaches this tag even when only 12 fired it.
+        # Paired with earnings' two tags to cross the 2-module threshold (mirrors the BM combined-spec
+        # case above, same reasoning: source-only propagation must still count, CLAUDE.md §11).
+        ("Buy","2026-07-24",
+         {"earnings":EQ_SYNTH_CLEAN,"management-governance":MG_SYNTH_CLEAN},
+         {"earnings":EQ_SPEC_BOTH,"management-governance":MG_SPEC_REG2_ONLY},
+         ["RF-EQ-001","RF-EQ-002","RF-REG-002"]),
     ]
     aqbad=0
     for dec_,dt_,synth_,spec_,exp in aqcases:
@@ -4427,7 +4083,10 @@ for drp in runs:
     #   + RF-REG-002 management-governance, RF-DISQ-001 + RF-RFS-001 business-model); see
     #   scripts/rating_caps.py for the full detection rationale. business-model contributes two tags
     #   from two different specialists (01_disqualifier-scan, 12_red-flags-sweep), so its specialist
-    #   text is the concatenation of both.
+    #   text is the concatenation of both. management-governance's RF-REG-002 has the same two-specialist
+    #   shape: MODULE_RULES.md names 12_regulatory-legal-and-compliance (not 06) as A7-01's owner, and 12
+    #   fires RF-REG-002 from its own compliance-hygiene sweep independently of 06's candor read — so its
+    #   specialist text is likewise the concatenation of both (rating_caps.py FORENSIC_TAGS note).
     #   _read_synth_text / _read_specialist_text are defined in the AD/AE blocks above; AQ_DATE > AF_DATE
     #   > AE_DATE > AD_DATE so both are always available here, and bm_txt_ae (business-model synthesis)
     #   was already read in the AE block — reuse it, avoid a duplicate glob/read.
@@ -4435,6 +4094,9 @@ for drp in runs:
         _bm_disq_spec_aq=_read_specialist_text("business-model","01_")
         _bm_rfs_spec_aq=_read_specialist_text("business-model","12_")
         _bm_spec_combined_aq="\n\n".join(t for t in (_bm_disq_spec_aq,_bm_rfs_spec_aq) if t) or None
+        _mg_candor_spec_aq=_read_specialist_text("management-governance","06_")
+        _mg_reg_spec_aq=_read_specialist_text("management-governance","12_")
+        _mg_spec_combined_aq="\n\n".join(t for t in (_mg_candor_spec_aq,_mg_reg_spec_aq) if t) or None
         _aq_synth={
             "earnings":_read_synth_text("earnings"),
             "balance-sheet-survival":_read_synth_text("balance-sheet-survival"),
@@ -4444,7 +4106,7 @@ for drp in runs:
         _aq_spec={
             "earnings":_read_specialist_text("earnings","06_"),
             "balance-sheet-survival":_read_specialist_text("balance-sheet-survival","05_"),
-            "management-governance":_read_specialist_text("management-governance","06_"),
+            "management-governance":_mg_spec_combined_aq,
             "business-model":_bm_spec_combined_aq,
         }
         aqresult=eval_aq_forensic_mosaic_cap(dec,ddte,_aq_synth,_aq_spec)
