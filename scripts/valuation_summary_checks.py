@@ -162,6 +162,7 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
                    f"version would silently grandfather every versioned rule")
     v13 = ver is not None and ver >= (1, 3)
     v14 = ver is not None and ver >= (1, 4)
+    v15 = ver is not None and ver >= (1, 5)
     scen = sidecar.get("scenarios")
     if not isinstance(scen, list) or not scen:
         det.append("scenarios must be a non-empty array")
@@ -178,6 +179,37 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
             det.append(f"scenario[{i}] label {s.get('label')!r} is not a string")
             continue
         labels.append(s.get("label").strip().lower())
+        # A LABEL IS NOT A CASE. A row carrying only a label gives the Playground nothing to show and the
+        # contradiction check below nothing to compare (it skips a case with no level), so a sidecar of bare
+        # labels passed this guard — and the live presence gate with it — while recording no fair value at
+        # all. Every committed sidecar already records a level on every row, so this costs no existing run;
+        # it closes the door a two-line fixture walked through. A case whose level is genuinely unavailable
+        # is OMITTED (the thesis case then renders from its frozen level), never emitted as a label.
+        _lvl0, _fm0, _mult0 = s.get("level"), s.get("forward_metric"), s.get("multiple")
+        if not (_isnum(_lvl0) or (_isnum(_fm0) and _isnum(_mult0)) or isinstance(s.get("derivation"), dict)):
+            det.append(f"scenario {s.get('label')!r} records no fair-value level (no numeric `level`, no "
+                       f"forward_metric×multiple, no derivation) — a label is not a case; omit a case whose level "
+                       f"is unavailable rather than emit it bare")
+        # v1.5: the level is REQUIRED as a number on every case, not merely derivable — it is what 99 reports
+        # and what the decision_record contradiction check compares. A case declared built as metric × multiple
+        # (`multiple_kind: applied`) must carry both halves; the v1.3 rules below then demand their bases and
+        # source.
+        if v15 and not _isnum(_lvl0):
+            det.append(f"scenario {s.get('label')!r} has no numeric `level` — required on every case at schema "
+                       f"1.5 (the per-share point 99 reports and the guard compares to the frozen thesis)")
+        if v15 and s.get("multiple_kind") == "applied" and not (_isnum(_fm0) and _isnum(_mult0)):
+            det.append(f"scenario {s.get('label')!r} is declared `multiple_kind: applied` (built as metric × "
+                       f"multiple) but does not record both a numeric forward_metric and multiple — the case it "
+                       f"claims to be built from cannot be recomputed")
+        # v1.5: every WEIGHTED case DECLARES its period and measure. Prose-parsing metric_basis is the lossy
+        # fallback the declared fields exist to replace; a 1.5 sidecar that claims the fields and leaves them
+        # out hands the basis check that fallback anyway. A declared sensitivity sits outside the weighted
+        # set and is not compared, so it is not required to declare them.
+        if v15 and str(s.get("set_membership") or "weighted").strip().lower() != "sensitivity":
+            for _k in ("metric_period", "metric_measure"):
+                if not (isinstance(s.get(_k), str) and s.get(_k).strip()):
+                    det.append(f"scenario {s.get('label')!r} is a weighted case with no declared `{_k}` — "
+                               f"required on every weighted case at schema 1.5 (99 'Structured Emission')")
         if s.get("probability") is not None:
             # the master synthesizer owns probabilities (decision_record.json); the levers sidecar must not.
             det.append(f"scenario[{i}] ({s.get('label')!r}) carries a probability — the master owns those")
@@ -549,7 +581,28 @@ def eval_ap_valuation_summary_integrity(sidecar, decision):
     dr_scen = decision.get("scenarios") if isinstance(decision, dict) else None
     if isinstance(dr_scen, list) and dr_scen:
         dr_by = {str(s.get("label", "")).strip().lower(): s for s in dr_scen if isinstance(s, dict)}
-        sc_set, dr_set = set(labels), set(dr_by)
+        # A case the sidecar DECLARES as a sensitivity is not an orphan when the thesis omits it — that is
+        # the whole point of the declaration. `07` holds such a case outside the weighted set (an
+        # un-rebasable historical trough, an avoid-ruin floor carried to Kill Criteria), so the master
+        # synthesizer has nothing to weight and the thesis legitimately does not hold it as a case. Without
+        # this, a run that follows 99's `set_membership` instruction exactly is hard-failed here for
+        # obeying it.
+        _sens = {str(s.get("label", "")).strip().lower()
+                 for s in (scen if isinstance(scen, list) else [])
+                 if isinstance(s, dict) and str(s.get("set_membership") or "").strip().lower() == "sensitivity"}
+        # The reverse is a real defect, and it is the escape hatch the field would otherwise open: a case
+        # declared OUT of the weighted set here while the frozen thesis still weights it. The basis checks
+        # (scripts/valuation_basis_checks.py) skip a declared sensitivity, so this would let a bear built on
+        # a different period or measure keep its probability while becoming invisible to the gate.
+        for lab in sorted(_sens):
+            drs = dr_by.get(lab)
+            prob = drs.get("probability") if isinstance(drs, dict) else None
+            if _isnum(prob) and float(prob) > 0:
+                det.append(f"scenario {lab!r} is declared `set_membership: sensitivity` (outside the weighted set) "
+                           f"but decision_record weights it at {prob}% — a case cannot be excluded from the basis "
+                           f"checks and still carry probability; either weight it and declare it weighted, or "
+                           f"drop its probability and carry it as a floor")
+        sc_set, dr_set = set(labels) - _sens, set(dr_by)
         for lab in sorted(sc_set - dr_set):
             near = sorted(d for d in dr_set - sc_set if d.startswith(lab) or lab.startswith(d))
             hint = (f" — the thesis calls it {' / '.join(repr(n) for n in near)}; use the thesis's own label, "
@@ -679,6 +732,22 @@ def _selftest() -> int:
     ]}
     rn = eval_ap_valuation_summary_integrity(ok_sidecar, dr_split)
     check("a renamed case is caught as an orphan", any("'bear' has no decision_record counterpart" in v for v in rn))
+
+    # A DECLARED sensitivity case (99: `set_membership`) is held outside the weighted set on purpose, so the
+    # thesis omitting it is correct, not an orphan lever.
+    sens_sc = dict(ok_sidecar, scenarios=list(ok_sidecar["scenarios"]) + [
+        {"label": "bear_structural", "level": 3, "set_membership": "sensitivity"}])
+    check("a declared sensitivity case absent from the thesis is not an orphan",
+          not any("bear_structural" in v for v in eval_ap_valuation_summary_integrity(sens_sc, dr_match)))
+    # ...and the reverse is the escape hatch: excluded from the basis checks while still carrying weight.
+    dr_weighted = {"scenarios": list(dr_match["scenarios"]) + [
+        {"label": "bear_structural", "price_target": 3, "probability": 20}]}
+    check("a sensitivity case the thesis still weights is caught",
+          any("still carry probability" in v for v in eval_ap_valuation_summary_integrity(sens_sc, dr_weighted)))
+    dr_zero = {"scenarios": list(dr_match["scenarios"]) + [
+        {"label": "bear_structural", "price_target": 3, "probability": 0}]}
+    check("a sensitivity case the thesis carries at 0% is fine",
+          not any("still carry probability" in v for v in eval_ap_valuation_summary_integrity(sens_sc, dr_zero)))
     check("and the message quotes the thesis's own label",
           any("bear_cyclical" in v and "bear_structural" in v and "never a second name" in v for v in rn))
     # a thesis case the module never derived is NOT a defect (the master owns the case set, §10/§22): the
@@ -1077,6 +1146,55 @@ def _selftest() -> int:
           any("TRAILING period yet carries 40% base-point weight" in x for x in _pct_out))
     check("trailing-weight message never shows a raw non-normalized %",
           not any("4000%" in x for x in _pct_out))
+
+    # ---- a label is not a case (all versions) and the v1.5 per-case requirements ----
+    # THE fixture shape this exists for: bare labels passed the guard and the live presence gate while
+    # recording no fair value at all, and the contradiction check skipped every row for want of a level.
+    bare = {"schema_version": "1.2", "ticker": "T", "basis": "equity",
+            "scenarios": [{"label": "bull"}, {"label": "base"}, {"label": "bear"}]}
+    bare_out = eval_ap_valuation_summary_integrity(bare, dr_match)
+    check("a labels-only sidecar is caught, not passed (every row)",
+          sum("records no fair-value level" in v for v in bare_out) == 3)
+    check("one bare row among real ones is caught",
+          any("'bear' records no fair-value level" in v for v in eval_ap_valuation_summary_integrity(
+              dict(ok_sidecar, scenarios=[{"label": "bull", "level": 20}, {"label": "base", "level": 15},
+                                          {"label": "bear"}]), None)))
+    check("a derivable-only row (levers, null level) is still a case below 1.5",
+          not any("records no fair-value level" in v for v in eval_ap_valuation_summary_integrity(null_lever, None)))
+
+    def _v15(label, eps, mult, **over):
+        d = {"label": label, "forward_metric": eps, "metric_basis": "NTM EPS", "metric_period": "NTM",
+             "metric_measure": "EPS", "multiple": mult, "multiple_basis": "NTM P/E", "multiple_kind": "applied",
+             "source": "07_scenario-and-fair-value.md §3", "level": round(eps * mult, 4)}
+        d.update(over); return d
+    v15 = {"schema_version": "1.5", "ticker": "T", "basis": "equity",
+           "scenarios": [_v15("bull", 7.0, 18.0), _v15("base", 6.0, 15.0), _v15("bear", 5.0, 12.0)]}
+    check("a complete v1.5 sidecar passes", eval_ap_valuation_summary_integrity(v15, None) == [])
+    check("v1.5: a derivable-but-null level is caught (numeric level required)",
+          any("no numeric `level`" in v for v in eval_ap_valuation_summary_integrity(
+              dict(v15, scenarios=[_v15("bull", 7.0, 18.0, level=None), _v15("base", 6.0, 15.0),
+                                   _v15("bear", 5.0, 12.0)]), None)))
+    check("v1.5: the same null level is NOT required below 1.5 (grandfathered)",
+          not any("no numeric `level`" in v for v in eval_ap_valuation_summary_integrity(
+              dict(v15, schema_version="1.4", scenarios=[_v15("bull", 7.0, 18.0, level=None),
+                   _v15("base", 6.0, 15.0), _v15("bear", 5.0, 12.0)]), None)))
+    applied_no_pair = {k: v for k, v in _v15("bull", 7.0, 18.0).items() if k not in ("forward_metric", "multiple")}
+    check("v1.5: an `applied` case with no metric×multiple pair is caught",
+          any("multiple_kind: applied" in v for v in eval_ap_valuation_summary_integrity(
+              dict(v15, scenarios=[applied_no_pair, _v15("base", 6.0, 15.0), _v15("bear", 5.0, 12.0)]), None)))
+    for _k in ("metric_period", "metric_measure"):
+        check(f"v1.5: a weighted case missing `{_k}` is caught",
+              any(f"no declared `{_k}`" in v for v in eval_ap_valuation_summary_integrity(
+                  dict(v15, scenarios=[_v15("bull", 7.0, 18.0, **{_k: None}), _v15("base", 6.0, 15.0),
+                                       _v15("bear", 5.0, 12.0)]), None)))
+        check(f"v1.4: a case missing `{_k}` is grandfathered",
+              eval_ap_valuation_summary_integrity(
+                  dict(v15, schema_version="1.4", scenarios=[_v15("bull", 7.0, 18.0, **{_k: None}),
+                       _v15("base", 6.0, 15.0), _v15("bear", 5.0, 12.0)]), None) == [])
+    check("v1.5: a declared sensitivity need not declare period/measure (it is not compared)",
+          eval_ap_valuation_summary_integrity(dict(v15, scenarios=v15["scenarios"] + [
+              _v15("bear_structural", 3.0, 8.0, metric_period=None, metric_measure=None,
+                   set_membership="sensitivity")]), None) == [])
 
     if fails:
         print("VALUATION SUMMARY CHECKS SELFTEST FAIL:", ", ".join(fails))

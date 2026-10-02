@@ -3,11 +3,25 @@
 
 WHY THIS EXISTS. CLAUDE.md is strong on citation (§5) and hygiene (§15), and the engine obeys both.
 It is weak on the thing those rules cannot express: whether two numbers of the same KIND were measured
-the same way. Seven of the thirteen findings in the 2026-09-30 BURL audit were that one failure —
-a bull multiple drawn from an LTM band applied to an NTM denominator, a bear on a GAAP trough priced
-into a weighted set against a forward normalized base, a min-max range position printed under the word
-"percentile". Each is individually forbidden by prose that was in force when the run shipped, and the
-run's own truth-integrity gate returned `Clean` / integrity 100 on all of them.
+the same way. Seven of the thirteen findings in the 2026-09-30 BURL audit were that one failure.
+
+WHAT THIS MODULE ACTUALLY COVERS, which is less than the audit found. It implements ONE of BURL's three
+basis defects: a weighted scenario set whose cases are measured on different periods or measures. The
+other two are NOT here and should not be assumed to be —
+
+  · the bull multiple drawn from an LTM band and applied to an NTM denominator is a mismatch WITHIN one
+    case, between a multiple and its metric. Nothing here reads `multiple_basis` (check AP already
+    requires it); the within-case comparison is unimplemented.
+  · the min-max range position printed under the word "percentile" is a `02` reporting defect with no
+    check anywhere. The prompt fix removes the column that prescribed it; nothing verifies the output.
+
+AND IT CANNOT SEE A RUN WITH NO SIDECAR, which is BURL's own shape — it carried its bases in prose and
+emitted no valuation_summary.json at all. That gap is closed at the LIVE finish gate in
+`/research:full`, which now refuses to let a run with scenario levels publish without one; it is not
+closed here, and `BF_SIDECAR_REQUIRED_DATE` below stays None on purpose.
+
+Each defect is individually forbidden by prose that was in force when the run shipped, and the run's own
+truth-integrity gate returned `Clean` / integrity 100 on all of them.
 
 So prose does not bind here, and an LLM auditor did not either. Only arithmetic over the artifacts does.
 
@@ -53,7 +67,10 @@ _PERIOD_PATTERNS = (
     ("NTM", r"\bNTM\b|next twelve|forward twelve"),
     # FY+1 / FY+2 are documented in the sidecar schema's own metric_basis examples, so they must parse.
     ("FY_REL", r"\bFY\s?\+\s?\d\b"),
-    ("FY", r"\bFY\s?\d{2,4}E?\b|\bCY\s?\d{4}\b|\b20\d{2}E\b"),
+    # A BARE YEAR counts: metric_period is declared by a person, and "2026" means FY2026 to every one of
+    # them. Without this, "2026" parsed to nothing while "FY2026" parsed to FY26, and two cases meaning
+    # the same year read as a mismatch — a spelling bug dressed as a basis defect.
+    ("FY", r"\bFY\s?\d{2,4}E?\b|\bCY\s?\d{4}\b|\b20\d{2}E?\b"),
 )
 
 _MEASURE_PATTERNS = (
@@ -91,18 +108,162 @@ def normalise_metric_basis(raw):
         match = re.search(rx, text, re.I)
         if match:
             hits.append((match.start(), name))
-    period = min(hits)[1] if hits else None
+    at, period = min(hits) if hits else (0, None)
     if period == "FY_REL":
-        match = re.search(r"\bFY\s?\+\s?(\d)\b", text, re.I)
+        match = re.search(r"\bFY\s?\+\s?(\d)\b", text[at:], re.I)
         period = f"FY+{match.group(1)}" if match else "FY+?"
     elif period == "FY":
         # Keep the YEAR: FY27 and FY29 are different periods, and a set mixing them is the same defect
         # as mixing NTM with a trough. Two digits, so FY2027 and FY27 compare equal.
-        match = re.search(r"(?:FY\s?\+?|CY\s?)(\d{2,4})", text, re.I) or re.search(r"\b(20\d{2})E\b", text)
+        #
+        # Read the year FROM THE TOKEN THAT WON ON POSITION (`text[at:]`), not from the whole string.
+        # The year regex below is deliberately looser than the _PERIOD_PATTERNS one (it accepts a
+        # two-digit CY and needs no trailing word boundary), so searching from position 0 could lift a
+        # year out of a token the period scan had already rejected: "CY26 normalized EBITDA rolled to
+        # FY2029E" is an FY29 metric whose period used to resolve to FY26, inventing a mismatch
+        # against an FY29 set — or hiding a real one.
+        match = (re.search(r"(?:FY\s?\+?|CY\s?)(\d{2,4})", text[at:], re.I)
+                 or re.search(r"\b(20\d{2})E?\b", text[at:]))
         period = f"FY{match.group(1)[-2:]}" if match else "FY"
 
-    measure = next((name for name, rx in _MEASURE_PATTERNS if re.search(rx, text, re.I)), None)
+    # MEASURE BY POSITION TOO. This was fixed for periods and left on pattern precedence for measures,
+    # which is the same bug wearing the other hat: "FY27E Revenue at the FY21-trough EBIT margin" is a
+    # REVENUE case, and precedence made EBIT win because EBIT is listed first. The metric is the one the
+    # case is stated on — the earliest mention — not whichever pattern happens to sit higher in a list.
+    m_hits = []
+    for name, rx in _MEASURE_PATTERNS:
+        match = re.search(rx, text, re.I)
+        if match:
+            m_hits.append((match.start(), name))
+    measure = min(m_hits)[1] if m_hits else None
     return (period, measure)
+
+
+def case_basis(case):
+    """A case's (period, measure), preferring what the author DECLARED over what prose implies.
+
+    `metric_period` / `metric_measure` are authoritative when present; `metric_basis` is parsed only to
+    fill what they leave out. The declared path exists because the parsed one is lossy and fails
+    silently: "FY2026E EBITDA at FY2021-trough margin applied to FY2026E consensus revenue" is a FY26
+    case — a trough margin re-based onto a forward denominator, exactly what 07 mandates — and reading
+    a period token out of that sentence called it a trough case and reported a mismatch against the
+    run's own forward base. The check was flagging the remedy. A declared field ends that argument
+    rather than deferring it to the next prose variant.
+
+    Returns None only when neither route says anything, so callers can still tell "undeclared" from
+    "declared and unparseable".
+    """
+    if not isinstance(case, dict):
+        return None
+    period = case.get("metric_period")
+    measure = case.get("metric_measure")
+    period = period.strip() if isinstance(period, str) and period.strip() else None
+    measure = measure.strip() if isinstance(measure, str) and measure.strip() else None
+
+    if period is not None:
+        # Normalise the DECLARED token through the same vocabulary, so "FY2027" and "FY27" and a
+        # free-text "FY2027E EBITDA" all compare equal. A declared token the vocabulary does not
+        # recognise is kept verbatim rather than discarded — the author may be naming a measure or
+        # period this engine has not met, which the open vocabulary exists to allow.
+        parsed = normalise_metric_basis(period)
+        if parsed and parsed[0] is not None:
+            period = parsed[0]
+    if measure is not None:
+        parsed = normalise_metric_basis(measure)
+        if parsed and parsed[1] is not None:
+            measure = parsed[1]
+
+    if period is not None and measure is not None:
+        return (period, measure)
+
+    inferred = normalise_metric_basis(case.get("metric_basis"))
+    if inferred is None:
+        return (period, measure) if (period is not None or measure is not None) else None
+    return (period if period is not None else inferred[0],
+            measure if measure is not None else inferred[1])
+
+
+# Membership is a binary the probability arithmetic depends on, so these lists are closed ON PURPOSE,
+# unlike the open metric vocabularies: a word nobody recognises must surface rather than be guessed.
+_OUT_OF_SET = frozenset({"sensitivity", "stress", "excluded", "floor", "avoid_ruin", "avoid-ruin",
+                         "not_weighted", "unweighted", "illustrative"})
+_IN_SET = frozenset({"weighted", ""})
+
+
+# ── a statistic may not be labelled as a different statistic ──────────────────────────────────────
+# `(current - min) / (max - min)` is a RANGE POSITION. The word "percentile" means a rank against the
+# distribution, and the two disagree by tens of points whenever one observation sits far from the rest.
+# 02_multiples-own-history used to MANDATE a column headed "Percentile of Range" — the arithmetic was
+# right and the name was not, and 19 committed runs print it, across a bank, a REIT, SaaS, a platform
+# and a retailer. The template fix removes the column; this verifies the output, which is the half a
+# prompt change cannot verify about itself.
+#
+# Deliberately narrow: it flags a header that CONFLATES the two words, not every use of either. "Rank
+# percentile" and "Range position" are the correct replacements and must both pass.
+_CONFLATED_LABEL = re.compile(r"percentile[^|]{0,24}\brange\b|\brange\b[^|]{0,24}percentile", re.I)
+
+
+def eval_statistic_label(markdown_text):
+    """Core of the statistic-label check. Returns None when there is nothing to read, else a list of
+    violation strings (empty = pass).
+
+    Reads 02's own report rather than a sidecar because this defect lives in the prose table and never
+    reaches JSON — which is also why it survived nineteen runs unnoticed.
+    """
+    if not isinstance(markdown_text, str) or not markdown_text.strip():
+        return None
+    violations = []
+    for number, line in enumerate(markdown_text.split("\n"), start=1):
+        if not line.lstrip().startswith("|"):
+            continue
+        for cell in line.split("|"):
+            if _CONFLATED_LABEL.search(cell):
+                violations.append(
+                    f"line {number}: column {cell.strip()!r} labels a range position as a percentile — "
+                    "they are different statistics and disagree whenever one observation is an outlier. "
+                    "Report both, named: 'Rank percentile' = count(obs <= current)/count(obs), "
+                    "'Range position' = (current - min)/(max - min)"
+                )
+                break
+    return violations
+
+
+# ── a multiple and the metric it is applied to must share a period ────────────────────────────────
+def eval_multiple_metric_basis(sidecar):
+    """Core of the within-case basis check. Returns None when nothing declares both, else violations.
+
+    A multiple lifted from an LTM band and applied to an NTM metric is not the figure its sentence
+    claims: BURL's bull took 28.51x, the MINIMUM of the P/LTM EPS band, and applied it to NTM EPS of
+    $13.00 — on the matched NTM band (min 20.70, median 28.44) that multiple sits at the 56th
+    percentile, not at the bottom of the range, and the memo then called it "the 28.51x NTM P/E".
+
+    HONEST SCOPE: this is PREVENTIVE, not retrospective. Every one of the 42 committed case-pairs
+    carrying both fields already agrees, and it would not have caught BURL either — BURL emitted no
+    sidecar, so there was nothing to read. It locks in behaviour that is currently correct.
+    """
+    if not isinstance(sidecar, dict):
+        return None
+    pairs = []
+    for case in (sidecar.get("scenarios") or []):
+        if not isinstance(case, dict):
+            continue
+        metric, multiple = case.get("metric_basis"), case.get("multiple_basis")
+        if metric and multiple:
+            pairs.append((case, metric, multiple))
+    if not pairs:
+        return None
+
+    violations = []
+    for case, metric, multiple in pairs:
+        metric_period = (case_basis(case) or (None, None))[0]
+        multiple_period = (normalise_metric_basis(multiple) or (None, None))[0]
+        if metric_period and multiple_period and metric_period != multiple_period:
+            violations.append(
+                f"{case.get('label') or '?'}: the multiple is measured on {multiple_period} "
+                f"({multiple!r}) and the metric on {metric_period} ({metric!r}) — a band minimum is only "
+                "the bottom of the range ON ITS OWN BASIS, and only the bare number travels downstream"
+            )
+    return violations
 
 
 def _weighted_cases(sidecar):
@@ -117,28 +278,27 @@ def _weighted_cases(sidecar):
     if not cases:
         return []
 
-    def label(case):
-        return str(case.get("label") or "").strip().lower()
-
-    # The AVOID-RUIN FLOOR IS NOT THE 12-MONTH BEAR. 07 §"Which case it becomes" makes the
-    # structural-reset the headline Bear ONLY when the moat trajectory is confirmed eroding; in every
-    # other firing it is carried to §24 / Kill Criteria as "the multi-year permanent-impairment
-    # scenario, NOT the 12-month bear". So where a run states a cyclical bear AND a structural one, the
-    # structural case is a floor outside the weighted set — counting it produced six "partial
-    # declaration" findings against runs that had followed the prompt exactly. Where it is the ONLY
-    # bear it IS the headline, and it counts.
-    structural = [c for c in cases if "structural" in label(c) or "avoid_ruin" in label(c) or "avoid-ruin" in label(c)]
-    other_bears = [c for c in cases if "bear" in label(c) and c not in structural]
-    floors = structural if (structural and other_bears) else []
-
-    out = []
-    for case in cases:
-        if str(case.get("set_membership") or "weighted").lower() == "sensitivity":
-            continue
-        if case in floors:
-            continue
-        out.append(case)
-    return out
+    # MEMBERSHIP IS DECLARED, NEVER GUESSED FROM THE LABEL. An earlier revision excluded a
+    # `bear_structural` case whenever a cyclical bear sat beside it, on the reading that 07
+    # §"Which case it becomes" carries the avoid-ruin floor to §24 rather than pricing it. The committed
+    # corpus says otherwise: in EVERY run that emits one — HAIER, ORCL, SMPL, UBER, TSLA, DHER — the
+    # master synthesizer gives the structural case a real probability inside the set that sums to 100%
+    # (ORCL: 20% at $31.44 against a $133.77 base, on an impaired-FCFF DCF, i.e. a different MEASURE
+    # from the NTM EBITDA the other three cases are priced on). Guessing it out of the set therefore
+    # blessed the exact BURL-class defect this check exists to catch, on five of the six runs that had
+    # one. So the ONLY thing that removes a case from the weighted set is the run saying so —
+    # `set_membership: "sensitivity"`, the field 99_valuation-synthesis emits for a case 07
+    # deliberately held outside the weighted aggregate.
+    #
+    # The six "partial declaration" findings this exclusion was added to silence were true findings:
+    # those structural cases really do carry weight and really do not declare a basis.
+    # Any of the OUT_OF_SET words removes a case; an UNRECOGNISED value does not. Honouring only the
+    # literal "sensitivity" meant "stress" or "excluded" silently re-entered the weighted set and
+    # hard-failed a compliant run. Treating anything non-"weighted" as excluded is the opposite and
+    # worse failure: a typo would quietly drop a real down-leg out of the probability-weighted set
+    # without anyone deciding to. So unrecognised stays IN and is reported.
+    return [case for case in cases
+            if str(case.get("set_membership") or "weighted").strip().lower() not in _OUT_OF_SET]
 
 
 def _cited(value) -> bool:
@@ -163,7 +323,7 @@ def eval_scenario_basis_coherence(sidecar):
     if len(cases) < 2:
         return None  # nothing to compare
 
-    normalised = [(case, normalise_metric_basis(case.get("metric_basis"))) for case in cases]
+    normalised = [(case, case_basis(case)) for case in cases]
     declared = [(case, norm) for case, norm in normalised if norm is not None]
     if not declared:
         return None  # wholly undeclared -> N/A here; presence is a separate, later gate
@@ -212,6 +372,95 @@ def eval_scenario_basis_coherence(sidecar):
     return violations
 
 
+# ── enforcement gate ──────────────────────────────────────────────────────────────────────────────
+# The rule is armed by DATE, not by merging this file. Two thirds of the committed corpus predates it —
+# 34 of 51 run folders emit no sidecar at all — and failing work whose authors were never told the rule
+# is enforcement by ambush. The established idiom in eval.py (AY_DATE, AZ_DATE, SECTOR_DATE) is a dated
+# forward gate, and this follows it exactly.
+#
+# DO NOT LET THIS DATE ARRIVE UNTIL A FROZEN-INPUT CANARY HAS PROVEN THE EMITTER ACTUALLY WRITES
+# `set_membership` AND `cross_metric_reconciliation` ON A REAL RUN. Those fields are introduced by a
+# prompt change, and a prompt change cannot be validated by replaying frozen artifacts — the artifacts
+# were produced by the old prompt. If the canary has not run, move the date; an armed gate against an
+# emitter that does not comply fails every new run for a reason the author cannot fix.
+# MOVED OUT from 2026-11-01. The date is not the hard part; the precondition is, and it was not met:
+# both sanctioned remedies — `set_membership` and `cross_metric_reconciliation` — plus the declared
+# `metric_period` / `metric_measure` fields live on a DIFFERENT branch stack and exist in no schema or
+# emitter this file can reach. Arming against unreachable escapes means the dominant corpus shape (a
+# `bear_structural` with no declared basis: six runs, seven of the nine current findings) fails with
+# nothing its author can write to fix it. That is not a gate, it is a trap.
+#
+# THE PRECONDITION, in order: the schema + emitter changes land, a frozen-input canary proves a real run
+# actually writes those fields, and only then does this date move into range. If the canary has not run,
+# move it again — an armed gate against a non-complying emitter fails every new run for a reason the
+# author cannot fix, which is how a gate gets switched off permanently instead of fixed.
+BF_ENFORCE_DATE = "2026-12-15"
+
+# SIDECAR PRESENCE ARMS SEPARATELY, AND IS CURRENTLY OFF. These are two different demands wearing one
+# date. "Your declared bases disagree" is a defect in work that was done; "you emitted no sidecar" is a
+# demand that a different artifact exist at all, and the engine does not reliably produce it today:
+#
+#     BURL 2026-09-29, V 2026-09-23, AKAM 2026-09-15, AKAM 2026-09-14, NU 2026-08-31
+#
+# — the five most recent full runs carrying scenarios, every one of which ran the whole valuation module
+# and emitted no valuation_summary.json. 99_valuation-synthesis calls emitting it a "(Hard Rule)" while
+# /research:full treats a missing sidecar as "N/A, never a violation", and the runs follow the latter.
+#
+# Arming presence against that record would red CI on the first new run and keep it red for every code
+# PR until someone noticed, which is how a gate gets switched off permanently instead of fixed. So it
+# stays None (never enforced) until emission is demonstrably reliable — the fix belongs in the emitter,
+# not in a date. Set it to a date only once consecutive real runs are observed to emit the sidecar.
+BF_SIDECAR_REQUIRED_DATE = None
+
+
+def _isdate(value) -> bool:
+    return isinstance(value, str) and len(value) == 10 and value[4] == "-" and value[7] == "-"
+
+
+def _presence_would_fail(decision_date, required_date):
+    """Exercise the presence branch without mutating the module constant — so the disabled path is
+    still covered by a test instead of being dead code nobody has run."""
+    return _isdate(required_date) and _isdate(decision_date) and decision_date >= required_date
+
+
+def eval_bf_basis_enforcement(decision_date, sidecar, violations):
+    """Core of the dated enforcement gate. Returns 'pass' | 'fail' | 'na'.
+
+    `violations` is eval_scenario_basis_coherence's result for this run (None = nothing to judge).
+
+    An UNDATED run is 'na'. That is deliberate and it is a known hole: a run carrying no decision_date
+    cannot be placed on either side of a forward gate, and guessing from the folder name would make the
+    gate depend on a filename convention rather than on the thesis's own stated date. It is reported by
+    the scan so the hole is visible rather than silent.
+    """
+    if not _isdate(decision_date) or decision_date < BF_ENFORCE_DATE:
+        return "na"
+    # VIOLATIONS ARE READ FIRST. A corrupt sidecar arrives here as sidecar=None WITH a parse-error
+    # violation in hand; checking presence first swallowed it and returned na, so an unreadable lever
+    # file was reported and never enforced — the one shape that most deserves to fail.
+    if violations:
+        return "fail"
+    if sidecar is None:
+        # The sidecar is the only artifact carrying per-case basis, so a run without one cannot be
+        # checked at all — which is exactly how the BURL run passed every gate it had. That remains
+        # true, and it is still not a reason to fail a run today: see BF_SIDECAR_REQUIRED_DATE.
+        if _isdate(BF_SIDECAR_REQUIRED_DATE) and decision_date >= BF_SIDECAR_REQUIRED_DATE:
+            return "fail"
+        return "na"
+    # A SET THAT DECLARES NOTHING IS NOT A CLEAN SET. eval_scenario_basis_coherence returns None when
+    # no weighted case declares a basis at all, which is right for reporting — there is nothing to
+    # compare — but passing the gate on it creates the worst possible incentive: delete every
+    # metric_basis and a hard failure becomes a pass. That is also BURL's own shape, which carried its
+    # bases in prose and emitted no sidecar at all. Past the gate, two or more weighted cases that
+    # declare nothing is a failure.
+    if violations is None:
+        weighted = _weighted_cases(sidecar)
+        if len(weighted) >= 2 and not any(case_basis(c) for c in weighted):
+            return "fail"
+        return "pass"
+    return "pass" if not violations else "fail"
+
+
 def scan_committed(root="."):
     """Replay every committed sidecar. Returns (checked, failures) where failures is [(run, [violations])].
 
@@ -221,23 +470,64 @@ def scan_committed(root="."):
     """
     import glob
 
-    checked, failures = 0, []
-    pattern = os.path.join(root, "analyses/*/valuation/valuation_summary.json")
-    for path in sorted(glob.glob(pattern)):
-        run = os.path.basename(os.path.dirname(os.path.dirname(path)))
+    # Walk the UNION of runs that have a decision_record OR a sidecar. A sidecar-only run is a real,
+    # normal state — a partial run the per-run loop skips — and check AP scans those deliberately for
+    # the same reason. Walking decision records alone silently dropped one (TSLA_2026-07-24), which is
+    # the quietest kind of coverage regression: the finding count falls and nothing says why.
+    run_dirs = {os.path.dirname(p) for p in glob.glob(os.path.join(root, "analyses/*/decision_record.json"))}
+    run_dirs |= {os.path.dirname(os.path.dirname(p))
+                 for p in glob.glob(os.path.join(root, "analyses/*/valuation/valuation_summary.json"))}
+
+    checked, failures, enforced = 0, [], []
+    for run_dir in sorted(run_dirs):
+        run = os.path.basename(run_dir)
+        dr_path = os.path.join(run_dir, "decision_record.json")
         try:
-            sidecar = json.load(open(path, encoding="utf-8"))
-        except Exception as exc:
-            failures.append((run, [f"could not parse valuation_summary.json: {exc}"]))
-            checked += 1
-            continue
-        violations = eval_scenario_basis_coherence(sidecar)
-        if violations is None:
-            continue  # N/A — not counted as checked
-        checked += 1
+            decision = json.load(open(dr_path, encoding="utf-8")) if os.path.exists(dr_path) else {}
+        except Exception:
+            decision = {}
+        decision_date = decision.get("decision_date")
+
+        sc_path = os.path.join(run_dir, "valuation", "valuation_summary.json")
+        sidecar, parse_error = None, None
+        if os.path.exists(sc_path):
+            try:
+                sidecar = json.load(open(sc_path, encoding="utf-8"))
+            except Exception as exc:
+                parse_error = f"could not parse valuation_summary.json: {exc}"
+
+        violations = None if parse_error else eval_scenario_basis_coherence(sidecar)
+        if parse_error:
+            violations = [parse_error]
+
+        # The within-case multiple/metric comparison rides on the same sidecar.
+        within = None if parse_error else eval_multiple_metric_basis(sidecar)
+        if within:
+            violations = (violations or []) + within
+
+        # The statistic-label check reads 02's MARKDOWN, not the sidecar — which is why it is the only
+        # check here that can see a run like BURL, whose bases lived in prose and which emitted no
+        # sidecar at all.
+        md_path = os.path.join(run_dir, "valuation", "02_multiples-own-history.md")
+        if os.path.exists(md_path):
+            try:
+                label_viol = eval_statistic_label(open(md_path, encoding="utf-8").read())
+            except Exception:
+                label_viol = None
+            if label_viol:
+                violations = (violations or []) + label_viol
+
         if violations:
+            checked += 1
             failures.append((run, violations))
-    return checked, failures
+        elif violations is not None:
+            checked += 1
+
+        verdict = eval_bf_basis_enforcement(decision_date, sidecar, violations)
+        if verdict == "fail":
+            why = violations or [f"no valuation_summary.json — required for runs dated on/after {BF_ENFORCE_DATE}"]
+            enforced.append((run, why))
+    return checked, failures, enforced
 
 
 def _selftest() -> int:
@@ -286,14 +576,29 @@ def _selftest() -> int:
     check("a prior-trough margin cited as a COMPARISON is not a period mismatch",
           not any("PERIOD" in v for v in eval_scenario_basis_coherence(indiamart)))
 
-    # REGRESSION — the avoid-ruin floor is not the 12-month bear (07 "Which case it becomes").
+    # REGRESSION — membership is DECLARED, never guessed from the label. The ORCL shape: a
+    # `bear_structural` case that the committed decision_record weights at 20% on an impaired-FCFF DCF
+    # while the other three cases are priced on NTM EBITDA. Excluding it by label reported this set as
+    # clean, which is the BURL defect wearing a different label.
+    orcl = {"scenarios": [
+        {"label": "bull", "metric_basis": "NTM (FY2027) EBITDA"},
+        {"label": "base", "metric_basis": "NTM (FY2027) consensus EBITDA"},
+        {"label": "bear_cyclical", "metric_basis": "NTM (FY2027) EBITDA, pullback"},
+        {"label": "bear_structural", "metric_basis":
+            "24-36 month structural reset — declining-perpetuity (impaired FCFF) DCF"}]}
+    out_o = eval_scenario_basis_coherence(orcl)
+    check("a weighted structural case on another MEASURE is caught", any("MEASURE" in v for v in out_o))
     floor = {"scenarios": [
         {"label": "bull", "metric_basis": "NTM EBITDA"},
         {"label": "base", "metric_basis": "NTM EBITDA"},
         {"label": "bear_cyclical", "metric_basis": "NTM EBITDA"},
         {"label": "bear_structural"}]}
-    check("a structural floor beside a cyclical bear is excluded from the weighted set",
-          eval_scenario_basis_coherence(floor) == [])
+    check("an UNdeclared structural floor is still part of the set it was emitted into",
+          any("missing on" in v for v in eval_scenario_basis_coherence(floor)))
+    declared_floor = dict(floor, scenarios=floor["scenarios"][:3] + [
+        {"label": "bear_structural", "set_membership": "sensitivity"}])
+    check("a structural floor DECLARED as a sensitivity is excluded",
+          eval_scenario_basis_coherence(declared_floor) == [])
     lone = {"scenarios": [
         {"label": "bull", "metric_basis": "NTM EBITDA"},
         {"label": "base", "metric_basis": "NTM EBITDA"},
@@ -310,6 +615,9 @@ def _selftest() -> int:
     check("mid-cycle is first-class", normalise_metric_basis("mid-cycle EBITDA")[0] == "mid_cycle")
     check("FY keeps its year", normalise_metric_basis("FY27E EBITDA")[0] == "FY27")
     check("FY27 == FY2027", normalise_metric_basis("FY27E EPS") == normalise_metric_basis("FY2027E EPS"))
+    # REGRESSION — the year comes from the token that won on position, not from anywhere in the string.
+    check("the year is read from the winning period token",
+          normalise_metric_basis("CY26 normalized EBITDA rolled to FY2029E")[0] == "FY29")
     check("blank is undeclared", normalise_metric_basis("   ") is None)
     check("non-string is undeclared", normalise_metric_basis(None) is None)
 
@@ -344,6 +652,121 @@ def _selftest() -> int:
     check("partial declaration is reported", any("missing on" in v for v in out))
     check("partial declaration is NOT a period mismatch", not any("PERIOD" in v for v in out))
 
+    # ---- declared basis beats parsed prose ----
+    check("a declared period wins over the prose",
+          case_basis({"metric_period": "FY2026", "metric_basis": "FY2021-trough margin"})[0] == "FY26")
+    check("a declared measure wins over the prose",
+          case_basis({"metric_measure": "EBITDA", "metric_basis": "NTM EPS"})[1] == "EBITDA")
+    check("declared tokens normalise (FY2027 == FY27)",
+          case_basis({"metric_period": "FY2027"}) [0] == case_basis({"metric_period": "FY27"})[0])
+    check("a half-declared case fills the rest from prose",
+          case_basis({"metric_period": "NTM", "metric_basis": "something EBITDA-ish"}) == ("NTM", "EBITDA"))
+    check("no declaration falls back to the prose entirely",
+          case_basis({"metric_basis": "NTM EPS"}) == ("NTM", "EPS"))
+    check("nothing declared and no prose is still undeclared",
+          case_basis({"label": "bear"}) is None)
+    check("an unrecognised declared token is kept, not dropped",
+          case_basis({"metric_measure": "embedded_value"})[1] == "embedded_value")
+
+    # THE REGRESSION THIS FIELD EXISTS FOR: the re-based bear that the prose parser misread.
+    haier_declared = {"scenarios": [
+        {"label": "bull", "metric_period": "FY2026", "metric_measure": "EBITDA",
+         "metric_basis": "FY2026E EBITDA (consensus base + bull uplifts)"},
+        {"label": "base", "metric_period": "FY2026", "metric_measure": "EBITDA",
+         "metric_basis": "FY2026E consensus EBITDA"},
+        {"label": "bear_cyclical", "metric_period": "FY2026", "metric_measure": "EBITDA",
+         "metric_basis": "FY2026E EBITDA at FY2021-trough margin applied to FY2026E consensus revenue"}]}
+    check("a declared FY26 bear is clean even though its prose says trough",
+          eval_scenario_basis_coherence(haier_declared) == [])
+    burl_declared = {"scenarios": [
+        {"label": "Bull", "metric_period": "NTM", "metric_measure": "EPS", "metric_basis": "NTM EPS $13.00"},
+        {"label": "Base", "metric_period": "NTM", "metric_measure": "EPS", "metric_basis": "NTM EPS $12.06"},
+        {"label": "Bear", "metric_period": "trough", "metric_measure": "EPS",
+         "metric_basis": "FY2022 diluted GAAP trough EPS $3.49"}]}
+    check("a declared trough bear against a declared NTM base still fires",
+          any("PERIOD" in v for v in eval_scenario_basis_coherence(burl_declared)))
+
+    # ---- the dated enforcement gate ----
+    # Derived from the constant, never hardcoded: moving BF_ENFORCE_DATE is a routine, expected act
+    # (it has already moved once), and a test that pins a literal date turns every such move into a
+    # false failure — which is exactly what happened the first time it moved.
+    _after = str(int(BF_ENFORCE_DATE[:4]) + 1) + BF_ENFORCE_DATE[4:]
+    _before = str(int(BF_ENFORCE_DATE[:4]) - 1) + BF_ENFORCE_DATE[4:]
+    v_none, v_ok, v_bad = None, [], ["something"]
+    sc = {"scenarios": []}
+    check("a run before the gate is never enforced",
+          eval_bf_basis_enforcement(_before, sc, v_bad) == "na")
+    check("an UNDATED run is na, not a silent pass",
+          eval_bf_basis_enforcement(None, sc, v_bad) == "na")
+    check("a malformed date is na",
+          eval_bf_basis_enforcement("Oct 2026", sc, v_bad) == "na")
+    check("past the gate, findings fail",
+          eval_bf_basis_enforcement(_after, sc, v_bad) == "fail")
+    check("past the gate, a clean run passes",
+          eval_bf_basis_enforcement(_after, sc, v_ok) == "pass")
+    check("past the gate, nothing-to-judge passes",
+          eval_bf_basis_enforcement(_after, sc, v_none) == "pass")
+    # Presence is a SEPARATE demand on a separate gate, currently disabled — the five most recent full
+    # runs emit no sidecar, so arming it would red CI on the first new run.
+    check("a missing sidecar does NOT fail while presence is disabled",
+          BF_SIDECAR_REQUIRED_DATE is None
+          and eval_bf_basis_enforcement(_after, None, v_none) == "na")
+    check("before the gate, a missing sidecar is na",
+          eval_bf_basis_enforcement(_before, None, v_none) == "na")
+    check("presence failing is reachable once its own date is set",
+          _presence_would_fail(_after, "2026-11-15"))
+    check("the gate date is in the future relative to the corpus",
+          BF_ENFORCE_DATE > "2026-10-01")
+
+    # ---- statistic label (02's markdown) ----
+    check("the prescribed legacy header is caught",
+          len(eval_statistic_label("| Multiple | Min | Max | Current | Percentile of Range |")) == 1)
+    check("the corrected headers pass",
+          eval_statistic_label("| Multiple | Rank percentile | Range position |") == [])
+    check("'percentile' alone is fine", eval_statistic_label("| Multiple | Rank percentile |") == [])
+    check("'range' alone is fine", eval_statistic_label("| Multiple | Range position |") == [])
+    check("a conflation in the other word order is caught",
+          len(eval_statistic_label("| Range as a percentile |")) == 1)
+    check("prose outside a table is not a column label",
+          eval_statistic_label("The rank percentile and the range position differ.") == [])
+    check("empty input is nothing to judge", eval_statistic_label("") is None)
+
+    # ---- multiple vs metric, within one case ----
+    check("an LTM multiple on an NTM metric is caught (the BURL bull)",
+          len(eval_multiple_metric_basis({"scenarios": [
+              {"label": "bull", "metric_basis": "NTM EPS $13.00",
+               "multiple_basis": "P/LTM EPS band minimum 28.51x"}]})) == 1)
+    check("a matched pair passes",
+          eval_multiple_metric_basis({"scenarios": [
+              {"label": "bull", "metric_basis": "NTM EPS", "multiple_basis": "EV/NTM EBITDA"}]}) == [])
+    check("a declared metric_period still wins here too",
+          eval_multiple_metric_basis({"scenarios": [
+              {"label": "bull", "metric_period": "NTM", "metric_basis": "prose saying trough",
+               "multiple_basis": "P/NTM EPS"}]}) == [])
+    check("no multiple_basis is nothing to judge",
+          eval_multiple_metric_basis({"scenarios": [{"label": "b", "metric_basis": "NTM EPS"}]}) is None)
+    check("an unparseable multiple period is skipped, not guessed",
+          eval_multiple_metric_basis({"scenarios": [
+              {"label": "b", "metric_basis": "NTM EPS", "multiple_basis": "a blended multiple"}]}) == [])
+
+    # ---- review round 3 regressions ----
+    check("[5] measure reads by position, not pattern order",
+          normalise_metric_basis("FY27E Revenue at the FY21-trough EBIT margin")[1] == "REVENUE")
+    check("[7] a bare year is a fiscal year",
+          normalise_metric_basis("2026")[0] == normalise_metric_basis("FY2026")[0] == "FY26")
+    check("[8] 'stress' and 'excluded' leave the weighted set",
+          eval_scenario_basis_coherence({"scenarios": [ntm("bull"), ntm("base"),
+              {"label": "x", "metric_basis": "FY2022 trough EPS", "set_membership": "stress"}]}) == [])
+    check("[8] an UNRECOGNISED membership keeps the case IN (a typo must not drop a down-leg)",
+          eval_scenario_basis_coherence({"scenarios": [ntm("bull"), ntm("base"),
+              {"label": "x", "metric_basis": "FY2022 trough EPS", "set_membership": "weighed"}]}) != [])
+    check("[3] a corrupt sidecar FAILS rather than reporting and passing",
+          eval_bf_basis_enforcement(_after, None, ["could not parse valuation_summary.json"]) == "fail")
+    check("[4] deleting every metric_basis does not convert a fail into a pass",
+          eval_bf_basis_enforcement(_after, {"scenarios": [{"label": "a"}, {"label": "b"}]}, None) == "fail")
+    check("[4] but a single case with nothing to compare still passes",
+          eval_bf_basis_enforcement(_after, {"scenarios": [{"label": "a"}]}, None) == "pass")
+
     # A sensitivity case is excluded from the weighted set.
     sens = {"scenarios": [ntm("Bull"), ntm("Base"),
                           {"label": "Stress", "metric_basis": "FY2022 GAAP trough EPS",
@@ -358,10 +781,21 @@ if __name__ == "__main__":
 
     if len(sys.argv) > 1 and sys.argv[1] == "selftest":
         sys.exit(1 if _selftest() else 0)
-    checked, failures = scan_committed(sys.argv[1] if len(sys.argv) > 1 else ".")
-    print(f"checked {checked} sidecars with a declared basis; {len(failures)} with findings\n")
+    checked, failures, enforced = scan_committed(sys.argv[1] if len(sys.argv) > 1 else ".")
+    print(f"checked {checked} run(s) with a judgeable basis; {len(failures)} with findings; "
+          f"{len(enforced)} past the {BF_ENFORCE_DATE} gate\n")
+    # Print the UNION. A run past the gate with NO sidecar is enforced without ever appearing in
+    # `failures` (there was nothing to judge), so iterating failures alone exits 1 against a count line
+    # and no explanation — the author is told the gate fired and not which run or why.
+    enforced_by_run = dict(enforced)
     for run, violations in failures:
-        print(f"  {run}")
+        print(f"  {run}{'   [ENFORCED]' if run in enforced_by_run else ''}")
         for v in violations:
             print(f"      - {v}")
-    sys.exit(0)
+    for run, why in enforced:
+        if any(run == r for r, _ in failures):
+            continue
+        print(f"  {run}   [ENFORCED]")
+        for v in why:
+            print(f"      - {v}")
+    sys.exit(1 if enforced else 0)

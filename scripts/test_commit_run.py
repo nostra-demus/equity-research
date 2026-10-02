@@ -155,6 +155,8 @@ def write_text(repo, relative_path, body):
 # repository commits all of it, exactly as the real checkout carries it.
 CATALOGUE_FIXTURE_PATHS = [
     "scripts/validate_data_catalogue.py", "scripts/decision_publication_gate.py",
+    "scripts/corrections_prewrite_gate.py", "scripts/supersession_integrity_checks.py",
+    "scripts/ledger_records.py", "scripts/execution_provenance.py",
     "frameworks/memory/phase0/catalogue.json",
 ]
 
@@ -163,7 +165,14 @@ def install_catalogue_fixture(repo, patterns=None):
     """Install the real validators with a small committed catalogue for isolated Git fixtures."""
     scripts = os.path.join(repo, "scripts")
     os.makedirs(scripts, exist_ok=True)
-    for name in ("validate_data_catalogue.py", "decision_publication_gate.py"):
+    # corrections_prewrite_gate.py runs on EVERY commit-run.sh commit (unconditionally, like
+    # decision_publication_gate.py above it) — it, and its own imports (supersession_integrity_checks,
+    # which imports ledger_records, which imports execution_provenance), must be present in every
+    # sandbox fixture or the very first commit in ANY test using this fixture fails with a plain
+    # "can't find corrections_prewrite_gate.py", unrelated to whatever that test is checking.
+    for name in ("validate_data_catalogue.py", "decision_publication_gate.py",
+                 "corrections_prewrite_gate.py", "supersession_integrity_checks.py",
+                 "ledger_records.py", "execution_provenance.py"):
         shutil.copy2(os.path.join(REPO_ROOT, "scripts", name), os.path.join(scripts, name))
     write_json(repo, "frameworks/memory/phase0/catalogue.json", {
         "catalogue_version": "memory-current-state-catalogue/v1",
@@ -1248,6 +1257,10 @@ def test_decision_gate_selects_exactly_what_the_former_inline_rule_selected():
 #   pre-seal           deterministic for the sealed bytes, and the supervisor asks the SAME script before
 #                      it seals, so the live run fails visibly and no receipt is written.
 #   mixed              several causes behind one message; see the note beside it.
+#   never-sealed       unreachable by ANY sealed receipt for a reason stronger than not-snapshot-mode: the
+#                      staged path this site judges (analyses/<RUN>/corrections.json) is never produced by
+#                      the cockpit's sealed-publication path at all — no ui/server code writes one, so no
+#                      manifest a supervisor seals can ever name it, in snapshot mode or otherwise.
 EXIT_5_SITES = {
     "a cockpit child cannot retry a supervisor publication": (1, "child-request"),
     # Two sites share this message: the missing-capability refusal and the helper-directory `|| exit 5`.
@@ -1286,6 +1299,14 @@ EXIT_5_SITES = {
     # is not asked first: the gate mirrors commit-run.sh's own `hash-object` (filters on) so that "differs
     # from HEAD" agrees with it. Neither setting is configured and no .gitattributes is tracked.
     "committed tree disagrees with protected supervisor snapshot": (1, "environmental"),
+    # DECISION_LEDGER.md §4a supersession-integrity prewrite gate (scripts/corrections_prewrite_gate.py).
+    # All five sites judge analyses/<RUN>/corrections.json, which is never a cockpit-sealed artifact — see
+    # the "never-sealed" category note above.
+    "cannot select staged correction sidecars": (1, "never-sealed"),
+    "staged correction sidecar is not a regular file": (1, "never-sealed"),
+    "cannot read staged correction sidecar": (1, "never-sealed"),
+    "§4a supersession-integrity prewrite rejected staged correction sidecar": (1, "never-sealed"),
+    "cannot read selected correction sidecars": (1, "never-sealed"),
 }
 
 
@@ -1434,6 +1455,101 @@ def test_commit_run_refuses_when_the_selected_list_cannot_be_read():
               f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
         check("that refusal unstages its paths and removes its workspace",
               cached.returncode == 0 and os.listdir(workspace_parent) == [], repr(os.listdir(workspace_parent)))
+
+
+def test_invalid_correction_sidecar_is_rejected_before_commit():
+    """DECISION_LEDGER.md §4a: a corrections.json declaring `superseded_by` a run that does not exist
+    must be refused before it can silently drop a live call from the standing set."""
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-corrections-invalid-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        relative = "analyses/EMAAR_2026-07-03/corrections.json"
+        write_json(agent, relative, {
+            "schema": "corrections/v1",
+            "superseded_by": {"run_root": "analyses/EMAAR_2099-01-01", "reason": "test", "date": "2026-07-17"},
+        })
+        before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        result = run(["bash", COMMIT_RUN, "test: reject invalid correction", "--", relative],
+                     cwd=agent, env=no_push_env(env), check_rc=False)
+        after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
+        check("a dangling superseded_by target exits 5 before commit",
+              result.returncode == 5 and before == after,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        check("the refusal names the §4a supersession-integrity gate and the dangling target",
+              "supersession-integrity prewrite rejected staged correction sidecar" in result.stderr
+              and "does not exist" in result.stderr,
+              result.stderr)
+        check("rejected correction sidecar is unstaged for the next autonomous run", cached.returncode == 0)
+
+
+def test_valid_correction_sidecar_commits():
+    """A superseded_by claim pointing at a real, complete, later, same-ticker replacement commits —
+    the positive control proving the gate does not just refuse everything."""
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-corrections-valid-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        source_run, target_run = "analyses/TICK_2026-06-01", "analyses/TICK_2026-06-02"
+        write_json(agent, f"{source_run}/decision_record.json",
+                   {"ticker": "TICK", "decision_date": "2026-06-01", "confidence_score": 40})
+        write_json(agent, f"{target_run}/decision_record.json", {
+            "ticker": "TICK", "decision_date": "2026-06-02", "confidence_score": 55,
+            "run_root": target_run, "final_thesis_path": f"{target_run}/final_thesis.md",
+        })
+        for name in ("final_thesis.md", "memo.md", "audit_dossier.md"):
+            write_text(agent, f"{target_run}/{name}", "x" * 1100)
+        run(["git", "add", source_run, target_run], cwd=agent, env=env)
+        run(["git", "commit", "-q", "-m", "fixture: source + replacement runs"], cwd=agent, env=env)
+
+        relative = f"{source_run}/corrections.json"
+        write_json(agent, relative, {
+            "schema": "corrections/v1",
+            "superseded_by": {"run_root": target_run, "reason": "test correction", "date": "2026-06-02"},
+        })
+        result = run(["bash", COMMIT_RUN, "test: valid correction", "--", relative],
+                     cwd=agent, env=no_push_env(env), check_rc=False)
+        check("a validated supersession chain commits",
+              result.returncode == 0 and "COMMIT_SHA=" in result.stdout,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        committed = run(["git", "show", f"HEAD:{relative}"], cwd=agent, env=env).stdout
+        check("the committed sidecar is exactly what was staged",
+              json.loads(committed)["superseded_by"]["run_root"] == target_run, committed)
+
+
+def test_corrections_gate_passes_through_sidecars_with_no_supersession_claim():
+    """A corrections.json carrying only errata/metadata_recovery (no superseded_by), or the wrong
+    schema, is not this gate's concern — CLAUDE.md §2/§28: it must not widen what gets refused."""
+    for name, body in [
+        ("errata-only", {"schema": "corrections/v1", "errata": [
+            {"field": "downside_risk_pct", "kind": "sign_fix", "reason": "x", "evidence": "y"}]}),
+        ("wrong-schema", {"schema": "other/v9", "superseded_by": {"run_root": "analyses/NOPE_2099-01-01"}}),
+    ]:
+        with tempfile.TemporaryDirectory(prefix="commit-run-test-corrections-passthrough-") as tmp:
+            _, agent, env = setup_stale_local_main_scenario(tmp)
+            relative = "analyses/FRESH_2026-06-01/corrections.json"
+            write_json(agent, relative, body)
+            result = run(["bash", COMMIT_RUN, f"test: {name}", "--", relative],
+                         cwd=agent, env=no_push_env(env), check_rc=False)
+            check(f"{name} sidecar carries no checkable supersession claim and commits",
+                  result.returncode == 0 and "COMMIT_SHA=" in result.stdout,
+                  f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+
+
+def test_commit_run_refuses_when_the_corrections_gate_script_cannot_run():
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-corrections-gate-missing-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        relative = "analyses/NOGATE_2026-06-01/corrections.json"
+        write_json(agent, relative, {"schema": "corrections/v1",
+                                     "superseded_by": {"run_root": "analyses/NOPE_2099-01-01"}})
+        os.remove(os.path.join(agent, "scripts", "corrections_prewrite_gate.py"))
+        before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        result = run(["bash", COMMIT_RUN, "test: no corrections gate", "--", relative],
+                     cwd=agent, env=no_push_env(env), check_rc=False)
+        after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
+        check("a checkout whose corrections gate script cannot run commits nothing",
+              result.returncode == 5 and before == after
+              and "cannot select staged correction sidecars" in result.stderr,
+              f"rc={result.returncode} stderr={result.stderr!r}")
+        check("that refusal unstages its paths", cached.returncode == 0)
 
 
 def make_protected_snapshot(tmp, name, files):
@@ -1630,6 +1746,10 @@ if __name__ == "__main__":
     test_decision_gate_workspace_is_removed_whether_a_record_passes_or_fails()
     test_commit_run_refuses_when_the_gate_script_cannot_run()
     test_commit_run_refuses_when_the_selected_list_cannot_be_read()
+    test_invalid_correction_sidecar_is_rejected_before_commit()
+    test_valid_correction_sidecar_commits()
+    test_corrections_gate_passes_through_sidecars_with_no_supersession_claim()
+    test_commit_run_refuses_when_the_corrections_gate_script_cannot_run()
     test_every_exit_5_has_a_decision_about_sealed_receipts()
     test_preseal_decision_gate_reaches_commit_runs_verdict_on_the_same_frozen_bytes()
     test_preseal_decision_gate_fails_closed()
