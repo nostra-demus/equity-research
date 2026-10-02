@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T20:46:27Z",
+  "generated_at": "2026-10-02T20:46:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1260",
@@ -152411,6 +152411,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7c6921220f81",
+      "idea_version": "IDEAV-c76981339b64fa21",
+      "idea_version_started_at": "2026-10-02T20:46:43Z",
+      "ticker": "AVGO",
+      "company": "Broadcom",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is securing $60 billion in financing for an AI chip deal, which validates its aggressive expansion strategy in the high-growth AI infrastructure market.",
+      "why_now": "The financing news was reported on 2026-10-02.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e4b0d14ab0eb"
+      ],
+      "primary_source_event_id": "EVT-e4b0d14ab0eb",
+      "source_headlines": [
+        "Blackstone, Banks Gather $60 Billon for Broadcom AI Chip Deal"
+      ],
+      "source_headline": "Blackstone, Banks Gather $60 Billon for Broadcom AI Chip Deal",
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-02/blackstone-banks-gather-60b-for-broadcom-ai-chip-deal-video",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T13:44:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-02T20:46:43Z",
+      "updated_at": "2026-10-02T20:46:43Z",
+      "decay_at": "2026-10-04T01:44:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-205d9d4ce667",
       "idea_version": "IDEAV-b18cf34bc2da95d4",
       "idea_version_started_at": "2026-10-02T00:48:43Z",
@@ -192890,8 +192960,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1204,
-    "live_count": 14,
+    "surfaced_total": 1205,
+    "live_count": 15,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
