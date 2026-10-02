@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T09:10:11Z",
+  "generated_at": "2026-10-02T09:17:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-839",
@@ -500,6 +500,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-859",
+      "headline": "IG shares plunge as it slashes revenue forecast",
+      "headline_en": null,
+      "url": "https://www.cityam.com/ig-shares-plunge-as-it-slashes-revenue-forecast/",
+      "source_name": "City A.M.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T08:25:12Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "IG Group slashed its revenue forecast, indicating a material miss in financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IG Group slashed its revenue forecast, indicating a material miss in financial expectations.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IG Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-840",
       "headline": "Warenhäuser: Galeria beantragt zum vierten Mal Insolvenz",
       "headline_en": "Department stores: Galeria files for insolvency for the fourth time.",
@@ -541,6 +591,55 @@
           "name": "Galeria",
           "ticker": null,
           "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-878",
+      "headline": "Autoindustrie: Volvo streicht Prognose – Aktie gibt deutlich nach",
+      "headline_en": "Auto industry: Volvo cuts forecast – stock falls significantly",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/autoindustrie-volvo-streicht-prognose-aktie-gibt-deutlich-nach/100259247.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T07:58:55Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Volvo Cars cut its financial guidance, leading to a significant share price decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Volvo Cars cut its financial guidance, leading to a significant share price decline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volvo Cars",
+          "ticker": null,
+          "listing_country": "SE"
         }
       ],
       "size_bucket": "large",
@@ -1919,105 +2018,6 @@
           "name": "Adani Ports",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-795",
-      "headline": "Micron's AI-fueled revenue forecast blows past estimates, backlog swells",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/micron-forecasts-quarterly-revenue-above-estimates-2026-09-30/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T08:09:10Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Micron reported revenue guidance that exceeded analyst estimates driven by AI demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Micron reported revenue guidance that exceeded analyst estimates driven by AI demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Micron Technology",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-812",
-      "headline": "Boots closing on £7 billion sale to Canada’s Weston family – reports",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/boots-canada-associated-british-foods-selfridges-b3059524.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T08:00:31Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Boots is nearing a £7 billion sale to the Weston family.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Boots is nearing a £7 billion sale to the Weston family.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boots",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -194479,9 +194479,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 879636,
-    "news_picked_today": 1600,
-    "news_dropped_today": 6056
+    "news_seen_today": 890043,
+    "news_picked_today": 1628,
+    "news_dropped_today": 6148
   },
   "book_momentum": {
     "live_count": 8,
