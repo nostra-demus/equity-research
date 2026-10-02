@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T08:49:03Z",
+  "generated_at": "2026-10-02T08:55:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-839",
@@ -541,6 +541,55 @@
           "name": "Galeria",
           "ticker": null,
           "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-858",
+      "headline": "Shares in spreadbetter IG Group plunge 26%",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/c7f6d036-abd4-4d8c-a6c8-6dad96cf9fae?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T07:34:07Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "IG Group shares plunged 26%, indicating a major negative surprise or market reaction to company performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IG Group shares plunged 26%, indicating a major negative surprise or market reaction to company performance.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IG Group",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -1953,55 +2002,6 @@
         "size": 2,
         "recency": 1,
         "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boots",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-813",
-      "headline": "Boots closing on £7 billion sale to Canada’s Weston family – reports",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/business-news/boots-canada-the-wall-street-journal-associated-british-foods-b1299101.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T08:00:31Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Boots is reportedly nearing a £7 billion sale to the Weston family.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Boots is reportedly nearing a £7 billion sale to the Weston family.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
@@ -194481,9 +194481,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 863098,
-    "news_picked_today": 1564,
-    "news_dropped_today": 5804
+    "news_seen_today": 868774,
+    "news_picked_today": 1587,
+    "news_dropped_today": 5877
   },
   "book_momentum": {
     "live_count": 8,
