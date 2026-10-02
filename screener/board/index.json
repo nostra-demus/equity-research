@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T04:22:44Z",
+  "generated_at": "2026-10-02T04:27:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -1062,6 +1062,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-497",
+      "headline": "CPP Investments selling Australian toll road assets for $4.5-billion",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-cpp-investments-selling-australian-toll-road-assets-for-45-billion/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T13:08:28Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "CPP Investments is divesting Australian toll road assets for $4.5-billion, a significant capital recycling event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CPP Investments is divesting Australian toll road assets for $4.5-billion, a significant capital recycling event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CPP Investments",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-206",
       "headline": "RSOLEC seeks to invest Rs 5,000 crore in Tumakuru for solar ingot plant: M B Patil",
       "headline_en": null,
@@ -1962,56 +2011,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-367",
-      "headline": "Boeing averts strike as engineers ratify deal: 32% pay hike over 4 years, 10% immediate raise | What the contract offers",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/boeing-averts-strike-as-engineers-ratify-deal-32-pay-hike-over-4-years-10-immediate-raise-what-the-contract-offers-11790904955036.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T02:13:32Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Boeing engineers ratify strike settlement: 32% pay hike over 4 years, 10% immediate—resolves operational risk and supply-chain disruption but materially increases labor costs and near-term margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Boeing engineers ratify strike settlement: 32% pay hike over 4 years, 10% immediate—resolves operational risk and supply-chain disruption but materially increases labor costs and near-term margins.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": "BA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194620,9 +194619,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 482024,
-    "news_picked_today": 776,
-    "news_dropped_today": 2896
+    "news_seen_today": 498446,
+    "news_picked_today": 787,
+    "news_dropped_today": 2909
   },
   "book_momentum": {
     "live_count": 8,
