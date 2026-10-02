@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T14:01:37Z",
+  "generated_at": "2026-10-02T14:05:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1011",
@@ -153458,78 +153458,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f1c4b0c2b232",
-      "idea_version": "IDEAV-f68fab5b7814e967",
-      "idea_version_started_at": "2026-10-01T06:46:42Z",
-      "ticker": "034020",
-      "company": "Doosan Enerbility",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured an 840 billion won plant construction contract in Vietnam, which will directly bolster its order backlog and future revenue recognition.",
-      "why_now": "The contract win was announced on 2026-10-01, providing an immediate catalyst for earnings visibility.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6db711b0a3e3"
-      ],
-      "primary_source_event_id": "EVT-6db711b0a3e3",
-      "source_headlines": [
-        "Doosan Enerbility-led consortium wins 840 bln-won plant deal in Vietnam"
-      ],
-      "source_headline": "Doosan Enerbility-led consortium wins 840 bln-won plant deal in Vietnam",
-      "source_url": "https://en.yna.co.kr/view/AEN20261001004400320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-01T02:05:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T06:46:42Z",
-      "updated_at": "2026-10-01T06:46:42Z",
-      "decay_at": "2026-10-02T14:05:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1398b6438111",
       "idea_version": "IDEAV-34f2df35fedabf49",
       "idea_version_started_at": "2026-10-01T11:02:09Z",
@@ -154365,6 +154293,78 @@
       "surfaced_at": "2026-09-30T16:19:46Z",
       "updated_at": "2026-09-30T16:19:46Z",
       "decay_at": "2026-10-02T01:53:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f1c4b0c2b232",
+      "idea_version": "IDEAV-f68fab5b7814e967",
+      "idea_version_started_at": "2026-10-01T06:46:42Z",
+      "ticker": "034020",
+      "company": "Doosan Enerbility",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured an 840 billion won plant construction contract in Vietnam, which will directly bolster its order backlog and future revenue recognition.",
+      "why_now": "The contract win was announced on 2026-10-01, providing an immediate catalyst for earnings visibility.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6db711b0a3e3"
+      ],
+      "primary_source_event_id": "EVT-6db711b0a3e3",
+      "source_headlines": [
+        "Doosan Enerbility-led consortium wins 840 bln-won plant deal in Vietnam"
+      ],
+      "source_headline": "Doosan Enerbility-led consortium wins 840 bln-won plant deal in Vietnam",
+      "source_url": "https://en.yna.co.kr/view/AEN20261001004400320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T02:05:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T06:46:42Z",
+      "updated_at": "2026-10-01T06:46:42Z",
+      "decay_at": "2026-10-02T14:05:25Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -156031,14 +156031,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 500,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
-        "total_count": 274,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 24
+        "hidden_count": 25
       },
       "short": {
         "total_count": 260,
@@ -156062,6 +156062,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f1c4b0c2b232",
+        "idea_version": "IDEAV-f68fab5b7814e967",
+        "idea_version_started_at": "2026-10-01T06:46:42Z",
+        "ticker": "034020",
+        "company": "Doosan Enerbility",
+        "exchange": "KRX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured an 840 billion won plant construction contract in Vietnam, which will directly bolster its order backlog and future revenue recognition.",
+        "why_now": "The contract win was announced on 2026-10-01, providing an immediate catalyst for earnings visibility.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6db711b0a3e3"
+        ],
+        "primary_source_event_id": "EVT-6db711b0a3e3",
+        "source_headlines": [
+          "Doosan Enerbility-led consortium wins 840 bln-won plant deal in Vietnam"
+        ],
+        "source_headline": "Doosan Enerbility-led consortium wins 840 bln-won plant deal in Vietnam",
+        "source_url": "https://en.yna.co.kr/view/AEN20261001004400320",
+        "source_name": "Yonhap News Agency — All News (English)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-01T02:05:25Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-01T06:46:42Z",
+        "updated_at": "2026-10-01T06:46:42Z",
+        "decay_at": "2026-10-02T14:05:25Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-02T14:05:25Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-34170708f0d3",
         "idea_version": "IDEAV-aafe136e0e936c3e",
@@ -185388,82 +185463,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5d67b73b9c3c",
-        "idea_version": "IDEAV-37e5f2dc0ad5fd58",
-        "idea_version_started_at": "2026-09-14T06:46:25Z",
-        "ticker": "SYS1",
-        "company": "System1 Group",
-        "exchange": "LSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Brave Bison has increased its acquisition bid to £47.5m, providing a clear floor and potential upside if a bidding war ensues or the deal closes at the higher valuation.",
-        "why_now": "The increased bid was announced on 2026-09-14.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b43bce3ab2cb"
-        ],
-        "primary_source_event_id": "EVT-b43bce3ab2cb",
-        "source_headlines": [
-          "Brave Bison raises System1 bid again to £47.5m"
-        ],
-        "source_headline": "Brave Bison raises System1 bid again to £47.5m",
-        "source_url": "https://ukinvestormagazine.co.uk/brave-bison-raises-system1-bid-again-to-47-5m/",
-        "source_name": "UK Investor Magazine",
-        "materiality_max": 99,
-        "newest_source_at": "2026-09-14T06:42:44Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T06:46:25Z",
-        "updated_at": "2026-09-14T06:46:25Z",
-        "decay_at": "2026-09-15T18:42:44Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4cc18e7635ee",
         "idea_version": "IDEAV-fb3e9b00bd7d324f",
         "idea_version_started_at": "2026-09-14T06:26:20Z",
@@ -193217,7 +193216,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1203,
-    "live_count": 19,
+    "live_count": 18,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -193236,9 +193235,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1117936,
-    "news_picked_today": 2477,
-    "news_dropped_today": 9187
+    "news_seen_today": 1120904,
+    "news_picked_today": 2486,
+    "news_dropped_today": 9202
   },
   "book_momentum": {
     "live_count": 8,
