@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T11:52:21Z",
+  "generated_at": "2026-10-02T11:57:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-945",
@@ -947,6 +947,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-972",
+      "headline": "Nike planeja mais cortes de empregos e prevê queda acentuada na receita",
+      "headline_en": "Nike plans more job cuts and forecasts sharp revenue decline",
+      "url": "https://www.reuters.com/pt/negocio/AMILRH4EZJM3VLHC6CCSCVZAAE-2026-10-02/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T10:03:45Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Nike announced plans for further job cuts and forecasted a sharp decline in revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nike announced plans for further job cuts and forecasted a sharp decline in revenue.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1947,55 +1997,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-339",
-      "headline": "Lyft will pay $272.5 million to settle California driver wage theft claims",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/lyft-will-pay-2725-million-settle-california-driver-wage-theft-claims-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T16:31:15Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Lyft will pay $272.5 million to settle wage theft claims, a significant financial impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lyft will pay $272.5 million to settle wage theft claims, a significant financial impact.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lyft",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193887,9 +193888,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1017526,
-    "news_picked_today": 2086,
-    "news_dropped_today": 7922
+    "news_seen_today": 1024400,
+    "news_picked_today": 2105,
+    "news_dropped_today": 7975
   },
   "book_momentum": {
     "live_count": 8,
