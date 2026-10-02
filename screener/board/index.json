@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T04:38:34Z",
+  "generated_at": "2026-10-02T04:45:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -1480,6 +1480,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-545",
+      "headline": "Eramet prevé inversión de 350 mln dlrs para expansión de planta de litio en Argentina",
+      "headline_en": "Eramet forecasts 350 million dollar investment for lithium plant expansion in Argentina",
+      "url": "https://www.reuters.com/es/mundo/L3GXOSN535NITEGPSY34NKVTI4-2026-10-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T12:43:46Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Eramet plans a 350 million dollar investment to expand its lithium plant in Argentina.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Eramet plans a 350 million dollar investment to expand its lithium plant in Argentina.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eramet",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-120",
       "headline": "SAMSONITE (01910): Closing of the Acquisition of BEIS, LLC",
       "headline_en": null,
@@ -1969,55 +2018,6 @@
           "name": "HENG TAI",
           "ticker": "00197",
           "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-263",
-      "headline": "GCash parent Mynt prices $845 million IPO, set to bolster Philippine share market",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/gcash-parent-mynt-prices-845-million-ipo-set-bolster-philippine-share-market-2026-10-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T01:35:18Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Mynt (GCash parent) priced an $845 million IPO, a major capital market event for the Philippines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Mynt (GCash parent) priced an $845 million IPO, a major capital market event for the Philippines.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mynt",
-          "ticker": null,
-          "listing_country": "PH"
         }
       ],
       "size_bucket": "unknown",
@@ -194629,9 +194629,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 522961,
-    "news_picked_today": 817,
-    "news_dropped_today": 2951
+    "news_seen_today": 531461,
+    "news_picked_today": 855,
+    "news_dropped_today": 3033
   },
   "book_momentum": {
     "live_count": 8,
