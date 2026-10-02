@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T03:02:28Z",
+  "generated_at": "2026-10-02T03:11:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -898,6 +898,109 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-437",
+      "headline": "Man City's Financial Rise: How $1.08 Billion In Disputed Sponsorship Funding Fuelled Their Transformation",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/manchester-citys-financial-rise-how-1-08-billion-in-disputed-sponsorship-funding-fuelled-their-transformation-12126720#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T15:11:44Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Manchester City faces scrutiny over $1.08 billion in disputed sponsorship funding, posing significant regulatory and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Manchester City faces scrutiny over $1.08 billion in disputed sponsorship funding, posing significant regulatory and reputational risk.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Manchester City",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-441",
+      "headline": "United Therapeutics Won Its Patent War and Liquidia Collapsed",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/10/01/united-therapeutics-won-its-patent-war-and-liquidia-collapsed/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T15:07:12Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "United Therapeutics won a patent war, leading to the collapse of competitor Liquidia, a major shift in market competitive dynamics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "United Therapeutics won a patent war, leading to the collapse of competitor Liquidia, a major shift in market competitive dynamics.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "United Therapeutics",
+          "ticker": "UTHR",
+          "listing_country": "US"
+        },
+        {
+          "name": "Liquidia",
+          "ticker": "LQDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1876,98 +1979,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-387",
-      "headline": "Les USA veulent que Paris et Berlin libèrent leurs stocks de diesel, menacent d'un embargo - sources",
-      "headline_en": "The USA wants Paris and Berlin to release their diesel stocks, threatens an embargo - sources",
-      "url": "https://www.reuters.com/fr/affaires/les-usa-veulent-que-paris-et-berlin-librent-leurs-stocks-de-diesel-menacent-dun-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T15:57:25Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "The US threatens an embargo on France and Germany if they do not release diesel stocks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The US threatens an embargo on France and Germany if they do not release diesel stocks.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-059",
-      "headline": "Lyft agrees to pay California $272.5m in largest-ever wage theft settlement",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/technology/2026/oct/01/lyft-largest-ever-wage-theft-settlement",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T20:05:46Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Lyft pays $272.5M to California to settle wage-theft allegations, the largest such settlement; affects driver-classification risk, labor-cost structure, and cash position for the mid-cap gig operator.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Lyft pays $272.5M to California to settle wage-theft allegations, the largest such settlement; affects driver-classification risk, labor-cost structure, and cash position for the mid-cap gig operator.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lyft",
-          "ticker": "LYFT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194576,9 +194587,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 324476,
-    "news_picked_today": 525,
-    "news_dropped_today": 2019
+    "news_seen_today": 333863,
+    "news_picked_today": 556,
+    "news_dropped_today": 2156
   },
   "book_momentum": {
     "live_count": 8,
