@@ -420,6 +420,8 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §18/§13 module verdict-lock caps — a balance-sheet-survival "Distress risk" or management-governance "Serious governance concerns" or business-model "Low-quality business" synthesis verdict capping the headline at Watchlist or lower (checks AA/AB, via `scripts/rating_caps.py`) — the §16 sector ↔ valuation-method consistency check, that a bank/lender/insurer/REIT is never headlined on a method `frameworks/SECTOR_OVERLAYS.md` or the valuation Business-Type Method Map forbids for it (check W, via `scripts/sector_valuation_checks.py`) — the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation, the Decision Audit Trail structural check, and red-flag severity reconciliation (checks AI/AJ/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
+The §19 / DECISION_LEDGER §6 forecast-resolvability check also verifies that every `forecast_ledger[]` row is mechanically settleable — a pinned numeric bar or a named settleable document, triggers that actually partition the outcome space, and at least one near-term (≤90-day) proof point (check AO, via `scripts/scenario_integrity_checks.py`).
+
 The §18 Phase 6 calibration-feedback gate also verifies that decision_record.json carries calibration_feedback consistent with the as-of calibration_summary.json and that an applied haircut reaches confidence_inputs.calibration_haircut (check AG, via scripts/calibration_gate_checks.py). Fresh publication requires valid confidence_inputs for an applied haircut; retrospective legacy tolerance does not apply.
 
 ```bash
@@ -962,6 +964,22 @@ viol.extend(sic.eval_ba_kill_criteria_trigger_test(_live_date, d.get("kill_crite
 # first decided.
 viol.extend(sic.eval_am_bear_case_sanity(_live_date, dec, scen, d.get("entry_price")) or [])
 viol.extend(sic.eval_ar_short_bull_case_sanity(_live_date, dec, scen, d.get("entry_price")) or [])
+# check AO — §19 / DECISION_LEDGER §6 forecast RESOLVABILITY (live pre-publish; mirrors eval.py
+# check AO via the same scenario_integrity_checks.py module as AT/AU/AV/BC/BA/AM/AR above). CLAUDE.md
+# §19: "a forecast that cannot be checked later is not a forecast." check AO has graded committed
+# runs retrospectively since 2026-07-18, but — like BA/AM/AR before this same live-gate family was
+# built out — it was defined only inside scripts/eval.py, so the live gate could never call it: a
+# forecast_ledger row with an unpinned "beats consensus" trigger, identical confirmation/falsification
+# text, or a ledger with zero near-term (<=90-day) proof point could ship live, print `GATE: PASS`,
+# and commit straight to `main` (CLAUDE.md §25/§28), undetected until a later manual `/research:eval`
+# run. That silently starves the AG calibration-feedback gate immediately below: AG makes sure a
+# computed haircut reaches the scorer, but nothing upstream of it made sure the forecasts feeding
+# that calibration were ever mechanically checkable in the first place. Moving the function into
+# scenario_integrity_checks.py (see that module) closes the same hole already closed for
+# §24/§13/AI/AK/AP/§10/HARD GATE 11/13/§8 above, for the one remaining forecast-ledger check that
+# had it. Uses `_live_date` for the same reason AT/AU/AV/BC/BA/AM/AR do (a rerun re-checks what SHIPS
+# on this execution, not when the thesis was first decided).
+viol.extend(sic.eval_ao_forecast_resolvability(_live_date, d.get("forecast_ledger")) or [])
 # check AG — §18 Phase 6 calibration-feedback gate (live pre-publish; mirrors eval.py check AG via
 # scripts/calibration_gate_checks.py, the same shared-detection-module pattern as rating_caps.py /
 # headline_checks.py / valuation_summary_checks.py / scenario_integrity_checks.py above). Until this
@@ -993,7 +1011,7 @@ if viol:
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §18/§13 module verdict-lock caps (BSS/MG/BM), §16 sector ↔ valuation-method consistency (check W), §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), Decision Audit Trail structural check (§8/§22), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, and HARD GATE 11 kill-criteria presence + trigger-test schema and the §18 Phase 6 calibration-feedback gate all satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, §18/§13 module verdict-lock caps (BSS/MG/BM), §16 sector ↔ valuation-method consistency (check W), §24 Filter 1/2/4/5/6 rejector-filter caps, §13 cross-module forensic-mosaic cap, Headline Scorecard reconciliation (§10/§21), Decision Audit Trail structural check (§8/§22), red-flag severity reconciliation (§13), §10 scenario-span + conjunction-disclosure checks, sign-check presence, HARD GATE 13 probability-basis presence, HARD GATE 11 kill-criteria presence + trigger-test schema, §19 forecast-ledger resolvability, and the §18 Phase 6 calibration-feedback gate all satisfied")
 PY
 ```
 
@@ -1175,11 +1193,13 @@ PY
 
 Record BOTH the `RATING-CAP:` and `HAIRCUT:` lines for step 11 ("Integrity gate"). If the pre-mortem applied a haircut and/or a rating cap, the RUN_METADATA integrity-gate entry should read e.g. `pre-mortem: Survives with haircut (confidence 70 → 64); RATING-CAP: non-terminal` or `pre-mortem: Thesis broken (confidence 65 → 20); RATING-CAP: terminal → post_mortem_decision=Watchlist`.
 
-**Stamp the thesis PROVISIONAL on a missing or non-clean truth-integrity audit (finish-gate F30).** A `Failed` / `Material issues` verdict — OR a verify-evidence that did not run at all — must mark the published thesis UNVERIFIED, not merely be noted in step 13. This is the exact hole the TMCV 2026-06-14 run fell through: no `verification_report.json` was produced and the thesis shipped clean, so all of its citation/anchor/math defects went unflagged. Run this deterministic stamp AFTER verify-evidence + pre-mortem complete; it composes with the 10B.1 banner (merges reasons) and is idempotent across re-runs:
+**Stamp the thesis PROVISIONAL on a missing or non-clean truth-integrity audit (finish-gate F30).** A `Failed` / `Material issues` verdict — OR a verify-evidence that did not run at all — must mark the published thesis UNVERIFIED, not merely be noted in step 13. This is the exact hole the TMCV 2026-06-14 run fell through: no `verification_report.json` was produced and the thesis shipped clean, so all of its citation/anchor/math defects went unflagged. This block also mechanizes check AZ (CLAUDE.md §3 named-metric contradiction sweep, via `scripts/verify_evidence_checks.py`, the same shared detection module `scripts/eval.py` uses for retrospective grading): a `verification_report.json` that reads verdict `Clean`/`Minor issues` but never carries Section C3's `contradiction_checks[]` at all — an omitted §3 sweep, not a failed one — must ALSO mark the thesis PROVISIONAL, not ship silently on the strength of an unrelated-to-contradictions verdict alone. Run this deterministic stamp AFTER verify-evidence + pre-mortem complete; it composes with the 10B.1 banner (merges reasons) and is idempotent across re-runs:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
-import json, glob, os, re, sys
+import datetime, json, glob, os, re, sys
+sys.path.insert(0, "scripts")
+import verify_evidence_checks as vec
 run = sys.argv[1]
 ft = os.path.join(run, "final_thesis.md")
 MARK = "PROVISIONAL — the automated finish-gate"
@@ -1190,6 +1210,16 @@ _vn = lambda p: int(re.search(r"_v(\d+)\.json$", p).group(1)) if re.search(r"_v(
 vrs = sorted([p for p in glob.glob(os.path.join(run, "verification_report*.json"))
               if re.fullmatch(r"verification_report(_v\d+)?", os.path.basename(p)[:-5])], key=_vn)
 verify_reason = None
+az_reason = None
+# check AZ (§3 named-metric contradiction sweep — CLAUDE.md §3, via scripts/verify_evidence_checks.py,
+# mirrors eval.py check AZ). F30 above only ever inspected the top-level `verdict` string — a report
+# that parses fine and reads "Clean" but never carries Section C3's `contradiction_checks[]` at all
+# (an omitted sweep, not a failed one) sailed through unflagged, printed GATE-VERIFY: PASS, and shipped
+# a conviction thesis with zero evidence the §3 "adjudicate the number that disagrees, by name" rule was
+# ever tested — the same class of hole already closed for AA/AB/AC/AD/AE/AF/AQ/BB/BD/BE. Gate on
+# `_live_date` (today), not the report's own decision-date field, so a rerun over a pre-AZ_DATE folder
+# still applies the check going forward (the AJ/BB/BD/BE `_live_date` precedent).
+_live_date = datetime.date.today().isoformat()
 if not vrs:
     verify_reason = "truth-integrity audit did NOT run (no verification_report.json) — citations, anchors, and §10/§15 math are unverified"
 else:
@@ -1200,6 +1230,9 @@ else:
         # that covers Material issues, Failed, AND any blank / Error / Aborted / schema-drift verdict.
         if verdict not in ("Clean", "Minor issues"):
             verify_reason = f"verify-evidence verdict = {verdict or '(blank/unknown)'} (not Clean/Minor — integrity {v.get('integrity_score')}/100, see {os.path.basename(vrs[-1])})"
+        if vec.eval_az_contradiction_sweep(_live_date, v) == "fail":
+            az_reason = (f"{os.path.basename(vrs[-1])} has no 'contradiction_checks' array — Section C3 "
+                         "(the §3 named-metric contradiction sweep) was not run or was omitted")
     except Exception as e:
         verify_reason = f"verification_report.json unreadable ({e}) — truth-integrity not confirmed"
 # Strip any existing finish-gate banner (from 10B.1), recover its reasons, merge, re-stamp (idempotent).
@@ -1211,14 +1244,15 @@ if i < len(lines) and lines[i].startswith(">") and MARK in "\n".join(lines[i:i+6
     while i < len(lines) and lines[i].startswith(">"): blk.append(lines[i]); i += 1
     while i < len(lines) and lines[i].strip() == "": i += 1
     body = "\n".join(lines[i:])
-    # Keep 10B.1's freshly-derived math reasons; DROP any stale verify-reason (re-derived below) so re-runs don't accumulate.
+    # Keep 10B.1's freshly-derived math reasons; DROP any stale verify/AZ reason (re-derived below) so re-runs don't accumulate.
     if len(blk) >= 2:
         reasons = [r.strip() for r in blk[1].lstrip("> ").split(";")
-                   if r.strip() and not any(t in r for t in ("verify-evidence", "truth-integrity audit", "verification_report"))]
+                   if r.strip() and not any(t in r for t in ("verify-evidence", "truth-integrity audit", "verification_report", "contradiction_checks", "Section C3"))]
 if verify_reason and verify_reason not in reasons: reasons.append(verify_reason)
+if az_reason and az_reason not in reasons: reasons.append(az_reason)
 if reasons:
     banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
-              + "; ".join(reasons) + "\n>\n> Resolve the flagged items — re-run the synthesizer §14 math and/or the truth-integrity audit (`/research:verify-evidence`) — and re-publish before relying on these numbers. (CLAUDE.md §5/§10/§15; finish-gate F01/F17/F30.)\n\n")
+              + "; ".join(reasons) + "\n>\n> Resolve the flagged items — re-run the synthesizer §14 math and/or the truth-integrity audit (`/research:verify-evidence`) — and re-publish before relying on these numbers. (CLAUDE.md §3/§5/§10/§15; finish-gate F01/F17/F30.)\n\n")
     open(ft, "w", encoding="utf-8").write(banner + body)
     print("GATE-VERIFY: PROVISIONAL — " + "; ".join(reasons))
 else:
