@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T10:18:17Z",
+  "generated_at": "2026-10-02T10:21:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-879",
@@ -598,6 +598,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-926",
+      "headline": "IG Group shares slump after revenue targets cut",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/ig-group-shares-london-press-association-b3060306.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T09:43:47Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "IG Group cut its revenue targets, a direct negative impact on financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IG Group cut its revenue targets, a direct negative impact on financial expectations.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IG Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-884",
       "headline": "Warenhäuser: Galeria beantragt zum vierten Mal Insolvenz – das endgültige Aus droht",
       "headline_en": "Department Stores: Galeria Files for Bankruptcy for the Fourth Time — Final Collapse Threatened",
@@ -648,31 +697,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261002-917",
-      "headline": "India's Shyam Metalics signs deal to invest over $5 billion in Maharashtra state",
+      "inbox_id": "INB-20261002-921",
+      "headline": "Shyam Metalics signs deal to invest over $5 billion in Maharashtra state",
       "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-shyam-metalics-signs-deal-invest-over-5-billion-maharashtra-state-2026-10-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/steel/shyam-metalics-signs-deal-to-invest-over-5-billion-in-maharashtra-state/articleshow/134636292.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-02T09:28:06Z",
+      "found_at": "2026-10-02T09:32:56Z",
       "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Shyam Metalics announces $5 billion capex investment in Maharashtra state, a major capacity-expansion commitment.",
+      "prelim_note": "Shyam Metalics announced a major 5 billion dollar investment in Maharashtra.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Shyam Metalics announces $5 billion capex investment in Maharashtra state, a major capacity-expansion commitment.",
+      "triage_reason": "Shyam Metalics announced a major 5 billion dollar investment in Maharashtra.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 76,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 76,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 6,
         "event": 6,
         "size": 1,
         "recency": 5,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 5,
         "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1962,60 +2011,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-598",
-      "headline": "AMD takes an $8 bln leap at Nvidia",
-      "headline_en": null,
-      "url": "https://www.reuters.com/commentary/breakingviews/amd-takes-an-8-bln-leap-nvidia-2026-09-30/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T12:00:30Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "AMD is acquiring ZT Systems for $4.9 billion to expand its AI data center infrastructure, a major strategic move against Nvidia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AMD is acquiring ZT Systems for $4.9 billion to expand its AI data center infrastructure, a major strategic move against Nvidia.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AMD",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194119,9 +194114,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 934276,
-    "news_picked_today": 1814,
-    "news_dropped_today": 6826
+    "news_seen_today": 943182,
+    "news_picked_today": 1828,
+    "news_dropped_today": 6860
   },
   "book_momentum": {
     "live_count": 8,
