@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-02T09:44:56Z",
+  "generated_at": "2026-10-02T09:54:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261002-879",
+      "headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TVVISION_02102026144607_Outcome_2nd_COC_meeting_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-02T09:16:35Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "TV Vision Limited initiated formal Corporate Insolvency Resolution Process; primary exchange filing; equity survival event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TV Vision Limited initiated formal Corporate Insolvency Resolution Process; primary exchange filing; equity survival event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TV Vision Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261002-839",
       "headline": "PACIFIC LEGEND (08547): (1) INSIDE INFORMATION; (2) DELAY IN PUBLICATION OF THE ANNUAL RESULTS FOR THE YEAR ENDED 30 JUNE 2026; AND (3) POSSIBLE SUSPENSION OF TRADING",
@@ -500,6 +549,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-884",
+      "headline": "Warenhäuser: Galeria beantragt zum vierten Mal Insolvenz – das endgültige Aus droht",
+      "headline_en": "Department Stores: Galeria Files for Bankruptcy for the Fourth Time — Final Collapse Threatened",
+      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/galeria-warenhauskette-beantragt-zum-vierten-mal-insolvenz/100259202.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T09:36:54Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Galeria filed for bankruptcy for the fourth time with final collapse threatened—a survival event and quantified insolvency risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Galeria filed for bankruptcy for the fourth time with final collapse threatened—a survival event and quantified insolvency risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Galeria",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-885",
+      "headline": "Warenhauskette Galeria erneut in Schieflage - Insolvenzantrag gestellt",
+      "headline_en": "Department store chain Galeria in trouble again — insolvency filing submitted.",
+      "url": "https://www.reuters.com/de/firma/warenhauskette-galeria-erneut-schieflage-insolvenzantrag-gestellt-2026-10-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T09:17:43Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Insolvency filing submitted for German retailer Galeria Karstadt Kaufhof — a survival-threatening solvency event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Insolvency filing submitted for German retailer Galeria Karstadt Kaufhof — a survival-threatening solvency event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Galeria Karstadt Kaufhof",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-859",
       "headline": "IG shares plunge as it slashes revenue forecast",
       "headline_en": null,
@@ -542,6 +690,55 @@
           "name": "IG Group",
           "ticker": null,
           "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-889",
+      "headline": "Thai Airways Board Fires CEO After Bangkok Flood Disruption",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-02/thai-airways-board-fires-ceo-after-flood-disruption-report",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T08:22:27Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Thai Airways fired its CEO following operational disruptions caused by floods, representing a significant management change and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Thai Airways fired its CEO following operational disruptions caused by floods, representing a significant management change and operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Thai Airways",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -1817,207 +2014,6 @@
           "name": "Accenture plc",
           "ticker": "ACN",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-655",
-      "headline": "Sanofi builds on immunology alliance with Regeneron for $1B upfront",
-      "headline_en": null,
-      "url": "https://endpoints.news/sanofi-builds-on-immunology-alliance-with-regeneron-for-1b-upfront/",
-      "source_name": "Endpoints News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T09:53:38Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Sanofi expands immunology alliance with Regeneron with a $1B upfront payment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sanofi expands immunology alliance with Regeneron with a $1B upfront payment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sanofi",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Regeneron",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-686",
-      "headline": "MSG Sport to spin New York Knicks and Rangers into NYSE-listed firms",
-      "headline_en": null,
-      "url": "https://www.cityam.com/msg-sport-to-spin-new-york-knicks-and-rangers-into-nyse-listed-firms/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T09:30:55Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "MSG Sport is spinning off the New York Knicks and Rangers into separate NYSE-listed firms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "MSG Sport is spinning off the New York Knicks and Rangers into separate NYSE-listed firms.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MSG Sport",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-717",
-      "headline": "Boots owner ‘closing in on sale to Canada’s Weston family for $9bn’",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/oct/01/boots-owner-sale-canada-weston-family",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T09:03:35Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Boots is reportedly being sold for $9 billion, a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Boots is reportedly being sold for $9 billion, a significant M&A event.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boots",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-737",
-      "headline": "Adani Ports' Colombo Terminal Doubles Capacity To 3.2 Million TEUs, Total Investment Reaches $750 Million",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/adani-ports-colombo-terminal-doubles-capacity-to-32-million-teus-total-investment-reaches-750-million",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T08:52:55Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Adani Ports announces a $750 million investment to double capacity at its Colombo terminal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Adani Ports announces a $750 million investment to double capacity at its Colombo terminal.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Ports",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -194124,9 +194120,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 905041,
-    "news_picked_today": 1750,
-    "news_dropped_today": 6458
+    "news_seen_today": 910091,
+    "news_picked_today": 1772,
+    "news_dropped_today": 6628
   },
   "book_momentum": {
     "live_count": 8,
