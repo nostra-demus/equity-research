@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-02T11:22:24Z",
+  "generated_at": "2026-10-02T11:27:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261002-945",
+      "headline": "MAX SIGHT GROUP (08483): JOINT ANNOUNCEMENT (1) CLOSE OF MANDATORY UNCONDITIONAL CASH OFFER BY CENTRAL CHINA INTERNATIONAL CAPITAL LIMITED FOR AND ON BEHALF OF CWT LIMITED TO ACQUIRE ALL THE ISSUED SHARES IN THE SHARE CAPITAL OF MAX SIGHT GROUP HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY CWT LIMITED AND/OR PARTIES ACTING IN CONCERT WITH IT); (2) RESULTS OF THE OFFER; (3) SETTLEMENT OF THE OFFER; AND (4) PUBLIC FLOAT OF THE COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1002/2026100203053.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-02T10:45:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "The mandatory unconditional cash offer for the company has closed, marking a change in control or ownership structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The mandatory unconditional cash offer for the company has closed, marking a change in control or ownership structure.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MAX SIGHT GROUP",
+          "ticker": "08483",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261002-927",
       "headline": "TONTINE WINES (00389): ANNOUNCEMENT - CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY I WIN SECURITIES LIMITED FOR AND ON BEHALF OF MR. WANG HE TO ACQUIRE 56,320,200 SHARES IN CHINA TONTINE WINES GROUP LIMITED (STOCK CODE: 389) (OTHER THAN THOSE ALREADY OWNED BY MR. WANG HE AND PARTIES ACTING IN CONCERT WITH HIM) (1) LEVEL OF ACCEPTANCE ON THE FIRST CLOSING DATE; AND (2) LAPSE OF THE PARTIAL OFFER",
@@ -1942,56 +1991,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-466",
-      "headline": "Regulador chileno reporta accidente fatal en mina Radomiro Tomic de la estatal Codelco",
-      "headline_en": "Chilean regulator reports fatal accident at state-owned Codelco's Radomiro Tomic mine",
-      "url": "https://www.reuters.com/es/negocio/PJWAIRQZENJDVFBDPO4NW4ZO3I-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T14:43:29Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "A fatal accident at a state-owned mining operation (Codelco's Radomiro Tomic mine) indicates significant operational risk and potential disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A fatal accident at a state-owned mining operation (Codelco's Radomiro Tomic mine) indicates significant operational risk and potential disruption.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations",
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Codelco",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193882,9 +193881,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 986462,
-    "news_picked_today": 2017,
-    "news_dropped_today": 7607
+    "news_seen_today": 994600,
+    "news_picked_today": 2025,
+    "news_dropped_today": 7623
   },
   "book_momentum": {
     "live_count": 8,
