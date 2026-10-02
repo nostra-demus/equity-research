@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T22:11:47Z",
+  "generated_at": "2026-10-02T22:21:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1260",
@@ -153685,76 +153685,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-99a574f2e453",
-      "idea_version": "IDEAV-e7a8f8f4342bd67e",
-      "idea_version_started_at": "2026-09-29T22:42:00Z",
-      "ticker": "LLY",
-      "company": "Eli Lilly",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Eli Lilly's experimental drug demonstrated a 21% weight reduction in a diabetes trial, significantly expanding the potential addressable market for its obesity and metabolic portfolio.",
-      "why_now": "The trial results were released on September 29, 2026, and represent a major clinical milestone for the company's pipeline.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-af6a284fcc9f"
-      ],
-      "primary_source_event_id": "EVT-af6a284fcc9f",
-      "source_headlines": [
-        "Lilly's experimental drug cuts weight by 21% in diabetes trial"
-      ],
-      "source_headline": "Lilly's experimental drug cuts weight by 21% in diabetes trial",
-      "source_url": "https://www.reuters.com/business/healthcare-pharmaceuticals/lillys-experimental-drug-cuts-weight-by-21-diabetes-trial-2026-09-29/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-29T22:15:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T22:42:00Z",
-      "updated_at": "2026-09-29T22:42:00Z",
-      "decay_at": "2026-10-01T10:15:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-90b902d53889",
       "idea_version": "IDEAV-21d26439d698bf8a",
       "idea_version_started_at": "2026-09-30T05:39:46Z",
@@ -155983,14 +155913,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 535,
     "shown_count": 500,
-    "hidden_count": 36,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 26
       },
       "short": {
         "total_count": 259,
@@ -156000,11 +155930,11 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 655,
+      "evicted_count": 656,
       "oldest_retained_at": "2026-09-07T00:42:20Z",
       "side_counts": {
         "long": {
-          "evicted_count": 435,
+          "evicted_count": 436,
           "oldest_retained_at": "2026-09-15T11:24:22Z"
         },
         "short": {
@@ -158686,8 +158616,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-01T10:15:06Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-02T22:21:47Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -193194,9 +193124,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1204579,
+    "news_seen_today": 1204669,
     "news_picked_today": 3504,
-    "news_dropped_today": 16879
+    "news_dropped_today": 16951
   },
   "book_momentum": {
     "live_count": 8,
