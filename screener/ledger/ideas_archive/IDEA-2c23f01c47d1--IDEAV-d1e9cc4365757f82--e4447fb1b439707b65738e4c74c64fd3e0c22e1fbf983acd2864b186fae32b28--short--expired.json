@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-02T09:44:43Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-2c23f01c47d1",
+    "idea_version": "IDEAV-d1e9cc4365757f82",
+    "idea_version_started_at": "2026-09-29T09:29:53Z",
+    "ticker": "LISN.SW",
+    "company": "Lindt & Sprüngli",
+    "exchange": "Swiss",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The company is facing a double-whammy of demand destruction from high chocolate prices and adverse weather conditions, forcing a downward revision to sales guidance.",
+    "why_now": "The sales forecast cut was announced today, September 29, 2026, reflecting immediate consumer pushback to price hikes.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 60,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-e2619a9fa4a6"
+    ],
+    "primary_source_event_id": "EVT-e2619a9fa4a6",
+    "source_headlines": [
+      "Lindt cuts sales forecast as higher chocolate prices, heatwave dampen demand"
+    ],
+    "source_headline": "Lindt cuts sales forecast as higher chocolate prices, heatwave dampen demand",
+    "source_url": "https://www.reuters.com/business/retail-consumer/lindt-cuts-2026-growth-forecast-weak-demand-heatwave-weigh-sales-2026-09-29/",
+    "source_name": "Reuters — Latest, next page (news sitemap)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-29T07:13:05Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-09-29T09:29:53Z",
+    "updated_at": "2026-09-29T09:29:53Z",
+    "decay_at": "2026-09-30T19:13:05Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
