@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T09:54:13Z",
+  "generated_at": "2026-10-02T09:57:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-879",
@@ -643,6 +643,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-892",
+      "headline": "Novartis takes rights to Abogen's mRNA T cell engager for $575M upfront",
+      "headline_en": null,
+      "url": "https://endpoints.news/novartis-takes-rights-to-abogens-mrna-t-cell-engager-for-575m-upfront/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T08:55:40Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Novartis is acquiring rights to an mRNA T cell engager for $575M upfront, representing a significant capital allocation and pipeline expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Novartis is acquiring rights to an mRNA T cell engager for $575M upfront, representing a significant capital allocation and pipeline expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Novartis",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1967,56 +2016,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-619",
-      "headline": "Accenture vise une hausse annuelle du CA supérieure aux attentes",
-      "headline_en": "Accenture targets annual revenue growth above expectations",
-      "url": "https://www.reuters.com/fr/affaires/accenture-vise-une-hausse-annuelle-du-ca-suprieure-aux-attentes-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T11:29:43Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Accenture targets annual revenue growth above market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Accenture targets annual revenue growth above market expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Accenture plc",
-          "ticker": "ACN",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194120,9 +194119,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 910091,
-    "news_picked_today": 1772,
-    "news_dropped_today": 6628
+    "news_seen_today": 915103,
+    "news_picked_today": 1781,
+    "news_dropped_today": 6643
   },
   "book_momentum": {
     "live_count": 8,
