@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T14:59:36Z",
+  "generated_at": "2026-10-02T15:02:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1059",
@@ -1194,6 +1194,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-1080",
+      "headline": "Paramount’s Warner Bros. megamerger will just be called Skydance",
+      "headline_en": null,
+      "url": "https://www.theverge.com/entertainment/1004016/paramount-warner-bros-skydance-megamerger-name",
+      "source_name": "The Verge",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T13:42:36Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Skydance is rebranding the combined entity following its acquisition of Paramount.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Skydance is rebranding the combined entity following its acquisition of Paramount.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Skydance",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-1058",
       "headline": "FMC Consensus Price Target Lowered by 26.18% to $13.75",
       "headline_en": null,
@@ -1238,6 +1292,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-1079",
+      "headline": "Nike Plans Job Cuts As Revenue Falls 4% To $11.2 Billion",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/nike-plans-job-cuts-as-revenue-falls-4-to-11-2-billion-12129789#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T12:50:58Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Nike reported a 4% revenue decline to $11.2 billion and announced job cuts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nike reported a 4% revenue decline to $11.2 billion and announced job cuts.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1888,104 +1992,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-921",
-      "headline": "Shyam Metalics signs deal to invest over $5 billion in Maharashtra state",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/steel/shyam-metalics-signs-deal-to-invest-over-5-billion-in-maharashtra-state/articleshow/134636292.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T09:32:56Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Shyam Metalics announced a major 5 billion dollar investment in Maharashtra.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shyam Metalics announced a major 5 billion dollar investment in Maharashtra.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shyam Metalics",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-892",
-      "headline": "Novartis takes rights to Abogen's mRNA T cell engager for $575M upfront",
-      "headline_en": null,
-      "url": "https://endpoints.news/novartis-takes-rights-to-abogens-mrna-t-cell-engager-for-575m-upfront/",
-      "source_name": "Endpoints News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T08:55:40Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Novartis is acquiring rights to an mRNA T cell engager for $575M upfront, representing a significant capital allocation and pipeline expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Novartis is acquiring rights to an mRNA T cell engager for $575M upfront, representing a significant capital allocation and pipeline expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novartis",
-          "ticker": null,
-          "listing_country": "CH"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193234,9 +193240,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1159612,
-    "news_picked_today": 2629,
-    "news_dropped_today": 9947
+    "news_seen_today": 1162091,
+    "news_picked_today": 2634,
+    "news_dropped_today": 9966
   },
   "book_momentum": {
     "live_count": 8,
