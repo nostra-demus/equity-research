@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T20:54:14Z",
+  "generated_at": "2026-10-02T21:06:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1260",
@@ -1090,6 +1090,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-1265",
+      "headline": "Nike plans job cuts as it forecasts lower sales",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/business/nike-plans-job-cuts-as-it-forecasts-lower-sales",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T20:53:17Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Nike announced job cuts alongside a forecast for lower sales, indicating significant operational headwinds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nike announced job cuts alongside a forecast for lower sales, indicating significant operational headwinds.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-1255",
       "headline": "Tesla Just Lined Up $30 Billion in Credit: What It Means for AI, Capex, and the Investment Case",
       "headline_en": null,
@@ -1955,60 +2005,6 @@
       "companies": [
         {
           "name": "Nike",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-1080",
-      "headline": "Paramount’s Warner Bros. megamerger will just be called Skydance",
-      "headline_en": null,
-      "url": "https://www.theverge.com/entertainment/1004016/paramount-warner-bros-skydance-megamerger-name",
-      "source_name": "The Verge",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T13:42:36Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Skydance is rebranding the combined entity following its acquisition of Paramount.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Skydance is rebranding the combined entity following its acquisition of Paramount.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Skydance",
           "ticker": null,
           "listing_country": "US"
         }
@@ -192980,9 +192976,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1202301,
-    "news_picked_today": 3408,
-    "news_dropped_today": 15584
+    "news_seen_today": 1202682,
+    "news_picked_today": 3417,
+    "news_dropped_today": 15863
   },
   "book_momentum": {
     "live_count": 8,
