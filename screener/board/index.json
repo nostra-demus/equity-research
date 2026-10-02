@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-02T20:38:14Z",
+  "generated_at": "2026-10-02T20:46:27Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261002-1260",
+      "headline": "25-NSE - Maxeon Solar Technologies, Ltd. (0001796898) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1796898/000135445726000941/0001354457-26-000941-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-02T20:30:53Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Maxeon Solar Technologies, Ltd. subject to Form 25-NSE delisting notification from Nasdaq, eliminating exchange trading access—a critical survival event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Maxeon Solar Technologies, Ltd. subject to Form 25-NSE delisting notification from Nasdaq, eliminating exchange trading access—a critical survival event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maxeon Solar Technologies, Ltd.",
+          "ticker": "MAXN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-1261",
+      "headline": "25-NSE - Nasdaq Stock Market LLC (0001354457) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1354457/000135445726000941/0001354457-26-000941-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-02T20:30:53Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Nasdaq Stock Market LLC filed Form 25-NSE notifying SEC of delisting—a critical survival event for the subject company (Maxeon Solar, per item 6).",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nasdaq Stock Market LLC filed Form 25-NSE notifying SEC of delisting—a critical survival event for the subject company (Maxeon Solar, per item 6).",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maxeon Solar Technologies, Ltd.",
+          "ticker": "MAXN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261002-1251",
       "headline": "25-NSE - Kaival Brands Innovations Group, Inc. (0001762239) (Subject)",
@@ -1913,109 +2011,6 @@
           "name": "Skydance",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-1159",
-      "headline": "Tesla reports 486,532 vehicle deliveries for third quarter, topping expectation",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/02/tesla-tsla-q3-2026-vehicle-delivery-production.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T13:20:46Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Tesla reported 486,532 vehicle deliveries for Q3, exceeding market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tesla reported 486,532 vehicle deliveries for Q3, exceeding market expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesla",
-          "ticker": "TSLA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-1164",
-      "headline": "Embraer, Mahindra Group plan to invest ₹6,000 crore in Nagpur assembly line",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/embraer-mahindra-group-plan-to-invest-6000-crore-in-nagpur-assembly-line/article71537075.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T13:12:34Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Embraer and Mahindra Group announced a ₹6,000 crore investment for a new assembly line in Nagpur.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Embraer and Mahindra Group announced a ₹6,000 crore investment for a new assembly line in Nagpur.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Embraer",
-          "ticker": null,
-          "listing_country": "BR"
-        },
-        {
-          "name": "Mahindra Group",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -192915,9 +192910,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1201801,
-    "news_picked_today": 3390,
-    "news_dropped_today": 15232
+    "news_seen_today": 1202171,
+    "news_picked_today": 3396,
+    "news_dropped_today": 15490
   },
   "book_momentum": {
     "live_count": 8,
