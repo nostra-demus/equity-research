@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T19:39:18Z",
+  "generated_at": "2026-10-02T19:43:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1059",
@@ -992,6 +992,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-1244",
+      "headline": "Bayer to invest $2.2 billion in new US pharma site",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/bayer-invest-22-billion-new-us-pharma-site-2026-10-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T19:19:02Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Bayer is committing $2.2 billion to a new pharmaceutical manufacturing site in the US.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bayer is committing $2.2 billion to a new pharmaceutical manufacturing site in the US.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bayer",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-1240",
+      "headline": "USA: „Am schnellsten wachsender Markt“ – Bayer investiert 2,2 Milliarden Dollar in neues US-Werk",
+      "headline_en": "USA: 'Fastest-growing market' — Bayer invests $2.2 billion in new US plant",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/usa-bayer-investiert-22-milliarden-dollar-in-neues-us-werk/100259162.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T19:10:06Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Bayer announces $2.2 billion US pharmaceutical manufacturing plant investment, materially expanding North American production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bayer announces $2.2 billion US pharmaceutical manufacturing plant investment, materially expanding North American production capacity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bayer",
+          "ticker": "BAYN",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-1226",
       "headline": "Axis Capital weighs possible offer for Irish bank PTSB",
       "headline_en": null,
@@ -1921,104 +2019,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-1032",
-      "headline": "Integra LifeSciences Cuts FY26 Guidance Following Cincinnati Facility Flooding; Stock Tumbles 11.4%",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/integra-lifesciences-cuts-fy26-guidance-following-cincinnati-facility-flooding-stock",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T12:40:18Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Integra LifeSciences cuts FY26 guidance due to facility flooding, causing an 11.4% stock drop.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Integra LifeSciences cuts FY26 guidance due to facility flooding, causing an 11.4% stock drop.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Integra LifeSciences",
-          "ticker": "IART",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-1185",
-      "headline": "MTR Corp pays out HK$2.25 billion for high-speed rail construction delays",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/hong-kong/transport/article/3369614/mtr-corp-pays-out-hk225-billion-high-speed-rail-construction-delays?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T12:19:53Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "MTR Corp is paying HK$2.25 billion for construction delays, a direct hit to cash flow.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "MTR Corp is paying HK$2.25 billion for construction delays, a direct hit to cash flow.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MTR Corp",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193270,9 +193270,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1200335,
-    "news_picked_today": 3330,
-    "news_dropped_today": 14085
+    "news_seen_today": 1200388,
+    "news_picked_today": 3344,
+    "news_dropped_today": 14124
   },
   "book_momentum": {
     "live_count": 8,
