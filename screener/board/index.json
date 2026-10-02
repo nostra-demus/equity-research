@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-02T10:48:59Z",
+  "generated_at": "2026-10-02T10:54:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261002-927",
+      "headline": "TONTINE WINES (00389): ANNOUNCEMENT - CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY I WIN SECURITIES LIMITED FOR AND ON BEHALF OF MR. WANG HE TO ACQUIRE 56,320,200 SHARES IN CHINA TONTINE WINES GROUP LIMITED (STOCK CODE: 389) (OTHER THAN THOSE ALREADY OWNED BY MR. WANG HE AND PARTIES ACTING IN CONCERT WITH HIM) (1) LEVEL OF ACCEPTANCE ON THE FIRST CLOSING DATE; AND (2) LAPSE OF THE PARTIAL OFFER",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026100203027.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-02T10:36:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "The partial cash offer for 56,320,200 shares has lapsed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The partial cash offer for 56,320,200 shares has lapsed.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Tontine Wines Group Limited",
+          "ticker": "00389",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-928",
+      "headline": "HENG TAI (00197): INSIDE INFORMATION (1) DELAY IN PUBLICATION OF THE 2026 ANNUAL RESULTS; (2) DELAY IN DESPATCH OF THE 2026 ANNUAL REPORT; (3) POSTPONEMENT OF BOARD MEETING; AND (4) SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026093002043.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-02T10:11:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Company announced a delay in annual results and report, leading to a suspension of trading.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a delay in annual results and report, leading to a suspension of trading.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "accounting_restatement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Heng Tai Consumables Group Limited",
+          "ticker": "00197",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261002-879",
       "headline": "TV Vision Limited: TV Vision Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -544,6 +642,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-936",
+      "headline": "Nike restructuring plan: World's largest footwear major announces job cuts, targets $2.5 billion savings",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/nike-restructuring-plan-worlds-largest-footwear-major-announces-job-cuts-targets-2-5-billion-savings-559237-2026-10-02?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T10:06:24Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Nike announced a restructuring plan targeting $2.5 billion in savings through job cuts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nike announced a restructuring plan targeting $2.5 billion in savings through job cuts.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1849,168 +1996,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-497",
-      "headline": "CPP Investments selling Australian toll road assets for $4.5-billion",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-cpp-investments-selling-australian-toll-road-assets-for-45-billion/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T13:08:28Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "CPP Investments is divesting Australian toll road assets for $4.5-billion, a significant capital recycling event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CPP Investments is divesting Australian toll road assets for $4.5-billion, a significant capital recycling event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CPP Investments",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-518",
-      "headline": "Caixabank evaluará una posible oferta por Cetelem en España y Portugal, según Expansión",
-      "headline_en": "Caixabank will evaluate a possible offer for Cetelem in Spain and Portugal, according to Expansión",
-      "url": "https://www.reuters.com/es/negocio/ICKJYJVSTBP6ZGBPNQYM5RGUVM-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T12:59:45Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Caixabank will evaluate a possible offer for Cetelem in Spain and Portugal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Caixabank will evaluate a possible offer for Cetelem in Spain and Portugal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Caixabank",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Cetelem",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-519",
-      "headline": "Caixabank to assess possible bid for BNP's Cetelem in Spain and Portugal, newspaper reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/caixabank-assess-possible-bid-bnps-cetelem-newspaper-reports-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T12:59:44Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Caixabank will assess a possible bid for BNP's Cetelem in Spain and Portugal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Caixabank will assess a possible bid for BNP's Cetelem in Spain and Portugal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Caixabank",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "BNP",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Cetelem",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194113,9 +194098,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 964762,
-    "news_picked_today": 1930,
-    "news_dropped_today": 7118
+    "news_seen_today": 973620,
+    "news_picked_today": 1942,
+    "news_dropped_today": 7154
   },
   "book_momentum": {
     "live_count": 8,
