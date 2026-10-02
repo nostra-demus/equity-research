@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-72095f495ca7",
-  "idea_version": "IDEAV-12b862ad24e10c8e",
-  "idea_version_started_at": "2026-09-29T14:12:15Z",
-  "ticker": "SCHOL.O",
-  "company": "Scholastic Corporation",
-  "exchange": "NASDAQ",
+  "idea_id": "IDEA-729dc15a63ea",
+  "idea_version": "IDEAV-4d28b460e22192a6",
+  "idea_version_started_at": "2026-10-02T13:58:00Z",
+  "ticker": "VOLCAR-B",
+  "company": "Volvo Cars",
+  "exchange": "STO",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "Scholastic is acquiring Cottage Door Press for $71 million, which is expected to expand its publishing portfolio and revenue streams.",
-  "why_now": "The acquisition is announced and shares are climbing in pre-market trading, indicating immediate market reaction.",
-  "conviction": 60,
+  "reason": "The company issued a guidance cut, signaling deteriorating demand and margin pressure in the automotive sector.",
+  "why_now": "The guidance cut was announced today, October 2, 2026.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 19,
+    "impact": 21,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -49,26 +49,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-b23e3a605938"
+    "EVT-ec8605e1850d"
   ],
-  "primary_source_event_id": "EVT-b23e3a605938",
+  "primary_source_event_id": "EVT-ec8605e1850d",
   "source_headlines": [
-    "Scholastic To Buy Cottage Door Press For $71 Mln, Shares Climb In Pre-Market"
+    "Auto industry: Volvo cuts forecast – stock falls significantly"
   ],
-  "source_headline": "Scholastic To Buy Cottage Door Press For $71 Mln, Shares Climb In Pre-Market",
-  "source_url": "https://www.nasdaq.com/articles/scholastic-buy-cottage-door-press-71-mln-shares-climb-pre-market",
-  "source_name": "Nasdaq",
+  "source_headline": "Autoindustrie: Volvo streicht Prognose – Aktie gibt deutlich nach",
+  "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autoindustrie-volvo-streicht-prognose-aktie-gibt-deutlich-nach/100259247.html",
+  "source_name": "Handelsblatt",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-29T12:14:18Z",
+  "newest_source_at": "2026-10-02T07:58:55Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-29T14:12:15Z",
-  "updated_at": "2026-09-29T14:12:15Z",
-  "decay_at": "2026-10-01T00:14:18Z",
+  "surfaced_at": "2026-10-02T13:58:00Z",
+  "updated_at": "2026-10-02T13:58:00Z",
+  "decay_at": "2026-10-03T19:58:55Z",
   "status": "live",
   "promoted_signal_id": null
 }
