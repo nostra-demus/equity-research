@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T10:08:15Z",
+  "generated_at": "2026-10-02T10:18:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-879",
@@ -640,6 +640,55 @@
           "name": "Galeria",
           "ticker": null,
           "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-917",
+      "headline": "India's Shyam Metalics signs deal to invest over $5 billion in Maharashtra state",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/indias-shyam-metalics-signs-deal-invest-over-5-billion-maharashtra-state-2026-10-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T09:28:06Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Shyam Metalics announces $5 billion capex investment in Maharashtra state, a major capacity-expansion commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shyam Metalics announces $5 billion capex investment in Maharashtra state, a major capacity-expansion commitment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shyam Metalics",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1962,55 +2011,6 @@
         },
         {
           "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-616",
-      "headline": "Accenture sets annual revenue forecast at 3-6%, above estimates",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/accenture-forecasts-annual-revenue-growth-above-estimates/articleshow/134617674.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T11:40:16Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Accenture set its annual revenue forecast at 3-6%, which is above analyst estimates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Accenture set its annual revenue forecast at 3-6%, which is above analyst estimates.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Accenture",
           "ticker": null,
           "listing_country": "US"
         }
@@ -194119,9 +194119,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 929607,
-    "news_picked_today": 1790,
-    "news_dropped_today": 6730
+    "news_seen_today": 934276,
+    "news_picked_today": 1814,
+    "news_dropped_today": 6826
   },
   "book_momentum": {
     "live_count": 8,
