@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T11:05:21Z",
+  "generated_at": "2026-10-02T11:15:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-927",
@@ -642,6 +642,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-943",
+      "headline": "Nike shares plummet 10% after weak revenue outlook and layoff plans underway",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/02/nike-nke-stock-q1-earnings-layoffs.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T10:11:09Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Nike issues weak revenue outlook (guidance cut) and announces layoff plans; direct hit to earnings and cost structure confirmed by 10% intraday stock decline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nike issues weak revenue outlook (guidance cut) and announces layoff plans; direct hit to earnings and cost structure confirmed by 10% intraday stock decline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": "NKE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1942,60 +1992,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-475",
-      "headline": "Australiana Lynas Rare Earths comprará Meteoric, com projeto em MG, por US$672 mi",
-      "headline_en": "Lynas Rare Earths will buy Meteoric, with a project in MG, for $672 million",
-      "url": "https://www.reuters.com/pt/negocio/DS5OUIMKNBLDZCGJZ62JHX65UE-2026-09-30/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T14:05:03Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Lynas Rare Earths to acquire Meteoric for $672 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Lynas Rare Earths to acquire Meteoric for $672 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lynas Rare Earths",
-          "ticker": null,
-          "listing_country": "AU"
-        },
-        {
-          "name": "Meteoric",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194098,9 +194094,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 978025,
-    "news_picked_today": 1944,
-    "news_dropped_today": 7344
+    "news_seen_today": 982213,
+    "news_picked_today": 1979,
+    "news_dropped_today": 7477
   },
   "book_momentum": {
     "live_count": 8,
