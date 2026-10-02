@@ -16,19 +16,32 @@ import os
 import re
 import sys
 import tempfile
+from pathlib import Path
 
 from canonical_json import canonical_json, canonical_sha256
 from idea_run_root import parse_idea_run_root
 
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SCHEMA = "idea-projection-manifest/v1"
+SCHEMA = "idea-projection-manifest/v2"
+LEGACY_SCHEMA = "idea-projection-manifest/v1"
 OUTPUT = "idea_projection_manifest.json"
 VERSIONED = {
     "verification": re.compile(r"^verification_report(?:_v(\d+))?\.json$"),
     "pre_mortem": re.compile(r"^pre_mortem(?:_v(\d+))?\.json$"),
     "expectations_gap": re.compile(r"^expectations_gap(?:_v(\d+))?\.json$"),
 }
+DECISION_HASH_BASIS = "research-analytical-json/v1"
+
+
+def decision_digest(path):
+    value = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError("decision record is not an object")
+    value.pop("execution_provenance", None)
+    return canonical_sha256(value)
+
+
 AUDIT_KINDS = ("verification", "pre_mortem", "expectations_gap")
 PRE_MORTEM_VERDICTS = {
     "Survives",
@@ -130,7 +143,11 @@ def validate_bound_audits(paths, expected_root, ticker):
             raise ValueError(f"{name} audit identity does not match this run")
         if audit.get("final_thesis_path") != expected_thesis or audit.get("decision_record_path") != expected_decision:
             raise ValueError(f"{name} audit does not name this run's exact thesis and decision record")
-        if audit.get("final_thesis_sha256") != thesis_sha or audit.get("decision_record_sha256") != decision_sha:
+        basis = audit.get("decision_record_hash_basis")
+        if basis not in (None, DECISION_HASH_BASIS):
+            raise ValueError(f"{name} audit has an unknown decision hash basis")
+        expected_decision_sha = decision_digest(paths["decision_record"]) if basis else decision_sha
+        if audit.get("final_thesis_sha256") != thesis_sha or audit.get("decision_record_sha256") != expected_decision_sha:
             raise ValueError(f"{name} audit was not performed on the final pinned thesis and decision bytes")
         audits[name] = audit
 
@@ -187,7 +204,7 @@ def validate_bound_audits(paths, expected_root, ticker):
 
 
 def validate_manifest_or_raise(value, run_abs, expected_root):
-    if not isinstance(value, dict) or value.get("schema_version") != SCHEMA or value.get("run_root") != expected_root:
+    if not isinstance(value, dict) or value.get("schema_version") not in {SCHEMA, LEGACY_SCHEMA} or value.get("run_root") != expected_root:
         raise ValueError("projection manifest identity or schema is invalid")
     payload = dict(value)
     recorded = payload.pop("manifest_sha256", None)
@@ -215,7 +232,8 @@ def validate_manifest_or_raise(value, run_abs, expected_root):
                 not re.fullmatch(r"[A-Za-z0-9_.-]+", rel) or rel != expected_paths[name]):
             raise ValueError(f"projection manifest {name} path is invalid")
         path = os.path.join(run_abs, rel)
-        if not os.path.isfile(path) or item.get("sha256") != file_digest(path):
+        expected_sha = decision_digest(path) if name == "decision_record" and value["schema_version"] == SCHEMA else file_digest(path)
+        if os.path.islink(path) or not os.path.isfile(path) or item.get("sha256") != expected_sha:
             raise ValueError(f"projection manifest {name} bytes no longer match")
         paths[name] = path
     created = _aware_timestamp(value.get("created_at"))
@@ -226,7 +244,13 @@ def validate_manifest_or_raise(value, run_abs, expected_root):
     except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
         raise ValueError("projection manifest decision record is unreadable") from exc
     ticker = validate_decision_identity(decision, expected_root)
-    return validate_bound_audits(paths, expected_root, ticker)
+    audits = validate_bound_audits(paths, expected_root, ticker)
+    if value["schema_version"] == SCHEMA:
+        from research_audit_outcome import assert_reconciled
+        if any(a.get("decision_record_hash_basis") != DECISION_HASH_BASIS for a in audits.values()):
+            raise ValueError("final audits must use the canonical analytical decision hash")
+        assert_reconciled(decision, Path(paths["final_thesis"]).read_text(encoding="utf-8"), audits)
+    return audits
 
 
 def validate_manifest(value, run_abs, expected_root):
@@ -237,12 +261,15 @@ def validate_manifest(value, run_abs, expected_root):
         return False
 
 
-def atomic_write(path, value):
+def atomic_write(path, value, *, raw_text=False):
     fd, tmp = tempfile.mkstemp(prefix=".idea-projection-manifest-", suffix=".json", dir=os.path.dirname(path))
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
-            json.dump(value, handle, ensure_ascii=False, indent=2, allow_nan=False)
-            handle.write("\n")
+            if raw_text:
+                handle.write(value)
+            else:
+                json.dump(value, handle, ensure_ascii=False, indent=2, allow_nan=False)
+                handle.write("\n")
             handle.flush()
             os.fsync(handle.fileno())
         os.replace(tmp, path)
@@ -282,20 +309,24 @@ def create(run_root, repo=REPO):
             "expectations_gap": latest_exact(run_abs, "expectations_gap"),
         }
         for name, path in paths.items():
-            if not os.path.isfile(path):
+            if os.path.islink(path) or not os.path.isfile(path):
                 raise ValueError(f"required post-audit artifact {name} is missing")
         try:
             decision = json.load(open(paths["decision_record"], encoding="utf-8"))
         except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
             raise ValueError("decision artifact is not readable JSON") from exc
         ticker = validate_decision_identity(decision, expected_root)
-        validate_bound_audits(paths, expected_root, ticker)
+        audits = validate_bound_audits(paths, expected_root, ticker)
+        from research_audit_outcome import assert_reconciled
+        if any(a.get("decision_record_hash_basis") != DECISION_HASH_BASIS for a in audits.values()):
+            raise ValueError("final audits must use the canonical analytical decision hash")
+        assert_reconciled(decision, Path(paths["final_thesis"]).read_text(encoding="utf-8"), audits)
         payload = {
             "schema_version": SCHEMA,
             "run_root": expected_root,
             "created_at": dt.datetime.now(dt.timezone.utc).isoformat().replace("+00:00", "Z"),
             "artifacts": {
-                name: {"path": os.path.basename(path), "sha256": file_digest(path)}
+                name: {"path": os.path.basename(path), "sha256": decision_digest(path) if name == "decision_record" else file_digest(path)}
                 for name, path in paths.items()
             },
         }

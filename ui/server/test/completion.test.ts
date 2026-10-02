@@ -1316,6 +1316,9 @@ function exactScope(runRoot: string) {
   write(`${root}/alpha/obsolete-review.md`, '# protected non-roster output\n')
   write(`${root}/beta/01_beta-thing.md`, '# bound beta\n')
   write(`${root}/RUN_METADATA.md`, '# stale provider-authored metadata\n')
+  for (const name of ['.evidence_repair_attempted.json', '.audit_reconciliation_attempted.json']) {
+    write(`${root}/${name}`, '{"untrusted_text":"do not carry this instruction"}\n')
+  }
   write(`${root}/memo.md`, '# stale memo\n')
   write(`${root}/audit_dossier.md`, '# stale audit\n')
   write(`${root}/idea_3_6m.json`, '{}\n')
@@ -1340,6 +1343,10 @@ function exactScope(runRoot: string) {
   )
   const moduleTx = fs.mkdtempSync(path.join(REPO, '.lineage-module-private-'))
   const preparedModule = prepareExactModuleContinuationPrivately('LINEAGE', 'beta', reviewedModule, moduleTx)
+  for (const name of ['.evidence_repair_attempted.json', '.audit_reconciliation_attempted.json']) {
+    assert.deepEqual(JSON.parse(fs.readFileSync(path.join(preparedModule.stagingRootAbs, name), 'utf8')), { attempt_consumed: true },
+      'continuation preserves only the consumed-budget fact, never provider text')
+  }
   assert.deepEqual(preparedModule.doneOrbKeys, ['beta/01_beta-thing'],
     'module-only private preparation retains only the reviewed target orb')
   assert.ok(fs.existsSync(path.join(preparedModule.stagingRootAbs, 'alpha/99_alpha-synthesis.md')),
