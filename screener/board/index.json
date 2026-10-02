@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T02:01:55Z",
+  "generated_at": "2026-10-02T02:08:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -706,6 +706,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-262",
+      "headline": "Vietnam's Nghi Son refinery secures crude supplies, to run at 125% capacity through end-November",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/vietnams-nghi-son-refinery-secures-crude-supplies-run-125-capacity-through-end-2026-10-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T01:37:58Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Nghi Son refinery secured crude supplies and will operate at 125% capacity through November, easing supply concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Nghi Son refinery secured crude supplies and will operate at 125% capacity through November, easing supply concerns.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nghi Son Refinery",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-160",
       "headline": "CHAMPION TECH (00092): EXCHANGE NOTICE - TRADING HALT",
       "headline_en": null,
@@ -943,6 +992,55 @@
           "name": "HENG TAI",
           "ticker": "00197",
           "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-263",
+      "headline": "GCash parent Mynt prices $845 million IPO, set to bolster Philippine share market",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/gcash-parent-mynt-prices-845-million-ipo-set-bolster-philippine-share-market-2026-10-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T01:35:18Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Mynt (GCash parent) priced an $845 million IPO, a major capital market event for the Philippines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Mynt (GCash parent) priced an $845 million IPO, a major capital market event for the Philippines.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mynt",
+          "ticker": null,
+          "listing_country": "PH"
         }
       ],
       "size_bucket": "unknown",
@@ -1890,104 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-143",
-      "headline": "BT BIG STORY: Tata Sons restructuring: What it means for the listing and governance",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/bt-big-story-tata-sons-restructuring-what-it-means-for-the-listing-and-governance-559156-2026-10-02?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T00:30:33Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Tata Sons is undergoing a restructuring process which has significant implications for its group companies and governance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Tata Sons is undergoing a restructuring process which has significant implications for its group companies and governance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-044",
-      "headline": "Nio's Riskiest Asset Is Valued at $2.4 Billion, But Its Potential Just Skyrocketed",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/01/nios-riskiest-asset-is-valued-at-24-billion-but-it/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T20:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Nio's asset valuation potential has increased, which could impact its financial outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Nio's asset valuation potential has increased, which could impact its financial outlook.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nio",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194596,9 +194596,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 227081,
-    "news_picked_today": 324,
-    "news_dropped_today": 1260
+    "news_seen_today": 237185,
+    "news_picked_today": 333,
+    "news_dropped_today": 1347
   },
   "book_momentum": {
     "live_count": 8,
