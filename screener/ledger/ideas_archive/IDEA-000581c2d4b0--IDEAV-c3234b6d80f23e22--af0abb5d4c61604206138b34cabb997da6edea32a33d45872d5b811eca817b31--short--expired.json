@@ -1,32 +1,32 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-17T09:58:54Z",
+  "archived_at": "2026-10-02T09:44:43Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-79efe2854a36",
-    "idea_version": "IDEAV-dc1979b42a6d1e83",
-    "idea_version_started_at": "2026-09-13T17:56:30Z",
-    "ticker": "HPQ",
-    "company": "HP",
+    "idea_id": "IDEA-000581c2d4b0",
+    "idea_version": "IDEAV-c3234b6d80f23e22",
+    "idea_version_started_at": "2026-09-29T10:02:00Z",
+    "ticker": "ZIM",
+    "company": "ZIM Integrated Shipping Services",
     "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
-    "direction": "long",
+    "direction": "short",
     "pair_with": null,
-    "reason": "HP has raised its outlook due to strong demand for premium AI PCs and the positive impact of tariff refunds, which will boost its financial results.",
-    "why_now": "The company has just raised its outlook, providing a fresh catalyst for potential stock appreciation.",
-    "conviction": 65,
+    "reason": "The proposed $4 billion takeover by Hapag-Lloyd is being blocked by Israeli regulators due to concerns over foreign ownership stakes, removing the acquisition premium from the stock price.",
+    "why_now": "The regulatory intervention was reported on September 29, 2026.",
+    "conviction": 70,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 62,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score": 66,
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
       "impact": 20,
       "specificity": 15,
       "timing": 10,
-      "expression": 6,
+      "expression": 7,
       "corroboration": 0,
       "learning_adjustment": 0
     },
@@ -51,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-b16649d37a5c"
+      "EVT-acf117012996"
     ],
-    "primary_source_event_id": "EVT-b16649d37a5c",
+    "primary_source_event_id": "EVT-acf117012996",
     "source_headlines": [
-      "HP Raises Outlook as Premium AI PCs and Tariff Refunds Boost Results"
+      "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover"
     ],
-    "source_headline": "HP Raises Outlook as Premium AI PCs and Tariff Refunds Boost Results",
-    "source_url": "https://finance.yahoo.com/technology/articles/hp-raises-outlook-premium-ai-150158423.html",
-    "source_name": "Yahoo Finance",
+    "source_headline": "Israel Cites Saudi, Qatari Stakes in Hapag to Halt $4 Billion ZIM Takeover",
+    "source_url": "https://www.bloomberg.com/news/articles/2026-09-29/israel-cites-saudi-qatari-stakes-in-hapag-to-halt-4-billion-zim-takeover",
+    "source_name": "Bloomberg",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-13T15:01:58Z",
+    "newest_source_at": "2026-09-29T09:18:14Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-13T15:36:31Z",
-    "updated_at": "2026-09-13T17:56:30Z",
-    "decay_at": "2026-09-15T03:01:58Z",
+    "surfaced_at": "2026-09-29T10:02:00Z",
+    "updated_at": "2026-09-29T10:02:00Z",
+    "decay_at": "2026-09-30T21:18:14Z",
     "status": "live",
     "promoted_signal_id": null
   }

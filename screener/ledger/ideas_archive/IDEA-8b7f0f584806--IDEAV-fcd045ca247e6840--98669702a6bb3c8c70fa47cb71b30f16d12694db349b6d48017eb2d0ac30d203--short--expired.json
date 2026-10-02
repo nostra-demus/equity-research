@@ -1,26 +1,26 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-07T22:41:34Z",
+  "archived_at": "2026-10-02T12:11:18Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-c59cbad8d027",
-    "idea_version": "IDEAV-a7c559340ad16ca3",
-    "idea_version_started_at": "2026-09-05T20:08:22Z",
-    "ticker": "CPB",
-    "company": "Campbell Soup Company",
-    "exchange": "NASDAQ",
+    "idea_id": "IDEA-8b7f0f584806",
+    "idea_version": "IDEAV-fcd045ca247e6840",
+    "idea_version_started_at": "2026-09-29T11:56:52Z",
+    "ticker": "LHA",
+    "company": "Lufthansa",
+    "exchange": null,
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company is initiating a significant restructuring involving a 13% reduction in salaried workforce and plant closures, indicating underlying margin pressure and structural challenges.",
-    "why_now": "The restructuring plan was announced on September 4, 2026, as part of a turnaround effort that suggests near-term earnings volatility.",
-    "conviction": 60,
+    "reason": "Higher-than-expected aviation fuel costs will directly compress operating margins and reduce net profitability for the current fiscal period.",
+    "why_now": "The CEO provided this negative guidance update on 2026-09-29.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
       "impact": 19,
@@ -53,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-21f6eddbc19c"
+      "EVT-04c04a87aad4"
     ],
-    "primary_source_event_id": "EVT-21f6eddbc19c",
+    "primary_source_event_id": "EVT-04c04a87aad4",
     "source_headlines": [
-      "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort"
+      "Lufthansa CEO says aviation fuel costs will exceed the 1.5 billion euro forecast"
     ],
-    "source_headline": "Campbell's cuts 13% of salaried workforce, closes plants as part of turnaround effort",
-    "source_url": "https://www.foxbusiness.com/markets/campbells-cuts-13-salaried-workforce-closes-plants-part-turnaround-effort",
-    "source_name": "Fox Business — Markets",
+    "source_headline": "CEO da Lufthansa afirma que custo com combustível de aviação superará previsão de 1,5 bi de euros",
+    "source_url": "https://www.reuters.com/pt/negocio/TUGA7POU3VLSNA6XZ3HXRN4E4Q-2026-09-29/",
+    "source_name": "Reuters — Latest (news sitemap)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-04T21:58:12Z",
+    "newest_source_at": "2026-09-29T11:36:09Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-03T18:13:00Z",
-    "updated_at": "2026-09-05T20:08:22Z",
-    "decay_at": "2026-09-06T09:58:12Z",
+    "surfaced_at": "2026-09-29T11:56:52Z",
+    "updated_at": "2026-09-29T11:56:52Z",
+    "decay_at": "2026-09-30T23:36:09Z",
     "status": "live",
     "promoted_signal_id": null
   }
