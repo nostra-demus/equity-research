@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-16T13:29:06Z",
+  "archived_at": "2026-10-02T06:02:35Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-f10044ee35a3",
-    "idea_version": "IDEAV-70cc29c1fe35cd26",
-    "idea_version_started_at": "2026-09-13T18:31:35Z",
-    "ticker": "SDZ",
-    "company": "Sandoz",
-    "exchange": "SIX",
+    "idea_id": "IDEA-d158d5568139",
+    "idea_version": "IDEAV-3af9372ed9f72aef",
+    "idea_version_started_at": "2026-09-29T09:11:29Z",
+    "ticker": "STTC",
+    "company": "Sangoma Technologies",
+    "exchange": "NASDAQ",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "A new 2040 strategy targeting 100 biosimilars supported by a $300 million facility build-out positions the company to capture significant market share in the high-margin biologics space.",
-    "why_now": "The strategic roadmap and facility investment were unveiled on September 13, 2024.",
-    "conviction": 60,
+    "reason": "Sangoma Technologies is being acquired by BRC Group in a $204 million deal, creating a clear arbitrage opportunity between the current market price and the acquisition price.",
+    "why_now": "The deal was announced on 2026-09-29.",
+    "conviction": 80,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 18,
+      "impact": 20,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "priced-in risk",
       "independent confirmation",
       "live price, liquidity, and consensus"
     ],
@@ -48,31 +49,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
+    "priced_in": "priced",
     "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-ec739a38721f"
+      "EVT-3b2a9acd7e91"
     ],
-    "primary_source_event_id": "EVT-ec739a38721f",
+    "primary_source_event_id": "EVT-3b2a9acd7e91",
     "source_headlines": [
-      "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build"
+      "BRC Group To Acquire Sangoma Technologies In $204 Mln Deal"
     ],
-    "source_headline": "Sandoz sets sights on 100 biosimilars in new 2040 strategy, with $300M facility build",
-    "source_url": "https://www.fiercepharma.com/pharma/sandoz-aims-biosimilar-dominance-under-new-strategy-300m-facility-sweetener-slovenia",
-    "source_name": "FiercePharma",
+    "source_headline": "BRC Group To Acquire Sangoma Technologies In $204 Mln Deal",
+    "source_url": "https://www.nasdaq.com/articles/brc-group-acquire-sangoma-technologies-204-mln-deal",
+    "source_name": "Nasdaq",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-13T12:23:32Z",
+    "newest_source_at": "2026-09-29T05:27:50Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-13T12:44:48Z",
-    "updated_at": "2026-09-13T18:31:35Z",
-    "decay_at": "2026-09-15T00:23:32Z",
+    "surfaced_at": "2026-09-29T09:11:29Z",
+    "updated_at": "2026-09-29T09:11:29Z",
+    "decay_at": "2026-09-30T17:27:50Z",
     "status": "live",
     "promoted_signal_id": null
   }
