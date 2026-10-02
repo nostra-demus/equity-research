@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-02T00:50:00Z",
+  "generated_at": "2026-10-02T00:58:17Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261002-116",
+      "headline": "FIRST PACIFIC (00142): DISCLOSEABLE AND CONNECTED TRANSACTION: ACQUISITION OF ADDITIONAL INTEREST IN MANILA ELECTRIC COMPANY BY METRO PACIFIC INVESTMENTS CORPORATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026100200083.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-02T00:15:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "First Pacific is acquiring additional interest in Manila Electric Company, a significant utility asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "First Pacific is acquiring additional interest in Manila Electric Company, a significant utility asset.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First Pacific",
+          "ticker": "00142",
+          "listing_country": "CN"
+        },
+        {
+          "name": "Metro Pacific Investments Corporation",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261002-050",
       "headline": "Nike Sales Miss Forecasts, Shares Drop on China and Sportswear Slowdown",
@@ -149,6 +203,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-120",
+      "headline": "SAMSONITE (01910): Closing of the Acquisition of BEIS, LLC",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026100200003.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T22:03:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Samsonite completed the acquisition of BEIS, LLC, expanding its brand portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Samsonite completed the acquisition of BEIS, LLC, expanding its brand portfolio.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsonite",
+          "ticker": "01910",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-119",
+      "headline": "FU SHOU YUAN (01448): RESPONSE DOCUMENT RELATING TO THE UNCONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026100200007.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-01T22:14:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Fu Shou Yuan issued a response document regarding a voluntary partial cash offer to acquire 115 million shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Fu Shou Yuan issued a response document regarding a voluntary partial cash offer to acquire 115 million shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fu Shou Yuan",
+          "ticker": "01448",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -542,6 +694,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-121",
+      "headline": "Mattel attracts takeover interest from Authentic Brands Group, source says",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/mattel-attracts-takeover-interest-from-authentic-brands-group-source-says",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T00:16:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Mattel is reportedly attracting takeover interest from Authentic Brands Group.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Mattel is reportedly attracting takeover interest from Authentic Brands Group.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mattel",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-117",
+      "headline": "QYUNS-B (02509): VOLUNTARY ANNOUNCEMENT PHASE III CLINICAL STUDY RESULTS OF OTURKIBART (QX005N) FOR TREATMENT OF PRURIGO NODULARIS PRESENTED AS A LATE-BREAKING ORAL PRESENTATION AT EADV 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026100200049.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-02T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "QYUNS-B reported positive Phase III clinical trial results for its drug candidate Oturkibart.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "QYUNS-B reported positive Phase III clinical trial results for its drug candidate Oturkibart.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QYUNS-B",
+          "ticker": "02509",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-114",
       "headline": "Disney’s Walden Says She Would Be Interested in Buying ‘Bluey’",
       "headline_en": null,
@@ -787,6 +1037,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-123",
+      "headline": "US sanctions target Iran’s auto, rail sectors as blockade chokes ship lanes",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/us-sanctions-target-irans-auto-rail-sectors-blockade-chokes-ship-lanes",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T00:03:47Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "New US sanctions targeting Iran's auto and rail sectors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "New US sanctions targeting Iran's auto and rail sectors.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1680,288 +1973,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-077",
-      "headline": "Boeing white-collar workers approve latest contract offer, averting strike fears",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/world-at-work/boeing-white-collar-workers-approve-latest-contract-offer-averting-strike-fears-2026-10-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T19:35:27Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Boeing white-collar workers ratified a contract, removing the risk of a disruptive strike.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Boeing white-collar workers ratified a contract, removing the risk of a disruptive strike.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-006",
-      "headline": "US alleges California man smuggled export-controlled servers to China",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/us-alleges-california-man-smuggled-export-controlled-servers-china-2026-10-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T22:52:20Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "US authorities allege smuggling of export-controlled servers to China, raising regulatory and compliance risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "US authorities allege smuggling of export-controlled servers to China, raising regulatory and compliance risks.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-054",
-      "headline": "61-year-old college retailer quietly closes 68 stores in 3 months",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/college-retailer-barnes-and-noble-education-closes-68-stores",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T20:17:00Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "A retailer closing 68 stores in 3 months indicates significant operational distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "A retailer closing 68 stores in 3 months indicates significant operational distress.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-115",
-      "headline": "MRPL blast: A call for stronger safeguards",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/opinion/editorial/mrpl-blast-a-call-for-stronger-safeguards-4167422",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T18:48:28Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "A blast at an MRPL facility indicates operational risk and potential safety-related costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "A blast at an MRPL facility indicates operational risk and potential safety-related costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mangalore Refinery and Petrochemicals Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-113",
-      "headline": "Google rolls out Gemini 4 Argon, its most advanced AI model",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/09/30/google-gemini-4-argon-ai.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T18:52:14Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Google releases new AI model, Gemini 4 Argon.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Google releases new AI model, Gemini 4 Argon.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Google",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-009",
-      "headline": "Bridgewater's flagship macro fund posts double-digit gains this year, sources say",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/finance/bridgewaters-flagship-macro-fund-posts-robust-double-digit-gains-this-year-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T21:08:29Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Bridgewater's flagship macro fund reports double-digit gains, indicating strong performance for the firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Bridgewater's flagship macro fund reports double-digit gains, indicating strong performance for the firm.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bridgewater",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194569,9 +194580,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 99997,
-    "news_picked_today": 131,
-    "news_dropped_today": 421
+    "news_seen_today": 110943,
+    "news_picked_today": 151,
+    "news_dropped_today": 497
   },
   "book_momentum": {
     "live_count": 8,
