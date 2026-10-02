@@ -422,7 +422,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §18/§13 module verdict-lock caps — a balance-sheet-survival "Distress risk" or management-governance "Serious governance concerns" or business-model "Low-quality business" synthesis verdict capping the headline at Watchlist or lower (checks AA/AB, via `scripts/rating_caps.py`) — the §16 sector ↔ valuation-method consistency check, that a bank/lender/insurer/REIT is never headlined on a method `frameworks/SECTOR_OVERLAYS.md` or the valuation Business-Type Method Map forbids for it (check W, via `scripts/sector_valuation_checks.py`) — the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation, the Decision Audit Trail structural check, and red-flag severity reconciliation (checks AI/AJ/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), the §18/§13 module verdict-lock caps — a balance-sheet-survival "Distress risk" or management-governance "Serious governance concerns" or business-model "Low-quality business" synthesis verdict capping the headline at Watchlist or lower (checks AA/AB, via `scripts/rating_caps.py`) — the §16 sector ↔ valuation-method consistency check, that a bank/lender/insurer/REIT is never headlined on a method `frameworks/SECTOR_OVERLAYS.md` or the valuation Business-Type Method Map forbids for it (check W, via `scripts/sector_valuation_checks.py`) — the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`) — the §13 cross-module forensic-mosaic conviction cap (check AQ, via `scripts/rating_caps.py`) — the §16 Sector Cycle Reality Test compounding cap on the valuation module's own stated confidence score (check BB, via `scripts/rating_caps.py`) — the Headline Scorecard ↔ decision_record.json reconciliation, the Decision Audit Trail structural check, and red-flag severity reconciliation (checks AI/AJ/AK, via `scripts/headline_checks.py`) — the §10 scenario-span check, sign-check presence gate, and §10 conjunction-disclosure check (checks AT/AU/AV, via `scripts/scenario_integrity_checks.py`) — the §10 HARD GATE 13 probability-basis presence/form check on every probability-bearing `scenarios[]`/`forecast_ledger[]` row (check BC, same module) — HARD GATE 11's kill-criteria trigger-test schema presence, that every `kill_criteria[]` row carries `comparable_basis` and `fired_last_two_periods` (check BA, same module) — and the §8 bear-case / bull-case sanity checks, that a Selected/conviction long's bear-labelled scenario is a genuine loss and a Short Candidate's bull-labelled scenario is a genuine loss to the short (checks AM/AR, same module) — and the valuation-sidecar basis comparability check, that weighted cases on one horizon share one period and one measure and each multiple matches its metric's basis (check BF, via `scripts/valuation_basis_checks.py`; report-only as a `GATE-NOTE` before its `BF_ENFORCE_DATE`, a violation on/after it, judged on the date the gate runs). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 The §19 / DECISION_LEDGER §6 forecast-resolvability check also verifies that every `forecast_ledger[]` row is mechanically settleable — a pinned numeric bar or a named settleable document, triggers that actually partition the outcome space, and at least one near-term (≤90-day) proof point (check AO, via `scripts/scenario_integrity_checks.py`).
 
@@ -830,24 +830,89 @@ viol.extend(hc.eval_aj_decision_audit_trail(_live_date, _thesis_text_ak) or [])
 # Checked HERE rather than in eval.py's corpus scan on purpose: this gate is per-run and pre-publish, so
 # it reaches the run that can still fix it, while a corpus-wide presence rule would red CI on every code
 # PR for runs whose authors were never told (valuation_basis_checks.BF_SIDECAR_REQUIRED_DATE stays None
-# for that reason). The gate loop runs twice, so the normal outcome is that the agent is told, emits it,
-# and the run goes clean; one that still cannot ships PROVISIONAL with the reason named.
+# for that reason). The gate loop runs twice and 10B.1a routes every violation that starts with
+# `valuation_summary.json` / `valuation/valuation_summary.json` to valuation `99` with an EMIT-ONLY instruction
+# (the master cannot write this file), so the normal outcome is that the module's own synthesis emits it from
+# its existing report and the run goes clean; one that still cannot ships PROVISIONAL with the reason named.
 #
-# A run with no scenario levels has nothing to put in the sidecar, so absence there stays soft.
+# "Scenario levels" means rows carrying a numeric price_target — a fair-value LEVEL. A run whose scenarios
+# carry only probability/return (no fair-value levels) is the case 99 itself says "may omit it", so absence
+# there stays soft: keying on any scenario row at all demanded a level artifact of a run that had none.
 import valuation_summary_checks as vsc
 _vs_path = os.path.join(run, "valuation", "valuation_summary.json")
-_vs_levels = d.get("scenarios") if isinstance(d, dict) else None
-if not os.path.exists(_vs_path) and isinstance(_vs_levels, list) and _vs_levels:
+_vs_scen = d.get("scenarios") if isinstance(d, dict) else None
+_vs_levels = [s for s in _vs_scen if isinstance(s, dict) and _isnum(s.get("price_target"))] if isinstance(_vs_scen, list) else None
+# [review fix F11] REQUIRE THE ARTIFACT ONLY FROM A PASS THAT RAN THE VALUATION MODULE. The rule above
+# keys off `decision_record.scenarios` alone, and this block runs verbatim in TWO callers. A
+# `/research:full` run executes every module, so valuation's 99 always runs and can always emit —
+# default REQUIRED. But a standalone `/research:rerun` re-runs only the selected orb, its own module's
+# 99, and the 99 of each module downstream of it (rerun.md, "You re-run ONLY"), then runs this gate
+# verbatim at its Step 8A. When `valuation` is not in that cascade, NO step in the pass writes this
+# file, so requiring it stamps PROVISIONAL on a run that has no way to clear it — the gate's own stated
+# purpose is to "reach the run that can still fix it", and this is the case that cannot.
+# Measured: five committed folders carry scenario levels in decision_record.json and no sidecar
+# (AKAM_2026-09-14, AKAM_2026-09-15, BURL_2026-09-29, NU_2026-08-31, V_2026-09-23 — the four that ran
+# after emission silently stopped, plus NU). Every future rerun of one of those outside the valuation
+# cascade would ship flagged, permanently, on an artifact that pass cannot produce.
+# The default is REQUIRED, so a caller that forgets to declare its scope keeps the Hard Rule's teeth;
+# only an explicit out-of-scope declaration relaxes it, and that case is PRINTED rather than dropped, so
+# the operator still sees the gap and can clear it with `/research:rerun <TICKER> valuation`.
+_vs_in_scope = globals().get("_VALUATION_MODULE_IN_SCOPE", True)
+if not os.path.exists(_vs_path) and isinstance(_vs_levels, list) and _vs_levels and _vs_in_scope:
     viol.append(f"valuation/valuation_summary.json was not emitted, though this run produced {len(_vs_levels)} "
                 "scenario level(s) — it is the only artifact carrying per-case basis, so without it the fair "
                 "value is not re-derivable and no basis check can read the run (99_valuation-synthesis "
                 "'Structured Emission', Hard Rule)")
+elif not os.path.exists(_vs_path) and isinstance(_vs_levels, list) and _vs_levels:
+    print(f"GATE-NOTE: valuation/valuation_summary.json is absent and this pass did not run the valuation "
+          f"module, so nothing here could emit it — not a violation of this pass. The run still carries "
+          f"{len(_vs_levels)} scenario level(s) with no per-case basis artifact; clear it with "
+          f"`/research:rerun <TICKER> valuation` (99_valuation-synthesis 'Structured Emission', Hard Rule)")
 if os.path.exists(_vs_path):
     # soft-presence is only for an ABSENT file; a present-but-unreadable/invalid sidecar is an integrity
     # failure (else a truncated JSON would collapse to None and PASS the gate, shipping a broken lever set).
     try: _vs_sidecar = json.load(open(_vs_path, encoding="utf-8"))
     except Exception as _e: viol.append(f"valuation_summary.json exists but is not readable/valid JSON ({_e}) — integrity failure, not soft-absence")
-    else: viol.extend(vsc.eval_ap_valuation_summary_integrity(_vs_sidecar, d) or [])
+    # Prefixed so 10B.1a can route them to the file's only writer (valuation `99`), not to the master.
+    else: viol.extend(f"valuation_summary.json: {_v}" for _v in (vsc.eval_ap_valuation_summary_integrity(_vs_sidecar, d) or []))
+# check BF — basis comparability of the sidecar's cases (scripts/valuation_basis_checks.py, the same pure core
+# eval.py's BF scan replays). Without this call the checker ran only retrospectively, so the run that could
+# still fix a bear priced on a different period or measure from its base never heard about it. Called exactly
+# as the scan calls it: the set's coherence (one period + one measure across weighted cases) plus the
+# within-case multiple/metric match, judged by eval_bf_basis_enforcement. Enforced on `_live_date`, NOT on
+# `ddte` — the AJ/AA/BB precedent: decision_date never advances on a rerun, so keying on it would leave every
+# folder first written before BF_ENFORCE_DATE exempt forever, however often its thesis is regenerated. Before
+# BF_ENFORCE_DATE a finding is REPORT-ONLY (GATE-NOTE, no banner); on/after it a failure stamps PROVISIONAL.
+# Runs only on a readable sidecar: an absent or unreadable one is already a named violation above.
+_vbc = None
+try:
+    import importlib.util as _ilu
+    if _ilu.find_spec("valuation_basis_checks") is not None:
+        import valuation_basis_checks as _vbc
+except Exception as _e:
+    print(f"GATE-NOTE: check BF could not load scripts/valuation_basis_checks.py ({_e}) — basis comparability NOT checked on this pass")
+else:
+    if _vbc is None:
+        print("GATE-NOTE: check BF not run — scripts/valuation_basis_checks.py is not present in this checkout, so "
+              "the sidecar's basis comparability was NOT checked on this pass")
+if _vbc is not None and os.path.exists(_vs_path) and isinstance(globals().get("_vs_sidecar"), dict):
+    _bf_date = getattr(_vbc, "BF_ENFORCE_DATE", None)
+    try:
+        _bf_v = _vbc.eval_scenario_basis_coherence(_vs_sidecar)
+        _bf_w = _vbc.eval_multiple_metric_basis(_vs_sidecar)
+        if _bf_w: _bf_v = (_bf_v or []) + list(_bf_w)
+        _bf_verdict = _vbc.eval_bf_basis_enforcement(_live_date, _vs_sidecar, _bf_v)
+    except Exception as _e:
+        # A crashing validator is never silence: report-only before the date, a violation from it.
+        _bf_v, _bf_verdict = [f"the BF basis check raised {type(_e).__name__}: {_e}"], (
+            "fail" if isinstance(_bf_date, str) and _live_date >= _bf_date else "na")
+    if _bf_verdict == "fail":
+        viol.extend(f"valuation_summary.json basis (BF): {_v}" for _v in (_bf_v or [
+            "two or more weighted cases declare no earnings basis at all — a set that declares nothing is not a "
+            "clean set (declare metric_period / metric_measure per case)"]))
+    elif _bf_v:
+        print(f"GATE-NOTE: check BF (report-only until {_bf_date}, judged on today's date {_live_date}) — "
+              + "; ".join(_bf_v))
 # checks AT/AU/AV — §10 scenario-span check, sign-check presence, §10 conjunction-disclosure check
 # (live pre-publish; mirrors eval.py checks AT/AU/AV via scripts/scenario_integrity_checks.py, the
 # same shared-detection-module pattern as rating_caps.py / headline_checks.py / valuation_summary_checks.py
@@ -1035,7 +1100,9 @@ attestation failure stops before re-gating or committing. In `shadow`, record th
 as usual. A pre-remediation attestation never authorizes rewritten bytes.
 
 1. Split the verbatim violation list before any dispatch. A **BB violation** is one whose text starts
-   `§16 Sector Cycle Reality Test compounding trigger fired`; every other entry is a **master-owned
+   `§16 Sector Cycle Reality Test compounding trigger fired`; a **sidecar violation** is one whose text starts
+   `valuation_summary.json` or `valuation/valuation_summary.json` (the missing, unreadable, integrity (AP) and
+   basis (BF) findings on the valuation lever sidecar); every other entry is a **master-owned
    violation**. Pass only the master-owned list to `.claude/agents/synthesizer.md`. If that list is empty,
    skip this initial master pass. This exclusion is mandatory: the master does not own valuation `99`,
    and letting it react to BB before the module correction can change downstream scores from stale inputs.
@@ -1087,6 +1154,26 @@ as usual. A pre-remediation attestation never authorizes rewritten bytes.
      number."* Skip this propagation when valuation was absent, refused the correction, or failed the
      byte-scope guard. Without the derived-tier refresh and this post-module propagation, the second gate
      can pass while reader-facing outputs still carry the pre-cap score.
+
+   - **Route sidecar violations only to the valuation owner, emit-only.** `valuation/valuation_summary.json`
+     is written by `.claude/agents/valuation/99_valuation-synthesis.md` ("Structured Emission") and by no
+     other step — the master does not own it and cannot clear these. When the sidecar list is non-empty,
+     resolve the exact valuation `99` path with the same glob as BB. If no non-empty file exists, do not
+     dispatch and do not create the sidecar here: leave the violations PROVISIONAL for the second gate (the
+     same never-regenerate-a-missing-module rule as BB). Otherwise save the `99` markdown bytes to a `mktemp`
+     path outside `<RUN_ROOT>`, then dispatch `99` against the same run with: *"The finish-gate rejected the
+     valuation lever sidecar: <the sidecar violations, verbatim>. Write or correct ONLY
+     `valuation/valuation_summary.json`, from the levels, metrics, multiples and bases already stated in your
+     existing report and `07_scenario-and-fair-value.md`, per the Structured Emission section and
+     `frameworks/valuation_summary.schema.json`. Do not edit any markdown, re-run any specialist, or change a
+     level, a basis, or a case's `set_membership` to clear a check — record what the reports actually say. If
+     a violation reflects the analysis itself (a weighted case genuinely built on a different period, or a
+     decision_record price_target that disagrees with your level), leave that line and say in one line why it
+     needs `/research:rerun <TICKER> valuation` or a master correction."* After the normal output check,
+     compare the `99` markdown with the saved bytes: if they differ at all, atomically restore the saved
+     original. Delete the temporary file. Attest the new exact sidecar bytes under
+     `valuation/99_valuation-synthesis`. Do not refresh derived tiers or run a master propagation pass — no
+     markdown, level or score changed.
 2. Re-run 10B.1 verbatim. Its banner logic is idempotent — it strips the old banner and re-stamps only what still fails.
 3. Run this loop **once**. If violations remain after the second gate, ship PROVISIONAL with the remaining reasons; that is now an honest record of what could not be fixed rather than of what nobody tried to fix.
 
