@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T04:34:44Z",
+  "generated_at": "2026-10-02T04:38:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -1111,6 +1111,119 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-518",
+      "headline": "Caixabank evaluará una posible oferta por Cetelem en España y Portugal, según Expansión",
+      "headline_en": "Caixabank will evaluate a possible offer for Cetelem in Spain and Portugal, according to Expansión",
+      "url": "https://www.reuters.com/es/negocio/ICKJYJVSTBP6ZGBPNQYM5RGUVM-2026-10-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T12:59:45Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Caixabank will evaluate a possible offer for Cetelem in Spain and Portugal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Caixabank will evaluate a possible offer for Cetelem in Spain and Portugal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Caixabank",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Cetelem",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-519",
+      "headline": "Caixabank to assess possible bid for BNP's Cetelem in Spain and Portugal, newspaper reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/caixabank-assess-possible-bid-bnps-cetelem-newspaper-reports-2026-10-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T12:59:44Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Caixabank will assess a possible bid for BNP's Cetelem in Spain and Portugal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Caixabank will assess a possible bid for BNP's Cetelem in Spain and Portugal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Caixabank",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "BNP",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Cetelem",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-206",
       "headline": "RSOLEC seeks to invest Rs 5,000 crore in Tumakuru for solar ingot plant: M B Patil",
       "headline_en": null,
@@ -1908,109 +2021,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-067",
-      "headline": "Vedanta Copper plans $2.3 billion capex, Tamil Nadu smelter restart back on agenda",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/metals-mining/vedanta-copper-plans-2-3-billion-capex-tamil-nadu-smelter-restart-back-on-agenda/articleshow/134626840.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T19:55:39Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Vedanta commits $2.3 billion capex and plans Tamil Nadu smelter restart, a quantified capacity-expansion announcement that moves cash flow, capex forecast, and production outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Vedanta commits $2.3 billion capex and plans Tamil Nadu smelter restart, a quantified capacity-expansion announcement that moves cash flow, capex forecast, and production outlook.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 73,
-      "rank_factors": {
-        "materiality": 73,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vedanta",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-126",
-      "headline": "SCHEDULE 13D/A - ADVENT INTERNATIONAL, L.P. (0001034196) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1034196/000114036126038313/0001140361-26-038313-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-02T00:30:16Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Advent International, a major global PE firm, files amended Schedule 13D on Definitive Healthcare Corp., signaling a change in beneficial ownership or control intent that could materially affect capital structure, governance, valuation risk, and management direction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Advent International, a major global PE firm, files amended Schedule 13D on Definitive Healthcare Corp., signaling a change in beneficial ownership or control intent that could materially affect capital structure, governance, valuation risk, and management direction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Definitive Healthcare Corp.",
-          "ticker": "DH",
-          "listing_country": "US"
-        },
-        {
-          "name": "Advent International, L.P.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194619,9 +194629,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 514803,
-    "news_picked_today": 791,
-    "news_dropped_today": 2929
+    "news_seen_today": 522961,
+    "news_picked_today": 817,
+    "news_dropped_today": 2951
   },
   "book_momentum": {
     "live_count": 8,
