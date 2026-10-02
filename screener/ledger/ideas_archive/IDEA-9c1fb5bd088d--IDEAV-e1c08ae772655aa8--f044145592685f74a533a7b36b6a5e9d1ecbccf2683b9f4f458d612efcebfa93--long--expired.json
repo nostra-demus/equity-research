@@ -1,0 +1,79 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-02T20:03:43Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-9c1fb5bd088d",
+    "idea_version": "IDEAV-e1c08ae772655aa8",
+    "idea_version_started_at": "2026-09-30T04:07:30Z",
+    "ticker": "00848",
+    "company": "Maoye International",
+    "exchange": "HKEX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "long",
+    "pair_with": null,
+    "reason": "The company announced a privatization proposal by W.F Group Limited via a scheme of arrangement, which typically results in the stock price converging toward the offer price.",
+    "why_now": "The announcement was made on 2026-09-29 and trading resumed on 2026-09-30.",
+    "conviction": 85,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 21,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "priced-in risk",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "priced",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-ecc2af8e82dd"
+    ],
+    "primary_source_event_id": "EVT-ecc2af8e82dd",
+    "source_headlines": [
+      "MAOYE INT'L (00848): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF MAOYE INTERNATIONAL HOLDINGS LIMITED BY W.F GROUP LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL RELATING TO THE ROLLOVER ARRANGEMENT; AND (4) RESUMPTION OF TRADING"
+    ],
+    "source_headline": "MAOYE INT'L (00848): JOINT ANNOUNCEMENT (1) PROPOSAL FOR THE PRIVATISATION OF MAOYE INTERNATIONAL HOLDINGS LIMITED BY W.F GROUP LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 86 OF THE COMPANIES ACT OF THE CAYMAN ISLANDS; (2) PROPOSED WITHDRAWAL OF LISTING (3) SPECIAL DEAL RELATING TO THE ROLLOVER ARRANGEMENT; AND (4) RESUMPTION OF TRADING",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0929/2026092902197.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-09-29T14:52:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-09-30T04:07:30Z",
+    "updated_at": "2026-09-30T04:07:30Z",
+    "decay_at": "2026-10-01T02:52:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
