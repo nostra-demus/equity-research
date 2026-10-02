@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T06:32:26Z",
+  "generated_at": "2026-10-02T06:35:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-621",
@@ -450,6 +450,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-638",
+      "headline": "Bitget 'not expecting to recover a lot' from $388 million hack, CEO tells CNBC",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/02/bitget-crypto-stolen-hack-recovery.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T06:03:23Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Bitget CEO confirms limited recovery of $388 million in hacked funds, indicating a significant financial loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bitget CEO confirms limited recovery of $388 million in hacked funds, indicating a significant financial loss.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bitget",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-625",
       "headline": "Onsemi Revises Synaptics $5.7 Bln Merger Agreement At $123/shr",
       "headline_en": null,
@@ -499,55 +548,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-624",
-      "headline": "Bitget `not expecting to recover a lot' from $388 million hack, CEO tells CNBC",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/02/bitget-crypto-stolen-hack-recovery.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T05:25:22Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Company confirms a $388 million loss from a hack with low recovery expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Company confirms a $388 million loss from a hack with low recovery expectations.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bitget",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194473,9 +194473,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 676786,
-    "news_picked_today": 1144,
-    "news_dropped_today": 4184
+    "news_seen_today": 683939,
+    "news_picked_today": 1154,
+    "news_dropped_today": 4198
   },
   "book_momentum": {
     "live_count": 8,
