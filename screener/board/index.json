@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T14:48:40Z",
+  "generated_at": "2026-10-02T14:53:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1011",
@@ -938,6 +938,55 @@
       "companies": [
         {
           "name": "Nike",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-1058",
+      "headline": "FMC Consensus Price Target Lowered by 26.18% to $13.75",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/fmc-consensus-price-target-lowered-2618-1375",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T12:54:26Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Analyst consensus price target cut of 26.18% indicates a significant shift in market expectations for FMC.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Analyst consensus price target cut of 26.18% indicates a significant shift in market expectations for FMC.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FMC",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1937,55 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-638",
-      "headline": "Bitget 'not expecting to recover a lot' from $388 million hack, CEO tells CNBC",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/02/bitget-crypto-stolen-hack-recovery.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T06:03:23Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Bitget CEO confirms limited recovery of $388 million in hacked funds, indicating a significant financial loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Bitget CEO confirms limited recovery of $388 million in hacked funds, indicating a significant financial loss.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bitget",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193234,9 +193234,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1149480,
-    "news_picked_today": 2599,
-    "news_dropped_today": 9881
+    "news_seen_today": 1152055,
+    "news_picked_today": 2612,
+    "news_dropped_today": 9916
   },
   "book_momentum": {
     "live_count": 8,
