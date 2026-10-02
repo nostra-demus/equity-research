@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T15:36:40Z",
+  "generated_at": "2026-10-02T15:43:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-1059",
@@ -1351,6 +1351,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-1164",
+      "headline": "Embraer, Mahindra Group plan to invest ₹6,000 crore in Nagpur assembly line",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/embraer-mahindra-group-plan-to-invest-6000-crore-in-nagpur-assembly-line/article71537075.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T13:12:34Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Embraer and Mahindra Group announced a ₹6,000 crore investment for a new assembly line in Nagpur.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Embraer and Mahindra Group announced a ₹6,000 crore investment for a new assembly line in Nagpur.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Embraer",
+          "ticker": null,
+          "listing_country": "BR"
+        },
+        {
+          "name": "Mahindra Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-1058",
       "headline": "FMC Consensus Price Target Lowered by 26.18% to $13.75",
       "headline_en": null,
@@ -1946,56 +2000,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-972",
-      "headline": "Nike planeja mais cortes de empregos e prevê queda acentuada na receita",
-      "headline_en": "Nike plans more job cuts and forecasts sharp revenue decline",
-      "url": "https://www.reuters.com/pt/negocio/AMILRH4EZJM3VLHC6CCSCVZAAE-2026-10-02/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T10:03:45Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Nike announced plans for further job cuts and forecasted a sharp decline in revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nike announced plans for further job cuts and forecasted a sharp decline in revenue.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nike",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193244,9 +193248,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1171482,
-    "news_picked_today": 2748,
-    "news_dropped_today": 10572
+    "news_seen_today": 1172993,
+    "news_picked_today": 2773,
+    "news_dropped_today": 10619
   },
   "book_momentum": {
     "live_count": 8,
