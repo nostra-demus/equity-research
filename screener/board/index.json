@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T02:08:28Z",
+  "generated_at": "2026-10-02T02:14:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -600,6 +600,55 @@
           "name": "Regeneron",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-304",
+      "headline": "Google Faces $3.2 Billion Damage Claims on Ad-Tech Monopoly",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-01/google-to-face-3-2-billion-damage-claims-over-ad-tech-monopoly",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T16:49:33Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Google faces $3.2 billion in damage claims over alleged ad-tech monopoly.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Google faces $3.2 billion in damage claims over alleged ad-tech monopoly.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Google",
+          "ticker": "GOOGL",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-171",
-      "headline": "Anthropic targets mega-IPO before US Thanksgiving holiday",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/anthropic-targets-mega-ipo-before-us-thanksgiving-holiday",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T00:45:00Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Anthropic is reportedly targeting a mega-IPO before the US Thanksgiving holiday.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Anthropic is reportedly targeting a mega-IPO before the US Thanksgiving holiday.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194596,9 +194596,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 237185,
-    "news_picked_today": 333,
-    "news_dropped_today": 1347
+    "news_seen_today": 247292,
+    "news_picked_today": 377,
+    "news_dropped_today": 1423
   },
   "book_momentum": {
     "live_count": 8,
