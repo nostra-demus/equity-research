@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T05:47:50Z",
+  "generated_at": "2026-10-02T05:56:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -1327,6 +1327,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-619",
+      "headline": "Accenture vise une hausse annuelle du CA supérieure aux attentes",
+      "headline_en": "Accenture targets annual revenue growth above expectations",
+      "url": "https://www.reuters.com/fr/affaires/accenture-vise-une-hausse-annuelle-du-ca-suprieure-aux-attentes-2026-10-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T11:29:43Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Accenture targets annual revenue growth above market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Accenture targets annual revenue growth above market expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accenture plc",
+          "ticker": "ACN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-597",
       "headline": "Russian air strikes hit Southern Bridge in Kyiv again, mayor says",
       "headline_en": null,
@@ -1965,55 +2015,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-119",
-      "headline": "FU SHOU YUAN (01448): RESPONSE DOCUMENT RELATING TO THE UNCONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY AFG SECURITIES LIMITED FOR AND ON BEHALF OF GONG HAILIN TO ACQUIRE UP TO 115,000,000 SHARES IN FU SHOU YUAN INTERNATIONAL GROUP LIMITED",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026100200007.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-01T22:14:00Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Fu Shou Yuan issued a response document regarding a voluntary partial cash offer to acquire 115 million shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Fu Shou Yuan issued a response document regarding a voluntary partial cash offer to acquire 115 million shares.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fu Shou Yuan",
-          "ticker": "01448",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -152341,76 +152342,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b1ef7638c514",
-      "idea_version": "IDEAV-987a75d8bf3974e1",
-      "idea_version_started_at": "2026-09-30T19:14:30Z",
-      "ticker": "PEBO",
-      "company": "Peoples Bancorp",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Peoples Bancorp is acquiring Capital Bancorp for $728.1 million, which typically leads to short-term downward pressure on the acquirer's stock due to the dilution and integration risk associated with the premium paid.",
-      "why_now": "The merger agreement was announced on 2026-09-30.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6065f4d07e55"
-      ],
-      "primary_source_event_id": "EVT-6065f4d07e55",
-      "source_headlines": [
-        "Capital Bancorp Shares Rise 12% On $728.1 Mln Peoples Bancorp Merger Deal"
-      ],
-      "source_headline": "Capital Bancorp Shares Rise 12% On $728.1 Mln Peoples Bancorp Merger Deal",
-      "source_url": "https://www.nasdaq.com/articles/capital-bancorp-shares-rise-12-7281-mln-peoples-bancorp-merger-deal",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-30T17:50:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-30T19:14:30Z",
-      "updated_at": "2026-09-30T19:14:30Z",
-      "decay_at": "2026-10-02T05:50:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-205d9d4ce667",
       "idea_version": "IDEAV-b18cf34bc2da95d4",
       "idea_version_started_at": "2026-10-02T00:48:43Z",
@@ -154392,6 +154323,76 @@
       "surfaced_at": "2026-09-30T03:15:36Z",
       "updated_at": "2026-09-30T03:15:36Z",
       "decay_at": "2026-10-01T08:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b1ef7638c514",
+      "idea_version": "IDEAV-987a75d8bf3974e1",
+      "idea_version_started_at": "2026-09-30T19:14:30Z",
+      "ticker": "PEBO",
+      "company": "Peoples Bancorp",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Peoples Bancorp is acquiring Capital Bancorp for $728.1 million, which typically leads to short-term downward pressure on the acquirer's stock due to the dilution and integration risk associated with the premium paid.",
+      "why_now": "The merger agreement was announced on 2026-09-30.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6065f4d07e55"
+      ],
+      "primary_source_event_id": "EVT-6065f4d07e55",
+      "source_headlines": [
+        "Capital Bancorp Shares Rise 12% On $728.1 Mln Peoples Bancorp Merger Deal"
+      ],
+      "source_headline": "Capital Bancorp Shares Rise 12% On $728.1 Mln Peoples Bancorp Merger Deal",
+      "source_url": "https://www.nasdaq.com/articles/capital-bancorp-shares-rise-12-7281-mln-peoples-bancorp-merger-deal",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T17:50:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T19:14:30Z",
+      "updated_at": "2026-09-30T19:14:30Z",
+      "decay_at": "2026-10-02T05:50:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -157410,9 +157411,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 547,
+    "total_count": 548,
     "shown_count": 500,
-    "hidden_count": 47,
+    "hidden_count": 48,
     "side_counts": {
       "long": {
         "total_count": 278,
@@ -157420,9 +157421,9 @@
         "hidden_count": 28
       },
       "short": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       }
     },
     "retention": {
@@ -157441,6 +157442,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b1ef7638c514",
+        "idea_version": "IDEAV-987a75d8bf3974e1",
+        "idea_version_started_at": "2026-09-30T19:14:30Z",
+        "ticker": "PEBO",
+        "company": "Peoples Bancorp",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Peoples Bancorp is acquiring Capital Bancorp for $728.1 million, which typically leads to short-term downward pressure on the acquirer's stock due to the dilution and integration risk associated with the premium paid.",
+        "why_now": "The merger agreement was announced on 2026-09-30.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6065f4d07e55"
+        ],
+        "primary_source_event_id": "EVT-6065f4d07e55",
+        "source_headlines": [
+          "Capital Bancorp Shares Rise 12% On $728.1 Mln Peoples Bancorp Merger Deal"
+        ],
+        "source_headline": "Capital Bancorp Shares Rise 12% On $728.1 Mln Peoples Bancorp Merger Deal",
+        "source_url": "https://www.nasdaq.com/articles/capital-bancorp-shares-rise-12-7281-mln-peoples-bancorp-merger-deal",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-30T17:50:48Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-30T19:14:30Z",
+        "updated_at": "2026-09-30T19:14:30Z",
+        "decay_at": "2026-10-02T05:50:48Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-02T05:50:48Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3495b6682569",
         "idea_version": "IDEAV-b75492b03460c297",
@@ -194522,87 +194596,12 @@
         "archived_at": "2026-09-09T05:11:44Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1e4418649180",
-        "idea_version": "IDEAV-dec86f5bf9ababfe",
-        "idea_version_started_at": "2026-09-06T04:54:50Z",
-        "ticker": "GLAND",
-        "company": "Gland Pharma",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The sale of a 4.55% stake by major shareholder Fosun Pharma, which reduces their holding below 50%, creates a significant supply overhang and signals a potential exit by the parent company.",
-        "why_now": "The transaction was reported on 2026-09-06, creating immediate selling pressure as the market digests the reduction in promoter control.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c6958bd3121b"
-        ],
-        "primary_source_event_id": "EVT-c6958bd3121b",
-        "source_headlines": [
-          "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%"
-        ],
-        "source_headline": "Gland Pharma Stake Sale: Fosun Pharma Sells 4.55% For Rs 2,121 Crore, Holding Falls Below 50%",
-        "source_url": "https://www.freepressjournal.in/business/gland-pharma-stake-sale-fosun-pharma-sells-455-for-rs-2121-crore-holding-falls-below-50",
-        "source_name": "Free Press Journal",
-        "materiality_max": 90,
-        "newest_source_at": "2026-09-06T04:17:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T17:14:18Z",
-        "updated_at": "2026-09-06T04:54:50Z",
-        "decay_at": "2026-09-07T16:17:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-09T05:11:44Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1201,
-    "live_count": 25,
+    "live_count": 24,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
