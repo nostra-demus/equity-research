@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T05:34:49Z",
+  "generated_at": "2026-10-02T05:40:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -1224,6 +1224,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-598",
+      "headline": "AMD takes an $8 bln leap at Nvidia",
+      "headline_en": null,
+      "url": "https://www.reuters.com/commentary/breakingviews/amd-takes-an-8-bln-leap-nvidia-2026-09-30/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T12:00:30Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "AMD is acquiring ZT Systems for $4.9 billion to expand its AI data center infrastructure, a major strategic move against Nvidia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AMD is acquiring ZT Systems for $4.9 billion to expand its AI data center infrastructure, a major strategic move against Nvidia.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AMD",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-616",
+      "headline": "Accenture sets annual revenue forecast at 3-6%, above estimates",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/accenture-forecasts-annual-revenue-growth-above-estimates/articleshow/134617674.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T11:40:16Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Accenture set its annual revenue forecast at 3-6%, which is above analyst estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Accenture set its annual revenue forecast at 3-6%, which is above analyst estimates.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accenture",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-597",
       "headline": "Russian air strikes hit Southern Bridge in Kyiv again, mayor says",
       "headline_en": null,
@@ -1911,109 +2014,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-555",
-      "headline": "Bajaj Finance QIP: Board approves ₹11,700 crore fundraise; ₹5,800 crore warrant issue to Bajaj Finserv",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/bajaj-finance-qip-warrants-preferential-issue-bajaj-finserv-promoter-board-approval-egm-sebi-20003496.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T03:46:44Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Bajaj Finance board approved a ₹11,700 crore fundraise via QIP and warrants.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Bajaj Finance board approved a ₹11,700 crore fundraise via QIP and warrants.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-494",
-      "headline": "Bajaj Finance plans ₹17,500 crore raise, with parent Bajaj Finserv in for ₹5,800 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/bajaj-finance-qip-warrants-preferential-issue-bajaj-finserv-promoter-board-approval-egm-sebi-20003496.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T03:46:44Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Bajaj Finance plans a significant ₹17,500 crore capital raise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Bajaj Finance plans a significant ₹17,500 crore capital raise.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Bajaj Finserv",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194621,9 +194621,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 596267,
-    "news_picked_today": 972,
-    "news_dropped_today": 3684
+    "news_seen_today": 611337,
+    "news_picked_today": 995,
+    "news_dropped_today": 3757
   },
   "book_momentum": {
     "live_count": 8,
