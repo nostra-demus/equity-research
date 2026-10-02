@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T07:08:51Z",
+  "generated_at": "2026-10-02T07:17:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-621",
@@ -1578,204 +1578,74 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261002-627",
-      "headline": "Russian air strikes kill one, restrict traffic across Dnipro River in Kyiv",
+      "inbox_id": "INB-20261002-655",
+      "headline": "Sanofi builds on immunology alliance with Regeneron for $1B upfront",
       "headline_en": null,
-      "url": "https://www.reuters.com/world/europe/russian-air-strikes-hit-southern-bridge-kyiv-again-mayor-says-2026-10-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://endpoints.news/sanofi-builds-on-immunology-alliance-with-regeneron-for-1b-upfront/",
+      "source_name": "Endpoints News",
       "input_nature": "news_headline",
-      "found_at": "2026-10-02T05:44:22Z",
+      "found_at": "2026-10-01T09:53:38Z",
       "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Russian air strikes in Kyiv represent a military escalation affecting regional infrastructure and stability.",
+      "prelim_note": "Sanofi expands immunology alliance with Regeneron with a $1B upfront payment.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Russian air strikes in Kyiv represent a military escalation affecting regional infrastructure and stability.",
-      "region": "OTHER",
+      "triage_score": 100,
+      "triage_reason": "Sanofi expands immunology alliance with Regeneron with a $1B upfront payment.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 80,
         "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "geopolitical",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
+        "event_id": "mna",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-597",
-      "headline": "Russian air strikes hit Southern Bridge in Kyiv again, mayor says",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/europe/russian-air-strikes-hit-southern-bridge-kyiv-again-mayor-says-2026-10-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T04:33:46Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Russian air strikes on critical infrastructure in Kyiv represent a significant escalation in the ongoing conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Russian air strikes on critical infrastructure in Kyiv represent a significant escalation in the ongoing conflict.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-206",
-      "headline": "RSOLEC seeks to invest Rs 5,000 crore in Tumakuru for solar ingot plant: M B Patil",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/business/companies/rsolec-seeks-to-invest-rs-5000-crore-in-tumakuru-for-solar-ingot-plant-m-b-patil-4167398",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T18:10:48Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "RSOLEC announced a major capital expenditure of Rs 5,000 crore for a new solar ingot plant.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "RSOLEC announced a major capital expenditure of Rs 5,000 crore for a new solar ingot plant.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "RSOLEC",
+          "name": "Sanofi",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-437",
-      "headline": "Man City's Financial Rise: How $1.08 Billion In Disputed Sponsorship Funding Fuelled Their Transformation",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/manchester-citys-financial-rise-how-1-08-billion-in-disputed-sponsorship-funding-fuelled-their-transformation-12126720#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T15:11:44Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Manchester City faces scrutiny over $1.08 billion in disputed sponsorship funding, posing significant regulatory and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Manchester City faces scrutiny over $1.08 billion in disputed sponsorship funding, posing significant regulatory and reputational risk.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
+        },
         {
-          "name": "Manchester City",
+          "name": "Regeneron",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261002-441",
-      "headline": "United Therapeutics Won Its Patent War and Liquidia Collapsed",
+      "inbox_id": "INB-20261002-686",
+      "headline": "MSG Sport to spin New York Knicks and Rangers into NYSE-listed firms",
       "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/01/united-therapeutics-won-its-patent-war-and-liquidia-collapsed/",
-      "source_name": "24/7 Wall St.",
+      "url": "https://www.cityam.com/msg-sport-to-spin-new-york-knicks-and-rangers-into-nyse-listed-firms/",
+      "source_name": "City A.M.",
       "input_nature": "news_headline",
-      "found_at": "2026-10-01T15:07:12Z",
+      "found_at": "2026-10-01T09:30:55Z",
       "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "United Therapeutics won a patent war, leading to the collapse of competitor Liquidia, a major shift in market competitive dynamics.",
+      "prelim_note": "MSG Sport is spinning off the New York Knicks and Rangers into separate NYSE-listed firms.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "United Therapeutics won a patent war, leading to the collapse of competitor Liquidia, a major shift in market competitive dynamics.",
+      "triage_score": 100,
+      "triage_reason": "MSG Sport is spinning off the New York Knicks and Rangers into separate NYSE-listed firms.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -1783,7 +1653,7 @@
         "materiality": 75,
         "source_tier": 0,
         "scope": 5,
-        "event": 6,
+        "event": 9,
         "size": 2,
         "recency": 1,
         "materiality_label_floor": 10,
@@ -1791,22 +1661,17 @@
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
+        "event_id": "mna",
         "size_bucket": "large"
       },
       "event_types": [
-        "litigation_enforcement"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "United Therapeutics",
-          "ticker": "UTHR",
-          "listing_country": "US"
-        },
-        {
-          "name": "Liquidia",
-          "ticker": "LQDA",
+          "name": "MSG Sport",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1816,51 +1681,45 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261002-463",
-      "headline": "Kone plans TK Elevator Europe sale to address antitrust concerns, sources say",
+      "inbox_id": "INB-20261002-717",
+      "headline": "Boots owner ‘closing in on sale to Canada’s Weston family for $9bn’",
       "headline_en": null,
-      "url": "https://www.reuters.com/business/finance/finlands-kone-prepares-sale-tk-elevators-european-business-tackle-antitrust-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "url": "https://www.theguardian.com/business/2026/oct/01/boots-owner-sale-canada-weston-family",
+      "source_name": "The Guardian — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-10-01T14:46:16Z",
+      "found_at": "2026-10-01T09:03:35Z",
       "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Kone plans to sell TK Elevator Europe to address antitrust concerns, indicating a significant divestiture driven by regulatory pressure.",
+      "prelim_note": "Boots is reportedly being sold for $9 billion, a significant M&A event.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Kone plans to sell TK Elevator Europe to address antitrust concerns, indicating a significant divestiture driven by regulatory pressure.",
-      "region": "GLOBAL",
+      "triage_score": 100,
+      "triage_reason": "Boots is reportedly being sold for $9 billion, a significant M&A event.",
+      "region": "GB",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 85,
         "source_tier": 0,
-        "scope": 2,
+        "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 1,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
+        "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
         "size_bucket": "large"
       },
       "event_types": [
-        "mna",
-        "regulatory"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Kone",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "TK Elevator",
+          "name": "Boots",
           "ticker": null,
           "listing_country": null
         }
@@ -1871,86 +1730,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261002-486",
-      "headline": "Accenture shares surge 22% as consultancy confounds AI fears",
+      "inbox_id": "INB-20261002-737",
+      "headline": "Adani Ports' Colombo Terminal Doubles Capacity To 3.2 Million TEUs, Total Investment Reaches $750 Million",
       "headline_en": null,
-      "url": "https://www.ft.com/content/e1074ce0-cd16-4a91-9934-50df917b3b20?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
+      "url": "https://www.freepressjournal.in/business/adani-ports-colombo-terminal-doubles-capacity-to-32-million-teus-total-investment-reaches-750-million",
+      "source_name": "Free Press Journal",
       "input_nature": "news_headline",
-      "found_at": "2026-10-01T13:57:13Z",
+      "found_at": "2026-10-01T08:52:55Z",
       "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Significant 22% share price move following earnings report indicates a major beat or guidance surprise.",
+      "prelim_note": "Adani Ports announces a $750 million investment to double capacity at its Colombo terminal.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Significant 22% share price move following earnings report indicates a major beat or guidance surprise.",
-      "region": "GLOBAL",
+      "triage_score": 100,
+      "triage_reason": "Adani Ports announces a $750 million investment to double capacity at its Colombo terminal.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
         "materiality": 80,
         "source_tier": 0,
         "scope": 6,
-        "event": 5,
+        "event": 6,
         "size": 2,
         "recency": 1,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Accenture",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-545",
-      "headline": "Eramet prevé inversión de 350 mln dlrs para expansión de planta de litio en Argentina",
-      "headline_en": "Eramet forecasts 350 million dollar investment for lithium plant expansion in Argentina",
-      "url": "https://www.reuters.com/es/mundo/L3GXOSN535NITEGPSY34NKVTI4-2026-10-01/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T12:43:46Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Eramet plans a 350 million dollar investment to expand its lithium plant in Argentina.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Eramet plans a 350 million dollar investment to expand its lithium plant in Argentina.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "capex",
-        "size_bucket": "mid"
+        "size_bucket": "large"
       },
       "event_types": [
         "capex"
@@ -1958,61 +1768,268 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Eramet",
+          "name": "Adani Ports",
           "ticker": null,
-          "listing_country": "FR"
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261002-575",
-      "headline": "OTPBANK N3109 (40739): Publication of the Final Terms - OTP Bank Nyrt. - EUR750,000,000 4.500 per cent. Senior Preferred Fixed-to-Floating Callable Notes due 2031 under the EUR7,000,000,000 Euro Medium Term Note Programme",
+      "inbox_id": "INB-20261002-795",
+      "headline": "Micron's AI-fueled revenue forecast blows past estimates, backlog swells",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1002/2026100200743.htm",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-02T04:08:00Z",
+      "url": "https://www.reuters.com/business/micron-forecasts-quarterly-revenue-above-estimates-2026-09-30/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T08:09:10Z",
       "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "OTP Bank is issuing 750,000,000 EUR in senior preferred notes.",
+      "prelim_note": "Micron reported revenue guidance that exceeded analyst estimates driven by AI demand.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "OTP Bank is issuing 750,000,000 EUR in senior preferred notes.",
-      "region": "OTHER",
+      "triage_score": 100,
+      "triage_reason": "Micron reported revenue guidance that exceeded analyst estimates driven by AI demand.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
+        "materiality": 80,
+        "source_tier": 0,
         "scope": 6,
         "event": 7,
         "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
+        "recency": 1,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "debt_credit"
+        "earnings_revenue_margin",
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "OTP Bank",
+          "name": "Micron Technology",
           "ticker": null,
-          "listing_country": "HU"
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-812",
+      "headline": "Boots closing on £7 billion sale to Canada’s Weston family – reports",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/boots-canada-associated-british-foods-selfridges-b3059524.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T08:00:31Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Boots is nearing a £7 billion sale to the Weston family.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boots is nearing a £7 billion sale to the Weston family.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boots",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-813",
+      "headline": "Boots closing on £7 billion sale to Canada’s Weston family – reports",
+      "headline_en": null,
+      "url": "https://www.standard.co.uk/business/business-news/boots-canada-the-wall-street-journal-associated-british-foods-b1299101.html",
+      "source_name": "The Standard (Evening Standard) — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T08:00:31Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Boots is reportedly nearing a £7 billion sale to the Weston family.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boots is reportedly nearing a £7 billion sale to the Weston family.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boots",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-824",
+      "headline": "Sanofi va verser jusqu'à $8 md à Regeneron pour développer ensemble des anticorps",
+      "headline_en": "Sanofi to pay up to $8 billion to Regeneron to jointly develop antibodies",
+      "url": "https://www.reuters.com/fr/affaires/sanofi-va-verser-1-md-regeneron-pour-dvelopper-ensemble-des-anticorps-2026-10-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T07:57:14Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Sanofi will pay up to $8 billion to Regeneron to jointly develop antibodies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sanofi will pay up to $8 billion to Regeneron to jointly develop antibodies.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sanofi",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Regeneron",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-836",
+      "headline": "Sanofi zahlt für neue Antikörper bis zu acht Milliarden Dollar an Regeneron",
+      "headline_en": "Sanofi pays up to eight billion dollars to Regeneron for new antibodies",
+      "url": "https://www.reuters.com/de/firma/sanofi-zahlt-fr-neue-antikrper-bis-zu-acht-milliarden-dollar-an-regeneron-2026-10-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T07:49:43Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Sanofi will pay up to $8 billion to Regeneron for new antibodies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sanofi will pay up to $8 billion to Regeneron for new antibodies.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sanofi",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "Regeneron",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194473,9 +194490,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 711295,
-    "news_picked_today": 1246,
-    "news_dropped_today": 4586
+    "news_seen_today": 718253,
+    "news_picked_today": 1491,
+    "news_dropped_today": 5181
   },
   "book_momentum": {
     "live_count": 8,
