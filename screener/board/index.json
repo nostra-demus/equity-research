@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-02T19:43:12Z",
+  "generated_at": "2026-10-02T19:51:14Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261002-1251",
+      "headline": "25-NSE - Kaival Brands Innovations Group, Inc. (0001762239) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1762239/000135445726000939/0001354457-26-000939-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-02T19:34:35Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Kaival Brands Innovations Group is being delisted from the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kaival Brands Innovations Group is being delisted from the exchange.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kaival Brands Innovations Group, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261002-1059",
       "headline": "CHINASILVER TEC (00515): (1) QUARTERLY UPDATE; (2) DELAY IN THE PUBLICATION OF THE 2025-26 INTERIM RESULTS AND THE DISPATCH OF THE 2025-26 INTERIM REPORT; (3) DELAY IN THE PUBLICATION OF THE 2025-26 ANNUAL RESULTS AND THE DISPATCH OF THE 2025-26 ANNUAL REPORT; AND (4) CONTINUED SUSPENSION OF TRADING",
@@ -1969,56 +2018,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-1079",
-      "headline": "Nike Plans Job Cuts As Revenue Falls 4% To $11.2 Billion",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/nike-plans-job-cuts-as-revenue-falls-4-to-11-2-billion-12129789#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T12:50:58Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Nike reported a 4% revenue decline to $11.2 billion and announced job cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nike reported a 4% revenue decline to $11.2 billion and announced job cuts.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nike",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193270,9 +193269,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1200388,
-    "news_picked_today": 3344,
-    "news_dropped_today": 14124
+    "news_seen_today": 1200641,
+    "news_picked_today": 3360,
+    "news_dropped_today": 14361
   },
   "book_momentum": {
     "live_count": 8,
