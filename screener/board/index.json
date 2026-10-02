@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T01:48:36Z",
+  "generated_at": "2026-10-02T01:53:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -1388,6 +1388,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-211",
+      "headline": "Hanwha Builds Comprehensive Financial Group With Securities Capital Raise, Acuon Deal",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278110",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-02T04:51:12Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Hanwha is expanding its financial services footprint through a capital raise and the acquisition of Acuon.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Hanwha is expanding its financial services footprint through a capital raise and the acquisition of Acuon.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hanwha",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-208",
       "headline": "Don Quijote operator to acquire Toys R Us Japan's business",
       "headline_en": null,
@@ -1932,60 +1982,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-021",
-      "headline": "First Solar sues China's JA Solar for patent infringement",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/first-solar-sues-chinas-ja-solar-patent-infringement-2026-10-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T22:09:57Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Patent infringement litigation between major solar manufacturers creates legal and operational risk for both parties.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Patent infringement litigation between major solar manufacturers creates legal and operational risk for both parties.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "First Solar",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "JA Solar",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194593,9 +194589,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 206513,
-    "news_picked_today": 270,
-    "news_dropped_today": 1098
+    "news_seen_today": 216776,
+    "news_picked_today": 281,
+    "news_dropped_today": 1111
   },
   "book_momentum": {
     "live_count": 8,
