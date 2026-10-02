@@ -15,7 +15,7 @@
     "schema_version": {
       "type": "string",
       "pattern": "^[0-9]+(\\.[0-9]+){0,3}$",
-      "description": "dotted numeric version ('1.3'). Versioned rules gate on it, so an unparseable value is REJECTED rather than grandfathered as pre-1.3"
+      "description": "Dotted numeric version ('1.5'). Versioned rules gate on it, so an unparseable value is REJECTED rather than grandfathered. 1.5 adds the basis-declaration fields: scenarios[].set_membership, scenarios[].metric_period, scenarios[].metric_measure and the root cross_metric_reconciliation. The version exists so a rule CAN require them of sidecars that declare it, which is impossible if the fields ship with no version to gate on — and at 1.5 check AP (scripts/valuation_summary_checks.py) does: every scenario carries a numeric `level`; a case with multiple_kind 'applied' carries numeric forward_metric AND multiple; and every WEIGHTED case (set_membership absent or 'weighted') declares metric_period and metric_measure. set_membership and cross_metric_reconciliation stay optional (each is required only when true of the case set). Below 1.5 those three rules do not apply, so every run written before them stays valid. At EVERY version a scenario row with no fair-value level at all (no numeric level, no forward_metric×multiple, no derivation) is rejected — a label is not a case."
     },
     "ticker": {
       "type": "string"
@@ -123,7 +123,7 @@
               "string",
               "null"
             ],
-            "description": "Human-readable statement of the period AND measure this case's forward metric is stated on — 'NTM EPS', 'FY+1 EBITDA', 'mid-cycle EBITDA'. PREFER declaring metric_period and metric_measure alongside it: those are read authoritatively, while this string is only parsed when they are absent, and parsing prose for a period is lossy. Keep writing it regardless — it carries the derivation a reader needs and the two declared fields cannot."
+            "description": "The period AND measure this case's forward metric is stated on — 'NTM EPS', 'FY+1 EBITDA', 'FY2027E revenue', 'mid-cycle EBITDA', 'trailing EPS'. Both halves are read mechanically by scripts/valuation_basis_checks.py (from metric_period / metric_measure when declared, else parsed from this string): every WEIGHTED case on the same horizon in one set must share the period and the measure, because a set pricing its bear on a different denominator reports a downside that is an artefact of the definition change rather than of the downturn. Three escapes, each declared, never inferred: (1) a case held OUTSIDE the weighted set as set_membership 'sensitivity' (no probability, no weighted aggregate); (2) a deliberate change of MEASURE carrying the cited root cross_metric_reconciliation; (3) the one named PERIOD exception — a weighted case labelled exactly 'bear_structural' on its stated 24–36-month structural-reset horizon with its own declared basis (MODULE_RULES Scenario Construction §2; 07 'One weighted set, one basis'), which is still held to the measure rule. State the period the metric is ON, not one merely mentioned: a trough MARGIN applied to forward revenue is a forward case (and owes 07's definition bridge). PREFER declaring metric_period and metric_measure alongside it: those are read authoritatively, while this string is only parsed when they are absent, and parsing prose for a period is lossy. Keep writing it regardless — it carries the derivation a reader needs and the two declared fields cannot."
           },
           "multiple": {
             "type": [
@@ -251,7 +251,7 @@
               "number",
               "null"
             ],
-            "description": "the derived per-share fair-value LEVEL (= metric x multiple, bridged for basis='ev'); price-independent"
+            "description": "the derived per-share fair-value LEVEL (= metric x multiple, bridged for basis='ev'); price-independent REQUIRED as a number on every case at schema_version >= 1.5; below 1.5 a row must still carry a level OR a derivable forward_metric×multiple OR a derivation — a label alone is not a case."
           },
           "drivers": {
             "type": [
@@ -443,21 +443,21 @@
               "sensitivity",
               null
             ],
-            "description": "Whether this case enters the probability-weighted result. Default when absent: 'weighted'. Use 'sensitivity' for a case 07 deliberately held OUTSIDE the weighted set — a historical-trough level that could not be re-based onto the forward denominator, or an avoid-ruin / structural-reset floor carried to Kill Criteria rather than priced as the 12-month bear (07 'Which case it becomes'). A sensitivity case carries no probability and contributes to no weighted aggregate."
+            "description": "Whether this case enters the probability-weighted result. Default when absent: 'weighted'. Use 'sensitivity' for a case 07 deliberately held OUTSIDE the weighted set — a historical-trough level that could not be re-based onto the forward denominator, or an avoid-ruin / structural-reset floor carried to Kill Criteria rather than priced as the 12-month bear (07 'Which case it becomes'). A sensitivity case carries no probability and contributes to no weighted aggregate. A weighted structural-reset case is NOT a sensitivity: it stays 'weighted' under the label 'bear_structural', and its exemption from the same-period comparison comes from that label, its stated 24–36-month horizon and its own declared basis (see metric_basis), not from this field."
           },
           "metric_period": {
             "type": [
               "string",
               "null"
             ],
-            "description": "The period this case's forward metric is stated on, DECLARED rather than inferred. Controlled but open vocabulary: 'NTM', 'LTM', 'FY+1', 'FY+2', 'FY2027' (or any 'FY<year>'), 'mid_cycle', 'trough'. Open because a closed enum would have nowhere to put a business type nobody has met yet. When present this is authoritative and metric_basis is NOT parsed for the period — which is the point: reading the period out of prose misreads it, and 'a trough margin applied to FY27E revenue' is a FY27 case that a regex will call a trough."
+            "description": "The period this case's forward metric is stated on, DECLARED rather than inferred. Controlled but open vocabulary: 'NTM', 'LTM', 'FY+1', 'FY+2', 'FY2027' (or any 'FY<year>'), 'mid_cycle', 'trough'. Open because a closed enum would have nowhere to put a business type nobody has met yet. When present this is authoritative and metric_basis is NOT parsed for the period — which is the point: reading the period out of prose misreads it, and 'a trough margin applied to FY27E revenue' is a FY27 case that a regex will call a trough. REQUIRED on every weighted case (set_membership absent or 'weighted') at schema_version >= 1.5; optional on a declared 'sensitivity' case and below 1.5."
           },
           "metric_measure": {
             "type": [
               "string",
               "null"
             ],
-            "description": "The measure this case's forward metric is stated on, DECLARED rather than inferred. Controlled but open vocabulary: 'EPS', 'EBITDA', 'EBIT', 'REVENUE', 'FCF', 'BVPS', 'NAV', 'FFO'. Open for the same reason as metric_period — a bank's embedded value and a REIT's AFFO must have somewhere to go. When present this is authoritative and metric_basis is NOT parsed for the measure."
+            "description": "The measure this case's forward metric is stated on, DECLARED rather than inferred. Controlled but open vocabulary: 'EPS', 'EBITDA', 'EBIT', 'REVENUE', 'FCF', 'BVPS', 'NAV', 'FFO'. Open for the same reason as metric_period — a bank's embedded value and a REIT's AFFO must have somewhere to go. When present this is authoritative and metric_basis is NOT parsed for the measure. REQUIRED on every weighted case (set_membership absent or 'weighted') at schema_version >= 1.5; optional on a declared 'sensitivity' case and below 1.5."
           }
         }
       }
@@ -770,7 +770,7 @@
         "string",
         "null"
       ],
-      "description": "A CITED bridge, present only when weighted cases are deliberately built on different MEASURES — a REIT pricing a book-value case against an earnings case, a pre-profit name pricing a sales case against a cash-burn case. Both are legitimate and neither is self-evident, so the bridge states how the measures tie (e.g. 'BVPS and EPS tie via the FY26 ROE, 02 §4'). Absent, a cross-measure weighted set is reported as undisclosed rather than assumed wrong."
+      "description": "A CITED bridge, present only when weighted cases are deliberately built on different MEASURES — a REIT pricing a NAV case beside a forward FFO/AFFO case, a pre-profit name pricing a sales case against a cash-burn case. Both are legitimate and neither is self-evident, so the bridge states how the measures tie (e.g. 'NAV and FY26 AFFO tie via the implied cap rate on FY26 NOI, 06 §3'; for a bank, 'BVPS and EPS tie via the FY26 ROE, 02 §4'). Absent, a cross-measure weighted set is reported as undisclosed rather than assumed wrong."
     }
   }
 }
