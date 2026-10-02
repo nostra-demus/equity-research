@@ -412,7 +412,8 @@ fi
 PREWRITE_TMP=""
 cleanup_prewrite_tmp() {
   if [ -n "$PREWRITE_TMP" ] && [ -d "$PREWRITE_TMP" ]; then
-    rm -f -- "$PREWRITE_TMP/staged-paths" "$PREWRITE_TMP/selected-paths" "$PREWRITE_TMP/decision_record.json"
+    rm -f -- "$PREWRITE_TMP/staged-paths" "$PREWRITE_TMP/selected-paths" "$PREWRITE_TMP/decision_record.json" \
+      "$PREWRITE_TMP/selected-corrections" "$PREWRITE_TMP/corrections.json"
     rmdir -- "$PREWRITE_TMP" 2>/dev/null || true
   fi
 }
@@ -456,6 +457,50 @@ done <"$PREWRITE_TMP/selected-paths" || {
   # the error, skips the loop, and carries on to commit a record nobody judged.
   unstage_own_paths "$@"
   echo "commit-run: cannot read selected decision publications — nothing was committed or pushed" >&2
+  exit 5
+}
+
+# Validate only newly staged append-only correction sidecars (DECISION_LEDGER.md §4a supersession
+# integrity, scripts/supersession_integrity_checks.py). A corrections.json declaring `superseded_by`
+# is DATA that reaches `main` through exactly this chokepoint with no PR review, and every standing-
+# record reader (scripts/ledger_records.py's load_standing_records(), /research:track,
+# /research:calibrate, /research:size, and the live cockpit's GET /api/calls) trusts a validated
+# claim to silently drop a run from the standing set. Until now this check ran only inside the
+# retrospective grading harness, a post-hoc pass nobody is required to run before a correction lands
+# — a dangling, wrong-ticker, incomplete, or circular supersession could commit straight to main and
+# corrupt the calibration scoreboard undetected. No corrections.json is ever produced through the
+# cockpit's sealed-publication path (no ui/server code writes one), so — unlike the decision-
+# publication gate immediately above — there is no pre-seal twin to keep in sync; this is exercised
+# only by the plain `git add` path. Reuses the staged-path enumeration already captured above; WHICH
+# staged paths are gated and HOW one sidecar is judged live in scripts/corrections_prewrite_gate.py,
+# not here.
+if ! python3 "$TOP/scripts/corrections_prewrite_gate.py" --select \
+    <"$PREWRITE_TMP/staged-paths" >"$PREWRITE_TMP/selected-corrections"; then
+  unstage_own_paths "$@"
+  echo "commit-run: cannot select staged correction sidecars — nothing was committed or pushed" >&2
+  exit 5
+fi
+while IFS= read -r -d '' STAGED_PATH; do
+  STAGED_MODE="$(git -C "$TOP" ls-files -s -- "$STAGED_PATH")"
+  STAGED_MODE="${STAGED_MODE%% *}"
+  if [ "$STAGED_MODE" != "100644" ] && [ "$STAGED_MODE" != "100755" ]; then
+    unstage_own_paths "$@"
+    echo "commit-run: staged correction sidecar is not a regular file: $STAGED_PATH — nothing was committed or pushed" >&2
+    exit 5
+  fi
+  if ! git -C "$TOP" cat-file blob ":$STAGED_PATH" >"$PREWRITE_TMP/corrections.json"; then
+    unstage_own_paths "$@"
+    echo "commit-run: cannot read staged correction sidecar: $STAGED_PATH — nothing was committed or pushed" >&2
+    exit 5
+  fi
+  if ! python3 "$TOP/scripts/corrections_prewrite_gate.py" --repo "$TOP" --check "$STAGED_PATH" "$PREWRITE_TMP/corrections.json"; then
+    unstage_own_paths "$@"
+    echo "commit-run: §4a supersession-integrity prewrite rejected staged correction sidecar: $STAGED_PATH — nothing was committed or pushed" >&2
+    exit 5
+  fi
+done <"$PREWRITE_TMP/selected-corrections" || {
+  unstage_own_paths "$@"
+  echo "commit-run: cannot read selected correction sidecars — nothing was committed or pushed" >&2
   exit 5
 }
 

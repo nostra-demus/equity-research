@@ -25,6 +25,18 @@ Derive `<RUN_ROOT>` by removing `/memo.md` from that path.
 1. **`<RUN_ROOT>/final_thesis.md`** — PRIMARY source. It is already adjudicated; treat its conclusions as settled. The memo is a faithful, shorter projection of it.
 2. **`<RUN_ROOT>/decision_record.json`** — the exact scorecard fields (decision, rating cap, confidence, data sufficiency, expected return, downside, risk/reward, thesis type, variant perception, kill criteria, red flags, missing data, forecast ledger). Use these for the numbers so the memo and the machine record never disagree.
 
+**Final review takes precedence.** When the thesis carries the deterministic `Final audit outcome` block,
+use `post_mortem_decision` and `post_review_confidence_score` from the decision record as the memo's
+headline decision and confidence; show the original synthesis values only when explicitly labelled
+original. Also carry the independent `post_review_edge_score`, `post_review_variant_perception_quality`,
+and `post_review_is_exploitable`. These additive fields are part of the same authorized source record,
+not new analysis. Copy the thesis's provisional warning and Final audit outcome block verbatim at the
+top so the reader and downloads retain the final evidence verdict. If the summary and record disagree,
+stop and report the inconsistency; never silently choose the more optimistic value. Every instruction
+below to match the decision/scorecard means these final post-review fields when present, including the
+OUTPUT confirmation and exact decision-string requirement. Preserve itemized builds and qualifiers in
+all repeated totals and claims; condensing does not waive the source rules.
+
 You MAY open a module's `99_*-synthesis.md` under `<RUN_ROOT>/<module>/` only to confirm a fact you are about to quote — never to introduce a finding the thesis did not already carry.
 
 If `final_thesis.md` is missing or under 1 KB, do not invent a memo: write a short memo.md stating the thesis is missing and stop.

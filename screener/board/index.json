@@ -1,6 +1,1971 @@
 {
-  "generated_at": "2026-10-01T21:15:54Z",
+  "generated_at": "2026-10-02T00:50:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261002-050",
+      "headline": "Nike Sales Miss Forecasts, Shares Drop on China and Sportswear Slowdown",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-01/nike-s-results-fall-short-of-estimates-as-weakness-persists",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T20:19:21Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Nike missed sales forecasts and shares dropped due to weakness in China and the sportswear sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nike missed sales forecasts and shares dropped due to weakness in China and the sportswear sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-080",
+      "headline": "SoftBank completes final phase of $30 billion investment in OpenAI",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/softbank-completes-final-phase-30-billion-investment-openai-2026-10-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:38:12Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "SoftBank finalized a $30 billion investment in OpenAI, a massive capital injection into the AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SoftBank finalized a $30 billion investment in OpenAI, a massive capital injection into the AI sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-096",
+      "headline": "Pritzker Family Weighs Over $1 Billion Sale of Propane Business",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-01/pritzker-family-weighs-over-1-billion-sale-of-propane-business",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:17:28Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Pritzker Family is exploring a sale of a business unit valued at over $1 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pritzker Family is exploring a sale of a business unit valued at over $1 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pritzker Family",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-014",
+      "headline": "US Navy awards RTX’s Raytheon $24.4B for SM-6 missiles amid stockpile concerns",
+      "headline_en": null,
+      "url": "https://www.defensenews.com/industry/techwatch/2026/10/01/us-navy-awards-rtxs-raytheon-244b-for-sm-6-missiles-amid-stockpile-concerns/",
+      "source_name": "Defense News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T22:05:46Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "RTX received a $24.4 billion contract from the US Navy for SM-6 missiles, a significant revenue-generating event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "RTX received a $24.4 billion contract from the US Navy for SM-6 missiles, a significant revenue-generating event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RTX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-015",
+      "headline": "Navy Awards RTX $24.4 Billion Contract To Accelerate SM-6 Production",
+      "headline_en": null,
+      "url": "https://www.defensedaily.com/navy-awards-rtx-24-4-billion-contract-to-accelerate-sm-6-production/navy-usmc/",
+      "source_name": "Defense Daily",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T22:03:24Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "RTX received a $24.4 billion contract from the US Navy for SM-6 missiles, a significant revenue-generating event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "RTX received a $24.4 billion contract from the US Navy for SM-6 missiles, a significant revenue-generating event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RTX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-067",
+      "headline": "Vedanta Copper plans $2.3 billion capex, Tamil Nadu smelter restart back on agenda",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/metals-mining/vedanta-copper-plans-2-3-billion-capex-tamil-nadu-smelter-restart-back-on-agenda/articleshow/134626840.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:55:39Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Vedanta commits $2.3 billion capex and plans Tamil Nadu smelter restart, a quantified capacity-expansion announcement that moves cash flow, capex forecast, and production outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Vedanta commits $2.3 billion capex and plans Tamil Nadu smelter restart, a quantified capacity-expansion announcement that moves cash flow, capex forecast, and production outlook.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 73,
+      "rank_factors": {
+        "materiality": 73,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vedanta",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-019",
+      "headline": "US tells France and Germany to release diesel stocks or face US export ban, sources say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/us-tells-france-germany-release-diesel-stocks-or-face-us-export-ban-sources-say-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T22:20:17Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "A threatened US export ban on diesel to France and Germany represents a major geopolitical and commodity supply shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A threatened US export ban on diesel to France and Germany represents a major geopolitical and commodity supply shock.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-092",
+      "headline": "Neros Says Gauntlet II Order For Drones And Explosive Payloads Is $100 Million",
+      "headline_en": null,
+      "url": "https://www.defensedaily.com/neros-says-gauntlet-ii-order-for-drones-and-explosive-payloads-is-100-million/unmanned-systems/",
+      "source_name": "Defense Daily",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:25:45Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Neros secured a specific $100 million order for drones and payloads.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Neros secured a specific $100 million order for drones and payloads.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Neros",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-010",
+      "headline": "Amazon Signs 20 Year Nuclear Power Deal. That's Great News for This Nuclear Stock",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/amazon-signs-20-year-nuclear-power-deal-thats-great-news-nuclear-stock",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T21:57:43Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Amazon signed a 20-year nuclear power deal, signaling a major shift in energy procurement strategy for data centers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Amazon signed a 20-year nuclear power deal, signaling a major shift in energy procurement strategy for data centers.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-003",
+      "headline": "Evernorth clears shareholder vote ahead of Nasdaq debut with 473M XRP treasury",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/evernorth-clears-shareholder-vote-ahead-nasdaq-debut-473m-xrp-treasury?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T21:07:45Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Evernorth cleared a shareholder vote for a Nasdaq debut, involving a 473M XRP treasury.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Evernorth cleared a shareholder vote for a Nasdaq debut, involving a 473M XRP treasury.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Evernorth",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-059",
+      "headline": "Lyft agrees to pay California $272.5m in largest-ever wage theft settlement",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/technology/2026/oct/01/lyft-largest-ever-wage-theft-settlement",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T20:05:46Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Lyft pays $272.5M to California to settle wage-theft allegations, the largest such settlement; affects driver-classification risk, labor-cost structure, and cash position for the mid-cap gig operator.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Lyft pays $272.5M to California to settle wage-theft allegations, the largest such settlement; affects driver-classification risk, labor-cost structure, and cash position for the mid-cap gig operator.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lyft",
+          "ticker": "LYFT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-114",
+      "headline": "Disney’s Walden Says She Would Be Interested in Buying ‘Bluey’",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/disneys-walden-says-she-would-be-interested-in-buying-bluey-11790880603411.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T18:50:02Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Disney executive expresses interest in acquiring 'Bluey' franchise.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Disney executive expresses interest in acquiring 'Bluey' franchise.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Disney",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-044",
+      "headline": "Nio's Riskiest Asset Is Valued at $2.4 Billion, But Its Potential Just Skyrocketed",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/01/nios-riskiest-asset-is-valued-at-24-billion-but-it/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T20:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Nio's asset valuation potential has increased, which could impact its financial outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Nio's asset valuation potential has increased, which could impact its financial outlook.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nio",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-021",
+      "headline": "First Solar sues China's JA Solar for patent infringement",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/first-solar-sues-chinas-ja-solar-patent-infringement-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T22:09:57Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Patent infringement litigation between major solar manufacturers creates legal and operational risk for both parties.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Patent infringement litigation between major solar manufacturers creates legal and operational risk for both parties.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First Solar",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "JA Solar",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-089",
+      "headline": "YPF investors ask U.S. Supreme Court to revive $16.1 billion judgment against Argentina",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/government/ypf-investors-ask-us-supreme-court-revive-161-billion-judgment-against-argentina-2026-10-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:33:06Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Investors are seeking to revive a $16.1 billion judgment against Argentina, posing a significant sovereign risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Investors are seeking to revive a $16.1 billion judgment against Argentina, posing a significant sovereign risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "YPF",
+          "ticker": null,
+          "listing_country": "AR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-102",
+      "headline": "Vedanta plans $200 million push to lift Rajasthan oil output",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/vedanta-plans-200-million-push-to-lift-rajasthan-oil-output/articleshow/134626265.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:08:08Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Vedanta announces $200 million capex to increase Rajasthan oil output, a capacity-expansion commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Vedanta announces $200 million capex to increase Rajasthan oil output, a capacity-expansion commitment.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vedanta",
+          "ticker": "VEDANTA.NS",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-018",
+      "headline": "OpenAI alerts more than 100 groups about rogue AI agent activity",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/openai-alerts-more-than-100-groups-about-rogue-ai-agent-activity-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T22:26:33Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "OpenAI reporting rogue AI agent activity highlights significant operational and reputational risk for the company and the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "OpenAI reporting rogue AI agent activity highlights significant operational and reputational risk for the company and the sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-058",
+      "headline": "Accenture shares surge as consultancy confounds AI fears",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/e1074ce0-cd16-4a91-9934-50df917b3b20?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T20:09:30Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Accenture shares surge on evidence that AI is not disrupting core consulting services as feared, implying a positive earnings beat or guidance raise, but the specific number is absent from the headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Accenture shares surge on evidence that AI is not disrupting core consulting services as feared, implying a positive earnings beat or guidance raise, but the specific number is absent from the headline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 12,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Accenture",
+          "ticker": "ACN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-088",
+      "headline": "AI cybersecurity startup Armadin valued at over $2.5 billion after new funding round",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/ai-cybersecurity-startup-armadin-valued-over-25-billion-after-new-funding-round-2026-10-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:34:20Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Armadin secured a valuation of over $2.5 billion in a new funding round.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Armadin secured a valuation of over $2.5 billion in a new funding round.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Armadin",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-090",
+      "headline": "General Motors Q3 Sales Drop 6% To 670,974 Vehicles",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/general-motors-q3-sales-drop-6-670974-vehicles",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:24:09Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "General Motors reported a 6% drop in Q3 sales to 670,974 vehicles.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "General Motors reported a 6% drop in Q3 sales to 670,974 vehicles.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "General Motors",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-106",
+      "headline": "Amazon, Constellation sign 20-year PPA to expand Maryland nuclear plant",
+      "headline_en": null,
+      "url": "https://www.esgdive.com/news/amazon-constellation-sign-20-year-ppa-to-expand-maryland-nuclear-plant/831942/",
+      "source_name": "ESG Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T18:55:07Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Amazon and Constellation Energy signed a 20-year power purchase agreement to expand a nuclear plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Amazon and Constellation Energy signed a 20-year power purchase agreement to expand a nuclear plant.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Constellation Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-017",
+      "headline": "David Ellison's appointment of Kreiz brings cost-cutter to Paramount-Warner Bros Discovery",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/media-telecom/david-ellisons-appointment-of-kreiz-brings-cost-cutter-paramount-warner-bros-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T22:31:04Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "The appointment of a cost-cutter to a major media entity suggests upcoming operational changes and potential margin improvements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "The appointment of a cost-cutter to a major media entity suggests upcoming operational changes and potential margin improvements.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount Global",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-022",
+      "headline": "France's HyPrSpace targets 100 'Baguette One' rocket engines a year in debut factory",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/media-telecom/frances-hyprspace-targets-100-baguette-one-rocket-engines-year-debut-factory-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T22:07:13Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "A new factory announcement targeting 100 rocket engines per year is a significant capacity expansion for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "A new factory announcement targeting 100 rocket engines per year is a significant capacity expansion for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HyPrSpace",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-023",
+      "headline": "Sportartikelhersteller: Nike stemmt sich mit neuem Sparprogramm gegen die Krise",
+      "headline_en": "Sporting goods manufacturer: Nike fights against the crisis with a new savings program",
+      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/sportartikelhersteller-nike-stemmt-sich-mit-neuem-sparprogramm-gegen-die-krise/100259124.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T21:03:08Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Nike is implementing a new cost-saving program to combat a crisis, indicating margin pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Nike is implementing a new cost-saving program to combat a crisis, indicating margin pressure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-029",
+      "headline": "OpenAI Fires Researchers Researchers After Alleged Information-Sharing",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/ai/openai-parts-ways-with-researchers-who-allegedly-shared-confidential-information-aebac528?mod=rss_Technology",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T20:47:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Internal personnel issues at a high-profile AI firm can impact management credibility and operational stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Internal personnel issues at a high-profile AI firm can impact management credibility and operational stability.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-110",
+      "headline": "The U.S. Navy To Spend $5.1 Billion To Refuel One Aircraft Carrier",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/petersuciu/2026/10/01/the-us-navy-to-spend-51-billion-to-refuel-one-aircraft-carrier/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T18:58:44Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "US Navy to spend $5.1 billion to refuel an aircraft carrier.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "US Navy to spend $5.1 billion to refuel an aircraft carrier.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-005",
+      "headline": "Pilots of crashed Amazon cargo plane were unaware of wind conditions",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/pilots-crashed-amazon-cargo-plane-were-unaware-wind-conditions-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T22:53:47Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Investigation findings indicate pilot error in an Amazon cargo plane crash, highlighting operational risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Investigation findings indicate pilot error in an Amazon cargo plane crash, highlighting operational risks.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-001",
+      "headline": "Boeing Engineers Bless New Contract After Summer Showdown",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/airlines/boeings-engineers-hold-leverage-in-contract-showdown-0de44742?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T21:08:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Boeing engineers ratified a new contract, resolving a significant labor dispute that impacted operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Boeing engineers ratified a new contract, resolving a significant labor dispute that impacted operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-028",
+      "headline": "Nike Launches Pace Program To Drive $2.5 Billion In Savings By 2031",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nike-launches-pace-program-drive-25-billion-savings-2031",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T20:43:38Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Nike announces quantified Pace Program targeting $2.5 billion in cost savings by 2031, signaling operational efficiency and free-cash-flow opportunity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Nike announces quantified Pace Program targeting $2.5 billion in cost savings by 2031, signaling operational efficiency and free-cash-flow opportunity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 71,
+      "rank_factors": {
+        "materiality": 71,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": "NKE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-066",
+      "headline": "Pulte’s FHFA to Ease Credit Data Rule for Fannie, Freddie",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-01/pulte-s-fhfa-to-ease-credit-data-requirement-for-fannie-freddie",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T20:03:59Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "The FHFA is easing credit data rules for Fannie Mae and Freddie Mac, which is expected to expand mortgage access and liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "The FHFA is easing credit data rules for Fannie Mae and Freddie Mac, which is expected to expand mortgage access and liquidity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fannie Mae",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Freddie Mac",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-025",
+      "headline": "Boeing engineers and technical workers approve new contract, avoiding strike",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/01/boeing-contract-engineers-technical-workers.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T20:52:52Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Boeing's technical workers approve a union contract, avoiding a strike that would disrupt aircraft production and cash generation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Boeing's technical workers approve a union contract, avoiding a strike that would disrupt aircraft production and cash generation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": "BA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-042",
+      "headline": "Federal report says pilots werent warned about wind before Amazon cargo plane crashed in Miami",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/federal-report-says-pilots-werent-warned-about-wind-before-amazon-cargo-plane-crashed-in-miami-11790886872413.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T20:34:32Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "A federal report highlights safety failures regarding an Amazon cargo plane crash, posing potential regulatory and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A federal report highlights safety failures regarding an Amazon cargo plane crash, posing potential regulatory and operational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-068",
+      "headline": "Boeing White-Collar Workers Ratify New Contract and Avert Strike",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-01/boeing-white-collar-workers-ratify-new-contract-and-avert-strike",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:45:13Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Boeing averts white-collar worker strike by ratifying new contract, eliminating near-term operational disruption risk, though labor-cost terms are unspecified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Boeing averts white-collar worker strike by ratifying new contract, eliminating near-term operational disruption risk, though labor-cost terms are unspecified.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": "BA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-075",
+      "headline": "Airbus staff in Spain vote in favour of deal after weeks of strikes",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/world-at-work/airbus-staff-spain-vote-favour-deal-after-weeks-strikes-2026-10-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:44:36Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Airbus Spain strike resolved after weeks; production and delivery rates normalize, removing cash-flow and revenue-timing disruption risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Airbus Spain strike resolved after weeks; production and delivery rates normalize, removing cash-flow and revenue-timing disruption risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Airbus SE",
+          "ticker": "AIR",
+          "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-077",
+      "headline": "Boeing white-collar workers approve latest contract offer, averting strike fears",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/world-at-work/boeing-white-collar-workers-approve-latest-contract-offer-averting-strike-fears-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T19:35:27Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Boeing white-collar workers ratified a contract, removing the risk of a disruptive strike.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Boeing white-collar workers ratified a contract, removing the risk of a disruptive strike.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-006",
+      "headline": "US alleges California man smuggled export-controlled servers to China",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/us-alleges-california-man-smuggled-export-controlled-servers-china-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T22:52:20Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "US authorities allege smuggling of export-controlled servers to China, raising regulatory and compliance risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "US authorities allege smuggling of export-controlled servers to China, raising regulatory and compliance risks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-054",
+      "headline": "61-year-old college retailer quietly closes 68 stores in 3 months",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/college-retailer-barnes-and-noble-education-closes-68-stores",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T20:17:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "A retailer closing 68 stores in 3 months indicates significant operational distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "A retailer closing 68 stores in 3 months indicates significant operational distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-115",
+      "headline": "MRPL blast: A call for stronger safeguards",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/opinion/editorial/mrpl-blast-a-call-for-stronger-safeguards-4167422",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T18:48:28Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "A blast at an MRPL facility indicates operational risk and potential safety-related costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "A blast at an MRPL facility indicates operational risk and potential safety-related costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mangalore Refinery and Petrochemicals Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-113",
+      "headline": "Google rolls out Gemini 4 Argon, its most advanced AI model",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/09/30/google-gemini-4-argon-ai.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T18:52:14Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Google releases new AI model, Gemini 4 Argon.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Google releases new AI model, Gemini 4 Argon.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Google",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261002-009",
+      "headline": "Bridgewater's flagship macro fund posts double-digit gains this year, sources say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/finance/bridgewaters-flagship-macro-fund-posts-robust-double-digit-gains-this-year-2026-10-01/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T21:08:29Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "Bridgewater's flagship macro fund reports double-digit gains, indicating strong performance for the firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Bridgewater's flagship macro fund reports double-digit gains, indicating strong performance for the firm.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bridgewater",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261001-545",
       "headline": "25-NSE - Guardforce AI Co., Ltd. (0001804469) (Subject)",
@@ -989,6 +2954,461 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261001-632",
+      "headline": "Nike plans more job cuts, geographic changes after forecasting sharp revenue drop",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/nike-plans-more-job-cuts-geographic-changes-after-forecasting-sharp-revenue-drop",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T23:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Nike is planning job cuts and restructuring following a forecast of a sharp revenue drop.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nike is planning job cuts and restructuring following a forecast of a sharp revenue drop.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": "NKE",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-635",
+      "headline": "Nike plans more job cuts to boost sputtering turnaround, forecasts steep revenue drop",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/nike-plans-more-job-cuts-geographic-changes-after-forecasting-sharp-revenue-drop",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T23:05:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Nike announced job cuts and forecasted a steep revenue drop, indicating significant operational and financial headwinds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nike announced job cuts and forecasted a steep revenue drop, indicating significant operational and financial headwinds.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-626",
+      "headline": "ON Semicondcutor to Buy Synaptics for Cash, Not Stock, in Downsized Deal",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/on-semicondcutor-to-buy-synaptics-for-cash-not-stock-in-downsized-deal-d2781e36?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T22:25:00Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "ON Semiconductor is acquiring Synaptics in a cash-based M&A deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ON Semiconductor is acquiring Synaptics in a cash-based M&A deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ON Semiconductor",
+          "ticker": "ON",
+          "listing_country": "US"
+        },
+        {
+          "name": "Synaptics",
+          "ticker": "SYNA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-612",
+      "headline": "Japan's largest power producer teams with Dell on $15bn data center",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/technology/artificial-intelligence/japan-s-largest-power-producer-teams-with-dell-on-15bn-data-center",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T22:03:22Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "JERA and Dell announced a $15bn data center project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JERA and Dell announced a $15bn data center project.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JERA",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Dell",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-611",
+      "headline": "Nidec's new chief blames expansion drive, profit chase for write-downs",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/companies/nidec-s-new-chief-blames-expansion-drive-profit-chase-for-write-downs",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T22:03:22Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Nidec's new CEO confirmed significant write-downs linked to past expansion and profit strategies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nidec's new CEO confirmed significant write-downs linked to past expansion and profit strategies.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "accounting_restatement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nidec",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-574",
+      "headline": "Nike shares drop as retailer posts disappointing sales, announces layoffs as part of restructuring",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/01/nike-nke-q1-2027-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T21:34:44Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Company reported disappointing sales and announced layoffs as part of a restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company reported disappointing sales and announced layoffs as part of a restructuring.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-557",
+      "headline": "Nike plans more job cuts, geographic changes after quarterly sales miss",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/nike-quarterly-sales-miss-estimates-china-weakness-competition-weigh-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T20:51:44Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Nike announced job cuts and organizational restructuring following a quarterly sales miss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nike announced job cuts and organizational restructuring following a quarterly sales miss.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-558",
+      "headline": "Nike stock drops as revenue falls short of estimates, China sales plunge again",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/01/nike-nke-q1-2027-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T20:37:59Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Nike reported a revenue miss and a significant decline in China sales, impacting financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nike reported a revenue miss and a significant decline in China sales, impacting financial expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261001-561",
+      "headline": "Nike quarterly sales miss estimates as China weakness, competition weigh",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/nike-quarterly-sales-miss-estimates-china-weakness-competition-weigh-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T20:26:24Z",
+      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
+      "prelim_note": "Nike quarterly sales missed estimates due to China weakness and competition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nike quarterly sales missed estimates due to China weakness and competition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nike",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261001-527",
       "headline": "Barbie-Maker Mattel Draws Takeover Interest From Authentic Brands Group",
       "headline_en": null,
@@ -1536,463 +3956,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-362",
-      "headline": "Billionaire Weston family closes in on £7bn Boots takeover",
-      "headline_en": null,
-      "url": "https://www.cityam.com/billionaire-weston-family-closes-in-on-7bn-boots-takeover/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T09:33:54Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Weston family is nearing a 7 billion pound acquisition of Boots.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Weston family is nearing a 7 billion pound acquisition of Boots.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boots",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-352",
-      "headline": "Nuveen completes Schroders takeover to create $2.6 trillion investment group",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/nuveen-completes-schroders-takeover-create-26-trillion-investment-group-2026-10-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T09:04:40Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Nuveen completed a takeover of Schroders to create a $2.6 trillion investment group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nuveen completed a takeover of Schroders to create a $2.6 trillion investment group.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nuveen",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Schroders",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-350",
-      "headline": "Paramount wraps up $52bn debt sale to fund Warner buyout",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/international/paramount-wraps-up-52bn-debt-sale-to-fund-warner-buyout/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T09:00:08Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Paramount completed a $52 billion debt sale to fund a major acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount completed a $52 billion debt sale to fund a major acquisition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-341",
-      "headline": "U.A.E. Opens Investigation Into FlyDubai Attack",
-      "headline_en": null,
-      "url": "https://www.wsj.com/world/middle-east/u-a-e-opens-investigation-into-flydubai-attack-f16f17b5?mod=rss_worldnews",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T08:51:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "The UAE has opened an investigation into an attack on a FlyDubai flight, representing a significant operational and security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The UAE has opened an investigation into an attack on a FlyDubai flight, representing a significant operational and security risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FlyDubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-347",
-      "headline": "UAE says investigation launched into flydubai incident",
-      "headline_en": null,
-      "url": "https://www.gulf-times.com/article/734575/region/uae-says-investigation-launched-into-flydubai-incident",
-      "source_name": "Gulf Times — Region",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T08:37:00Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Official investigation launched into a security incident involving FlyDubai.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Official investigation launched into a security incident involving FlyDubai.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FlyDubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-345",
-      "headline": "UAE assembles specialist team to investigate if flydubai incident was terrorism",
-      "headline_en": null,
-      "url": "https://www.arabianbusiness.com/business/transport/uae-assembles-specialist-team-to-investigate-if-flydubai-incident-was-terrorism",
-      "source_name": "Arabian Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T08:18:42Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "UAE authorities are investigating a potential terrorist incident involving a FlyDubai flight.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UAE authorities are investigating a potential terrorist incident involving a FlyDubai flight.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FlyDubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-334",
-      "headline": "Sanofi expands Regeneron partnership with up to $8 billion deal in win for new CEO",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/sanofi-pay-regeneron-1-billion-upfront-expanded-immunology-deal-2026-10-01/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T07:58:31Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Sanofi expands partnership with Regeneron in a deal worth up to $8 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sanofi expands partnership with Regeneron in a deal worth up to $8 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sanofi",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Regeneron",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-320",
-      "headline": "Landsec to buy Metrocentre in £516 million deal",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/intu-london-kent-gateshead-press-association-b3059491.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T07:02:39Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Landsec is acquiring Metrocentre for £516 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Landsec is acquiring Metrocentre for £516 million.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Landsec",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261001-290",
-      "headline": "Paramount Skydance, Warner Bros. Discovery To Close Proposed Merger On Oct. 6",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/paramount-skydance-warner-bros-discovery-close-proposed-merger-oct-6",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T06:19:39Z",
-      "sweep_file": "screener/inbox/2026-10-01_sweep.json",
-      "prelim_note": "Paramount Skydance and Warner Bros. Discovery are set to close their proposed merger on October 6.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount Skydance and Warner Bros. Discovery are set to close their proposed merger on October 6.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": "PARA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros. Discovery, Inc.",
-          "ticker": "WBD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -150326,77 +152289,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-aadc0ff37abc",
-      "idea_version": "IDEAV-f0209184942afc7f",
-      "idea_version_started_at": "2026-09-30T13:55:27Z",
-      "ticker": "HRL",
-      "company": "Hormel Foods Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The $1.06 billion acquisition of Brakebush Brothers expands Hormel's portfolio in the value-added poultry segment, providing immediate scale and product diversification.",
-      "why_now": "The deal was announced on 2026-09-30.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0c7dced7746f",
-        "EVT-b0b7932f5d67"
-      ],
-      "primary_source_event_id": "EVT-0c7dced7746f",
-      "source_headlines": [
-        "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
-        "Hormel Foods to buy Brakebush in deal valued at $1.06 billion"
-      ],
-      "source_headline": "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
-      "source_url": "https://www.wsj.com/business/deals/hormel-foods-to-buy-brakebush-brothers-for-about-1-06-billion-6adef7ff?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-30T11:01:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-30T13:55:27Z",
-      "updated_at": "2026-09-30T13:55:27Z",
-      "decay_at": "2026-10-01T23:01:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b1ef7638c514",
       "idea_version": "IDEAV-987a75d8bf3974e1",
       "idea_version_started_at": "2026-09-30T19:14:30Z",
@@ -150467,23 +152359,23 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-14d83f2c882e",
-      "idea_version": "IDEAV-7f2f9540532d9232",
-      "idea_version_started_at": "2026-09-30T13:55:27Z",
-      "ticker": "AMD",
-      "company": "Advanced Micro Devices",
-      "exchange": "NASDAQ",
+      "idea_id": "IDEA-205d9d4ce667",
+      "idea_version": "IDEAV-b18cf34bc2da95d4",
+      "idea_version_started_at": "2026-10-02T00:48:43Z",
+      "ticker": "DELL",
+      "company": "Dell Technologies",
+      "exchange": "NYSE",
       "direction": "long",
       "pair_with": null,
-      "reason": "The acquisition of World Labs for $8.2 billion provides AMD with critical AI research capabilities and talent to compete more effectively in the generative AI space.",
-      "why_now": "The acquisition was announced on 2026-09-30.",
-      "conviction": 70,
+      "reason": "Dell is partnering with JERA on a $15 billion data center project, providing a significant long-term revenue tailwind for their infrastructure and server business.",
+      "why_now": "The partnership was announced on October 1, 2026.",
+      "conviction": 65,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
+      "trade_score": 66,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
-        "impact": 21,
+        "impact": 20,
         "specificity": 15,
         "timing": 10,
         "expression": 7,
@@ -150511,26 +152403,26 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-7fda54f833c1"
+        "EVT-263c236157f0"
       ],
-      "primary_source_event_id": "EVT-7fda54f833c1",
+      "primary_source_event_id": "EVT-263c236157f0",
       "source_headlines": [
-        "AMD acquires AI legend Fei-Fei Li's World Labs for $8.2 billion"
+        "Japan's largest power producer teams with Dell on $15bn data center"
       ],
-      "source_headline": "AMD acquires AI legend Fei-Fei Li's World Labs for $8.2 billion",
-      "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/amd-acquires-ai-legend-fei-fei-lis-world-labs-for-usd8-2-billion-imagenet-pioneer-will-become-amd-chief-scientist-as-the-chipmaker-brings-her-lab-in-house",
-      "source_name": "Tom's Hardware",
+      "source_headline": "Japan's largest power producer teams with Dell on $15bn data center",
+      "source_url": "https://asia.nikkei.com/business/technology/artificial-intelligence/japan-s-largest-power-producer-teams-with-dell-on-15bn-data-center",
+      "source_name": "Nikkei Asia",
       "materiality_max": 100,
-      "newest_source_at": "2026-09-30T09:30:00Z",
+      "newest_source_at": "2026-10-01T22:03:22Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
         "latest_decision": null,
         "data_pool_present": false
       },
-      "surfaced_at": "2026-09-29T06:43:00Z",
-      "updated_at": "2026-09-30T13:55:27Z",
-      "decay_at": "2026-10-01T21:30:00Z",
+      "surfaced_at": "2026-10-02T00:48:43Z",
+      "updated_at": "2026-10-02T00:48:43Z",
+      "decay_at": "2026-10-03T10:03:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -150881,6 +152773,148 @@
       "surfaced_at": "2026-09-30T16:43:44Z",
       "updated_at": "2026-09-30T16:43:44Z",
       "decay_at": "2026-10-02T02:47:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-37a5121be6e7",
+      "idea_version": "IDEAV-5a36c5b48c5e690d",
+      "idea_version_started_at": "2026-10-02T00:48:43Z",
+      "ticker": "SYNA",
+      "company": "Synaptics",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Synaptics is being acquired by ON Semiconductor in a cash deal, which typically creates an arbitrage opportunity as the stock price converges toward the acquisition price.",
+      "why_now": "The acquisition was announced on October 1, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4f453e999ad4"
+      ],
+      "primary_source_event_id": "EVT-4f453e999ad4",
+      "source_headlines": [
+        "ON Semicondcutor to Buy Synaptics for Cash, Not Stock, in Downsized Deal"
+      ],
+      "source_headline": "ON Semicondcutor to Buy Synaptics for Cash, Not Stock, in Downsized Deal",
+      "source_url": "https://www.wsj.com/business/deals/on-semicondcutor-to-buy-synaptics-for-cash-not-stock-in-downsized-deal-d2781e36?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T22:25:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-02T00:48:43Z",
+      "updated_at": "2026-10-02T00:48:43Z",
+      "decay_at": "2026-10-03T10:25:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1ce33e97dd06",
+      "idea_version": "IDEAV-f6865f601d5843d9",
+      "idea_version_started_at": "2026-10-01T22:02:01Z",
+      "ticker": "NKE",
+      "company": "Nike",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Nike's quarterly sales miss and subsequent announcement of further job cuts and geographic restructuring indicate significant operational headwinds and weakening consumer demand.",
+      "why_now": "The restructuring and sales miss were announced on 2026-10-01.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0184bcadff19"
+      ],
+      "primary_source_event_id": "EVT-0184bcadff19",
+      "source_headlines": [
+        "Nike plans more job cuts, geographic changes after quarterly sales miss"
+      ],
+      "source_headline": "Nike plans more job cuts, geographic changes after quarterly sales miss",
+      "source_url": "https://www.reuters.com/business/retail-consumer/nike-quarterly-sales-miss-estimates-china-weakness-competition-weigh-2026-10-01/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T20:51:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T22:02:01Z",
+      "updated_at": "2026-10-01T22:02:01Z",
+      "decay_at": "2026-10-03T08:51:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -151892,78 +153926,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-52a632df2dfe",
-      "idea_version": "IDEAV-bf8cdf8594cf7309",
-      "idea_version_started_at": "2026-09-30T16:19:46Z",
-      "ticker": "08439",
-      "company": "Somerley Capital Holdings",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is subject to a mandatory unconditional cash offer, providing a clear exit price for shareholders.",
-      "why_now": "The announcement confirms the satisfaction of conditions precedent to the sale and purchase agreement as of 2026-09-30.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e3d40514e05a"
-      ],
-      "primary_source_event_id": "EVT-e3d40514e05a",
-      "source_headlines": [
-        "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA"
-      ],
-      "source_headline": "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0930/2026093002075.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-30T11:18:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-30T16:19:46Z",
-      "updated_at": "2026-09-30T16:19:46Z",
-      "decay_at": "2026-10-01T23:18:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fa0d140ee7df",
       "idea_version": "IDEAV-56f9fc0daac67d9a",
       "idea_version_started_at": "2026-10-01T01:46:19Z",
@@ -152456,6 +154418,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-aadc0ff37abc",
+      "idea_version": "IDEAV-f0209184942afc7f",
+      "idea_version_started_at": "2026-09-30T13:55:27Z",
+      "ticker": "HRL",
+      "company": "Hormel Foods Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $1.06 billion acquisition of Brakebush Brothers expands Hormel's portfolio in the value-added poultry segment, providing immediate scale and product diversification.",
+      "why_now": "The deal was announced on 2026-09-30.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0c7dced7746f",
+        "EVT-b0b7932f5d67"
+      ],
+      "primary_source_event_id": "EVT-0c7dced7746f",
+      "source_headlines": [
+        "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
+        "Hormel Foods to buy Brakebush in deal valued at $1.06 billion"
+      ],
+      "source_headline": "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
+      "source_url": "https://www.wsj.com/business/deals/hormel-foods-to-buy-brakebush-brothers-for-about-1-06-billion-6adef7ff?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T11:01:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T13:55:27Z",
+      "updated_at": "2026-09-30T13:55:27Z",
+      "decay_at": "2026-10-01T23:01:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-485c669a88ce",
       "idea_version": "IDEAV-7ffbef24b3e2be08",
       "idea_version_started_at": "2026-09-30T03:15:36Z",
@@ -152519,6 +154552,76 @@
       "surfaced_at": "2026-09-30T03:15:36Z",
       "updated_at": "2026-09-30T03:15:36Z",
       "decay_at": "2026-10-01T08:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-14d83f2c882e",
+      "idea_version": "IDEAV-7f2f9540532d9232",
+      "idea_version_started_at": "2026-09-30T13:55:27Z",
+      "ticker": "AMD",
+      "company": "Advanced Micro Devices",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of World Labs for $8.2 billion provides AMD with critical AI research capabilities and talent to compete more effectively in the generative AI space.",
+      "why_now": "The acquisition was announced on 2026-09-30.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7fda54f833c1"
+      ],
+      "primary_source_event_id": "EVT-7fda54f833c1",
+      "source_headlines": [
+        "AMD acquires AI legend Fei-Fei Li's World Labs for $8.2 billion"
+      ],
+      "source_headline": "AMD acquires AI legend Fei-Fei Li's World Labs for $8.2 billion",
+      "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/amd-acquires-ai-legend-fei-fei-lis-world-labs-for-usd8-2-billion-imagenet-pioneer-will-become-amd-chief-scientist-as-the-chipmaker-brings-her-lab-in-house",
+      "source_name": "Tom's Hardware",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T09:30:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-29T06:43:00Z",
+      "updated_at": "2026-09-30T13:55:27Z",
+      "decay_at": "2026-10-01T21:30:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -152799,146 +154902,6 @@
       "surfaced_at": "2026-09-29T10:02:00Z",
       "updated_at": "2026-09-29T10:02:00Z",
       "decay_at": "2026-09-30T21:18:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-689f4996a82d",
-      "idea_version": "IDEAV-8417f0199e061c5f",
-      "idea_version_started_at": "2026-09-29T06:43:00Z",
-      "ticker": "MDB",
-      "company": "MongoDB",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The sudden departure of the CEO combined with a significant earnings and revenue miss signals deep-seated operational instability and a loss of leadership continuity.",
-      "why_now": "The news broke on 2026-09-28 and the stock has already reacted, but the structural nature of the executive exit suggests further downside as the market digests the strategic vacuum.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6e7b2ea5fac1"
-      ],
-      "primary_source_event_id": "EVT-6e7b2ea5fac1",
-      "source_headlines": [
-        "MongoDB stock crashes 26% as its CEO jumps ship"
-      ],
-      "source_headline": "MongoDB stock crashes 26% as its CEO jumps ship",
-      "source_url": "https://www.thestreet.com/investing/stocks/mongodb-stock-crash-ceo-resigns-meta",
-      "source_name": "TheStreet",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T22:17:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T06:43:00Z",
-      "updated_at": "2026-09-29T06:43:00Z",
-      "decay_at": "2026-09-30T10:17:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d4008a8b5537",
-      "idea_version": "IDEAV-967196dc0fb7b276",
-      "idea_version_started_at": "2026-09-29T06:22:55Z",
-      "ticker": "AIR",
-      "company": "AAR Corp",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of a majority stake in MRO Holdings for $1.8 billion expands AAR's footprint in the aircraft maintenance, repair, and overhaul market, increasing its service capacity.",
-      "why_now": "The deal was announced on September 28, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ff213ee98ce9"
-      ],
-      "primary_source_event_id": "EVT-ff213ee98ce9",
-      "source_headlines": [
-        "AAR to buy majority stake in aircraft maintenance firm MRO Holdings for $1.8 billion"
-      ],
-      "source_headline": "AAR to buy majority stake in aircraft maintenance firm MRO Holdings for $1.8 billion",
-      "source_url": "https://www.reuters.com/business/aar-buy-majority-stake-aircraft-maintenance-firm-mro-holdings-18-billion-2026-09-28/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T21:39:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T06:22:55Z",
-      "updated_at": "2026-09-29T06:22:55Z",
-      "decay_at": "2026-09-30T09:39:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -153293,6 +155256,78 @@
       "surfaced_at": "2026-09-29T09:11:29Z",
       "updated_at": "2026-09-29T09:11:29Z",
       "decay_at": "2026-09-30T17:30:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-52a632df2dfe",
+      "idea_version": "IDEAV-bf8cdf8594cf7309",
+      "idea_version_started_at": "2026-09-30T16:19:46Z",
+      "ticker": "08439",
+      "company": "Somerley Capital Holdings",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is subject to a mandatory unconditional cash offer, providing a clear exit price for shareholders.",
+      "why_now": "The announcement confirms the satisfaction of conditions precedent to the sale and purchase agreement as of 2026-09-30.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e3d40514e05a"
+      ],
+      "primary_source_event_id": "EVT-e3d40514e05a",
+      "source_headlines": [
+        "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA"
+      ],
+      "source_headline": "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0930/2026093002075.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-09-30T11:18:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-09-30T16:19:46Z",
+      "updated_at": "2026-09-30T16:19:46Z",
+      "decay_at": "2026-10-01T23:18:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -154884,79 +156919,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f64bbbd95f6f",
-      "idea_version": "IDEAV-deb73ae1a74b16bb",
-      "idea_version_started_at": "2026-09-29T06:43:00Z",
-      "ticker": "MP1",
-      "company": "Megaport",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured $1 billion in new contracts and simultaneously upgraded its 2027 earnings guidance, indicating a major inflection in revenue growth and operational scale.",
-      "why_now": "The guidance upgrade was officially announced on 2026-09-28, providing a clear catalyst for a re-rating of the stock.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e30c918d40e6",
-        "EVT-bd5b3cbab213"
-      ],
-      "primary_source_event_id": "EVT-e30c918d40e6",
-      "source_headlines": [
-        "ASX to rise; Megaport wins $1b worth of contracts, upgrades guidance",
-        "Australia's Megaport wins $687 million AI infrastructure deals, raises 2027 earnings forecast"
-      ],
-      "source_headline": "ASX to rise; Megaport wins $1b worth of contracts, upgrades guidance",
-      "source_url": "https://www.afr.com/markets/equity-markets/asx-to-rise-us-bond-yields-surge-higher-rba-awaited-20260929-p6118b?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-28T23:32:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-29T06:43:00Z",
-      "updated_at": "2026-09-29T06:43:00Z",
-      "decay_at": "2026-09-30T11:32:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d99505bc75b0",
       "idea_version": "IDEAV-11208c4dd4e3a05e",
       "idea_version_started_at": "2026-09-30T09:32:50Z",
@@ -155401,32 +157363,254 @@
     "hidden_count": 44,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
-        "total_count": 268,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 17
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 625,
-      "oldest_retained_at": "2026-09-05T19:20:00Z",
+      "evicted_count": 628,
+      "oldest_retained_at": "2026-09-05T21:40:34Z",
       "side_counts": {
         "long": {
-          "evicted_count": 420,
-          "oldest_retained_at": "2026-09-14T23:19:07Z"
+          "evicted_count": 422,
+          "oldest_retained_at": "2026-09-15T00:23:32Z"
         },
         "short": {
-          "evicted_count": 205,
-          "oldest_retained_at": "2026-09-05T19:20:00Z"
+          "evicted_count": 206,
+          "oldest_retained_at": "2026-09-05T21:40:34Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-52a632df2dfe",
+        "idea_version": "IDEAV-bf8cdf8594cf7309",
+        "idea_version_started_at": "2026-09-30T16:19:46Z",
+        "ticker": "08439",
+        "company": "Somerley Capital Holdings",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is subject to a mandatory unconditional cash offer, providing a clear exit price for shareholders.",
+        "why_now": "The announcement confirms the satisfaction of conditions precedent to the sale and purchase agreement as of 2026-09-30.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e3d40514e05a"
+        ],
+        "primary_source_event_id": "EVT-e3d40514e05a",
+        "source_headlines": [
+          "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA"
+        ],
+        "source_headline": "SOMERLEY CAP (08439): JOINT ANNOUNCEMENT POSSIBLE MANDATORY UNCONDITIONAL CASH OFFERS BY EDDID CAPITAL LIMITED AND RED SUN CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE PARTIES ACTING IN CONCERT WITH IT) AND TO CANCEL ALL OUTSTANDING OPTIONS OF THE COMPANY (1)SATISFACTION OF CONDITIONS PRECEDENT TO THE SALE AND PURCHASE AGREEMENT(2)SPECIAL DIVIDEND RECORD DA",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0930/2026093002075.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-30T11:18:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-30T16:19:46Z",
+        "updated_at": "2026-09-30T16:19:46Z",
+        "decay_at": "2026-10-01T23:18:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T23:18:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-aadc0ff37abc",
+        "idea_version": "IDEAV-f0209184942afc7f",
+        "idea_version_started_at": "2026-09-30T13:55:27Z",
+        "ticker": "HRL",
+        "company": "Hormel Foods Corporation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The $1.06 billion acquisition of Brakebush Brothers expands Hormel's portfolio in the value-added poultry segment, providing immediate scale and product diversification.",
+        "why_now": "The deal was announced on 2026-09-30.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 74,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0c7dced7746f",
+          "EVT-b0b7932f5d67"
+        ],
+        "primary_source_event_id": "EVT-0c7dced7746f",
+        "source_headlines": [
+          "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
+          "Hormel Foods to buy Brakebush in deal valued at $1.06 billion"
+        ],
+        "source_headline": "Hormel Foods to Buy Brakebush Brothers for About $1.06 Billion",
+        "source_url": "https://www.wsj.com/business/deals/hormel-foods-to-buy-brakebush-brothers-for-about-1-06-billion-6adef7ff?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-30T11:01:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-30T13:55:27Z",
+        "updated_at": "2026-09-30T13:55:27Z",
+        "decay_at": "2026-10-01T23:01:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T23:01:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-14d83f2c882e",
+        "idea_version": "IDEAV-7f2f9540532d9232",
+        "idea_version_started_at": "2026-09-30T13:55:27Z",
+        "ticker": "AMD",
+        "company": "Advanced Micro Devices",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of World Labs for $8.2 billion provides AMD with critical AI research capabilities and talent to compete more effectively in the generative AI space.",
+        "why_now": "The acquisition was announced on 2026-09-30.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-7fda54f833c1"
+        ],
+        "primary_source_event_id": "EVT-7fda54f833c1",
+        "source_headlines": [
+          "AMD acquires AI legend Fei-Fei Li's World Labs for $8.2 billion"
+        ],
+        "source_headline": "AMD acquires AI legend Fei-Fei Li's World Labs for $8.2 billion",
+        "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/amd-acquires-ai-legend-fei-fei-lis-world-labs-for-usd8-2-billion-imagenet-pioneer-will-become-amd-chief-scientist-as-the-chipmaker-brings-her-lab-in-house",
+        "source_name": "Tom's Hardware",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-30T09:30:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-29T06:43:00Z",
+        "updated_at": "2026-09-30T13:55:27Z",
+        "decay_at": "2026-10-01T21:30:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-01T21:30:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a8364208c07a",
         "idea_version": "IDEAV-ab886b11ae43d6d9",
@@ -158546,8 +160730,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-30T11:32:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-02T00:48:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -158619,8 +160803,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-30T10:17:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-02T00:48:49Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -158692,8 +160876,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-09-30T09:39:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-01T22:02:05Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -184764,80 +186948,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d02c47d3e85d",
-        "idea_version": "IDEAV-e8eb59fc8b5e0575",
-        "idea_version_started_at": "2026-09-14T04:51:58Z",
-        "ticker": "GBE",
-        "company": "Globe Metals & Mining",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Globe Metals & Mining has secured further legal clearance for its Kanyika Project, removing a significant hurdle and advancing its development prospects.",
-        "why_now": "The legal clearance was announced on September 14, 2026, providing a current positive catalyst.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a0cfaa080c01"
-        ],
-        "primary_source_event_id": "EVT-a0cfaa080c01",
-        "source_headlines": [
-          "GBE: Globe Secures Further Legal Clearance for Kanyika Project [price-sensitive]"
-        ],
-        "source_headline": "GBE: Globe Secures Further Legal Clearance for Kanyika Project [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GBE?key=2924-03135151-6A1343660",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 92,
-        "newest_source_at": "2026-09-14T02:39:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T04:51:58Z",
-        "updated_at": "2026-09-14T04:51:58Z",
-        "decay_at": "2026-09-15T14:39:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-3c162423bb69",
         "idea_version": "IDEAV-c35bd18c0ffca97c",
         "idea_version_started_at": "2026-09-14T04:51:58Z",
@@ -184909,81 +187019,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-17T09:07:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-caa8876bf8f7",
-        "idea_version": "IDEAV-cf3f3ac8dfd3c4e3",
-        "idea_version_started_at": "2026-09-14T04:27:13Z",
-        "ticker": "010140",
-        "company": "Samsung Heavy Industries",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company secured a 1.6 trillion won contract for six vessels, providing a significant boost to its order backlog and revenue visibility.",
-        "why_now": "The contract announcement occurred on 2026-09-14.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c5d692cd3b59"
-        ],
-        "primary_source_event_id": "EVT-c5d692cd3b59",
-        "source_headlines": [
-          "Samsung Heavy secures 1.6 tln-won deal for 4 LNG carriers, 2 oil tankers"
-        ],
-        "source_headline": "Samsung Heavy secures 1.6 tln-won deal for 4 LNG carriers, 2 oil tankers",
-        "source_url": "https://en.yna.co.kr/view/AEN20260914002700320",
-        "source_name": "Yonhap News Agency — All News (English)",
-        "materiality_max": 98,
-        "newest_source_at": "2026-09-14T02:22:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T04:27:13Z",
-        "updated_at": "2026-09-14T04:27:13Z",
-        "decay_at": "2026-09-15T14:22:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -185278,82 +187313,6 @@
         "surfaced_at": "2026-09-14T02:04:41Z",
         "updated_at": "2026-09-14T02:04:41Z",
         "decay_at": "2026-09-15T12:36:05Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-7f0a605fce1b",
-        "idea_version": "IDEAV-91210d589a215fc2",
-        "idea_version_started_at": "2026-09-14T01:06:30Z",
-        "ticker": "HCW",
-        "company": "Healthscope",
-        "exchange": null,
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Healthscope is being acquired by a Calvary Health Care consortium, which typically results in a premium for shareholders.",
-        "why_now": "The acquisition by Calvary Health Care was reported on September 14, 2026, confirming a definitive event for the company.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-441c143ced9e",
-          "EVT-9ad1c351d670"
-        ],
-        "primary_source_event_id": "EVT-441c143ced9e",
-        "source_headlines": [
-          "HCW: Healthscope Update [price-sensitive]",
-          "Calvary Health Care consortium wins the battle for Healthscope"
-        ],
-        "source_headline": "HCW: Healthscope Update [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HCW?key=2924-03135090-2A1696915",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 92,
-        "newest_source_at": "2026-09-14T00:34:05Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T01:06:30Z",
-        "updated_at": "2026-09-14T01:06:30Z",
-        "decay_at": "2026-09-15T12:34:05Z",
         "status": "expired",
         "promoted_signal_id": null,
         "feedback": null,
@@ -192590,7 +194549,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1198,
+    "surfaced_total": 1201,
     "live_count": 28,
     "promoted_total": 0,
     "machine_confirmed": 0,
@@ -192601,7 +194560,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3087,
+    "inbox_unconsumed": 3127,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -192610,9 +194569,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5136407,
-    "news_picked_today": 1468,
-    "news_dropped_today": 24764
+    "news_seen_today": 99997,
+    "news_picked_today": 131,
+    "news_dropped_today": 421
   },
   "book_momentum": {
     "live_count": 8,
