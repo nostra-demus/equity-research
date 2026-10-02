@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-02T02:57:29Z",
+  "generated_at": "2026-10-02T03:02:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261002-156",
@@ -1542,6 +1542,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261002-410",
+      "headline": "Data center in Kyiv, Ukraine, suffers \"critical damage\" and goes offline after Russian bomb attack",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/data-center-in-kyiv-ukraine-suffers-critical-damage-and-goes-offline-after-russian-bomb-attack/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-01T15:29:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "A data center suffering critical damage from a military attack is a material operational and geopolitical event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A data center suffering critical damage from a military attack is a material operational and geopolitical event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261002-308",
       "headline": "CBE: Completion of A$90M Institutional Capital Raise",
       "headline_en": null,
@@ -1922,60 +1965,6 @@
           "name": "Lyft",
           "ticker": "LYFT",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-224",
-      "headline": "Mountain Province gives De Beers 49% Gahcho Kué stake",
-      "headline_en": null,
-      "url": "https://www.mining.com/mountain-province-gives-de-beers-49-gahcho-kue-stake/",
-      "source_name": "Mining.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T18:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Mountain Province Diamonds is acquiring a 49% stake in the Gahcho Kué mine from De Beers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Mountain Province Diamonds is acquiring a 49% stake in the Gahcho Kué mine from De Beers.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mountain Province Diamonds",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "De Beers",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "mid",
@@ -194587,9 +194576,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 315073,
-    "news_picked_today": 507,
-    "news_dropped_today": 1989
+    "news_seen_today": 324476,
+    "news_picked_today": 525,
+    "news_dropped_today": 2019
   },
   "book_momentum": {
     "live_count": 8,
