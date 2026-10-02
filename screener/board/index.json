@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-02T13:58:16Z",
+  "generated_at": "2026-10-02T14:01:37Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261002-1011",
+      "headline": "ISP GLOBAL (08487): DISCLOSEABLE TRANSACTION IN RELATION TO THE ACQUISITION OF 60% OF ISSUED SHARE CAPITAL OF THE TARGET COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1002/2026100203389.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-02T13:38:00Z",
+      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
+      "prelim_note": "ISP Global is acquiring a 60% stake in a target company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ISP Global is acquiring a 60% stake in a target company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ISP Global",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261002-973",
       "headline": "HATCHER GROUP (08365): COMPLETION OF DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITION OF 51% EQUITY INTEREST IN THE TARGET COMPANY INVOLVING ISSUANCE OF CONSIDERATION SHARES UNDER GENERAL MANDATE",
@@ -1934,55 +1983,6 @@
         {
           "name": "Nike",
           "ticker": "NKE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261002-050",
-      "headline": "Nike Sales Miss Forecasts, Shares Drop on China and Sportswear Slowdown",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-01/nike-s-results-fall-short-of-estimates-as-weakness-persists",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-01T20:19:21Z",
-      "sweep_file": "screener/inbox/2026-10-02_sweep.json",
-      "prelim_note": "Nike missed sales forecasts and shares dropped due to weakness in China and the sportswear sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nike missed sales forecasts and shares dropped due to weakness in China and the sportswear sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nike",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -193236,9 +193236,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1111893,
-    "news_picked_today": 2467,
-    "news_dropped_today": 9173
+    "news_seen_today": 1117936,
+    "news_picked_today": 2477,
+    "news_dropped_today": 9187
   },
   "book_momentum": {
     "live_count": 8,
