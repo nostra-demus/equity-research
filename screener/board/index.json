@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T04:44:39Z",
+  "generated_at": "2026-10-03T04:54:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-076",
@@ -538,6 +538,55 @@
       },
       "event_types": [
         "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-094",
+      "headline": "SBI-led consortium tells Bombay HC Mallya owes over ₹8,700 crore; counters his claim of recovering more than dues",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/people/sbiled-consortium-tells-bombay-hc-mallya-owes-over-rs-8-700-crore-counters-his-claim-of-recovering-more-than-dues-11791002294982.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T04:49:07Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A consortium of banks is pursuing recovery of over ₹8,700 crore from Vijay Mallya, highlighting ongoing legal and credit recovery efforts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A consortium of banks is pursuing recovery of over ₹8,700 crore from Vijay Mallya, highlighting ongoing legal and credit recovery efforts.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -1840,55 +1889,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-074",
-      "headline": "Kaffeekette: Starbucks wegen neuer Filialen in Xinjiang unter Druck",
-      "headline_en": "Coffee chain: Starbucks under pressure due to new branches in Xinjiang",
-      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/kaffeekette-starbucks-wegen-neuer-filialen-in-xinjiang-unter-druck/100259449.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T02:51:47Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Starbucks is facing pressure regarding its expansion in Xinjiang, which introduces potential reputational and regulatory risks in international markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Starbucks is facing pressure regarding its expansion in Xinjiang, which introduces potential reputational and regulatory risks in international markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Starbucks",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -154859,76 +154859,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a2af7914e260",
-      "idea_version": "IDEAV-3d78036cf269389b",
-      "idea_version_started_at": "2026-10-03T00:30:09Z",
-      "ticker": "ACN",
-      "company": "Accenture",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Accenture reported Q4 revenue of $18.7 billion and raised its FY27 operating margin outlook, signaling resilient enterprise IT spending and improved operational efficiency.",
-      "why_now": "The company just released its Q4 earnings and updated its long-term FY27 margin guidance on October 1, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-21a4195dfc5d"
-      ],
-      "primary_source_event_id": "EVT-21a4195dfc5d",
-      "source_headlines": [
-        "Accenture's Q4 revenue at $18.7 billion; raises FY27 operating margin outlook"
-      ],
-      "source_headline": "Accenture's Q4 revenue at $18.7 billion; raises FY27 operating margin outlook",
-      "source_url": "https://www.deccanherald.com/business/companies/accentures-q4-revenue-at-187-billion-raises-fy27-operating-margin-outlook-4167403",
-      "source_name": "Deccan Herald",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-01T16:53:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T18:43:27Z",
-      "updated_at": "2026-10-03T00:30:09Z",
-      "decay_at": "2026-10-03T04:53:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-37a5121be6e7",
       "idea_version": "IDEAV-5a36c5b48c5e690d",
       "idea_version_started_at": "2026-10-02T00:48:43Z",
@@ -156782,6 +156712,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-a2af7914e260",
+      "idea_version": "IDEAV-3d78036cf269389b",
+      "idea_version_started_at": "2026-10-03T00:30:09Z",
+      "ticker": "ACN",
+      "company": "Accenture",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Accenture reported Q4 revenue of $18.7 billion and raised its FY27 operating margin outlook, signaling resilient enterprise IT spending and improved operational efficiency.",
+      "why_now": "The company just released its Q4 earnings and updated its long-term FY27 margin guidance on October 1, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-21a4195dfc5d"
+      ],
+      "primary_source_event_id": "EVT-21a4195dfc5d",
+      "source_headlines": [
+        "Accenture's Q4 revenue at $18.7 billion; raises FY27 operating margin outlook"
+      ],
+      "source_headline": "Accenture's Q4 revenue at $18.7 billion; raises FY27 operating margin outlook",
+      "source_url": "https://www.deccanherald.com/business/companies/accentures-q4-revenue-at-187-billion-raises-fy27-operating-margin-outlook-4167403",
+      "source_name": "Deccan Herald",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T16:53:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T18:43:27Z",
+      "updated_at": "2026-10-03T00:30:09Z",
+      "decay_at": "2026-10-03T04:53:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-2c8697fc45c7",
       "idea_version": "IDEAV-7777b0b37ce565a4",
       "idea_version_started_at": "2026-09-30T16:19:46Z",
@@ -158368,14 +158368,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 529,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       },
       "short": {
         "total_count": 259,
@@ -158399,6 +158399,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a2af7914e260",
+        "idea_version": "IDEAV-3d78036cf269389b",
+        "idea_version_started_at": "2026-10-03T00:30:09Z",
+        "ticker": "ACN",
+        "company": "Accenture",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Accenture reported Q4 revenue of $18.7 billion and raised its FY27 operating margin outlook, signaling resilient enterprise IT spending and improved operational efficiency.",
+        "why_now": "The company just released its Q4 earnings and updated its long-term FY27 margin guidance on October 1, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-21a4195dfc5d"
+        ],
+        "primary_source_event_id": "EVT-21a4195dfc5d",
+        "source_headlines": [
+          "Accenture's Q4 revenue at $18.7 billion; raises FY27 operating margin outlook"
+        ],
+        "source_headline": "Accenture's Q4 revenue at $18.7 billion; raises FY27 operating margin outlook",
+        "source_url": "https://www.deccanherald.com/business/companies/accentures-q4-revenue-at-187-billion-raises-fy27-operating-margin-outlook-4167403",
+        "source_name": "Deccan Herald",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-01T16:53:13Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-01T18:43:27Z",
+        "updated_at": "2026-10-03T00:30:09Z",
+        "decay_at": "2026-10-03T04:53:13Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-03T04:53:13Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fcc665b98933",
         "idea_version": "IDEAV-5cd3b330cd494a3e",
@@ -187064,82 +187137,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-4f0e3a3e17fb",
-        "idea_version": "IDEAV-0b4d25817559d3bf",
-        "idea_version_started_at": "2026-09-14T19:12:02Z",
-        "ticker": "8848",
-        "company": "Leopalace21",
-        "exchange": "TSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A consortium including Hikari Tsushin and MBK Partners has launched a $1.7 billion buyout offer for the company, providing a clear floor for the share price.",
-        "why_now": "The buyout offer was announced on 2026-09-14.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a8f157318ad3"
-        ],
-        "primary_source_event_id": "EVT-a8f157318ad3",
-        "source_headlines": [
-          "Hikari Tsushin, MBK, NEC unit launch $1.7bn buyout for Japan's Leopalace21"
-        ],
-        "source_headline": "Hikari Tsushin, MBK, NEC unit launch $1.7bn buyout for Japan's Leopalace21",
-        "source_url": "https://asia.nikkei.com/business/business-deals/hikari-tsushin-mbk-nec-unit-launch-1.7bn-buyout-for-japan-s-leopalace212",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-14T16:18:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T19:12:02Z",
-        "updated_at": "2026-09-14T19:12:02Z",
-        "decay_at": "2026-09-16T04:18:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T16:22:00Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-6088f8734a17",
         "idea_version": "IDEAV-c13982183c91865f",
         "idea_version_started_at": "2026-09-14T21:24:14Z",
@@ -195560,7 +195557,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1225,
-    "live_count": 31,
+    "live_count": 30,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -195579,9 +195576,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 704,
-    "news_picked_today": 115,
-    "news_dropped_today": 589
+    "news_seen_today": 714,
+    "news_picked_today": 118,
+    "news_dropped_today": 596
   },
   "book_momentum": {
     "live_count": 8,
