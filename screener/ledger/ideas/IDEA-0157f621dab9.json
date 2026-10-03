@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-aa2a7b63a414",
-  "idea_version": "IDEAV-849a173aea6f83d8",
-  "idea_version_started_at": "2026-09-29T23:33:49Z",
-  "ticker": "DRO",
-  "company": "DroneShield",
-  "exchange": "ASX",
+  "idea_id": "IDEA-0157f621dab9",
+  "idea_version": "IDEAV-4d68350450b93aa9",
+  "idea_version_started_at": "2026-10-02T21:12:37Z",
+  "ticker": "VLVLY",
+  "company": "Volvo Car",
+  "exchange": "NASDAQ",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "The US$500M IDIQ procurement vehicle represents a massive increase in the company's total addressable contract value and provides long-term revenue visibility.",
-  "why_now": "Contract award announced 2026-09-29.",
-  "conviction": 80,
+  "reason": "The company withdrew its financial guidance citing a deteriorating Chinese automotive market, signaling significant near-term margin pressure.",
+  "why_now": "The announcement was made on 2026-10-02, making the negative outlook immediate.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 25,
-    "impact": 21,
+    "evidence": 14,
+    "impact": 20,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,26 +49,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-b139def55f45"
+    "EVT-28ee22cd8bb6"
   ],
-  "primary_source_event_id": "EVT-b139def55f45",
+  "primary_source_event_id": "EVT-28ee22cd8bb6",
   "source_headlines": [
-    "DRO: DroneShield Awarded US$500M US IDIQ Procurement Vehicle"
+    "Volvo Car Pulls Guidance as Chinese Auto Market Worsens"
   ],
-  "source_headline": "DRO: DroneShield Awarded US$500M US IDIQ Procurement Vehicle",
-  "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DRO?key=2924-03141779-2A1700430",
-  "source_name": "ASX (Australia Exchange Filing)",
+  "source_headline": "Volvo Car Pulls Guidance as Chinese Auto Market Worsens",
+  "source_url": "https://www.wsj.com/business/earnings/volvo-car-pulls-guidance-as-chinese-auto-market-worsen-e72ca14f?mod=pls_whats_news_us_business_f",
+  "source_name": "The Wall Street Journal",
   "materiality_max": 100,
-  "newest_source_at": "2026-09-29T22:49:44Z",
+  "newest_source_at": "2026-10-02T14:22:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-09-29T23:33:49Z",
-  "updated_at": "2026-09-29T23:33:49Z",
-  "decay_at": "2026-10-01T10:49:44Z",
+  "surfaced_at": "2026-10-02T21:12:37Z",
+  "updated_at": "2026-10-02T21:12:37Z",
+  "decay_at": "2026-10-04T02:22:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
