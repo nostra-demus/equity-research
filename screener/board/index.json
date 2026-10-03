@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-03T07:30:06Z",
+  "generated_at": "2026-10-03T07:34:37Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261003-169",
+      "headline": "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/avenue-supermarts-reports-1920618-crore-standalone-revenue-in-q2-fy27-store-count-reaches-518",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T07:08:20Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Avenue Supermarts reported standalone revenue of ₹19,206.18 crore for Q2 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Avenue Supermarts reported standalone revenue of ₹19,206.18 crore for Q2 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avenue Supermarts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261003-163",
       "headline": "UAE probe reveals flydubai co-pilot attempted terrorist act",
@@ -1535,6 +1584,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-170",
+      "headline": "Sedemac Mechatronics Logs 37.5% ECU Sales Growth In Q2 FY27, Crosses 10 Lakh Cumulative ISG+EFI Units",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/sedemac-mechatronics-logs-375-ecu-sales-growth-in-q2-fy27-crosses-10-lakh-cumulative-isgefi-units",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T07:00:45Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Sedemac Mechatronics reported 37.5% ECU sales growth in Q2 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Sedemac Mechatronics reported 37.5% ECU sales growth in Q2 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sedemac Mechatronics",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-131",
       "headline": "Volkswagen: Rückruf von Millionen Autos: VW kannte das Schrauben-Problem seit Herbst 2024",
       "headline_en": "Volkswagen: Recall of millions of cars: VW knew about the screw problem since autumn 2024",
@@ -1870,104 +1968,6 @@
           "name": "Vedanta",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-143",
-      "headline": "Avenue Supermarts Limited: Avenue Supermarts Limited has informed the Exchange regarding 'Company Update at the end of Quarter 2 (Q2) of Financial Year 2026-27'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/DMART_03102026122118_ASLQuarterUpdateSep2026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-03T06:53:41Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Avenue Supermarts provided a Q2 business update for FY 2026-27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Avenue Supermarts provided a Q2 business update for FY 2026-27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avenue Supermarts Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-168",
-      "headline": "Online trading firm IG Group sees biggest sell-off in a decade",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16178751/Online-trading-firm-IG-Group-sees-biggest-sell-decade.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T07:15:07Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Significant market sell-off indicating potential loss of investor confidence or operational issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Significant market sell-off indicating potential loss of investor confidence or operational issues.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IG Group",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -154241,75 +154241,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-b7aecb0b2227",
-      "idea_version": "IDEAV-614eb9bd58cbec8d",
-      "idea_version_started_at": "2026-10-01T21:04:55Z",
-      "ticker": "SGRP",
-      "company": "SPAR Group, Inc.",
-      "exchange": "OQB",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has received a delisting notification from the exchange, which typically indicates severe financial distress or regulatory non-compliance.",
-      "why_now": "The 25-NSE filing was processed on 2026-10-01.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 77,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6f337bbe6467"
-      ],
-      "primary_source_event_id": "EVT-6f337bbe6467",
-      "source_headlines": [
-        "25-NSE - SPAR Group, Inc. (0001004989) (Subject)"
-      ],
-      "source_headline": "25-NSE - SPAR Group, Inc. (0001004989) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1004989/000135445726000934/0001354457-26-000934-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-01T19:32:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T21:04:55Z",
-      "updated_at": "2026-10-01T21:04:55Z",
-      "decay_at": "2026-10-03T07:32:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d0204447ec5b",
       "idea_version": "IDEAV-e68d5007fb13244c",
       "idea_version_started_at": "2026-10-03T00:50:03Z",
@@ -157037,6 +156968,75 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b7aecb0b2227",
+      "idea_version": "IDEAV-614eb9bd58cbec8d",
+      "idea_version_started_at": "2026-10-01T21:04:55Z",
+      "ticker": "SGRP",
+      "company": "SPAR Group, Inc.",
+      "exchange": "OQB",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has received a delisting notification from the exchange, which typically indicates severe financial distress or regulatory non-compliance.",
+      "why_now": "The 25-NSE filing was processed on 2026-10-01.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 77,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6f337bbe6467"
+      ],
+      "primary_source_event_id": "EVT-6f337bbe6467",
+      "source_headlines": [
+        "25-NSE - SPAR Group, Inc. (0001004989) (Subject)"
+      ],
+      "source_headline": "25-NSE - SPAR Group, Inc. (0001004989) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1004989/000135445726000934/0001354457-26-000934-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T19:32:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T21:04:55Z",
+      "updated_at": "2026-10-01T21:04:55Z",
+      "decay_at": "2026-10-03T07:32:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-aadc0ff37abc",
       "idea_version": "IDEAV-f0209184942afc7f",
       "idea_version_started_at": "2026-09-30T13:55:27Z",
@@ -159182,9 +159182,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 531,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -159192,9 +159192,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 259,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 10
       }
     },
     "retention": {
@@ -159213,6 +159213,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b7aecb0b2227",
+        "idea_version": "IDEAV-614eb9bd58cbec8d",
+        "idea_version_started_at": "2026-10-01T21:04:55Z",
+        "ticker": "SGRP",
+        "company": "SPAR Group, Inc.",
+        "exchange": "OQB",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has received a delisting notification from the exchange, which typically indicates severe financial distress or regulatory non-compliance.",
+        "why_now": "The 25-NSE filing was processed on 2026-10-01.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 77,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6f337bbe6467"
+        ],
+        "primary_source_event_id": "EVT-6f337bbe6467",
+        "source_headlines": [
+          "25-NSE - SPAR Group, Inc. (0001004989) (Subject)"
+        ],
+        "source_headline": "25-NSE - SPAR Group, Inc. (0001004989) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1004989/000135445726000934/0001354457-26-000934-index.htm",
+        "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-01T19:32:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-01T21:04:55Z",
+        "updated_at": "2026-10-01T21:04:55Z",
+        "decay_at": "2026-10-03T07:32:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-03T07:32:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-193acec1f3b7",
         "idea_version": "IDEAV-f4a1bce45870f66c",
@@ -196289,86 +196361,12 @@
         "archived_at": "2026-09-09T11:02:03Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-ffa54d096f0d",
-        "idea_version": "IDEAV-4862dfe60015716c",
-        "idea_version_started_at": "2026-09-06T10:10:50Z",
-        "ticker": "09626",
-        "company": "Bilibili",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is executing a concurrent equity placement and convertible note offering, which will result in significant shareholder dilution.",
-        "why_now": "The official exchange filing regarding the $700 million capital action was released on 2026-09-06.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d63e6888b9d8"
-        ],
-        "primary_source_event_id": "EVT-d63e6888b9d8",
-        "source_headlines": [
-          "BILIBILI-W (09626): PROPOSED OFF-MARKET SHARE BUY-BACK PRICING OF OFFERINGS OF US$700 MILLION CONVERTIBLE SENIOR NOTES, CONCURRENT EQUITY PLACEMENT AND CONCURRENT SHARE REPURCHASES"
-        ],
-        "source_headline": "BILIBILI-W (09626): PROPOSED OFF-MARKET SHARE BUY-BACK PRICING OF OFFERINGS OF US$700 MILLION CONVERTIBLE SENIOR NOTES, CONCURRENT EQUITY PLACEMENT AND CONCURRENT SHARE REPURCHASES",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0906/2026090600017.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-06T10:06:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-04T19:35:13Z",
-        "updated_at": "2026-09-06T10:10:50Z",
-        "decay_at": "2026-09-07T22:06:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-09T11:02:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1236,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -196387,9 +196385,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1396,
-    "news_picked_today": 218,
-    "news_dropped_today": 1178
+    "news_seen_today": 1409,
+    "news_picked_today": 221,
+    "news_dropped_today": 1188
   },
   "book_momentum": {
     "live_count": 8,
