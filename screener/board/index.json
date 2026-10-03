@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T07:11:24Z",
+  "generated_at": "2026-10-03T07:12:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-129",
@@ -155153,6 +155153,82 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-830bd652e0ef",
+      "idea_version": "IDEAV-578bb18fe805ad92",
+      "idea_version_started_at": "2026-10-03T07:11:46Z",
+      "ticker": "FLYDUBAI",
+      "company": "flydubai",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A co-pilot attempted a terrorist attack on a flight, which will likely lead to increased security costs and reputational damage.",
+      "why_now": "The investigation into the incident is ongoing and has been reported by multiple news outlets today.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d3dac1b562f1",
+        "EVT-a713c433334d",
+        "EVT-0353b0e7dd1d"
+      ],
+      "primary_source_event_id": "EVT-d3dac1b562f1",
+      "source_headlines": [
+        "UAE investigation finds flydubai co-pilot tried to carry out terror attack",
+        "Flydubai co-pilot stabbed captain with crash axe in ‘terrorist’ attack: UAE",
+        "UAE says flydubai co-pilot attempted ‘terrorist act’ on Israel-bound flight"
+      ],
+      "source_headline": "UAE investigation finds flydubai co-pilot tried to carry out terror attack",
+      "source_url": "https://www.khaleejtimes.com/uae/uae-investigation-finds-flydubai-co-pilot-tried-to-carry-out-terror-attack",
+      "source_name": "Khaleej Times — UAE",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T06:40:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T07:11:46Z",
+      "updated_at": "2026-10-03T07:11:46Z",
+      "decay_at": "2026-10-04T18:40:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0157f621dab9",
       "idea_version": "IDEAV-76e7c56cd73c4042",
       "idea_version_started_at": "2026-10-03T06:51:27Z",
@@ -155944,6 +156020,80 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-d04744233983",
+      "idea_version": "IDEAV-515f15235fab9160",
+      "idea_version_started_at": "2026-10-03T07:11:46Z",
+      "ticker": "TILHC",
+      "company": "TIL Healthcare",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A fatal boiler explosion at a pharmaceutical plant will likely result in operational disruptions, regulatory scrutiny, and potential liabilities.",
+      "why_now": "The incident occurred today and rescue operations are underway.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-06c883ef25bb",
+        "EVT-75f950727e96"
+      ],
+      "primary_source_event_id": "EVT-06c883ef25bb",
+      "source_headlines": [
+        "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
+        "4 workers dead 2 injured in blast at TIL Healthcare’s Sri City plant"
+      ],
+      "source_headline": "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
+      "source_url": "https://www.freepressjournal.in/india/tirupati-blast-5-dead-10-critically-injured-as-powerful-boiler-explosion-rocks-pharma-unit-in-sri-city-rescue-ops-underway-video",
+      "source_name": "Free Press Journal",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-03T07:05:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T07:11:46Z",
+      "updated_at": "2026-10-03T07:11:46Z",
+      "decay_at": "2026-10-04T19:05:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-72e70ba438d7",
       "idea_version": "IDEAV-7ca9dda32038e80d",
       "idea_version_started_at": "2026-10-03T03:15:01Z",
@@ -156088,6 +156238,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-f29ccaae38d5",
+      "idea_version": "IDEAV-dbdfab38ef84ef13",
+      "idea_version_started_at": "2026-10-03T07:11:46Z",
+      "ticker": "CIPLA",
+      "company": "Cipla",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Maharashtra FDA has cancelled the drug sale license of a Cipla facility, which will directly impact its revenue and operations.",
+      "why_now": "The decision by the FDA was announced today.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-da4ac97cc421"
+      ],
+      "primary_source_event_id": "EVT-da4ac97cc421",
+      "source_headlines": [
+        "Maharashtra FDA Cancels Drug Sale Licence Of Pune Cipla Facility; Disappointing Decision, Says Firm"
+      ],
+      "source_headline": "Maharashtra FDA Cancels Drug Sale Licence Of Pune Cipla Facility; Disappointing Decision, Says Firm",
+      "source_url": "https://www.outlookbusiness.com/corporate/maharashtra-fda-cancels-drug-sale-licence-of-pune-cipla-facility-disappointing-decision-says-firm",
+      "source_name": "Outlook Business",
+      "materiality_max": 94,
+      "newest_source_at": "2026-10-03T06:46:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T07:11:46Z",
+      "updated_at": "2026-10-03T07:11:46Z",
+      "decay_at": "2026-10-04T18:46:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c02e0d12e628",
       "idea_version": "IDEAV-28363c909906636d",
       "idea_version_started_at": "2026-10-03T04:54:52Z",
@@ -156154,6 +156377,151 @@
       "surfaced_at": "2026-10-03T04:54:52Z",
       "updated_at": "2026-10-03T04:54:52Z",
       "decay_at": "2026-10-04T16:43:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ee7156fae646",
+      "idea_version": "IDEAV-df4aadca8fefb20e",
+      "idea_version_started_at": "2026-10-03T07:11:46Z",
+      "ticker": "BAJFINANCE",
+      "company": "Bajaj Housing Finance",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Bajaj Housing Finance reported a 25% rise in Assets Under Management (AUM) to ₹1.58 lakh crore in Q2.",
+      "why_now": "The business update for Q2 was released today.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-299bf939b48a"
+      ],
+      "primary_source_event_id": "EVT-299bf939b48a",
+      "source_headlines": [
+        "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details"
+      ],
+      "source_headline": "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details",
+      "source_url": "https://www.cnbctv18.com/market/bajaj-housing-finance-q2-business-update-aum-rises-25-to-1-58-lakh-crore-rupee-gross-disbursements-nii-share-price-20003830.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 92,
+      "newest_source_at": "2026-10-03T07:03:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T07:11:46Z",
+      "updated_at": "2026-10-03T07:11:46Z",
+      "decay_at": "2026-10-04T19:03:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-6be8b97b3c25",
+      "idea_version": "IDEAV-c200394fc9e7c0cf",
+      "idea_version_started_at": "2026-10-03T07:11:46Z",
+      "ticker": "TEXRAIL",
+      "company": "Texmaco Rail & Engineering Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Texmaco Rail & Engineering Limited received an order worth Rs. 3.65 Crores from West Central Railway.",
+      "why_now": "The order receipt was officially announced to the exchange today.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 11,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-db58a0e7265f"
+      ],
+      "primary_source_event_id": "EVT-db58a0e7265f",
+      "source_headlines": [
+        "Texmaco Rail & Engineering Limited: Texmaco Rail & Engineering Limited has informed the Exchange about receipt of order worth Rs. 3.65 Crores (incl. taxes) from West Central Railway"
+      ],
+      "source_headline": "Texmaco Rail & Engineering Limited: Texmaco Rail & Engineering Limited has informed the Exchange about receipt of order worth Rs. 3.65 Crores (incl. taxes) from West Central Railway",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TEXRAIL_03102026120247_OrderWCRSIGNED.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 90,
+      "newest_source_at": "2026-10-03T06:33:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T07:11:46Z",
+      "updated_at": "2026-10-03T07:11:46Z",
+      "decay_at": "2026-10-04T18:33:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -156301,6 +156669,79 @@
       "surfaced_at": "2026-10-03T01:50:22Z",
       "updated_at": "2026-10-03T06:10:08Z",
       "decay_at": "2026-10-04T16:49:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-7029a359f9aa",
+      "idea_version": "IDEAV-3cf211a2ff07c869",
+      "idea_version_started_at": "2026-10-03T07:11:46Z",
+      "ticker": "VOW",
+      "company": "Volkswagen",
+      "exchange": "XTRA",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Volkswagen knew about a screw problem in millions of cars since late 2024, indicating potential recall costs and regulatory penalties.",
+      "why_now": "The information about VW's prior knowledge of the issue has just been reported.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-27d47f72a152"
+      ],
+      "primary_source_event_id": "EVT-27d47f72a152",
+      "source_headlines": [
+        "Volkswagen: Recall of millions of cars: VW knew about the screw problem since autumn 2024"
+      ],
+      "source_headline": "Volkswagen: Rückruf von Millionen Autos: VW kannte das Schrauben-Problem seit Herbst 2024",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/volkswagen-millionenrueckruf-bei-vw-problem-war-seit-herbst-2024-bekannt/100258311.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 87,
+      "newest_source_at": "2026-10-03T06:32:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T07:11:46Z",
+      "updated_at": "2026-10-03T07:11:46Z",
+      "decay_at": "2026-10-04T18:32:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -195854,8 +196295,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1229,
-    "live_count": 32,
+    "surfaced_total": 1235,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -195874,9 +196315,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1247,
-    "news_picked_today": 175,
-    "news_dropped_today": 1072
+    "news_seen_today": 1322,
+    "news_picked_today": 195,
+    "news_dropped_today": 1127
   },
   "book_momentum": {
     "live_count": 8,
