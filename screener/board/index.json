@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T04:30:19Z",
+  "generated_at": "2026-10-03T04:35:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-076",
@@ -748,6 +748,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-090",
+      "headline": "Mumbai airport changes from Oct 25: Over 200 weekly international flights to be cut, says report — what flyers must know",
+      "headline_en": null,
+      "url": "https://www.livemint.com/industry/infrastructure/mumbai-airport-changes-from-oct-25-over-200-weekly-international-flights-to-be-cut-says-report-what-flyers-must-know-11790998781947.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T04:31:02Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Mumbai airport to cut 200 weekly international flights starting Oct 25, a quantified capacity and revenue shock affecting the operator and serving airlines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Mumbai airport to cut 200 weekly international flights starting Oct 25, a quantified capacity and revenue shock affecting the operator and serving airlines.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 67,
+      "rank_factors": {
+        "materiality": 67,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mumbai Airport Operator",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-053",
       "headline": "Oman barred FlyDubai co-pilot from flying over extremism concerns",
       "headline_en": null,
@@ -1486,6 +1536,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-089",
+      "headline": "G7 nations bow to US pressure and avoid crippling diesel ban",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/3/g7-nations-bow-to-us-pressure-and-avoid-crippling-diesel-ban?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-03T03:54:58Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "G7 nations avoid a crippling diesel ban following US pressure; the exact policy decision and timeline remain unclear, affecting energy and automotive sectors broadly.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "G7 nations avoid a crippling diesel ban following US pressure; the exact policy decision and timeline remain unclear, affecting energy and automotive sectors broadly.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-071",
       "headline": "Oil tankers attacked in Hormuz strait: UK maritime agency",
       "headline_en": null,
@@ -1795,92 +1889,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-070",
-      "headline": "Executive Order On Renaming AI To ‘Super Intelligence’ Signals Unexpected Legal Bumps Ahead",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/lanceeliot/2026/10/02/executive-order-on-renaming-ai-to-super-intelligence-signals-unexpected-legal-bumps-ahead/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T02:38:50Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Potential regulatory changes regarding AI terminology could create legal and operational hurdles for the tech sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Potential regulatory changes regarding AI terminology could create legal and operational hurdles for the tech sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-072",
-      "headline": "Irdai plan to help check mis-selling, raise returns",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/irdai-plan-to-help-check-mis-selling-raise-returns/articleshow/134650814.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T02:30:42Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "The insurance regulator in India is proposing new measures to curb mis-selling and improve consumer returns, which could impact the operational practices of the insurance sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "The insurance regulator in India is proposing new measures to curb mis-selling and improve consumer returns, which could impact the operational practices of the insurance sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -195571,9 +195579,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 685,
-    "news_picked_today": 110,
-    "news_dropped_today": 575
+    "news_seen_today": 692,
+    "news_picked_today": 112,
+    "news_dropped_today": 580
   },
   "book_momentum": {
     "live_count": 8,
