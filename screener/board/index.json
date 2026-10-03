@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T10:29:56Z",
+  "generated_at": "2026-10-03T10:34:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -740,6 +740,55 @@
         {
           "name": "Warner Bros. Discovery",
           "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-222",
+      "headline": "How NASA Saved Boeing's Space Program With a New Contract and $359 Million",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/03/nasa-just-saved-boeings-space-program/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T10:06:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Boeing secured a $359 million contract from NASA, providing a clear revenue boost and operational validation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Boeing secured a $359 million contract from NASA, providing a clear revenue boost and operational validation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": "BA",
           "listing_country": "US"
         }
       ],
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-205",
-      "headline": "A Sonoma, California Winery Just Filed Chapter 11 With $39M in Liabilities. At 63, His Vineyard Loss Can Offset His Wages in Social Security’s Earnings Test",
-      "headline_en": null,
-      "url": "https://247wallst.com/personal-finance/social-security/2026/10/03/a-sonoma-california-winery-just-filed-chapter-11-with-39m-in-liabilities-at-63-his-vineyard-loss-can-offset-his-wages-in-social-securitys-earnings-test/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T09:30:03Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A winery filed for Chapter 11 bankruptcy with $39M in liabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A winery filed for Chapter 11 bankruptcy with $39M in liabilities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sonoma Winery",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -196459,9 +196459,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2253,
-    "news_picked_today": 368,
-    "news_dropped_today": 1885
+    "news_seen_today": 2286,
+    "news_picked_today": 375,
+    "news_dropped_today": 1911
   },
   "book_momentum": {
     "live_count": 8,
