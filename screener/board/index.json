@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T02:24:33Z",
+  "generated_at": "2026-10-03T02:29:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-035",
@@ -1082,6 +1082,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-067",
+      "headline": "US-Iran war news LIVE: G7 to release 100 million barrels of diesel, crude oil to ease energy supply concerns",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/us-iran-war-news-latest-live-updates-donald-trump-abbas-araghchi-ukmto-strait-of-hormuz-flydubai-flight-ceasefire-talks-11790988241642.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T01:14:07Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The potential for a US-Iran conflict and the release of 100 million barrels of oil indicates a major geopolitical supply shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "The potential for a US-Iran conflict and the release of 100 million barrels of oil indicates a major geopolitical supply shock.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-033",
       "headline": "Edge Total Intelligence Announces Debt Modification, Impairment of Intangibles and Goodwill, and Austal Business Update | UNFYF Stock News",
       "headline_en": null,
@@ -1827,55 +1870,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-009",
-      "headline": "Uber Settles Background Check Sexual Assault Case Less Than 48 Hours After Jury Selection",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/uber-settles-background-check-sexual-assault-case-less-than-48-hours-after-jury-selection-302897577.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-03T00:13:00Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Uber settled a sexual assault case, which carries legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Uber settled a sexual assault case, which carries legal and reputational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -195494,9 +195488,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 454,
-    "news_picked_today": 68,
-    "news_dropped_today": 386
+    "news_seen_today": 459,
+    "news_picked_today": 69,
+    "news_dropped_today": 390
   },
   "book_momentum": {
     "live_count": 8,
