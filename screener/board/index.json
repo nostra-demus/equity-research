@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T19:36:25Z",
+  "generated_at": "2026-10-03T19:46:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-317",
@@ -1821,6 +1821,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-345",
+      "headline": "Yemen's Houthis say they attacked Aramco facility in Riyadh with missiles, drones",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/fire-smoke-seen-near-aramco-facility-riyadh-witness-says-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T19:37:13Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A reported military attack on a major oil facility in Saudi Arabia represents a significant geopolitical escalation and potential supply shock.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A reported military attack on a major oil facility in Saudi Arabia represents a significant geopolitical escalation and potential supply shock.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-271",
       "headline": "Flydubai reserves further comment as probe into FZ1073 ‘terrorist act’ continues",
       "headline_en": null,
@@ -1911,55 +1960,6 @@
           "name": "Boeing",
           "ticker": "BA",
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-161",
-      "headline": "Jio Platforms IPO Likely To Open October 21; ₹27,500 Crore Debt Repayment Planned",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/jio-platforms-ipo-likely-to-open-october-21-27500-crore-debt-repayment-planned",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T06:34:15Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Jio Platforms is planning an IPO for October 21 with a significant debt repayment of ₹27,500 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Jio Platforms is planning an IPO for October 21 with a significant debt repayment of ₹27,500 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio Platforms",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -197242,9 +197242,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4549,
-    "news_picked_today": 726,
-    "news_dropped_today": 3823
+    "news_seen_today": 4555,
+    "news_picked_today": 728,
+    "news_dropped_today": 3827
   },
   "book_momentum": {
     "live_count": 8,
