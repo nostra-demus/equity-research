@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T12:06:31Z",
+  "generated_at": "2026-10-03T12:12:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -47,6 +47,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-259",
+      "headline": "Pétrole-Un incendie signalé près d'un site d'Aramco à Ryad",
+      "headline_en": "Oil-Fire reported near an Aramco site in Riyadh",
+      "url": "https://www.reuters.com/fr/affaires/ptrole-un-incendie-signal-prs-dun-site-daramco-ryad-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T12:04:10Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A fire reported near an Aramco oil site in Riyadh poses a potential supply risk to global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A fire reported near an Aramco oil site in Riyadh poses a potential supply risk to global energy markets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1233,6 +1282,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-257",
+      "headline": "Bank of Baroda: Bank Of Baroda has informed the Exchange about Provisional Business Figures Q2 30-09-2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BANKBARODA_03102026173318_SEPROVISIONAL.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-03T12:03:39Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Bank of Baroda released provisional business figures for Q2 ending September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Bank of Baroda released provisional business figures for Q2 ending September 30, 2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of Baroda",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-215",
       "headline": "Anthropic Could Raise Up to $100 Billion in Its November IPO",
       "headline_en": null,
@@ -1878,104 +1976,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-172",
-      "headline": "Southern Petrochemicals Industries Corporation Limited: Southern Petrochemical Industries Corporation Limited has informed the Exchange regarding 'Plant Shutdown'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SPIC_03102026130506_Intimation_to_NSE_Plant_Shutdown_Final.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-03T07:37:34Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "The company announced a plant shutdown, which directly impacts production capacity and revenue generation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The company announced a plant shutdown, which directly impacts production capacity and revenue generation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Southern Petrochemicals Industries Corporation Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-228",
-      "headline": "Sobha Q2 business update: Bengaluru developer's total sales value rises 16% YoY to ₹2,206 crore",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/sobha-q2-business-update-total-sales-value-rises-16-yoy-to-2206-crore-rupees-bengaluru-realty-20003889.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T11:01:31Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Sobha reported a 16% YoY increase in total sales value to ₹2,206 crore for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Sobha reported a 16% YoY increase in total sales value to ₹2,206 crore for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sobha",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -196750,9 +196750,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3013,
-    "news_picked_today": 457,
-    "news_dropped_today": 2556
+    "news_seen_today": 3040,
+    "news_picked_today": 460,
+    "news_dropped_today": 2580
   },
   "book_momentum": {
     "live_count": 8,
