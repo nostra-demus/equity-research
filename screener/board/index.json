@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T11:36:58Z",
+  "generated_at": "2026-10-03T11:45:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -47,6 +47,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-248",
+      "headline": "Renault va investir plus de €10 mds sur cinq ans dans l'électrique en France",
+      "headline_en": "Renault to invest more than €10 billion over five years in electric vehicles in France",
+      "url": "https://www.reuters.com/fr/affaires/renault-va-investir-plus-de-10-mds-sur-cinq-ans-dans-llectrique-en-france-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T11:32:09Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Renault announced a major capital expenditure plan of over €10 billion for electric vehicle development in France over five years.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Renault announced a major capital expenditure plan of over €10 billion for electric vehicle development in France over five years.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Renault",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,56 +1971,6 @@
       "companies": [
         {
           "name": "Drishyam The Conclusion",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-181",
-      "headline": "Tennessee Valley Authority; Clinch River Nuclear Unit 1; Construction Permit and Record of Decision",
-      "headline_en": null,
-      "url": "https://www.federalregister.gov/documents/2026/10/05/2026-20345/tennessee-valley-authority-clinch-river-nuclear-unit-1-construction-permit-and-record-of-decision",
-      "source_name": "Federal Register — Latest Documents",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-05T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "TVA received a construction permit for the Clinch River Nuclear Unit 1, a significant infrastructure development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "TVA received a construction permit for the Clinch River Nuclear Unit 1, a significant infrastructure development.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tennessee Valley Authority",
           "ticker": null,
           "listing_country": null
         }
@@ -196534,9 +196533,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2741,
-    "news_picked_today": 431,
-    "news_dropped_today": 2310
+    "news_seen_today": 2802,
+    "news_picked_today": 437,
+    "news_dropped_today": 2365
   },
   "book_momentum": {
     "live_count": 8,
