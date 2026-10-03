@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T21:51:10Z",
+  "generated_at": "2026-10-03T21:59:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-317",
@@ -1870,6 +1870,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-349",
+      "headline": "Petroecuador declara fuerza mayor en una estación de bombeo del oleoducto SOTE tras incendio",
+      "headline_en": "Petroecuador declares force majeure at a SOTE pipeline pumping station after a fire",
+      "url": "https://www.reuters.com/es/mundo/4TVJCNMHZVJ4FKAKN363JWLCFU-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T21:47:47Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Petroecuador declared force majeure on the SOTE pipeline following a fire, which disrupts oil export capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Petroecuador declared force majeure on the SOTE pipeline following a fire, which disrupts oil export capacity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Petroecuador",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-345",
       "headline": "Yemen's Houthis say they attacked Aramco facility in Riyadh with missiles, drones",
       "headline_en": null,
@@ -1914,55 +1963,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-271",
-      "headline": "Flydubai reserves further comment as probe into FZ1073 ‘terrorist act’ continues",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/uae/flydubai-reserves-comment-probe-fz1073-terrorist-act-continues",
-      "source_name": "Khaleej Times — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T12:27:26Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Flydubai is under investigation for a potential terrorist act involving flight FZ1073, posing significant operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Flydubai is under investigation for a potential terrorist act involving flight FZ1073, posing significant operational and reputational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flydubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -197249,9 +197249,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4733,
-    "news_picked_today": 758,
-    "news_dropped_today": 3975
+    "news_seen_today": 4743,
+    "news_picked_today": 761,
+    "news_dropped_today": 3982
   },
   "book_momentum": {
     "live_count": 8,
