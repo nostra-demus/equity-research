@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T09:29:38Z",
+  "generated_at": "2026-10-03T09:34:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -1727,6 +1727,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-205",
+      "headline": "A Sonoma, California Winery Just Filed Chapter 11 With $39M in Liabilities. At 63, His Vineyard Loss Can Offset His Wages in Social Security’s Earnings Test",
+      "headline_en": null,
+      "url": "https://247wallst.com/personal-finance/social-security/2026/10/03/a-sonoma-california-winery-just-filed-chapter-11-with-39m-in-liabilities-at-63-his-vineyard-loss-can-offset-his-wages-in-social-securitys-earnings-test/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T09:30:03Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A winery filed for Chapter 11 bankruptcy with $39M in liabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A winery filed for Chapter 11 bankruptcy with $39M in liabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sonoma Winery",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-199",
       "headline": "Cube Highways Trust secures Rs.1,150 crore through AAA-rated NCDs",
       "headline_en": null,
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-197",
-      "headline": "flydubai co-pilot attacked Capt. Smit Machchhar with crash axe, attempted ‘terrorist’ attack on Dubai-Tel Aviv flight: UAE",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/flydubai-co-pilot-attacked-capt-smit-machchhar-with-crash-axe-attempted-terrorist-attack-on-dubai-tel-aviv-flight-uae-4169054",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T07:41:49Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A violent incident involving a co-pilot on a commercial flight represents a significant operational and safety risk for the airline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "A violent incident involving a co-pilot on a commercial flight represents a significant operational and safety risk for the airline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "flydubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -196379,9 +196379,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1902,
-    "news_picked_today": 310,
-    "news_dropped_today": 1592
+    "news_seen_today": 1926,
+    "news_picked_today": 315,
+    "news_dropped_today": 1611
   },
   "book_momentum": {
     "live_count": 8,
