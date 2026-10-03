@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T08:29:35Z",
+  "generated_at": "2026-10-03T08:34:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -1727,6 +1727,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-198",
+      "headline": "US-Iran war impact: Nayara Energy raises fuel prices in India with immediate effect— Check new rates here",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/usiran-war-impact-nayara-energy-raises-fuel-prices-in-india-with-immediate-effect-check-new-rates-here-11791015607025.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T08:26:34Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Nayara Energy raised fuel prices in India due to geopolitical tensions, impacting local inflation and operational costs for consumers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Nayara Energy raised fuel prices in India due to geopolitical tensions, impacting local inflation and operational costs for consumers.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nayara Energy",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-197",
       "headline": "flydubai co-pilot attacked Capt. Smit Machchhar with crash axe, attempted ‘terrorist’ attack on Dubai-Tel Aviv flight: UAE",
       "headline_en": null,
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-170",
-      "headline": "Sedemac Mechatronics Logs 37.5% ECU Sales Growth In Q2 FY27, Crosses 10 Lakh Cumulative ISG+EFI Units",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/sedemac-mechatronics-logs-375-ecu-sales-growth-in-q2-fy27-crosses-10-lakh-cumulative-isgefi-units",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T07:00:45Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Sedemac Mechatronics reported 37.5% ECU sales growth in Q2 FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Sedemac Mechatronics reported 37.5% ECU sales growth in Q2 FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sedemac Mechatronics",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
