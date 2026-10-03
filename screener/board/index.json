@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-03T06:04:36Z",
+  "generated_at": "2026-10-03T06:09:36Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261003-119",
+      "headline": "OnEMI Tech’s AUM Rises 68.4% To ₹9,317 Crore In Q2 FY27; Disbursements Reach ₹4,612 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/onemi-techs-aum-rises-684-to-9317-crore-in-q2-fy27-disbursements-reach-4612-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T05:44:54Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "OnEMI Tech reported a 68.4% increase in AUM to ₹9,317 crore for Q2 FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OnEMI Tech reported a 68.4% increase in AUM to ₹9,317 crore for Q2 FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OnEMI Tech",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261003-115",
       "headline": "Jio Platforms IPO may open on October 21, issue estimated at $3.8 billion: Report",
@@ -1896,50 +1945,6 @@
         "regulatory"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-039",
-      "headline": "Trump threatens South Korea over Alaska LNG project dispute",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/03/economy/trump-threatens-south-korea-lng/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T00:34:00Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Political threats regarding energy infrastructure projects create regulatory and operational risk for international trade and energy sector investments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Political threats regarding energy infrastructure projects create regulatory and operational risk for international trade and energy sector investments.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -195770,9 +195775,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1118,
-    "news_picked_today": 150,
-    "news_dropped_today": 968
+    "news_seen_today": 1133,
+    "news_picked_today": 151,
+    "news_dropped_today": 982
   },
   "book_momentum": {
     "live_count": 8,
