@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T05:22:03Z",
+  "generated_at": "2026-10-03T05:30:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-099",
@@ -1572,6 +1572,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-105",
+      "headline": "Iran not obliged to abandon its nuclear programme, Russia's IAEA envoy says",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/iran-not-obliged-abandon-its-nuclear-programme-russias-iaea-envoy-says",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T05:24:47Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Geopolitical tensions regarding Iran's nuclear program represent a persistent risk to regional stability and global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Geopolitical tensions regarding Iran's nuclear program represent a persistent risk to regional stability and global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-078",
       "headline": "China initiates anti-dumping investigation into p-nitrotoluene from EU",
       "headline_en": null,
@@ -1835,55 +1878,6 @@
       "headline": "SCHEDULE 13D/A - Chernett Jorey (0002042077) (Filed by)",
       "headline_en": null,
       "url": "https://www.sec.gov/Archives/edgar/data/2042077/000119380526001332/0001193805-26-001332-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-03T01:30:16Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership or intent for CVRx, Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership or intent for CVRx, Inc.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVRx, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-051",
-      "headline": "SCHEDULE 13D/A - CVRx, Inc. (0001235912) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1235912/000119380526001332/0001193805-26-001332-index.htm",
       "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
       "input_nature": "regulatory_filing",
       "found_at": "2026-10-03T01:30:16Z",
@@ -195752,9 +195746,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 786,
-    "news_picked_today": 129,
-    "news_dropped_today": 657
+    "news_seen_today": 1009,
+    "news_picked_today": 132,
+    "news_dropped_today": 877
   },
   "book_momentum": {
     "live_count": 8,
