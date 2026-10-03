@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T13:30:01Z",
+  "generated_at": "2026-10-03T13:30:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-284",
@@ -155080,6 +155080,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-460d29964be5",
+      "idea_version": "IDEAV-433fd1d9c73d4fa9",
+      "idea_version_started_at": "2026-10-03T13:30:20Z",
+      "ticker": "RNO",
+      "company": "Renault",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Renault's massive commitment to invest more than ten billion euros in France is highly likely to depress free cash flow and return on capital metrics due to high domestic labor costs and rigid manufacturing conditions.",
+      "why_now": "The investment plan was reported on October 3, 2026, presenting an immediate structural headwind to the company's capital allocation strategy.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d58b2b5eb1db"
+      ],
+      "primary_source_event_id": "EVT-d58b2b5eb1db",
+      "source_headlines": [
+        "Automakers: Renault to invest more than ten billion euros in France"
+      ],
+      "source_headline": "Autobauer: Renault will in Frankreich mehr als zehn Milliarden Euro investieren",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-renault-will-in-frankreich-mehr-als-zehn-milliarden-euro-investieren/100259497.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T13:07:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T13:30:20Z",
+      "updated_at": "2026-10-03T13:30:20Z",
+      "decay_at": "2026-10-05T01:07:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-dbfac4fed0f3",
       "idea_version": "IDEAV-0fffd6a4b922e556",
       "idea_version_started_at": "2026-10-03T12:22:04Z",
@@ -196862,8 +196934,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1249,
-    "live_count": 50,
+    "surfaced_total": 1250,
+    "live_count": 51,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
