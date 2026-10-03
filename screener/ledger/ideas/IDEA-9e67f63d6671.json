@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-9e67f63d6671",
+  "idea_version": "IDEAV-829b69999ed64def",
+  "idea_version_started_at": "2026-10-03T08:45:36Z",
+  "ticker": "SPIC",
+  "company": "Southern Petrochemical Industries Corporation Limited",
+  "exchange": "NSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "An unplanned or significant plant shutdown directly halts production and negatively impacts revenue and margin recovery for the period.",
+  "why_now": "The exchange filing confirming the shutdown was issued on October 3, 2026.",
+  "conviction": 55,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 15,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-03ff51fa5826"
+  ],
+  "primary_source_event_id": "EVT-03ff51fa5826",
+  "source_headlines": [
+    "Southern Petrochemicals Industries Corporation Limited: Southern Petrochemical Industries Corporation Limited has informed the Exchange regarding 'Plant Shutdown'."
+  ],
+  "source_headline": "Southern Petrochemicals Industries Corporation Limited: Southern Petrochemical Industries Corporation Limited has informed the Exchange regarding 'Plant Shutdown'.",
+  "source_url": "https://nsearchives.nseindia.com/corporate/SPIC_03102026130506_Intimation_to_NSE_Plant_Shutdown_Final.pdf",
+  "source_name": "BSE / NSE Exchange Filing",
+  "materiality_max": 92,
+  "newest_source_at": "2026-10-03T07:37:34Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-03T08:45:36Z",
+  "updated_at": "2026-10-03T08:45:36Z",
+  "decay_at": "2026-10-04T19:37:34Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
