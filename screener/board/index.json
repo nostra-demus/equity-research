@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T02:54:45Z",
+  "generated_at": "2026-10-03T02:59:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-035",
@@ -1445,6 +1445,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-075",
+      "headline": "Boeing 737 Max glitch poses no safety concern, FAA says",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/03/companies/boeing-737-max-glitch-safety/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T01:12:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The FAA confirmed that a reported technical glitch in the Boeing 737 Max does not pose a safety concern, mitigating potential operational and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "The FAA confirmed that a reported technical glitch in the Boeing 737 Max does not pose a safety concern, mitigating potential operational and regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": "BA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-025",
       "headline": "Bernstein Initiates Coverage of Forgent Power Solutions at Outperform",
       "headline_en": null,
@@ -1814,55 +1863,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-044",
-      "headline": "IN8bio Consensus Price Target Raised 12% to $7.14",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/in8bio-consensus-price-target-raised-12-714",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T01:15:39Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Analyst price target increase is a secondary indicator of sentiment, not a fundamental event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Analyst price target increase is a secondary indicator of sentiment, not a fundamental event.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_upgrade",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "credit_rating_upgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IN8bio",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -195484,9 +195484,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 497,
-    "news_picked_today": 76,
-    "news_dropped_today": 421
+    "news_seen_today": 501,
+    "news_picked_today": 77,
+    "news_dropped_today": 424
   },
   "book_momentum": {
     "live_count": 8,
