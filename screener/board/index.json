@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T00:54:47Z",
+  "generated_at": "2026-10-03T00:59:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-028",
@@ -512,6 +512,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-033",
+      "headline": "Edge Total Intelligence Announces Debt Modification, Impairment of Intangibles and Goodwill, and Austal Business Update | UNFYF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/UNFYF/edge-total-intelligence-announces-debt-modification-impairment-of-tpdrsmnbepot.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-03T00:52:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The company announced a debt modification and a material impairment of intangibles and goodwill, signaling financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "The company announced a debt modification and a material impairment of intangibles and goodwill, signaling financial distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit",
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Edge Total Intelligence",
+          "ticker": "UNFYF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194739,7 +194789,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3159,
+    "inbox_unconsumed": 3160,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -194748,9 +194798,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 243,
-    "news_picked_today": 32,
-    "news_dropped_today": 211
+    "news_seen_today": 247,
+    "news_picked_today": 33,
+    "news_dropped_today": 214
   },
   "book_momentum": {
     "live_count": 8,
