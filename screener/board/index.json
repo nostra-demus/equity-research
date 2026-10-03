@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T06:51:09Z",
+  "generated_at": "2026-10-03T06:51:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-129",
@@ -155153,6 +155153,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0157f621dab9",
+      "idea_version": "IDEAV-76e7c56cd73c4042",
+      "idea_version_started_at": "2026-10-03T06:51:27Z",
+      "ticker": "VLVLY",
+      "company": "Volvo Car",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The withdrawal of financial guidance due to deteriorating conditions in the Chinese auto market signals significant near-term margin compression and volume risk.",
+      "why_now": "The guidance withdrawal was announced on 2026-10-02, creating an immediate catalyst for re-rating.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-28ee22cd8bb6"
+      ],
+      "primary_source_event_id": "EVT-28ee22cd8bb6",
+      "source_headlines": [
+        "Volvo Car Pulls Guidance as Chinese Auto Market Worsens"
+      ],
+      "source_headline": "Volvo Car Pulls Guidance as Chinese Auto Market Worsens",
+      "source_url": "https://www.wsj.com/business/earnings/volvo-car-pulls-guidance-as-chinese-auto-market-worsen-e72ca14f?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T14:22:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-02T21:12:37Z",
+      "updated_at": "2026-10-03T06:51:27Z",
+      "decay_at": "2026-10-04T02:22:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c403b2e8b2c1",
       "idea_version": "IDEAV-50d44512c2572292",
       "idea_version_started_at": "2026-10-03T05:21:46Z",
@@ -155721,78 +155793,6 @@
       "surfaced_at": "2026-10-02T22:01:37Z",
       "updated_at": "2026-10-02T22:01:37Z",
       "decay_at": "2026-10-04T05:12:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0157f621dab9",
-      "idea_version": "IDEAV-4d68350450b93aa9",
-      "idea_version_started_at": "2026-10-02T21:12:37Z",
-      "ticker": "VLVLY",
-      "company": "Volvo Car",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company withdrew its financial guidance citing a deteriorating Chinese automotive market, signaling significant near-term margin pressure.",
-      "why_now": "The announcement was made on 2026-10-02, making the negative outlook immediate.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-28ee22cd8bb6"
-      ],
-      "primary_source_event_id": "EVT-28ee22cd8bb6",
-      "source_headlines": [
-        "Volvo Car Pulls Guidance as Chinese Auto Market Worsens"
-      ],
-      "source_headline": "Volvo Car Pulls Guidance as Chinese Auto Market Worsens",
-      "source_url": "https://www.wsj.com/business/earnings/volvo-car-pulls-guidance-as-chinese-auto-market-worsen-e72ca14f?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-02T14:22:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-02T21:12:37Z",
-      "updated_at": "2026-10-02T21:12:37Z",
-      "decay_at": "2026-10-04T02:22:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
