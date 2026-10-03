@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T11:05:04Z",
+  "generated_at": "2026-10-03T11:15:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -1195,6 +1195,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-233",
+      "headline": "SMC Global Securities Limited: Smc Global Securities Limited has informed the Exchange about Action(s) initiated or orders passed",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SMCGLOBAL_03102026164132_reg_30_cover_letter.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-03T11:11:46Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The company reported regulatory action or orders initiated against it.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The company reported regulatory action or orders initiated against it.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SMC Global Securities Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-213",
       "headline": "CMR Green Technologies Limited: CMR Green Technologies Limited has informed the Exchange regarding Resignation of Mr Yugal Kishor Garg as Chief Financial Officer of the company w.e.f. October 23, 2026.",
       "headline_en": null,
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-122",
-      "headline": "Policybazaar, Paisabazaar share: PB Fintech stock down 48% in 6 days, more pain ahead - Here’s why | Revised target",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/policybazaar-paisabazaar-share-pb-fintech-stock-down-48-in-6-days-more-pain-ahead-here-s-why-revised-target-11791004792982.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T06:19:40Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "PB Fintech shares have declined 48% in 6 days following a downward revision in analyst price targets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "PB Fintech shares have declined 48% in 6 days following a downward revision in analyst price targets.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PB Fintech",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -196461,9 +196461,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2454,
-    "news_picked_today": 404,
-    "news_dropped_today": 2050
+    "news_seen_today": 2575,
+    "news_picked_today": 414,
+    "news_dropped_today": 2161
   },
   "book_momentum": {
     "live_count": 8,
