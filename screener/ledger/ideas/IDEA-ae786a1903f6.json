@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-ae786a1903f6",
+  "idea_version": "IDEAV-b64b44f606635522",
+  "idea_version_started_at": "2026-10-03T15:24:55Z",
+  "ticker": "2222.SR",
+  "company": "Saudi Aramco",
+  "exchange": "TADAWUL",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "A fire at an Aramco facility could disrupt production and negatively impact the company's revenue and margins.",
+  "why_now": "Flames and smoke were observed at the facility today, indicating an immediate operational issue.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "price and market expectations",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "unknown",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-857405373f17"
+  ],
+  "primary_source_event_id": "EVT-857405373f17",
+  "source_headlines": [
+    "Flames, smoke seen at Aramco facility south of Saudi capital"
+  ],
+  "source_headline": "Flames, smoke seen at Aramco facility south of Saudi capital",
+  "source_url": "https://www.newarab.com/news/flames-smoke-seen-aramco-facility-south-saudi-capital",
+  "source_name": "The New Arab",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-03T15:12:27Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-03T15:24:55Z",
+  "updated_at": "2026-10-03T15:24:55Z",
+  "decay_at": "2026-10-05T03:12:27Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
