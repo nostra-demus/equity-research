@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-03T07:44:59Z",
+  "generated_at": "2026-10-03T08:00:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261003-184",
+      "headline": "Bajaj Finance Q2 business update: AUM rises 26.5%, new loans booked up 11%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/bajaj-finance-q2-business-update-aum-rises-new-loans-customer-franchise-nii-profit-provisions-share-price-20003841.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T07:47:25Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Bajaj Finance reported strong growth with AUM rising 26.5% and new loans booked up 11% in Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bajaj Finance reported strong growth with AUM rising 26.5% and new loans booked up 11% in Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261003-169",
       "headline": "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518",
@@ -1920,55 +1969,6 @@
           "name": "HDFC Bank",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-055",
-      "headline": "Man Charged With Illegally Shipping Nvidia Chips To China",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/technology/man-charged-with-illegally-shipping-nvidia-chips-to-china-12132196#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T01:27:44Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Illegal shipment of restricted technology to China poses significant regulatory and export control risk for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Illegal shipment of restricted technology to China poses significant regulatory and export control risk for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -196386,9 +196386,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1539,
-    "news_picked_today": 245,
-    "news_dropped_today": 1294
+    "news_seen_today": 1578,
+    "news_picked_today": 253,
+    "news_dropped_today": 1325
   },
   "book_momentum": {
     "live_count": 8,
