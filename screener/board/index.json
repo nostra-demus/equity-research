@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T15:20:13Z",
+  "generated_at": "2026-10-03T15:24:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-317",
@@ -150,6 +150,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-322",
+      "headline": "Flames, smoke seen at Aramco facility south of Saudi capital",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/flames-smoke-seen-aramco-facility-south-saudi-capital",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T15:12:27Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Fire reported at a Saudi Aramco facility, posing potential supply chain and operational risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fire reported at a Saudi Aramco facility, posing potential supply chain and operational risks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-320",
       "headline": "Bayer To Invest $2.2 Bln In Ohio Pharma Manufacturing Campus",
       "headline_en": null,
@@ -243,55 +292,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-306",
-      "headline": "Flames, smoke seen at Aramco facility south of Saudi capital",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/world/middle-east/article/3369667/flames-smoke-seen-aramco-facility-south-saudi-capital?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T13:57:44Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Reported fire and smoke at an Aramco facility, indicating a potential supply shock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Reported fire and smoke at an Aramco facility, indicating a potential supply shock.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -197088,9 +197088,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3932,
-    "news_picked_today": 615,
-    "news_dropped_today": 3317
+    "news_seen_today": 3946,
+    "news_picked_today": 617,
+    "news_dropped_today": 3329
   },
   "book_momentum": {
     "live_count": 8,
