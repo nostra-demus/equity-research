@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T19:26:09Z",
+  "generated_at": "2026-10-03T19:36:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-317",
@@ -145,6 +145,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-343",
+      "headline": "Yemen's Houthis claim attack on Aramco site in Riyadh",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/yemens-houthis-claim-attack-aramco-site-riyadh",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T19:25:58Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A reported attack on an Aramco site in Riyadh represents a major geopolitical and supply-chain risk for a critical energy infrastructure asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A reported attack on an Aramco site in Riyadh represents a major geopolitical and supply-chain risk for a critical energy infrastructure asset.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1914,49 +1963,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-132",
-      "headline": "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/india/tirupati-blast-5-dead-10-critically-injured-as-powerful-boiler-explosion-rocks-pharma-unit-in-sri-city-rescue-ops-underway-video",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T05:53:07Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A major boiler explosion resulting in 5 deaths and 10 injuries at a pharma unit indicates severe operational failure and significant legal/regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "A major boiler explosion resulting in 5 deaths and 10 injuries at a pharma unit indicates severe operational failure and significant legal/regulatory risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -197236,9 +197242,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4531,
-    "news_picked_today": 721,
-    "news_dropped_today": 3810
+    "news_seen_today": 4549,
+    "news_picked_today": 726,
+    "news_dropped_today": 3823
   },
   "book_momentum": {
     "live_count": 8,
