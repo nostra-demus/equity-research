@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T02:39:26Z",
+  "generated_at": "2026-10-03T02:49:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-035",
@@ -953,6 +953,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-071",
+      "headline": "Oil tankers attacked in Hormuz strait: UK maritime agency",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/mena/oil-tankers-attacked-in-hormuz-strait-uk-maritime-agency-1.500696517",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T02:23:25Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Attack on oil tankers in the Hormuz Strait represents a major supply shock risk to global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Attack on oil tankers in the Hormuz Strait represents a major supply shock risk to global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-059",
       "headline": "G7 nations will release 100 million barrels of oil and diesel fuel after prices soar",
       "headline_en": null,
@@ -1170,6 +1213,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-070",
+      "headline": "Executive Order On Renaming AI To ‘Super Intelligence’ Signals Unexpected Legal Bumps Ahead",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/lanceeliot/2026/10/02/executive-order-on-renaming-ai-to-super-intelligence-signals-unexpected-legal-bumps-ahead/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T02:38:50Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Potential regulatory changes regarding AI terminology could create legal and operational hurdles for the tech sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Potential regulatory changes regarding AI terminology could create legal and operational hurdles for the tech sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1778,98 +1864,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-045",
-      "headline": "JP Morgan Initiates Coverage of Graham at Overweight",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/jp-morgan-initiates-coverage-graham-overweight",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T01:04:24Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Initiation of coverage is standard broker activity and not a fundamental company event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "Initiation of coverage is standard broker activity and not a fundamental company event.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Graham",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-031",
-      "headline": "₹4,69,000 EVs this Diwali? 5 electric cars get massive price cuts, but there’s a catch",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/photo/rs469000-evs-this-diwali-5-electric-cars-get-massive-price-cuts-but-theres-a-catch-558299-2026-10-03?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T00:45:02Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Multiple electric vehicle manufacturers in India are implementing price cuts, impacting sector margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "Multiple electric vehicle manufacturers in India are implementing price cuts, impacting sector margins.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": -26,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -195419,9 +195413,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 468,
-    "news_picked_today": 69,
-    "news_dropped_today": 399
+    "news_seen_today": 489,
+    "news_picked_today": 73,
+    "news_dropped_today": 416
   },
   "book_momentum": {
     "live_count": 8,
