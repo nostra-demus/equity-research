@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:11:17Z",
+  "generated_at": "2026-10-03T18:21:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-317",
@@ -145,6 +145,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-339",
+      "headline": "Italy's Intesa raises MPS takeover offer price and warns it could drop bid",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/finance/italys-intesa-raises-mps-takeover-offer-price-warns-it-could-drop-bid-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T18:11:43Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Intesa Sanpaolo has increased its takeover offer for Monte dei Paschi di Siena and threatened to withdraw the bid, signaling a high-stakes negotiation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intesa Sanpaolo has increased its takeover offer for Monte dei Paschi di Siena and threatened to withdraw the bid, signaling a high-stakes negotiation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intesa Sanpaolo",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Monte dei Paschi di Siena",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1898,55 +1952,6 @@
       "companies": [
         {
           "name": "Bajaj Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-250",
-      "headline": "Dr. Reddy's Laboratories Limited: Dr. Reddy's Laboratories Limited has informed the Exchange about imposition of penalty to Dr. Reddy s Laboratories, Inc. ( DRL Inc ), a step-down wholly owned subsidiary of the Company.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/DRREDDY_03102026171508_SE_intimation_03102026_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-03T11:45:38Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Subsidiary of Dr. Reddy's Laboratories received a penalty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Subsidiary of Dr. Reddy's Laboratories received a penalty.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dr. Reddy's Laboratories Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -197227,9 +197232,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4400,
-    "news_picked_today": 705,
-    "news_dropped_today": 3695
+    "news_seen_today": 4429,
+    "news_picked_today": 707,
+    "news_dropped_today": 3722
   },
   "book_momentum": {
     "live_count": 8,
