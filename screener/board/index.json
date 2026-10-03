@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T04:29:48Z",
+  "generated_at": "2026-10-03T04:30:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-076",
@@ -155063,6 +155063,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-6f55bf31e25a",
+      "idea_version": "IDEAV-39e7b2d1cbe42911",
+      "idea_version_started_at": "2026-10-03T04:30:05Z",
+      "ticker": "BA",
+      "company": "Boeing",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Continued scrutiny regarding the 737 MAX safety profile increases the likelihood of further regulatory delays and potential litigation costs.",
+      "why_now": "The report published on 2026-10-03 highlights ongoing safety concerns that keep the company's operational recovery under pressure.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-87b05665db6f"
+      ],
+      "primary_source_event_id": "EVT-87b05665db6f",
+      "source_headlines": [
+        "How a Boeing 737 MAX Survived a Nosedive Traveling at the Speed of Sound"
+      ],
+      "source_headline": "How a Boeing 737 MAX Survived a Nosedive Traveling at the Speed of Sound",
+      "source_url": "https://www.wsj.com/business/airlines/how-a-boeing-737-max-survived-a-nosedive-traveling-at-the-speed-of-sound-e8cae3b4?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 83,
+      "newest_source_at": "2026-10-03T04:01:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T04:30:05Z",
+      "updated_at": "2026-10-03T04:30:05Z",
+      "decay_at": "2026-10-04T16:01:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-49a2653dd307",
       "idea_version": "IDEAV-ad9d2a5fd570966f",
       "idea_version_started_at": "2026-10-03T01:50:22Z",
@@ -195481,8 +195551,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1224,
-    "live_count": 30,
+    "surfaced_total": 1225,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
