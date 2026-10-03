@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-03T00:59:28Z",
+  "generated_at": "2026-10-03T01:09:39Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261003-035",
+      "headline": "David Ellison Won Warner Bros. Now he Has to Make the $81 Billion Deal Work.",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/media/david-ellison-won-warner-bros-now-he-has-to-make-the-81-billion-deal-work-2724e9e0?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "David Ellison has completed the acquisition of Warner Bros. Discovery, a deal valued at $81 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "David Ellison has completed the acquisition of Warner Bros. Discovery, a deal valued at $81 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261003-028",
       "headline": "SCHEDULE 13D - GOWell Energy Technology (0002097702) (Subject)",
@@ -665,6 +714,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-036",
+      "headline": "Wells Fargo Initiates Coverage of Ares Management at Overweight",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/wells-fargo-initiates-coverage-ares-management-overweight",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:49:06Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Wells Fargo initiated coverage of Ares Management with an Overweight rating.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Wells Fargo initiated coverage of Ares Management with an Overweight rating.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ares Management",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-015",
       "headline": "Judge temporarily blocks border wall construction in Texas’ Big Bend region",
       "headline_en": null,
@@ -1039,6 +1137,141 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-034",
+      "headline": "Grant & Eisenhofer Files Class Action Lawsuit Against Coastal Financial Corporation",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20261002951606/en/Grant-Eisenhofer-Files-Class-Action-Lawsuit-Against-Coastal-Financial-Corporation/?feedref=JjAwJuNHiystnCoBq_hl-adS5VAKkf1zsgyV8tTPInVcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTVXw2Oldt-3VQjUwU4Zj5HZBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Lawsuit News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-03T00:57:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A class action lawsuit has been filed against Coastal Financial Corporation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "A class action lawsuit has been filed against Coastal Financial Corporation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coastal Financial Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-037",
+      "headline": "Israeli strike kills five in Gaza, health officials say",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/europe/israeli-strike-kills-five-in-gaza-health-officials-say-4168833",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:53:17Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Escalation of military conflict in the Middle East poses risks to regional stability and energy supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Escalation of military conflict in the Middle East poses risks to regional stability and energy supply chains.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-038",
+      "headline": "North Korea fires ballistic missile toward sea, South Korea and Japan say",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/asia/north-korea-fires-ballistic-missile-toward-sea-south-korea-and-japan-say-4168832",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:49:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "North Korean ballistic missile launch represents a geopolitical escalation in the Asia-Pacific region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "North Korean ballistic missile launch represents a geopolitical escalation in the Asia-Pacific region.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -194789,7 +195022,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3160,
+    "inbox_unconsumed": 3165,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -194798,9 +195031,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 247,
-    "news_picked_today": 33,
-    "news_dropped_today": 214
+    "news_seen_today": 276,
+    "news_picked_today": 38,
+    "news_dropped_today": 238
   },
   "book_momentum": {
     "live_count": 8,
