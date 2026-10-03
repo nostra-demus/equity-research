@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T16:44:32Z",
+  "generated_at": "2026-10-03T16:50:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-317",
@@ -145,6 +145,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-329",
+      "headline": "Flydubai FZ1073: Co-pilot planned terrorist attack and used axe on captain, UAE says",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/business/transport/flydubai-fz1073-co-pilot-terrorist-attack-uae",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T16:42:10Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A confirmed report of a planned terrorist attack by a co-pilot on a Flydubai flight represents a severe operational and security failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A confirmed report of a planned terrorist attack by a co-pilot on a Flydubai flight represents a severe operational and security failure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1905,55 +1955,6 @@
           "name": "Thames Water",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-100",
-      "headline": "HAL To Acquire Remaining 50% Stake In HATSOFF, Making It A Wholly-Owned Subsidiary",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/hal-to-acquire-remaining-50-stake-in-hatsoff-making-it-a-wholly-owned-subsidiary",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T04:36:52Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "HAL is acquiring the remaining 50% stake in HATSOFF to make it a wholly-owned subsidiary.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "HAL is acquiring the remaining 50% stake in HATSOFF to make it a wholly-owned subsidiary.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hindustan Aeronautics Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -197233,9 +197234,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4198,
-    "news_picked_today": 665,
-    "news_dropped_today": 3533
+    "news_seen_today": 4204,
+    "news_picked_today": 668,
+    "news_dropped_today": 3536
   },
   "book_momentum": {
     "live_count": 8,
