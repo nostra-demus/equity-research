@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-03T14:22:23Z",
+  "generated_at": "2026-10-03T14:25:01Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261003-317",
+      "headline": "Bandhan Bank Limited: Bandhan Bank Limited has informed the Exchange about Unaudited Financial Figures for the Quarter ended September 30, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BANDHANBNK_03102026194845_Bandhan_Bank_Initial_Disclosure_30092026_sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-03T14:19:47Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The company has released unaudited financial figures for the quarter ended September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has released unaudited financial figures for the quarter ended September 30, 2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bandhan Bank Limited",
+          "ticker": "541153",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261003-284",
       "headline": "Shrenik Limited: Shrenik Limited has informed the Exchange about Corporate Insolvency Resolution Process Outcome of the 2nd (Second) Meeting of the Committee of Creditors (CoC) of Shrenik Limited (In CIRP)",
@@ -1905,55 +1954,6 @@
           "name": "Bank of Baroda",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-215",
-      "headline": "Anthropic Could Raise Up to $100 Billion in Its November IPO",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/anthropic-could-raise-100-billion-its-november-ipo",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T10:01:00Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Anthropic is reportedly considering an IPO with a potential valuation target of $100 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Anthropic is reportedly considering an IPO with a potential valuation target of $100 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -197087,9 +197087,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3710,
-    "news_picked_today": 572,
-    "news_dropped_today": 3138
+    "news_seen_today": 3723,
+    "news_picked_today": 575,
+    "news_dropped_today": 3148
   },
   "book_momentum": {
     "live_count": 8,
