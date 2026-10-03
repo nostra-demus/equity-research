@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T03:34:44Z",
+  "generated_at": "2026-10-03T03:40:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-076",
@@ -348,6 +348,55 @@
           "name": "Anthropic",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-082",
+      "headline": "Vijay Mallya debt recovery: SBI-led consortium of banks tells Bombay High Court ₹8,752 crore still recoverable",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/india/vijay-mallya-debt-recovery-sbi-led-consortium-of-banks-tells-bombay-high-court-8752-crore-rupees-still-recoverable-20003769.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T03:37:38Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A consortium of banks led by SBI informed the Bombay High Court that ₹8,752 crore remains recoverable from Vijay Mallya.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "A consortium of banks led by SBI informed the Bombay High Court that ₹8,752 crore remains recoverable from Vijay Mallya.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "State Bank of India",
+          "ticker": "SBIN",
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1831,55 +1880,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-036",
-      "headline": "Wells Fargo Initiates Coverage of Ares Management at Overweight",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/wells-fargo-initiates-coverage-ares-management-overweight",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T00:49:06Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Wells Fargo initiated coverage of Ares Management with an Overweight rating.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Wells Fargo initiated coverage of Ares Management with an Overweight rating.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ares Management",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -195570,9 +195570,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 568,
-    "news_picked_today": 88,
-    "news_dropped_today": 480
+    "news_seen_today": 579,
+    "news_picked_today": 89,
+    "news_dropped_today": 490
   },
   "book_momentum": {
     "live_count": 8,
