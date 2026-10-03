@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T02:50:32Z",
+  "generated_at": "2026-10-03T02:54:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-035",
@@ -531,6 +531,55 @@
       "companies": [
         {
           "name": "Flock Safety",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-073",
+      "headline": "Who is 'Hamam al Hamami'? What we know about FlyDubai co-pilot who stabbed Captain Smit Machchhar, tried to crash plane",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/world/who-is-hamam-al-hamami-what-we-know-about-flydubai-co-pilot-who-stabbed-captain-smit-machchhar-tried-to-crash-plane-11790995009415.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T02:50:25Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A violent incident involving a co-pilot attempting to crash a commercial aircraft represents a severe operational and reputational risk for the airline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A violent incident involving a co-pilot attempting to crash a commercial aircraft represents a severe operational and reputational risk for the airline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FlyDubai",
           "ticker": null,
           "listing_country": null
         }
@@ -1125,6 +1174,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-074",
+      "headline": "Kaffeekette: Starbucks wegen neuer Filialen in Xinjiang unter Druck",
+      "headline_en": "Coffee chain: Starbucks under pressure due to new branches in Xinjiang",
+      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/kaffeekette-starbucks-wegen-neuer-filialen-in-xinjiang-unter-druck/100259449.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T02:51:47Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Starbucks is facing pressure regarding its expansion in Xinjiang, which introduces potential reputational and regulatory risks in international markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Starbucks is facing pressure regarding its expansion in Xinjiang, which introduces potential reputational and regulatory risks in international markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Starbucks",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-067",
       "headline": "US-Iran war news LIVE: G7 to release 100 million barrels of diesel, crude oil to ease energy supply concerns",
       "headline_en": null,
@@ -1233,6 +1331,49 @@
       "triage_score": 66,
       "triage_reason": "Potential regulatory changes regarding AI terminology could create legal and operational hurdles for the tech sector.",
       "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-072",
+      "headline": "Irdai plan to help check mis-selling, raise returns",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/irdai-plan-to-help-check-mis-selling-raise-returns/articleshow/134650814.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T02:30:42Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The insurance regulator in India is proposing new measures to curb mis-selling and improve consumer returns, which could impact the operational practices of the insurance sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "The insurance regulator in India is proposing new measures to curb mis-selling and improve consumer returns, which could impact the operational practices of the insurance sector.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 55,
       "rank_factors": {
@@ -1717,148 +1858,6 @@
       "companies": [
         {
           "name": "IN8bio",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-064",
-      "headline": "U.S. ‘severely disappointed’ in lack of G20 consensus on overproduction",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/03/economy/us-g20-consensus-overproduction-china/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T00:32:00Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "The lack of G20 consensus on industrial overproduction signals rising trade tensions and potential future protectionist measures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "The lack of G20 consensus on industrial overproduction signals rising trade tensions and potential future protectionist measures.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-032",
-      "headline": "CNG drivers, check this before your next refill: IGL’s new system can flag your car at the pump",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/photo/cng-drivers-check-this-before-your-next-refill-igls-new-system-can-flag-your-car-at-the-pump-558289-2026-10-03?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T00:30:10Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Indraprastha Gas Limited is implementing a new verification system at CNG pumps.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Indraprastha Gas Limited is implementing a new verification system at CNG pumps.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Indraprastha Gas Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-023",
-      "headline": "Cantor Fitzgerald Upgrades Better Home & Finance Holding to Overweight from Neutral",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/cantor-fitzgerald-upgrades-better-home-finance-holding-overweight-neutral",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T00:15:38Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Cantor Fitzgerald upgraded Better Home & Finance Holding to Overweight, which may influence analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Cantor Fitzgerald upgraded Better Home & Finance Holding to Overweight, which may influence analyst expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "credit_rating_upgrade",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "credit_rating_upgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Better Home & Finance Holding",
           "ticker": null,
           "listing_country": "US"
         }
@@ -195485,9 +195484,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 489,
-    "news_picked_today": 73,
-    "news_dropped_today": 416
+    "news_seen_today": 497,
+    "news_picked_today": 76,
+    "news_dropped_today": 421
   },
   "book_momentum": {
     "live_count": 8,
