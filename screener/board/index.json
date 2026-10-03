@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T13:30:35Z",
+  "generated_at": "2026-10-03T13:41:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-284",
@@ -96,6 +96,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-301",
+      "headline": "US to lend $4.2 billion to Vistra to boost nuclear power output, source says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/us-lend-42-billion-vistra-boost-nuclear-power-output-source-says-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T13:35:44Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The US government plans to lend 4.2 billion USD to Vistra to expand nuclear power capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The US government plans to lend 4.2 billion USD to Vistra to expand nuclear power capacity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vistra",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-295",
+      "headline": "CBI Chargesheets RCom, 2 Reliance ADA Executives And Former LIC Official In ₹3,750-Crore Fraud Case",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/cbi-chargesheets-rcom-2-reliance-ada-executives-and-former-lic-official-in-3750-crore-fraud-case",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T13:13:37Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "CBI filed a chargesheet against Reliance Communications and executives in a fraud case involving ₹3,750 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CBI filed a chargesheet against Reliance Communications and executives in a fraud case involving ₹3,750 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Communications",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1570,6 +1668,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-296",
+      "headline": "Essar Shipping Limited: Essar Shipping Limited has informed the Exchange about Disinvestment in Essar Shipping DMCC, U.A.E., overseas Whollyowned Subsidiary, Under Section 180(1)(a) of the Companies Act, 2013; Disinvestment in OGD Services Holdings Limited, Mauritius, overseas Whollyowned Subsidiary Under Section 180(1)(a) of the Companies Act, 2013; Sale of Asset - Semisubmersible Rig Essar Wildcat owned by Essar Shipping DMCC, U.A.E., (Whollyowned Subsidiary); Sale of Asset - Tug III, owned by",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ESSARSHPNG_03102026185812_ESL_AGM_SX_Disclosure_UR_30_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-03T13:28:31Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Essar Shipping is divesting two overseas subsidiaries and selling a semi-submersible rig and a tug, representing a significant asset disposal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Essar Shipping is divesting two overseas subsidiaries and selling a semi-submersible rig and a tug, representing a significant asset disposal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Essar Shipping Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-257",
       "headline": "Bank of Baroda: Bank Of Baroda has informed the Exchange about Provisional Business Figures Q2 30-09-2026",
       "headline_en": null,
@@ -1821,154 +1968,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-213",
-      "headline": "CMR Green Technologies Limited: CMR Green Technologies Limited has informed the Exchange regarding Resignation of Mr Yugal Kishor Garg as Chief Financial Officer of the company w.e.f. October 23, 2026.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/CMRGREEN_03102026153846_Intimation_for_Resignation_of_CFO.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-03T10:09:22Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "The CFO of CMR Green Technologies Limited has resigned effective October 23, 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The CFO of CMR Green Technologies Limited has resigned effective October 23, 2026.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CMR Green Technologies Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-153",
-      "headline": "Maharashtra FDA Cancels Drug Sale Licence Of Pune Cipla Facility; Disappointing Decision, Says Firm",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/maharashtra-fda-cancels-drug-sale-licence-of-pune-cipla-facility-disappointing-decision-says-firm",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T06:46:12Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Cancellation of a drug sale license at a facility impacts production and revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Cancellation of a drug sale license at a facility impacts production and revenue.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cipla",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-155",
-      "headline": "UAE says flydubai co-pilot attempted ‘terrorist act’ on Israel-bound flight",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/aviation/uae-says-flydubai-co-pilot-attempted-terrorist-act-on-israel-bound-flight-1.500696852",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T06:40:15Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A security incident involving a co-pilot on a commercial flight poses severe operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "A security incident involving a co-pilot on a commercial flight poses severe operational and reputational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "flydubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -196954,9 +196953,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3457,
-    "news_picked_today": 535,
-    "news_dropped_today": 2922
+    "news_seen_today": 3525,
+    "news_picked_today": 546,
+    "news_dropped_today": 2979
   },
   "book_momentum": {
     "live_count": 8,
