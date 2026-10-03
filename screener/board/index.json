@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T09:16:16Z",
+  "generated_at": "2026-10-03T09:26:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -1187,6 +1187,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-204",
+      "headline": "Avenue Supermarts Q2 business update: Revenue rises 18%, total number of stores at 518",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/avenue-supermarts-q2-business-update-revenue-rises-18-total-number-of-stores-at-518-20003867.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T09:10:56Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Avenue Supermarts reported an 18% revenue increase for Q2, indicating strong operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Avenue Supermarts reported an 18% revenue increase for Q2, indicating strong operational performance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avenue Supermarts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-172",
       "headline": "Southern Petrochemicals Industries Corporation Limited: Southern Petrochemical Industries Corporation Limited has informed the Exchange regarding 'Plant Shutdown'.",
       "headline_en": null,
@@ -1915,55 +1964,6 @@
           "name": "flydubai",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-149",
-      "headline": "4 workers dead 2 injured in blast at TIL Healthcare’s Sri City plant",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/2-workers-dead-2-injured-in-blast-at-til-healthcares-sri-city-plant/article71539814.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T07:05:29Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A fatal industrial accident at a manufacturing facility poses operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "A fatal industrial accident at a manufacturing facility poses operational and reputational risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TIL Healthcare",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -196450,9 +196450,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1830,
-    "news_picked_today": 301,
-    "news_dropped_today": 1529
+    "news_seen_today": 1884,
+    "news_picked_today": 307,
+    "news_dropped_today": 1577
   },
   "book_momentum": {
     "live_count": 8,
