@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T09:39:38Z",
+  "generated_at": "2026-10-03T09:44:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -44,6 +44,55 @@
           "name": "DPSC Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-206",
+      "headline": "Flydubai co-pilot attacked pilot with axe in attempted 'terrorist attack', UAE says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/aerospace-defense/flydubai-co-pilot-attacked-pilot-with-axe-attempted-terrorist-attack-uae-says-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T09:34:51Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A state-confirmed terrorist attack involving a pilot and co-pilot represents a severe operational and security risk for the airline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A state-confirmed terrorist attack involving a pilot and co-pilot represents a severe operational and security risk for the airline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flydubai",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -188,56 +237,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-163",
-      "headline": "UAE probe reveals flydubai co-pilot attempted terrorist act",
-      "headline_en": null,
-      "url": "https://www.arnnewscentre.ae/news/uae/uae-probe-reveals-flydubai-co-pilot-attempted-to-carry-out-terrorist-act/",
-      "source_name": "ARN News Centre — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T06:31:01Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Official investigation confirms a terrorist act by a co-pilot, posing severe operational and reputational risk to the airline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Official investigation confirms a terrorist act by a co-pilot, posing severe operational and reputational risk to the airline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "flydubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -196379,9 +196378,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1926,
-    "news_picked_today": 315,
-    "news_dropped_today": 1611
+    "news_seen_today": 1950,
+    "news_picked_today": 317,
+    "news_dropped_today": 1633
   },
   "book_momentum": {
     "live_count": 8,
