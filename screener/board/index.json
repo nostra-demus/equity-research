@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-03T00:30:25Z",
+  "generated_at": "2026-10-03T00:39:35Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261003-019",
+      "headline": "SBI-led lenders say Vijay Mallya owes Rs 8,752 crore more",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/sbi-led-lenders-say-vijay-mallya-owes-rs-8752-crore-more/articleshow/134645993.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "SBI-led lenders report an additional 8,752 crore rupees owed by Vijay Mallya, impacting recovery expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "SBI-led lenders report an additional 8,752 crore rupees owed by Vijay Mallya, impacting recovery expectations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261003-010",
       "headline": "Noel Tata seeks Tata Sons meeting video, minutes; questions legal opinions on Chandrasekaran reappointment",
@@ -241,6 +290,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-018",
+      "headline": "Cyclospora found at Mexican farm linked to lettuce outbreak, FDA says",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/us-news/2026/oct/02/cyclospora-mexico-farm-lettuce",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:27:28Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "FDA link of a specific farm to a foodborne illness outbreak creates operational and regulatory risk for the produce sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "FDA link of a specific farm to a foodborne illness outbreak creates operational and regulatory risk for the produce sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-007",
       "headline": "Latvians vote in election in shadow of drone incursions and war in Ukraine",
       "headline_en": null,
@@ -425,6 +517,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-020",
+      "headline": "Cheong Wa Dae holds emergency security meeting on N. Korea's missile launch",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261003000900320",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:27:07Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Emergency security meeting following a North Korean missile launch indicates a significant geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Emergency security meeting following a North Korean missile launch indicates a significant geopolitical escalation.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-014",
       "headline": "Korea: Nordkorea feuert ballistische Rakete ab",
       "headline_en": "Korea: North Korea fires ballistic missile",
@@ -440,6 +575,49 @@
       "triage_score": 47,
       "triage_reason": "North Korea fired a ballistic missile, escalating regional geopolitical tensions.",
       "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-021",
+      "headline": "Israeli strike on Gaza apartment complex kills four Palestinians",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-strike-gaza-apartment-complex-kills-palestinian",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:23:59Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Military strike in Gaza represents a direct escalation of regional conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Military strike in Gaza represents a direct escalation of regional conflict.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -635,6 +813,104 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-017",
+      "headline": "CaseBioscience® schließt sich einem Team an, das von ARPA-H bis zu 7,3 Millionen US-Dollar für die Weiterentwicklung der Lagerung von Zelltherapien bei Raumtemperatur erhält",
+      "headline_en": "CaseBioscience joins a team receiving up to 7.3 million USD from ARPA-H to advance room-temperature cell therapy storage",
+      "url": "https://www.prnewswire.com/news-releases/casebioscience-schlieWt-sich-einem-team-an-das-von-arpa-h-bis-zu-7-3-millionen-us-dollar-fur-die-weiterentwicklung-der-lagerung-von-zelltherapien-bei-raumtemperatur-erhalt-302897580.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-03T00:35:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "CaseBioscience is part of a team receiving 7.3 million USD in funding for cell therapy storage technology.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "CaseBioscience is part of a team receiving 7.3 million USD in funding for cell therapy storage technology.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CaseBioscience",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-016",
+      "headline": "Jaguar Health Announces a Special Stock Dividend | JAGX Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/JAGX/jaguar-health-announces-a-special-stock-ckbq2sdn7uzk.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-03T00:35:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Jaguar Health announced a special stock dividend, which is a direct capital action for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Jaguar Health announced a special stock dividend, which is a direct capital action for shareholders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jaguar Health",
+          "ticker": "JAGX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193795,7 +194071,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3142,
+    "inbox_unconsumed": 3148,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -193804,9 +194080,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 171,
-    "news_picked_today": 15,
-    "news_dropped_today": 156
+    "news_seen_today": 187,
+    "news_picked_today": 21,
+    "news_dropped_today": 166
   },
   "book_momentum": {
     "live_count": 8,
