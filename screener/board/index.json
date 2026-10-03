@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T10:55:26Z",
+  "generated_at": "2026-10-03T11:05:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -939,6 +939,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-232",
+      "headline": "Greens Demand Thames Water Public Ownership, No Creditor Compensation",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-03/greens-demand-thames-water-public-ownership-no-creditor-compensation",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T10:47:40Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Calls for the nationalization of Thames Water without creditor compensation pose a severe risk to debt holders and the company's capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Calls for the nationalization of Thames Water without creditor compensation pose a severe risk to debt holders and the company's capital structure.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Thames Water",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-100",
       "headline": "HAL To Acquire Remaining 50% Stake In HATSOFF, Making It A Wholly-Owned Subsidiary",
       "headline_en": null,
@@ -1540,6 +1589,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-228",
+      "headline": "Sobha Q2 business update: Bengaluru developer's total sales value rises 16% YoY to ₹2,206 crore",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/sobha-q2-business-update-total-sales-value-rises-16-yoy-to-2206-crore-rupees-bengaluru-realty-20003889.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T11:01:31Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Sobha reported a 16% YoY increase in total sales value to ₹2,206 crore for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Sobha reported a 16% YoY increase in total sales value to ₹2,206 crore for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sobha",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-148",
       "headline": "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details",
       "headline_en": null,
@@ -1875,104 +1973,6 @@
         {
           "name": "PB Fintech",
           "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-111",
-      "headline": "Vijay Mallya Owes ₹8,752 Crore To SBI-Led Consortium, Lenders Tell Bombay High Court",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/vijay-mallya-owes-8752-crore-to-sbi-led-consortium-lenders-tell-bombay-high-court",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T04:55:54Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Ongoing legal proceedings confirm an outstanding debt of 8,752 crore rupees owed to a lender consortium.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Ongoing legal proceedings confirm an outstanding debt of 8,752 crore rupees owed to a lender consortium.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "State Bank of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-082",
-      "headline": "Vijay Mallya debt recovery: SBI-led consortium of banks tells Bombay High Court ₹8,752 crore still recoverable",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/india/vijay-mallya-debt-recovery-sbi-led-consortium-of-banks-tells-bombay-high-court-8752-crore-rupees-still-recoverable-20003769.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T03:37:38Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A consortium of banks led by SBI informed the Bombay High Court that ₹8,752 crore remains recoverable from Vijay Mallya.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A consortium of banks led by SBI informed the Bombay High Court that ₹8,752 crore remains recoverable from Vijay Mallya.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "State Bank of India",
-          "ticker": "SBIN",
           "listing_country": "IN"
         }
       ],
@@ -196461,9 +196461,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2385,
-    "news_picked_today": 392,
-    "news_dropped_today": 1993
+    "news_seen_today": 2454,
+    "news_picked_today": 404,
+    "news_dropped_today": 2050
   },
   "book_momentum": {
     "live_count": 8,
