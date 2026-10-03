@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T01:29:36Z",
+  "generated_at": "2026-10-03T01:30:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-035",
@@ -154951,6 +154951,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-c293b0c4a5d4",
+      "idea_version": "IDEAV-2750ca3bdbc60c7f",
+      "idea_version_started_at": "2026-10-03T01:29:52Z",
+      "ticker": "BAYN",
+      "company": "Bayer AG",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Bayer is investing $2.2 billion in a new US plant to capture growth in its fastest-growing market, expanding its long-term production capacity and regional footprint.",
+      "why_now": "The announcement of this major $2.2 billion capital expenditure commitment acts as a live directional catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-34e30d7673d7"
+      ],
+      "primary_source_event_id": "EVT-34e30d7673d7",
+      "source_headlines": [
+        "USA: 'Fastest-growing market' — Bayer invests $2.2 billion in new US plant"
+      ],
+      "source_headline": "USA: „Am schnellsten wachsender Markt“ – Bayer investiert 2,2 Milliarden Dollar in neues US-Werk",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/usa-bayer-investiert-22-milliarden-dollar-in-neues-us-werk/100259162.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T19:10:06Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T01:29:52Z",
+      "updated_at": "2026-10-03T01:29:52Z",
+      "decay_at": "2026-10-04T07:10:06Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e67734d8e0e7",
       "idea_version": "IDEAV-013c2fcab391bc2a",
       "idea_version_started_at": "2026-10-03T00:30:09Z",
@@ -195080,8 +195152,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1215,
-    "live_count": 23,
+    "surfaced_total": 1216,
+    "live_count": 24,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
