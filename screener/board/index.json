@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T04:11:06Z",
+  "generated_at": "2026-10-03T04:21:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-076",
@@ -840,6 +840,50 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-088",
+      "headline": "US sanctions three persons, two charities over alleged Hamas funding",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-sanctions-three-persons-two-charities-over-alleged-hamas-funding",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T04:09:25Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The US government imposed sanctions on individuals and entities for alleged Hamas funding, increasing geopolitical and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The US government imposed sanctions on individuals and entities for alleged Hamas funding, increasing geopolitical and regulatory risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1813,49 +1857,6 @@
       "launched_signal_id": null,
       "triage_score": 66,
       "triage_reason": "The insurance regulator in India is proposing new measures to curb mis-selling and improve consumer returns, which could impact the operational practices of the insurance sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-061",
-      "headline": "Buying new car? Your motor insurance dealer may earn up to 38% commission - what IRDAI's proposed fix means",
-      "headline_en": null,
-      "url": "https://www.livemint.com/money/buying-new-car-your-motor-insurance-dealer-may-earn-up-to-38-commission-what-irdais-proposed-fix-means-11790989710584.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T02:11:13Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Proposed IRDAI regulation to cap insurance dealer commissions at 38% could impact margins for motor insurance distributors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Proposed IRDAI regulation to cap insurance dealer commissions at 38% could impact margins for motor insurance distributors.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 55,
@@ -195500,9 +195501,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 637,
-    "news_picked_today": 104,
-    "news_dropped_today": 533
+    "news_seen_today": 649,
+    "news_picked_today": 106,
+    "news_dropped_today": 543
   },
   "book_momentum": {
     "live_count": 8,
