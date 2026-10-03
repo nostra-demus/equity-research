@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T00:29:47Z",
+  "generated_at": "2026-10-03T00:30:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-010",
@@ -153444,18 +153444,18 @@
     },
     {
       "idea_id": "IDEA-a2af7914e260",
-      "idea_version": "IDEAV-fe6bde72540bcc93",
-      "idea_version_started_at": "2026-10-03T00:11:30Z",
+      "idea_version": "IDEAV-3d78036cf269389b",
+      "idea_version_started_at": "2026-10-03T00:30:09Z",
       "ticker": "ACN",
       "company": "Accenture",
       "exchange": "NYSE",
       "direction": "long",
       "pair_with": null,
-      "reason": "Accenture reported Q4 revenue of $18.7 billion and raised its FY2027 operating margin outlook, signaling stronger-than-expected demand for IT services and consulting.",
-      "why_now": "The stock is reacting to the fresh Q4 earnings beat and the upward revision of 2027 guidance released on October 1, 2026.",
+      "reason": "Accenture reported Q4 revenue of $18.7 billion and raised its FY27 operating margin outlook, signaling resilient enterprise IT spending and improved operational efficiency.",
+      "why_now": "The company just released its Q4 earnings and updated its long-term FY27 margin guidance on October 1, 2026.",
       "conviction": 75,
       "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
+      "trade_score": 62,
       "trade_score_basis": "event_driven_v3",
       "trade_score_breakdown": {
         "evidence": 14,
@@ -153463,14 +153463,14 @@
         "specificity": 15,
         "timing": 6,
         "expression": 7,
-        "corroboration": 7,
+        "corroboration": 0,
         "learning_adjustment": 0
       },
       "trade_readiness": "needs_data",
       "missing_checks": [
         "live liquidity",
         "dated catalyst",
-        "priced-in risk",
+        "independent confirmation",
         "live price, liquidity, and consensus"
       ],
       "learning": {
@@ -153482,22 +153482,20 @@
         "basis": "not_enough_outcomes",
         "evidenceIds": []
       },
-      "priced_in": "priced",
+      "priced_in": "room",
       "thesis_type": "company_specific",
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-0f6abac0664b",
         "EVT-21a4195dfc5d"
       ],
-      "primary_source_event_id": "EVT-0f6abac0664b",
+      "primary_source_event_id": "EVT-21a4195dfc5d",
       "source_headlines": [
-        "Accenture shares jump 20% in pre-market as Q4 earnings, 2027 outlook beat estimates",
         "Accenture's Q4 revenue at $18.7 billion; raises FY27 operating margin outlook"
       ],
-      "source_headline": "Accenture shares jump 20% in pre-market as Q4 earnings, 2027 outlook beat estimates",
-      "source_url": "https://www.livemint.com/market/stock-market-news/accenture-shares-jump-20-in-pre-market-as-q4-earnings-2027-outlook-beat-estimates-11790855697898.html",
-      "source_name": "Mint",
+      "source_headline": "Accenture's Q4 revenue at $18.7 billion; raises FY27 operating margin outlook",
+      "source_url": "https://www.deccanherald.com/business/companies/accentures-q4-revenue-at-187-billion-raises-fy27-operating-margin-outlook-4167403",
+      "source_name": "Deccan Herald",
       "materiality_max": 100,
       "newest_source_at": "2026-10-01T16:53:13Z",
       "prior_coverage": {
@@ -153507,7 +153505,7 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-10-01T18:43:27Z",
-      "updated_at": "2026-10-03T00:11:30Z",
+      "updated_at": "2026-10-03T00:30:09Z",
       "decay_at": "2026-10-03T04:53:13Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -153651,6 +153649,78 @@
       "surfaced_at": "2026-10-01T22:02:01Z",
       "updated_at": "2026-10-01T22:02:01Z",
       "decay_at": "2026-10-03T08:51:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e67734d8e0e7",
+      "idea_version": "IDEAV-013c2fcab391bc2a",
+      "idea_version_started_at": "2026-10-03T00:30:09Z",
+      "ticker": "VOLCARB",
+      "company": "Volvo Car AB",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Volvo Car has withdrawn its financial guidance due to worsening conditions and accelerating demand deterioration in the Chinese automotive market.",
+      "why_now": "The guidance withdrawal was announced on October 2, 2026, presenting an immediate negative catalyst for the stock.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "macro_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-28ee22cd8bb6"
+      ],
+      "primary_source_event_id": "EVT-28ee22cd8bb6",
+      "source_headlines": [
+        "Volvo Car Pulls Guidance as Chinese Auto Market Worsens"
+      ],
+      "source_headline": "Volvo Car Pulls Guidance as Chinese Auto Market Worsens",
+      "source_url": "https://www.wsj.com/business/earnings/volvo-car-pulls-guidance-as-chinese-auto-market-worsen-e72ca14f?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T14:22:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T00:30:09Z",
+      "updated_at": "2026-10-03T00:30:09Z",
+      "decay_at": "2026-10-04T02:22:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -156511,78 +156581,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-7137e0cf25b2",
-      "idea_version": "IDEAV-3df979a56a1b2f11",
-      "idea_version_started_at": "2026-09-30T02:41:30Z",
-      "ticker": "NST",
-      "company": "Northern Star Resources",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Gold Fields is proposing a $3.5 billion takeover that includes significant tax synergies, which typically drives a premium for the target company's shareholders.",
-      "why_now": "The takeover proposal was reported on 2026-09-30, creating an immediate M&A arbitrage or premium-capture opportunity.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3566a39e714b"
-      ],
-      "primary_source_event_id": "EVT-3566a39e714b",
-      "source_headlines": [
-        "Gold Fields pitches $3.5b tax saving in Northern Star takeover"
-      ],
-      "source_headline": "Gold Fields pitches $3.5b tax saving in Northern Star takeover",
-      "source_url": "https://www.afr.com/companies/mining/gold-fields-pitches-3-5b-tax-bill-drop-in-northern-star-takeover-20260930-p611ms?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 85,
-      "newest_source_at": "2026-09-30T00:25:16Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-28T01:41:01Z",
-      "updated_at": "2026-09-30T02:41:30Z",
-      "decay_at": "2026-10-01T12:25:16Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -156595,14 +156593,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 531,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 31,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 22
       },
       "short": {
         "total_count": 258,
@@ -156612,11 +156610,11 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 660,
+      "evicted_count": 661,
       "oldest_retained_at": "2026-09-07T03:05:31Z",
       "side_counts": {
         "long": {
-          "evicted_count": 439,
+          "evicted_count": 440,
           "oldest_retained_at": "2026-09-15T12:00:00Z"
         },
         "short": {
@@ -158926,8 +158924,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-01T12:25:16Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-03T00:30:15Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -193786,8 +193784,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1212,
-    "live_count": 20,
+    "surfaced_total": 1213,
+    "live_count": 21,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
