@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T04:35:50Z",
+  "generated_at": "2026-10-03T04:44:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-076",
@@ -302,6 +302,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-092",
+      "headline": "Toshiba to double hard-disk drive supply to fill AI chip memory gap",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/electronics/toshiba-to-double-hard-disk-drive-supply-to-fill-ai-chip-memory-gap",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T04:43:42Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Toshiba is doubling supply of a key product line to address a specific market gap, which is a material operational and revenue-impacting decision.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Toshiba is doubling supply of a key product line to address a specific market gap, which is a material operational and revenue-impacting decision.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Toshiba",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1580,6 +1630,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-091",
+      "headline": "G7 to release millions of barrels of oil and diesel after Trump threat",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/ck87zg8jnwngo?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T04:38:31Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The G7 releasing millions of barrels of oil and diesel represents a significant supply-side intervention in global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "The G7 releasing millions of barrels of oil and diesel represents a significant supply-side intervention in global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-071",
       "headline": "Oil tankers attacked in Hormuz strait: UK maritime agency",
       "headline_en": null,
@@ -1796,99 +1889,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-067",
-      "headline": "US-Iran war news LIVE: G7 to release 100 million barrels of diesel, crude oil to ease energy supply concerns",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/us-iran-war-news-latest-live-updates-donald-trump-abbas-araghchi-ukmto-strait-of-hormuz-flydubai-flight-ceasefire-talks-11790988241642.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T01:14:07Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "The potential for a US-Iran conflict and the release of 100 million barrels of oil indicates a major geopolitical supply shock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "The potential for a US-Iran conflict and the release of 100 million barrels of oil indicates a major geopolitical supply shock.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-033",
-      "headline": "Edge Total Intelligence Announces Debt Modification, Impairment of Intangibles and Goodwill, and Austal Business Update | UNFYF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/UNFYF/edge-total-intelligence-announces-debt-modification-impairment-of-tpdrsmnbepot.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-03T00:52:00Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "The company announced a debt modification and a material impairment of intangibles and goodwill, signaling financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "The company announced a debt modification and a material impairment of intangibles and goodwill, signaling financial distress.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit",
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Edge Total Intelligence",
-          "ticker": "UNFYF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -195579,9 +195579,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 692,
-    "news_picked_today": 112,
-    "news_dropped_today": 580
+    "news_seen_today": 704,
+    "news_picked_today": 115,
+    "news_dropped_today": 589
   },
   "book_momentum": {
     "live_count": 8,
