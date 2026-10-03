@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T13:05:20Z",
+  "generated_at": "2026-10-03T13:11:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -44,6 +44,55 @@
           "name": "DPSC Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-283",
+      "headline": "CBI Searches Mumbai Premises Linked To Hanjer Biotech Directors In ₹93.44-Crore Bank Fraud Case",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/cbi-searches-mumbai-premises-linked-to-hanjer-biotech-directors-in-9344-crore-bank-fraud-case",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T12:47:52Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "CBI is investigating a ₹93.44-crore bank fraud case involving the directors of Hanjer Biotech.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CBI is investigating a ₹93.44-crore bank fraud case involving the directors of Hanjer Biotech.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hanjer Biotech",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1921,55 +1970,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-242",
-      "headline": "JLR Wholesale Volumes Up 24.5% In Q2 FY27 To 82,400 Units, UK And Overseas Lead Growth",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/jlr-wholesale-volumes-up-245-in-q2-fy27-to-82400-units-uk-and-overseas-lead-growth",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T11:06:07Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "JLR reported a 24.5% increase in Q2 FY27 wholesale volumes to 82,400 units.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "JLR reported a 24.5% increase in Q2 FY27 wholesale volumes to 82,400 units.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -196883,9 +196883,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3314,
-    "news_picked_today": 509,
-    "news_dropped_today": 2805
+    "news_seen_today": 3360,
+    "news_picked_today": 518,
+    "news_dropped_today": 2842
   },
   "book_momentum": {
     "live_count": 8,
