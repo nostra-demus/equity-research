@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T01:11:22Z",
+  "generated_at": "2026-10-03T01:14:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-035",
@@ -388,6 +388,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-039",
+      "headline": "Trump threatens South Korea over Alaska LNG project dispute",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/03/economy/trump-threatens-south-korea-lng/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:34:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Political threats regarding energy infrastructure projects create regulatory and operational risk for international trade and energy sector investments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Political threats regarding energy infrastructure projects create regulatory and operational risk for international trade and energy sector investments.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-018",
       "headline": "Cyclospora found at Mexican farm linked to lettuce outbreak, FDA says",
       "headline_en": null,
@@ -763,6 +807,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-042",
+      "headline": "Judge bars building of Texas-Mexico border barrier in Big Bend National Park",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/government/judge-bars-building-texas-mexico-border-barrier-big-bend-national-park-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T01:05:40Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A judicial ruling blocking infrastructure construction creates regulatory and operational uncertainty for regional development projects.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "A judicial ruling blocking infrastructure construction creates regulatory and operational uncertainty for regional development projects.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-015",
       "headline": "Judge temporarily blocks border wall construction in Texas’ Big Bend region",
       "headline_en": null,
@@ -1094,55 +1181,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261003-022",
-      "headline": "Atlantic Digestive Specialists Data Breach Investigation: Edelson Lechtzin LLP Probes Class Action Claims After Customer Data Is Exposed",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/atlantic-digestive-specialists-data-breach-investigation-edelson-lechtzin-llp-probes-class-action-claims-after-customer-data-is-exposed-302897582.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-03T00:45:00Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A law firm is investigating a data breach at Atlantic Digestive Specialists, creating potential legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "A law firm is investigating a data breach at Atlantic Digestive Specialists, creating potential legal and reputational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Atlantic Digestive Specialists",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261003-034",
       "headline": "Grant & Eisenhofer Files Class Action Lawsuit Against Coastal Financial Corporation",
       "headline_en": null,
@@ -1192,6 +1230,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-041",
+      "headline": "(2nd LD) N. Korea fires ballistic missile amid tensions over DMZ mine blast",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261003000551315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T01:04:51Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Escalating military tensions and ballistic missile launches in the Korean peninsula represent a significant geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Escalating military tensions and ballistic missile launches in the Korean peninsula represent a significant geopolitical risk.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-037",
       "headline": "Israeli strike kills five in Gaza, health officials say",
       "headline_en": null,
@@ -1217,6 +1298,49 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-040",
+      "headline": "North Korea Fires Ballistic Missile Toward East Coast, JCS Says",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-03/north-korea-fires-ballistic-missile-toward-east-coast-jcs-says",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:52:03Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Military escalation in the Korean peninsula increases geopolitical risk and market volatility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Military escalation in the Korean peninsula increases geopolitical risk and market volatility.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "macro",
@@ -1721,55 +1845,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-030",
-      "headline": "Meta wants your next gadget to be Muse-infused",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/10/02/meta-wants-you-to-build-your-own-muse-gadget/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T00:45:39Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Meta is integrating new AI features into its hardware products.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Meta is integrating new AI features into its hardware products.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meta",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -195022,7 +195097,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3165,
+    "inbox_unconsumed": 3167,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -195031,9 +195106,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 276,
-    "news_picked_today": 38,
-    "news_dropped_today": 238
+    "news_seen_today": 287,
+    "news_picked_today": 42,
+    "news_dropped_today": 245
   },
   "book_momentum": {
     "live_count": 8,
