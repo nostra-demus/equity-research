@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T03:54:39Z",
+  "generated_at": "2026-10-03T03:59:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-076",
@@ -449,6 +449,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-084",
+      "headline": "Anup Bagchi choice for HDFC Bank CEO signals regulatory slant for fresh blood",
+      "headline_en": null,
+      "url": "https://www.hindustantimes.com/business/anup-bagchi-choice-for-hdfc-signals-regulatory-slant-for-fresh-blood-101790995562365.html",
+      "source_name": "Hindustan Times (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T03:48:46Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The appointment of a new CEO at a major bank like HDFC Bank is a significant management transition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The appointment of a new CEO at a major bank like HDFC Bank is a significant management transition.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1828,55 +1877,6 @@
           "name": "Forgent Power Solutions",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-083",
-      "headline": "One 97 Communications Limited: One 97 Communications Limited has informed the Exchange regarding Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Allotment of 4,99,877 equity shares pursuant to exercise of stock options under One 97 Employees Stock Option Scheme 2019",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PAYTM_03102026090839_SEDisclosureNRCOctallotmentsd.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-03T03:38:54Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "One 97 Communications Limited allotted 499,877 equity shares due to stock option exercises.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "One 97 Communications Limited allotted 499,877 equity shares due to stock option exercises.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "One 97 Communications Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -195570,9 +195570,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 602,
-    "news_picked_today": 95,
-    "news_dropped_today": 507
+    "news_seen_today": 611,
+    "news_picked_today": 97,
+    "news_dropped_today": 514
   },
   "book_momentum": {
     "live_count": 8,
