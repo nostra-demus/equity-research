@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T07:39:34Z",
+  "generated_at": "2026-10-03T07:44:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-169",
@@ -996,6 +996,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-175",
+      "headline": "Proposal of Special Measure Prohibiting the Transmittal of Funds Regarding Transactions Involving the A7 Network's Sub-Agents",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/10/05/2026-20371/proposal-of-special-measure-prohibiting-the-transmittal-of-funds-regarding-transactions-involving",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-05T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The proposal to prohibit fund transmittals involving the A7 Network's sub-agents represents a significant regulatory enforcement action against the entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The proposal to prohibit fund transmittals involving the A7 Network's sub-agents represents a significant regulatory enforcement action against the entity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "A7 Network",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-172",
       "headline": "Southern Petrochemicals Industries Corporation Limited: Southern Petrochemical Industries Corporation Limited has informed the Exchange regarding 'Plant Shutdown'.",
       "headline_en": null,
@@ -1133,6 +1182,56 @@
       "companies": [
         {
           "name": "Drishyam The Conclusion",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-181",
+      "headline": "Tennessee Valley Authority; Clinch River Nuclear Unit 1; Construction Permit and Record of Decision",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/10/05/2026-20345/tennessee-valley-authority-clinch-river-nuclear-unit-1-construction-permit-and-record-of-decision",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-05T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "TVA received a construction permit for the Clinch River Nuclear Unit 1, a significant infrastructure development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "TVA received a construction permit for the Clinch River Nuclear Unit 1, a significant infrastructure development.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tennessee Valley Authority",
           "ticker": null,
           "listing_country": null
         }
@@ -1873,104 +1972,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-046",
-      "headline": "Boeing 737 Max 10 certification gets boost as FAA says 'software glitch not a safety issue' | 4 key things to know",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/boeing-737-max-10-certification-gets-boost-as-faa-says-software-glitch-not-a-safety-issue-4-key-things-to-know-11790988879982.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T01:20:02Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "FAA ruling reduces regulatory risk for the Boeing 737 Max 10 certification process.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "FAA ruling reduces regulatory risk for the Boeing 737 Max 10 certification process.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-010",
-      "headline": "Noel Tata seeks Tata Sons meeting video, minutes; questions legal opinions on Chandrasekaran reappointment",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/noel-tata-seeks-tata-sons-meeting-video-minutes-questions-legal-opinions-on-chandrasekaran-reappointment/articleshow/134646293.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Internal governance dispute at Tata Sons regarding leadership reappointment creates management uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Internal governance dispute at Tata Sons regarding leadership reappointment creates management uncertainty.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -196385,9 +196386,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1423,
-    "news_picked_today": 224,
-    "news_dropped_today": 1199
+    "news_seen_today": 1539,
+    "news_picked_today": 245,
+    "news_dropped_today": 1294
   },
   "book_momentum": {
     "live_count": 8,
