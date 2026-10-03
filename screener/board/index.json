@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T04:55:06Z",
+  "generated_at": "2026-10-03T04:59:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-076",
@@ -995,6 +995,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-097",
+      "headline": "Flydubai plane attack: co-pilot previously barred from flying by Oman over extremist views",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/world/middle-east/article/3369644/flydubai-plane-attack-co-pilot-previously-barred-flying-oman-over-extremist-views?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T04:53:37Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Security incident involving a Flydubai pilot raises operational and reputational risk for the airline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Security incident involving a Flydubai pilot raises operational and reputational risk for the airline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-098",
+      "headline": "Who is Hamam al-Hammami? The ‘barred’ Omani co-pilot who stabbed Capt. Smit Machchhar",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/who-is-hamam-al-hammami-the-barred-omani-co-pilot-who-stabbed-smit-machchhar-4168918",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T04:35:53Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Follow-up on a violent security incident involving a pilot, confirming operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Follow-up on a violent security incident involving a pilot, confirming operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-088",
       "headline": "US sanctions three persons, two charities over alleged Hamas funding",
       "headline_en": null,
@@ -1790,92 +1888,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-043",
-      "headline": "US-Iran war news LIVE: Two oil tankers attacked in Strait of Hormuz by 'unidentified projectiles,' says UKMTO",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/us-iran-war-news-latest-live-updates-donald-trump-abbas-araghchi-ukmto-strait-of-hormuz-flydubai-flight-ceasefire-talks-11790988241642.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T01:14:07Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Reports of attacks on oil tankers in the Strait of Hormuz represent a significant geopolitical escalation and potential supply shock for global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Reports of attacks on oil tankers in the Strait of Hormuz represent a significant geopolitical escalation and potential supply shock for global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-024",
-      "headline": "Brent Crude Is Now Trading Above $100. What Does That Mean For the Crypto Market?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/brent-crude-now-trading-above-100-what-does-mean-crypto-market",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T00:20:00Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Brent crude trading above $100 per barrel represents a significant energy supply shock with broad inflationary implications.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Brent crude trading above $100 per barrel represents a significant energy supply shock with broad inflationary implications.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "commodity",
@@ -195648,9 +195660,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 714,
-    "news_picked_today": 118,
-    "news_dropped_today": 596
+    "news_seen_today": 731,
+    "news_picked_today": 122,
+    "news_dropped_today": 609
   },
   "book_momentum": {
     "live_count": 8,
