@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-03T00:11:49Z",
+  "generated_at": "2026-10-03T00:21:34Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261003-010",
+      "headline": "Noel Tata seeks Tata Sons meeting video, minutes; questions legal opinions on Chandrasekaran reappointment",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/noel-tata-seeks-tata-sons-meeting-video-minutes-questions-legal-opinions-on-chandrasekaran-reappointment/articleshow/134646293.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Internal governance dispute at Tata Sons regarding leadership reappointment creates management uncertainty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Internal governance dispute at Tata Sons regarding leadership reappointment creates management uncertainty.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261003-005",
       "headline": "KSPCB sets Oct 16 public hearing for Vedanta’s Rs 10 cr Jantakal iron ore project",
@@ -171,6 +220,147 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-008",
+      "headline": "SCHEDULE 13D/A - JEWETT CAMERON TRADING CO LTD (0000885307) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/885307/000121716026000076/0001217160-26-000076-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-03T00:13:55Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A 13D/A filing indicates a change in ownership stake, which is a routine regulatory disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "A 13D/A filing indicates a change in ownership stake, which is a routine regulatory disclosure.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jewett Cameron Trading Co Ltd",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-009",
+      "headline": "Uber Settles Background Check Sexual Assault Case Less Than 48 Hours After Jury Selection",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/uber-settles-background-check-sexual-assault-case-less-than-48-hours-after-jury-selection-302897577.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-03T00:13:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Uber settled a sexual assault case, which carries legal and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Uber settled a sexual assault case, which carries legal and reputational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-011",
+      "headline": "(URGENT) N. Korea's ballistic missile flew over 700 kilometers: JCS",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261003000800315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:05:16Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "North Korea launched a ballistic missile, representing a significant geopolitical escalation in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "North Korea launched a ballistic missile, representing a significant geopolitical escalation in the region.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
         "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
@@ -193423,7 +193613,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3134,
+    "inbox_unconsumed": 3138,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
