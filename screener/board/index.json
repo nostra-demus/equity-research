@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T00:21:45Z",
+  "generated_at": "2026-10-03T00:29:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-010",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-013",
+      "headline": "Sanders introduces bill to ban the federal government from using Flock",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/10/02/sanders-introduces-bill-to-ban-the-federal-government-from-using-flock/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:21:57Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Proposed legislation to ban federal government use of Flock Safety products poses a significant revenue risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Proposed legislation to ban federal government use of Flock Safety products poses a significant revenue risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flock Safety",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -284,6 +333,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-015",
+      "headline": "Judge temporarily blocks border wall construction in Texas’ Big Bend region",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/world/federal-court-temporarily-blocks-trump-administration-border-wall-in-texas%27-big-bend-region",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:26:49Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Judicial block on border wall construction impacts infrastructure project timelines and government policy execution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Judicial block on border wall construction impacts infrastructure project timelines and government policy execution.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-009",
       "headline": "Uber Settles Background Check Sexual Assault Case Less Than 48 Hours After Jury Selection",
       "headline_en": null,
@@ -328,6 +420,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-014",
+      "headline": "Korea: Nordkorea feuert ballistische Rakete ab",
+      "headline_en": "Korea: North Korea fires ballistic missile",
+      "url": "https://www.handelsblatt.com/politik/international/korea-nordkorea-feuert-ballistische-rakete-ab/100259429.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:25:15Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "North Korea fired a ballistic missile, escalating regional geopolitical tensions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "North Korea fired a ballistic missile, escalating regional geopolitical tensions.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -500,6 +635,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-012",
+      "headline": "Purecore Announces Up to $2.5 Million Non-Brokered Private Placement",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/03/3374086/0/en/purecore-announces-up-to-2-5-million-non-brokered-private-placement.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-03T00:17:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Purecore announced a private placement of up to $2.5 million to raise capital.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Purecore announced a private placement of up to $2.5 million to raise capital.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Purecore",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -193613,7 +193797,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3138,
+    "inbox_unconsumed": 3142,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -193622,9 +193806,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 134,
-    "news_picked_today": 11,
-    "news_dropped_today": 123
+    "news_seen_today": 171,
+    "news_picked_today": 15,
+    "news_dropped_today": 156
   },
   "book_momentum": {
     "live_count": 8,
