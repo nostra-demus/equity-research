@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T00:39:35Z",
+  "generated_at": "2026-10-03T00:49:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-019",
@@ -376,6 +376,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-024",
+      "headline": "Brent Crude Is Now Trading Above $100. What Does That Mean For the Crypto Market?",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/brent-crude-now-trading-above-100-what-does-mean-crypto-market",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:20:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Brent crude trading above $100 per barrel represents a significant energy supply shock with broad inflationary implications.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Brent crude trading above $100 per barrel represents a significant energy supply shock with broad inflationary implications.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-025",
+      "headline": "Bernstein Initiates Coverage of Forgent Power Solutions at Outperform",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/bernstein-initiates-coverage-forgent-power-solutions-outperform",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:25:13Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Bernstein initiated coverage of Forgent Power Solutions with an Outperform rating, which may influence investor sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 65,
+      "triage_reason": "Bernstein initiated coverage of Forgent Power Solutions with an Outperform rating, which may influence investor sentiment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Forgent Power Solutions",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-008",
       "headline": "SCHEDULE 13D/A - JEWETT CAMERON TRADING CO LTD (0000885307) (Subject)",
       "headline_en": null,
@@ -468,6 +560,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-023",
+      "headline": "Cantor Fitzgerald Upgrades Better Home & Finance Holding to Overweight from Neutral",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cantor-fitzgerald-upgrades-better-home-finance-holding-overweight-neutral",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:15:38Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Cantor Fitzgerald upgraded Better Home & Finance Holding to Overweight, which may influence analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Cantor Fitzgerald upgraded Better Home & Finance Holding to Overweight, which may influence analyst expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_upgrade",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "credit_rating_upgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Better Home & Finance Holding",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-009",
       "headline": "Uber Settles Background Check Sexual Assault Case Less Than 48 Hours After Jury Selection",
       "headline_en": null,
@@ -512,6 +653,104 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-026",
+      "headline": "Meta wants you to build your own Muse gadget",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/10/02/meta-wants-you-to-build-your-own-muse-gadget/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T00:45:39Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Meta is encouraging users to build custom gadgets, which is a minor product-related development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Meta is encouraging users to build custom gadgets, which is a minor product-related development.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-022",
+      "headline": "Atlantic Digestive Specialists Data Breach Investigation: Edelson Lechtzin LLP Probes Class Action Claims After Customer Data Is Exposed",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/atlantic-digestive-specialists-data-breach-investigation-edelson-lechtzin-llp-probes-class-action-claims-after-customer-data-is-exposed-302897582.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-03T00:45:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A law firm is investigating a data breach at Atlantic Digestive Specialists, creating potential legal and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 51,
+      "triage_reason": "A law firm is investigating a data breach at Atlantic Digestive Specialists, creating potential legal and reputational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Atlantic Digestive Specialists",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -194071,7 +194310,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3148,
+    "inbox_unconsumed": 3153,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -194080,9 +194319,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 187,
-    "news_picked_today": 21,
-    "news_dropped_today": 166
+    "news_seen_today": 227,
+    "news_picked_today": 26,
+    "news_dropped_today": 201
   },
   "book_momentum": {
     "live_count": 8,
