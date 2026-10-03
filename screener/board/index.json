@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T12:05:01Z",
+  "generated_at": "2026-10-03T12:06:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -155087,6 +155087,149 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-c4367824b313",
+      "idea_version": "IDEAV-b9e02035854b9685",
+      "idea_version_started_at": "2026-10-03T12:06:09Z",
+      "ticker": "DPSC",
+      "company": "DPSC Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "DPSC Limited has entered Corporate Insolvency Resolution Process, signaling severe financial distress and potential operational disruption.",
+      "why_now": "The appointment of a Whole-time Director in a Material Subsidiary Company related to the CIRP was announced on October 3, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bc20ae4fd694"
+      ],
+      "primary_source_event_id": "EVT-bc20ae4fd694",
+      "source_headlines": [
+        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Appointment of a Whole-time Director in a Material Subsidiary Company"
+      ],
+      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Appointment of a Whole-time Director in a Material Subsidiary Company",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_03102026133257_IntimationofAppointmentofWTDinIPLaMSUnderReg30ofLODR03102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T08:03:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T12:06:09Z",
+      "updated_at": "2026-10-03T12:06:09Z",
+      "decay_at": "2026-10-04T20:03:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ee7156fae646",
+      "idea_version": "IDEAV-f81a7774ecae0e93",
+      "idea_version_started_at": "2026-10-03T12:06:09Z",
+      "ticker": "BAJFINANCE",
+      "company": "Bajaj Finance",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Bajaj Finance reported a 26.5% rise in Assets Under Management (AUM) and an 11% increase in new loans booked, indicating strong business growth.",
+      "why_now": "The Q2 business update was released on October 3, 2026, providing current performance metrics.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1471e3372944"
+      ],
+      "primary_source_event_id": "EVT-1471e3372944",
+      "source_headlines": [
+        "Bajaj Finance Q2 business update: AUM rises 26.5%, new loans booked up 11%"
+      ],
+      "source_headline": "Bajaj Finance Q2 business update: AUM rises 26.5%, new loans booked up 11%",
+      "source_url": "https://www.cnbctv18.com/market/bajaj-finance-q2-business-update-aum-rises-new-loans-customer-franchise-nii-profit-provisions-share-price-20003841.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T07:47:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T07:11:46Z",
+      "updated_at": "2026-10-03T12:06:09Z",
+      "decay_at": "2026-10-04T19:47:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-dbfac4fed0f3",
       "idea_version": "IDEAV-a2cc88d5de8e62c0",
       "idea_version_started_at": "2026-10-03T11:46:47Z",
@@ -156101,6 +156244,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-3d269b7eb9c2",
+      "idea_version": "IDEAV-5300d7372e5b2356",
+      "idea_version_started_at": "2026-10-03T12:06:09Z",
+      "ticker": "JIOPL",
+      "company": "Jio Platforms",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Jio Platforms is planning a ₹27,500 Crore debt repayment, indicating improved financial health and capacity for its upcoming IPO.",
+      "why_now": "The IPO is likely to open on October 21, 2026, making this debt repayment a near-term catalyst for investor confidence.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ef6ae97040c8"
+      ],
+      "primary_source_event_id": "EVT-ef6ae97040c8",
+      "source_headlines": [
+        "Jio Platforms IPO Likely To Open October 21; ₹27,500 Crore Debt Repayment Planned"
+      ],
+      "source_headline": "Jio Platforms IPO Likely To Open October 21; ₹27,500 Crore Debt Repayment Planned",
+      "source_url": "https://www.freepressjournal.in/business/jio-platforms-ipo-likely-to-open-october-21-27500-crore-debt-repayment-planned",
+      "source_name": "Free Press Journal",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-03T06:34:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T12:06:09Z",
+      "updated_at": "2026-10-03T12:06:09Z",
+      "decay_at": "2026-10-04T18:34:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-d04744233983",
       "idea_version": "IDEAV-515f15235fab9160",
       "idea_version_started_at": "2026-10-03T07:11:46Z",
@@ -156887,79 +157102,6 @@
       },
       "surfaced_at": "2026-10-03T07:29:52Z",
       "updated_at": "2026-10-03T07:29:52Z",
-      "decay_at": "2026-10-04T19:03:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ee7156fae646",
-      "idea_version": "IDEAV-df4aadca8fefb20e",
-      "idea_version_started_at": "2026-10-03T07:11:46Z",
-      "ticker": "BAJFINANCE",
-      "company": "Bajaj Housing Finance",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Bajaj Housing Finance reported a 25% rise in Assets Under Management (AUM) to ₹1.58 lakh crore in Q2.",
-      "why_now": "The business update for Q2 was released today.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-299bf939b48a"
-      ],
-      "primary_source_event_id": "EVT-299bf939b48a",
-      "source_headlines": [
-        "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details"
-      ],
-      "source_headline": "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details",
-      "source_url": "https://www.cnbctv18.com/market/bajaj-housing-finance-q2-business-update-aum-rises-25-to-1-58-lakh-crore-rupee-gross-disbursements-nii-share-price-20003830.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 92,
-      "newest_source_at": "2026-10-03T07:03:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T07:11:46Z",
-      "updated_at": "2026-10-03T07:11:46Z",
       "decay_at": "2026-10-04T19:03:17Z",
       "status": "live",
       "promoted_signal_id": null,
@@ -196588,8 +196730,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1245,
-    "live_count": 46,
+    "surfaced_total": 1247,
+    "live_count": 48,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
