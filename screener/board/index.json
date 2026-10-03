@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T19:09:30Z",
+  "generated_at": "2026-10-03T19:15:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-317",
@@ -145,6 +145,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-340",
+      "headline": "Les Houthis revendiquent l'attaque d'un site Aramco à Ryad",
+      "headline_en": "Houthis claim attack on an Aramco site in Riyadh",
+      "url": "https://www.reuters.com/fr/affaires/ptrole-un-incendie-signal-prs-dun-site-daramco-ryad-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T19:10:11Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Houthi rebels claimed an attack on an Aramco site in Riyadh, representing a significant geopolitical and operational risk to energy infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Houthi rebels claimed an attack on an Aramco site in Riyadh, representing a significant geopolitical and operational risk to energy infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1908,55 +1957,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-065",
-      "headline": "Bajaj Finance set to mop up Rs 17,500 crore via QIP, warrants",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/bajaj-finance-set-to-mop-up-rs-17500-crore-via-qip-warrants/articleshow/134650449.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T02:16:09Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Bajaj Finance is raising Rs 17,500 crore through a qualified institutional placement and warrants, which is dilutive to existing shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Bajaj Finance is raising Rs 17,500 crore through a qualified institutional placement and warrants, which is dilutive to existing shareholders.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Finance",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -197234,9 +197234,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4514,
-    "news_picked_today": 717,
-    "news_dropped_today": 3797
+    "news_seen_today": 4519,
+    "news_picked_today": 718,
+    "news_dropped_today": 3801
   },
   "book_momentum": {
     "live_count": 8,
