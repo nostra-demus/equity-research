@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T10:09:56Z",
+  "generated_at": "2026-10-03T10:21:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -1048,6 +1048,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-213",
+      "headline": "CMR Green Technologies Limited: CMR Green Technologies Limited has informed the Exchange regarding Resignation of Mr Yugal Kishor Garg as Chief Financial Officer of the company w.e.f. October 23, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CMRGREEN_03102026153846_Intimation_for_Resignation_of_CFO.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-03T10:09:22Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The CFO of CMR Green Technologies Limited has resigned effective October 23, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "The CFO of CMR Green Technologies Limited has resigned effective October 23, 2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CMR Green Technologies Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-153",
       "headline": "Maharashtra FDA Cancels Drug Sale Licence Of Pune Cipla Facility; Disappointing Decision, Says Firm",
       "headline_en": null,
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-094",
-      "headline": "SBI-led consortium tells Bombay HC Mallya owes over ₹8,700 crore; counters his claim of recovering more than dues",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/people/sbiled-consortium-tells-bombay-hc-mallya-owes-over-rs-8-700-crore-counters-his-claim-of-recovering-more-than-dues-11791002294982.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T04:49:07Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A consortium of banks is pursuing recovery of over ₹8,700 crore from Vijay Mallya, highlighting ongoing legal and credit recovery efforts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A consortium of banks is pursuing recovery of over ₹8,700 crore from Vijay Mallya, highlighting ongoing legal and credit recovery efforts.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "State Bank of India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -196388,9 +196388,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2093,
-    "news_picked_today": 343,
-    "news_dropped_today": 1750
+    "news_seen_today": 2159,
+    "news_picked_today": 357,
+    "news_dropped_today": 1802
   },
   "book_momentum": {
     "live_count": 8,
