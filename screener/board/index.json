@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T05:04:56Z",
+  "generated_at": "2026-10-03T05:21:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-099",
@@ -307,6 +307,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-100",
+      "headline": "HAL To Acquire Remaining 50% Stake In HATSOFF, Making It A Wholly-Owned Subsidiary",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/hal-to-acquire-remaining-50-stake-in-hatsoff-making-it-a-wholly-owned-subsidiary",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T04:36:52Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "HAL is acquiring the remaining 50% stake in HATSOFF to make it a wholly-owned subsidiary.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "HAL is acquiring the remaining 50% stake in HATSOFF to make it a wholly-owned subsidiary.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hindustan Aeronautics Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-028",
       "headline": "SCHEDULE 13D - GOWell Energy Technology (0002097702) (Subject)",
       "headline_en": null,
@@ -450,6 +499,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-101",
+      "headline": "Aurobindo Pharma Acquires A1 Labs LLC For ₹127.32 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/aurobindo-pharma-acquires-a1-labs-llc-for-12732-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T04:30:16Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Aurobindo Pharma is acquiring A1 Labs LLC for ₹127.32 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Aurobindo Pharma is acquiring A1 Labs LLC for ₹127.32 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aurobindo Pharma",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1034,6 +1132,55 @@
       "companies": [
         {
           "name": "Flock Safety",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-102",
+      "headline": "Flydubai cockpit attack: Co-pilot identified as Omani citizen",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/flydubai-cockpit-attack-co-pilot-identified-as-omani-citizen/article71539715.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T05:05:51Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A security incident involving a cockpit attack on a Flydubai flight poses significant operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "A security incident involving a cockpit attack on a Flydubai flight poses significant operational and reputational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flydubai",
           "ticker": null,
           "listing_country": null
         }
@@ -1777,136 +1924,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-089",
-      "headline": "G7 nations bow to US pressure and avoid crippling diesel ban",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/3/g7-nations-bow-to-us-pressure-and-avoid-crippling-diesel-ban?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-10-03T03:54:58Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "G7 nations avoid a crippling diesel ban following US pressure; the exact policy decision and timeline remain unclear, affecting energy and automotive sectors broadly.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "G7 nations avoid a crippling diesel ban following US pressure; the exact policy decision and timeline remain unclear, affecting energy and automotive sectors broadly.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-091",
-      "headline": "G7 to release millions of barrels of oil and diesel after Trump threat",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/ck87zg8jnwngo?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T04:38:31Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "The G7 releasing millions of barrels of oil and diesel represents a significant supply-side intervention in global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "The G7 releasing millions of barrels of oil and diesel represents a significant supply-side intervention in global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-071",
-      "headline": "Oil tankers attacked in Hormuz strait: UK maritime agency",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/mena/oil-tankers-attacked-in-hormuz-strait-uk-maritime-agency-1.500696517",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T02:23:25Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Attack on oil tankers in the Hormuz Strait represents a major supply shock risk to global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Attack on oil tankers in the Hormuz Strait represents a major supply shock risk to global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -195666,9 +195683,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 741,
-    "news_picked_today": 125,
-    "news_dropped_today": 616
+    "news_seen_today": 786,
+    "news_picked_today": 129,
+    "news_dropped_today": 657
   },
   "book_momentum": {
     "live_count": 8,
