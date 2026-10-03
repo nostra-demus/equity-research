@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T05:30:21Z",
+  "generated_at": "2026-10-03T05:39:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-099",
@@ -602,6 +602,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-111",
+      "headline": "Vijay Mallya Owes ₹8,752 Crore To SBI-Led Consortium, Lenders Tell Bombay High Court",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/vijay-mallya-owes-8752-crore-to-sbi-led-consortium-lenders-tell-bombay-high-court",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T04:55:54Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Ongoing legal proceedings confirm an outstanding debt of 8,752 crore rupees owed to a lender consortium.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Ongoing legal proceedings confirm an outstanding debt of 8,752 crore rupees owed to a lender consortium.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-082",
       "headline": "Vijay Mallya debt recovery: SBI-led consortium of banks tells Bombay High Court ₹8,752 crore still recoverable",
       "headline_en": null,
@@ -642,55 +691,6 @@
         {
           "name": "State Bank of India",
           "ticker": "SBIN",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-019",
-      "headline": "SBI-led lenders say Vijay Mallya owes Rs 8,752 crore more",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/banking/finance/sbi-led-lenders-say-vijay-mallya-owes-rs-8752-crore-more/articleshow/134645993.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T00:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "SBI-led lenders report an additional 8,752 crore rupees owed by Vijay Mallya, impacting recovery expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "SBI-led lenders report an additional 8,752 crore rupees owed by Vijay Mallya, impacting recovery expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "State Bank of India",
-          "ticker": null,
           "listing_country": "IN"
         }
       ],
@@ -989,6 +989,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-108",
+      "headline": "Tata Sons Board Row: Noel Tata Seeks Video, Minutes And Clarity On N Chandra Vote Meet",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/tata-sons-board-row-noel-tata-seeks-video-minutes-and-clarity-on-n-chandra-vote-meet-12132681#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T05:26:18Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Internal board conflict at Tata Sons regarding voting procedures and transparency raises governance concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Internal board conflict at Tata Sons regarding voting procedures and transparency raises governance concerns.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Sons",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1869,55 +1918,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-050",
-      "headline": "SCHEDULE 13D/A - Chernett Jorey (0002042077) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2042077/000119380526001332/0001193805-26-001332-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-03T01:30:16Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership or intent for CVRx, Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership or intent for CVRx, Inc.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CVRx, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -195746,9 +195746,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1009,
-    "news_picked_today": 132,
-    "news_dropped_today": 877
+    "news_seen_today": 1049,
+    "news_picked_today": 139,
+    "news_dropped_today": 910
   },
   "book_momentum": {
     "live_count": 8,
