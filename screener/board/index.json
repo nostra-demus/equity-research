@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T11:47:05Z",
+  "generated_at": "2026-10-03T11:49:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -1037,6 +1037,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-250",
+      "headline": "Dr. Reddy's Laboratories Limited: Dr. Reddy's Laboratories Limited has informed the Exchange about imposition of penalty to Dr. Reddy s Laboratories, Inc. ( DRL Inc ), a step-down wholly owned subsidiary of the Company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DRREDDY_03102026171508_SE_intimation_03102026_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-03T11:45:38Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Subsidiary of Dr. Reddy's Laboratories received a penalty.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Subsidiary of Dr. Reddy's Laboratories received a penalty.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dr. Reddy's Laboratories Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-232",
       "headline": "Greens Demand Thames Water Public Ownership, No Creditor Compensation",
       "headline_en": null,
@@ -1927,55 +1976,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-087",
-      "headline": "Drishyam The Conclusion Box Office Collection Day 1: Ajay Devgn-Jaideep Ahlawat's Film Earns ₹66.75 Crore, Beats Second Part's Opening",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/entertainment/drishyam-the-conclusion-box-office-collection-day-1-ajay-devgn-jaideep-ahlawats-film-earns-6675-crore-beats-second-parts-opening",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T03:29:49Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "The film Drishyam The Conclusion recorded a strong opening day box office collection of ₹66.75 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The film Drishyam The Conclusion recorded a strong opening day box office collection of ₹66.75 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Drishyam The Conclusion",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -196608,9 +196608,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2802,
-    "news_picked_today": 437,
-    "news_dropped_today": 2365
+    "news_seen_today": 2831,
+    "news_picked_today": 444,
+    "news_dropped_today": 2387
   },
   "book_momentum": {
     "live_count": 8,
