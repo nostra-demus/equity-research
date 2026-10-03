@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T10:21:46Z",
+  "generated_at": "2026-10-03T10:24:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -931,6 +931,55 @@
           "name": "Hindustan Aeronautics Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-215",
+      "headline": "Anthropic Could Raise Up to $100 Billion in Its November IPO",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/anthropic-could-raise-100-billion-its-november-ipo",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T10:01:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Anthropic is reportedly considering an IPO with a potential valuation target of $100 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Anthropic is reportedly considering an IPO with a potential valuation target of $100 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1928,55 +1977,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-199",
-      "headline": "Cube Highways Trust secures Rs.1,150 crore through AAA-rated NCDs",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/cube-highways-trust-secures-rs-1150-crore-through-aaa-rated-ncds/articleshow/134655392.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T08:40:16Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Cube Highways Trust raised Rs.1,150 crore through AAA-rated non-convertible debentures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Cube Highways Trust raised Rs.1,150 crore through AAA-rated non-convertible debentures.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cube Highways Trust",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -196388,9 +196388,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2159,
-    "news_picked_today": 357,
-    "news_dropped_today": 1802
+    "news_seen_today": 2185,
+    "news_picked_today": 363,
+    "news_dropped_today": 1822
   },
   "book_momentum": {
     "live_count": 8,
