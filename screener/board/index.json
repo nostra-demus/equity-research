@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T03:11:31Z",
+  "generated_at": "2026-10-03T03:14:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-076",
@@ -105,6 +105,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-081",
+      "headline": "From Al-Qaeda Indoctrination To '9/11-Like' Israel Crash Plot: Inside Flydubai Co-Pilot Hamam Alhamami’s Alleged Plan To Bring Down Tel Aviv-Bound Flight",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/india/from-al-qaeda-indoctrination-to-911-like-israel-crash-plot-inside-flydubai-co-pilot-hamam-alhamamis-alleged-plan-to-bring-down-tel-aviv-bound-flight-2",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T02:36:17Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Allegations of a pilot planning a terror attack on a flight represent a severe operational and regulatory risk for Flydubai.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Allegations of a pilot planning a terror attack on a flight represent a severe operational and regulatory risk for Flydubai.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1830,49 +1880,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-042",
-      "headline": "Judge bars building of Texas-Mexico border barrier in Big Bend National Park",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/government/judge-bars-building-texas-mexico-border-barrier-big-bend-national-park-2026-10-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T01:05:40Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A judicial ruling blocking infrastructure construction creates regulatory and operational uncertainty for regional development projects.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "A judicial ruling blocking infrastructure construction creates regulatory and operational uncertainty for regional development projects.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
