@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T02:50:06Z",
+  "generated_at": "2026-10-03T02:50:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-035",
@@ -156049,6 +156049,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-33746bc60cea",
+      "idea_version": "IDEAV-604188cce3edb361",
+      "idea_version_started_at": "2026-10-03T02:50:18Z",
+      "ticker": "6504",
+      "company": "Fuji Electric",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Fuji Electric is diversifying its revenue stream by pivoting its cooling technology expertise from vending machines to data center thermal management, addressing a high-growth infrastructure market.",
+      "why_now": "The company's strategic pivot was confirmed in a major news report on 2026-10-03, signaling a new growth engine for the firm.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-adea3e3e8b11"
+      ],
+      "primary_source_event_id": "EVT-adea3e3e8b11",
+      "source_headlines": [
+        "Chill out: Japan’s top vending machine maker now cools data centres"
+      ],
+      "source_headline": "Chill out: Japan’s top vending machine maker now cools data centres",
+      "source_url": "https://www.ft.com/content/f76adfdd-295e-4d00-ad90-b52b7aab098c?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 83,
+      "newest_source_at": "2026-10-03T01:00:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T02:50:18Z",
+      "updated_at": "2026-10-03T02:50:18Z",
+      "decay_at": "2026-10-04T13:00:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-839f0c1525a6",
       "idea_version": "IDEAV-5f12365296bc9a19",
       "idea_version_started_at": "2026-10-03T01:50:22Z",
@@ -195393,8 +195465,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1220,
-    "live_count": 28,
+    "surfaced_total": 1221,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
