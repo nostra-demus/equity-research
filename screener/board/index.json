@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T01:14:42Z",
+  "generated_at": "2026-10-03T01:21:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-035",
@@ -518,49 +518,43 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261003-029",
-      "headline": "SCHEDULE 13G - GOWell Energy Technology (0002097702) (Subject)",
+      "inbox_id": "INB-20261003-043",
+      "headline": "US-Iran war news LIVE: Two oil tankers attacked in Strait of Hormuz by 'unidentified projectiles,' says UKMTO",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2097702/000121390026106589/0001213900-26-106589-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-03T00:50:09Z",
+      "url": "https://www.livemint.com/news/us-news/us-iran-war-news-latest-live-updates-donald-trump-abbas-araghchi-ukmto-strait-of-hormuz-flydubai-flight-ceasefire-talks-11790988241642.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T01:14:07Z",
       "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A Schedule 13G filing indicates a significant ownership stake in GOWell Energy Technology.",
+      "prelim_note": "Reports of attacks on oil tankers in the Strait of Hormuz represent a significant geopolitical escalation and potential supply shock for global energy markets.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "A Schedule 13G filing indicates a significant ownership stake in GOWell Energy Technology.",
-      "region": "US",
+      "triage_score": 68,
+      "triage_reason": "Reports of attacks on oil tankers in the Strait of Hormuz represent a significant geopolitical escalation and potential supply shock for global energy markets.",
+      "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 45,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
         "size_bucket": "unknown"
       },
       "event_types": [
-        "ownership_activist"
+        "macro_sector"
       ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GOWell Energy Technology",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -195106,9 +195100,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 287,
-    "news_picked_today": 42,
-    "news_dropped_today": 245
+    "news_seen_today": 304,
+    "news_picked_today": 43,
+    "news_dropped_today": 261
   },
   "book_momentum": {
     "live_count": 8,
