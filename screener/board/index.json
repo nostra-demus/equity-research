@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T12:12:01Z",
+  "generated_at": "2026-10-03T12:21:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -47,6 +47,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-270",
+      "headline": "Fire, smoke seen near Aramco facility in Riyadh",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/world/middle-east/fire-smoke-seen-near-aramco-facility-in-riyadh-4169337",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T12:10:53Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Reports of fire and smoke at an Aramco facility represent a potential supply shock to global oil markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reports of fire and smoke at an Aramco facility represent a potential supply shock to global oil markets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -145,55 +194,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-256",
-      "headline": "Fire, smoke seen near Aramco facility in Riyadh, witness says",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/fire-smoke-seen-near-aramco-facility-riyadh-witness-says-2026-10-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T11:49:44Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A fire near a major Aramco facility in Riyadh poses a potential supply shock risk to global oil infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A fire near a major Aramco facility in Riyadh poses a potential supply shock risk to global oil infrastructure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -196750,9 +196750,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3040,
-    "news_picked_today": 460,
-    "news_dropped_today": 2580
+    "news_seen_today": 3100,
+    "news_picked_today": 472,
+    "news_dropped_today": 2628
   },
   "book_momentum": {
     "live_count": 8,
