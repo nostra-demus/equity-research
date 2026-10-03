@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T03:59:39Z",
+  "generated_at": "2026-10-03T04:06:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-076",
@@ -792,6 +792,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-085",
+      "headline": "How a Boeing 737 MAX Survived a Nosedive Traveling at the Speed of Sound",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/airlines/how-a-boeing-737-max-survived-a-nosedive-traveling-at-the-speed-of-sound-e8cae3b4?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T04:01:00Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Ongoing safety and operational scrutiny regarding the Boeing 737 MAX continues to impact management credibility and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Ongoing safety and operational scrutiny regarding the Boeing 737 MAX continues to impact management credibility and regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": "BA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1831,55 +1880,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-025",
-      "headline": "Bernstein Initiates Coverage of Forgent Power Solutions at Outperform",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/bernstein-initiates-coverage-forgent-power-solutions-outperform",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T00:25:13Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Bernstein initiated coverage of Forgent Power Solutions with an Outperform rating, which may influence investor sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Bernstein initiated coverage of Forgent Power Solutions with an Outperform rating, which may influence investor sentiment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Forgent Power Solutions",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -155921,148 +155921,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a5ec7bbbdbd2",
-      "idea_version": "IDEAV-beeae642ea1c1ad2",
-      "idea_version_started_at": "2026-10-01T19:27:53Z",
-      "ticker": "SECUREKLOUD",
-      "company": "SecureKloud Technologies Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has officially defaulted on interest and principal payments, signaling severe liquidity distress and potential insolvency.",
-      "why_now": "The default was disclosed in an exchange filing on October 1, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-732ec67cdf52"
-      ],
-      "primary_source_event_id": "EVT-732ec67cdf52",
-      "source_headlines": [
-        "SECUREKLOUD TECHNOLOGIES LIMITED: Defaults on Payment of Interest/Principal"
-      ],
-      "source_headline": "SECUREKLOUD TECHNOLOGIES LIMITED: Defaults on Payment of Interest/Principal",
-      "source_url": "https://nsearchives.nseindia.com/corporate/SECURKLOUD_01102026212923_E28_default_SD.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-01T16:03:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T19:27:53Z",
-      "updated_at": "2026-10-01T19:27:53Z",
-      "decay_at": "2026-10-03T04:03:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-fcc665b98933",
-      "idea_version": "IDEAV-5cd3b330cd494a3e",
-      "idea_version_started_at": "2026-10-01T19:27:53Z",
-      "ticker": "PTNM",
-      "company": "Pitanium Ltd",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is subject to a 25-NSE delisting notification, which typically follows a failure to meet exchange listing standards or severe financial distress.",
-      "why_now": "The delisting notification was filed on October 1, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5af6f8be825b"
-      ],
-      "primary_source_event_id": "EVT-5af6f8be825b",
-      "source_headlines": [
-        "25-NSE - Pitanium Ltd (0002046573) (Subject)"
-      ],
-      "source_headline": "25-NSE - Pitanium Ltd (0002046573) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2046573/000135445726000933/0001354457-26-000933-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-01T16:03:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T19:27:53Z",
-      "updated_at": "2026-10-01T19:27:53Z",
-      "decay_at": "2026-10-03T04:03:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-72e70ba438d7",
       "idea_version": "IDEAV-7ca9dda32038e80d",
       "idea_version_started_at": "2026-10-03T03:15:01Z",
@@ -156908,6 +156766,148 @@
       "surfaced_at": "2026-09-30T16:19:46Z",
       "updated_at": "2026-09-30T16:19:46Z",
       "decay_at": "2026-10-02T01:53:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a5ec7bbbdbd2",
+      "idea_version": "IDEAV-beeae642ea1c1ad2",
+      "idea_version_started_at": "2026-10-01T19:27:53Z",
+      "ticker": "SECUREKLOUD",
+      "company": "SecureKloud Technologies Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has officially defaulted on interest and principal payments, signaling severe liquidity distress and potential insolvency.",
+      "why_now": "The default was disclosed in an exchange filing on October 1, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-732ec67cdf52"
+      ],
+      "primary_source_event_id": "EVT-732ec67cdf52",
+      "source_headlines": [
+        "SECUREKLOUD TECHNOLOGIES LIMITED: Defaults on Payment of Interest/Principal"
+      ],
+      "source_headline": "SECUREKLOUD TECHNOLOGIES LIMITED: Defaults on Payment of Interest/Principal",
+      "source_url": "https://nsearchives.nseindia.com/corporate/SECURKLOUD_01102026212923_E28_default_SD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T16:03:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T19:27:53Z",
+      "updated_at": "2026-10-01T19:27:53Z",
+      "decay_at": "2026-10-03T04:03:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-fcc665b98933",
+      "idea_version": "IDEAV-5cd3b330cd494a3e",
+      "idea_version_started_at": "2026-10-01T19:27:53Z",
+      "ticker": "PTNM",
+      "company": "Pitanium Ltd",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is subject to a 25-NSE delisting notification, which typically follows a failure to meet exchange listing standards or severe financial distress.",
+      "why_now": "The delisting notification was filed on October 1, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5af6f8be825b"
+      ],
+      "primary_source_event_id": "EVT-5af6f8be825b",
+      "source_headlines": [
+        "25-NSE - Pitanium Ltd (0002046573) (Subject)"
+      ],
+      "source_headline": "25-NSE - Pitanium Ltd (0002046573) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2046573/000135445726000933/0001354457-26-000933-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T16:03:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T19:27:53Z",
+      "updated_at": "2026-10-01T19:27:53Z",
+      "decay_at": "2026-10-03T04:03:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -158359,9 +158359,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -158369,9 +158369,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 257,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 7
+        "hidden_count": 9
       }
     },
     "retention": {
@@ -158390,6 +158390,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fcc665b98933",
+        "idea_version": "IDEAV-5cd3b330cd494a3e",
+        "idea_version_started_at": "2026-10-01T19:27:53Z",
+        "ticker": "PTNM",
+        "company": "Pitanium Ltd",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is subject to a 25-NSE delisting notification, which typically follows a failure to meet exchange listing standards or severe financial distress.",
+        "why_now": "The delisting notification was filed on October 1, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5af6f8be825b"
+        ],
+        "primary_source_event_id": "EVT-5af6f8be825b",
+        "source_headlines": [
+          "25-NSE - Pitanium Ltd (0002046573) (Subject)"
+        ],
+        "source_headline": "25-NSE - Pitanium Ltd (0002046573) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/2046573/000135445726000933/0001354457-26-000933-index.htm",
+        "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-01T16:03:52Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-01T19:27:53Z",
+        "updated_at": "2026-10-01T19:27:53Z",
+        "decay_at": "2026-10-03T04:03:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-03T04:03:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-a5ec7bbbdbd2",
+        "idea_version": "IDEAV-beeae642ea1c1ad2",
+        "idea_version_started_at": "2026-10-01T19:27:53Z",
+        "ticker": "SECUREKLOUD",
+        "company": "SecureKloud Technologies Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has officially defaulted on interest and principal payments, signaling severe liquidity distress and potential insolvency.",
+        "why_now": "The default was disclosed in an exchange filing on October 1, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-732ec67cdf52"
+        ],
+        "primary_source_event_id": "EVT-732ec67cdf52",
+        "source_headlines": [
+          "SECUREKLOUD TECHNOLOGIES LIMITED: Defaults on Payment of Interest/Principal"
+        ],
+        "source_headline": "SECUREKLOUD TECHNOLOGIES LIMITED: Defaults on Payment of Interest/Principal",
+        "source_url": "https://nsearchives.nseindia.com/corporate/SECURKLOUD_01102026212923_E28_default_SD.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-01T16:03:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-01T19:27:53Z",
+        "updated_at": "2026-10-01T19:27:53Z",
+        "decay_at": "2026-10-03T04:03:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-03T04:03:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d9df77079e54",
         "idea_version": "IDEAV-0ed7a377cc3ea280",
@@ -195398,160 +195546,12 @@
         "archived_at": "2026-09-09T11:02:03Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-65740e8f0ef8",
-        "idea_version": "IDEAV-ca3ef71f286e9f4c",
-        "idea_version_started_at": "2026-09-06T08:57:19Z",
-        "ticker": "NEOGEN",
-        "company": "Neogen Chemicals Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company received a show cause cum demand notice from the Office of the Commissioner CGST and Central Excise Commissionerate, Belapur, which threatens cash flows and margins through potential tax penalties.",
-        "why_now": "The regulatory demand notice was officially disclosed in an exchange filing on September 6, 2026, presenting an immediate negative catalyst.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4ece6b82ccfc"
-        ],
-        "primary_source_event_id": "EVT-4ece6b82ccfc",
-        "source_headlines": [
-          "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about receipt of show cause cum demand notice from the Office of the Commissioner CGST and Central Excise Commissionerate, Belapur."
-        ],
-        "source_headline": "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about receipt of show cause cum demand notice from the Office of the Commissioner CGST and Central Excise Commissionerate, Belapur.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/NEOGEN_06092026141404_GSTnotice.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 96,
-        "newest_source_at": "2026-09-06T08:44:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-06T08:57:19Z",
-        "updated_at": "2026-09-06T08:57:19Z",
-        "decay_at": "2026-09-07T20:44:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-09T11:02:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-9908603014ee",
-        "idea_version": "IDEAV-fb3e9ebbd19dfd8d",
-        "idea_version_started_at": "2026-09-06T10:27:02Z",
-        "ticker": "542665",
-        "company": "Neogen Chemicals",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company received a show cause cum demand notice from the CGST and Central Excise Commissionerate, creating immediate regulatory and financial uncertainty regarding potential tax liabilities.",
-        "why_now": "The exchange filing was published today, September 6, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4ece6b82ccfc"
-        ],
-        "primary_source_event_id": "EVT-4ece6b82ccfc",
-        "source_headlines": [
-          "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about receipt of show cause cum demand notice from the Office of the Commissioner CGST and Central Excise Commissionerate, Belapur."
-        ],
-        "source_headline": "Neogen Chemicals Limited: Neogen Chemicals Limited has informed the Exchange about receipt of show cause cum demand notice from the Office of the Commissioner CGST and Central Excise Commissionerate, Belapur.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/NEOGEN_06092026141404_GSTnotice.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 96,
-        "newest_source_at": "2026-09-06T08:44:25Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-06T10:27:02Z",
-        "updated_at": "2026-09-06T10:27:02Z",
-        "decay_at": "2026-09-07T20:44:25Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-09T11:02:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1223,
-    "live_count": 31,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -195570,9 +195570,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 611,
-    "news_picked_today": 97,
-    "news_dropped_today": 514
+    "news_seen_today": 621,
+    "news_picked_today": 101,
+    "news_dropped_today": 520
   },
   "book_momentum": {
     "live_count": 8,
