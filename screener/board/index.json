@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T21:44:35Z",
+  "generated_at": "2026-10-03T21:45:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-317",
@@ -155214,6 +155214,80 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-8c05409f139b",
+      "idea_version": "IDEAV-1234ef3ea38e3bc5",
+      "idea_version_started_at": "2026-10-03T21:44:54Z",
+      "ticker": "MAXN",
+      "company": "Maxeon Solar Technologies, Ltd.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing formal delisting from the Nasdaq Stock Market as indicated by the Form 25-NSE filing, which severely impairs equity liquidity and access to capital.",
+      "why_now": "The Form 25-NSE delisting notification was officially filed on October 2, 2026, triggering immediate transition to over-the-counter trading.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e7ee1588c7e",
+        "EVT-378ef9d235f4"
+      ],
+      "primary_source_event_id": "EVT-1e7ee1588c7e",
+      "source_headlines": [
+        "25-NSE - Maxeon Solar Technologies, Ltd. (0001796898) (Subject)",
+        "25-NSE - Nasdaq Stock Market LLC (0001354457) (Filed by)"
+      ],
+      "source_headline": "25-NSE - Maxeon Solar Technologies, Ltd. (0001796898) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1796898/000135445726000941/0001354457-26-000941-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T20:30:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-02T22:01:37Z",
+      "updated_at": "2026-10-03T21:44:54Z",
+      "decay_at": "2026-10-04T08:30:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-74ec5c44af2f",
       "idea_version": "IDEAV-94519d94c907bd9f",
       "idea_version_started_at": "2026-10-03T19:46:54Z",
@@ -156440,79 +156514,6 @@
       "surfaced_at": "2026-10-03T00:11:30Z",
       "updated_at": "2026-10-03T00:11:30Z",
       "decay_at": "2026-10-03T23:14:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-8c05409f139b",
-      "idea_version": "IDEAV-0359fb3494c3c62e",
-      "idea_version_started_at": "2026-10-02T23:54:55Z",
-      "ticker": "MAXN",
-      "company": "Maxeon Solar Technologies, Ltd.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing an official delisting notification (Form 25-NSE) filed by Nasdaq, which will severely restrict equity liquidity and trigger institutional selling.",
-      "why_now": "The Form 25-NSE delisting notification was filed on October 2, 2026, making the transition to over-the-counter trading imminent.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1e7ee1588c7e",
-        "EVT-378ef9d235f4"
-      ],
-      "primary_source_event_id": "EVT-1e7ee1588c7e",
-      "source_headlines": [
-        "25-NSE - Maxeon Solar Technologies, Ltd. (0001796898) (Subject)",
-        "25-NSE - Nasdaq Stock Market LLC (0001354457) (Filed by)"
-      ],
-      "source_headline": "25-NSE - Maxeon Solar Technologies, Ltd. (0001796898) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1796898/000135445726000941/0001354457-26-000941-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-02T20:30:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-02T22:01:37Z",
-      "updated_at": "2026-10-02T23:54:55Z",
-      "decay_at": "2026-10-04T08:30:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -158600,76 +158601,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-3d9be100b359",
-      "idea_version": "IDEAV-2f35d9bdb1e792aa",
-      "idea_version_started_at": "2026-09-30T23:02:17Z",
-      "ticker": "MU",
-      "company": "Micron Technology",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Micron reported an 11-fold increase in data center revenue, signaling massive demand for high-bandwidth memory driven by AI infrastructure expansion.",
-      "why_now": "The earnings report and guidance were released on 2026-09-30, providing immediate confirmation of AI-driven margin expansion.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-66255d6c1fa6"
-      ],
-      "primary_source_event_id": "EVT-66255d6c1fa6",
-      "source_headlines": [
-        "Micron beats on earnings and issues strong guidance as data center revenue jumps 11-fold"
-      ],
-      "source_headline": "Micron beats on earnings and issues strong guidance as data center revenue jumps 11-fold",
-      "source_url": "https://www.cnbc.com/2026/09/30/micron-mu-q4-earnings-report-2026.html",
-      "source_name": "CNBC",
-      "materiality_max": 100,
-      "newest_source_at": "2026-09-30T20:59:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-09-30T23:02:17Z",
-      "updated_at": "2026-09-30T23:02:17Z",
-      "decay_at": "2026-10-02T08:59:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a2af7914e260",
       "idea_version": "IDEAV-3d78036cf269389b",
       "idea_version_started_at": "2026-10-03T00:30:09Z",
@@ -160113,14 +160044,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 523,
     "shown_count": 500,
-    "hidden_count": 24,
+    "hidden_count": 23,
     "side_counts": {
       "long": {
-        "total_count": 265,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 14
       },
       "short": {
         "total_count": 259,
@@ -160130,12 +160061,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 676,
+      "evicted_count": 677,
       "oldest_retained_at": "2026-09-07T17:02:23Z",
       "side_counts": {
         "long": {
-          "evicted_count": 450,
-          "oldest_retained_at": "2026-09-15T15:18:35Z"
+          "evicted_count": 451,
+          "oldest_retained_at": "2026-09-15T15:36:13Z"
         },
         "short": {
           "evicted_count": 226,
@@ -161924,8 +161855,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-02T08:59:05Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-03T21:44:58Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
