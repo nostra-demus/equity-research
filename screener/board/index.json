@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T06:51:41Z",
+  "generated_at": "2026-10-03T07:11:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-129",
@@ -749,6 +749,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-153",
+      "headline": "Maharashtra FDA Cancels Drug Sale Licence Of Pune Cipla Facility; Disappointing Decision, Says Firm",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/maharashtra-fda-cancels-drug-sale-licence-of-pune-cipla-facility-disappointing-decision-says-firm",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T06:46:12Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Cancellation of a drug sale license at a facility impacts production and revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Cancellation of a drug sale license at a facility impacts production and revenue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cipla",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-155",
+      "headline": "UAE says flydubai co-pilot attempted ‘terrorist act’ on Israel-bound flight",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/aviation/uae-says-flydubai-co-pilot-attempted-terrorist-act-on-israel-bound-flight-1.500696852",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T06:40:15Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A security incident involving a co-pilot on a commercial flight poses severe operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "A security incident involving a co-pilot on a commercial flight poses severe operational and reputational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-092",
       "headline": "Toshiba to double hard-disk drive supply to fill AI chip memory gap",
       "headline_en": null,
@@ -794,6 +893,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-148",
+      "headline": "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/bajaj-housing-finance-q2-business-update-aum-rises-25-to-1-58-lakh-crore-rupee-gross-disbursements-nii-share-price-20003830.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T07:03:17Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Bajaj Housing Finance reported a 25% increase in AUM to ₹1.58 lakh crore for Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Bajaj Housing Finance reported a 25% increase in AUM to ₹1.58 lakh crore for Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Housing Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1191,21 +1339,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261003-136",
-      "headline": "UAE probe reveals flydubai co-pilot attempted to carry out terrorist act",
+      "inbox_id": "INB-20261003-149",
+      "headline": "4 workers dead 2 injured in blast at TIL Healthcare’s Sri City plant",
       "headline_en": null,
-      "url": "https://www.arnnewscentre.ae/news/uae/uae-probe-reveals-flydubai-co-pilot-attempted-to-carry-out-terrorist-act/",
-      "source_name": "ARN News Centre — UAE",
+      "url": "https://www.thehindubusinessline.com/news/2-workers-dead-2-injured-in-blast-at-til-healthcares-sri-city-plant/article71539814.ece",
+      "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-10-03T06:31:01Z",
+      "found_at": "2026-10-03T07:05:29Z",
       "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A co-pilot attempted a terrorist act on a flight, posing a severe operational and reputational risk to the airline.",
+      "prelim_note": "A fatal industrial accident at a manufacturing facility poses operational and reputational risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "A co-pilot attempted a terrorist act on a flight, posing a severe operational and reputational risk to the airline.",
-      "region": "OTHER",
+      "triage_reason": "A fatal industrial accident at a manufacturing facility poses operational and reputational risk.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -1229,9 +1377,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "flydubai",
+          "name": "TIL Healthcare",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -1681,6 +1829,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-143",
+      "headline": "Avenue Supermarts Limited: Avenue Supermarts Limited has informed the Exchange regarding 'Company Update at the end of Quarter 2 (Q2) of Financial Year 2026-27'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DMART_03102026122118_ASLQuarterUpdateSep2026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-03T06:53:41Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Avenue Supermarts provided a Q2 business update for FY 2026-27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Avenue Supermarts provided a Q2 business update for FY 2026-27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avenue Supermarts Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-123",
       "headline": "Noel Tata vs N Chandra: Trusts chief demands tape of Tata Sons board meeting",
       "headline_en": null,
@@ -1769,203 +1966,6 @@
       "companies": [
         {
           "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-108",
-      "headline": "Tata Sons Board Row: Noel Tata Seeks Video, Minutes And Clarity On N Chandra Vote Meet",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/tata-sons-board-row-noel-tata-seeks-video-minutes-and-clarity-on-n-chandra-vote-meet-12132681#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T05:26:18Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Internal board conflict at Tata Sons regarding voting procedures and transparency raises governance concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Internal board conflict at Tata Sons regarding voting procedures and transparency raises governance concerns.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-118",
-      "headline": "Liberty Capital Corporation - Equity Right Price Target Increased by 10.87% to $19.90",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/liberty-capital-corporation-equity-right-price-target-increased-1087-1990",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T05:14:53Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "The company received a price target increase of 10.87% to $19.90, indicating a shift in analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "The company received a price target increase of 10.87% to $19.90, indicating a shift in analyst expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Liberty Capital Corporation",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-090",
-      "headline": "Mumbai airport changes from Oct 25: Over 200 weekly international flights to be cut, says report — what flyers must know",
-      "headline_en": null,
-      "url": "https://www.livemint.com/industry/infrastructure/mumbai-airport-changes-from-oct-25-over-200-weekly-international-flights-to-be-cut-says-report-what-flyers-must-know-11790998781947.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T04:31:02Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Mumbai airport to cut 200 weekly international flights starting Oct 25, a quantified capacity and revenue shock affecting the operator and serving airlines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Mumbai airport to cut 200 weekly international flights starting Oct 25, a quantified capacity and revenue shock affecting the operator and serving airlines.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 67,
-      "rank_factors": {
-        "materiality": 67,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mumbai Airport Operator",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-053",
-      "headline": "Oman barred FlyDubai co-pilot from flying over extremism concerns",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/middle-east/israeli-officials-to-question-flydubai-co-pilot-source-says-20261003-p612im?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T01:48:04Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "FlyDubai faces operational and reputational risk following the barring of a pilot over extremism concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "FlyDubai faces operational and reputational risk following the barring of a pilot over extremism concerns.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FlyDubai",
           "ticker": null,
           "listing_country": null
         }
