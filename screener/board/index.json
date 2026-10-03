@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T10:24:55Z",
+  "generated_at": "2026-10-03T10:25:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -154738,77 +154738,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-37a5121be6e7",
-      "idea_version": "IDEAV-5a36c5b48c5e690d",
-      "idea_version_started_at": "2026-10-02T00:48:43Z",
-      "ticker": "SYNA",
-      "company": "Synaptics",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Synaptics is being acquired by ON Semiconductor in a cash deal, which typically creates an arbitrage opportunity as the stock price converges toward the acquisition price.",
-      "why_now": "The acquisition was announced on October 1, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4f453e999ad4"
-      ],
-      "primary_source_event_id": "EVT-4f453e999ad4",
-      "source_headlines": [
-        "ON Semicondcutor to Buy Synaptics for Cash, Not Stock, in Downsized Deal"
-      ],
-      "source_headline": "ON Semicondcutor to Buy Synaptics for Cash, Not Stock, in Downsized Deal",
-      "source_url": "https://www.wsj.com/business/deals/on-semicondcutor-to-buy-synaptics-for-cash-not-stock-in-downsized-deal-d2781e36?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-01T22:25:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-02T00:48:43Z",
-      "updated_at": "2026-10-02T00:48:43Z",
-      "decay_at": "2026-10-03T10:25:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6f55bf31e25a",
       "idea_version": "IDEAV-39e7b2d1cbe42911",
       "idea_version_started_at": "2026-10-03T04:30:05Z",
@@ -156170,6 +156099,77 @@
       "surfaced_at": "2026-10-03T05:21:46Z",
       "updated_at": "2026-10-03T05:21:46Z",
       "decay_at": "2026-10-04T16:36:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-d6ced9326085",
+      "idea_version": "IDEAV-48a1605dbaec0599",
+      "idea_version_started_at": "2026-10-03T10:25:11Z",
+      "ticker": "CMRGREEN",
+      "company": "CMR Green Technologies Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The resignation of the Chief Financial Officer (CFO) often signals internal disagreement or impending accounting/operational friction.",
+      "why_now": "The official resignation was filed on October 3, 2026, with an effective date of October 23, 2026.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-022a26cf97b8"
+      ],
+      "primary_source_event_id": "EVT-022a26cf97b8",
+      "source_headlines": [
+        "CMR Green Technologies Limited: CMR Green Technologies Limited has informed the Exchange regarding Resignation of Mr Yugal Kishor Garg as Chief Financial Officer of the company w.e.f. October 23, 2026."
+      ],
+      "source_headline": "CMR Green Technologies Limited: CMR Green Technologies Limited has informed the Exchange regarding Resignation of Mr Yugal Kishor Garg as Chief Financial Officer of the company w.e.f. October 23, 2026.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/CMRGREEN_03102026153846_Intimation_for_Resignation_of_CFO.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 94,
+      "newest_source_at": "2026-10-03T10:09:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T10:25:11Z",
+      "updated_at": "2026-10-03T10:25:11Z",
+      "decay_at": "2026-10-04T22:09:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -157817,6 +157817,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-37a5121be6e7",
+      "idea_version": "IDEAV-5a36c5b48c5e690d",
+      "idea_version_started_at": "2026-10-02T00:48:43Z",
+      "ticker": "SYNA",
+      "company": "Synaptics",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Synaptics is being acquired by ON Semiconductor in a cash deal, which typically creates an arbitrage opportunity as the stock price converges toward the acquisition price.",
+      "why_now": "The acquisition was announced on October 1, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4f453e999ad4"
+      ],
+      "primary_source_event_id": "EVT-4f453e999ad4",
+      "source_headlines": [
+        "ON Semicondcutor to Buy Synaptics for Cash, Not Stock, in Downsized Deal"
+      ],
+      "source_headline": "ON Semicondcutor to Buy Synaptics for Cash, Not Stock, in Downsized Deal",
+      "source_url": "https://www.wsj.com/business/deals/on-semicondcutor-to-buy-synaptics-for-cash-not-stock-in-downsized-deal-d2781e36?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T22:25:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-02T00:48:43Z",
+      "updated_at": "2026-10-02T00:48:43Z",
+      "decay_at": "2026-10-03T10:25:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1ce33e97dd06",
       "idea_version": "IDEAV-f6865f601d5843d9",
       "idea_version_started_at": "2026-10-01T22:02:01Z",
@@ -159188,14 +159259,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 29,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       },
       "short": {
         "total_count": 260,
@@ -159219,6 +159290,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-37a5121be6e7",
+        "idea_version": "IDEAV-5a36c5b48c5e690d",
+        "idea_version_started_at": "2026-10-02T00:48:43Z",
+        "ticker": "SYNA",
+        "company": "Synaptics",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Synaptics is being acquired by ON Semiconductor in a cash deal, which typically creates an arbitrage opportunity as the stock price converges toward the acquisition price.",
+        "why_now": "The acquisition was announced on October 1, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4f453e999ad4"
+        ],
+        "primary_source_event_id": "EVT-4f453e999ad4",
+        "source_headlines": [
+          "ON Semicondcutor to Buy Synaptics for Cash, Not Stock, in Downsized Deal"
+        ],
+        "source_headline": "ON Semicondcutor to Buy Synaptics for Cash, Not Stock, in Downsized Deal",
+        "source_url": "https://www.wsj.com/business/deals/on-semicondcutor-to-buy-synaptics-for-cash-not-stock-in-downsized-deal-d2781e36?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-01T22:25:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-02T00:48:43Z",
+        "updated_at": "2026-10-02T00:48:43Z",
+        "decay_at": "2026-10-03T10:25:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-03T10:25:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-205d9d4ce667",
         "idea_version": "IDEAV-b18cf34bc2da95d4",
@@ -187877,80 +188022,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-7b576c9bae72",
-        "idea_version": "IDEAV-80a7771629d4c052",
-        "idea_version_started_at": "2026-09-15T00:37:13Z",
-        "ticker": "EQR",
-        "company": "EQ Resources",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The signing of a binding agreement for a joint venture to build a US APT (Ammonium Paratungstate) plant provides a clear pathway for geographic expansion and vertical integration in the tungsten supply chain.",
-        "why_now": "The binding agreement was filed with the ASX on September 14, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-71ceb046032e"
-        ],
-        "primary_source_event_id": "EVT-71ceb046032e",
-        "source_headlines": [
-          "EQR: EQR Signs Binding Agreement For US APT Plant JV [price-sensitive]"
-        ],
-        "source_headline": "EQR: EQR Signs Binding Agreement For US APT Plant JV [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EQR?key=2924-03135532-2A1697060",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-14T23:24:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-15T00:37:13Z",
-        "updated_at": "2026-09-15T00:37:13Z",
-        "decay_at": "2026-09-16T11:24:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-18T00:05:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b20393c595ee",
         "idea_version": "IDEAV-8714ecc4c69db234",
         "idea_version_started_at": "2026-09-15T03:13:27Z",
@@ -196368,7 +196439,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1240,
+    "surfaced_total": 1241,
     "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
