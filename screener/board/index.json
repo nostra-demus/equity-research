@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T12:26:19Z",
+  "generated_at": "2026-10-03T12:36:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -945,6 +945,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-282",
+      "headline": "Israeli drone strike on Beit Lahia kills one, wounds others",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-drone-strike-beit-lahia-kills-one-wounds-others",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T12:27:24Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Drone strike in Gaza indicates ongoing military conflict escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Drone strike in Gaza indicates ongoing military conflict escalation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-271",
+      "headline": "Flydubai reserves further comment as probe into FZ1073 ‘terrorist act’ continues",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/uae/flydubai-reserves-comment-probe-fz1073-terrorist-act-continues",
+      "source_name": "Khaleej Times — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T12:27:26Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Flydubai is under investigation for a potential terrorist act involving flight FZ1073, posing significant operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Flydubai is under investigation for a potential terrorist act involving flight FZ1073, posing significant operational and reputational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-222",
       "headline": "How NASA Saved Boeing's Space Program With a New Contract and $359 Million",
       "headline_en": null,
@@ -1873,104 +1965,6 @@
       "companies": [
         {
           "name": "Jaguar Land Rover",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-218",
-      "headline": "D-Mart Q2 revenue rises 18% to Rs 19,206 cr; store count at 518",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/earnings/d-mart-q2-revenue-rise-18-pc-to-rs-19206-cr-store-count-at-518/articleshow/134656472.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T10:06:18Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "D-Mart reported Q2 revenue of Rs 19,206 cr, an 18% increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "D-Mart reported Q2 revenue of Rs 19,206 cr, an 18% increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avenue Supermarts",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-204",
-      "headline": "Avenue Supermarts Q2 business update: Revenue rises 18%, total number of stores at 518",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/avenue-supermarts-q2-business-update-revenue-rises-18-total-number-of-stores-at-518-20003867.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T09:10:56Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Avenue Supermarts reported an 18% revenue increase for Q2, indicating strong operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Avenue Supermarts reported an 18% revenue increase for Q2, indicating strong operational performance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avenue Supermarts",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -196818,9 +196812,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3133,
-    "news_picked_today": 475,
-    "news_dropped_today": 2658
+    "news_seen_today": 3179,
+    "news_picked_today": 487,
+    "news_dropped_today": 2692
   },
   "book_momentum": {
     "live_count": 8,
