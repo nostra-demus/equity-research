@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-e92c01041db0",
-  "idea_version": "IDEAV-791365592152dab0",
-  "idea_version_started_at": "2026-10-03T19:21:29Z",
+  "idea_version": "IDEAV-5013a3c353b88bcf",
+  "idea_version_started_at": "2026-10-03T22:10:02Z",
   "ticker": "2222",
   "company": "Saudi Aramco",
   "exchange": "TADAWUL",
@@ -11,19 +11,19 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "Multiple reports of a Houthi-claimed attack on an Aramco facility in Riyadh introduce operational risk and potential supply chain disruption.",
-  "why_now": "The attack was reported and confirmed by Houthi claims on 2026-10-03.",
-  "conviction": 65,
+  "reason": "Reports of fire and smoke near a primary facility in Riyadh suggest operational disruption or security risks to core production infrastructure.",
+  "why_now": "The event was reported on October 3, 2026, creating an immediate risk premium or operational downside.",
+  "conviction": 45,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 19,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
-    "corroboration": 7,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "watch_only",
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,21 +49,17 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-8e0c8a7d8a1b",
-    "EVT-b59a8f50ca1d",
-    "EVT-c7246d361259"
+    "EVT-8e0c8a7d8a1b"
   ],
   "primary_source_event_id": "EVT-8e0c8a7d8a1b",
   "source_headlines": [
-    "Fire, smoke seen near Aramco facility in Riyadh",
-    "Oil-Fire reported near an Aramco site in Riyadh",
-    "Houthis claim attack on an Aramco site in Riyadh"
+    "Fire, smoke seen near Aramco facility in Riyadh"
   ],
   "source_headline": "Fire, smoke seen near Aramco facility in Riyadh",
   "source_url": "https://www.deccanherald.com/world/middle-east/fire-smoke-seen-near-aramco-facility-in-riyadh-4169337",
   "source_name": "Deccan Herald",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-03T19:10:11Z",
+  "newest_source_at": "2026-10-03T12:10:53Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -70,8 +67,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-03T14:22:04Z",
-  "updated_at": "2026-10-03T19:21:29Z",
-  "decay_at": "2026-10-05T07:10:11Z",
+  "updated_at": "2026-10-03T22:10:02Z",
+  "decay_at": "2026-10-05T00:10:53Z",
   "status": "live",
   "promoted_signal_id": null
 }

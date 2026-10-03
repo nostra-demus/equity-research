@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T22:09:42Z",
+  "generated_at": "2026-10-03T22:10:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-317",
@@ -155214,6 +155214,222 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-729dc15a63ea",
+      "idea_version": "IDEAV-667219dacbc7a625",
+      "idea_version_started_at": "2026-10-03T22:10:02Z",
+      "ticker": "VOLCAR-B",
+      "company": "Volvo Car AB",
+      "exchange": "STO",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has withdrawn its financial guidance due to deteriorating conditions in the Chinese automotive market, which is a critical profit center.",
+      "why_now": "The guidance withdrawal occurred on October 2, 2026, signaling an immediate negative shift in fundamental outlook.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "macro_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-28ee22cd8bb6"
+      ],
+      "primary_source_event_id": "EVT-28ee22cd8bb6",
+      "source_headlines": [
+        "Volvo Car Pulls Guidance as Chinese Auto Market Worsens"
+      ],
+      "source_headline": "Volvo Car Pulls Guidance as Chinese Auto Market Worsens",
+      "source_url": "https://www.wsj.com/business/earnings/volvo-car-pulls-guidance-as-chinese-auto-market-worsen-e72ca14f?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T14:22:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-02T13:58:00Z",
+      "updated_at": "2026-10-03T22:10:02Z",
+      "decay_at": "2026-10-04T02:22:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e92c01041db0",
+      "idea_version": "IDEAV-5013a3c353b88bcf",
+      "idea_version_started_at": "2026-10-03T22:10:02Z",
+      "ticker": "2222",
+      "company": "Saudi Aramco",
+      "exchange": "TADAWUL",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Reports of fire and smoke near a primary facility in Riyadh suggest operational disruption or security risks to core production infrastructure.",
+      "why_now": "The event was reported on October 3, 2026, creating an immediate risk premium or operational downside.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8e0c8a7d8a1b"
+      ],
+      "primary_source_event_id": "EVT-8e0c8a7d8a1b",
+      "source_headlines": [
+        "Fire, smoke seen near Aramco facility in Riyadh"
+      ],
+      "source_headline": "Fire, smoke seen near Aramco facility in Riyadh",
+      "source_url": "https://www.deccanherald.com/world/middle-east/fire-smoke-seen-near-aramco-facility-in-riyadh-4169337",
+      "source_name": "Deccan Herald",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T12:10:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T14:22:04Z",
+      "updated_at": "2026-10-03T22:10:02Z",
+      "decay_at": "2026-10-05T00:10:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ee7156fae646",
+      "idea_version": "IDEAV-d3315e491cfb73b4",
+      "idea_version_started_at": "2026-10-03T22:10:02Z",
+      "ticker": "BAJFINANCE",
+      "company": "Bajaj Finance",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported a 26.5% increase in Assets Under Management (AUM) and an 11% rise in new loans booked for the second quarter, indicating sustained credit demand.",
+      "why_now": "The Q2 business update was released on October 3, 2026, providing a fresh operational catalyst ahead of full earnings.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1471e3372944"
+      ],
+      "primary_source_event_id": "EVT-1471e3372944",
+      "source_headlines": [
+        "Bajaj Finance Q2 business update: AUM rises 26.5%, new loans booked up 11%"
+      ],
+      "source_headline": "Bajaj Finance Q2 business update: AUM rises 26.5%, new loans booked up 11%",
+      "source_url": "https://www.cnbctv18.com/market/bajaj-finance-q2-business-update-aum-rises-new-loans-customer-franchise-nii-profit-provisions-share-price-20003841.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T07:47:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T07:11:46Z",
+      "updated_at": "2026-10-03T22:10:02Z",
+      "decay_at": "2026-10-04T19:47:25Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8c05409f139b",
       "idea_version": "IDEAV-1234ef3ea38e3bc5",
       "idea_version_started_at": "2026-10-03T21:44:54Z",
@@ -155355,81 +155571,6 @@
       "surfaced_at": "2026-10-03T19:46:54Z",
       "updated_at": "2026-10-03T19:46:54Z",
       "decay_at": "2026-10-05T06:11:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-e92c01041db0",
-      "idea_version": "IDEAV-791365592152dab0",
-      "idea_version_started_at": "2026-10-03T19:21:29Z",
-      "ticker": "2222",
-      "company": "Saudi Aramco",
-      "exchange": "TADAWUL",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Multiple reports of a Houthi-claimed attack on an Aramco facility in Riyadh introduce operational risk and potential supply chain disruption.",
-      "why_now": "The attack was reported and confirmed by Houthi claims on 2026-10-03.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8e0c8a7d8a1b",
-        "EVT-b59a8f50ca1d",
-        "EVT-c7246d361259"
-      ],
-      "primary_source_event_id": "EVT-8e0c8a7d8a1b",
-      "source_headlines": [
-        "Fire, smoke seen near Aramco facility in Riyadh",
-        "Oil-Fire reported near an Aramco site in Riyadh",
-        "Houthis claim attack on an Aramco site in Riyadh"
-      ],
-      "source_headline": "Fire, smoke seen near Aramco facility in Riyadh",
-      "source_url": "https://www.deccanherald.com/world/middle-east/fire-smoke-seen-near-aramco-facility-in-riyadh-4169337",
-      "source_name": "Deccan Herald",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-03T19:10:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T14:22:04Z",
-      "updated_at": "2026-10-03T19:21:29Z",
-      "decay_at": "2026-10-05T07:10:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -155935,78 +156076,6 @@
       "surfaced_at": "2026-10-03T12:06:09Z",
       "updated_at": "2026-10-03T12:06:09Z",
       "decay_at": "2026-10-04T20:03:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ee7156fae646",
-      "idea_version": "IDEAV-f81a7774ecae0e93",
-      "idea_version_started_at": "2026-10-03T12:06:09Z",
-      "ticker": "BAJFINANCE",
-      "company": "Bajaj Finance",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Bajaj Finance reported a 26.5% rise in Assets Under Management (AUM) and an 11% increase in new loans booked, indicating strong business growth.",
-      "why_now": "The Q2 business update was released on October 3, 2026, providing current performance metrics.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1471e3372944"
-      ],
-      "primary_source_event_id": "EVT-1471e3372944",
-      "source_headlines": [
-        "Bajaj Finance Q2 business update: AUM rises 26.5%, new loans booked up 11%"
-      ],
-      "source_headline": "Bajaj Finance Q2 business update: AUM rises 26.5%, new loans booked up 11%",
-      "source_url": "https://www.cnbctv18.com/market/bajaj-finance-q2-business-update-aum-rises-new-loans-customer-franchise-nii-profit-provisions-share-price-20003841.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-03T07:47:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T07:11:46Z",
-      "updated_at": "2026-10-03T12:06:09Z",
-      "decay_at": "2026-10-04T19:47:25Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -158813,78 +158882,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-729dc15a63ea",
-      "idea_version": "IDEAV-4d28b460e22192a6",
-      "idea_version_started_at": "2026-10-02T13:58:00Z",
-      "ticker": "VOLCAR-B",
-      "company": "Volvo Cars",
-      "exchange": "STO",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a guidance cut, signaling deteriorating demand and margin pressure in the automotive sector.",
-      "why_now": "The guidance cut was announced today, October 2, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ec8605e1850d"
-      ],
-      "primary_source_event_id": "EVT-ec8605e1850d",
-      "source_headlines": [
-        "Auto industry: Volvo cuts forecast – stock falls significantly"
-      ],
-      "source_headline": "Autoindustrie: Volvo streicht Prognose – Aktie gibt deutlich nach",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autoindustrie-volvo-streicht-prognose-aktie-gibt-deutlich-nach/100259247.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-02T07:58:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-02T13:58:00Z",
-      "updated_at": "2026-10-02T13:58:00Z",
-      "decay_at": "2026-10-03T19:58:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-6cc4afd771f9",
       "idea_version": "IDEAV-7e52d21811080491",
       "idea_version_started_at": "2026-10-02T12:11:11Z",
@@ -160044,9 +160041,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 523,
+    "total_count": 522,
     "shown_count": 500,
-    "hidden_count": 23,
+    "hidden_count": 22,
     "side_counts": {
       "long": {
         "total_count": 264,
@@ -160054,9 +160051,9 @@
         "hidden_count": 14
       },
       "short": {
-        "total_count": 259,
+        "total_count": 258,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 8
       }
     },
     "retention": {
@@ -160148,81 +160145,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-10-03T20:25:12Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-729dc15a63ea",
-        "idea_version": "IDEAV-4d28b460e22192a6",
-        "idea_version_started_at": "2026-10-02T13:58:00Z",
-        "ticker": "VOLCAR-B",
-        "company": "Volvo Cars",
-        "exchange": "STO",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a guidance cut, signaling deteriorating demand and margin pressure in the automotive sector.",
-        "why_now": "The guidance cut was announced today, October 2, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ec8605e1850d"
-        ],
-        "primary_source_event_id": "EVT-ec8605e1850d",
-        "source_headlines": [
-          "Auto industry: Volvo cuts forecast – stock falls significantly"
-        ],
-        "source_headline": "Autoindustrie: Volvo streicht Prognose – Aktie gibt deutlich nach",
-        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autoindustrie-volvo-streicht-prognose-aktie-gibt-deutlich-nach/100259247.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-02T07:58:55Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-02T13:58:00Z",
-        "updated_at": "2026-10-02T13:58:00Z",
-        "decay_at": "2026-10-03T19:58:55Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-03T19:58:55Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -197225,12 +197147,85 @@
         "archived_at": "2026-09-09T15:47:13Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-41676c4142cc",
+        "idea_version": "IDEAV-524a4a78236aa0ce",
+        "idea_version_started_at": "2026-09-06T15:09:06Z",
+        "ticker": "EVR",
+        "company": "Evercore",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Anticipated downward revisions to third-quarter investment banking and trading guidance suggest a slowdown in deal flow and market activity.",
+        "why_now": "The specific warning regarding softer Q3 guidance on September 6, 2026, creates immediate downward pressure ahead of the actual reporting period.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8b411b09fcdb"
+        ],
+        "primary_source_event_id": "EVT-8b411b09fcdb",
+        "source_headlines": [
+          "Evercore expects softer third-quarter investment banking and trading guidance"
+        ],
+        "source_headline": "Evercore expects softer third-quarter investment banking and trading guidance",
+        "source_url": "https://finance.yahoo.com/markets/stocks/articles/evercore-expects-softer-third-quarter-142327599.html",
+        "source_name": "Yahoo Finance",
+        "materiality_max": 90,
+        "newest_source_at": "2026-09-06T14:23:27Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-06T15:09:06Z",
+        "updated_at": "2026-09-06T15:09:06Z",
+        "decay_at": "2026-09-08T02:23:27Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-09T14:53:04Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1259,
-    "live_count": 58,
+    "live_count": 59,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

@@ -1,9 +1,9 @@
 {
   "idea_id": "IDEA-729dc15a63ea",
-  "idea_version": "IDEAV-4d28b460e22192a6",
-  "idea_version_started_at": "2026-10-02T13:58:00Z",
+  "idea_version": "IDEAV-667219dacbc7a625",
+  "idea_version_started_at": "2026-10-03T22:10:02Z",
   "ticker": "VOLCAR-B",
-  "company": "Volvo Cars",
+  "company": "Volvo Car AB",
   "exchange": "STO",
   "ticker_verified": false,
   "listing_verified": false,
@@ -11,17 +11,17 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The company issued a guidance cut, signaling deteriorating demand and margin pressure in the automotive sector.",
-  "why_now": "The guidance cut was announced today, October 2, 2026.",
-  "conviction": 75,
+  "reason": "The company has withdrawn its financial guidance due to deteriorating conditions in the Chinese automotive market, which is a critical profit center.",
+  "why_now": "The guidance withdrawal occurred on October 2, 2026, signaling an immediate negative shift in fundamental outlook.",
+  "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
-    "impact": 21,
+    "impact": 20,
     "specificity": 7,
-    "timing": 10,
+    "timing": 6,
     "expression": 0,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -45,21 +45,21 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "company_specific",
+  "thesis_type": "macro_conditional",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-ec8605e1850d"
+    "EVT-28ee22cd8bb6"
   ],
-  "primary_source_event_id": "EVT-ec8605e1850d",
+  "primary_source_event_id": "EVT-28ee22cd8bb6",
   "source_headlines": [
-    "Auto industry: Volvo cuts forecast – stock falls significantly"
+    "Volvo Car Pulls Guidance as Chinese Auto Market Worsens"
   ],
-  "source_headline": "Autoindustrie: Volvo streicht Prognose – Aktie gibt deutlich nach",
-  "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autoindustrie-volvo-streicht-prognose-aktie-gibt-deutlich-nach/100259247.html",
-  "source_name": "Handelsblatt",
+  "source_headline": "Volvo Car Pulls Guidance as Chinese Auto Market Worsens",
+  "source_url": "https://www.wsj.com/business/earnings/volvo-car-pulls-guidance-as-chinese-auto-market-worsen-e72ca14f?mod=pls_whats_news_us_business_f",
+  "source_name": "The Wall Street Journal",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-02T07:58:55Z",
+  "newest_source_at": "2026-10-02T14:22:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -67,8 +67,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-02T13:58:00Z",
-  "updated_at": "2026-10-02T13:58:00Z",
-  "decay_at": "2026-10-03T19:58:55Z",
+  "updated_at": "2026-10-03T22:10:02Z",
+  "decay_at": "2026-10-04T02:22:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
