@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-10-03T06:25:27Z",
+  "generated_at": "2026-10-03T06:34:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261003-129",
+      "headline": "UAE investigation finds flydubai co-pilot tried to carry out terror attack",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/uae/uae-investigation-finds-flydubai-co-pilot-tried-to-carry-out-terror-attack",
+      "source_name": "Khaleej Times — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T06:27:14Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A confirmed terror-related investigation involving a co-pilot poses extreme operational and reputational risk to the airline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A confirmed terror-related investigation involving a co-pilot poses extreme operational and reputational risk to the airline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "flydubai",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-135",
+      "headline": "UAE prosecutor general says flydubai co-pilot 'attempted terrorist attack'",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/uae-prosecutor-general-says-flydubai-co-pilot-attempted-terrorist-attack",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T06:25:06Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Official confirmation of an attempted terrorist attack by a co-pilot on a commercial flight creates significant operational and legal risk for the airline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Official confirmation of an attempted terrorist attack by a co-pilot on a commercial flight creates significant operational and legal risk for the airline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261003-127",
       "headline": "UAE Attorney General: Terrorist plot behind Flydubai FZ1073 incident",
@@ -455,6 +554,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-132",
+      "headline": "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/india/tirupati-blast-5-dead-10-critically-injured-as-powerful-boiler-explosion-rocks-pharma-unit-in-sri-city-rescue-ops-underway-video",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T05:53:07Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A major boiler explosion resulting in 5 deaths and 10 injuries at a pharma unit indicates severe operational failure and significant legal/regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A major boiler explosion resulting in 5 deaths and 10 injuries at a pharma unit indicates severe operational failure and significant legal/regulatory risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1044,6 +1186,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-131",
+      "headline": "Volkswagen: Rückruf von Millionen Autos: VW kannte das Schrauben-Problem seit Herbst 2024",
+      "headline_en": "Volkswagen: Recall of millions of cars: VW knew about the screw problem since autumn 2024",
+      "url": "https://www.handelsblatt.com/unternehmen/industrie/volkswagen-millionenrueckruf-bei-vw-problem-war-seit-herbst-2024-bekannt/100258311.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T06:32:36Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A recall of millions of vehicles due to a known technical defect poses significant financial and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "A recall of millions of vehicles due to a known technical defect poses significant financial and reputational risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Volkswagen",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-128",
+      "headline": "Explainer: What is Mithi River Desilting case? All about ₹65 cr Mumbai 'scam' over BMC contract financial fraud",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/explainer-what-is-mithi-river-desilting-case-all-about-rs-65-cr-mumbai-scam-over-bmc-contract-financial-fraud-11791006697500.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T06:29:13Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A 65 crore financial fraud investigation involving a municipal contract poses regulatory and reputational risk to the involved parties.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "A 65 crore financial fraud investigation involving a municipal contract poses regulatory and reputational risk to the involved parties.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brihanmumbai Municipal Corporation",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1687,261 +1927,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261003-102",
-      "headline": "Flydubai cockpit attack: Co-pilot identified as Omani citizen",
+      "inbox_id": "INB-20261003-130",
+      "headline": "2 workers dead, 2 injured in blast at TIL Healthcare’s Sri City plant",
       "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/flydubai-cockpit-attack-co-pilot-identified-as-omani-citizen/article71539715.ece",
+      "url": "https://www.thehindubusinessline.com/news/2-workers-dead-2-injured-in-blast-at-til-healthcares-sri-city-plant/article71539814.ece",
       "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-10-03T05:05:51Z",
+      "found_at": "2026-10-03T06:15:06Z",
       "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A security incident involving a cockpit attack on a Flydubai flight poses significant operational and reputational risk.",
+      "prelim_note": "A fatal industrial accident at a manufacturing plant creates operational disruption and potential legal liability.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 83,
-      "triage_reason": "A security incident involving a cockpit attack on a Flydubai flight poses significant operational and reputational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flydubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-097",
-      "headline": "Flydubai plane attack: co-pilot previously barred from flying by Oman over extremist views",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/world/middle-east/article/3369644/flydubai-plane-attack-co-pilot-previously-barred-flying-oman-over-extremist-views?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T04:53:37Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Security incident involving a Flydubai pilot raises operational and reputational risk for the airline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Security incident involving a Flydubai pilot raises operational and reputational risk for the airline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flydubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-098",
-      "headline": "Who is Hamam al-Hammami? The ‘barred’ Omani co-pilot who stabbed Capt. Smit Machchhar",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/who-is-hamam-al-hammami-the-barred-omani-co-pilot-who-stabbed-smit-machchhar-4168918",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T04:35:53Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Follow-up on a violent security incident involving a pilot, confirming operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Follow-up on a violent security incident involving a pilot, confirming operational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flydubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-088",
-      "headline": "US sanctions three persons, two charities over alleged Hamas funding",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-sanctions-three-persons-two-charities-over-alleged-hamas-funding",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T04:09:25Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "The US government imposed sanctions on individuals and entities for alleged Hamas funding, increasing geopolitical and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "The US government imposed sanctions on individuals and entities for alleged Hamas funding, increasing geopolitical and regulatory risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-085",
-      "headline": "How a Boeing 737 MAX Survived a Nosedive Traveling at the Speed of Sound",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/airlines/how-a-boeing-737-max-survived-a-nosedive-traveling-at-the-speed-of-sound-e8cae3b4?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T04:01:00Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Ongoing safety and operational scrutiny regarding the Boeing 737 MAX continues to impact management credibility and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Ongoing safety and operational scrutiny regarding the Boeing 737 MAX continues to impact management credibility and regulatory risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": "BA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-073",
-      "headline": "Who is 'Hamam al Hamami'? What we know about FlyDubai co-pilot who stabbed Captain Smit Machchhar, tried to crash plane",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/world/who-is-hamam-al-hamami-what-we-know-about-flydubai-co-pilot-who-stabbed-captain-smit-machchhar-tried-to-crash-plane-11790995009415.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T02:50:25Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A violent incident involving a co-pilot attempting to crash a commercial aircraft represents a severe operational and reputational risk for the airline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "A violent incident involving a co-pilot attempting to crash a commercial aircraft represents a severe operational and reputational risk for the airline.",
-      "region": "OTHER",
+      "triage_reason": "A fatal industrial accident at a manufacturing plant creates operational disruption and potential legal liability.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
@@ -1965,9 +1965,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "FlyDubai",
+          "name": "TIL Healthcare",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -154661,76 +154661,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-193acec1f3b7",
-      "idea_version": "IDEAV-f4a1bce45870f66c",
-      "idea_version_started_at": "2026-10-01T20:03:17Z",
-      "ticker": "MAT",
-      "company": "Mattel",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Authentic Brands Group has expressed takeover interest in Mattel, which typically triggers a premium valuation adjustment in M&A scenarios.",
-      "why_now": "The report of takeover interest surfaced on 2026-10-01, creating an immediate catalyst for price appreciation based on potential acquisition premiums.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-63928cc4261e"
-      ],
-      "primary_source_event_id": "EVT-63928cc4261e",
-      "source_headlines": [
-        "Barbie-Maker Mattel Draws Takeover Interest From Authentic Brands Group"
-      ],
-      "source_headline": "Barbie-Maker Mattel Draws Takeover Interest From Authentic Brands Group",
-      "source_url": "https://www.wsj.com/business/retail/barbie-maker-mattel-draws-takeover-interest-from-authentic-brands-group-21270470?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-01T18:32:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T20:03:17Z",
-      "updated_at": "2026-10-01T20:03:17Z",
-      "decay_at": "2026-10-03T06:32:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7c6921220f81",
       "idea_version": "IDEAV-a2b91e03a73036bb",
       "idea_version_started_at": "2026-10-03T06:25:08Z",
@@ -156875,6 +156805,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-193acec1f3b7",
+      "idea_version": "IDEAV-f4a1bce45870f66c",
+      "idea_version_started_at": "2026-10-01T20:03:17Z",
+      "ticker": "MAT",
+      "company": "Mattel",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Authentic Brands Group has expressed takeover interest in Mattel, which typically triggers a premium valuation adjustment in M&A scenarios.",
+      "why_now": "The report of takeover interest surfaced on 2026-10-01, creating an immediate catalyst for price appreciation based on potential acquisition premiums.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-63928cc4261e"
+      ],
+      "primary_source_event_id": "EVT-63928cc4261e",
+      "source_headlines": [
+        "Barbie-Maker Mattel Draws Takeover Interest From Authentic Brands Group"
+      ],
+      "source_headline": "Barbie-Maker Mattel Draws Takeover Interest From Authentic Brands Group",
+      "source_url": "https://www.wsj.com/business/retail/barbie-maker-mattel-draws-takeover-interest-from-authentic-brands-group-21270470?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-01T18:32:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T20:03:17Z",
+      "updated_at": "2026-10-01T20:03:17Z",
+      "decay_at": "2026-10-03T06:32:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-48413a08f7ae",
       "idea_version": "IDEAV-e29b6932c762d787",
       "idea_version_started_at": "2026-10-01T10:19:20Z",
@@ -158669,14 +158669,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 29,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 270,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 21
       },
       "short": {
         "total_count": 259,
@@ -158700,6 +158700,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-193acec1f3b7",
+        "idea_version": "IDEAV-f4a1bce45870f66c",
+        "idea_version_started_at": "2026-10-01T20:03:17Z",
+        "ticker": "MAT",
+        "company": "Mattel",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Authentic Brands Group has expressed takeover interest in Mattel, which typically triggers a premium valuation adjustment in M&A scenarios.",
+        "why_now": "The report of takeover interest surfaced on 2026-10-01, creating an immediate catalyst for price appreciation based on potential acquisition premiums.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-63928cc4261e"
+        ],
+        "primary_source_event_id": "EVT-63928cc4261e",
+        "source_headlines": [
+          "Barbie-Maker Mattel Draws Takeover Interest From Authentic Brands Group"
+        ],
+        "source_headline": "Barbie-Maker Mattel Draws Takeover Interest From Authentic Brands Group",
+        "source_url": "https://www.wsj.com/business/retail/barbie-maker-mattel-draws-takeover-interest-from-authentic-brands-group-21270470?mod=pls_whats_news_us_business_f",
+        "source_name": "The Wall Street Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-01T18:32:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-01T20:03:17Z",
+        "updated_at": "2026-10-01T20:03:17Z",
+        "decay_at": "2026-10-03T06:32:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-03T06:32:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-54ff0d3fca7e",
         "idea_version": "IDEAV-b65406fe8ab31b5c",
@@ -187288,79 +187361,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-dd376736c57e",
-        "idea_version": "IDEAV-cc1adc2efe8f96a7",
-        "idea_version_started_at": "2026-09-15T00:08:18Z",
-        "ticker": "VCYT",
-        "company": "Veracyte",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of Convergent Genomics for $150 million in cash expands the company's diagnostic capabilities and product pipeline in the genomic testing market.",
-        "why_now": "The acquisition was announced on September 14, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-177211ed4cb3"
-        ],
-        "primary_source_event_id": "EVT-177211ed4cb3",
-        "source_headlines": [
-          "Veracyte Acquires Convergent Genomics For $150 Mln In Cash"
-        ],
-        "source_headline": "Veracyte Acquires Convergent Genomics For $150 Mln In Cash",
-        "source_url": "https://www.nasdaq.com/articles/veracyte-acquires-convergent-genomics-150-mln-cash",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-14T20:37:19Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-15T00:08:18Z",
-        "updated_at": "2026-09-15T00:08:18Z",
-        "decay_at": "2026-09-16T08:37:19Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T21:24:26Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c278fd7f3d70",
         "idea_version": "IDEAV-019187fe797a30d5",
         "idea_version_started_at": "2026-09-14T23:34:02Z",
@@ -195855,7 +195855,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1229,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -195874,9 +195874,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1186,
-    "news_picked_today": 162,
-    "news_dropped_today": 1024
+    "news_seen_today": 1219,
+    "news_picked_today": 170,
+    "news_dropped_today": 1049
   },
   "book_momentum": {
     "live_count": 8,
