@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T07:34:37Z",
+  "generated_at": "2026-10-03T07:39:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-169",
@@ -996,6 +996,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-172",
+      "headline": "Southern Petrochemicals Industries Corporation Limited: Southern Petrochemical Industries Corporation Limited has informed the Exchange regarding 'Plant Shutdown'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SPIC_03102026130506_Intimation_to_NSE_Plant_Shutdown_Final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-03T07:37:34Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The company announced a plant shutdown, which directly impacts production capacity and revenue generation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The company announced a plant shutdown, which directly impacts production capacity and revenue generation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Southern Petrochemicals Industries Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-148",
       "headline": "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details",
       "headline_en": null,
@@ -1917,55 +1966,6 @@
       "companies": [
         {
           "name": "Tata Sons",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-005",
-      "headline": "KSPCB sets Oct 16 public hearing for Vedanta’s Rs 10 cr Jantakal iron ore project",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/karnataka/kspcb-sets-oct-16-public-hearing-for-vedantas-rs-10-cr-jantakal-iron-ore-project-4168714",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-02T23:58:41Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Vedanta is moving forward with a Rs 10 cr iron ore project, subject to a public hearing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Vedanta is moving forward with a Rs 10 cr iron ore project, subject to a public hearing.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vedanta",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -196385,9 +196385,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1409,
-    "news_picked_today": 221,
-    "news_dropped_today": 1188
+    "news_seen_today": 1423,
+    "news_picked_today": 224,
+    "news_dropped_today": 1199
   },
   "book_momentum": {
     "live_count": 8,
