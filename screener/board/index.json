@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T05:55:16Z",
+  "generated_at": "2026-10-03T05:59:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-115",
@@ -1141,6 +1141,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-118",
+      "headline": "Liberty Capital Corporation - Equity Right Price Target Increased by 10.87% to $19.90",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/liberty-capital-corporation-equity-right-price-target-increased-1087-1990",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T05:14:53Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The company received a price target increase of 10.87% to $19.90, indicating a shift in analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "The company received a price target increase of 10.87% to $19.90, indicating a shift in analyst expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Liberty Capital Corporation",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-090",
       "headline": "Mumbai airport changes from Oct 25: Over 200 weekly international flights to be cut, says report — what flyers must know",
       "headline_en": null,
@@ -1891,49 +1940,6 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-018",
-      "headline": "Cyclospora found at Mexican farm linked to lettuce outbreak, FDA says",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/us-news/2026/oct/02/cyclospora-mexico-farm-lettuce",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T00:27:28Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "FDA link of a specific farm to a foodborne illness outbreak creates operational and regulatory risk for the produce sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "FDA link of a specific farm to a foodborne illness outbreak creates operational and regulatory risk for the produce sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -195764,9 +195770,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1100,
-    "news_picked_today": 147,
-    "news_dropped_today": 953
+    "news_seen_today": 1110,
+    "news_picked_today": 148,
+    "news_dropped_today": 962
   },
   "book_momentum": {
     "live_count": 8,
