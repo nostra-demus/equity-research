@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T08:45:55Z",
+  "generated_at": "2026-10-03T08:49:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -1776,6 +1776,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-201",
+      "headline": "GPT Infraprojects Limited: GPT Infraprojects Limited has informed the Exchange about Alcon Builders and Engineers Private Limited, a wholly owned subsidiary of GPT Infraprojects Limited for being declared as L1 (First Lowest) in order valued at Rs. 149.49 Crore",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GPTINFRA_03102026141608_GIL-_L1_intimation_031026_SGD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-03T08:46:21Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "The company's subsidiary was declared L1 for an order valued at Rs. 149.49 Crore, representing a significant contract win.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "The company's subsidiary was declared L1 for an order valued at Rs. 149.49 Crore, representing a significant contract win.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GPT Infraprojects Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-198",
       "headline": "US-Iran war impact: Nayara Energy raises fuel prices in India with immediate effect— Check new rates here",
       "headline_en": null,
@@ -1915,55 +1964,6 @@
           "name": "TIL Healthcare",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-138",
-      "headline": "Flydubai co-pilot stabbed captain with crash axe in ‘terrorist’ attack: UAE",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/10/3/flydubai-co-pilot-stabbed-pilot-with-crash-axe-in-terrorist-attack-uae?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-10-03T06:16:47Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "A co-pilot attempted a terrorist act on a flight, posing a severe operational and reputational risk to the airline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "A co-pilot attempted a terrorist act on a flight, posing a severe operational and reputational risk to the airline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "flydubai",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -196452,9 +196452,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1727,
-    "news_picked_today": 284,
-    "news_dropped_today": 1443
+    "news_seen_today": 1739,
+    "news_picked_today": 287,
+    "news_dropped_today": 1452
   },
   "book_momentum": {
     "live_count": 8,
