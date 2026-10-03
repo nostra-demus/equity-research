@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T15:59:29Z",
+  "generated_at": "2026-10-03T16:05:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-317",
@@ -145,6 +145,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-326",
+      "headline": "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/corporate-gallery/reliance-plans-rs-1-lakh-crore-investment-in-andhra-pradesh-says-anant-ambani",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T15:41:30Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Reliance Industries announced a major capital expenditure plan of Rs 1 lakh crore in Andhra Pradesh.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance Industries announced a major capital expenditure plan of Rs 1 lakh crore in Andhra Pradesh.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1908,55 +1957,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-296",
-      "headline": "Essar Shipping Limited: Essar Shipping Limited has informed the Exchange about Disinvestment in Essar Shipping DMCC, U.A.E., overseas Whollyowned Subsidiary, Under Section 180(1)(a) of the Companies Act, 2013; Disinvestment in OGD Services Holdings Limited, Mauritius, overseas Whollyowned Subsidiary Under Section 180(1)(a) of the Companies Act, 2013; Sale of Asset - Semisubmersible Rig Essar Wildcat owned by Essar Shipping DMCC, U.A.E., (Whollyowned Subsidiary); Sale of Asset - Tug III, owned by",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ESSARSHPNG_03102026185812_ESL_AGM_SX_Disclosure_UR_30_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-03T13:28:31Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Essar Shipping is divesting two overseas subsidiaries and selling a semi-submersible rig and a tug, representing a significant asset disposal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Essar Shipping is divesting two overseas subsidiaries and selling a semi-submersible rig and a tug, representing a significant asset disposal.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Essar Shipping Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
