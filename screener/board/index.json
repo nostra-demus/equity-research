@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T11:50:01Z",
+  "generated_at": "2026-10-03T11:54:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-185",
@@ -52,6 +52,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261003-251",
+      "headline": "Renault to invest over €10 billion in France in EVs, affordable cars, CEO says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/renault-invest-over-10-bln-euros-france-evs-affordable-cars-ceo-says-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T11:51:43Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Renault announced a major capital expenditure plan of over €10 billion for EV and affordable car production in France.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Renault announced a major capital expenditure plan of over €10 billion for EV and affordable car production in France.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Renault",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-256",
+      "headline": "Fire, smoke seen near Aramco facility in Riyadh, witness says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/fire-smoke-seen-near-aramco-facility-riyadh-witness-says-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T11:49:44Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "A fire near a major Aramco facility in Riyadh poses a potential supply shock risk to global oil infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A fire near a major Aramco facility in Riyadh poses a potential supply shock risk to global oil infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261003-248",
       "headline": "Renault va investir plus de €10 mds sur cinq ans dans l'électrique en France",
       "headline_en": "Renault to invest more than €10 billion over five years in electric vehicles in France",
@@ -78,55 +176,6 @@
         "recency": 5,
         "materiality_label_floor": 5,
         "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Renault",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-236",
-      "headline": "Renault to invest over 10 bln euros in France in EVs, affordable cars, CEO says",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/renault-invest-over-10-bln-euros-france-evs-affordable-cars-ceo-says-2026-10-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T11:28:09Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Renault announced a major capital expenditure of over 10 billion euros for EV and vehicle production in France.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Renault announced a major capital expenditure of over 10 billion euros for EV and vehicle production in France.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
@@ -1922,55 +1971,6 @@
       "companies": [
         {
           "name": "Sobha",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-148",
-      "headline": "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/bajaj-housing-finance-q2-business-update-aum-rises-25-to-1-58-lakh-crore-rupee-gross-disbursements-nii-share-price-20003830.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T07:03:17Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Bajaj Housing Finance reported a 25% increase in AUM to ₹1.58 lakh crore for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Bajaj Housing Finance reported a 25% increase in AUM to ₹1.58 lakh crore for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Housing Finance",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -196608,9 +196608,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2831,
-    "news_picked_today": 444,
-    "news_dropped_today": 2387
+    "news_seen_today": 2856,
+    "news_picked_today": 450,
+    "news_dropped_today": 2406
   },
   "book_momentum": {
     "live_count": 8,
