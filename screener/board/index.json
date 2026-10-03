@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T20:31:13Z",
+  "generated_at": "2026-10-03T20:41:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261003-317",
@@ -145,6 +145,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261003-346",
+      "headline": "Renault invertirá más de 10.000 millones de euros en Francia en vehículos eléctricos y coches asequibles: CEO",
+      "headline_en": "Renault will invest more than 10 billion euros in France in electric vehicles and affordable cars: CEO",
+      "url": "https://www.reuters.com/es/negocio/CXV7HK5TM5M2FJZUEBJY2KUTRU-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-03T20:33:43Z",
+      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
+      "prelim_note": "Renault announced a 10 billion euro investment in France for electric and affordable vehicles.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Renault announced a 10 billion euro investment in France for electric and affordable vehicles.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Renault",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1914,55 +1963,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261003-222",
-      "headline": "How NASA Saved Boeing's Space Program With a New Contract and $359 Million",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/03/nasa-just-saved-boeings-space-program/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-03T10:06:00Z",
-      "sweep_file": "screener/inbox/2026-10-03_sweep.json",
-      "prelim_note": "Boeing secured a $359 million contract from NASA, providing a clear revenue boost and operational validation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Boeing secured a $359 million contract from NASA, providing a clear revenue boost and operational validation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": "BA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -197318,9 +197318,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4610,
-    "news_picked_today": 740,
-    "news_dropped_today": 3870
+    "news_seen_today": 4628,
+    "news_picked_today": 744,
+    "news_dropped_today": 3884
   },
   "book_momentum": {
     "live_count": 8,
