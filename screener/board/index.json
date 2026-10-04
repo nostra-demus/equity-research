@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T20:15:38Z",
+  "generated_at": "2026-10-04T20:21:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-297",
+      "headline": "DIAL raises 3,500 crore to refinance $522.6 m dollar bonds",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/dial-raises-3500-crore-to-refinance-522-6-m-dollar-bonds/articleshow/134680159.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T20:01:45Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Delhi International Airport Limited (DIAL) raised 3,500 crore to refinance $522.6 million in dollar-denominated bonds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delhi International Airport Limited (DIAL) raised 3,500 crore to refinance $522.6 million in dollar-denominated bonds.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delhi International Airport Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1889,55 +1938,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-173",
-      "headline": "Saudi Arabia quietly shelving NEOM Stadium, 2034 World Cup venue",
-      "headline_en": null,
-      "url": "https://www.newarab.com/news/saudi-arabia-quietly-shelving-neom-stadium-2034-world-cup-venue",
-      "source_name": "The New Arab",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T09:24:20Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "The shelving of the NEOM Stadium project, a key venue for the 2034 World Cup, indicates a significant operational change and potential financial impact for Saudi Arabia's development plans.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The shelving of the NEOM Stadium project, a key venue for the 2034 World Cup, indicates a significant operational change and potential financial impact for Saudi Arabia's development plans.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NEOM",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -201128,9 +201128,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2843,
-    "news_picked_today": 611,
-    "news_dropped_today": 2232
+    "news_seen_today": 2846,
+    "news_picked_today": 612,
+    "news_dropped_today": 2234
   },
   "book_momentum": {
     "live_count": 8,
