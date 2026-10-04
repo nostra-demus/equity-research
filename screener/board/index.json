@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T15:34:41Z",
+  "generated_at": "2026-10-04T15:39:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -95,6 +95,61 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-263",
+      "headline": "Broadcom’s Massive $42 Billion Chip-Buying Deal with Anthropic Raises Circular Financing Worries",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/10/04/broadcoms-massive-42-billion-chip-buying-deal-with-anthropic-raises-circular-financing-worries/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T15:33:48Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Broadcom announced a $42 billion chip-buying deal, raising concerns about circular financing and debt sustainability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Broadcom announced a $42 billion chip-buying deal, raising concerns about circular financing and debt sustainability.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Broadcom",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1650,6 +1705,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-265",
+      "headline": "Amazon Wants to Move $8 Billion in Nvidia Chips Off Its Books. Is AI’s Financing Model Starting to Change?",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/10/04/amazon-wants-to-move-8-billion-in-nvidia-chips-off-its-books-is-ais-financing-model-starting-to-change/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T15:38:29Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Amazon is looking to move $8 billion in Nvidia chip-related financing off its books, signaling a potential shift in AI capital expenditure models.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Amazon is looking to move $8 billion in Nvidia chip-related financing off its books, signaling a potential shift in AI capital expenditure models.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-082",
       "headline": "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
       "headline_en": null,
@@ -1841,92 +1951,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-232",
-      "headline": "Brazilians vote in pivotal presidential election dominated by Lula and Bolsonaro",
-      "headline_en": null,
-      "url": "https://www.emirates247.com/world/brazilians-vote-in-pivotal-presidential-election-dominated-by-lula-and-bolsonaro/6330",
-      "source_name": "Emirates 24|7 — Flash News (general)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T12:29:00Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "A pivotal presidential election in Brazil creates significant political and economic uncertainty for the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "A pivotal presidential election in Brazil creates significant political and economic uncertainty for the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-095",
-      "headline": "Centre raises deepwater gas price ceiling to $9.89 per MMBtu; APM gas cap at $7",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/commodities/centre-raises-deepwater-gas-price-ceiling-to-989-per-mmbtu-apm-gas-cap-at-7/article71543046.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T06:10:56Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "The Indian government increased the deepwater gas price ceiling to $9.89 per MMBtu, directly impacting revenue potential for domestic gas producers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The Indian government increased the deepwater gas price ceiling to $9.89 per MMBtu, directly impacting revenue potential for domestic gas producers.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -200899,9 +200923,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2237,
-    "news_picked_today": 481,
-    "news_dropped_today": 1756
+    "news_seen_today": 2254,
+    "news_picked_today": 486,
+    "news_dropped_today": 1768
   },
   "book_momentum": {
     "live_count": 8,
