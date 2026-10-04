@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T14:21:45Z",
+  "generated_at": "2026-10-04T14:40:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -1699,6 +1699,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-256",
+      "headline": "Nykaa Q2 update: Consolidated net revenue growth seen in late twenties, GMV in high twenties",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/nykaa-share-price-q2-update-consolidated-net-revenue-growth-seen-in-late-twenties-gmv-in-high-twenties-20004193.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T14:32:59Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Company provided a Q2 update indicating consolidated net revenue growth in the late twenties and GMV growth in the high twenties.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Company provided a Q2 update indicating consolidated net revenue growth in the late twenties and GMV growth in the high twenties.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nykaa",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-244",
       "headline": "FSSAI orders Everest to recall cumin powder after sample found ‘unsafe’",
       "headline_en": null,
@@ -1879,56 +1928,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-204",
-      "headline": "Everest Cumin Powder Recalled By FSSAI Over Excess Pesticide Residues — Check Batch Details",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/everest-cumin-powder-recalled-by-fssai-over-excess-pesticide-residues-check-batch-details-12137033#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T11:39:02Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Everest Food Products faces a product recall by the FSSAI due to excess pesticide residues, posing significant brand and regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Everest Food Products faces a product recall by the FSSAI due to excess pesticide residues, posing significant brand and regulatory risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Everest Food Products",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -200828,9 +200827,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1976,
-    "news_picked_today": 431,
-    "news_dropped_today": 1545
+    "news_seen_today": 2045,
+    "news_picked_today": 443,
+    "news_dropped_today": 1602
   },
   "book_momentum": {
     "live_count": 8,
