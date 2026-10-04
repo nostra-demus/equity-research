@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T12:26:08Z",
+  "generated_at": "2026-10-04T12:40:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -1207,6 +1207,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-225",
+      "headline": "Ola Electric Mobility Limited: Ola Electric Mobility Limited has informed the Exchange regarding 'Company announcement on pledge of shares by Promoter'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/OLAELECTRIC_04102026180131_Intimation_Press_Release_Ola_Electric_04_Oct.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-04T12:32:32Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Promoter share pledging is a significant governance signal that can impact stock liquidity and investor confidence.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Promoter share pledging is a significant governance signal that can impact stock liquidity and investor confidence.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ola Electric Mobility Limited",
+          "ticker": "544225",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-198",
       "headline": "BT weighs improved TalkTalk offer after initial approach rejected",
       "headline_en": null,
@@ -1447,6 +1496,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-232",
+      "headline": "Brazilians vote in pivotal presidential election dominated by Lula and Bolsonaro",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/world/brazilians-vote-in-pivotal-presidential-election-dominated-by-lula-and-bolsonaro/6330",
+      "source_name": "Emirates 24|7 — Flash News (general)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T12:29:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "A pivotal presidential election in Brazil creates significant political and economic uncertainty for the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "A pivotal presidential election in Brazil creates significant political and economic uncertainty for the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1832,104 +1924,6 @@
           "name": "Canon",
           "ticker": null,
           "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-064",
-      "headline": "Cube Highways Trust secures ₹1,150 crore through AAA-rated NCDs",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/markets/cube-highways-trust-secures-1150-crore-through-aaa-rated-ncds/article71542944.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T04:41:40Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Cube Highways Trust raised 1150 crore rupees through NCDs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Cube Highways Trust raised 1150 crore rupees through NCDs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cube Highways Trust",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-223",
-      "headline": "DLF sells out maiden senior living project Aureva in Gurugram for ₹1,985 cr",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/dlf-sells-out-maiden-senior-living-project-aureva-in-gurugram-for-rs-1985-crore-11791098745562.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T12:12:42Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "DLF sold out a project for ₹1,985 crore, indicating strong demand and revenue realization.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "DLF sold out a project for ₹1,985 crore, indicating strong demand and revenue realization.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DLF",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -200690,9 +200684,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1625,
-    "news_picked_today": 349,
-    "news_dropped_today": 1276
+    "news_seen_today": 1685,
+    "news_picked_today": 361,
+    "news_dropped_today": 1324
   },
   "book_momentum": {
     "live_count": 8,
