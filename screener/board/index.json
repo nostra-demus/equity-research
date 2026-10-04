@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T05:10:17Z",
+  "generated_at": "2026-10-04T05:14:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-039",
@@ -1586,6 +1586,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-073",
+      "headline": "Nvidia CEO Jensen Huang Just Reaffirmed His Jaw-Dropping Projection for 2030",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/04/nvidia-ceo-jensen-huang-just-reaffirmed-his-jaw-dr/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T04:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Nvidia's CEO reaffirmed existing long-term projections, which is a routine recap of previously known growth targets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Nvidia's CEO reaffirmed existing long-term projections, which is a routine recap of previously known growth targets.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 42,
+      "rank_factors": {
+        "materiality": 42,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-068",
       "headline": "Why China’s disappearing banks are a bad sign",
       "headline_en": null,
@@ -1809,49 +1858,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-021",
-      "headline": "Chalmers says global economic turmoil will drive budget cuts, but Australia should avoid recession",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/oct/04/chalmers-says-global-economic-turmoil-will-drive-budget-cuts-but-australia-should-avoid-recession",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T01:41:13Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Australian government signals potential budget cuts due to global economic conditions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Australian government signals potential budget cuts due to global economic conditions.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -158511,78 +158517,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-961ba303e1c1",
-      "idea_version": "IDEAV-1f44156cbe2736c3",
-      "idea_version_started_at": "2026-10-02T22:01:37Z",
-      "ticker": "PTSB",
-      "company": "Permanent TSB Group Holdings",
-      "exchange": "ISE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The potential acquisition by Axis Capital provides a floor and a premium catalyst for the stock.",
-      "why_now": "The news of a weighed offer emerged on 2026-10-02, making it a live M&A event.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9c753e9720cc"
-      ],
-      "primary_source_event_id": "EVT-9c753e9720cc",
-      "source_headlines": [
-        "Axis Capital weighs possible offer for Irish bank PTSB"
-      ],
-      "source_headline": "Axis Capital weighs possible offer for Irish bank PTSB",
-      "source_url": "https://www.reuters.com/business/finance/axis-capital-weighs-possible-offer-irish-bank-ptsb-2026-10-02/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-02T17:12:35Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-02T22:01:37Z",
-      "updated_at": "2026-10-02T22:01:37Z",
-      "decay_at": "2026-10-04T05:12:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3d269b7eb9c2",
       "idea_version": "IDEAV-5300d7372e5b2356",
       "idea_version_started_at": "2026-10-03T12:06:09Z",
@@ -161236,6 +161170,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-961ba303e1c1",
+      "idea_version": "IDEAV-1f44156cbe2736c3",
+      "idea_version_started_at": "2026-10-02T22:01:37Z",
+      "ticker": "PTSB",
+      "company": "Permanent TSB Group Holdings",
+      "exchange": "ISE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The potential acquisition by Axis Capital provides a floor and a premium catalyst for the stock.",
+      "why_now": "The news of a weighed offer emerged on 2026-10-02, making it a live M&A event.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9c753e9720cc"
+      ],
+      "primary_source_event_id": "EVT-9c753e9720cc",
+      "source_headlines": [
+        "Axis Capital weighs possible offer for Irish bank PTSB"
+      ],
+      "source_headline": "Axis Capital weighs possible offer for Irish bank PTSB",
+      "source_url": "https://www.reuters.com/business/finance/axis-capital-weighs-possible-offer-irish-bank-ptsb-2026-10-02/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T17:12:35Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-02T22:01:37Z",
+      "updated_at": "2026-10-02T22:01:37Z",
+      "decay_at": "2026-10-04T05:12:35Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-6cc4afd771f9",
       "idea_version": "IDEAV-7e52d21811080491",
       "idea_version_started_at": "2026-10-02T12:11:11Z",
@@ -161752,14 +161758,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 520,
+    "total_count": 521,
     "shown_count": 500,
-    "hidden_count": 20,
+    "hidden_count": 21,
     "side_counts": {
       "long": {
-        "total_count": 258,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 9
       },
       "short": {
         "total_count": 262,
@@ -161783,6 +161789,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-961ba303e1c1",
+        "idea_version": "IDEAV-1f44156cbe2736c3",
+        "idea_version_started_at": "2026-10-02T22:01:37Z",
+        "ticker": "PTSB",
+        "company": "Permanent TSB Group Holdings",
+        "exchange": "ISE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The potential acquisition by Axis Capital provides a floor and a premium catalyst for the stock.",
+        "why_now": "The news of a weighed offer emerged on 2026-10-02, making it a live M&A event.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9c753e9720cc"
+        ],
+        "primary_source_event_id": "EVT-9c753e9720cc",
+        "source_headlines": [
+          "Axis Capital weighs possible offer for Irish bank PTSB"
+        ],
+        "source_headline": "Axis Capital weighs possible offer for Irish bank PTSB",
+        "source_url": "https://www.reuters.com/business/finance/axis-capital-weighs-possible-offer-irish-bank-ptsb-2026-10-02/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-02T17:12:35Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-02T22:01:37Z",
+        "updated_at": "2026-10-02T22:01:37Z",
+        "decay_at": "2026-10-04T05:12:35Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T05:12:35Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0157f621dab9",
         "idea_version": "IDEAV-76e7c56cd73c4042",
@@ -190965,80 +191046,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-7b576c9bae72",
-        "idea_version": "IDEAV-80a7771629d4c052",
-        "idea_version_started_at": "2026-09-15T00:37:13Z",
-        "ticker": "EQR",
-        "company": "EQ Resources",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The signing of a binding agreement for a joint venture to build a US APT (Ammonium Paratungstate) plant provides a clear pathway for geographic expansion and vertical integration in the tungsten supply chain.",
-        "why_now": "The binding agreement was filed with the ASX on September 14, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-71ceb046032e"
-        ],
-        "primary_source_event_id": "EVT-71ceb046032e",
-        "source_headlines": [
-          "EQR: EQR Signs Binding Agreement For US APT Plant JV [price-sensitive]"
-        ],
-        "source_headline": "EQR: EQR Signs Binding Agreement For US APT Plant JV [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EQR?key=2924-03135532-2A1697060",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-14T23:24:49Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-15T00:37:13Z",
-        "updated_at": "2026-09-15T00:37:13Z",
-        "decay_at": "2026-09-16T11:24:49Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-18T00:05:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b20393c595ee",
         "idea_version": "IDEAV-8714ecc4c69db234",
         "idea_version_started_at": "2026-09-15T03:13:27Z",
@@ -198935,7 +198942,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1266,
-    "live_count": 59,
+    "live_count": 58,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -198954,9 +198961,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 511,
-    "news_picked_today": 79,
-    "news_dropped_today": 432
+    "news_seen_today": 531,
+    "news_picked_today": 81,
+    "news_dropped_today": 450
   },
   "book_momentum": {
     "live_count": 8,
