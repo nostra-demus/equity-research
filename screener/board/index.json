@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T13:54:37Z",
+  "generated_at": "2026-10-04T13:59:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-249",
+      "headline": "Houthis claim attacks on Aramco sites in Saudi Arabia",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/houthis-claim-attacks-aramco-sites-saudi-arabia",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T13:56:27Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Attacks on energy infrastructure facilities represent a significant supply shock risk for global oil markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Attacks on energy infrastructure facilities represent a significant supply shock risk for global oil markets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1879,55 +1928,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-138",
-      "headline": "Warburg Pincus closes in on due diligence at Ingenia Communities",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/warburg-pincus-closes-in-on-due-diligence-at-ingenia-communities-20261004-p612qe?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T07:33:41Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Warburg Pincus is conducting due diligence for a potential acquisition of Ingenia Communities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Warburg Pincus is conducting due diligence for a potential acquisition of Ingenia Communities.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ingenia Communities",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -200683,9 +200683,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1886,
-    "news_picked_today": 412,
-    "news_dropped_today": 1474
+    "news_seen_today": 1908,
+    "news_picked_today": 419,
+    "news_dropped_today": 1489
   },
   "book_momentum": {
     "live_count": 8,
