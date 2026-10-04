@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T06:45:16Z",
+  "generated_at": "2026-10-04T06:49:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-076",
@@ -879,6 +879,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-117",
+      "headline": "Another big development in Tata Boardroom Battle; Noel Tata seeks video recording and minutes of Sept 17 meeting",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/another-big-development-in-tata-boardroom-battle-noel-tata-seeks-video-recording-and-minutes-of-sept-17-meeting-11791095186384.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T06:41:18Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Internal board disputes at Tata Group entities can signal governance instability and management friction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Internal board disputes at Tata Group entities can signal governance instability and management friction.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1766,6 +1815,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-116",
+      "headline": "Deep-sea gas becomes costlier as government raises price ceiling",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/deep-sea-gas-becomes-costlier-as-government-raises-price-ceiling/articleshow/134670616.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T06:31:47Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The Indian government has increased the price ceiling for deep-sea gas, which will improve revenue prospects for domestic gas producers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The Indian government has increased the price ceiling for deep-sea gas, which will improve revenue prospects for domestic gas producers.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-104",
       "headline": "Japan PM protests to US after Marine arrested on murder suspicion in Okinawa",
       "headline_en": null,
@@ -1847,99 +1939,6 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-093",
-      "headline": "Korea Orders Security Checks After Finance-Sector Data Breaches",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-04/korea-orders-security-checks-after-finance-sector-data-breaches",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T05:43:28Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Government-ordered security checks in the finance sector follow data breaches, increasing operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Government-ordered security checks in the finance sector follow data breaches, increasing operational risk.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "cybersecurity"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-027",
-      "headline": "Dangote targets 10m investors with IPO marketing blitz",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news/africa/dangote-targets-10m-investors-with-ipo-marketing-blitz/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T02:00:36Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Dangote is initiating a large-scale marketing campaign to attract 10 million investors for an upcoming IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Dangote is initiating a large-scale marketing campaign to attract 10 million investors for an upcoming IPO.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dangote",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -199185,9 +199184,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 706,
-    "news_picked_today": 131,
-    "news_dropped_today": 575
+    "news_seen_today": 715,
+    "news_picked_today": 134,
+    "news_dropped_today": 581
   },
   "book_momentum": {
     "live_count": 8,
