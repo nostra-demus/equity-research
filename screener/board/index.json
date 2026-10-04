@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T03:11:12Z",
+  "generated_at": "2026-10-04T03:11:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-039",
@@ -156819,6 +156819,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-eb17dab5eaba",
+      "idea_version": "IDEAV-a759ea041b9eb06c",
+      "idea_version_started_at": "2026-10-04T03:11:26Z",
+      "ticker": "AGEN",
+      "company": "Agenus",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Positive clinical data showing a 48% 3-year survival rate for the BOT+BAL combination therapy in recurrent ovarian cancer provides a significant catalyst for the company's oncology pipeline valuation.",
+      "why_now": "The data was presented at the IGCS 2026 conference on October 4, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 18,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4f5738857306"
+      ],
+      "primary_source_event_id": "EVT-4f5738857306",
+      "source_headlines": [
+        "Agenus reports 48% estimated 3-year survival rate for BOT+BAL combination therapy for recurrent ovarian cancer at IGCS 2026"
+      ],
+      "source_headline": "アジーナス、IGCS 2026にて再発卵巣がんに対するボテンシリマブ＋バルスチリマブ併用療法の3年生存率推定値48%を報告",
+      "source_url": "http://www.businesswire.com/news/home/20261003250987/ja/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire — Product/Service News",
+      "materiality_max": 44,
+      "newest_source_at": "2026-10-04T02:43:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T03:11:26Z",
+      "updated_at": "2026-10-04T03:11:26Z",
+      "decay_at": "2026-10-05T14:43:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-6371037688a8",
       "idea_version": "IDEAV-b92f269a85620ed7",
       "idea_version_started_at": "2026-10-04T00:15:36Z",
@@ -159988,6 +160058,81 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-be16a3f18c55",
+      "idea_version": "IDEAV-5c63ad4980c330bd",
+      "idea_version_started_at": "2026-10-04T03:11:26Z",
+      "ticker": "XOM",
+      "company": "Exxon Mobil",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Escalating geopolitical conflict in the Middle East and strikes on energy infrastructure threaten global oil supply, driving up crude prices and benefiting integrated oil majors.",
+      "why_now": "The news of attacks on Saudi facilities and continued strikes on Russian refineries creates an immediate supply risk premium as of October 4, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2f597282cf95",
+        "EVT-84d5cef8618a",
+        "EVT-bc4de83c10f6"
+      ],
+      "primary_source_event_id": "EVT-2f597282cf95",
+      "source_headlines": [
+        "Iran war news LIVE updates: Houthis attack oil facility near Riyadh, accuses Kingdom of striking Sanaa",
+        "Chalmers labels US-Iran war a global ‘economic disaster’",
+        "Ukraine will hit Russian refineries in response to Moscow's 'new doctrine' of airstrikes: Zelenskiy"
+      ],
+      "source_headline": "Iran war news LIVE updates: Houthis attack oil facility near Riyadh, accuses Kingdom of striking Sanaa",
+      "source_url": "https://www.livemint.com/news/us-news/iran-war-news-live-latest-updates-donald-trump-abbas-araghchi-peace-talks-strait-of-hormuz-pezeshkian-us-sanctions-11791074262360.html",
+      "source_name": "Mint",
+      "materiality_max": 67,
+      "newest_source_at": "2026-10-04T02:54:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T03:11:26Z",
+      "updated_at": "2026-10-04T03:11:26Z",
+      "decay_at": "2026-10-05T14:54:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-839f0c1525a6",
       "idea_version": "IDEAV-5f12365296bc9a19",
       "idea_version_started_at": "2026-10-03T01:50:22Z",
@@ -161416,78 +161561,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-49e8280bd68e",
-      "idea_version": "IDEAV-dfb92573936b9b83",
-      "idea_version_started_at": "2026-10-01T07:26:45Z",
-      "ticker": "WBA",
-      "company": "Walgreens Boots Alliance",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The potential $9 billion sale of the Boots business would provide a massive liquidity injection to pay down debt and simplify the company's core U.S. retail pharmacy operations.",
-      "why_now": "The report of a near-term sale emerged on October 1, 2026, signaling a potential catalyst for deleveraging.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-48e96ec68827"
-      ],
-      "primary_source_event_id": "EVT-48e96ec68827",
-      "source_headlines": [
-        "Walgreens-owner Sycamore nears $9 billion sale of Boots, WSJ reports"
-      ],
-      "source_headline": "Walgreens-owner Sycamore nears $9 billion sale of Boots, WSJ reports",
-      "source_url": "https://www.reuters.com/legal/transactional/walgreens-owner-sycamore-nears-9-billion-sale-boots-wsj-reports-2026-09-30/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-01T02:46:46Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T07:26:45Z",
-      "updated_at": "2026-10-01T07:26:45Z",
-      "decay_at": "2026-10-02T14:46:46Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-1398b6438111",
       "idea_version": "IDEAV-34f2df35fedabf49",
       "idea_version_started_at": "2026-10-01T11:02:09Z",
@@ -161569,14 +161642,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 521,
+    "total_count": 520,
     "shown_count": 500,
-    "hidden_count": 21,
+    "hidden_count": 20,
     "side_counts": {
       "long": {
-        "total_count": 259,
+        "total_count": 258,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 8
       },
       "short": {
         "total_count": 262,
@@ -161586,12 +161659,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 685,
+      "evicted_count": 686,
       "oldest_retained_at": "2026-09-07T18:00:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 457,
-          "oldest_retained_at": "2026-09-15T22:19:00Z"
+          "evicted_count": 458,
+          "oldest_retained_at": "2026-09-16T00:15:26Z"
         },
         "short": {
           "evicted_count": 228,
@@ -163157,8 +163230,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-02T14:46:46Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-04T03:11:33Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -198751,8 +198824,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1263,
-    "live_count": 56,
+    "surfaced_total": 1265,
+    "live_count": 58,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
