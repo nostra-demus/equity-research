@@ -1,6 +1,49 @@
 {
-  "generated_at": "2026-10-03T23:54:45Z",
+  "generated_at": "2026-10-04T00:15:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261004-001",
+      "headline": "Hegseth: US blockade of Hormuz ironclad, Iran should make right choice",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/hegseth-us-blockade-hormuz-ironclad-iran-should-make-right-choice",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T00:07:23Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Threats of a US blockade of the Strait of Hormuz represent a major geopolitical escalation risk to global oil supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Threats of a US blockade of the Strait of Hormuz represent a major geopolitical escalation risk to global oil supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261003-317",
       "headline": "Bandhan Bank Limited: Bandhan Bank Limited has informed the Exchange about Unaudited Financial Figures for the Quarter ended September 30, 2026.",
@@ -197162,7 +197205,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3167,
+    "inbox_unconsumed": 3168,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -197171,9 +197214,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5001,
-    "news_picked_today": 791,
-    "news_dropped_today": 4100
+    "news_seen_today": 24,
+    "news_picked_today": 1,
+    "news_dropped_today": 23
   },
   "book_momentum": {
     "live_count": 8,
