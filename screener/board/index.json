@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T16:45:25Z",
+  "generated_at": "2026-10-04T16:49:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -1130,6 +1130,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-268",
+      "headline": "Air strike in Sudan kills UN aid truck driver: WFP",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/10/4/air-strike-in-sudan-kills-un-aid-truck-driver-wfp?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-04T16:28:43Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Escalation of conflict in Sudan involving the death of a UN aid worker represents a significant geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Escalation of conflict in Sudan involving the death of a UN aid worker represents a significant geopolitical risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-201",
       "headline": "Israeli air strikes target southern Lebanon",
       "headline_en": null,
@@ -1902,55 +1945,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-256",
-      "headline": "Nykaa Q2 update: Consolidated net revenue growth seen in late twenties, GMV in high twenties",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/nykaa-share-price-q2-update-consolidated-net-revenue-growth-seen-in-late-twenties-gmv-in-high-twenties-20004193.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T14:32:59Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Company provided a Q2 update indicating consolidated net revenue growth in the late twenties and GMV growth in the high twenties.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Company provided a Q2 update indicating consolidated net revenue growth in the late twenties and GMV growth in the high twenties.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nykaa",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -160982,80 +160976,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a499ce26ab02",
-      "idea_version": "IDEAV-8636f9e4a86b6c91",
-      "idea_version_started_at": "2026-10-03T06:10:08Z",
-      "ticker": "SBIN",
-      "company": "State Bank of India",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The SBI-led consortium's submission to the Bombay High Court confirms a massive ₹8,752 crore is still recoverable from the Mallya case, supporting potential future write-backs or provisions reversals.",
-      "why_now": "The legal update in the Bombay High Court on October 3, 2024, provides a specific figure for potential recovery that counters previous lower estimates.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c81fe26d75ba",
-        "EVT-78842051d04e"
-      ],
-      "primary_source_event_id": "EVT-c81fe26d75ba",
-      "source_headlines": [
-        "Vijay Mallya debt recovery: SBI-led consortium of banks tells Bombay High Court ₹8,752 crore still recoverable",
-        "SBI-led consortium tells Bombay HC Mallya owes over ₹8,700 crore; counters his claim of recovering more than dues"
-      ],
-      "source_headline": "Vijay Mallya debt recovery: SBI-led consortium of banks tells Bombay High Court ₹8,752 crore still recoverable",
-      "source_url": "https://www.cnbctv18.com/india/vijay-mallya-debt-recovery-sbi-led-consortium-of-banks-tells-bombay-high-court-8752-crore-rupees-still-recoverable-20003769.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-03T04:49:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T01:50:22Z",
-      "updated_at": "2026-10-03T06:10:08Z",
-      "decay_at": "2026-10-04T16:49:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9d6049b683f8",
       "idea_version": "IDEAV-e7a5004eebb679bd",
       "idea_version_started_at": "2026-10-04T11:04:47Z",
@@ -163776,6 +163696,80 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-a499ce26ab02",
+      "idea_version": "IDEAV-8636f9e4a86b6c91",
+      "idea_version_started_at": "2026-10-03T06:10:08Z",
+      "ticker": "SBIN",
+      "company": "State Bank of India",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The SBI-led consortium's submission to the Bombay High Court confirms a massive ₹8,752 crore is still recoverable from the Mallya case, supporting potential future write-backs or provisions reversals.",
+      "why_now": "The legal update in the Bombay High Court on October 3, 2024, provides a specific figure for potential recovery that counters previous lower estimates.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c81fe26d75ba",
+        "EVT-78842051d04e"
+      ],
+      "primary_source_event_id": "EVT-c81fe26d75ba",
+      "source_headlines": [
+        "Vijay Mallya debt recovery: SBI-led consortium of banks tells Bombay High Court ₹8,752 crore still recoverable",
+        "SBI-led consortium tells Bombay HC Mallya owes over ₹8,700 crore; counters his claim of recovering more than dues"
+      ],
+      "source_headline": "Vijay Mallya debt recovery: SBI-led consortium of banks tells Bombay High Court ₹8,752 crore still recoverable",
+      "source_url": "https://www.cnbctv18.com/india/vijay-mallya-debt-recovery-sbi-led-consortium-of-banks-tells-bombay-high-court-8752-crore-rupees-still-recoverable-20003769.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 90,
+      "newest_source_at": "2026-10-03T04:49:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T01:50:22Z",
+      "updated_at": "2026-10-03T06:10:08Z",
+      "decay_at": "2026-10-04T16:49:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-33746bc60cea",
       "idea_version": "IDEAV-604188cce3edb361",
       "idea_version_started_at": "2026-10-03T02:50:18Z",
@@ -163858,14 +163852,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 527,
+    "total_count": 528,
     "shown_count": 500,
-    "hidden_count": 27,
+    "hidden_count": 28,
     "side_counts": {
       "long": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       },
       "short": {
         "total_count": 263,
@@ -163889,6 +163883,83 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a499ce26ab02",
+        "idea_version": "IDEAV-8636f9e4a86b6c91",
+        "idea_version_started_at": "2026-10-03T06:10:08Z",
+        "ticker": "SBIN",
+        "company": "State Bank of India",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The SBI-led consortium's submission to the Bombay High Court confirms a massive ₹8,752 crore is still recoverable from the Mallya case, supporting potential future write-backs or provisions reversals.",
+        "why_now": "The legal update in the Bombay High Court on October 3, 2024, provides a specific figure for potential recovery that counters previous lower estimates.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c81fe26d75ba",
+          "EVT-78842051d04e"
+        ],
+        "primary_source_event_id": "EVT-c81fe26d75ba",
+        "source_headlines": [
+          "Vijay Mallya debt recovery: SBI-led consortium of banks tells Bombay High Court ₹8,752 crore still recoverable",
+          "SBI-led consortium tells Bombay HC Mallya owes over ₹8,700 crore; counters his claim of recovering more than dues"
+        ],
+        "source_headline": "Vijay Mallya debt recovery: SBI-led consortium of banks tells Bombay High Court ₹8,752 crore still recoverable",
+        "source_url": "https://www.cnbctv18.com/india/vijay-mallya-debt-recovery-sbi-led-consortium-of-banks-tells-bombay-high-court-8752-crore-rupees-still-recoverable-20003769.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 90,
+        "newest_source_at": "2026-10-03T04:49:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T01:50:22Z",
+        "updated_at": "2026-10-03T06:10:08Z",
+        "decay_at": "2026-10-04T16:49:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T16:49:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c02e0d12e628",
         "idea_version": "IDEAV-28363c909906636d",
@@ -193149,81 +193220,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1bc0605be1ed",
-        "idea_version": "IDEAV-d8324e0c16cac5fa",
-        "idea_version_started_at": "2026-09-15T10:07:26Z",
-        "ticker": "336260",
-        "company": "Doosan Fuel Cell",
-        "exchange": "KRX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company's order book has surpassed 1 trillion KRW, driven by increasing demand for fuel cell power solutions from AI data centers.",
-        "why_now": "The milestone was reported on September 15, 2026, reflecting a structural shift in demand for power-intensive AI infrastructure.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "sector_cycle",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c1c4861f36e1"
-        ],
-        "primary_source_event_id": "EVT-c1c4861f36e1",
-        "source_headlines": [
-          "Doosan Fuel Cell Orders Top 1 Trillion Won on AI Power Demand"
-        ],
-        "source_headline": "Doosan Fuel Cell Orders Top 1 Trillion Won on AI Power Demand",
-        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276967",
-        "source_name": "Business Korea — All English Articles",
-        "materiality_max": 97,
-        "newest_source_at": "2026-09-15T07:10:06Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-15T10:07:26Z",
-        "updated_at": "2026-09-15T10:07:26Z",
-        "decay_at": "2026-09-16T19:10:06Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-18T08:52:45Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d00aad4b1aef",
         "idea_version": "IDEAV-ef3b1f7d70895e41",
         "idea_version_started_at": "2026-09-15T04:47:56Z",
@@ -201041,7 +201037,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1300,
-    "live_count": 80,
+    "live_count": 79,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -201060,9 +201056,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2419,
-    "news_picked_today": 516,
-    "news_dropped_today": 1903
+    "news_seen_today": 2435,
+    "news_picked_today": 523,
+    "news_dropped_today": 1912
   },
   "book_momentum": {
     "live_count": 8,
