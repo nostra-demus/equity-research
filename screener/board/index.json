@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T20:00:12Z",
+  "generated_at": "2026-10-04T20:04:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-296",
+      "headline": "Alaska LNG shipping savings justifies billions in investment, developer says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/alaska-lng-shipping-savings-justifies-billions-investment-developer-says-2026-10-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T19:52:10Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The developer of the Alaska LNG project is justifying a multi-billion dollar investment, signaling a major capital expenditure commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The developer of the Alaska LNG project is justifying a multi-billion dollar investment, signaling a major capital expenditure commitment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alaska LNG",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1889,55 +1938,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-161",
-      "headline": "Firmus spruiks future Nasdaq listing; prepares for $44b Australian IPO",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/infrastructure/firmus-spruiks-future-nasdaq-listing-prepares-for-44b-australian-ipo-20261004-p612ad?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T09:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Firmus is preparing for a $44 billion IPO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Firmus is preparing for a $44 billion IPO.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Firmus",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -158802,77 +158802,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c4367824b313",
-      "idea_version": "IDEAV-b9e02035854b9685",
-      "idea_version_started_at": "2026-10-03T12:06:09Z",
-      "ticker": "DPSC",
-      "company": "DPSC Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "DPSC Limited has entered Corporate Insolvency Resolution Process, signaling severe financial distress and potential operational disruption.",
-      "why_now": "The appointment of a Whole-time Director in a Material Subsidiary Company related to the CIRP was announced on October 3, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bc20ae4fd694"
-      ],
-      "primary_source_event_id": "EVT-bc20ae4fd694",
-      "source_headlines": [
-        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Appointment of a Whole-time Director in a Material Subsidiary Company"
-      ],
-      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Appointment of a Whole-time Director in a Material Subsidiary Company",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_03102026133257_IntimationofAppointmentofWTDinIPLaMSUnderReg30ofLODR03102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-03T08:03:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T12:06:09Z",
-      "updated_at": "2026-10-03T12:06:09Z",
-      "decay_at": "2026-10-04T20:03:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a2d9851a780b",
       "idea_version": "IDEAV-7ec33aba21576c2d",
       "idea_version_started_at": "2026-10-03T12:22:04Z",
@@ -162246,6 +162175,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c4367824b313",
+      "idea_version": "IDEAV-b9e02035854b9685",
+      "idea_version_started_at": "2026-10-03T12:06:09Z",
+      "ticker": "DPSC",
+      "company": "DPSC Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "DPSC Limited has entered Corporate Insolvency Resolution Process, signaling severe financial distress and potential operational disruption.",
+      "why_now": "The appointment of a Whole-time Director in a Material Subsidiary Company related to the CIRP was announced on October 3, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bc20ae4fd694"
+      ],
+      "primary_source_event_id": "EVT-bc20ae4fd694",
+      "source_headlines": [
+        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Appointment of a Whole-time Director in a Material Subsidiary Company"
+      ],
+      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Appointment of a Whole-time Director in a Material Subsidiary Company",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_03102026133257_IntimationofAppointmentofWTDinIPLaMSUnderReg30ofLODR03102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T08:03:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T12:06:09Z",
+      "updated_at": "2026-10-03T12:06:09Z",
+      "decay_at": "2026-10-04T20:03:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-830bd652e0ef",
       "idea_version": "IDEAV-578bb18fe805ad92",
       "idea_version_started_at": "2026-10-03T07:11:46Z",
@@ -163920,9 +163920,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 540,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 40,
     "side_counts": {
       "long": {
         "total_count": 271,
@@ -163930,9 +163930,9 @@
         "hidden_count": 21
       },
       "short": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       }
     },
     "retention": {
@@ -163951,6 +163951,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c4367824b313",
+        "idea_version": "IDEAV-b9e02035854b9685",
+        "idea_version_started_at": "2026-10-03T12:06:09Z",
+        "ticker": "DPSC",
+        "company": "DPSC Limited",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "DPSC Limited has entered Corporate Insolvency Resolution Process, signaling severe financial distress and potential operational disruption.",
+        "why_now": "The appointment of a Whole-time Director in a Material Subsidiary Company related to the CIRP was announced on October 3, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bc20ae4fd694"
+        ],
+        "primary_source_event_id": "EVT-bc20ae4fd694",
+        "source_headlines": [
+          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Appointment of a Whole-time Director in a Material Subsidiary Company"
+        ],
+        "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Appointment of a Whole-time Director in a Material Subsidiary Company",
+        "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_03102026133257_IntimationofAppointmentofWTDinIPLaMSUnderReg30ofLODR03102026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-03T08:03:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T12:06:09Z",
+        "updated_at": "2026-10-03T12:06:09Z",
+        "decay_at": "2026-10-04T20:03:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T20:03:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ee7156fae646",
         "idea_version": "IDEAV-d3315e491cfb73b4",
@@ -201030,90 +201104,12 @@
         "archived_at": "2026-09-10T15:01:46Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-944ea5e8ab2b",
-        "idea_version": "IDEAV-528910e6e1b240f0",
-        "idea_version_started_at": "2026-09-07T12:27:09Z",
-        "ticker": "PVRINOX",
-        "company": "PVR INOX Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is facing a serious internal investigation into alleged Rs 200 crore kickbacks, which has already triggered regulatory inquiries and executive departures.",
-        "why_now": "The exchange has formally requested clarification on the ongoing probe as of 2026-09-07, creating immediate uncertainty and potential for further downside.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-91a6b422e0f3",
-          "EVT-4b27acef5899",
-          "EVT-9f9e05df5d86"
-        ],
-        "primary_source_event_id": "EVT-91a6b422e0f3",
-        "source_headlines": [
-          "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light",
-          "PVR INOX Limited: The Exchange has sought clarification from PVR INOX Limited with respect to recent news item captioned PVR Inox shares fall 8% amid internal probe into alleged Rs 200-crore kickbacks. The response from the Company is awaited.",
-          "PVR INOX Limited: The Exchange has sought clarification from PVR INOX Limited with respect to recent news item captioned PVR Inox shares fall 8% amid internal probe into alleged Rs 200-crore kickbacks. The response from the Company is attached."
-        ],
-        "source_headline": "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/pvr-inox-shares-crash-8-after-alleged-rs-200-crore-kickback-investigation-senior-execs-exit-comes-to-light/articleshow/133864218.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T10:12:23Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T12:27:09Z",
-        "updated_at": "2026-09-07T12:27:09Z",
-        "decay_at": "2026-09-08T22:12:23Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T10:22:30Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1304,
-    "live_count": 69,
+    "live_count": 68,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -201132,9 +201128,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2814,
-    "news_picked_today": 603,
-    "news_dropped_today": 2211
+    "news_seen_today": 2823,
+    "news_picked_today": 606,
+    "news_dropped_today": 2217
   },
   "book_momentum": {
     "live_count": 8,
