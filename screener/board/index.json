@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T08:49:38Z",
+  "generated_at": "2026-10-04T08:59:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-139",
@@ -1427,6 +1427,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-157",
+      "headline": "Sun Pharma Advanced Research wins ₹28 crore CENVAT credit refund case in CESTAT",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/sun-pharma-advanced-research-share-price-wins-rs-28-crore-cenvat-credit-refund-case-in-cestat-20004118.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T08:51:20Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Sun Pharma Advanced Research won a ₹28 crore CENVAT credit refund case.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Sun Pharma Advanced Research won a ₹28 crore CENVAT credit refund case.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sun Pharma Advanced Research",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-141",
       "headline": "China lashes out at Xinjiang ‘lie’ after US lawmaker urges Starbucks to close new stores",
       "headline_en": null,
@@ -1909,55 +1958,6 @@
           "name": "Adani Airport",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-113",
-      "headline": "Nestle India’s ‘Low-Fat Dairy Whitener’ Found ‘Unsafe, Substandard’ At Hotel Lalit: FSSAI",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/nestle-indias-low-fat-dairy-whitener-found-unsafe-substandard-at-hotel-lalit-fssai",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T05:27:36Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "FSSAI finding a product 'unsafe' and 'substandard' poses a significant reputational and regulatory risk to the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "FSSAI finding a product 'unsafe' and 'substandard' poses a significant reputational and regulatory risk to the company.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nestle India",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -199921,9 +199921,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1006,
-    "news_picked_today": 204,
-    "news_dropped_today": 802
+    "news_seen_today": 1031,
+    "news_picked_today": 213,
+    "news_dropped_today": 818
   },
   "book_momentum": {
     "live_count": 8,
