@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T08:40:26Z",
+  "generated_at": "2026-10-04T08:49:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-139",
@@ -491,6 +491,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-151",
+      "headline": "+++ Iran-Krieg +++: Huthis haben nach eigenen Angaben Aramco-Anlage in Riad angegriffen",
+      "headline_en": "+++ Iran War +++: Houthis claim to have attacked Aramco facility in Riyadh",
+      "url": "https://www.handelsblatt.com/politik/international/iran-krieg-huthis-haben-nach-eigenen-angaben-aramco-anlage-in-riad-angegriffen/100136895.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T08:47:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Reported attack on Saudi Aramco facility by Houthi forces poses a direct threat to energy infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Reported attack on Saudi Aramco facility by Houthi forces poses a direct threat to energy infrastructure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1912,66 +1961,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-103",
-      "headline": "Cortina completes 8% buyback; Chandra Asri adds to Hiap Seng stake",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/cortina-completes-8-buyback-chandra-asri-adds-hiap-seng-stake",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T06:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Cortina Holdings completed an 8% share buyback, and Chandra Asri increased its stake in Hiap Seng.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Cortina Holdings completed an 8% share buyback, and Chandra Asri increased its stake in Hiap Seng.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions",
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cortina Holdings",
-          "ticker": null,
-          "listing_country": "SG"
-        },
-        {
-          "name": "Chandra Asri",
-          "ticker": null,
-          "listing_country": "ID"
-        },
-        {
-          "name": "Hiap Seng",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -199932,9 +199921,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 975,
-    "news_picked_today": 191,
-    "news_dropped_today": 784
+    "news_seen_today": 1006,
+    "news_picked_today": 204,
+    "news_dropped_today": 802
   },
   "book_momentum": {
     "live_count": 8,
