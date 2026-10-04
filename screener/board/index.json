@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T06:49:33Z",
+  "generated_at": "2026-10-04T06:56:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-076",
@@ -247,6 +247,60 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-119",
+      "headline": "‎Tadawul halts Amwaj, Rawasi Albina for failure to disclose financials",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1941101",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T09:38:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Tadawul has halted trading in Amwaj and Rawasi Albina due to failure to disclose financial statements, a significant regulatory enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Tadawul has halted trading in Amwaj and Rawasi Albina due to failure to disclose financial statements, a significant regulatory enforcement action.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amwaj",
+          "ticker": null,
+          "listing_country": "SA"
+        },
+        {
+          "name": "Rawasi Albina",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1894,50 +1948,6 @@
         "regulatory"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-102",
-      "headline": "South Korean president orders probe into data leaks across financial industry",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/south-korean-president-orders-probe-into-data-leaks-across-financial-industry-2026-10-04/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T06:19:43Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "The South Korean president has ordered a probe into financial industry data leaks, which increases regulatory and operational risk for the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The South Korean president has ordered a probe into financial industry data leaks, which increases regulatory and operational risk for the sector.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "cybersecurity"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -199184,9 +199194,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 715,
-    "news_picked_today": 134,
-    "news_dropped_today": 581
+    "news_seen_today": 719,
+    "news_picked_today": 136,
+    "news_dropped_today": 583
   },
   "book_momentum": {
     "live_count": 8,
