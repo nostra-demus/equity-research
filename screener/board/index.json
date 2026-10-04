@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T01:54:58Z",
+  "generated_at": "2026-10-04T02:04:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-020",
@@ -193,6 +193,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-023",
+      "headline": "Adani Airport to go ahead with Mumbai redevelopment; airlines reject proposal",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/adani-airport-navi-mumbai-mumbai-airport-redevelopment-india-airlines-11791045126155.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T01:57:20Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Adani Airport's redevelopment proposal for Mumbai faces rejection from airlines, creating operational and commercial friction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Adani Airport's redevelopment proposal for Mumbai faces rejection from airlines, creating operational and commercial friction.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Airport",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -584,6 +634,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-022",
+      "headline": "Ethiopian government troops seize Tigray’s capital Mekelle",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/4/ethiopian-government-troops-seize-tigrays-capital-mekelle?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-04T01:41:28Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The seizure of the capital city Mekelle by government troops represents a significant escalation in the ongoing Ethiopian conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "The seizure of the capital city Mekelle by government troops represents a significant escalation in the ongoing Ethiopian conflict.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -198018,7 +198111,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3188,
+    "inbox_unconsumed": 3190,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -198027,9 +198120,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 164,
-    "news_picked_today": 21,
-    "news_dropped_today": 143
+    "news_seen_today": 186,
+    "news_picked_today": 23,
+    "news_dropped_today": 163
   },
   "book_momentum": {
     "live_count": 8,
