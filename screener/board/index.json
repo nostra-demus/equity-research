@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T11:30:15Z",
+  "generated_at": "2026-10-04T11:34:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -816,6 +816,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-203",
+      "headline": "Indian-run pharma plant in Ukraine hit by Russian drones, 1 killed, several injured",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/asia/india/indian-run-pharma-plant-in-ukraine-hit-by-russian-drones-1-killed-several-injured-1.500697885",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T11:04:49Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "A pharmaceutical production facility was destroyed by military action, representing a supply shock and operational loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A pharmaceutical production facility was destroyed by military action, representing a supply shock and operational loss.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1905,55 +1948,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-107",
-      "headline": "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/corporate/vedanta-power-sales-jump-26-to-5593-million-units-in-q2",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T06:04:01Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Vedanta reported a 26% jump in power sales to 5,593 million units in Q2, indicating strong operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Vedanta reported a 26% jump in power sales to 5,593 million units in Q2, indicating strong operational performance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vedanta",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -200350,9 +200344,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1458,
-    "news_picked_today": 303,
-    "news_dropped_today": 1155
+    "news_seen_today": 1471,
+    "news_picked_today": 306,
+    "news_dropped_today": 1165
   },
   "book_momentum": {
     "live_count": 8,
