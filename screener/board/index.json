@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T02:14:35Z",
+  "generated_at": "2026-10-04T02:21:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-020",
@@ -874,6 +874,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-029",
+      "headline": "Yemeni government forces carry out 97 anti-Houthi operations, spokesman says",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/yemeni-government-forces-carry-out-97-anti-houthi-operations-spokesman",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T02:16:31Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The report of 97 military operations indicates a significant escalation in the ongoing conflict in Yemen, which poses risks to regional stability and shipping.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "The report of 97 military operations indicates a significant escalation in the ongoing conflict in Yemen, which poses risks to regional stability and shipping.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -198351,7 +198394,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3195,
+    "inbox_unconsumed": 3196,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -198360,9 +198403,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 222,
-    "news_picked_today": 28,
-    "news_dropped_today": 194
+    "news_seen_today": 229,
+    "news_picked_today": 29,
+    "news_dropped_today": 200
   },
   "book_momentum": {
     "live_count": 8,
