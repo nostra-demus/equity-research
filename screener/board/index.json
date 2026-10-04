@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T23:00:02Z",
+  "generated_at": "2026-10-04T23:04:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-319",
@@ -242,6 +242,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-331",
+      "headline": "Philippine power giant First Gen rebuffs foreign offers, plans up to US$2.6 billion in expansion",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/asean/philippine-power-giant-first-gen-rebuffs-foreign-offers-plans-us2-6-billion-expansion",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "First Gen announced a major US$2.6 billion expansion plan, which is a significant capital commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "First Gen announced a major US$2.6 billion expansion plan, which is a significant capital commitment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "First Gen",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1935,49 +1984,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-289",
-      "headline": "Saudi-backed Yemen government declares war on Houthi rebels",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/trump-launches-super-intelligence-force-after-calls-for-ai-slowdown-20261005-p612sb?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T19:17:45Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "A formal declaration of war in Yemen is a major geopolitical escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "A formal declaration of war in Yemen is a major geopolitical escalation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -159715,78 +159721,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5517471aff69",
-      "idea_version": "IDEAV-31858abf3be56ce6",
-      "idea_version_started_at": "2026-10-03T11:15:22Z",
-      "ticker": "SOBHA",
-      "company": "Sobha",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Sobha's Q2 total sales value rose 16% year-over-year to ₹2,206 crore, demonstrating robust demand and sales execution in its Bengaluru market.",
-      "why_now": "The Q2 business update with strong sales growth was released today, acting as a direct positive catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-3bf8d8262bcd"
-      ],
-      "primary_source_event_id": "EVT-3bf8d8262bcd",
-      "source_headlines": [
-        "Sobha Q2 business update: Bengaluru developer's total sales value rises 16% YoY to ₹2,206 crore"
-      ],
-      "source_headline": "Sobha Q2 business update: Bengaluru developer's total sales value rises 16% YoY to ₹2,206 crore",
-      "source_url": "https://www.cnbctv18.com/market/sobha-q2-business-update-total-sales-value-rises-16-yoy-to-2206-crore-rupees-bengaluru-realty-20003889.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 92,
-      "newest_source_at": "2026-10-03T11:01:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T11:15:22Z",
-      "updated_at": "2026-10-03T11:15:22Z",
-      "decay_at": "2026-10-04T23:01:31Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-631ed86dc2a4",
       "idea_version": "IDEAV-14602060eb1c8687",
       "idea_version_started_at": "2026-10-04T12:14:59Z",
@@ -163374,6 +163308,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-5517471aff69",
+      "idea_version": "IDEAV-31858abf3be56ce6",
+      "idea_version_started_at": "2026-10-03T11:15:22Z",
+      "ticker": "SOBHA",
+      "company": "Sobha",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Sobha's Q2 total sales value rose 16% year-over-year to ₹2,206 crore, demonstrating robust demand and sales execution in its Bengaluru market.",
+      "why_now": "The Q2 business update with strong sales growth was released today, acting as a direct positive catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3bf8d8262bcd"
+      ],
+      "primary_source_event_id": "EVT-3bf8d8262bcd",
+      "source_headlines": [
+        "Sobha Q2 business update: Bengaluru developer's total sales value rises 16% YoY to ₹2,206 crore"
+      ],
+      "source_headline": "Sobha Q2 business update: Bengaluru developer's total sales value rises 16% YoY to ₹2,206 crore",
+      "source_url": "https://www.cnbctv18.com/market/sobha-q2-business-update-total-sales-value-rises-16-yoy-to-2206-crore-rupees-bengaluru-realty-20003889.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 92,
+      "newest_source_at": "2026-10-03T11:01:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T11:15:22Z",
+      "updated_at": "2026-10-03T11:15:22Z",
+      "decay_at": "2026-10-04T23:01:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9e67f63d6671",
       "idea_version": "IDEAV-829b69999ed64def",
       "idea_version_started_at": "2026-10-03T08:45:36Z",
@@ -163962,14 +163968,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 545,
+    "total_count": 546,
     "shown_count": 500,
-    "hidden_count": 45,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 27
       },
       "short": {
         "total_count": 269,
@@ -163993,6 +163999,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5517471aff69",
+        "idea_version": "IDEAV-31858abf3be56ce6",
+        "idea_version_started_at": "2026-10-03T11:15:22Z",
+        "ticker": "SOBHA",
+        "company": "Sobha",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Sobha's Q2 total sales value rose 16% year-over-year to ₹2,206 crore, demonstrating robust demand and sales execution in its Bengaluru market.",
+        "why_now": "The Q2 business update with strong sales growth was released today, acting as a direct positive catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-3bf8d8262bcd"
+        ],
+        "primary_source_event_id": "EVT-3bf8d8262bcd",
+        "source_headlines": [
+          "Sobha Q2 business update: Bengaluru developer's total sales value rises 16% YoY to ₹2,206 crore"
+        ],
+        "source_headline": "Sobha Q2 business update: Bengaluru developer's total sales value rises 16% YoY to ₹2,206 crore",
+        "source_url": "https://www.cnbctv18.com/market/sobha-q2-business-update-total-sales-value-rises-16-yoy-to-2206-crore-rupees-bengaluru-realty-20003889.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 92,
+        "newest_source_at": "2026-10-03T11:01:31Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T11:15:22Z",
+        "updated_at": "2026-10-03T11:15:22Z",
+        "decay_at": "2026-10-04T23:01:31Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T23:01:31Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d6ced9326085",
         "idea_version": "IDEAV-48a1605dbaec0599",
@@ -192894,80 +192975,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-0df99569639a",
-        "idea_version": "IDEAV-e92ebd1af27b53f8",
-        "idea_version_started_at": "2026-09-17T22:38:57Z",
-        "ticker": "01540",
-        "company": "Left Field Printing Group",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company has completed a major disposal and announced a special dividend of HK$0.30 per share, providing a direct cash return to shareholders.",
-        "why_now": "The announcement was made on 2026-09-16, and the special dividend provides a clear, immediate catalyst for price appreciation.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2ed679807cd8"
-        ],
-        "primary_source_event_id": "EVT-2ed679807cd8",
-        "source_headlines": [
-          "LEFTFIELD PRINT (01540): JOINT ANNOUNCEMENT - (1) COMPLETION OF MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE DISPOSAL OF THE ISSUED SHARES OF THE TARGET COMPANY; AND (2) PAYMENT OF SPECIAL DIVIDEND OF HK$0.30 PER LEFT FIELD SHARE"
-        ],
-        "source_headline": "LEFTFIELD PRINT (01540): JOINT ANNOUNCEMENT - (1) COMPLETION OF MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE DISPOSAL OF THE ISSUED SHARES OF THE TARGET COMPANY; AND (2) PAYMENT OF SPECIAL DIVIDEND OF HK$0.30 PER LEFT FIELD SHARE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091601277.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-16T12:12:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-17T10:57:20Z",
-        "updated_at": "2026-09-17T22:38:57Z",
-        "decay_at": "2026-09-18T00:12:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-19T12:40:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-1cca59b30c7a",
         "idea_version": "IDEAV-e6e492d5833b6b1a",
         "idea_version_started_at": "2026-09-17T10:57:20Z",
@@ -201151,7 +201158,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1306,
-    "live_count": 63,
+    "live_count": 62,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -201170,9 +201177,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3351,
-    "news_picked_today": 778,
-    "news_dropped_today": 2573
+    "news_seen_today": 3372,
+    "news_picked_today": 784,
+    "news_dropped_today": 2588
   },
   "book_momentum": {
     "live_count": 8,
