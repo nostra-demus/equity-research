@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T19:05:12Z",
+  "generated_at": "2026-10-04T19:14:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -95,6 +95,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-284",
+      "headline": "AkzoNobel could sell unit to Nippon Paint for over $1 billion, FT reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/akzonobel-could-sell-unit-nippon-paint-over-1-billion-ft-reports-2026-10-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T19:10:46Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Potential sale of a business unit for over $1 billion is a material M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Potential sale of a business unit for over $1 billion is a material M&A event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AkzoNobel",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Nippon Paint",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1376,6 +1430,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-283",
+      "headline": "Saudi-backed Yemen government declares war on Houthis",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/trump-launches-super-intelligence-force-after-calls-for-ai-slowdown-20261005-p612sb?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T19:10:10Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Escalation of military conflict in a key energy-producing region poses significant geopolitical and supply chain risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Escalation of military conflict in a key energy-producing region poses significant geopolitical and supply chain risks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-281",
       "headline": "War on Iran: Is escalation more likely than a deal?",
       "headline_en": null,
@@ -1836,104 +1933,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-225",
-      "headline": "Ola Electric Mobility Limited: Ola Electric Mobility Limited has informed the Exchange regarding 'Company announcement on pledge of shares by Promoter'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/OLAELECTRIC_04102026180131_Intimation_Press_Release_Ola_Electric_04_Oct.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-04T12:32:32Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Promoter share pledging is a significant governance signal that can impact stock liquidity and investor confidence.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Promoter share pledging is a significant governance signal that can impact stock liquidity and investor confidence.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ola Electric Mobility Limited",
-          "ticker": "544225",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-269",
-      "headline": "'War Is Far From Over': Al-Qaeda Praises Foiled Flydubai Flight Hijack, Urges More Attacks On US & Israeli Airlines",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/world/war-is-far-from-over-al-qaeda-praises-foiled-flydubai-flight-hijack-urges-more-attacks-on-us-israeli-airlines",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T16:44:25Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Threats against US and Israeli airlines increase operational and security risk for the aviation sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Threats against US and Israeli airlines increase operational and security risk for the aviation sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Flydubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -157220,76 +157219,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6371037688a8",
-      "idea_version": "IDEAV-b92f269a85620ed7",
-      "idea_version_started_at": "2026-10-04T00:15:36Z",
-      "ticker": "DMART.NS",
-      "company": "Avenue Supermarts",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported Q2 FY27 standalone revenue of ₹19,206.18 crore and expanded its store footprint to 518, signaling continued growth in its retail operations.",
-      "why_now": "The earnings were released on 2026-10-03, providing a fresh catalyst for valuation adjustment based on top-line performance.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e60f3e9ee7e9"
-      ],
-      "primary_source_event_id": "EVT-e60f3e9ee7e9",
-      "source_headlines": [
-        "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518"
-      ],
-      "source_headline": "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518",
-      "source_url": "https://www.freepressjournal.in/business/avenue-supermarts-reports-1920618-crore-standalone-revenue-in-q2-fy27-store-count-reaches-518",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-03T07:08:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T00:15:36Z",
-      "updated_at": "2026-10-04T00:15:36Z",
-      "decay_at": "2026-10-04T19:08:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-51f337afe9cd",
       "idea_version": "IDEAV-e25a7694ce5c100d",
       "idea_version_started_at": "2026-10-04T07:06:51Z",
@@ -158069,78 +157998,6 @@
       "surfaced_at": "2026-10-04T01:45:19Z",
       "updated_at": "2026-10-04T01:45:19Z",
       "decay_at": "2026-10-05T13:30:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-cd88af904b7c",
-      "idea_version": "IDEAV-a143dcd7af738532",
-      "idea_version_started_at": "2026-10-03T23:11:18Z",
-      "ticker": "DMART",
-      "company": "Avenue Supermarts",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong standalone revenue of ₹19,206.18 crore for Q2 FY27, indicating continued growth in its retail footprint which reached 518 stores.",
-      "why_now": "The earnings report was released on 2026-10-03, providing a fresh catalyst for valuation adjustment.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e60f3e9ee7e9"
-      ],
-      "primary_source_event_id": "EVT-e60f3e9ee7e9",
-      "source_headlines": [
-        "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518"
-      ],
-      "source_headline": "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518",
-      "source_url": "https://www.freepressjournal.in/business/avenue-supermarts-reports-1920618-crore-standalone-revenue-in-q2-fy27-store-count-reaches-518",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-03T07:08:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T08:45:36Z",
-      "updated_at": "2026-10-03T23:11:18Z",
-      "decay_at": "2026-10-04T19:08:20Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -158935,80 +158792,6 @@
       "surfaced_at": "2026-10-03T12:06:09Z",
       "updated_at": "2026-10-03T12:06:09Z",
       "decay_at": "2026-10-04T20:03:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-d04744233983",
-      "idea_version": "IDEAV-515f15235fab9160",
-      "idea_version_started_at": "2026-10-03T07:11:46Z",
-      "ticker": "TILHC",
-      "company": "TIL Healthcare",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A fatal boiler explosion at a pharmaceutical plant will likely result in operational disruptions, regulatory scrutiny, and potential liabilities.",
-      "why_now": "The incident occurred today and rescue operations are underway.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-06c883ef25bb",
-        "EVT-75f950727e96"
-      ],
-      "primary_source_event_id": "EVT-06c883ef25bb",
-      "source_headlines": [
-        "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
-        "4 workers dead 2 injured in blast at TIL Healthcare’s Sri City plant"
-      ],
-      "source_headline": "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
-      "source_url": "https://www.freepressjournal.in/india/tirupati-blast-5-dead-10-critically-injured-as-powerful-boiler-explosion-rocks-pharma-unit-in-sri-city-rescue-ops-underway-video",
-      "source_name": "Free Press Journal",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-03T07:05:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T07:11:46Z",
-      "updated_at": "2026-10-03T07:11:46Z",
-      "decay_at": "2026-10-04T19:05:29Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -161886,6 +161669,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-6371037688a8",
+      "idea_version": "IDEAV-b92f269a85620ed7",
+      "idea_version_started_at": "2026-10-04T00:15:36Z",
+      "ticker": "DMART.NS",
+      "company": "Avenue Supermarts",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported Q2 FY27 standalone revenue of ₹19,206.18 crore and expanded its store footprint to 518, signaling continued growth in its retail operations.",
+      "why_now": "The earnings were released on 2026-10-03, providing a fresh catalyst for valuation adjustment based on top-line performance.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e60f3e9ee7e9"
+      ],
+      "primary_source_event_id": "EVT-e60f3e9ee7e9",
+      "source_headlines": [
+        "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518"
+      ],
+      "source_headline": "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518",
+      "source_url": "https://www.freepressjournal.in/business/avenue-supermarts-reports-1920618-crore-standalone-revenue-in-q2-fy27-store-count-reaches-518",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T07:08:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T00:15:36Z",
+      "updated_at": "2026-10-04T00:15:36Z",
+      "decay_at": "2026-10-04T19:08:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-37a5121be6e7",
       "idea_version": "IDEAV-5a36c5b48c5e690d",
       "idea_version_started_at": "2026-10-02T00:48:43Z",
@@ -162162,6 +162015,78 @@
       "surfaced_at": "2026-10-03T01:50:22Z",
       "updated_at": "2026-10-03T01:50:22Z",
       "decay_at": "2026-10-04T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-cd88af904b7c",
+      "idea_version": "IDEAV-a143dcd7af738532",
+      "idea_version_started_at": "2026-10-03T23:11:18Z",
+      "ticker": "DMART",
+      "company": "Avenue Supermarts",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported strong standalone revenue of ₹19,206.18 crore for Q2 FY27, indicating continued growth in its retail footprint which reached 518 stores.",
+      "why_now": "The earnings report was released on 2026-10-03, providing a fresh catalyst for valuation adjustment.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e60f3e9ee7e9"
+      ],
+      "primary_source_event_id": "EVT-e60f3e9ee7e9",
+      "source_headlines": [
+        "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518"
+      ],
+      "source_headline": "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518",
+      "source_url": "https://www.freepressjournal.in/business/avenue-supermarts-reports-1920618-crore-standalone-revenue-in-q2-fy27-store-count-reaches-518",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T07:08:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T08:45:36Z",
+      "updated_at": "2026-10-03T23:11:18Z",
+      "decay_at": "2026-10-04T19:08:20Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -163108,6 +163033,80 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d04744233983",
+      "idea_version": "IDEAV-515f15235fab9160",
+      "idea_version_started_at": "2026-10-03T07:11:46Z",
+      "ticker": "TILHC",
+      "company": "TIL Healthcare",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A fatal boiler explosion at a pharmaceutical plant will likely result in operational disruptions, regulatory scrutiny, and potential liabilities.",
+      "why_now": "The incident occurred today and rescue operations are underway.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-06c883ef25bb",
+        "EVT-75f950727e96"
+      ],
+      "primary_source_event_id": "EVT-06c883ef25bb",
+      "source_headlines": [
+        "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
+        "4 workers dead 2 injured in blast at TIL Healthcare’s Sri City plant"
+      ],
+      "source_headline": "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
+      "source_url": "https://www.freepressjournal.in/india/tirupati-blast-5-dead-10-critically-injured-as-powerful-boiler-explosion-rocks-pharma-unit-in-sri-city-rescue-ops-underway-video",
+      "source_name": "Free Press Journal",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-03T07:05:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T07:11:46Z",
+      "updated_at": "2026-10-03T07:11:46Z",
+      "decay_at": "2026-10-04T19:05:29Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-72e70ba438d7",
       "idea_version": "IDEAV-7ca9dda32038e80d",
       "idea_version_started_at": "2026-10-03T03:15:01Z",
@@ -163843,19 +163842,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 535,
+    "total_count": 538,
     "shown_count": 500,
-    "hidden_count": 35,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
+        "total_count": 270,
+        "shown_count": 250,
+        "hidden_count": 20
+      },
+      "short": {
         "total_count": 268,
         "shown_count": 250,
         "hidden_count": 18
-      },
-      "short": {
-        "total_count": 267,
-        "shown_count": 250,
-        "hidden_count": 17
       }
     },
     "retention": {
@@ -163874,6 +163873,231 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6371037688a8",
+        "idea_version": "IDEAV-b92f269a85620ed7",
+        "idea_version_started_at": "2026-10-04T00:15:36Z",
+        "ticker": "DMART.NS",
+        "company": "Avenue Supermarts",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported Q2 FY27 standalone revenue of ₹19,206.18 crore and expanded its store footprint to 518, signaling continued growth in its retail operations.",
+        "why_now": "The earnings were released on 2026-10-03, providing a fresh catalyst for valuation adjustment based on top-line performance.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 64,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e60f3e9ee7e9"
+        ],
+        "primary_source_event_id": "EVT-e60f3e9ee7e9",
+        "source_headlines": [
+          "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518"
+        ],
+        "source_headline": "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518",
+        "source_url": "https://www.freepressjournal.in/business/avenue-supermarts-reports-1920618-crore-standalone-revenue-in-q2-fy27-store-count-reaches-518",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-03T07:08:20Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T00:15:36Z",
+        "updated_at": "2026-10-04T00:15:36Z",
+        "decay_at": "2026-10-04T19:08:20Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T19:08:20Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-cd88af904b7c",
+        "idea_version": "IDEAV-a143dcd7af738532",
+        "idea_version_started_at": "2026-10-03T23:11:18Z",
+        "ticker": "DMART",
+        "company": "Avenue Supermarts",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported strong standalone revenue of ₹19,206.18 crore for Q2 FY27, indicating continued growth in its retail footprint which reached 518 stores.",
+        "why_now": "The earnings report was released on 2026-10-03, providing a fresh catalyst for valuation adjustment.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e60f3e9ee7e9"
+        ],
+        "primary_source_event_id": "EVT-e60f3e9ee7e9",
+        "source_headlines": [
+          "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518"
+        ],
+        "source_headline": "Avenue Supermarts Reports ₹19,206.18 Crore Standalone Revenue In Q2 FY27; Store Count Reaches 518",
+        "source_url": "https://www.freepressjournal.in/business/avenue-supermarts-reports-1920618-crore-standalone-revenue-in-q2-fy27-store-count-reaches-518",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-03T07:08:20Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T08:45:36Z",
+        "updated_at": "2026-10-03T23:11:18Z",
+        "decay_at": "2026-10-04T19:08:20Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T19:08:20Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-d04744233983",
+        "idea_version": "IDEAV-515f15235fab9160",
+        "idea_version_started_at": "2026-10-03T07:11:46Z",
+        "ticker": "TILHC",
+        "company": "TIL Healthcare",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A fatal boiler explosion at a pharmaceutical plant will likely result in operational disruptions, regulatory scrutiny, and potential liabilities.",
+        "why_now": "The incident occurred today and rescue operations are underway.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-06c883ef25bb",
+          "EVT-75f950727e96"
+        ],
+        "primary_source_event_id": "EVT-06c883ef25bb",
+        "source_headlines": [
+          "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
+          "4 workers dead 2 injured in blast at TIL Healthcare’s Sri City plant"
+        ],
+        "source_headline": "Tirupati Blast: 5 Dead, 10 Critically Injured As Powerful Boiler Explosion Rocks Pharma Unit In Sri City; Rescue Ops Underway - VIDEO",
+        "source_url": "https://www.freepressjournal.in/india/tirupati-blast-5-dead-10-critically-injured-as-powerful-boiler-explosion-rocks-pharma-unit-in-sri-city-rescue-ops-underway-video",
+        "source_name": "Free Press Journal",
+        "materiality_max": 98,
+        "newest_source_at": "2026-10-03T07:05:29Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T07:11:46Z",
+        "updated_at": "2026-10-03T07:11:46Z",
+        "decay_at": "2026-10-04T19:05:29Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T19:05:29Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-aad096c437a5",
         "idea_version": "IDEAV-e60a2fac42e326db",
@@ -192847,80 +193071,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-4f939ccaa163",
-        "idea_version": "IDEAV-343e192a7b271ca5",
-        "idea_version_started_at": "2026-09-16T03:36:22Z",
-        "ticker": "TNC",
-        "company": "True North Copper",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The 18% increase in copper resources at the Cloncurry project directly expands the company's mineable asset base and future production potential.",
-        "why_now": "The resource update was filed on 2026-09-15 and is price-sensitive information.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-921ae42680fa"
-        ],
-        "primary_source_event_id": "EVT-921ae42680fa",
-        "source_headlines": [
-          "TNC: Cloncurry Resource Update Delivers 18% Copper Increase [price-sensitive]"
-        ],
-        "source_headline": "TNC: Cloncurry Resource Update Delivers 18% Copper Increase [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TNC?key=2924-03135872-6A1343942",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-15T22:27:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-16T03:36:22Z",
-        "updated_at": "2026-09-16T03:36:22Z",
-        "decay_at": "2026-09-17T10:27:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-18T22:30:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-1327c0d32ef1",
         "idea_version": "IDEAV-204cb94afc4eebe6",
         "idea_version_started_at": "2026-09-16T02:35:22Z",
@@ -193135,79 +193285,6 @@
         "surfaced_at": "2026-09-16T01:34:59Z",
         "updated_at": "2026-09-16T01:34:59Z",
         "decay_at": "2026-09-17T02:23:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-18T17:05:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-173014fa1310",
-        "idea_version": "IDEAV-16cbb880adc47ac7",
-        "idea_version_started_at": "2026-09-16T01:34:59Z",
-        "ticker": "DASH",
-        "company": "DoorDash",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The $300 million acquisition of Grubhub Campus Dining expands DoorDash's reach into the high-frequency university food delivery market, while the $125 million investment in Wonder signals a strategic pivot into broader food tech infrastructure.",
-        "why_now": "The announcement occurred today, September 15, 2026, and represents a clear expansion of their total addressable market.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-d0ae6c8d9abe"
-        ],
-        "primary_source_event_id": "EVT-d0ae6c8d9abe",
-        "source_headlines": [
-          "DoorDash To Buy Grubhub Campus Dining For $300 Mln, Invests $125 Mln In Wonder"
-        ],
-        "source_headline": "DoorDash To Buy Grubhub Campus Dining For $300 Mln, Invests $125 Mln In Wonder",
-        "source_url": "https://www.nasdaq.com/articles/doordash-buy-grubhub-campus-dining-300-mln-invests-125-mln-wonder",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-15T13:35:56Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-16T01:34:59Z",
-        "updated_at": "2026-09-16T01:34:59Z",
-        "decay_at": "2026-09-17T01:35:56Z",
         "status": "expired",
         "promoted_signal_id": null,
         "feedback": null,
@@ -200952,87 +201029,12 @@
         "archived_at": "2026-09-10T06:02:49Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-e5a0e1444d94",
-        "idea_version": "IDEAV-85dbb1bef1230e5d",
-        "idea_version_started_at": "2026-09-07T05:58:37Z",
-        "ticker": "JAGLF",
-        "company": "Jaguar Land Rover",
-        "exchange": "OTC",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The UK government has ruled out a bailout, and the company is planning significant job cuts amid rising costs, indicating severe financial distress and operational challenges.",
-        "why_now": "The government's decision and planned layoffs are immediate negative catalysts.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-31b202d35008"
-        ],
-        "primary_source_event_id": "EVT-31b202d35008",
-        "source_headlines": [
-          "UK rules out JLR bailout as Tata-owned carmaker plans 4,000 job cuts amid rising costs"
-        ],
-        "source_headline": "UK rules out JLR bailout as Tata-owned carmaker plans 4,000 job cuts amid rising costs",
-        "source_url": "https://economictimes.indiatimes.com/industry/auto/auto-news/uk-rules-out-jlr-bailout-as-tata-owned-carmaker-plans-4000-job-cuts-amid-rising-costs/articleshow/133862523.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T04:17:51Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T05:58:37Z",
-        "updated_at": "2026-09-07T05:58:37Z",
-        "decay_at": "2026-09-08T16:17:51Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T04:33:29Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1302,
-    "live_count": 72,
+    "live_count": 69,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -201051,9 +201053,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2716,
-    "news_picked_today": 582,
-    "news_dropped_today": 2134
+    "news_seen_today": 2737,
+    "news_picked_today": 585,
+    "news_dropped_today": 2152
   },
   "book_momentum": {
     "live_count": 8,
