@@ -2379,6 +2379,32 @@ if scope=="selftest":
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"FCF yield 4.2% on the plan.\n"),[]),
         # PART II yield mentions are out of scope (the _bg_th helper already plants one there)
         ("2026-10-05","not a dict",_bg_th(_bg_dl),[]),                           # malformed record: no raise
+        # ── review-driven cases (CLAUDE.md §16 / AGENTS.md L282-283) ──
+        # Codex P1 (#discussion_r4176032667): a trailing yield whose ex-/record-date has ALREADY passed,
+        #   presented as a reason to own with no availability warning, must FAIL (§16: "must never be
+        #   presented as a reason to own"). Old code passed it the moment any date phrase was present.
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14, is a reason to own.\n"),["before the decision date"]),
+        # gemini r1 (#discussion_r4176023884): a compliant FUTURE ex-div date must PASS (old _BG_DATE did
+        #   not recognise "ex-div", so it false-flagged this as missing a date).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Forward dividend yield 3.1%, ex-div 2026-12-01.\n"),[]),
+        # Codex P1: a payment/pay date does NOT establish buyer entitlement, so a yield carrying only a
+        #   payment date must FAIL (old code accepted "payable" as a date).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, payable 2026-12-20.\n"),["a payment or pay date does not establish"]),
+        # Codex P2 venue (#discussion_r4176032670): a decision line naming the WRONG venue (right ticker
+        #   + currency) must FAIL (old code validated ticker + currency only).
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · NYSE · USD\n"),["venue that does not match"]),
+        # ...but the venue match is alias-aware, so the real V_2026-09-23 shape (record "New York Stock
+        #   Exchange", line "NYSE") must PASS — this guards against a false positive on a correct run.
+        ("2026-10-05",{"ticker":"V","exchange":"New York Stock Exchange","currency":"USD"},
+         _bg_th("| **Decision line (ticker · venue · currency)** | **Visa Inc. Class A common stock · V · NYSE · USD** |\n"),[]),
+        # Codex P2 cross-line (#discussion_r4176032671): a bare mention that another line exists, or the
+        #   negated "not the only listed line", must FAIL (old _BG_CROSS_LINE accepted both).
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl+"The other listed line is HKEX.\n"),["another listed line"]),
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl+"This is not the only listed line.\n"),["another listed line"]),
+        # ...an explicit no-other-line statement PASSES (and a quantified cross-line premium PASSES even
+        #   without the word "the" — gemini r2).
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl+"There is no other listed line; this is the sole listed line for the decision.\n"),[]),
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also ADR-listed)"},_bg_th(_bg_dl+"The ADR trades at a 12% premium to NYSE common line.\n"),[]),
     ]
     bgbad=0
     for dt_,d_,th_,exp in _bg_cases:
