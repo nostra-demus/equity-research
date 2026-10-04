@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-04T21:25:11Z",
+  "generated_at": "2026-10-04T21:29:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261004-305",
+      "headline": "CSL: CSL enters exclusive agreement with Alentis Therapeutics [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CSL?key=2924-03144156-3A703266",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-04T21:22:34Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "CSL has entered into an exclusive agreement with Alentis Therapeutics, representing a significant strategic partnership or potential M&A precursor.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CSL has entered into an exclusive agreement with Alentis Therapeutics, representing a significant strategic partnership or potential M&A precursor.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSL",
+          "ticker": "CSL",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261004-299",
       "headline": "BCM: BCM Acquires MAGSUL process plant [price-sensitive]",
@@ -1894,55 +1943,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-196",
-      "headline": "India's Kusum Group pharma plant in Ukraine comes under attack, says report: What to know",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/world/indias-kusum-group-pharma-plant-in-ukraine-comes-under-attack-says-report-what-to-know-11791110315187.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T11:10:56Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "A pharmaceutical plant in Ukraine owned by Kusum Group has been attacked, representing a significant operational risk and asset damage.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "A pharmaceutical plant in Ukraine owned by Kusum Group has been attacked, representing a significant operational risk and asset damage.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kusum Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -201063,9 +201063,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3044,
-    "news_picked_today": 673,
-    "news_dropped_today": 2371
+    "news_seen_today": 3079,
+    "news_picked_today": 684,
+    "news_dropped_today": 2395
   },
   "book_momentum": {
     "live_count": 8,
