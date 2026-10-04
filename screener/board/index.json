@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-04T21:19:47Z",
+  "generated_at": "2026-10-04T21:24:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261004-299",
+      "headline": "BCM: BCM Acquires MAGSUL process plant [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BCM?key=2924-03144132-6A1347572",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-04T21:19:34Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "BCM has acquired a process plant, representing a material expansion of operational capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BCM has acquired a process plant, representing a material expansion of operational capacity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BCM",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261004-185",
       "headline": "BUD APAC (01876): INSIDE INFORMATION",
@@ -1894,49 +1943,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-203",
-      "headline": "Indian-run pharma plant in Ukraine hit by Russian drones, 1 killed, several injured",
-      "headline_en": null,
-      "url": "https://gulfnews.com/world/asia/india/indian-run-pharma-plant-in-ukraine-hit-by-russian-drones-1-killed-several-injured-1.500697885",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T11:04:49Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "A pharmaceutical production facility was destroyed by military action, representing a supply shock and operational loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "A pharmaceutical production facility was destroyed by military action, representing a supply shock and operational loss.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -201057,9 +201063,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3024,
-    "news_picked_today": 665,
-    "news_dropped_today": 2359
+    "news_seen_today": 3044,
+    "news_picked_today": 673,
+    "news_dropped_today": 2371
   },
   "book_momentum": {
     "live_count": 8,
