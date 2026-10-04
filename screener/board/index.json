@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T10:21:57Z",
+  "generated_at": "2026-10-04T10:24:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-139",
@@ -1313,6 +1313,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-181",
+      "headline": "DLF’s The Aureva luxury project in Gurugram fully sold out, records ₹1,985 crore in sales",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/dlf-share-price-the-aureva-luxury-project-in-gurugram-fully-sold-out-records-rs-1985-crore-in-sales-20004132.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T10:22:28Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "DLF reported sales of ₹1,985 crore from a single luxury project, indicating strong demand and revenue realization.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "DLF reported sales of ₹1,985 crore from a single luxury project, indicating strong demand and revenue realization.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DLF",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-110",
       "headline": "‎Tadawul resuspends trading on Amwaj, Rawasi Albina until disclosing financials",
       "headline_en": null,
@@ -1895,60 +1944,6 @@
       "companies": [
         {
           "name": "Tata Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-109",
-      "headline": "UAE flights status update: Emirates, Etihad, Air Arabia, flydubai delays, cancellations as regional tensions persist",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/aviation/uae-flights-status-update-emirates-etihad-air-arabia-flydubai-delays-cancellations-as-regional-tensions-persist-1.500697646",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T06:28:40Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Regional tensions are causing flight cancellations and delays, impacting the operational and financial outlook for major regional airlines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Regional tensions are causing flight cancellations and delays, impacting the operational and financial outlook for major regional airlines.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Emirates",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Etihad",
           "ticker": null,
           "listing_country": null
         }
@@ -200060,9 +200055,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1268,
-    "news_picked_today": 266,
-    "news_dropped_today": 1002
+    "news_seen_today": 1278,
+    "news_picked_today": 268,
+    "news_dropped_today": 1010
   },
   "book_momentum": {
     "live_count": 8,
