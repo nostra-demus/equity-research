@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T13:26:38Z",
+  "generated_at": "2026-10-04T13:29:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -1551,6 +1551,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-244",
+      "headline": "FSSAI orders Everest to recall cumin powder after sample found ‘unsafe’",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/cons-products/food/fssai-orders-everest-to-recall-cumin-powder-after-sample-found-unsafe/articleshow/134675350.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T13:10:46Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "FSSAI ordered a product recall for Everest Food Products due to safety concerns, which poses operational and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "FSSAI ordered a product recall for Everest Food Products due to safety concerns, which poses operational and reputational risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Everest Food Products",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-232",
       "headline": "Brazilians vote in pivotal presidential election dominated by Lula and Bolsonaro",
       "headline_en": null,
@@ -1878,55 +1928,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-111",
-      "headline": "‎Acwa, Saudi Energy announce financial closure for Rabigh 2 expansion project",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1941081",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T09:36:00Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Financial closure for the Rabigh 2 expansion project marks a major milestone for the company's capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Financial closure for the Rabigh 2 expansion project marks a major milestone for the company's capacity expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Acwa Power",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -200683,9 +200684,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1815,
-    "news_picked_today": 395,
-    "news_dropped_today": 1420
+    "news_seen_today": 1827,
+    "news_picked_today": 399,
+    "news_dropped_today": 1428
   },
   "book_momentum": {
     "live_count": 8,
