@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-04T01:40:18Z",
+  "generated_at": "2026-10-04T01:44:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261004-020",
+      "headline": "Yemen’s Houthis say they attacked Aramco facility in Riyadh with missiles, drones",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/yemens-houthis-say-they-attacked-aramco-facility-riyadh-missiles-drones",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T01:40:01Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "A reported attack on a major Saudi Aramco facility represents a significant geopolitical and supply-chain risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A reported attack on a major Saudi Aramco facility represents a significant geopolitical and supply-chain risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261004-019",
       "headline": "Fleur to deploy $1 bn as Lemon Tree splits ownership, management businesses",
@@ -197854,7 +197903,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3186,
+    "inbox_unconsumed": 3187,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -197863,9 +197912,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 146,
-    "news_picked_today": 19,
-    "news_dropped_today": 127
+    "news_seen_today": 155,
+    "news_picked_today": 20,
+    "news_dropped_today": 135
   },
   "book_momentum": {
     "live_count": 8,
