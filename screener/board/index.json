@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T00:59:54Z",
+  "generated_at": "2026-10-04T01:09:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-007",
@@ -128,6 +128,49 @@
       },
       "event_types": [
         "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-008",
+      "headline": "The $21b buyout boom defying Australia’s interest rate reality",
+      "headline_en": null,
+      "url": "https://www.afr.com/chanticleer/the-21b-buyout-boom-defying-australia-s-interest-rate-reality-20261004-p612mr?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The headline discusses a $21 billion buyout trend in Australia as a market observation rather than a specific company event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "The headline discusses a $21 billion buyout trend in Australia as a market observation rather than a specific company event.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -300,6 +343,92 @@
       },
       "event_types": [
         "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-010",
+      "headline": "Hacking attempts targeting court network spike this year",
+      "headline_en": null,
+      "url": "https://en.yna.co.kr/view/AEN20261004001000315",
+      "source_name": "Yonhap News Agency — All News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T01:03:24Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Report on increased cyber threats to the South Korean court network.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Report on increased cyber threats to the South Korean court network.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-009",
+      "headline": "Japan to Help Hospitals Adopt Cloud-Based Medical Record Systems",
+      "headline_en": null,
+      "url": "https://www.nippon.com/en/news/yjj2026100300106/",
+      "source_name": "nippon.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Government initiative to support cloud adoption in Japanese hospitals.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "Government initiative to support cloud adoption in Japanese hospitals.",
+      "region": "JP",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -197252,7 +197381,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3174,
+    "inbox_unconsumed": 3177,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -197261,9 +197390,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 73,
-    "news_picked_today": 7,
-    "news_dropped_today": 66
+    "news_seen_today": 94,
+    "news_picked_today": 10,
+    "news_dropped_today": 84
   },
   "book_momentum": {
     "live_count": 8,
