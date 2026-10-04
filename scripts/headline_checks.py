@@ -917,9 +917,17 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
 # rule that lives only in a prompt. Forward-looking (landing BG_DATE) so no committed run is graded
 # retroactively.
 BG_DATE = "2026-10-05"
-_BG_YIELD_LINE = re.compile(
-    r"(?:dividend|distribution)[^|\n]{0,25}yield|yield[^|\n]{0,25}(?:dividend|distribution)", re.I)
-_BG_PCT = re.compile(r"\d(?:[\d,]*\.\d+|[\d,]*)\s*%")
+# A QUOTED dividend/distribution yield: the phrase with a percentage BOUND to it (the % sits within the
+# yield expression, not merely somewhere on the line). This stops an unrelated percentage — e.g.
+# "Dividend yield unavailable; foreign withholding tax is 15%" — from being read as the yield value and
+# flagged for a missing basis/date (Codex r1 round 3).
+_BG_YIELD_QUOTED = re.compile(
+    r"(?:dividend|distribution)\s+yield\b[^.\n]{0,24}?\d[\d.,]*\s*%|"
+    r"\d[\d.,]*\s*%\s+(?:dividend|distribution)\s+yield\b", re.I)
+# An explicit "no yield quoted" disclosure — never subject to the basis/date requirement.
+_BG_YIELD_NONE = re.compile(
+    r"(?:dividend|distribution)\s+yield[^.\n]{0,20}(?:unavailable|not\s+(?:quoted|disclosed|applicable|available)|n/?a|none)|"
+    r"\bno\s+(?:dividend|distribution)\s+yield", re.I)
 # A basis must say WHICH period the yield represents — trailing/backward or forward. "annualized" is
 # deliberately NOT accepted alone: it describes scaling, not direction, so it does not satisfy §16's
 # trailing-or-forward requirement (Codex r2 round 2). ttm/ltm = trailing, ntm = forward.
@@ -932,10 +940,14 @@ _BG_PERIOD = re.compile(r"\b(?:trailing|forward|ttm|ltm|ntm|next[- ]twelve|last[
 _BG_EX_RECORD = re.compile(
     r"\bex[\s\-_]*(?:date|div(?:idend)?|dist(?:ribution)?)(?:[\s\-_]*date)?|\brecord[\s\-_]*date", re.I)
 # An explicit statement that a yield whose ex-/record-date has already passed is no longer income a
-# buyer today can receive (CLAUDE.md §16: "must never be presented as a reason to own").
+# buyer today can receive. A bare date-status word like "passed" does NOT qualify (it can sit beside
+# "is a reason to own") — the statement must be about a buyer not receiving the distribution (Codex r2
+# round 3, CLAUDE.md §16: "must never be presented as a reason to own").
 _BG_UNAVAIL = re.compile(
-    r"passed|lapsed|no longer available|not (?:income )?available to (?:a|the) buyer|"
-    r"buyer today does not (?:get|receive)|does not accrue to (?:a |the )?(?:new )?buyer|already (?:gone|ex)", re.I)
+    r"buyer\s+(?:today\s+)?(?:no longer\s+)?(?:does not|do not|cannot|can't|will not|won'?t)\s+(?:get|receive|accrue)|"
+    r"not\s+(?:income\s+)?available\s+to\s+(?:a|the|any|new|current)\s+buyer|"
+    r"no\s+longer\s+available\s+to\s+(?:a|the|any|new|current)\s+buyer|"
+    r"not\s+income\s+a\s+buyer\s+receives", re.I)
 _BG_ISO = re.compile(r"\b(20\d{2}-\d{2}-\d{2})\b")
 # A cross-line statement counts only when it is a REAL comparison — a premium/discount carrying an
 # actual figure — or an explicit statement that no other listed line exists. A bare mention that another
@@ -946,6 +958,12 @@ _BG_ISO = re.compile(r"\b(20\d{2}-\d{2}-\d{2})\b")
 _BG_CROSS_CMP = re.compile(
     r"(?:premium|discount)[^.\n]{0,40}\d[\d.,]*\s*%|"
     r"\d[\d.,]*\s*%[^.\n]{0,40}(?:premium|discount)", re.I)
+# ...and the premium/discount must be tied to the OTHER tradable line, not to an unrelated number such
+# as a DCF discount rate. A cross-line statement counts only when the same clause also references a
+# listing / share class / depositary line (Codex r3 round 3).
+_BG_LINE_REF = re.compile(
+    r"\b(?:line|listing|listed|ADR|GDR|[HAB][\s\-]?shares?|ordinary\s+shares?|common\s+shares?|"
+    r"depositary|dual[- ]listed|cross[- ]listed|share\s+class)\b", re.I)
 _BG_NO_OTHER = re.compile(
     r"no (?:other|alternative|second)\s+(?:listed\s+)?line|"
     r"\b(?:sole|single)\s+(?:listed\s+)?line|"
@@ -992,6 +1010,17 @@ def _venue_canons(text):
     return out
 
 
+def _has_cross_cmp(part1):
+    """True when some clause states a REAL cross-line premium/discount: a premium/discount carrying a
+    figure AND, in the same clause, a reference to the other listed line / share class / depositary."""
+    # Split on newline / semicolon / sentence-ending period (a period FOLLOWED BY whitespace), never a
+    # bare '.', so a decimal percentage like "22.5%" is not torn apart.
+    for seg in re.split(r"[\n;]|\.\s", part1):
+        if _BG_CROSS_CMP.search(seg) and _BG_LINE_REF.search(seg):
+            return True
+    return False
+
+
 def _part_one(thesis):
     """Part I (everything before '# PART II'), the reader-facing decision block."""
     m = re.search(r"(?im)^#\s*PART\s+II\b", thesis)
@@ -1015,6 +1044,11 @@ def eval_bg_tradable_line_and_yield(decision_date, d, thesis):
     if not isinstance(thesis, str):
         return ["final_thesis.md text unavailable — cannot check the tradable-line statement"]
     part1 = _part_one(thesis)
+    # Drop blockquote lines: a prior finish-gate PROVISIONAL banner is a leading '>' blockquote that
+    # QUOTES BG's own earlier diagnostics (e.g. "... Decision line ... 'USD'"), which would otherwise
+    # satisfy the decision-line / currency checks on a re-gate. A real Decision line is never a
+    # blockquote, so this is safe and fixes every caller, not just the live gate (Codex r5 round 3).
+    part1 = "\n".join(l for l in part1.splitlines() if not l.lstrip().startswith(">"))
     det = []
     dl_lines = [l for l in part1.splitlines() if re.search(r"decision line", l, re.I)]
     if not dl_lines:
@@ -1027,21 +1061,23 @@ def eval_bg_tradable_line_and_yield(decision_date, d, thesis):
             det.append(f"the Decision line statement does not name the record's ticker {tk.strip()!r}")
         if isinstance(cur, str) and cur.strip() and not re.search(r"\b"+re.escape(cur.strip())+r"\b", joined):
             det.append(f"the Decision line statement does not name the record's currency {cur.strip()!r}")
-        # Venue (§16: ticker · VENUE · currency). Validate only when the record's exchange resolves to
-        # exactly one known venue; a decision line naming a different venue (e.g. "AKAM · NYSE · USD"
-        # against a Nasdaq record) is then a violation (Codex r2). Alias-aware, so "NYSE" matches a
-        # "New York Stock Exchange" record; an unknown or multi-venue exchange string skips this leg.
+        # Venue (§16: ticker · VENUE · currency). When the record's exchange resolves to one or more
+        # known venues and the decision line also names a known venue, that venue must be one of the
+        # record's (so a multi-listed SHSE/HKEX record cannot accept a decision line naming NYSE — Codex
+        # r1 round 3). Alias-aware, so "NYSE" matches a "New York Stock Exchange" record; if the exchange
+        # or the decision-line venue resolves to nothing known, the leg skips (never flags a correct run).
         if isinstance(exch, str) and exch.strip():
             rec_v = _venue_canons(exch)
-            if len(rec_v) == 1 and rec_v[0] not in _venue_canons(joined):
+            line_v = _venue_canons(joined)
+            if rec_v and line_v and not (set(rec_v) & set(line_v)):
                 det.append(f"the Decision line statement names a venue that does not match the record's exchange "
-                           f"{exch.strip()!r} — the price and fair value must belong to that one listed line (CLAUDE.md §16)")
+                           f"{exch.strip()!r} — the price and fair value must belong to one of the record's listed line(s) (CLAUDE.md §16)")
     if isinstance(d, dict) and isinstance(d.get("exchange"), str) and _BG_MULTI_LISTING.search(d["exchange"]) \
-            and not (_BG_CROSS_CMP.search(part1) or _BG_NO_OTHER.search(part1)):
+            and not (_has_cross_cmp(part1) or _BG_NO_OTHER.search(part1)):
         det.append(f"decision_record.json exchange {d['exchange']!r} flags another listed line, but Part I never "
-                   f"states the cross-line premium/discount (with a figure) or that no other listed line exists (CLAUDE.md §16)")
+                   f"states a cross-line premium/discount (a figure, tied to the other line) or that no other listed line exists (CLAUDE.md §16)")
     for l in part1.splitlines():
-        if _BG_YIELD_LINE.search(l) and _BG_PCT.search(l):
+        if _BG_YIELD_QUOTED.search(l) and not _BG_YIELD_NONE.search(l):
             missing = []
             if not _BG_PERIOD.search(l):
                 missing.append("a trailing/forward basis")
@@ -1053,12 +1089,13 @@ def eval_bg_tradable_line_and_yield(decision_date, d, thesis):
                            f"yield whose record date has passed is not income a buyer receives (CLAUDE.md §16): "
                            f"{l.strip()[:140]!r}")
                 continue
-            # The entitlement date must be a parseable ISO date sitting WITH the ex-/record-date marker,
-            # so staleness is actually checkable. "ex-date TBD" or a non-ISO "August 14, 2025" is not
-            # verifiable (reject it), and an unrelated ISO date elsewhere on the line is not treated as
-            # the entitlement date — only the first ISO date right after the marker counts (Codex r3 r2).
+            # The entitlement date must be a parseable ISO CALENDAR date sitting WITH the ex-/record-date
+            # marker, so staleness is actually checkable. "ex-date TBD", a non-ISO "August 14, 2025", or an
+            # impossible "2026-99-99" is not verifiable (reject it — Codex r3/r4 round 3), and an unrelated
+            # ISO date elsewhere on the line is not treated as the entitlement date — only the first ISO
+            # date right after the marker counts.
             dm = _BG_ISO.search(l[exm.end():exm.end() + 30])
-            if not dm:
+            if not dm or not isdate(dm.group(0)):
                 det.append(f"Part I quotes a dividend/distribution yield whose ex-/record-date has no parseable "
                            f"ISO (yyyy-mm-dd) date beside it, so whether a buyer today still receives the income "
                            f"cannot be verified (CLAUDE.md §16): {l.strip()[:140]!r}")

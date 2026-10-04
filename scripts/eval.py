@@ -2369,8 +2369,8 @@ if scope=="selftest":
         ("2026-10-05",_bg_d,_bg_th("Decision line: Akamai · Nasdaq · USD\n"),["record's ticker"]),
         ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · Nasdaq · EUR\n"),["record's currency"]),
         # multi-listed record, Part I silent on the other line -> FAIL; stating it -> pass
-        ("2026-10-05",{**_bg_d,"exchange":"SHSE:600690 (also HKEX-listed)"},_bg_th(_bg_dl),["another listed line"]),
-        ("2026-10-05",{**_bg_d,"exchange":"SHSE:600690 (also HKEX-listed)"},
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl),["another listed line"]),
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},
          _bg_th(_bg_dl+"The H-share line trades at a 22% discount; cross-line premium/discount shown in valuation.\n"),[]),
         # yield with % and no basis/date -> FAIL; basis only -> FAIL; both -> pass; FCF yield ignored
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield 3.1% is a reason to own.\n"),["trailing/forward basis or an ex-/record-date"]),
@@ -2422,6 +2422,33 @@ if scope=="selftest":
         #   FAILS (old `\bnasdaq\b` missed it and silently skipped the venue leg); the matching line PASSES.
         ("2026-10-05",{"ticker":"AMZN","exchange":"NasdaqGS","currency":"USD"},_bg_th("Decision line: AMZN · NYSE · USD\n"),["venue that does not match"]),
         ("2026-10-05",{"ticker":"AMZN","exchange":"NasdaqGS","currency":"USD"},_bg_th("Decision line: AMZN · NasdaqGS · USD\n"),[]),
+        # ── round-3 review-driven cases (Codex re-review of 78011e2) ──
+        # Codex P2 (r4176592578): a MULTI-venue record must still validate the decision-line venue — a
+        #   SHSE+HKEX record naming NYSE must FAIL (old len(rec_v)==1 guard skipped multi-venue records).
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · NYSE · CNY\n"),["venue that does not match"]),
+        # Codex P1 (r4176592580): the bare word "passed" is not a buyer-unavailability statement -> the
+        #   stale yield still FAILS (old _BG_UNAVAIL accepted "passed" beside "is a reason to own").
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2025-08-14 passed, is a reason to own.\n"),["before the decision date"]),
+        # Codex P2 (r4176592577): an unrelated premium/discount+% (a DCF discount rate) is NOT a cross-line
+        #   comparison -> a multi-listed record with only that prose still FAILS (old _BG_CROSS_CMP matched it).
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nDCF fair value uses a 10% discount for execution risk.\n"),["no other listed line exists"]),
+        # Codex P1 (r4176592579): an impossible ISO date (2026-99-99) must be rejected as unparseable
+        #   (old shape-only _BG_ISO matched it and compared lexically as a future date).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2026-99-99.\n"),["no parseable"]),
+        # Codex P2 (r4176592582): a % NOT bound to the yield (an honest "yield unavailable; withholding
+        #   15%" or "no dividend yield is quoted; payout 25%") must NOT be flagged (old flagged both).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield unavailable; foreign withholding tax is 15%.\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"No dividend yield is quoted; payout ratio is 25%.\n"),[]),
+        # Codex P1 (r4176592584): a prior PROVISIONAL banner (leading '>' blockquote) quoting BG's own
+        #   diagnostics must NOT satisfy the re-gate — BG ignores blockquote lines, so a body whose decision
+        #   line is still EUR FAILS on currency even though the banner text contains "Decision line … 'USD'".
+        ("2026-10-05",_bg_d,
+         "> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue.**\n> the Decision line statement does not name the record's currency 'USD'\n\n"
+         "# PART I\n\n## 2. Headline Scorecard\n\nDecision line: AKAM · Nasdaq Global Select Market · EUR\n\n# PART II — X\n",
+         ["record's currency"]),
+        # guard: a DECIMAL cross-line percentage (22.5%) must still be read as one figure and PASS — the
+        #   clause splitter must not tear "22.5%" at the decimal point.
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nThe H-share line trades at a 22.5% discount to the SSE line.\n"),[]),
     ]
     bgbad=0
     for dt_,d_,th_,exp in _bg_cases:
