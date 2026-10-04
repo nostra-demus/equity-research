@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T23:04:43Z",
+  "generated_at": "2026-10-04T23:05:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-319",
@@ -157412,6 +157412,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-5d4bdb7aa620",
+      "idea_version": "IDEAV-2a8f2f15df8caac2",
+      "idea_version_started_at": "2026-10-04T23:04:57Z",
+      "ticker": "FGEN",
+      "company": "First Gen Corporation",
+      "exchange": "PSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is committing up to US$2.6 billion in capital expenditure for expansion while explicitly rebuffing foreign acquisition offers, signaling management's confidence in internal valuation and growth trajectory.",
+      "why_now": "The announcement of the specific US$2.6 billion expansion plan and the rejection of takeover bids provides a fresh valuation floor and growth catalyst as of October 4, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4d98918cb0e0"
+      ],
+      "primary_source_event_id": "EVT-4d98918cb0e0",
+      "source_headlines": [
+        "Philippine power giant First Gen rebuffs foreign offers, plans up to US$2.6 billion in expansion"
+      ],
+      "source_headline": "Philippine power giant First Gen rebuffs foreign offers, plans up to US$2.6 billion in expansion",
+      "source_url": "https://www.businesstimes.com.sg/international/asean/philippine-power-giant-first-gen-rebuffs-foreign-offers-plans-us2-6-billion-expansion",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T23:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T23:04:57Z",
+      "updated_at": "2026-10-04T23:04:57Z",
+      "decay_at": "2026-10-06T11:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-df9684f7875d",
       "idea_version": "IDEAV-91754f7cb8a97e1f",
       "idea_version_started_at": "2026-10-04T22:10:04Z",
@@ -161436,77 +161508,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-37a5121be6e7",
-      "idea_version": "IDEAV-5a36c5b48c5e690d",
-      "idea_version_started_at": "2026-10-02T00:48:43Z",
-      "ticker": "SYNA",
-      "company": "Synaptics",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Synaptics is being acquired by ON Semiconductor in a cash deal, which typically creates an arbitrage opportunity as the stock price converges toward the acquisition price.",
-      "why_now": "The acquisition was announced on October 1, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4f453e999ad4"
-      ],
-      "primary_source_event_id": "EVT-4f453e999ad4",
-      "source_headlines": [
-        "ON Semicondcutor to Buy Synaptics for Cash, Not Stock, in Downsized Deal"
-      ],
-      "source_headline": "ON Semicondcutor to Buy Synaptics for Cash, Not Stock, in Downsized Deal",
-      "source_url": "https://www.wsj.com/business/deals/on-semicondcutor-to-buy-synaptics-for-cash-not-stock-in-downsized-deal-d2781e36?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-01T22:25:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-02T00:48:43Z",
-      "updated_at": "2026-10-02T00:48:43Z",
-      "decay_at": "2026-10-03T10:25:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-6f55bf31e25a",
       "idea_version": "IDEAV-39e7b2d1cbe42911",
       "idea_version_started_at": "2026-10-03T04:30:05Z",
@@ -163968,14 +163969,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 545,
     "shown_count": 500,
-    "hidden_count": 46,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 26
       },
       "short": {
         "total_count": 269,
@@ -163985,12 +163986,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 697,
+      "evicted_count": 698,
       "oldest_retained_at": "2026-09-08T00:28:37Z",
       "side_counts": {
         "long": {
-          "evicted_count": 464,
-          "oldest_retained_at": "2026-09-16T08:37:19Z"
+          "evicted_count": 465,
+          "oldest_retained_at": "2026-09-16T09:59:49Z"
         },
         "short": {
           "evicted_count": 233,
@@ -167426,8 +167427,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-03T10:25:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-04T23:05:01Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -201157,8 +201158,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1306,
-    "live_count": 62,
+    "surfaced_total": 1307,
+    "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
