@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T08:39:56Z",
+  "generated_at": "2026-10-04T08:40:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-139",
@@ -156208,6 +156208,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-04bd73d1842b",
+      "idea_version": "IDEAV-403ffc34dc9c2234",
+      "idea_version_started_at": "2026-10-04T08:40:09Z",
+      "ticker": "YESBANK.NS",
+      "company": "YES Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "YES Bank reported a 24% year-over-year surge in loans to ₹3 lakh crore and a 20% increase in deposits, indicating strong business growth.",
+      "why_now": "The Q2 business update provides current financial performance metrics, making the growth story live now.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-151edcdda774"
+      ],
+      "primary_source_event_id": "EVT-151edcdda774",
+      "source_headlines": [
+        "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY"
+      ],
+      "source_headline": "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY",
+      "source_url": "https://www.cnbctv18.com/market/stocks/yes-bank-share-price-q2-business-update-loans-surge-24-to-rs-3-lakh-crore-deposits-up-20-yoy-20004109.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T08:36:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T08:40:09Z",
+      "updated_at": "2026-10-04T08:40:09Z",
+      "decay_at": "2026-10-05T20:36:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-eaf659086da7",
       "idea_version": "IDEAV-904be450c0383ddf",
       "idea_version_started_at": "2026-10-03T13:50:18Z",
@@ -199842,8 +199912,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1279,
-    "live_count": 65,
+    "surfaced_total": 1280,
+    "live_count": 66,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
