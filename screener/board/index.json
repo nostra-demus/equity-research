@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T07:29:47Z",
+  "generated_at": "2026-10-04T07:34:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-076",
@@ -306,6 +306,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-136",
+      "headline": "‎MIS gets HUMAIN order worth 148% of 2025 revenue",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1941115",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T10:13:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "MIS secured a contract worth 148% of its 2025 projected revenue, representing a massive material boost to future earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "MIS secured a contract worth 148% of its 2025 projected revenue, representing a massive material boost to future earnings.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MIS",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-034",
       "headline": "China closes hundreds of banks to bolster financial system",
       "headline_en": null,
@@ -345,55 +394,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-134",
-      "headline": "‎MIS receives work order from HUMAIN worth more than 148% of 2025 revenue",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1941115",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T10:13:00Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "MIS received a work order from HUMAIN valued at more than 148% of its 2025 revenue, representing a massive contract win.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "MIS received a work order from HUMAIN valued at more than 148% of its 2025 revenue, representing a massive contract win.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MIS",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1026,6 +1026,60 @@
       "companies": [
         {
           "name": "Flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-137",
+      "headline": "‎Molan pays SAR 6.83M to Yara International, settles financial obligation",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1941121",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T10:32:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Molan settled a financial obligation of SAR 6.83M, reducing its outstanding liabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Molan settled a financial obligation of SAR 6.83M, reducing its outstanding liabilities.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Molan",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Yara International",
           "ticker": null,
           "listing_country": null
         }
@@ -1919,49 +1973,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-084",
-      "headline": "RBI May Raise Rates By 25 Basis Points In October, Economists Flag Rising Oil Prices And Inflation",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/rbi-may-raise-rates-by-25-basis-points-in-october-economists-flag-rising-oil-prices-and-inflation",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T05:10:07Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Economists project a 25 basis point rate hike by the RBI due to inflation and oil prices.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Economists project a 25 basis point rate hike by the RBI due to inflation and oil prices.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156338,76 +156349,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c26051237597",
-      "idea_version": "IDEAV-bb0d9e087fb208d9",
-      "idea_version_started_at": "2026-10-03T00:50:03Z",
-      "ticker": "TSLA",
-      "company": "Tesla",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Securing $30 billion in new credit provides the liquidity necessary to accelerate AI infrastructure and capital expenditure projects, potentially boosting long-term growth capacity.",
-      "why_now": "The credit facility was reported on October 2, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-42daf3819148"
-      ],
-      "primary_source_event_id": "EVT-42daf3819148",
-      "source_headlines": [
-        "Tesla Just Lined Up $30 Billion in Credit: What It Means for AI, Capex, and the Investment Case"
-      ],
-      "source_headline": "Tesla Just Lined Up $30 Billion in Credit: What It Means for AI, Capex, and the Investment Case",
-      "source_url": "https://www.fool.com/investing/2026/10/02/tesla-just-lined-up-30-billion-in-credit-what-it-m/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-02T19:30:00Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/TSLA_2026-07-25",
-        "latest_decision": "Short Candidate",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-10-03T00:50:03Z",
-      "updated_at": "2026-10-03T00:50:03Z",
-      "decay_at": "2026-10-04T07:30:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9107e0bd5461",
       "idea_version": "IDEAV-9c1bb7010b27c413",
       "idea_version_started_at": "2026-10-03T00:11:30Z",
@@ -160925,6 +160866,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c26051237597",
+      "idea_version": "IDEAV-bb0d9e087fb208d9",
+      "idea_version_started_at": "2026-10-03T00:50:03Z",
+      "ticker": "TSLA",
+      "company": "Tesla",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Securing $30 billion in new credit provides the liquidity necessary to accelerate AI infrastructure and capital expenditure projects, potentially boosting long-term growth capacity.",
+      "why_now": "The credit facility was reported on October 2, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-42daf3819148"
+      ],
+      "primary_source_event_id": "EVT-42daf3819148",
+      "source_headlines": [
+        "Tesla Just Lined Up $30 Billion in Credit: What It Means for AI, Capex, and the Investment Case"
+      ],
+      "source_headline": "Tesla Just Lined Up $30 Billion in Credit: What It Means for AI, Capex, and the Investment Case",
+      "source_url": "https://www.fool.com/investing/2026/10/02/tesla-just-lined-up-30-billion-in-credit-what-it-m/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T19:30:00Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/TSLA_2026-07-25",
+        "latest_decision": "Short Candidate",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-10-03T00:50:03Z",
+      "updated_at": "2026-10-03T00:50:03Z",
+      "decay_at": "2026-10-04T07:30:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-205d9d4ce667",
       "idea_version": "IDEAV-b18cf34bc2da95d4",
       "idea_version_started_at": "2026-10-02T00:48:43Z",
@@ -162363,14 +162374,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 522,
+    "total_count": 523,
     "shown_count": 500,
-    "hidden_count": 22,
+    "hidden_count": 23,
     "side_counts": {
       "long": {
-        "total_count": 260,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 10
+        "hidden_count": 11
       },
       "short": {
         "total_count": 262,
@@ -162394,6 +162405,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c26051237597",
+        "idea_version": "IDEAV-bb0d9e087fb208d9",
+        "idea_version_started_at": "2026-10-03T00:50:03Z",
+        "ticker": "TSLA",
+        "company": "Tesla",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Securing $30 billion in new credit provides the liquidity necessary to accelerate AI infrastructure and capital expenditure projects, potentially boosting long-term growth capacity.",
+        "why_now": "The credit facility was reported on October 2, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-42daf3819148"
+        ],
+        "primary_source_event_id": "EVT-42daf3819148",
+        "source_headlines": [
+          "Tesla Just Lined Up $30 Billion in Credit: What It Means for AI, Capex, and the Investment Case"
+        ],
+        "source_headline": "Tesla Just Lined Up $30 Billion in Credit: What It Means for AI, Capex, and the Investment Case",
+        "source_url": "https://www.fool.com/investing/2026/10/02/tesla-just-lined-up-30-billion-in-credit-what-it-m/?source=iedfolrf0000001",
+        "source_name": "The Motley Fool",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-02T19:30:00Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/TSLA_2026-07-25",
+          "latest_decision": "Short Candidate",
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-10-03T00:50:03Z",
+        "updated_at": "2026-10-03T00:50:03Z",
+        "decay_at": "2026-10-04T07:30:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T07:30:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d0204447ec5b",
         "idea_version": "IDEAV-e68d5007fb13244c",
@@ -191431,79 +191515,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9f47945c8197",
-        "idea_version": "IDEAV-aee6ec71570ec791",
-        "idea_version_started_at": "2026-09-15T05:22:27Z",
-        "ticker": "LMT",
-        "company": "Lockheed Martin",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A $1.2 billion Army contract for PrSM Inc. 2 missiles bolsters the company's missile and fire control segment, which is a key growth driver for the firm.",
-        "why_now": "The contract award was announced on September 15, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ae7d8bd9f484"
-        ],
-        "primary_source_event_id": "EVT-ae7d8bd9f484",
-        "source_headlines": [
-          "Lockheed Nabs $1.2 Billion Army Production Contract For Seeker-Enabled PrSM Inc. 2"
-        ],
-        "source_headline": "Lockheed Nabs $1.2 Billion Army Production Contract For Seeker-Enabled PrSM Inc. 2",
-        "source_url": "https://www.defensedaily.com/lockheed-nabs-1-2-billion-army-production-contract-for-seeker-enabled-prsm-inc-2/army/",
-        "source_name": "Defense Daily",
-        "materiality_max": 97,
-        "newest_source_at": "2026-09-15T00:00:39Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-15T05:22:27Z",
-        "updated_at": "2026-09-15T05:22:27Z",
-        "decay_at": "2026-09-16T12:00:39Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-18T00:05:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c216e8a1a5f7",
         "idea_version": "IDEAV-6295c63f05186693",
         "idea_version_started_at": "2026-09-15T02:26:35Z",
@@ -199548,7 +199559,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1274,
-    "live_count": 64,
+    "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -199567,9 +199578,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 815,
-    "news_picked_today": 156,
-    "news_dropped_today": 659
+    "news_seen_today": 825,
+    "news_picked_today": 159,
+    "news_dropped_today": 666
   },
   "book_momentum": {
     "live_count": 8,
