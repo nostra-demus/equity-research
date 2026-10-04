@@ -1,0 +1,77 @@
+{
+  "idea_id": "IDEA-796a3c8cf02a",
+  "idea_version": "IDEAV-ee5a39b8be994614",
+  "idea_version_started_at": "2026-10-04T11:54:46Z",
+  "ticker": "KUSUM",
+  "company": "Kusum Group",
+  "exchange": null,
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Kusum Group's pharmaceutical plant in Ukraine has been attacked and destroyed by Russian drones, impacting its operations and potentially its revenue.",
+  "why_now": "Reports of the attack and destruction emerged on October 4, 2026.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 19,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 10,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-41151ba2493c",
+    "EVT-c0a67d52599b",
+    "EVT-d470dc288a57"
+  ],
+  "primary_source_event_id": "EVT-c0a67d52599b",
+  "source_headlines": [
+    "Russian Drone Strike Destroys Indian-Owned Pharma Unit In Ukraine, One Dead",
+    "India's Kusum Group pharma plant in Ukraine comes under attack, says report: What to know",
+    "Indian-run pharma plant in Ukraine hit by Russian drones, 1 killed, several injured"
+  ],
+  "source_headline": "Russian Drone Strike Destroys Indian-Owned Pharma Unit In Ukraine, One Dead",
+  "source_url": "https://www.ndtvprofit.com/world/russian-drone-strike-destroys-indian-owned-pharma-unit-in-ukraine-one-dead-12136681#publisher=newsstand",
+  "source_name": "NDTV Profit",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-04T11:10:56Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-04T11:54:46Z",
+  "updated_at": "2026-10-04T11:54:46Z",
+  "decay_at": "2026-10-05T23:10:56Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
