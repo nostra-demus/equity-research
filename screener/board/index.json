@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T09:44:53Z",
+  "generated_at": "2026-10-04T09:45:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-139",
@@ -159183,6 +159183,80 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-552d4a71e9b6",
+      "idea_version": "IDEAV-8dc126045b36813b",
+      "idea_version_started_at": "2026-10-04T09:45:15Z",
+      "ticker": "ACWAPOWER",
+      "company": "ACWA Power",
+      "exchange": "Tadawul",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reached financial close on the Rabigh 2 expansion project, securing the capital structure for a major infrastructure asset that will contribute to future revenue.",
+      "why_now": "The financial closure was officially announced on 2026-10-04.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d3c4d8002c06",
+        "EVT-19d1819c3065"
+      ],
+      "primary_source_event_id": "EVT-d3c4d8002c06",
+      "source_headlines": [
+        "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
+        "‎Acwa, Saudi Energy announce financial closure for Rabigh 2 expansion project"
+      ],
+      "source_headline": "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1941081",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-10-04T09:36:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T09:45:15Z",
+      "updated_at": "2026-10-04T09:45:15Z",
+      "decay_at": "2026-10-05T21:36:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-d6ced9326085",
       "idea_version": "IDEAV-48a1605dbaec0599",
       "idea_version_started_at": "2026-10-03T10:25:11Z",
@@ -162770,77 +162844,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-1398b6438111",
-      "idea_version": "IDEAV-34f2df35fedabf49",
-      "idea_version_started_at": "2026-10-01T11:02:09Z",
-      "ticker": "IRBINFRA",
-      "company": "IRB Infrastructure Developers",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A credit rating downgrade by Moody's increases the company's cost of debt and signals potential liquidity or leverage concerns for its infrastructure projects.",
-      "why_now": "The rating update was disclosed via exchange filing on October 1, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c5c990098e69"
-      ],
-      "primary_source_event_id": "EVT-c5c990098e69",
-      "source_headlines": [
-        "IRB Infrastructure Developers Limited: IRB Infrastructure Developers Limited has informed the Exchange regarding 'Moody s Investor Service has issued an update on the long term corporate family rating and the instrument rating assigned to USD senior secured notes.'."
-      ],
-      "source_headline": "IRB Infrastructure Developers Limited: IRB Infrastructure Developers Limited has informed the Exchange regarding 'Moody s Investor Service has issued an update on the long term corporate family rating and the instrument rating assigned to USD senior secured notes.'.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/IRB_01102026151356_IRBIDL_credit_rating_Moody.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 97,
-      "newest_source_at": "2026-10-01T09:44:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T11:02:09Z",
-      "updated_at": "2026-10-01T11:02:09Z",
-      "decay_at": "2026-10-02T21:44:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -162853,9 +162856,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 525,
+    "total_count": 524,
     "shown_count": 500,
-    "hidden_count": 25,
+    "hidden_count": 24,
     "side_counts": {
       "long": {
         "total_count": 262,
@@ -162863,23 +162866,23 @@
         "hidden_count": 12
       },
       "short": {
-        "total_count": 263,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 12
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 688,
-      "oldest_retained_at": "2026-09-07T18:00:00Z",
+      "evicted_count": 689,
+      "oldest_retained_at": "2026-09-07T20:44:25Z",
       "side_counts": {
         "long": {
           "evicted_count": 460,
           "oldest_retained_at": "2026-09-16T01:59:00Z"
         },
         "short": {
-          "evicted_count": 228,
-          "oldest_retained_at": "2026-09-07T18:00:00Z"
+          "evicted_count": 229,
+          "oldest_retained_at": "2026-09-07T20:44:25Z"
         }
       }
     },
@@ -164733,8 +164736,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-02T21:44:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-04T09:45:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -200038,8 +200041,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1282,
-    "live_count": 68,
+    "surfaced_total": 1283,
+    "live_count": 69,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
