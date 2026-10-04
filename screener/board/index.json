@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T06:29:50Z",
+  "generated_at": "2026-10-04T06:34:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-076",
@@ -1027,6 +1027,66 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-103",
+      "headline": "Cortina completes 8% buyback; Chandra Asri adds to Hiap Seng stake",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/cortina-completes-8-buyback-chandra-asri-adds-hiap-seng-stake",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T06:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Cortina Holdings completed an 8% share buyback, and Chandra Asri increased its stake in Hiap Seng.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Cortina Holdings completed an 8% share buyback, and Chandra Asri increased its stake in Hiap Seng.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions",
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cortina Holdings",
+          "ticker": null,
+          "listing_country": "SG"
+        },
+        {
+          "name": "Chandra Asri",
+          "ticker": null,
+          "listing_country": "ID"
+        },
+        {
+          "name": "Hiap Seng",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-075",
       "headline": "OpenAI safety employee quits over ‘broken culture’, says ‘time for trial and error is over’",
       "headline_en": null,
@@ -1451,6 +1511,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-104",
+      "headline": "Japan PM protests to US after Marine arrested on murder suspicion in Okinawa",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/us/us-marine-arrested-suspicion-murder-japans-okinawa-2026-10-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T06:27:55Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Japan PM protests to the US following a murder suspicion involving a US Marine, creating diplomatic and operational risk for US-Japan relations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Japan PM protests to the US following a murder suspicion involving a US Marine, creating diplomatic and operational risk for US-Japan relations.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-102",
       "headline": "South Korean president orders probe into data leaks across financial industry",
       "headline_en": null,
@@ -1804,98 +1907,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-099",
-      "headline": "Fed, ECB minutes in focus as weak US jobs data, French market stress cool rate-hike bets",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/fed-ecb-minutes-focus-weak-us-jobs-data-french-market-stress-cool-rate-hike-bets",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T06:13:55Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Market participants are adjusting rate-hike expectations based on US jobs data and French market volatility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Market participants are adjusting rate-hike expectations based on US jobs data and French market volatility.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-063",
-      "headline": "Sical Logistics Limited: Sical Logistics Limited has informed the Exchange about receipt of Award Letter",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/SICALLOG_04102026100955_SUBMISSION.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-04T04:40:20Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Sical Logistics received an award letter, indicating a new contract win.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Sical Logistics received an award letter, indicating a new contract win.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sical Logistics Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -198996,9 +199007,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 671,
-    "news_picked_today": 118,
-    "news_dropped_today": 553
+    "news_seen_today": 685,
+    "news_picked_today": 120,
+    "news_dropped_today": 565
   },
   "book_momentum": {
     "live_count": 8,
