@@ -1,35 +1,33 @@
 {
   "idea_id": "IDEA-52c74fc97e93",
-  "idea_version": "IDEAV-c6472be015ce3509",
-  "idea_version_started_at": "2026-10-04T19:39:50Z",
+  "idea_version": "IDEAV-8f138e0c64ba38fb",
+  "idea_version_started_at": "2026-10-04T19:59:51Z",
   "ticker": "PTC",
   "company": "PTC Inc.",
   "exchange": "NASDAQ",
-  "ticker_verified": false,
-  "listing_verified": false,
+  "ticker_verified": true,
+  "listing_verified": true,
   "liquidity_verified": false,
-  "listing_verification_source": null,
+  "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "Schneider Electric is in advanced talks to acquire PTC for $20 billion, which represents a significant premium over the current market capitalization.",
-  "why_now": "The deal is reported as nearing completion as of October 4, 2026, creating an immediate arbitrage opportunity.",
+  "reason": "Schneider Electric is reportedly in advanced talks to acquire PTC for approximately $20 billion, which would likely trigger a significant premium over the current market valuation.",
+  "why_now": "The report of a near-term deal emerged on October 4, 2026, creating an immediate arbitrage opportunity.",
   "conviction": 85,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 45,
+  "trade_score": 67,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
     "impact": 21,
-    "specificity": 7,
+    "specificity": 15,
     "timing": 10,
-    "expression": 0,
+    "expression": 7,
     "corroboration": 0,
     "learning_adjustment": 0
   },
-  "trade_readiness": "watch_only",
+  "trade_readiness": "needs_data",
   "missing_checks": [
-    "verified listed ticker",
-    "verified listing",
     "live liquidity",
     "dated catalyst",
     "independent confirmation",
@@ -49,17 +47,17 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-d3ace9636f6e"
+    "EVT-1eb8834a8281"
   ],
-  "primary_source_event_id": "EVT-d3ace9636f6e",
+  "primary_source_event_id": "EVT-1eb8834a8281",
   "source_headlines": [
-    "Schneider Electric nears deal to buy software group PTC for $20bn"
+    "France's Schneider Electric nears $20 billion deal to buy US software group PTC, FT reports"
   ],
-  "source_headline": "Schneider Electric nears deal to buy software group PTC for $20bn",
-  "source_url": "https://www.ft.com/content/2084f349-0829-4130-a5e6-b98929a6e633?syn-25a6b1a6=1",
-  "source_name": "Financial Times",
+  "source_headline": "France's Schneider Electric nears $20 billion deal to buy US software group PTC, FT reports",
+  "source_url": "https://www.reuters.com/business/frances-schneider-electric-nears-20-billion-deal-buy-us-software-group-ptc-ft-2026-10-04/",
+  "source_name": "Reuters — Latest (news sitemap)",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-04T19:33:33Z",
+  "newest_source_at": "2026-10-04T19:47:43Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -67,8 +65,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-04T19:39:50Z",
-  "updated_at": "2026-10-04T19:39:50Z",
-  "decay_at": "2026-10-06T07:33:33Z",
+  "updated_at": "2026-10-04T19:59:51Z",
+  "decay_at": "2026-10-06T07:47:43Z",
   "status": "live",
   "promoted_signal_id": null
 }
