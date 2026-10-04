@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T09:45:32Z",
+  "generated_at": "2026-10-04T09:49:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-139",
@@ -1617,6 +1617,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-174",
+      "headline": "Yes Bank Q2 Business Update: Deposits And Loans Grow Nearly 24% With Slight Decline In CASA Ratio",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/yes-bank-q2-business-update-sees-nearly-24-percent-increase-in-loans-and-advances-alongside-strong-deposit-growth-12136882#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T09:45:24Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Yes Bank reported strong Q2 business growth with deposits and loans increasing by nearly 24%, despite a slight decline in its CASA ratio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Yes Bank reported strong Q2 business growth with deposits and loans increasing by nearly 24%, despite a slight decline in its CASA ratio.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank",
+          "ticker": "YESBANK",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-157",
       "headline": "Sun Pharma Advanced Research wins ₹28 crore CENVAT credit refund case in CESTAT",
       "headline_en": null,
@@ -1905,55 +1954,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-094",
-      "headline": "Bandhan Bank Q2 Update: Loans grow 13% YoY, but sequential growth remains modest",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/bandhan-bank-share-price-q2-update-loans-grow-but-sequential-growth-remains-modest-20004073.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T06:02:55Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Bandhan Bank reported a 13% YoY loan growth, providing a quantified update on its Q2 performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Bandhan Bank reported a 13% YoY loan growth, providing a quantified update on its Q2 performance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bandhan Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -200061,9 +200061,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1170,
-    "news_picked_today": 247,
-    "news_dropped_today": 923
+    "news_seen_today": 1187,
+    "news_picked_today": 248,
+    "news_dropped_today": 939
   },
   "book_momentum": {
     "live_count": 8,
