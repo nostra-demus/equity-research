@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T07:07:18Z",
+  "generated_at": "2026-10-04T07:16:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-076",
@@ -987,6 +987,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-121",
+      "headline": "RBI MPC Meeting October 2026: Repo rate hike will be decided by these 5 factors | Explained",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/rbi-mpc-meeting-october-2026-repo-rate-hike-will-be-decided-by-these-5-factors-explained-11791093642745.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T07:04:35Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The RBI's repo rate decision is a primary driver of Indian monetary policy and market liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The RBI's repo rate decision is a primary driver of Indian monetary policy and market liquidity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-117",
       "headline": "Another big development in Tata Boardroom Battle; Noel Tata seeks video recording and minutes of Sept 17 meeting",
       "headline_en": null,
@@ -1691,6 +1734,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-126",
+      "headline": "Revolut's rise to become Europe's $115 billion big bank rival",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/finance/revoluts-rise-become-europes-115-billion-big-bank-rival-2026-10-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T07:03:45Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Revolut has reached a valuation of $115 billion, signaling significant growth and increased competitive pressure on traditional European banking institutions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Revolut has reached a valuation of $115 billion, signaling significant growth and increased competitive pressure on traditional European banking institutions.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Revolut",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-033",
       "headline": "US Coast Guard finds debris from missing medical aircraft off Nantucket",
       "headline_en": null,
@@ -1870,92 +1962,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-051",
-      "headline": "Kevin Warsh Was Confirmed as Fed Chair in the Most Divisive Vote in Federal Reserve History, 54-45. Here's Why That Split Still Matters Now That He's Raised Rates for the First Time Since 2023.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/kevin-warsh-was-confirmed-fed-chair-most-divisive-vote-federal-reserve-history-54-45-heres",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T03:20:00Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Fed policy shifts and interest rate hikes are major drivers of global market volatility and capital costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Fed policy shifts and interest rate hikes are major drivers of global market volatility and capital costs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-116",
-      "headline": "Deep-sea gas becomes costlier as government raises price ceiling",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/deep-sea-gas-becomes-costlier-as-government-raises-price-ceiling/articleshow/134670616.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T06:31:47Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "The Indian government has increased the price ceiling for deep-sea gas, which will improve revenue prospects for domestic gas producers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The Indian government has increased the price ceiling for deep-sea gas, which will improve revenue prospects for domestic gas producers.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -158753,78 +158759,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c293b0c4a5d4",
-      "idea_version": "IDEAV-2750ca3bdbc60c7f",
-      "idea_version_started_at": "2026-10-03T01:29:52Z",
-      "ticker": "BAYN",
-      "company": "Bayer AG",
-      "exchange": "XETRA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Bayer is investing $2.2 billion in a new US plant to capture growth in its fastest-growing market, expanding its long-term production capacity and regional footprint.",
-      "why_now": "The announcement of this major $2.2 billion capital expenditure commitment acts as a live directional catalyst.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-34e30d7673d7"
-      ],
-      "primary_source_event_id": "EVT-34e30d7673d7",
-      "source_headlines": [
-        "USA: 'Fastest-growing market' — Bayer invests $2.2 billion in new US plant"
-      ],
-      "source_headline": "USA: „Am schnellsten wachsender Markt“ – Bayer investiert 2,2 Milliarden Dollar in neues US-Werk",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/usa-bayer-investiert-22-milliarden-dollar-in-neues-us-werk/100259162.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-02T19:10:06Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T01:29:52Z",
-      "updated_at": "2026-10-03T01:29:52Z",
-      "decay_at": "2026-10-04T07:10:06Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3d269b7eb9c2",
       "idea_version": "IDEAV-5300d7372e5b2356",
       "idea_version_started_at": "2026-10-03T12:06:09Z",
@@ -161557,6 +161491,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c293b0c4a5d4",
+      "idea_version": "IDEAV-2750ca3bdbc60c7f",
+      "idea_version_started_at": "2026-10-03T01:29:52Z",
+      "ticker": "BAYN",
+      "company": "Bayer AG",
+      "exchange": "XETRA",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Bayer is investing $2.2 billion in a new US plant to capture growth in its fastest-growing market, expanding its long-term production capacity and regional footprint.",
+      "why_now": "The announcement of this major $2.2 billion capital expenditure commitment acts as a live directional catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-34e30d7673d7"
+      ],
+      "primary_source_event_id": "EVT-34e30d7673d7",
+      "source_headlines": [
+        "USA: 'Fastest-growing market' — Bayer invests $2.2 billion in new US plant"
+      ],
+      "source_headline": "USA: „Am schnellsten wachsender Markt“ – Bayer investiert 2,2 Milliarden Dollar in neues US-Werk",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/usa-bayer-investiert-22-milliarden-dollar-in-neues-us-werk/100259162.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T19:10:06Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T01:29:52Z",
+      "updated_at": "2026-10-03T01:29:52Z",
+      "decay_at": "2026-10-04T07:10:06Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-e67734d8e0e7",
       "idea_version": "IDEAV-013c2fcab391bc2a",
       "idea_version_started_at": "2026-10-03T00:30:09Z",
@@ -162357,14 +162363,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 520,
+    "total_count": 521,
     "shown_count": 500,
-    "hidden_count": 20,
+    "hidden_count": 21,
     "side_counts": {
       "long": {
-        "total_count": 258,
+        "total_count": 259,
         "shown_count": 250,
-        "hidden_count": 8
+        "hidden_count": 9
       },
       "short": {
         "total_count": 262,
@@ -162388,6 +162394,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c293b0c4a5d4",
+        "idea_version": "IDEAV-2750ca3bdbc60c7f",
+        "idea_version_started_at": "2026-10-03T01:29:52Z",
+        "ticker": "BAYN",
+        "company": "Bayer AG",
+        "exchange": "XETRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Bayer is investing $2.2 billion in a new US plant to capture growth in its fastest-growing market, expanding its long-term production capacity and regional footprint.",
+        "why_now": "The announcement of this major $2.2 billion capital expenditure commitment acts as a live directional catalyst.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-34e30d7673d7"
+        ],
+        "primary_source_event_id": "EVT-34e30d7673d7",
+        "source_headlines": [
+          "USA: 'Fastest-growing market' — Bayer invests $2.2 billion in new US plant"
+        ],
+        "source_headline": "USA: „Am schnellsten wachsender Markt“ – Bayer investiert 2,2 Milliarden Dollar in neues US-Werk",
+        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/usa-bayer-investiert-22-milliarden-dollar-in-neues-us-werk/100259162.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-02T19:10:06Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T01:29:52Z",
+        "updated_at": "2026-10-03T01:29:52Z",
+        "decay_at": "2026-10-04T07:10:06Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T07:10:06Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-961ba303e1c1",
         "idea_version": "IDEAV-1f44156cbe2736c3",
@@ -191423,80 +191504,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1fab37e5db24",
-        "idea_version": "IDEAV-038ebc68219e7030",
-        "idea_version_started_at": "2026-09-15T01:17:59Z",
-        "ticker": "EVN",
-        "company": "Evolution Mining",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company announced a capital management initiative, which typically involves returning excess cash to shareholders via dividends or buybacks.",
-        "why_now": "The filing was released on September 14, 2026, with the specific details of the capital management plan to follow.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-aca580e3b0ec"
-        ],
-        "primary_source_event_id": "EVT-aca580e3b0ec",
-        "source_headlines": [
-          "EVN: Capital management [price-sensitive]"
-        ],
-        "source_headline": "EVN: Capital management [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EVN?key=2924-03135570-2A1697186",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 81,
-        "newest_source_at": "2026-09-14T23:46:24Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-15T01:17:59Z",
-        "updated_at": "2026-09-15T01:17:59Z",
-        "decay_at": "2026-09-16T11:46:24Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-18T00:05:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c216e8a1a5f7",
         "idea_version": "IDEAV-6295c63f05186693",
         "idea_version_started_at": "2026-09-15T02:26:35Z",
@@ -199541,7 +199548,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1274,
-    "live_count": 66,
+    "live_count": 65,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -199560,9 +199567,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 750,
-    "news_picked_today": 140,
-    "news_dropped_today": 610
+    "news_seen_today": 777,
+    "news_picked_today": 146,
+    "news_dropped_today": 631
   },
   "book_momentum": {
     "live_count": 8,
