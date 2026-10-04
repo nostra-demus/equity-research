@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T22:09:49Z",
+  "generated_at": "2026-10-04T22:10:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-305",
@@ -157389,6 +157389,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-df9684f7875d",
+      "idea_version": "IDEAV-91754f7cb8a97e1f",
+      "idea_version_started_at": "2026-10-04T22:10:04Z",
+      "ticker": "CSL",
+      "company": "CSL Limited",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The $1.6 billion cash outlay for the rare disease drug deal will significantly increase leverage and dilute near-term free cash flow, pressuring the balance sheet.",
+      "why_now": "The deal was officially announced on 2026-10-04, and the market is currently digesting the impact of the acquisition cost on the company's capital structure.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8e2516cef453"
+      ],
+      "primary_source_event_id": "EVT-8e2516cef453",
+      "source_headlines": [
+        "CSL Agrees to Pay Up to $1.6 Billion in Rare Disease Drug Deal"
+      ],
+      "source_headline": "CSL Agrees to Pay Up to $1.6 Billion in Rare Disease Drug Deal",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-04/csl-agrees-to-pay-up-to-1-6-billion-in-rare-disease-drug-deal",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T21:55:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T22:10:04Z",
+      "updated_at": "2026-10-04T22:10:04Z",
+      "decay_at": "2026-10-06T09:55:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-965e32a0e2b7",
       "idea_version": "IDEAV-32407c903c49e5ea",
       "idea_version_started_at": "2026-10-04T21:39:56Z",
@@ -160923,76 +160995,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-205d9d4ce667",
-      "idea_version": "IDEAV-b18cf34bc2da95d4",
-      "idea_version_started_at": "2026-10-02T00:48:43Z",
-      "ticker": "DELL",
-      "company": "Dell Technologies",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Dell is partnering with JERA on a $15 billion data center project, providing a significant long-term revenue tailwind for their infrastructure and server business.",
-      "why_now": "The partnership was announced on October 1, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-263c236157f0"
-      ],
-      "primary_source_event_id": "EVT-263c236157f0",
-      "source_headlines": [
-        "Japan's largest power producer teams with Dell on $15bn data center"
-      ],
-      "source_headline": "Japan's largest power producer teams with Dell on $15bn data center",
-      "source_url": "https://asia.nikkei.com/business/technology/artificial-intelligence/japan-s-largest-power-producer-teams-with-dell-on-15bn-data-center",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-01T22:03:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-02T00:48:43Z",
-      "updated_at": "2026-10-02T00:48:43Z",
-      "decay_at": "2026-10-03T10:03:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-7c6921220f81",
       "idea_version": "IDEAV-a2b91e03a73036bb",
       "idea_version_started_at": "2026-10-03T06:25:08Z",
@@ -163943,14 +163945,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 546,
+    "total_count": 545,
     "shown_count": 500,
-    "hidden_count": 46,
+    "hidden_count": 45,
     "side_counts": {
       "long": {
-        "total_count": 277,
+        "total_count": 276,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 26
       },
       "short": {
         "total_count": 269,
@@ -163960,12 +163962,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 696,
+      "evicted_count": 697,
       "oldest_retained_at": "2026-09-08T00:28:37Z",
       "side_counts": {
         "long": {
-          "evicted_count": 463,
-          "oldest_retained_at": "2026-09-16T05:06:48Z"
+          "evicted_count": 464,
+          "oldest_retained_at": "2026-09-16T08:37:19Z"
         },
         "short": {
           "evicted_count": 233,
@@ -167399,8 +167401,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-03T10:03:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-04T22:10:08Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -201131,8 +201133,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1305,
-    "live_count": 62,
+    "surfaced_total": 1306,
+    "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
