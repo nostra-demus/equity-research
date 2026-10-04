@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T03:11:54Z",
+  "generated_at": "2026-10-04T03:21:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-039",
@@ -936,6 +936,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-043",
+      "headline": "Galaxy Z Fold 9 could be thinner than the Fold 8 — and easier to carry",
+      "headline_en": null,
+      "url": "https://gulfnews.com/lifestyle/samsung-galaxy-z-fold-9-could-be-thinner-with-a-camera-upgrade-could-foldables-finally-feel-easy-1.500697398",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Speculation regarding future product design for Samsung's foldable phone series.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Speculation regarding future product design for Samsung's foldable phone series.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-021",
       "headline": "Chalmers says global economic turmoil will drive budget cuts, but Australia should avoid recession",
       "headline_en": null,
@@ -1290,6 +1339,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-042",
+      "headline": "Saudi Arabia: Houthi missile debris injures Asian expat, damages prayer room",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/gulf/saudi/saudi-arabia-houthi-missile-debris-injures-asian-expat-damages-prayer-room-1.500697561",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T02:54:59Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "A missile attack in Saudi Arabia represents a geopolitical escalation in a key oil-producing region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "A missile attack in Saudi Arabia represents a geopolitical escalation in a key oil-producing region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1720,96 +1812,6 @@
         "cybersecurity"
       ],
       "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-035",
-      "headline": "アジーナス、IGCS 2026にて再発卵巣がんに対するボテンシリマブ＋バルスチリマブ併用療法の3年生存率推定値48%を報告",
-      "headline_en": "Agenus reports 48% estimated 3-year survival rate for BOT+BAL combination therapy for recurrent ovarian cancer at IGCS 2026",
-      "url": "http://www.businesswire.com/news/home/20261003250987/ja/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-04T02:43:00Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Agenus reported a 48% estimated 3-year survival rate for its BOT+BAL combination therapy in recurrent ovarian cancer at IGCS 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "Agenus reported a 48% estimated 3-year survival rate for its BOT+BAL combination therapy in recurrent ovarian cancer at IGCS 2026.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Agenus",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-018",
-      "headline": "The week ahead in numbers: RBI policy, TCS Q2 results, Nobel prizes",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/the-week-ahead-in-numbers-rbi-policy-tcs-q2-results-nobel-prizes-11790976391103.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T01:31:03Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "not material",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "not material",
-      "region": "IN",
-      "relevance": "irrelevant",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -198844,9 +198846,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 312,
-    "news_picked_today": 41,
-    "news_dropped_today": 271
+    "news_seen_today": 324,
+    "news_picked_today": 43,
+    "news_dropped_today": 281
   },
   "book_momentum": {
     "live_count": 8,
