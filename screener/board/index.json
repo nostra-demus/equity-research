@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T07:16:14Z",
+  "generated_at": "2026-10-04T07:26:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-076",
@@ -345,6 +345,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-134",
+      "headline": "‎MIS receives work order from HUMAIN worth more than 148% of 2025 revenue",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1941115",
+      "source_name": "Argaam — Main News (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T10:13:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "MIS received a work order from HUMAIN valued at more than 148% of its 2025 revenue, representing a massive contract win.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "MIS received a work order from HUMAIN valued at more than 148% of its 2025 revenue, representing a massive contract win.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MIS",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,55 +1962,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-044",
-      "headline": "Industrial marketplace Pneucons disables UPI on orders from Oct 10, co-founder says ‘MDR ate 94% of our margins’",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/industrial-marketplace-pneucons-disables-upi-on-orders-from-oct-10-co-founder-says-mdr-ate-94-of-our-margins-11791079493499.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T03:26:33Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Pneucons disabled UPI payments due to high merchant discount rates impacting 94% of margins, indicating a significant operational and financial challenge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Pneucons disabled UPI payments due to high merchant discount rates impacting 94% of margins, indicating a significant operational and financial challenge.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pneucons",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156198,77 +156198,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-d0204447ec5b",
-      "idea_version": "IDEAV-e68d5007fb13244c",
-      "idea_version_started_at": "2026-10-03T00:50:03Z",
-      "ticker": "BAYRY",
-      "company": "Bayer AG",
-      "exchange": "OQX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is committing $2.2 billion to a new US pharmaceutical manufacturing facility, signaling a strategic pivot toward expanding its high-margin US footprint.",
-      "why_now": "The investment was officially announced on October 2, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-34e30d7673d7",
-        "EVT-38748157c702"
-      ],
-      "primary_source_event_id": "EVT-34e30d7673d7",
-      "source_headlines": [
-        "USA: 'Fastest-growing market' — Bayer invests $2.2 billion in new US plant",
-        "Bayer to invest $2.2 billion in new US pharma site"
-      ],
-      "source_headline": "USA: „Am schnellsten wachsender Markt“ – Bayer investiert 2,2 Milliarden Dollar in neues US-Werk",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/usa-bayer-investiert-22-milliarden-dollar-in-neues-us-werk/100259162.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-02T19:19:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T00:50:03Z",
-      "updated_at": "2026-10-03T00:50:03Z",
-      "decay_at": "2026-10-04T07:19:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-eaf659086da7",
       "idea_version": "IDEAV-904be450c0383ddf",
       "idea_version_started_at": "2026-10-03T13:50:18Z",
@@ -160925,6 +160854,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d0204447ec5b",
+      "idea_version": "IDEAV-e68d5007fb13244c",
+      "idea_version_started_at": "2026-10-03T00:50:03Z",
+      "ticker": "BAYRY",
+      "company": "Bayer AG",
+      "exchange": "OQX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is committing $2.2 billion to a new US pharmaceutical manufacturing facility, signaling a strategic pivot toward expanding its high-margin US footprint.",
+      "why_now": "The investment was officially announced on October 2, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-34e30d7673d7",
+        "EVT-38748157c702"
+      ],
+      "primary_source_event_id": "EVT-34e30d7673d7",
+      "source_headlines": [
+        "USA: 'Fastest-growing market' — Bayer invests $2.2 billion in new US plant",
+        "Bayer to invest $2.2 billion in new US pharma site"
+      ],
+      "source_headline": "USA: „Am schnellsten wachsender Markt“ – Bayer investiert 2,2 Milliarden Dollar in neues US-Werk",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/usa-bayer-investiert-22-milliarden-dollar-in-neues-us-werk/100259162.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T19:19:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T00:50:03Z",
+      "updated_at": "2026-10-03T00:50:03Z",
+      "decay_at": "2026-10-04T07:19:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-205d9d4ce667",
       "idea_version": "IDEAV-b18cf34bc2da95d4",
       "idea_version_started_at": "2026-10-02T00:48:43Z",
@@ -162363,14 +162363,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 521,
+    "total_count": 522,
     "shown_count": 500,
-    "hidden_count": 21,
+    "hidden_count": 22,
     "side_counts": {
       "long": {
-        "total_count": 259,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 9
+        "hidden_count": 10
       },
       "short": {
         "total_count": 262,
@@ -162394,6 +162394,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d0204447ec5b",
+        "idea_version": "IDEAV-e68d5007fb13244c",
+        "idea_version_started_at": "2026-10-03T00:50:03Z",
+        "ticker": "BAYRY",
+        "company": "Bayer AG",
+        "exchange": "OQX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is committing $2.2 billion to a new US pharmaceutical manufacturing facility, signaling a strategic pivot toward expanding its high-margin US footprint.",
+        "why_now": "The investment was officially announced on October 2, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 74,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-34e30d7673d7",
+          "EVT-38748157c702"
+        ],
+        "primary_source_event_id": "EVT-34e30d7673d7",
+        "source_headlines": [
+          "USA: 'Fastest-growing market' — Bayer invests $2.2 billion in new US plant",
+          "Bayer to invest $2.2 billion in new US pharma site"
+        ],
+        "source_headline": "USA: „Am schnellsten wachsender Markt“ – Bayer investiert 2,2 Milliarden Dollar in neues US-Werk",
+        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/usa-bayer-investiert-22-milliarden-dollar-in-neues-us-werk/100259162.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-02T19:19:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T00:50:03Z",
+        "updated_at": "2026-10-03T00:50:03Z",
+        "decay_at": "2026-10-04T07:19:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T07:19:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c293b0c4a5d4",
         "idea_version": "IDEAV-2750ca3bdbc60c7f",
@@ -191430,80 +191504,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-67ef6a40fe95",
-        "idea_version": "IDEAV-6ae2571eac382137",
-        "idea_version_started_at": "2026-09-15T02:26:35Z",
-        "ticker": "02595.HK",
-        "company": "Genfleet Therapeutics",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Positive Phase II efficacy data for GFH375 in NSCLC validates the company's core drug pipeline and increases the probability of future commercial success.",
-        "why_now": "The data was presented at the 2026 World Conference on Lung Cancer on 2026-09-15, providing a fresh catalyst for re-rating.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-231ab8410879"
-        ],
-        "primary_source_event_id": "EVT-231ab8410879",
-        "source_headlines": [
-          "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Favorable Phase II Efficacy Data of GFH375 (Oral KRAS G12D Inhibitor) Monotherapy in Pretreated NSCLC Presented in Oral Session at 2026 World Conference on Lung Cancer (WCLC)"
-        ],
-        "source_headline": "GENFLEET-B (02595): VOLUNTARY ANNOUNCEMENT Favorable Phase II Efficacy Data of GFH375 (Oral KRAS G12D Inhibitor) Monotherapy in Pretreated NSCLC Presented in Oral Session at 2026 World Conference on Lung Cancer (WCLC)",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0915/2026091500087.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 88,
-        "newest_source_at": "2026-09-15T00:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-15T02:26:35Z",
-        "updated_at": "2026-09-15T02:26:35Z",
-        "decay_at": "2026-09-16T12:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-18T00:05:50Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c216e8a1a5f7",
         "idea_version": "IDEAV-6295c63f05186693",
         "idea_version_started_at": "2026-09-15T02:26:35Z",
@@ -199548,7 +199548,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1274,
-    "live_count": 65,
+    "live_count": 64,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -199567,9 +199567,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 777,
-    "news_picked_today": 146,
-    "news_dropped_today": 631
+    "news_seen_today": 812,
+    "news_picked_today": 154,
+    "news_dropped_today": 658
   },
   "book_momentum": {
     "live_count": 8,
