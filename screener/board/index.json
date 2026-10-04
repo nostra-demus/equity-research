@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T10:21:24Z",
+  "generated_at": "2026-10-04T10:21:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-139",
@@ -159041,6 +159041,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-5d7419f0c968",
+      "idea_version": "IDEAV-cbc7e30da752241a",
+      "idea_version_started_at": "2026-10-04T10:21:39Z",
+      "ticker": "MIS",
+      "company": "Al Moammar Information Systems",
+      "exchange": "Tadawul",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a contract from HUMAIN valued at 148% of its 2025 revenue, providing a massive, immediate boost to its order backlog and future earnings visibility.",
+      "why_now": "The contract award was announced on 2026-10-04.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d8b5cce1b378"
+      ],
+      "primary_source_event_id": "EVT-d8b5cce1b378",
+      "source_headlines": [
+        "‎MIS gets HUMAIN order worth 148% of 2025 revenue"
+      ],
+      "source_headline": "‎MIS gets HUMAIN order worth 148% of 2025 revenue",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1941115",
+      "source_name": "Argaam — Main News (English)",
+      "materiality_max": 96,
+      "newest_source_at": "2026-10-04T10:13:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T10:21:39Z",
+      "updated_at": "2026-10-04T10:21:39Z",
+      "decay_at": "2026-10-05T22:13:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2e0f3a053283",
       "idea_version": "IDEAV-e90613ae4ff0e1a5",
       "idea_version_started_at": "2026-10-03T14:40:11Z",
@@ -162771,79 +162843,6 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
-    },
-    {
-      "idea_id": "IDEA-d9df77079e54",
-      "idea_version": "IDEAV-0ed7a377cc3ea280",
-      "idea_version_started_at": "2026-10-01T11:02:09Z",
-      "ticker": "03668",
-      "company": "Yancoal Australia",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of an 80% interest in the Kestrel Coal Mine increases the company's production capacity and reserve base, directly enhancing future revenue potential.",
-      "why_now": "The acquisition was officially completed and announced on October 1, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b7d6ff6e7a8f",
-        "EVT-cbf00afb060b"
-      ],
-      "primary_source_event_id": "EVT-b7d6ff6e7a8f",
-      "source_headlines": [
-        "YANKUANG ENERGY (01171): DISCLOSEABLE TRANSACTION YANCOAL AUSTRALIA SUCCESSFULLY COMPLETED ACQUISITION OF 80% INTEREST IN THE KESTREL COAL MINE",
-        "YANCOAL AUS (03668): Yancoal successfully completes the acquisition of an 80% interest in the Kestrel Coal Mine"
-      ],
-      "source_headline": "YANKUANG ENERGY (01171): DISCLOSEABLE TRANSACTION YANCOAL AUSTRALIA SUCCESSFULLY COMPLETED ACQUISITION OF 80% INTEREST IN THE KESTREL COAL MINE",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1001/2026100100007.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-01T10:10:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T11:02:09Z",
-      "updated_at": "2026-10-01T11:02:09Z",
-      "decay_at": "2026-10-02T22:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
     }
   ],
   "ideas_archive": {
@@ -162856,14 +162855,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 524,
+    "total_count": 523,
     "shown_count": 500,
-    "hidden_count": 24,
+    "hidden_count": 23,
     "side_counts": {
       "long": {
-        "total_count": 262,
+        "total_count": 261,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 11
       },
       "short": {
         "total_count": 262,
@@ -162873,12 +162872,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 689,
+      "evicted_count": 690,
       "oldest_retained_at": "2026-09-07T20:44:25Z",
       "side_counts": {
         "long": {
-          "evicted_count": 460,
-          "oldest_retained_at": "2026-09-16T01:59:00Z"
+          "evicted_count": 461,
+          "oldest_retained_at": "2026-09-16T03:50:24Z"
         },
         "short": {
           "evicted_count": 229,
@@ -164662,8 +164661,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-02T22:10:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-04T10:21:43Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -200041,8 +200040,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1283,
-    "live_count": 69,
+    "surfaced_total": 1284,
+    "live_count": 70,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
