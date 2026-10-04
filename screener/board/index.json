@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T11:39:37Z",
+  "generated_at": "2026-10-04T11:50:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -242,6 +242,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-215",
+      "headline": "Russian Drone Strike Destroys Indian-Owned Pharma Unit In Ukraine, One Dead",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/world/russian-drone-strike-destroys-indian-owned-pharma-unit-in-ukraine-one-dead-12136681#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T09:52:53Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "A Russian drone strike destroyed an Indian-owned pharmaceutical unit in Ukraine, resulting in a fatality and asset loss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Russian drone strike destroyed an Indian-owned pharmaceutical unit in Ukraine, resulting in a fatality and asset loss.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 2,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1403,6 +1446,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-204",
+      "headline": "Everest Cumin Powder Recalled By FSSAI Over Excess Pesticide Residues — Check Batch Details",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/everest-cumin-powder-recalled-by-fssai-over-excess-pesticide-residues-check-batch-details-12137033#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T11:39:02Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Everest Food Products faces a product recall by the FSSAI due to excess pesticide residues, posing significant brand and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Everest Food Products faces a product recall by the FSSAI due to excess pesticide residues, posing significant brand and regulatory risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Everest Food Products",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-179",
       "headline": "Alphabet Reported Negative Free Cash Flow for the First Time Ever. Here's Why That Milestone Matters for Shareholders.",
       "headline_en": null,
@@ -1850,104 +1943,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-163",
-      "headline": "Hertz prepares to hand over the keys to Aussie arm, calls for pitches",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/hertz-prepares-to-hand-over-the-keys-to-aussie-arm-calls-for-pitches-20261004-p612pj?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T08:59:19Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Hertz is preparing to divest its Australian arm and is seeking buyers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Hertz is preparing to divest its Australian arm and is seeking buyers.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hertz",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-120",
-      "headline": "Andhra Pradesh invites Kitex to lead 2,000-acre textile park",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/andhra-pradesh-invites-kitex-to-lead-2000-acre-textile-park/article71543128.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T06:53:12Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Kitex Garments has been invited to lead a 2,000-acre textile park development in Andhra Pradesh, signaling potential capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Kitex Garments has been invited to lead a 2,000-acre textile park development in Andhra Pradesh, signaling potential capacity expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kitex Garments",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -200344,9 +200339,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1482,
-    "news_picked_today": 310,
-    "news_dropped_today": 1172
+    "news_seen_today": 1520,
+    "news_picked_today": 323,
+    "news_dropped_today": 1197
   },
   "book_momentum": {
     "live_count": 8,
