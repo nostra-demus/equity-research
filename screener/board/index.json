@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T08:14:34Z",
+  "generated_at": "2026-10-04T08:15:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-139",
@@ -157468,6 +157468,148 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b520e6e5e5f6",
+      "idea_version": "IDEAV-2df1283f54ee5e2c",
+      "idea_version_started_at": "2026-10-04T08:14:49Z",
+      "ticker": "SBUX",
+      "company": "Starbucks Corporation",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Increased geopolitical friction and calls from US lawmakers to close stores in Xinjiang expose the company to heightened regulatory risk in the US and potential consumer boycotts or retaliatory state action in China, its second-largest market.",
+      "why_now": "The public escalation by Chinese authorities on October 4, 2026, in response to US legislative pressure creates a fresh risk of operational disruption in the China segment.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-74555099eca1"
+      ],
+      "primary_source_event_id": "EVT-74555099eca1",
+      "source_headlines": [
+        "China lashes out at Xinjiang ‘lie’ after US lawmaker urges Starbucks to close new stores"
+      ],
+      "source_headline": "China lashes out at Xinjiang ‘lie’ after US lawmaker urges Starbucks to close new stores",
+      "source_url": "https://www.scmp.com/news/china/diplomacy/article/3369689/china-lashes-out-xinjiang-lie-after-us-lawmaker-urges-starbucks-close-new-stores?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "materiality_max": 87,
+      "newest_source_at": "2026-10-04T08:00:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T08:14:49Z",
+      "updated_at": "2026-10-04T08:14:49Z",
+      "decay_at": "2026-10-05T20:00:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-d686c1bc6f60",
+      "idea_version": "IDEAV-8bd7852eb40a6572",
+      "idea_version_started_at": "2026-10-04T08:14:49Z",
+      "ticker": "533122",
+      "company": "India Power Corporation Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is undergoing a Corporate Insolvency Resolution Process (CIRP) and the voting results from the 8th Committee of Creditors meeting indicate a progression toward liquidation or a distressed restructuring that typically wipes out equity value.",
+      "why_now": "The outcome of the 8th CoC meeting was filed with the exchange on October 4, 2026, marking a critical step in the insolvency timeline.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-97820d5ea8e7"
+      ],
+      "primary_source_event_id": "EVT-97820d5ea8e7",
+      "source_headlines": [
+        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 8th (Eighth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
+      ],
+      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 8th (Eighth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_04102026131531_IntimationofOutcomeof8thCoCVotingResults04102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T07:46:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T08:14:49Z",
+      "updated_at": "2026-10-04T08:14:49Z",
+      "decay_at": "2026-10-05T19:46:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5542532c33ec",
       "idea_version": "IDEAV-f509113bfd950390",
       "idea_version_started_at": "2026-10-04T01:45:19Z",
@@ -162434,80 +162576,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-cae125754ffb",
-      "idea_version": "IDEAV-e54aefa434d81b90",
-      "idea_version_started_at": "2026-10-01T09:32:07Z",
-      "ticker": "LAND",
-      "company": "Landsec",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of the Metrocentre for £516 million expands the company's footprint in high-quality retail assets, which should improve rental income stability.",
-      "why_now": "The deal was confirmed today, October 1, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0e67bbbd6faa",
-        "EVT-ebac1027f33c"
-      ],
-      "primary_source_event_id": "EVT-0e67bbbd6faa",
-      "source_headlines": [
-        "Landsec to buy Metrocentre in £516 million deal",
-        "Owner of Bluewater shopping centre to buy Metrocentre in £516m deal"
-      ],
-      "source_headline": "Landsec to buy Metrocentre in £516 million deal",
-      "source_url": "https://www.independent.co.uk/news/business/intu-london-kent-gateshead-press-association-b3059491.html",
-      "source_name": "The Independent — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-01T07:55:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T09:32:07Z",
-      "updated_at": "2026-10-01T09:32:07Z",
-      "decay_at": "2026-10-02T19:55:18Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-1398b6438111",
       "idea_version": "IDEAV-34f2df35fedabf49",
       "idea_version_started_at": "2026-10-01T11:02:09Z",
@@ -162589,14 +162657,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 523,
+    "total_count": 522,
     "shown_count": 500,
-    "hidden_count": 23,
+    "hidden_count": 22,
     "side_counts": {
       "long": {
-        "total_count": 261,
+        "total_count": 260,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 10
       },
       "short": {
         "total_count": 262,
@@ -162606,12 +162674,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 687,
+      "evicted_count": 688,
       "oldest_retained_at": "2026-09-07T18:00:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 459,
-          "oldest_retained_at": "2026-09-16T00:19:36Z"
+          "evicted_count": 460,
+          "oldest_retained_at": "2026-09-16T01:59:00Z"
         },
         "short": {
           "evicted_count": 228,
@@ -164323,8 +164391,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-02T19:55:18Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-04T08:14:56Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -199773,8 +199841,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1277,
-    "live_count": 66,
+    "surfaced_total": 1279,
+    "live_count": 68,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
