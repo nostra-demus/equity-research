@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T21:34:46Z",
+  "generated_at": "2026-10-04T21:39:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-305",
@@ -190,6 +190,60 @@
           "name": "India Power Corporation Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-306",
+      "headline": "Hilton and Marriott hotel operator files Chapter 11 bankruptcy",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/travel/hilton-and-marriott-hotel-operator-files-chapter-11-bankruptcy",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T21:37:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "A hotel operator has filed for Chapter 11 bankruptcy, indicating a total loss of equity value for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A hotel operator has filed for Chapter 11 bankruptcy, indicating a total loss of equity value for shareholders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hilton",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Marriott",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1888,49 +1942,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-144",
-      "headline": "+++ Ukraine-Krieg +++: Luftangriff in Kiew während Merz-Besuch – Brücke getroffen",
-      "headline_en": "+++ Ukraine War +++: Air strike in Kyiv during Merz visit – bridge hit",
-      "url": "https://www.handelsblatt.com/politik/international/ukraine-krieg-moskau-schliesst-konsulat-in-st.-petersburg123/27982126.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T08:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Escalation of conflict in Ukraine with air strikes in Kyiv during a high-level political visit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Escalation of conflict in Ukraine with air strikes in Kyiv during a high-level political visit.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "geopolitical",
@@ -201063,9 +201074,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3091,
-    "news_picked_today": 689,
-    "news_dropped_today": 2402
+    "news_seen_today": 3110,
+    "news_picked_today": 693,
+    "news_dropped_today": 2417
   },
   "book_momentum": {
     "live_count": 8,
