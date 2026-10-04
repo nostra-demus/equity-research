@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T18:46:33Z",
+  "generated_at": "2026-10-04T19:04:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -1376,6 +1376,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-281",
+      "headline": "War on Iran: Is escalation more likely than a deal?",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/the-bottom-line/2026/10/4/war-on-iran-is-escalation-more-likely-than-a-deal-2?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-04T18:47:22Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Escalation of conflict in Iran poses a significant risk to global energy supply chains and regional stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Escalation of conflict in Iran poses a significant risk to global energy supply chains and regional stability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-268",
       "headline": "Air strike in Sudan kills UN aid truck driver: WFP",
       "headline_en": null,
@@ -1891,55 +1934,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-245",
-      "headline": "Saint-Gobain eyes more India acquisitions as CEO Sreedhar targets $4.3 billion business",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/saint-gobain-eyes-more-india-acquisitions-as-ceo-sreedhar-targets-43-billion-business/article71486048.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T13:48:02Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Saint-Gobain is targeting a $4.3 billion business size in India through potential acquisitions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Saint-Gobain is targeting a $4.3 billion business size in India through potential acquisitions.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saint-Gobain",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -160317,78 +160311,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-aad096c437a5",
-      "idea_version": "IDEAV-e60a2fac42e326db",
-      "idea_version_started_at": "2026-10-03T07:29:52Z",
-      "ticker": "BAJAJFINSV",
-      "company": "Bajaj Housing Finance",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Bajaj Housing Finance reported a 25% increase in Assets Under Management (AUM) to ₹1.58 lakh crore for Q2 FY2026-27, indicating strong business growth.",
-      "why_now": "The company released its Q2 business update today, October 3, 2026, providing fresh data on its performance.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-299bf939b48a"
-      ],
-      "primary_source_event_id": "EVT-299bf939b48a",
-      "source_headlines": [
-        "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details"
-      ],
-      "source_headline": "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details",
-      "source_url": "https://www.cnbctv18.com/market/bajaj-housing-finance-q2-business-update-aum-rises-25-to-1-58-lakh-crore-rupee-gross-disbursements-nii-share-price-20003830.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 92,
-      "newest_source_at": "2026-10-03T07:03:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T07:29:52Z",
-      "updated_at": "2026-10-03T07:29:52Z",
-      "decay_at": "2026-10-04T19:03:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-631ed86dc2a4",
       "idea_version": "IDEAV-14602060eb1c8687",
       "idea_version_started_at": "2026-10-04T12:14:59Z",
@@ -163545,6 +163467,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-aad096c437a5",
+      "idea_version": "IDEAV-e60a2fac42e326db",
+      "idea_version_started_at": "2026-10-03T07:29:52Z",
+      "ticker": "BAJAJFINSV",
+      "company": "Bajaj Housing Finance",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Bajaj Housing Finance reported a 25% increase in Assets Under Management (AUM) to ₹1.58 lakh crore for Q2 FY2026-27, indicating strong business growth.",
+      "why_now": "The company released its Q2 business update today, October 3, 2026, providing fresh data on its performance.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-299bf939b48a"
+      ],
+      "primary_source_event_id": "EVT-299bf939b48a",
+      "source_headlines": [
+        "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details"
+      ],
+      "source_headline": "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details",
+      "source_url": "https://www.cnbctv18.com/market/bajaj-housing-finance-q2-business-update-aum-rises-25-to-1-58-lakh-crore-rupee-gross-disbursements-nii-share-price-20003830.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 92,
+      "newest_source_at": "2026-10-03T07:03:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T07:29:52Z",
+      "updated_at": "2026-10-03T07:29:52Z",
+      "decay_at": "2026-10-04T19:03:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-6be8b97b3c25",
       "idea_version": "IDEAV-c200394fc9e7c0cf",
       "idea_version_started_at": "2026-10-03T07:11:46Z",
@@ -163919,14 +163913,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 535,
+    "total_count": 536,
     "shown_count": 500,
-    "hidden_count": 35,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       },
       "short": {
         "total_count": 267,
@@ -163950,6 +163944,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-aad096c437a5",
+        "idea_version": "IDEAV-e60a2fac42e326db",
+        "idea_version_started_at": "2026-10-03T07:29:52Z",
+        "ticker": "BAJAJFINSV",
+        "company": "Bajaj Housing Finance",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Bajaj Housing Finance reported a 25% increase in Assets Under Management (AUM) to ₹1.58 lakh crore for Q2 FY2026-27, indicating strong business growth.",
+        "why_now": "The company released its Q2 business update today, October 3, 2026, providing fresh data on its performance.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-299bf939b48a"
+        ],
+        "primary_source_event_id": "EVT-299bf939b48a",
+        "source_headlines": [
+          "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details"
+        ],
+        "source_headline": "Bajaj Housing Finance Q2 business update: AUM rises 25% to ₹1.58 lakh crore; check here for all details",
+        "source_url": "https://www.cnbctv18.com/market/bajaj-housing-finance-q2-business-update-aum-rises-25-to-1-58-lakh-crore-rupee-gross-disbursements-nii-share-price-20003830.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 92,
+        "newest_source_at": "2026-10-03T07:03:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T07:29:52Z",
+        "updated_at": "2026-10-03T07:29:52Z",
+        "decay_at": "2026-10-04T19:03:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T19:03:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f29ccaae38d5",
         "idea_version": "IDEAV-dbdfab38ef84ef13",
@@ -193218,80 +193287,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1bea3b52b765",
-        "idea_version": "IDEAV-bbcf11c8ea921b0e",
-        "idea_version_started_at": "2026-09-15T23:04:51Z",
-        "ticker": "KO",
-        "company": "Coca-Cola",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A $10 billion capital expenditure commitment through 2030 signals long-term growth and capacity expansion in the U.S. market.",
-        "why_now": "The CFO announced the investment plan today, September 15, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 55,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-6a065f9fab87"
-        ],
-        "primary_source_event_id": "EVT-6a065f9fab87",
-        "source_headlines": [
-          "Coca-Cola to invest $10 billion in U.S. growth through 2030, says CFO"
-        ],
-        "source_headline": "Coca-Cola to invest $10 billion in U.S. growth through 2030, says CFO",
-        "source_url": "https://fortune.com/2026/09/15/coca-cola-invest-10-billion-us-growth-through-2030-cfo/",
-        "source_name": "Fortune",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-15T12:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-15T23:04:51Z",
-        "updated_at": "2026-09-15T23:04:51Z",
-        "decay_at": "2026-09-17T00:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-18T12:43:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d75e3e9abc05",
         "idea_version": "IDEAV-5a875511a7f28452",
         "idea_version_started_at": "2026-09-15T22:10:38Z",
@@ -201107,7 +201102,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1302,
-    "live_count": 73,
+    "live_count": 72,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -201126,9 +201121,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2686,
-    "news_picked_today": 578,
-    "news_dropped_today": 2108
+    "news_seen_today": 2716,
+    "news_picked_today": 582,
+    "news_dropped_today": 2134
   },
   "book_momentum": {
     "live_count": 8,
