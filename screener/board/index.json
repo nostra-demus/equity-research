@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-04T02:51:14Z",
+  "generated_at": "2026-10-04T03:11:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261004-039",
+      "headline": "Paul Lederer in talks to sell Real Dairy to US food giant Schreiber",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/retail/paul-lederer-in-talks-to-sell-real-dairy-to-us-food-giant-schreiber-20261004-p612bn?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T03:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Real Dairy is in talks to be acquired by a major US food company, representing a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Real Dairy is in talks to be acquired by a major US food company, representing a significant M&A event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Real Dairy",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Schreiber",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261004-020",
       "headline": "Yemen’s Houthis say they attacked Aramco facility in Riyadh with missiles, drones",
@@ -569,6 +623,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-037",
+      "headline": "OpenAI safety employee quits, says 'time for trial and error is over'",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/technology/openai-safety-employee-quits-says-time-for-trial-and-error-is-over-20004014.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T02:59:13Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The departure of a safety-focused employee at OpenAI highlights ongoing internal governance and safety risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "The departure of a safety-focused employee at OpenAI highlights ongoing internal governance and safety risks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-032",
       "headline": "Iran war news LIVE updates: Houthis attack oil facility near Riyadh, accuses Kingdom of striking Sanaa",
       "headline_en": null,
@@ -734,6 +837,49 @@
         "regulatory"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-040",
+      "headline": "Trump tariffs a mixed bag for U.S. auto industry",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/04/companies/trump-tariffs-us-auto-industry/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T02:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Potential tariff changes are being analyzed for their impact on the US automotive sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Potential tariff changes are being analyzed for their impact on the US automotive sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1011,6 +1157,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-041",
+      "headline": "Indore Startup Push: IITI DRISHTI, IFCI Venture Sign MoU For Funding And Market Access",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/indore/indore-startup-push-iiti-drishti-ifci-venture-sign-mou-for-funding-and-market-access",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T02:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "IITI DRISHTI and IFCI Venture signed an MoU to provide funding and market access to startups.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "IITI DRISHTI and IFCI Venture signed an MoU to provide funding and market access to startups.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IITI DRISHTI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "IFCI Venture",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-025",
       "headline": "Madhya Pradesh Police Vacancies: MHA Asks State To Fill Posts For Effective Rollout Of New Criminal Laws",
       "headline_en": null,
@@ -1090,6 +1290,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-038",
+      "headline": "Ukraine will hit Russian refineries in response to Moscow's 'new doctrine' of airstrikes: Zelenskiy",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/world/ukraine-will-hit-russian-refineries-in-response-to-moscows-new-doctrine-of-airstrikes-zelenskiy-20004011.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T02:54:08Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The escalation of conflict involving strikes on energy infrastructure poses a significant risk to global energy supply and market stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "The escalation of conflict involving strikes on energy infrastructure poses a significant risk to global energy supply and market stability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1567,49 +1810,6 @@
       },
       "event_types": [],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-009",
-      "headline": "Japan to Help Hospitals Adopt Cloud-Based Medical Record Systems",
-      "headline_en": null,
-      "url": "https://www.nippon.com/en/news/yjj2026100300106/",
-      "source_name": "nippon.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Government initiative to support cloud adoption in Japanese hospitals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Government initiative to support cloud adoption in Japanese hospitals.",
-      "region": "JP",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -198562,7 +198762,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3203,
+    "inbox_unconsumed": 3207,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -198571,9 +198771,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 275,
-    "news_picked_today": 36,
-    "news_dropped_today": 239
+    "news_seen_today": 312,
+    "news_picked_today": 41,
+    "news_dropped_today": 271
   },
   "book_momentum": {
     "live_count": 8,
