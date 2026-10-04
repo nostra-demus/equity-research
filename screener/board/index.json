@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T00:22:02Z",
+  "generated_at": "2026-10-04T00:34:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-003",
@@ -38,6 +38,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-005",
+      "headline": "México dice que investigación de la FDA sobre la lechuga no identificó la fuente de la contaminación",
+      "headline_en": "Mexico says FDA investigation into lettuce did not identify the source of contamination",
+      "url": "https://www.reuters.com/es/mundo/D4LOPM6UU5LQNPYWAMQR2HEFFU-2026-10-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T00:27:19Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The FDA investigation into lettuce contamination is a regulatory update affecting the food safety and supply chain sector in Mexico.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "The FDA investigation into lettuce contamination is a regulatory update affecting the food safety and supply chain sector in Mexico.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -197333,7 +197376,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3171,
+    "inbox_unconsumed": 3172,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -197342,9 +197385,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 31,
-    "news_picked_today": 4,
-    "news_dropped_today": 27
+    "news_seen_today": 48,
+    "news_picked_today": 5,
+    "news_dropped_today": 43
   },
   "book_momentum": {
     "live_count": 8,
