@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T05:51:13Z",
+  "generated_at": "2026-10-04T06:00:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-076",
@@ -435,6 +435,56 @@
           "name": "Acwa Power",
           "ticker": null,
           "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-089",
+      "headline": "Canon in talks with those engaged in key chip projects in India, plans local service centres",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/cons-products/electronics/canon-in-talks-with-those-engaged-in-key-chip-projects-in-india-plans-local-service-centres/articleshow/134670273.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T05:53:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Canon is in active talks for chip project investments in India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Canon is in active talks for chip project investments in India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Canon",
+          "ticker": null,
+          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -1162,6 +1212,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-093",
+      "headline": "Korea Orders Security Checks After Finance-Sector Data Breaches",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-04/korea-orders-security-checks-after-finance-sector-data-breaches",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T05:43:28Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Government-ordered security checks in the finance sector follow data breaches, increasing operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Government-ordered security checks in the finance sector follow data breaches, increasing operational risk.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-027",
       "headline": "Dangote targets 10m investors with IPO marketing blitz",
       "headline_en": null,
@@ -1781,98 +1875,6 @@
         "mna"
       ],
       "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-072",
-      "headline": "Tesco determined to recapture 30% grocery market share for first time in more than a decade",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16180289/Tesco-determined-recapture-30-grocery-market-share-time-decade.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T05:00:59Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Tesco is determined to recapture 30% grocery market share, indicating a strategic push and potential changes in competitive dynamics within the grocery sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Tesco is determined to recapture 30% grocery market share, indicating a strategic push and potential changes in competitive dynamics within the grocery sector.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tesco",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-067",
-      "headline": "Charities face hit from Treasury’s revised trust tax plans",
-      "headline_en": null,
-      "url": "https://www.afr.com/policy/tax-and-super/charities-face-hit-from-treasury-s-revised-trust-tax-plans-20261004-p612dt?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T05:08:30Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Treasury's revised trust tax plans could negatively impact charities, suggesting potential changes in financial regulations affecting non-profit organizations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Treasury's revised trust tax plans could negatively impact charities, suggesting potential changes in financial regulations affecting non-profit organizations.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -199048,9 +199050,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 592,
-    "news_picked_today": 95,
-    "news_dropped_today": 497
+    "news_seen_today": 616,
+    "news_picked_today": 104,
+    "news_dropped_today": 512
   },
   "book_momentum": {
     "live_count": 8,
