@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T10:51:09Z",
+  "generated_at": "2026-10-04T11:04:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-186",
+      "headline": "Lockheed Martin’s India expansion plan hinges on $10.5bn military aircraft bid: Which firms are competing for project?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/lockheed-martin-s-india-expansion-plan-hinges-on-10-5bn-military-aircraft-bid-which-firms-are-competing-for-project-11791107461403.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T10:54:57Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Lockheed Martin is competing for a $10.5 billion military aircraft contract in India.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lockheed Martin is competing for a $10.5 billion military aircraft contract in India.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lockheed Martin",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1460,6 +1509,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-189",
+      "headline": "Uniper, Biotrend Plan to Produce Biogas in Turkiye for Europe",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/uniper_biotrend_plan_to_produce_biogas_in_turkiye_for_europe-04-oct-2026-184764-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Uniper and Biotrend are partnering to produce biogas in Turkiye for the European market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Uniper and Biotrend are partnering to produce biogas in Turkiye for the European market.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uniper",
+          "ticker": null,
+          "listing_country": "DE"
+        },
+        {
+          "name": "Biotrend",
+          "ticker": null,
+          "listing_country": "TR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-181",
       "headline": "DLF’s The Aureva luxury project in Gurugram fully sold out, records ₹1,985 crore in sales",
       "headline_en": null,
@@ -1854,104 +1957,6 @@
           "name": "Yara International",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-174",
-      "headline": "Yes Bank Q2 Business Update: Deposits And Loans Grow Nearly 24% With Slight Decline In CASA Ratio",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/yes-bank-q2-business-update-sees-nearly-24-percent-increase-in-loans-and-advances-alongside-strong-deposit-growth-12136882#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T09:45:24Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Yes Bank reported strong Q2 business growth with deposits and loans increasing by nearly 24%, despite a slight decline in its CASA ratio.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Yes Bank reported strong Q2 business growth with deposits and loans increasing by nearly 24%, despite a slight decline in its CASA ratio.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
-          "ticker": "YESBANK",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-157",
-      "headline": "Sun Pharma Advanced Research wins ₹28 crore CENVAT credit refund case in CESTAT",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/sun-pharma-advanced-research-share-price-wins-rs-28-crore-cenvat-credit-refund-case-in-cestat-20004118.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T08:51:20Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Sun Pharma Advanced Research won a ₹28 crore CENVAT credit refund case.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Sun Pharma Advanced Research won a ₹28 crore CENVAT credit refund case.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sun Pharma Advanced Research",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -200135,9 +200140,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1348,
-    "news_picked_today": 280,
-    "news_dropped_today": 1068
+    "news_seen_today": 1376,
+    "news_picked_today": 285,
+    "news_dropped_today": 1091
   },
   "book_momentum": {
     "live_count": 8,
