@@ -2405,6 +2405,23 @@ if scope=="selftest":
         #   without the word "the" — gemini r2).
         ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl+"There is no other listed line; this is the sole listed line for the decision.\n"),[]),
         ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also ADR-listed)"},_bg_th(_bg_dl+"The ADR trades at a 12% premium to NYSE common line.\n"),[]),
+        # ── round-2 review-driven cases (Codex re-review of 064a861) ──
+        # Codex P2 (r4176555569): the bare LABEL "cross-line premium/discount" with no figure must FAIL
+        #   (old third alternative accepted it).
+        ("2026-10-05",{**_bg_d,"exchange":"Nasdaq Global Select Market (also HKEX-listed)"},_bg_th(_bg_dl+"Cross-line premium/discount: Not assessed.\n"),["another listed line"]),
+        # Codex P1 (r4176555564): an ex-/record-date with no parseable ISO date beside it (TBD, or a
+        #   non-ISO "August 14, 2025") must FAIL — staleness is otherwise unverifiable (old passed both).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date TBD, is a reason to own.\n"),["no parseable"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date August 14, 2025, is a reason to own.\n"),["no parseable"]),
+        # ...and an unrelated past ISO date elsewhere on the line must NOT be mistaken for the entitlement
+        #   date: a FUTURE ex-date with a past "declared" date PASSES (old flagged it — false positive).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Forward dividend yield 3.1%, ex-date 2026-12-01 (declared 2025-02-01).\n"),[]),
+        # Codex P2 (r4176555571): "annualized" alone is not a trailing/forward basis -> FAIL (old passed).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Annualized dividend yield 3.1%, ex-date 2026-12-01.\n"),["a trailing/forward basis"]),
+        # Codex P2 (r4176555567): a compact exchange id (NasdaqGS) must resolve so a wrong-venue line
+        #   FAILS (old `\bnasdaq\b` missed it and silently skipped the venue leg); the matching line PASSES.
+        ("2026-10-05",{"ticker":"AMZN","exchange":"NasdaqGS","currency":"USD"},_bg_th("Decision line: AMZN · NYSE · USD\n"),["venue that does not match"]),
+        ("2026-10-05",{"ticker":"AMZN","exchange":"NasdaqGS","currency":"USD"},_bg_th("Decision line: AMZN · NasdaqGS · USD\n"),[]),
     ]
     bgbad=0
     for dt_,d_,th_,exp in _bg_cases:

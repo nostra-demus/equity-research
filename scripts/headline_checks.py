@@ -920,7 +920,10 @@ BG_DATE = "2026-10-05"
 _BG_YIELD_LINE = re.compile(
     r"(?:dividend|distribution)[^|\n]{0,25}yield|yield[^|\n]{0,25}(?:dividend|distribution)", re.I)
 _BG_PCT = re.compile(r"\d(?:[\d,]*\.\d+|[\d,]*)\s*%")
-_BG_PERIOD = re.compile(r"\b(?:trailing|forward|ttm|ltm|ntm|next[- ]twelve|last[- ]twelve|annuali[sz]ed)\b", re.I)
+# A basis must say WHICH period the yield represents — trailing/backward or forward. "annualized" is
+# deliberately NOT accepted alone: it describes scaling, not direction, so it does not satisfy §16's
+# trailing-or-forward requirement (Codex r2 round 2). ttm/ltm = trailing, ntm = forward.
+_BG_PERIOD = re.compile(r"\b(?:trailing|forward|ttm|ltm|ntm|next[- ]twelve|last[- ]twelve)\b", re.I)
 # Entitlement date: ONLY an ex-date / ex-dividend / ex-distribution / record date establishes whether a
 # buyer TODAY is entitled to the distribution. A payment / pay / payable date does NOT (it is when a
 # holder of record is paid, after the entitlement has been fixed), so it is deliberately excluded here
@@ -934,14 +937,15 @@ _BG_UNAVAIL = re.compile(
     r"passed|lapsed|no longer available|not (?:income )?available to (?:a|the) buyer|"
     r"buyer today does not (?:get|receive)|does not accrue to (?:a |the )?(?:new )?buyer|already (?:gone|ex)", re.I)
 _BG_ISO = re.compile(r"\b(20\d{2}-\d{2}-\d{2})\b")
-# A cross-line statement counts only when it is a REAL comparison — a premium/discount carrying a figure
-# — or an explicit statement that no other listed line exists. A bare mention that another line exists
-# ("the other listed line is HKEX", "this is not the only listed line") is NOT sufficient (Codex r3).
-# "the" is optional and separators flexible via the %-proximity form (gemini r2).
+# A cross-line statement counts only when it is a REAL comparison — a premium/discount carrying an
+# actual figure — or an explicit statement that no other listed line exists. A bare mention that another
+# line exists ("the other listed line is HKEX", "this is not the only listed line") is NOT sufficient
+# (Codex r3), and neither is the bare LABEL "cross-line premium/discount" with no value beside it, e.g.
+# "Cross-line premium/discount: Not assessed" (Codex r1 round 2) — so the label-only form was dropped and
+# a number is required. "the" is optional and separators flexible via the %-proximity form (gemini r2).
 _BG_CROSS_CMP = re.compile(
     r"(?:premium|discount)[^.\n]{0,40}\d[\d.,]*\s*%|"
-    r"\d[\d.,]*\s*%[^.\n]{0,40}(?:premium|discount)|"
-    r"cross[\s\-_]*line\s+premium\s*/\s*\(?discount", re.I)
+    r"\d[\d.,]*\s*%[^.\n]{0,40}(?:premium|discount)", re.I)
 _BG_NO_OTHER = re.compile(
     r"no (?:other|alternative|second)\s+(?:listed\s+)?line|"
     r"\b(?:sole|single)\s+(?:listed\s+)?line|"
@@ -952,10 +956,13 @@ _BG_MULTI_LISTING = re.compile(r"\balso\b|\bADR\b|\bGDR\b|\bdual[- ]listed\b|\bc
 # field is the full "New York Stock Exchange" (the real V_2026-09-23 shape) and vice-versa. The venue
 # leg runs ONLY when the record's exchange resolves to exactly one known venue; an unknown venue or a
 # multi-venue exchange string skips it (conservative — never fire when the venue cannot be resolved to
-# one canonical, so a correct run is never flagged). Extend the table as new venues appear.
+# one canonical, so a correct run is never flagged). Patterns allow a word-suffix after a compact code
+# (e.g. NasdaqGS / NasdaqCM / NasdaqGM all resolve to NASDAQ — Codex r4 round 2) and the table carries
+# the repository's own exchange identifiers (DFM, Oslo Børs, Xetra, SHSE, …), not only US venues.
+# Extend the table as new venues appear.
 _VENUE_CANON = [
     ("NYSE",     [r"\bnyse\b", r"new york stock exchange"]),
-    ("NASDAQ",   [r"\bnasdaq\b"]),
+    ("NASDAQ",   [r"\bnasdaq\w*"]),
     ("LSE",      [r"\blse\b", r"london stock exchange"]),
     ("NSE-IN",   [r"\bnse\b", r"national stock exchange of india"]),
     ("BSE-IN",   [r"\bbse\b", r"bombay stock exchange"]),
@@ -971,6 +978,8 @@ _VENUE_CANON = [
     ("TADAWUL",  [r"tadawul", r"saudi exchange"]),
     ("B3-BR",    [r"\bb3\b", r"\bbovespa\b"]),
     ("JSE-ZA",   [r"\bjse\b", r"johannesburg stock exchange"]),
+    ("DFM",      [r"\bdfm\b", r"dubai financial market"]),
+    ("OSLO",     [r"oslo b\w+rs", r"oslo stock exchange", r"\bose\b"]),
 ]
 
 
@@ -1036,17 +1045,26 @@ def eval_bg_tradable_line_and_yield(decision_date, d, thesis):
             missing = []
             if not _BG_PERIOD.search(l):
                 missing.append("a trailing/forward basis")
-            if not _BG_EX_RECORD.search(l):
+            exm = _BG_EX_RECORD.search(l)
+            if not exm:
                 missing.append("an ex-/record-date (a payment or pay date does not establish a buyer's entitlement)")
             if missing:
                 det.append(f"Part I quotes a dividend/distribution yield without {' or '.join(missing)} — a trailing "
                            f"yield whose record date has passed is not income a buyer receives (CLAUDE.md §16): "
                            f"{l.strip()[:140]!r}")
-            else:
-                past = [ds for ds in _BG_ISO.findall(l) if ds < decision_date]
-                if past and not _BG_UNAVAIL.search(l):
-                    det.append(f"Part I quotes a dividend/distribution yield whose ex-/record-date {past[0]} is before "
-                               f"the decision date {decision_date} but does not state a buyer today no longer receives it "
-                               f"— a trailing yield whose record date has passed must never be a reason to own (CLAUDE.md §16): "
-                               f"{l.strip()[:140]!r}")
+                continue
+            # The entitlement date must be a parseable ISO date sitting WITH the ex-/record-date marker,
+            # so staleness is actually checkable. "ex-date TBD" or a non-ISO "August 14, 2025" is not
+            # verifiable (reject it), and an unrelated ISO date elsewhere on the line is not treated as
+            # the entitlement date — only the first ISO date right after the marker counts (Codex r3 r2).
+            dm = _BG_ISO.search(l[exm.end():exm.end() + 30])
+            if not dm:
+                det.append(f"Part I quotes a dividend/distribution yield whose ex-/record-date has no parseable "
+                           f"ISO (yyyy-mm-dd) date beside it, so whether a buyer today still receives the income "
+                           f"cannot be verified (CLAUDE.md §16): {l.strip()[:140]!r}")
+            elif dm.group(0) < decision_date and not _BG_UNAVAIL.search(l):
+                det.append(f"Part I quotes a dividend/distribution yield whose ex-/record-date {dm.group(0)} is before "
+                           f"the decision date {decision_date} but does not state a buyer today no longer receives it "
+                           f"— a trailing yield whose record date has passed must never be a reason to own (CLAUDE.md §16): "
+                           f"{l.strip()[:140]!r}")
     return det
