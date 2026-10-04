@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T01:15:02Z",
+  "generated_at": "2026-10-04T01:21:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-007",
@@ -144,6 +144,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-013",
+      "headline": "Iran war news LIVE updates: Pezeshkian says Tehran adopted a new arrangement to counter US sanctions",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/iran-war-news-live-latest-updates-donald-trump-abbas-araghchi-peace-talks-strait-of-hormuz-pezeshkian-us-sanctions-11791074262360.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T01:16:51Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Geopolitical tensions regarding Iran's sanctions evasion and potential conflict escalation pose risks to global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Geopolitical tensions regarding Iran's sanctions evasion and potential conflict escalation pose risks to global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -357,6 +400,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-014",
+      "headline": "Three commercial vessels struck in Hormuz since 1 Oct, UKMTO says",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/three-commercial-vessels-struck-hormuz-1-oct-ukmto-says",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T01:14:53Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Attacks on commercial vessels in the Strait of Hormuz represent a significant supply chain and geopolitical risk to global oil and shipping markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Attacks on commercial vessels in the Strait of Hormuz represent a significant supply chain and geopolitical risk to global oil and shipping markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -197549,7 +197635,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3179,
+    "inbox_unconsumed": 3181,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -197558,9 +197644,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 100,
-    "news_picked_today": 12,
-    "news_dropped_today": 88
+    "news_seen_today": 111,
+    "news_picked_today": 14,
+    "news_dropped_today": 97
   },
   "book_momentum": {
     "live_count": 8,
