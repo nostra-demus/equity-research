@@ -567,6 +567,7 @@ from headline_checks import (
 from headline_checks import (
     AK_DATE, _AK_CRITICAL_PATTERNS, _AK_DENIAL, _AK_AFFIRM, _module_critical_count,
     eval_ak_red_flag_severity_reconciliation,
+    BG_DATE, eval_bg_tradable_line_and_yield,
 )
 
 # ── Check AP (valuation-summary lever-sidecar integrity, §25/§28) ──
@@ -2354,6 +2355,40 @@ if scope=="selftest":
         if not ok: akbad+=1
         print(f"  [{'ok' if ok else 'XX'}] AK({dt_!r},red_flags={d_.get('red_flags')!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
     bad+=akbad
+
+    # BG — tradable line + dividend-yield availability (§16). Fixture-free: Part I snippets. The clean row is
+    # the real V_2026-09-23 / AKAM Headline Scorecard shape ("Decision line (ticker · venue · currency)").
+    BG=eval_bg_tradable_line_and_yield
+    _bg_d={"ticker":"AKAM","exchange":"Nasdaq Global Select Market","currency":"USD"}
+    _bg_dl="| **Decision line (ticker · venue · currency)** | **AKAM · Nasdaq Global Select Market · USD** |\n"
+    _bg_th=lambda body: "# PART I\n\n## 2. Headline Scorecard\n\n"+body+"\n# PART II — X\n\n"+"Dividend yield 9.9% trailing\n"
+    _bg_cases=[
+        ("2026-10-04",_bg_d,_bg_th(""),None),                                   # pre-gate -> N/A
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl),[]),                                  # clean
+        ("2026-10-05",_bg_d,_bg_th("| Price | $90 |\n"),["no 'Decision line"]),    # statement absent
+        ("2026-10-05",_bg_d,_bg_th("Decision line: Akamai · Nasdaq · USD\n"),["record's ticker"]),
+        ("2026-10-05",_bg_d,_bg_th("Decision line: AKAM · Nasdaq · EUR\n"),["record's currency"]),
+        # multi-listed record, Part I silent on the other line -> FAIL; stating it -> pass
+        ("2026-10-05",{**_bg_d,"exchange":"SHSE:600690 (also HKEX-listed)"},_bg_th(_bg_dl),["another listed line"]),
+        ("2026-10-05",{**_bg_d,"exchange":"SHSE:600690 (also HKEX-listed)"},
+         _bg_th(_bg_dl+"The H-share line trades at a 22% discount; cross-line premium/discount shown in valuation.\n"),[]),
+        # yield with % and no basis/date -> FAIL; basis only -> FAIL; both -> pass; FCF yield ignored
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Dividend yield 3.1% is a reason to own.\n"),["trailing/forward basis or an ex-/record-date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%.\n"),["an ex-/record-date"]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2026-08-14 (passed; a buyer today does not receive it).\n"),[]),
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"FCF yield 4.2% on the plan.\n"),[]),
+        # PART II yield mentions are out of scope (the _bg_th helper already plants one there)
+        ("2026-10-05","not a dict",_bg_th(_bg_dl),[]),                           # malformed record: no raise
+    ]
+    bgbad=0
+    for dt_,d_,th_,exp in _bg_cases:
+        got=BG(dt_,d_,th_)
+        if exp is None: ok=(got is None)
+        elif not exp: ok=(isinstance(got,list) and len(got)==0)
+        else: ok=(isinstance(got,list) and len(got)>0 and all(any(x in v for v in got) for x in exp))
+        if not ok: bgbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] BG({dt_!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=bgbad
 
     # check AN — supersession-integrity (§4a). Fixture-free: build tmp target dirs to exercise the
     # existence branches. A valid sidecar → []; a dangling/empty target → violation; no supersession → None.
@@ -4232,6 +4267,18 @@ for drp in runs:
         add("AK_red_flag_severity_reconciliation",True,
             "module-declared Critical red-flag counts reconcile with decision_record.json red_flags "
             "and the Headline Scorecard Rating-cap cell does not deny one")
+    # BG tradable line + dividend-yield availability (forward-looking; landing BG_DATE) — CLAUDE.md §16. The
+    #   decision must name the ONE listed line it applies to, and a quoted dividend yield must say whether it
+    #   is trailing/forward and carry its ex-/record-date; synthesizer.md Part I item 12 instructed both with
+    #   nothing mechanical behind it.
+    bgresult=eval_bg_tradable_line_and_yield(ddte,d,thesis)
+    if bgresult is None:
+        add("BG_tradable_line_and_yield",True,f"run predates the gate ({ddte}) — N/A",na=True)
+    elif bgresult:
+        add("BG_tradable_line_and_yield",False,"; ".join(bgresult))
+    else:
+        add("BG_tradable_line_and_yield",True,
+            "Part I names the decision line (ticker/currency match the record) and any quoted dividend yield carries its basis and date")
     # AN supersession-integrity (§4a): validate any append-only corrections.json's superseded_by chain.
     # Schema-gated (only a corrections/v1 sidecar counts) so AN honors exactly what the resolver honors.
     _corr=_an_valid_sidecar(run)
@@ -4438,7 +4485,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
  ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
  "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","AQ_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_aq_forensic_mosaic_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS","FORENSIC_TAGS","MOSAIC_MIN_DISTINCT_TAGS","MOSAIC_MIN_DISTINCT_MODULES"],
- "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM"],
+ "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","BG_DATE","eval_bg_tradable_line_and_yield"],
  "scripts/valuation_summary_checks.py":["eval_ap_valuation_summary_integrity","scan_committed","_selftest","_REQUIRED","level_from_multiple"],
  # BF — without this row the whole basis-check module could be deleted and the suite would still
  # print PASS, which is the hole this registry exists to close (see its own comment above).

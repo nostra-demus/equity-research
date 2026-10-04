@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Headline-integrity detectors — Headline Scorecard reconciliation (check AI, CLAUDE.md
 §10/§21), the Decision Audit Trail structural check (check AJ, CLAUDE.md §8/§22), and
-red-flag severity reconciliation (check AK, CLAUDE.md §13/§18).
+red-flag severity reconciliation (check AK, CLAUDE.md §13/§18), and the tradable-line / dividend-yield
+availability check (check BG, CLAUDE.md §16).
 
 Side-effect-free, importable, doctrine logic — extracted from `scripts/eval.py` (checks AI,
 AJ, and AK) so the SAME detection functions can run in TWO places instead of one, mirroring
@@ -903,4 +904,73 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
                    f"(CLAUDE.md §13/§18) — a Critical cannot be dropped AND left uncapped")
     # The rating-cap DENIAL check ran earlier (before the `if not declared` return) so it also covers
     # record-level Criticals with no module declaration (Codex r3) — nothing further to add here.
+    return det
+
+
+# ── Check BG (tradable line + dividend-yield availability, CLAUDE.md §16) ──
+# §16: the rating, price, fair value and yield belong to ONE named listed line (ticker · venue ·
+# currency), and "a yield is only a yield a buyer can still receive" — a trailing yield whose record
+# date has passed is not income available to a buyer today. synthesizer.md Part I item 12 instructs
+# both, but until this check nothing opened final_thesis.md to see it happened: a dual-listed or
+# ADR/GDR name could ship with a fair value on an unnamed line, and a stale trailing dividend yield
+# could sit in the Headline Scorecard as a reason to own. Same defect class as AI/AJ/AK: a doctrine
+# rule that lives only in a prompt. Forward-looking (landing BG_DATE) so no committed run is graded
+# retroactively.
+BG_DATE = "2026-10-05"
+_BG_YIELD_LINE = re.compile(
+    r"(?:dividend|distribution)[^|\n]{0,25}yield|yield[^|\n]{0,25}(?:dividend|distribution)", re.I)
+_BG_PCT = re.compile(r"\d(?:[\d,]*\.\d+|[\d,]*)\s*%")
+_BG_PERIOD = re.compile(r"\b(?:trailing|forward|ttm|ltm|ntm|next[- ]twelve|last[- ]twelve|annuali[sz]ed)\b", re.I)
+_BG_DATE = re.compile(r"ex-?\s?(?:date|dividend)|record[- ]date|payable|payment date|paid on", re.I)
+_BG_CROSS_LINE = re.compile(
+    r"cross-line|other listed line|alternative listed line|single listed line|only listed line|"
+    r"no (?:other|alternative|second) (?:listed )?line|premium\s*/\s*\(?discount|line premium|"
+    r"(?:premium|discount) (?:of the|to the|vs\.?|versus) [^.\n]{0,40}\b(?:line|ADR|GDR|H[- ]share|A[- ]share)", re.I)
+_BG_MULTI_LISTING = re.compile(r"\balso\b|\bADR\b|\bGDR\b|\bdual[- ]listed\b|\bcross[- ]listed\b", re.I)
+
+
+def _part_one(thesis):
+    """Part I (everything before '# PART II'), the reader-facing decision block."""
+    m = re.search(r"(?im)^#\s*PART\s+II\b", thesis)
+    return thesis[:m.start()] if m else thesis
+
+
+def eval_bg_tradable_line_and_yield(decision_date, d, thesis):
+    """Core of check BG. Returns None (N/A — pre-gate) or a list of violation strings (empty = pass).
+
+    Fires when Part I (a) carries no 'Decision line' statement naming the record's ticker and currency,
+    (b) the record's exchange field flags more than one listed line but Part I never says how the other
+    line(s) relate (cross-line premium/discount, or that none exists), or (c) a dividend/distribution
+    yield with a percentage appears with no trailing/forward basis or no ex-/record-date on the same
+    line. Gross-vs-net-of-withholding stays the synthesizer's judgment (not mechanically decidable
+    from prose). Defensive against a malformed record: report, never raise (it runs in the live gate)."""
+    if not (isdate(decision_date) and decision_date >= BG_DATE):
+        return None  # forward-looking; pre-gate runs N/A
+    if not isinstance(thesis, str):
+        return ["final_thesis.md text unavailable — cannot check the tradable-line statement"]
+    part1 = _part_one(thesis)
+    det = []
+    dl_lines = [l for l in part1.splitlines() if re.search(r"decision line", l, re.I)]
+    if not dl_lines:
+        det.append("Part I has no 'Decision line (ticker · venue · currency)' statement — the rating, price "
+                   "and fair value must name the ONE listed line they apply to (CLAUDE.md §16)")
+    elif isinstance(d, dict):
+        joined = " ".join(dl_lines)
+        tk, cur = d.get("ticker"), d.get("currency")
+        if isinstance(tk, str) and tk.strip() and not re.search(r"(?<![A-Za-z0-9])"+re.escape(tk.strip())+r"(?![A-Za-z0-9])", joined):
+            det.append(f"the Decision line statement does not name the record's ticker {tk.strip()!r}")
+        if isinstance(cur, str) and cur.strip() and not re.search(r"\b"+re.escape(cur.strip())+r"\b", joined):
+            det.append(f"the Decision line statement does not name the record's currency {cur.strip()!r}")
+    if isinstance(d, dict) and isinstance(d.get("exchange"), str) and _BG_MULTI_LISTING.search(d["exchange"]) \
+            and not _BG_CROSS_LINE.search(part1):
+        det.append(f"decision_record.json exchange {d['exchange']!r} flags another listed line, but Part I never "
+                   f"states the cross-line premium/discount or that the other line is not the decision line (CLAUDE.md §16)")
+    for l in part1.splitlines():
+        if _BG_YIELD_LINE.search(l) and _BG_PCT.search(l):
+            missing = [n for n, rx in (("a trailing/forward basis", _BG_PERIOD), ("an ex-/record-date", _BG_DATE))
+                       if not rx.search(l)]
+            if missing:
+                det.append(f"Part I quotes a dividend/distribution yield without {' or '.join(missing)} — a trailing "
+                           f"yield whose record date has passed is not income a buyer receives (CLAUDE.md §16): "
+                           f"{l.strip()[:140]!r}")
     return det
