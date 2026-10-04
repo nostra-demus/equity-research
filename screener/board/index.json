@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T12:00:27Z",
+  "generated_at": "2026-10-04T12:04:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -95,6 +95,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-221",
+      "headline": "Dubai CommerCity launches Dh1.8 billion expansion to boost digital economy growth",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/business/dubai-commercity-launches-dh18-billion-expansion-to-boost-digital-economy-growth/6327",
+      "source_name": "Emirates 24|7 — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T11:56:00Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Dubai CommerCity is investing Dh1.8 billion in a major expansion project to increase its capacity and support digital economy growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dubai CommerCity is investing Dh1.8 billion in a major expansion project to increase its capacity and support digital economy growth.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dubai CommerCity",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-219",
+      "headline": "Dubai CommerCity to add 91,000 sqm in Dh1.8 billion expansion",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/markets/dubai-commercity-to-add-91000-sqm-in-dh18-billion-expansion-1.500697923",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T11:44:01Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Dubai CommerCity announced a Dh1.8 billion expansion project adding 91,000 sqm of space.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dubai CommerCity announced a Dh1.8 billion expansion project adding 91,000 sqm of space.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dubai CommerCity",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1840,109 +1938,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-181",
-      "headline": "DLF’s The Aureva luxury project in Gurugram fully sold out, records ₹1,985 crore in sales",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/dlf-share-price-the-aureva-luxury-project-in-gurugram-fully-sold-out-records-rs-1985-crore-in-sales-20004132.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T10:22:28Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "DLF reported sales of ₹1,985 crore from a single luxury project, indicating strong demand and revenue realization.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "DLF reported sales of ₹1,985 crore from a single luxury project, indicating strong demand and revenue realization.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DLF",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-110",
-      "headline": "‎Tadawul resuspends trading on Amwaj, Rawasi Albina until disclosing financials",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1941101",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T09:38:00Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Trading suspended due to failure to disclose financials, a significant governance and compliance red flag.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Trading suspended due to failure to disclose financials, a significant governance and compliance red flag.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amwaj",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Rawasi Albina",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -200556,9 +200551,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1537,
-    "news_picked_today": 328,
-    "news_dropped_today": 1209
+    "news_seen_today": 1562,
+    "news_picked_today": 334,
+    "news_dropped_today": 1228
   },
   "book_momentum": {
     "live_count": 8,
