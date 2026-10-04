@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T09:34:53Z",
+  "generated_at": "2026-10-04T09:39:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-139",
@@ -588,6 +588,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-173",
+      "headline": "Saudi Arabia quietly shelving NEOM Stadium, 2034 World Cup venue",
+      "headline_en": null,
+      "url": "https://www.newarab.com/news/saudi-arabia-quietly-shelving-neom-stadium-2034-world-cup-venue",
+      "source_name": "The New Arab",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T09:24:20Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The shelving of the NEOM Stadium project, a key venue for the 2034 World Cup, indicates a significant operational change and potential financial impact for Saudi Arabia's development plans.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The shelving of the NEOM Stadium project, a key venue for the 2034 World Cup, indicates a significant operational change and potential financial impact for Saudi Arabia's development plans.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NEOM",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-161",
       "headline": "Firmus spruiks future Nasdaq listing; prepares for $44b Australian IPO",
       "headline_en": null,
@@ -1106,55 +1155,6 @@
       "companies": [
         {
           "name": "Acwa Power",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-145",
-      "headline": "Saudi Arabia quietly shelving NEOM Stadium, one of 2034 World Cup venues",
-      "headline_en": null,
-      "url": "https://www.reuters.com/sports/soccer/saudi-arabia-quietly-shelving-neom-stadium-one-2034-world-cup-venues-2026-10-04/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T08:03:13Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Saudi Arabia shelving the NEOM Stadium project indicates a potential scale-back of major infrastructure capex.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Saudi Arabia shelving the NEOM Stadium project indicates a potential scale-back of major infrastructure capex.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NEOM",
           "ticker": null,
           "listing_country": null
         }
