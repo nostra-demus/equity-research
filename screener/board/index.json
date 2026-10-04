@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T17:36:32Z",
+  "generated_at": "2026-10-04T17:44:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -92,6 +92,56 @@
           "name": "India Power Corporation Limited",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-270",
+      "headline": "FSSAI flags Everest cumin powder as unsafe, orders immediate market recall: What food analyst report found",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/fssai-flags-everest-cumin-powder-as-unsafe-orders-immediate-market-recall-what-food-analyst-report-found-11791132343201.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T17:37:35Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "FSSAI ordered an immediate market recall of Everest cumin powder due to safety concerns, posing a significant risk to brand reputation and revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FSSAI ordered an immediate market recall of Everest cumin powder due to safety concerns, posing a significant risk to brand reputation and revenue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Everest Food Products",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1896,55 +1946,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-082",
-      "headline": "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1941081",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T09:36:00Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "ACWA Power reached financial close for the Rabigh 2 expansion project, a significant capital investment milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "ACWA Power reached financial close for the Rabigh 2 expansion project, a significant capital investment milestone.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ACWA Power",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -201130,9 +201131,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2532,
-    "news_picked_today": 548,
-    "news_dropped_today": 1984
+    "news_seen_today": 2550,
+    "news_picked_today": 556,
+    "news_dropped_today": 1994
   },
   "book_momentum": {
     "live_count": 8,
