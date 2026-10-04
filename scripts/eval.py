@@ -2361,7 +2361,7 @@ if scope=="selftest":
     BG=eval_bg_tradable_line_and_yield
     _bg_d={"ticker":"AKAM","exchange":"Nasdaq Global Select Market","currency":"USD"}
     _bg_dl="| **Decision line (ticker · venue · currency)** | **AKAM · Nasdaq Global Select Market · USD** |\n"
-    _bg_th=lambda body: "# PART I\n\n## 2. Headline Scorecard\n\n"+body+"\n# PART II — X\n\n"+"Dividend yield 9.9% trailing\n"
+    _bg_th=lambda body: "# PART I\n\n## 2. Headline Scorecard\n\n"+body+"\n# PART II — X\n\nFurther cross-cutting analysis.\n"
     _bg_cases=[
         ("2026-10-04",_bg_d,_bg_th(""),None),                                   # pre-gate -> N/A
         ("2026-10-05",_bg_d,_bg_th(_bg_dl),[]),                                  # clean
@@ -2377,7 +2377,6 @@ if scope=="selftest":
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%.\n"),["an ex-/record-date"]),
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2026-08-14 (passed; a buyer today does not receive it).\n"),[]),
         ("2026-10-05",_bg_d,_bg_th(_bg_dl+"FCF yield 4.2% on the plan.\n"),[]),
-        # PART II yield mentions are out of scope (the _bg_th helper already plants one there)
         ("2026-10-05","not a dict",_bg_th(_bg_dl),[]),                           # malformed record: no raise
         # ── review-driven cases (CLAUDE.md §16 / AGENTS.md L282-283) ──
         # Codex P1 (#discussion_r4176032667): a trailing yield whose ex-/record-date has ALREADY passed,
@@ -2449,6 +2448,22 @@ if scope=="selftest":
         # guard: a DECIMAL cross-line percentage (22.5%) must still be read as one figure and PASS — the
         #   clause splitter must not tear "22.5%" at the decimal point.
         ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nThe H-share line trades at a 22.5% discount to the SSE line.\n"),[]),
+        # ── round-4 review-driven cases (Codex re-review of c4cd436) ──
+        # Codex P1 (r4176635335): the basis + ex-/record-date must sit in the YIELD's own clause — an
+        #   unrelated "forward EPS guide; AGM record date 2026-12-01" must NOT satisfy them (old scanned
+        #   the whole line, so this passed).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Gross dividend yield 3.1%; forward EPS guide; AGM record date 2026-12-01.\n"),["a trailing/forward basis"]),
+        # Codex P2 (r4176635327): a bare "line" is not an other-instrument reference — a multi-listed
+        #   record with only "10% discount to the revenue line" must still FAIL (old _BG_LINE_REF matched "line").
+        ("2026-10-05",{"ticker":"600690","exchange":"SHSE:600690 (also HKEX-listed)","currency":"CNY"},_bg_th("Decision line: 600690 · SSE · CNY\nDCF fair value applies a 10% discount to the revenue line.\n"),["no other listed line exists"]),
+        # Codex P2 (r4176635331): on the ex-date itself a buyer does not receive the distribution, so an
+        #   ex-/record-date EQUAL to the decision date, presented as a reason to own, must FAIL (<= not <).
+        ("2026-10-05",_bg_d,_bg_th(_bg_dl+"Trailing dividend yield 3.1%, ex-date 2026-10-05, is a reason to own.\n"),["on or before the decision date"]),
+        # Codex P1 (r4176635338): a yield published in PART II is still a quoted yield — a stale one there
+        #   with no availability note must FAIL (old scanned Part I only).
+        ("2026-10-05",_bg_d,
+         "# PART I\n\n## 2. Headline Scorecard\n\n"+_bg_dl+"\n# PART II — ANALYSIS\n\nThe trailing dividend yield of 3.1%, ex-date 2025-08-14, is a reason to own.\n",
+         ["on or before the decision date"]),
     ]
     bgbad=0
     for dt_,d_,th_,exp in _bg_cases:

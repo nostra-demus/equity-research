@@ -959,11 +959,13 @@ _BG_CROSS_CMP = re.compile(
     r"(?:premium|discount)[^.\n]{0,40}\d[\d.,]*\s*%|"
     r"\d[\d.,]*\s*%[^.\n]{0,40}(?:premium|discount)", re.I)
 # ...and the premium/discount must be tied to the OTHER tradable line, not to an unrelated number such
-# as a DCF discount rate. A cross-line statement counts only when the same clause also references a
-# listing / share class / depositary line (Codex r3 round 3).
+# as a DCF discount rate. A cross-line statement counts only when the same clause also references the
+# other INSTRUMENT (Codex r3 round 3). The bare words "line"/"listing"/"listed" are too generic ("the
+# revenue line") so they are dropped (Codex r4 round 4) — the clause must name a depositary receipt, a
+# share class, or (via _venue_canons in _has_cross_cmp) another venue.
 _BG_LINE_REF = re.compile(
-    r"\b(?:line|listing|listed|ADR|GDR|[HAB][\s\-]?shares?|ordinary\s+shares?|common\s+shares?|"
-    r"depositary|dual[- ]listed|cross[- ]listed|share\s+class)\b", re.I)
+    r"\b(?:ADR|GDR|[HAB][\s\-]?shares?|ordinary\s+shares?|common\s+shares?|depositary|"
+    r"dual[- ]listed|cross[- ]listed|share\s+class|listed\s+line)\b", re.I)
 _BG_NO_OTHER = re.compile(
     r"no (?:other|alternative|second)\s+(?:listed\s+)?line|"
     r"\b(?:sole|single)\s+(?:listed\s+)?line|"
@@ -1016,7 +1018,7 @@ def _has_cross_cmp(part1):
     # Split on newline / semicolon / sentence-ending period (a period FOLLOWED BY whitespace), never a
     # bare '.', so a decimal percentage like "22.5%" is not torn apart.
     for seg in re.split(r"[\n;]|\.\s", part1):
-        if _BG_CROSS_CMP.search(seg) and _BG_LINE_REF.search(seg):
+        if _BG_CROSS_CMP.search(seg) and (_BG_LINE_REF.search(seg) or _venue_canons(seg)):
             return True
     return False
 
@@ -1076,32 +1078,40 @@ def eval_bg_tradable_line_and_yield(decision_date, d, thesis):
             and not (_has_cross_cmp(part1) or _BG_NO_OTHER.search(part1)):
         det.append(f"decision_record.json exchange {d['exchange']!r} flags another listed line, but Part I never "
                    f"states a cross-line premium/discount (a figure, tied to the other line) or that no other listed line exists (CLAUDE.md §16)")
-    for l in part1.splitlines():
-        if _BG_YIELD_QUOTED.search(l) and not _BG_YIELD_NONE.search(l):
+    # Yield availability (§16) is checked across the WHOLE thesis, not just Part I: a dividend/
+    # distribution yield is a quoted yield wherever it is published (Codex r8 round 4). Banner-stripped,
+    # scanned clause by clause so the required basis and ex-/record-date must sit in the YIELD's OWN
+    # clause — unrelated "forward EPS guide; AGM record date …" on the line cannot satisfy them (Codex r3
+    # round 4). The unavailability disclosure is checked on the whole line (explanatory prose may follow
+    # the clause, e.g. a parenthetical that itself contains a ';').
+    thesis_nb = "\n".join(x for x in thesis.splitlines() if not x.lstrip().startswith(">"))
+    for l in thesis_nb.splitlines():
+        for seg in re.split(r"[;]|\.\s", l):
+            if not (_BG_YIELD_QUOTED.search(seg) and not _BG_YIELD_NONE.search(seg)):
+                continue
             missing = []
-            if not _BG_PERIOD.search(l):
+            if not _BG_PERIOD.search(seg):
                 missing.append("a trailing/forward basis")
-            exm = _BG_EX_RECORD.search(l)
+            exm = _BG_EX_RECORD.search(seg)
             if not exm:
                 missing.append("an ex-/record-date (a payment or pay date does not establish a buyer's entitlement)")
             if missing:
-                det.append(f"Part I quotes a dividend/distribution yield without {' or '.join(missing)} — a trailing "
-                           f"yield whose record date has passed is not income a buyer receives (CLAUDE.md §16): "
-                           f"{l.strip()[:140]!r}")
+                det.append(f"a dividend/distribution yield is quoted without {' or '.join(missing)} in its own "
+                           f"clause — a trailing yield whose record date has passed is not income a buyer receives "
+                           f"(CLAUDE.md §16): {seg.strip()[:140]!r}")
                 continue
             # The entitlement date must be a parseable ISO CALENDAR date sitting WITH the ex-/record-date
             # marker, so staleness is actually checkable. "ex-date TBD", a non-ISO "August 14, 2025", or an
-            # impossible "2026-99-99" is not verifiable (reject it — Codex r3/r4 round 3), and an unrelated
-            # ISO date elsewhere on the line is not treated as the entitlement date — only the first ISO
-            # date right after the marker counts.
-            dm = _BG_ISO.search(l[exm.end():exm.end() + 30])
+            # impossible "2026-99-99" is not verifiable (reject it). Compare with <= : on the ex-date itself
+            # a buyer does not receive the distribution (Codex r7 round 4).
+            dm = _BG_ISO.search(seg[exm.end():exm.end() + 30])
             if not dm or not isdate(dm.group(0)):
-                det.append(f"Part I quotes a dividend/distribution yield whose ex-/record-date has no parseable "
-                           f"ISO (yyyy-mm-dd) date beside it, so whether a buyer today still receives the income "
-                           f"cannot be verified (CLAUDE.md §16): {l.strip()[:140]!r}")
-            elif dm.group(0) < decision_date and not _BG_UNAVAIL.search(l):
-                det.append(f"Part I quotes a dividend/distribution yield whose ex-/record-date {dm.group(0)} is before "
-                           f"the decision date {decision_date} but does not state a buyer today no longer receives it "
-                           f"— a trailing yield whose record date has passed must never be a reason to own (CLAUDE.md §16): "
-                           f"{l.strip()[:140]!r}")
+                det.append(f"a dividend/distribution yield's ex-/record-date has no parseable ISO (yyyy-mm-dd) "
+                           f"date beside it, so whether a buyer today still receives the income cannot be verified "
+                           f"(CLAUDE.md §16): {seg.strip()[:140]!r}")
+            elif dm.group(0) <= decision_date and not _BG_UNAVAIL.search(l):
+                det.append(f"a dividend/distribution yield's ex-/record-date {dm.group(0)} is on or before the "
+                           f"decision date {decision_date} but the line does not state a buyer today no longer "
+                           f"receives it — a yield whose record date has passed must never be a reason to own "
+                           f"(CLAUDE.md §16): {seg.strip()[:140]!r}")
     return det
