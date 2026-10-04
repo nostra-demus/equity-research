@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T19:34:48Z",
+  "generated_at": "2026-10-04T19:39:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -95,6 +95,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-290",
+      "headline": "Schneider Electric nears deal to buy software group PTC for $20bn",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/2084f349-0829-4130-a5e6-b98929a6e633?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T19:33:33Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Schneider Electric is in advanced talks to acquire PTC for approximately $20 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric is in advanced talks to acquire PTC for approximately $20 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "PTC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1884,55 +1938,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-151",
-      "headline": "+++ Iran-Krieg +++: Huthis haben nach eigenen Angaben Aramco-Anlage in Riad angegriffen",
-      "headline_en": "+++ Iran War +++: Houthis claim to have attacked Aramco facility in Riyadh",
-      "url": "https://www.handelsblatt.com/politik/international/iran-krieg-huthis-haben-nach-eigenen-angaben-aramco-anlage-in-riad-angegriffen/100136895.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T08:47:00Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Reported attack on Saudi Aramco facility by Houthi forces poses a direct threat to energy infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Reported attack on Saudi Aramco facility by Houthi forces poses a direct threat to energy infrastructure.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -160095,77 +160100,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9e67f63d6671",
-      "idea_version": "IDEAV-829b69999ed64def",
-      "idea_version_started_at": "2026-10-03T08:45:36Z",
-      "ticker": "SPIC",
-      "company": "Southern Petrochemical Industries Corporation Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "An unplanned or significant plant shutdown directly halts production and negatively impacts revenue and margin recovery for the period.",
-      "why_now": "The exchange filing confirming the shutdown was issued on October 3, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-03ff51fa5826"
-      ],
-      "primary_source_event_id": "EVT-03ff51fa5826",
-      "source_headlines": [
-        "Southern Petrochemicals Industries Corporation Limited: Southern Petrochemical Industries Corporation Limited has informed the Exchange regarding 'Plant Shutdown'."
-      ],
-      "source_headline": "Southern Petrochemicals Industries Corporation Limited: Southern Petrochemical Industries Corporation Limited has informed the Exchange regarding 'Plant Shutdown'.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/SPIC_03102026130506_Intimation_to_NSE_Plant_Shutdown_Final.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 92,
-      "newest_source_at": "2026-10-03T07:37:34Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T08:45:36Z",
-      "updated_at": "2026-10-03T08:45:36Z",
-      "decay_at": "2026-10-04T19:37:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-631ed86dc2a4",
       "idea_version": "IDEAV-14602060eb1c8687",
       "idea_version_started_at": "2026-10-04T12:14:59Z",
@@ -163468,6 +163402,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9e67f63d6671",
+      "idea_version": "IDEAV-829b69999ed64def",
+      "idea_version_started_at": "2026-10-03T08:45:36Z",
+      "ticker": "SPIC",
+      "company": "Southern Petrochemical Industries Corporation Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "An unplanned or significant plant shutdown directly halts production and negatively impacts revenue and margin recovery for the period.",
+      "why_now": "The exchange filing confirming the shutdown was issued on October 3, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-03ff51fa5826"
+      ],
+      "primary_source_event_id": "EVT-03ff51fa5826",
+      "source_headlines": [
+        "Southern Petrochemicals Industries Corporation Limited: Southern Petrochemical Industries Corporation Limited has informed the Exchange regarding 'Plant Shutdown'."
+      ],
+      "source_headline": "Southern Petrochemicals Industries Corporation Limited: Southern Petrochemical Industries Corporation Limited has informed the Exchange regarding 'Plant Shutdown'.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/SPIC_03102026130506_Intimation_to_NSE_Plant_Shutdown_Final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 92,
+      "newest_source_at": "2026-10-03T07:37:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T08:45:36Z",
+      "updated_at": "2026-10-03T08:45:36Z",
+      "decay_at": "2026-10-04T19:37:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-aad096c437a5",
       "idea_version": "IDEAV-e60a2fac42e326db",
       "idea_version_started_at": "2026-10-03T07:29:52Z",
@@ -163914,9 +163919,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 539,
     "shown_count": 500,
-    "hidden_count": 38,
+    "hidden_count": 39,
     "side_counts": {
       "long": {
         "total_count": 270,
@@ -163924,9 +163929,9 @@
         "hidden_count": 20
       },
       "short": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       }
     },
     "retention": {
@@ -163945,6 +163950,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9e67f63d6671",
+        "idea_version": "IDEAV-829b69999ed64def",
+        "idea_version_started_at": "2026-10-03T08:45:36Z",
+        "ticker": "SPIC",
+        "company": "Southern Petrochemical Industries Corporation Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "An unplanned or significant plant shutdown directly halts production and negatively impacts revenue and margin recovery for the period.",
+        "why_now": "The exchange filing confirming the shutdown was issued on October 3, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-03ff51fa5826"
+        ],
+        "primary_source_event_id": "EVT-03ff51fa5826",
+        "source_headlines": [
+          "Southern Petrochemicals Industries Corporation Limited: Southern Petrochemical Industries Corporation Limited has informed the Exchange regarding 'Plant Shutdown'."
+        ],
+        "source_headline": "Southern Petrochemicals Industries Corporation Limited: Southern Petrochemical Industries Corporation Limited has informed the Exchange regarding 'Plant Shutdown'.",
+        "source_url": "https://nsearchives.nseindia.com/corporate/SPIC_03102026130506_Intimation_to_NSE_Plant_Shutdown_Final.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 92,
+        "newest_source_at": "2026-10-03T07:37:34Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T08:45:36Z",
+        "updated_at": "2026-10-03T08:45:36Z",
+        "decay_at": "2026-10-04T19:37:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T19:37:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6371037688a8",
         "idea_version": "IDEAV-b92f269a85620ed7",
@@ -201027,86 +201106,12 @@
         "archived_at": "2026-09-10T10:22:30Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-84ea9b6e944a",
-        "idea_version": "IDEAV-0429ceca0d873c9b",
-        "idea_version_started_at": "2026-09-07T06:29:09Z",
-        "ticker": "PVRINOX.NS",
-        "company": "PVR Inox",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Shares fell due to an alleged Rs 200 crore kickback investigation and the exit of a senior executive.",
-        "why_now": "The investigation and executive exit were reported today, causing an immediate share price drop.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-91a6b422e0f3"
-        ],
-        "primary_source_event_id": "EVT-91a6b422e0f3",
-        "source_headlines": [
-          "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light"
-        ],
-        "source_headline": "PVR Inox shares crash 8% after alleged Rs 200 crore kickback investigation; senior exec's exit comes to light",
-        "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/pvr-inox-shares-crash-8-after-alleged-rs-200-crore-kickback-investigation-senior-execs-exit-comes-to-light/articleshow/133864218.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T04:56:44Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T06:29:09Z",
-        "updated_at": "2026-09-07T06:29:09Z",
-        "decay_at": "2026-09-08T16:56:44Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T06:02:49Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1303,
-    "live_count": 70,
+    "live_count": 69,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -201125,9 +201130,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2780,
-    "news_picked_today": 593,
-    "news_dropped_today": 2187
+    "news_seen_today": 2784,
+    "news_picked_today": 594,
+    "news_dropped_today": 2190
   },
   "book_momentum": {
     "live_count": 8,
