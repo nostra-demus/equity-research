@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T01:09:50Z",
+  "generated_at": "2026-10-04T01:14:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-007",
@@ -43,6 +43,104 @@
           "name": "Saudi Aramco",
           "ticker": null,
           "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-011",
+      "headline": "Flydubai co-pilot attacked pilot with axe in attempted ‘terrorist attack’, UAE says",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/flydubai-co-pilot-attacked-pilot-axe-attempted-terrorist-attack-uae-says",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T01:11:09Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "A violent security incident involving a pilot and co-pilot on a commercial flight represents a significant operational and safety risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "A violent security incident involving a pilot and co-pilot on a commercial flight represents a significant operational and safety risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-012",
+      "headline": "Apple iPhone Duo pre-orders on October 12: 6 million-unit buzz, but there’s a catch",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/photo/apple-iphone-duo-pre-orders-on-october-12-6-million-unit-buzz-but-theres-a-catch-559098-2026-10-04?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T00:45:03Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Strong pre-order demand for new iPhone models is a key indicator of revenue performance for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Strong pre-order demand for new iPhone models is a key indicator of revenue performance for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -197381,7 +197479,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3177,
+    "inbox_unconsumed": 3179,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -197390,9 +197488,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 94,
-    "news_picked_today": 10,
-    "news_dropped_today": 84
+    "news_seen_today": 100,
+    "news_picked_today": 12,
+    "news_dropped_today": 88
   },
   "book_momentum": {
     "live_count": 8,
