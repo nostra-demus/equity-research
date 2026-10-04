@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T06:27:50Z",
+  "generated_at": "2026-10-04T06:29:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-076",
@@ -1451,6 +1451,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-102",
+      "headline": "South Korean president orders probe into data leaks across financial industry",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/south-korean-president-orders-probe-into-data-leaks-across-financial-industry-2026-10-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T06:19:43Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The South Korean president has ordered a probe into financial industry data leaks, which increases regulatory and operational risk for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The South Korean president has ordered a probe into financial industry data leaks, which increases regulatory and operational risk for the sector.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-093",
       "headline": "Korea Orders Security Checks After Finance-Sector Data Breaches",
       "headline_en": null,
@@ -1852,49 +1896,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-101",
-      "headline": "Iraq transports its oil past Hormuz for first time in decades as war with Iran chokes exports",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/business/energy/2026/10/04/iraq-transports-its-oil-past-hormuz-for-first-time-in-decades-as-war-with-iran-chokes-exports/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T06:09:11Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Iraq is forced to transport oil via alternative routes due to conflict, indicating a significant supply chain disruption in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Iraq is forced to transport oil via alternative routes due to conflict, indicating a significant supply chain disruption in the region.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -198995,9 +198996,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 664,
-    "news_picked_today": 117,
-    "news_dropped_today": 547
+    "news_seen_today": 671,
+    "news_picked_today": 118,
+    "news_dropped_today": 553
   },
   "book_momentum": {
     "live_count": 8,
