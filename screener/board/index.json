@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T07:34:47Z",
+  "generated_at": "2026-10-04T07:39:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-076",
@@ -584,6 +584,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-138",
+      "headline": "Warburg Pincus closes in on due diligence at Ingenia Communities",
+      "headline_en": null,
+      "url": "https://www.afr.com/street-talk/warburg-pincus-closes-in-on-due-diligence-at-ingenia-communities-20261004-p612qe?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T07:33:41Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Warburg Pincus is conducting due diligence for a potential acquisition of Ingenia Communities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Warburg Pincus is conducting due diligence for a potential acquisition of Ingenia Communities.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ingenia Communities",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1924,55 +1973,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-012",
-      "headline": "Apple iPhone Duo pre-orders on October 12: 6 million-unit buzz, but there’s a catch",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/photo/apple-iphone-duo-pre-orders-on-october-12-6-million-unit-buzz-but-theres-a-catch-559098-2026-10-04?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T00:45:03Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Strong pre-order demand for new iPhone models is a key indicator of revenue performance for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Strong pre-order demand for new iPhone models is a key indicator of revenue performance for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -199578,9 +199578,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 825,
-    "news_picked_today": 159,
-    "news_dropped_today": 666
+    "news_seen_today": 832,
+    "news_picked_today": 161,
+    "news_dropped_today": 671
   },
   "book_momentum": {
     "live_count": 8,
