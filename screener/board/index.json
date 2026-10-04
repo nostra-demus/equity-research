@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T01:30:02Z",
+  "generated_at": "2026-10-04T01:34:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-007",
@@ -144,6 +144,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-017",
+      "headline": "Latvia PM Kulbergs wins election held under shadow of Ukraine war",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/latvians-vote-election-shadow-drone-incursions-war-ukraine-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T01:28:18Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The election of a new Prime Minister in Latvia occurs amidst heightened geopolitical risk in the Baltic region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "The election of a new Prime Minister in Latvia occurs amidst heightened geopolitical risk in the Baltic region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -197721,7 +197764,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3183,
+    "inbox_unconsumed": 3184,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -197730,9 +197773,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 122,
-    "news_picked_today": 16,
-    "news_dropped_today": 106
+    "news_seen_today": 136,
+    "news_picked_today": 17,
+    "news_dropped_today": 119
   },
   "book_momentum": {
     "live_count": 8,
