@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T08:29:32Z",
+  "generated_at": "2026-10-04T08:39:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-139",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-147",
+      "headline": "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/yes-bank-share-price-q2-business-update-loans-surge-24-to-rs-3-lakh-crore-deposits-up-20-yoy-20004109.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T08:36:36Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "YES Bank reported a 24% surge in loans to ₹3 lakh crore and a 20% increase in deposits, indicating strong operational growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "YES Bank reported a 24% surge in loans to ₹3 lakh crore and a 20% increase in deposits, indicating strong operational growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "YES Bank",
+          "ticker": "YESBANK",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1923,55 +1972,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-075",
-      "headline": "OpenAI safety employee quits over ‘broken culture’, says ‘time for trial and error is over’",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/openai-safety-employee-quits-over-broken-culture-says-time-trial-and-error-over",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T05:17:38Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "An OpenAI safety employee quit over a 'broken culture', raising concerns about the company's internal operations and future direction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "An OpenAI safety employee quit over a 'broken culture', raising concerns about the company's internal operations and future direction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -156278,76 +156278,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ea338eeb2104",
-      "idea_version": "IDEAV-21c2c01f6727e365",
-      "idea_version_started_at": "2026-10-03T01:50:22Z",
-      "ticker": "WBD",
-      "company": "Warner Bros. Discovery",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The reported merger of Paramount and Warner Bros. Discovery into Skydance creates a massive consolidation of content libraries and production scale to compete with Netflix and Disney.",
-      "why_now": "The news of the finalized merger structure and the vision for the combined entity is breaking now, October 2, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e11abb12b793"
-      ],
-      "primary_source_event_id": "EVT-e11abb12b793",
-      "source_headlines": [
-        "Paramount and Warner Bros. Discovery to Merge Into Skydance (SKYD). Will Skydance Achieve David Ellison’s \"Quality Storytelling\" Vision?"
-      ],
-      "source_headline": "Paramount and Warner Bros. Discovery to Merge Into Skydance (SKYD). Will Skydance Achieve David Ellison’s \"Quality Storytelling\" Vision?",
-      "source_url": "https://www.nasdaq.com/articles/paramount-and-warner-bros-discovery-merge-skydance-skyd-will-skydance-achieve-david",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-02T20:32:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T01:50:22Z",
-      "updated_at": "2026-10-03T01:50:22Z",
-      "decay_at": "2026-10-04T08:32:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-d9c194e5e146",
       "idea_version": "IDEAV-339c00c3d7acec96",
       "idea_version_started_at": "2026-10-04T05:46:50Z",
@@ -157894,80 +157824,6 @@
       "surfaced_at": "2026-10-03T07:11:46Z",
       "updated_at": "2026-10-03T22:10:02Z",
       "decay_at": "2026-10-04T19:47:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-8c05409f139b",
-      "idea_version": "IDEAV-1234ef3ea38e3bc5",
-      "idea_version_started_at": "2026-10-03T21:44:54Z",
-      "ticker": "MAXN",
-      "company": "Maxeon Solar Technologies, Ltd.",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is facing formal delisting from the Nasdaq Stock Market as indicated by the Form 25-NSE filing, which severely impairs equity liquidity and access to capital.",
-      "why_now": "The Form 25-NSE delisting notification was officially filed on October 2, 2026, triggering immediate transition to over-the-counter trading.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1e7ee1588c7e",
-        "EVT-378ef9d235f4"
-      ],
-      "primary_source_event_id": "EVT-1e7ee1588c7e",
-      "source_headlines": [
-        "25-NSE - Maxeon Solar Technologies, Ltd. (0001796898) (Subject)",
-        "25-NSE - Nasdaq Stock Market LLC (0001354457) (Filed by)"
-      ],
-      "source_headline": "25-NSE - Maxeon Solar Technologies, Ltd. (0001796898) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1796898/000135445726000941/0001354457-26-000941-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-02T20:30:53Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-02T22:01:37Z",
-      "updated_at": "2026-10-03T21:44:54Z",
-      "decay_at": "2026-10-04T08:30:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -161153,6 +161009,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-ea338eeb2104",
+      "idea_version": "IDEAV-21c2c01f6727e365",
+      "idea_version_started_at": "2026-10-03T01:50:22Z",
+      "ticker": "WBD",
+      "company": "Warner Bros. Discovery",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The reported merger of Paramount and Warner Bros. Discovery into Skydance creates a massive consolidation of content libraries and production scale to compete with Netflix and Disney.",
+      "why_now": "The news of the finalized merger structure and the vision for the combined entity is breaking now, October 2, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e11abb12b793"
+      ],
+      "primary_source_event_id": "EVT-e11abb12b793",
+      "source_headlines": [
+        "Paramount and Warner Bros. Discovery to Merge Into Skydance (SKYD). Will Skydance Achieve David Ellison’s \"Quality Storytelling\" Vision?"
+      ],
+      "source_headline": "Paramount and Warner Bros. Discovery to Merge Into Skydance (SKYD). Will Skydance Achieve David Ellison’s \"Quality Storytelling\" Vision?",
+      "source_url": "https://www.nasdaq.com/articles/paramount-and-warner-bros-discovery-merge-skydance-skyd-will-skydance-achieve-david",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T20:32:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T01:50:22Z",
+      "updated_at": "2026-10-03T01:50:22Z",
+      "decay_at": "2026-10-04T08:32:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c26051237597",
       "idea_version": "IDEAV-bb0d9e087fb208d9",
       "idea_version_started_at": "2026-10-03T00:50:03Z",
@@ -161781,6 +161707,80 @@
       "surfaced_at": "2026-10-02T13:58:00Z",
       "updated_at": "2026-10-03T22:10:02Z",
       "decay_at": "2026-10-04T02:22:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-8c05409f139b",
+      "idea_version": "IDEAV-1234ef3ea38e3bc5",
+      "idea_version_started_at": "2026-10-03T21:44:54Z",
+      "ticker": "MAXN",
+      "company": "Maxeon Solar Technologies, Ltd.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing formal delisting from the Nasdaq Stock Market as indicated by the Form 25-NSE filing, which severely impairs equity liquidity and access to capital.",
+      "why_now": "The Form 25-NSE delisting notification was officially filed on October 2, 2026, triggering immediate transition to over-the-counter trading.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e7ee1588c7e",
+        "EVT-378ef9d235f4"
+      ],
+      "primary_source_event_id": "EVT-1e7ee1588c7e",
+      "source_headlines": [
+        "25-NSE - Maxeon Solar Technologies, Ltd. (0001796898) (Subject)",
+        "25-NSE - Nasdaq Stock Market LLC (0001354457) (Filed by)"
+      ],
+      "source_headline": "25-NSE - Maxeon Solar Technologies, Ltd. (0001796898) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1796898/000135445726000941/0001354457-26-000941-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-02T20:30:53Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-02T22:01:37Z",
+      "updated_at": "2026-10-03T21:44:54Z",
+      "decay_at": "2026-10-04T08:30:53Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -162657,19 +162657,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 523,
+    "total_count": 525,
     "shown_count": 500,
-    "hidden_count": 23,
+    "hidden_count": 25,
     "side_counts": {
       "long": {
-        "total_count": 261,
-        "shown_count": 250,
-        "hidden_count": 11
-      },
-      "short": {
         "total_count": 262,
         "shown_count": 250,
         "hidden_count": 12
+      },
+      "short": {
+        "total_count": 263,
+        "shown_count": 250,
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -162688,6 +162688,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ea338eeb2104",
+        "idea_version": "IDEAV-21c2c01f6727e365",
+        "idea_version_started_at": "2026-10-03T01:50:22Z",
+        "ticker": "WBD",
+        "company": "Warner Bros. Discovery",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The reported merger of Paramount and Warner Bros. Discovery into Skydance creates a massive consolidation of content libraries and production scale to compete with Netflix and Disney.",
+        "why_now": "The news of the finalized merger structure and the vision for the combined entity is breaking now, October 2, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e11abb12b793"
+        ],
+        "primary_source_event_id": "EVT-e11abb12b793",
+        "source_headlines": [
+          "Paramount and Warner Bros. Discovery to Merge Into Skydance (SKYD). Will Skydance Achieve David Ellison’s \"Quality Storytelling\" Vision?"
+        ],
+        "source_headline": "Paramount and Warner Bros. Discovery to Merge Into Skydance (SKYD). Will Skydance Achieve David Ellison’s \"Quality Storytelling\" Vision?",
+        "source_url": "https://www.nasdaq.com/articles/paramount-and-warner-bros-discovery-merge-skydance-skyd-will-skydance-achieve-david",
+        "source_name": "Nasdaq",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-02T20:32:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T01:50:22Z",
+        "updated_at": "2026-10-03T01:50:22Z",
+        "decay_at": "2026-10-04T08:32:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T08:32:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-8c05409f139b",
+        "idea_version": "IDEAV-1234ef3ea38e3bc5",
+        "idea_version_started_at": "2026-10-03T21:44:54Z",
+        "ticker": "MAXN",
+        "company": "Maxeon Solar Technologies, Ltd.",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is facing formal delisting from the Nasdaq Stock Market as indicated by the Form 25-NSE filing, which severely impairs equity liquidity and access to capital.",
+        "why_now": "The Form 25-NSE delisting notification was officially filed on October 2, 2026, triggering immediate transition to over-the-counter trading.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1e7ee1588c7e",
+          "EVT-378ef9d235f4"
+        ],
+        "primary_source_event_id": "EVT-1e7ee1588c7e",
+        "source_headlines": [
+          "25-NSE - Maxeon Solar Technologies, Ltd. (0001796898) (Subject)",
+          "25-NSE - Nasdaq Stock Market LLC (0001354457) (Filed by)"
+        ],
+        "source_headline": "25-NSE - Maxeon Solar Technologies, Ltd. (0001796898) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1796898/000135445726000941/0001354457-26-000941-index.htm",
+        "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-02T20:30:53Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-02T22:01:37Z",
+        "updated_at": "2026-10-03T21:44:54Z",
+        "decay_at": "2026-10-04T08:30:53Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T08:30:53Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9107e0bd5461",
         "idea_version": "IDEAV-9c1bb7010b27c413",
@@ -191725,79 +191875,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-bb6c79ef8ffe",
-        "idea_version": "IDEAV-2d31637f4ffc74b1",
-        "idea_version_started_at": "2026-09-15T04:47:56Z",
-        "ticker": "BA",
-        "company": "Boeing",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Securing the first production contract for the MQ-25A Stingray provides a stable, long-term revenue stream from the U.S. Navy for its autonomous aerial refueling program.",
-        "why_now": "The contract was officially inked and announced on September 15, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-93ece061a1f7"
-        ],
-        "primary_source_event_id": "EVT-93ece061a1f7",
-        "source_headlines": [
-          "US Navy, Boeing ink first MQ-25A Stingray production contract"
-        ],
-        "source_headline": "US Navy, Boeing ink first MQ-25A Stingray production contract",
-        "source_url": "https://www.defensenews.com/industry/techwatch/2026/09/15/us-navy-boeing-ink-first-mq-25a-stingray-production-contract/",
-        "source_name": "Defense News",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-15T01:13:26Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-15T04:47:56Z",
-        "updated_at": "2026-09-15T04:47:56Z",
-        "decay_at": "2026-09-16T13:13:26Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-18T03:01:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c216e8a1a5f7",
         "idea_version": "IDEAV-6295c63f05186693",
         "idea_version_started_at": "2026-09-15T02:26:35Z",
@@ -199761,88 +199838,12 @@
         "archived_at": "2026-09-10T00:18:10Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c6f6fe27dcb6",
-        "idea_version": "IDEAV-c17c600f3a7ecfa3",
-        "idea_version_started_at": "2026-09-07T01:06:48Z",
-        "ticker": "BTH.AX",
-        "company": "Bathla Group",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is facing a significant debt crisis and is seeking emergency funds, with administrators scrambling for cash and staff being stood down.",
-        "why_now": "The news of the escalating debt crisis and operational shutdowns emerged on September 7th, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-edff9146f2b6",
-          "EVT-ec9c6737acab"
-        ],
-        "primary_source_event_id": "EVT-ec9c6737acab",
-        "source_headlines": [
-          "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
-          "Bathla administrators scramble for cash as 200 staff stood down"
-        ],
-        "source_headline": "Bathla Seeks Stopgap Funds as $2.5 Billion Debt Crisis Escalates",
-        "source_url": "https://www.bloomberg.com/news/articles/2026-09-07/bathla-s-2-5-billion-property-debt-crisis-faces-fresh-tests",
-        "source_name": "Bloomberg",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T00:11:08Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T01:06:48Z",
-        "updated_at": "2026-09-07T01:06:48Z",
-        "decay_at": "2026-09-08T12:11:08Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T00:18:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1279,
-    "live_count": 67,
+    "live_count": 65,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -199861,9 +199862,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 947,
-    "news_picked_today": 188,
-    "news_dropped_today": 759
+    "news_seen_today": 975,
+    "news_picked_today": 191,
+    "news_dropped_today": 784
   },
   "book_momentum": {
     "live_count": 8,
