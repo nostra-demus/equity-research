@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T13:49:42Z",
+  "generated_at": "2026-10-04T13:54:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -1306,6 +1306,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261004-245",
+      "headline": "Saint-Gobain eyes more India acquisitions as CEO Sreedhar targets $4.3 billion business",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/saint-gobain-eyes-more-india-acquisitions-as-ceo-sreedhar-targets-43-billion-business/article71486048.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T13:48:02Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "Saint-Gobain is targeting a $4.3 billion business size in India through potential acquisitions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Saint-Gobain is targeting a $4.3 billion business size in India through potential acquisitions.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saint-Gobain",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261004-198",
       "headline": "BT weighs improved TalkTalk offer after initial approach rejected",
       "headline_en": null,
@@ -1876,55 +1925,6 @@
           "name": "Ingenia Communities",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-078",
-      "headline": "Labour hire or AI native? Swipejobs road-tests $2b listing pitch",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/labour-hire-or-ai-native-swipejobs-road-tests-2b-listing-pitch-20261004-p612om?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T05:08:04Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Swipejobs is preparing for a $2 billion IPO listing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Swipejobs is preparing for a $2 billion IPO listing.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Swipejobs",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mid",
