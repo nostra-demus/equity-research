@@ -1,6 +1,49 @@
 {
-  "generated_at": "2026-10-04T00:39:49Z",
+  "generated_at": "2026-10-04T00:44:28Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261004-006",
+      "headline": "US task force to report on AI risks and government oversight within 120 days: WSJ",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/global/us-task-force-report-ai-risks-and-government-oversight-within-120-days-wsj",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T00:39:06Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The US government is initiating a formal review of AI risks and oversight, which could lead to future regulatory frameworks for the technology sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "The US government is initiating a formal review of AI risks and oversight, which could lead to future regulatory frameworks for the technology sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261004-003",
       "headline": "Brazil’s Lula and Bolsonaro close campaigns ahead of critical election",
@@ -197161,7 +197204,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3172,
+    "inbox_unconsumed": 3173,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -197170,9 +197213,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 50,
-    "news_picked_today": 5,
-    "news_dropped_today": 45
+    "news_seen_today": 55,
+    "news_picked_today": 6,
+    "news_dropped_today": 49
   },
   "book_momentum": {
     "live_count": 8,
