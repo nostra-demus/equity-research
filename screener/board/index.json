@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T21:59:41Z",
+  "generated_at": "2026-10-04T22:09:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-305",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-317",
+      "headline": "CSL Agrees to Pay Up to $1.6 Billion in Rare Disease Drug Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-04/csl-agrees-to-pay-up-to-1-6-billion-in-rare-disease-drug-deal",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T21:55:14Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "CSL announced a deal to acquire assets for up to $1.6 billion, impacting capital allocation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CSL announced a deal to acquire assets for up to $1.6 billion, impacting capital allocation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1899,49 +1948,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-201",
-      "headline": "Israeli air strikes target southern Lebanon",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-air-strikes-target-southern-lebanon-4",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T11:19:27Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Ongoing Israeli air strikes in Lebanon represent a significant regional military escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Ongoing Israeli air strikes in Lebanon represent a significant regional military escalation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "geopolitical",
@@ -156821,286 +156827,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-bb6c79ef8ffe",
-      "idea_version": "IDEAV-ee750cf517b46017",
-      "idea_version_started_at": "2026-10-03T10:55:05Z",
-      "ticker": "BA",
-      "company": "Boeing",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Boeing's space program received a new contract and $359 million from NASA, which should positively impact its commercial segment revenue.",
-      "why_now": "The contract news was released today, providing a current catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bb6c21b73d23"
-      ],
-      "primary_source_event_id": "EVT-bb6c21b73d23",
-      "source_headlines": [
-        "How NASA Saved Boeing's Space Program With a New Contract and $359 Million"
-      ],
-      "source_headline": "How NASA Saved Boeing's Space Program With a New Contract and $359 Million",
-      "source_url": "https://www.fool.com/investing/2026/10/03/nasa-just-saved-boeings-space-program/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-03T10:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T03:34:29Z",
-      "updated_at": "2026-10-03T10:55:05Z",
-      "decay_at": "2026-10-04T22:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-48413a08f7ae",
-      "idea_version": "IDEAV-29103cd9a7b08a45",
-      "idea_version_started_at": "2026-10-03T10:55:05Z",
-      "ticker": "REGN",
-      "company": "Regeneron",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Regeneron is part of a $1B upfront deal related to weight loss drugs, suggesting potential for future revenue growth.",
-      "why_now": "The deal was announced today, providing a current catalyst.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a12c0ef1853a"
-      ],
-      "primary_source_event_id": "EVT-a12c0ef1853a",
-      "source_headlines": [
-        "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more"
-      ],
-      "source_headline": "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more",
-      "source_url": "https://endpoints.news/eli-lillys-best-ever-weight-loss-data-sanofi-regeneron-re-up-for-1b-upfront-and-more/",
-      "source_name": "Endpoints News",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-03T10:00:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T10:19:20Z",
-      "updated_at": "2026-10-03T10:55:05Z",
-      "decay_at": "2026-10-04T22:00:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-54ff0d3fca7e",
-      "idea_version": "IDEAV-2c77efdac1191474",
-      "idea_version_started_at": "2026-10-03T10:55:05Z",
-      "ticker": "SNY",
-      "company": "Sanofi",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Sanofi entered a $1B upfront deal related to weight loss drugs, indicating potential future revenue streams.",
-      "why_now": "The deal was announced today, making it a current catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a12c0ef1853a"
-      ],
-      "primary_source_event_id": "EVT-a12c0ef1853a",
-      "source_headlines": [
-        "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more"
-      ],
-      "source_headline": "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more",
-      "source_url": "https://endpoints.news/eli-lillys-best-ever-weight-loss-data-sanofi-regeneron-re-up-for-1b-upfront-and-more/",
-      "source_name": "Endpoints News",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-03T10:00:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-01T09:32:07Z",
-      "updated_at": "2026-10-03T10:55:05Z",
-      "decay_at": "2026-10-04T22:00:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-99a574f2e453",
-      "idea_version": "IDEAV-7bda06ec2fb98b32",
-      "idea_version_started_at": "2026-10-03T10:05:05Z",
-      "ticker": "LLY",
-      "company": "Eli Lilly",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Eli Lilly's announcement of 'best-ever weight loss data' for its drug candidate suggests a significant positive impact on future revenue and market share in the obesity treatment segment.",
-      "why_now": "News of this clinical data was reported on October 3, 2026, providing a fresh catalyst for the stock.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a12c0ef1853a"
-      ],
-      "primary_source_event_id": "EVT-a12c0ef1853a",
-      "source_headlines": [
-        "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more"
-      ],
-      "source_headline": "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more",
-      "source_url": "https://endpoints.news/eli-lillys-best-ever-weight-loss-data-sanofi-regeneron-re-up-for-1b-upfront-and-more/",
-      "source_name": "Endpoints News",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-03T10:00:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T10:05:05Z",
-      "updated_at": "2026-10-03T10:05:05Z",
-      "decay_at": "2026-10-04T22:00:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-50f379c78b21",
       "idea_version": "IDEAV-8ccb8002d826e8d3",
       "idea_version_started_at": "2026-10-04T16:00:05Z",
@@ -159611,77 +159337,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d6ced9326085",
-      "idea_version": "IDEAV-48a1605dbaec0599",
-      "idea_version_started_at": "2026-10-03T10:25:11Z",
-      "ticker": "CMRGREEN",
-      "company": "CMR Green Technologies Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The resignation of the Chief Financial Officer (CFO) often signals internal disagreement or impending accounting/operational friction.",
-      "why_now": "The official resignation was filed on October 3, 2026, with an effective date of October 23, 2026.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 13,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-022a26cf97b8"
-      ],
-      "primary_source_event_id": "EVT-022a26cf97b8",
-      "source_headlines": [
-        "CMR Green Technologies Limited: CMR Green Technologies Limited has informed the Exchange regarding Resignation of Mr Yugal Kishor Garg as Chief Financial Officer of the company w.e.f. October 23, 2026."
-      ],
-      "source_headline": "CMR Green Technologies Limited: CMR Green Technologies Limited has informed the Exchange regarding Resignation of Mr Yugal Kishor Garg as Chief Financial Officer of the company w.e.f. October 23, 2026.",
-      "source_url": "https://nsearchives.nseindia.com/corporate/CMRGREEN_03102026153846_Intimation_for_Resignation_of_CFO.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 94,
-      "newest_source_at": "2026-10-03T10:09:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T10:25:11Z",
-      "updated_at": "2026-10-03T10:25:11Z",
-      "decay_at": "2026-10-04T22:09:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7341ee8a85b3",
       "idea_version": "IDEAV-b19d4bc23aa6ae50",
       "idea_version_started_at": "2026-10-04T07:06:51Z",
@@ -159821,78 +159476,6 @@
       "surfaced_at": "2026-10-03T11:46:47Z",
       "updated_at": "2026-10-03T11:46:47Z",
       "decay_at": "2026-10-04T23:06:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-757f36a8f989",
-      "idea_version": "IDEAV-1324eae7a1b3b2e8",
-      "idea_version_started_at": "2026-10-03T11:15:22Z",
-      "ticker": "AVENUESUPER",
-      "company": "Avenue Supermarts",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Avenue Supermarts (D-Mart) reported an 18% year-over-year revenue increase to Rs 19,206 crore for Q2, indicating strong operational performance and growth.",
-      "why_now": "The Q2 revenue results were released today, providing a fresh, positive earnings catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5eeb7d6cfe15"
-      ],
-      "primary_source_event_id": "EVT-5eeb7d6cfe15",
-      "source_headlines": [
-        "D-Mart Q2 revenue rises 18% to Rs 19,206 cr; store count at 518"
-      ],
-      "source_headline": "D-Mart Q2 revenue rises 18% to Rs 19,206 cr; store count at 518",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/d-mart-q2-revenue-rise-18-pc-to-rs-19206-cr-store-count-at-518/articleshow/134656472.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 93,
-      "newest_source_at": "2026-10-03T10:06:18Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T11:15:22Z",
-      "updated_at": "2026-10-03T11:15:22Z",
-      "decay_at": "2026-10-04T22:06:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -161544,6 +161127,286 @@
       "surfaced_at": "2026-10-02T20:03:39Z",
       "updated_at": "2026-10-02T20:03:39Z",
       "decay_at": "2026-10-04T00:54:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-bb6c79ef8ffe",
+      "idea_version": "IDEAV-ee750cf517b46017",
+      "idea_version_started_at": "2026-10-03T10:55:05Z",
+      "ticker": "BA",
+      "company": "Boeing",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Boeing's space program received a new contract and $359 million from NASA, which should positively impact its commercial segment revenue.",
+      "why_now": "The contract news was released today, providing a current catalyst.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-bb6c21b73d23"
+      ],
+      "primary_source_event_id": "EVT-bb6c21b73d23",
+      "source_headlines": [
+        "How NASA Saved Boeing's Space Program With a New Contract and $359 Million"
+      ],
+      "source_headline": "How NASA Saved Boeing's Space Program With a New Contract and $359 Million",
+      "source_url": "https://www.fool.com/investing/2026/10/03/nasa-just-saved-boeings-space-program/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-03T10:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T03:34:29Z",
+      "updated_at": "2026-10-03T10:55:05Z",
+      "decay_at": "2026-10-04T22:06:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-48413a08f7ae",
+      "idea_version": "IDEAV-29103cd9a7b08a45",
+      "idea_version_started_at": "2026-10-03T10:55:05Z",
+      "ticker": "REGN",
+      "company": "Regeneron",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Regeneron is part of a $1B upfront deal related to weight loss drugs, suggesting potential for future revenue growth.",
+      "why_now": "The deal was announced today, providing a current catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a12c0ef1853a"
+      ],
+      "primary_source_event_id": "EVT-a12c0ef1853a",
+      "source_headlines": [
+        "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more"
+      ],
+      "source_headline": "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more",
+      "source_url": "https://endpoints.news/eli-lillys-best-ever-weight-loss-data-sanofi-regeneron-re-up-for-1b-upfront-and-more/",
+      "source_name": "Endpoints News",
+      "materiality_max": 96,
+      "newest_source_at": "2026-10-03T10:00:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T10:19:20Z",
+      "updated_at": "2026-10-03T10:55:05Z",
+      "decay_at": "2026-10-04T22:00:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-54ff0d3fca7e",
+      "idea_version": "IDEAV-2c77efdac1191474",
+      "idea_version_started_at": "2026-10-03T10:55:05Z",
+      "ticker": "SNY",
+      "company": "Sanofi",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Sanofi entered a $1B upfront deal related to weight loss drugs, indicating potential future revenue streams.",
+      "why_now": "The deal was announced today, making it a current catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a12c0ef1853a"
+      ],
+      "primary_source_event_id": "EVT-a12c0ef1853a",
+      "source_headlines": [
+        "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more"
+      ],
+      "source_headline": "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more",
+      "source_url": "https://endpoints.news/eli-lillys-best-ever-weight-loss-data-sanofi-regeneron-re-up-for-1b-upfront-and-more/",
+      "source_name": "Endpoints News",
+      "materiality_max": 96,
+      "newest_source_at": "2026-10-03T10:00:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-01T09:32:07Z",
+      "updated_at": "2026-10-03T10:55:05Z",
+      "decay_at": "2026-10-04T22:00:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-99a574f2e453",
+      "idea_version": "IDEAV-7bda06ec2fb98b32",
+      "idea_version_started_at": "2026-10-03T10:05:05Z",
+      "ticker": "LLY",
+      "company": "Eli Lilly",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Eli Lilly's announcement of 'best-ever weight loss data' for its drug candidate suggests a significant positive impact on future revenue and market share in the obesity treatment segment.",
+      "why_now": "News of this clinical data was reported on October 3, 2026, providing a fresh catalyst for the stock.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a12c0ef1853a"
+      ],
+      "primary_source_event_id": "EVT-a12c0ef1853a",
+      "source_headlines": [
+        "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more"
+      ],
+      "source_headline": "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more",
+      "source_url": "https://endpoints.news/eli-lillys-best-ever-weight-loss-data-sanofi-regeneron-re-up-for-1b-upfront-and-more/",
+      "source_name": "Endpoints News",
+      "materiality_max": 96,
+      "newest_source_at": "2026-10-03T10:00:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T10:05:05Z",
+      "updated_at": "2026-10-03T10:05:05Z",
+      "decay_at": "2026-10-04T22:00:09Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -163204,6 +163067,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d6ced9326085",
+      "idea_version": "IDEAV-48a1605dbaec0599",
+      "idea_version_started_at": "2026-10-03T10:25:11Z",
+      "ticker": "CMRGREEN",
+      "company": "CMR Green Technologies Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The resignation of the Chief Financial Officer (CFO) often signals internal disagreement or impending accounting/operational friction.",
+      "why_now": "The official resignation was filed on October 3, 2026, with an effective date of October 23, 2026.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 13,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-022a26cf97b8"
+      ],
+      "primary_source_event_id": "EVT-022a26cf97b8",
+      "source_headlines": [
+        "CMR Green Technologies Limited: CMR Green Technologies Limited has informed the Exchange regarding Resignation of Mr Yugal Kishor Garg as Chief Financial Officer of the company w.e.f. October 23, 2026."
+      ],
+      "source_headline": "CMR Green Technologies Limited: CMR Green Technologies Limited has informed the Exchange regarding Resignation of Mr Yugal Kishor Garg as Chief Financial Officer of the company w.e.f. October 23, 2026.",
+      "source_url": "https://nsearchives.nseindia.com/corporate/CMRGREEN_03102026153846_Intimation_for_Resignation_of_CFO.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 94,
+      "newest_source_at": "2026-10-03T10:09:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T10:25:11Z",
+      "updated_at": "2026-10-03T10:25:11Z",
+      "decay_at": "2026-10-04T22:09:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-f29ccaae38d5",
       "idea_version": "IDEAV-dbdfab38ef84ef13",
       "idea_version_started_at": "2026-10-03T07:11:46Z",
@@ -163343,6 +163277,78 @@
       "surfaced_at": "2026-10-03T04:54:52Z",
       "updated_at": "2026-10-03T04:54:52Z",
       "decay_at": "2026-10-04T16:43:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-757f36a8f989",
+      "idea_version": "IDEAV-1324eae7a1b3b2e8",
+      "idea_version_started_at": "2026-10-03T11:15:22Z",
+      "ticker": "AVENUESUPER",
+      "company": "Avenue Supermarts",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Avenue Supermarts (D-Mart) reported an 18% year-over-year revenue increase to Rs 19,206 crore for Q2, indicating strong operational performance and growth.",
+      "why_now": "The Q2 revenue results were released today, providing a fresh, positive earnings catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5eeb7d6cfe15"
+      ],
+      "primary_source_event_id": "EVT-5eeb7d6cfe15",
+      "source_headlines": [
+        "D-Mart Q2 revenue rises 18% to Rs 19,206 cr; store count at 518"
+      ],
+      "source_headline": "D-Mart Q2 revenue rises 18% to Rs 19,206 cr; store count at 518",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/d-mart-q2-revenue-rise-18-pc-to-rs-19206-cr-store-count-at-518/articleshow/134656472.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 93,
+      "newest_source_at": "2026-10-03T10:06:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T11:15:22Z",
+      "updated_at": "2026-10-03T11:15:22Z",
+      "decay_at": "2026-10-04T22:06:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -163937,19 +163943,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 546,
     "shown_count": 500,
-    "hidden_count": 40,
+    "hidden_count": 46,
     "side_counts": {
       "long": {
-        "total_count": 272,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 27
       },
       "short": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       }
     },
     "retention": {
@@ -163968,6 +163974,447 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d6ced9326085",
+        "idea_version": "IDEAV-48a1605dbaec0599",
+        "idea_version_started_at": "2026-10-03T10:25:11Z",
+        "ticker": "CMRGREEN",
+        "company": "CMR Green Technologies Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The resignation of the Chief Financial Officer (CFO) often signals internal disagreement or impending accounting/operational friction.",
+        "why_now": "The official resignation was filed on October 3, 2026, with an effective date of October 23, 2026.",
+        "conviction": 45,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 13,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "governance_turnaround",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-022a26cf97b8"
+        ],
+        "primary_source_event_id": "EVT-022a26cf97b8",
+        "source_headlines": [
+          "CMR Green Technologies Limited: CMR Green Technologies Limited has informed the Exchange regarding Resignation of Mr Yugal Kishor Garg as Chief Financial Officer of the company w.e.f. October 23, 2026."
+        ],
+        "source_headline": "CMR Green Technologies Limited: CMR Green Technologies Limited has informed the Exchange regarding Resignation of Mr Yugal Kishor Garg as Chief Financial Officer of the company w.e.f. October 23, 2026.",
+        "source_url": "https://nsearchives.nseindia.com/corporate/CMRGREEN_03102026153846_Intimation_for_Resignation_of_CFO.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 94,
+        "newest_source_at": "2026-10-03T10:09:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T10:25:11Z",
+        "updated_at": "2026-10-03T10:25:11Z",
+        "decay_at": "2026-10-04T22:09:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T22:09:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-757f36a8f989",
+        "idea_version": "IDEAV-1324eae7a1b3b2e8",
+        "idea_version_started_at": "2026-10-03T11:15:22Z",
+        "ticker": "AVENUESUPER",
+        "company": "Avenue Supermarts",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Avenue Supermarts (D-Mart) reported an 18% year-over-year revenue increase to Rs 19,206 crore for Q2, indicating strong operational performance and growth.",
+        "why_now": "The Q2 revenue results were released today, providing a fresh, positive earnings catalyst.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5eeb7d6cfe15"
+        ],
+        "primary_source_event_id": "EVT-5eeb7d6cfe15",
+        "source_headlines": [
+          "D-Mart Q2 revenue rises 18% to Rs 19,206 cr; store count at 518"
+        ],
+        "source_headline": "D-Mart Q2 revenue rises 18% to Rs 19,206 cr; store count at 518",
+        "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/d-mart-q2-revenue-rise-18-pc-to-rs-19206-cr-store-count-at-518/articleshow/134656472.cms",
+        "source_name": "The Economic Times",
+        "materiality_max": 93,
+        "newest_source_at": "2026-10-03T10:06:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T11:15:22Z",
+        "updated_at": "2026-10-03T11:15:22Z",
+        "decay_at": "2026-10-04T22:06:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T22:06:18Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-bb6c79ef8ffe",
+        "idea_version": "IDEAV-ee750cf517b46017",
+        "idea_version_started_at": "2026-10-03T10:55:05Z",
+        "ticker": "BA",
+        "company": "Boeing",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Boeing's space program received a new contract and $359 million from NASA, which should positively impact its commercial segment revenue.",
+        "why_now": "The contract news was released today, providing a current catalyst.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bb6c21b73d23"
+        ],
+        "primary_source_event_id": "EVT-bb6c21b73d23",
+        "source_headlines": [
+          "How NASA Saved Boeing's Space Program With a New Contract and $359 Million"
+        ],
+        "source_headline": "How NASA Saved Boeing's Space Program With a New Contract and $359 Million",
+        "source_url": "https://www.fool.com/investing/2026/10/03/nasa-just-saved-boeings-space-program/?source=iedfolrf0000001",
+        "source_name": "The Motley Fool",
+        "materiality_max": 98,
+        "newest_source_at": "2026-10-03T10:06:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T03:34:29Z",
+        "updated_at": "2026-10-03T10:55:05Z",
+        "decay_at": "2026-10-04T22:06:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T22:06:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-48413a08f7ae",
+        "idea_version": "IDEAV-29103cd9a7b08a45",
+        "idea_version_started_at": "2026-10-03T10:55:05Z",
+        "ticker": "REGN",
+        "company": "Regeneron",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Regeneron is part of a $1B upfront deal related to weight loss drugs, suggesting potential for future revenue growth.",
+        "why_now": "The deal was announced today, providing a current catalyst.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a12c0ef1853a"
+        ],
+        "primary_source_event_id": "EVT-a12c0ef1853a",
+        "source_headlines": [
+          "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more"
+        ],
+        "source_headline": "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more",
+        "source_url": "https://endpoints.news/eli-lillys-best-ever-weight-loss-data-sanofi-regeneron-re-up-for-1b-upfront-and-more/",
+        "source_name": "Endpoints News",
+        "materiality_max": 96,
+        "newest_source_at": "2026-10-03T10:00:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-01T10:19:20Z",
+        "updated_at": "2026-10-03T10:55:05Z",
+        "decay_at": "2026-10-04T22:00:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T22:00:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-54ff0d3fca7e",
+        "idea_version": "IDEAV-2c77efdac1191474",
+        "idea_version_started_at": "2026-10-03T10:55:05Z",
+        "ticker": "SNY",
+        "company": "Sanofi",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Sanofi entered a $1B upfront deal related to weight loss drugs, indicating potential future revenue streams.",
+        "why_now": "The deal was announced today, making it a current catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a12c0ef1853a"
+        ],
+        "primary_source_event_id": "EVT-a12c0ef1853a",
+        "source_headlines": [
+          "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more"
+        ],
+        "source_headline": "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more",
+        "source_url": "https://endpoints.news/eli-lillys-best-ever-weight-loss-data-sanofi-regeneron-re-up-for-1b-upfront-and-more/",
+        "source_name": "Endpoints News",
+        "materiality_max": 96,
+        "newest_source_at": "2026-10-03T10:00:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-01T09:32:07Z",
+        "updated_at": "2026-10-03T10:55:05Z",
+        "decay_at": "2026-10-04T22:00:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T22:00:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-99a574f2e453",
+        "idea_version": "IDEAV-7bda06ec2fb98b32",
+        "idea_version_started_at": "2026-10-03T10:05:05Z",
+        "ticker": "LLY",
+        "company": "Eli Lilly",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Eli Lilly's announcement of 'best-ever weight loss data' for its drug candidate suggests a significant positive impact on future revenue and market share in the obesity treatment segment.",
+        "why_now": "News of this clinical data was reported on October 3, 2026, providing a fresh catalyst for the stock.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a12c0ef1853a"
+        ],
+        "primary_source_event_id": "EVT-a12c0ef1853a",
+        "source_headlines": [
+          "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more"
+        ],
+        "source_headline": "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more",
+        "source_url": "https://endpoints.news/eli-lillys-best-ever-weight-loss-data-sanofi-regeneron-re-up-for-1b-upfront-and-more/",
+        "source_name": "Endpoints News",
+        "materiality_max": 96,
+        "newest_source_at": "2026-10-03T10:00:09Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T10:05:05Z",
+        "updated_at": "2026-10-03T10:05:05Z",
+        "decay_at": "2026-10-04T22:00:09Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-04T22:00:09Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-0ee45ba091ad",
         "idea_version": "IDEAV-2a729f0e47da2915",
@@ -192502,82 +192949,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-23d292b4cefa",
-        "idea_version": "IDEAV-487eb1749b503763",
-        "idea_version_started_at": "2026-09-17T23:19:18Z",
-        "ticker": "RWC",
-        "company": "Reliance Worldwide Corporation",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Brookfield has agreed to acquire the company for $2.9 billion, providing a clear exit valuation for shareholders.",
-        "why_now": "The buyout agreement was reported on 2026-09-16; the stock should trade toward the offer price.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1414f175e192"
-        ],
-        "primary_source_event_id": "EVT-1414f175e192",
-        "source_headlines": [
-          "Australia’s Reliance Worldwide agrees to Brookfield’s $2.9-billion buyout bid"
-        ],
-        "source_headline": "Australia’s Reliance Worldwide agrees to Brookfield’s $2.9-billion buyout bid",
-        "source_url": "https://www.theglobeandmail.com/business/article-australias-reliance-worldwide-agrees-to-brookfields-29-billion-buyout/",
-        "source_name": "The Globe and Mail",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-16T11:51:30Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-16T03:36:22Z",
-        "updated_at": "2026-09-17T23:19:18Z",
-        "decay_at": "2026-09-17T23:51:30Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-19T12:40:09Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-1cca59b30c7a",
         "idea_version": "IDEAV-e6e492d5833b6b1a",
         "idea_version_started_at": "2026-09-17T10:57:20Z",
@@ -192727,78 +193098,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-e1282739ad35",
-        "idea_version": "IDEAV-33706bc62c4d63a7",
-        "idea_version_started_at": "2026-09-16T13:28:55Z",
-        "ticker": "JUNIPER.NS",
-        "company": "Juniper Hotels",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of Novotel Imagicaa for Rs 248 Crore is a strategic expansion that should enhance the company's asset base and revenue potential.",
-        "why_now": "The exchange filing was published today, September 16, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-dc3c7abec3fc"
-        ],
-        "primary_source_event_id": "EVT-dc3c7abec3fc",
-        "source_headlines": [
-          "Juniper Hotels Limited: Juniper Hotels Limited has informed the Exchange regarding a press release dated September 16, 2026, titled \"Juniper Hotels Announces Proposed Acquisition of Novotel Imagicaa for Rs 248 Crore\"."
-        ],
-        "source_headline": "Juniper Hotels Limited: Juniper Hotels Limited has informed the Exchange regarding a press release dated September 16, 2026, titled \"Juniper Hotels Announces Proposed Acquisition of Novotel Imagicaa for Rs 248 Crore\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/9930371292_16092026151547_JHL-lettersigned.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-16T09:45:57Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-16T13:28:55Z",
-        "updated_at": "2026-09-16T13:28:55Z",
-        "decay_at": "2026-09-17T21:45:57Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-19T09:53:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-c5681a8c6872",
         "idea_version": "IDEAV-7f0dd62da673ca71",
         "idea_version_started_at": "2026-09-16T13:28:55Z",
@@ -192938,80 +193237,6 @@
         "surfaced_at": "2026-09-17T09:06:55Z",
         "updated_at": "2026-09-17T09:06:55Z",
         "decay_at": "2026-09-17T20:48:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-19T08:59:21Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-6a71fdaeebf7",
-        "idea_version": "IDEAV-aedd46021f4467c6",
-        "idea_version_started_at": "2026-09-16T13:28:55Z",
-        "ticker": "01975.HK",
-        "company": "Sun Hing Printing",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company issued a positive profit alert, indicating stronger-than-expected earnings performance.",
-        "why_now": "The filing was released today, September 16, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f56a845c24b6"
-        ],
-        "primary_source_event_id": "EVT-f56a845c24b6",
-        "source_headlines": [
-          "SUN HING PRINT (01975): POSITIVE PROFIT ALERT"
-        ],
-        "source_headline": "SUN HING PRINT (01975): POSITIVE PROFIT ALERT",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0916/2026091600444.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-16T08:48:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-16T13:28:55Z",
-        "updated_at": "2026-09-16T13:28:55Z",
-        "decay_at": "2026-09-17T20:48:00Z",
         "status": "expired",
         "promoted_signal_id": null,
         "feedback": null,
@@ -193165,152 +193390,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-19T08:59:21Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8c817b6a9d58",
-        "idea_version": "IDEAV-ded56f40fa203a61",
-        "idea_version_started_at": "2026-09-16T11:53:50Z",
-        "ticker": "SPXC",
-        "company": "SPX Technologies",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of FIS Water for $410 million expands the company's footprint in the water management sector, likely accretive to earnings given the strategic fit.",
-        "why_now": "The deal was announced on September 16, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-aa9962453f75"
-        ],
-        "primary_source_event_id": "EVT-aa9962453f75",
-        "source_headlines": [
-          "SPX Technologies Acquires Water Management Firm FIS Water For $410 Mln"
-        ],
-        "source_headline": "SPX Technologies Acquires Water Management Firm FIS Water For $410 Mln",
-        "source_url": "https://www.nasdaq.com/articles/spx-technologies-acquires-water-management-firm-fis-water-410-mln",
-        "source_name": "Nasdaq",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-16T05:00:09Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-16T11:53:50Z",
-        "updated_at": "2026-09-16T11:53:50Z",
-        "decay_at": "2026-09-17T17:00:09Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-19T05:39:47Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-19d921e177b0",
-        "idea_version": "IDEAV-bc9b60d7a1106ff2",
-        "idea_version_started_at": "2026-09-16T11:53:50Z",
-        "ticker": "TME",
-        "company": "Tencent Music",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company announced a $400 million share repurchase program, which provides a direct floor for the stock and signals management's confidence in cash flow generation.",
-        "why_now": "The announcement was made on September 16, 2026, and is effective immediately.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a0822e7997a1"
-        ],
-        "primary_source_event_id": "EVT-a0822e7997a1",
-        "source_headlines": [
-          "Tencent Music's 2026 Outlook: $400 Million Share Repurchase Program Reflects Financial Discipline"
-        ],
-        "source_headline": "Tencent Music's 2026 Outlook: $400 Million Share Repurchase Program Reflects Financial Discipline",
-        "source_url": "https://www.nasdaq.com/articles/tencent-musics-2026-outlook-400-million-share-repurchase-program-reflects-financial",
-        "source_name": "Nasdaq",
-        "materiality_max": 98,
-        "newest_source_at": "2026-09-16T04:20:01Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-16T11:53:50Z",
-        "updated_at": "2026-09-16T11:53:50Z",
-        "decay_at": "2026-09-17T16:20:01Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-19T04:27:33Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -201048,85 +201127,12 @@
         "archived_at": "2026-09-10T21:39:04Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-e616b8c1138f",
-        "idea_version": "IDEAV-531b4a0532361583",
-        "idea_version_started_at": "2026-09-07T20:32:15Z",
-        "ticker": "SGML",
-        "company": "Sigma Lithium Corporation",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A Brazilian judge suspended the company's mine licenses and operations, halting production and revenue generation indefinitely.",
-        "why_now": "The suspension order was reported on 2026-09-07.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-eff35c6e14bc"
-        ],
-        "primary_source_event_id": "EVT-eff35c6e14bc",
-        "source_headlines": [
-          "Brazilian judge suspends Sigma Lithium mine licences and operations"
-        ],
-        "source_headline": "Brazilian judge suspends Sigma Lithium mine licences and operations",
-        "source_url": "https://finance.yahoo.com/energy/articles/brazilian-judge-suspends-sigma-lithium-144617802.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T14:46:17Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-06T00:49:26Z",
-        "updated_at": "2026-09-07T20:32:15Z",
-        "decay_at": "2026-09-09T02:46:17Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T15:01:46Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1305,
-    "live_count": 68,
+    "live_count": 62,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -201145,9 +201151,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3195,
-    "news_picked_today": 723,
-    "news_dropped_today": 2472
+    "news_seen_today": 3233,
+    "news_picked_today": 737,
+    "news_dropped_today": 2496
   },
   "book_momentum": {
     "live_count": 8,
