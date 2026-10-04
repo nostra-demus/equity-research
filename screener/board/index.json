@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T11:05:04Z",
+  "generated_at": "2026-10-04T11:14:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-185",
@@ -1911,50 +1911,46 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261004-137",
-      "headline": "‎Molan pays SAR 6.83M to Yara International, settles financial obligation",
+      "inbox_id": "INB-20261004-195",
+      "headline": "Legal risks pile up for Altman as OpenAI uncovers dozens of hacks",
       "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1941121",
-      "source_name": "Argaam — Main News (English)",
+      "url": "https://www.ft.com/content/2c24ece3-ac99-43a8-b0e6-4a3867e37ebf?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-04T10:32:00Z",
+      "found_at": "2026-10-04T11:00:08Z",
       "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "Molan settled a financial obligation of SAR 6.83M, reducing its outstanding liabilities.",
+      "prelim_note": "OpenAI faces mounting legal and operational risks following the discovery of multiple security breaches.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 87,
-      "triage_reason": "Molan settled a financial obligation of SAR 6.83M, reducing its outstanding liabilities.",
-      "region": "OTHER",
+      "triage_reason": "OpenAI faces mounting legal and operational risks following the discovery of multiple security breaches.",
+      "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 65,
         "source_tier": 0,
-        "scope": 5,
-        "event": 7,
+        "scope": 6,
+        "event": 6,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 20,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "debt_credit",
+        "event_id": "litigation_enforcement",
         "size_bucket": "unknown"
       },
       "event_types": [
-        "debt_credit"
+        "litigation_enforcement",
+        "cybersecurity"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Molan",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Yara International",
+          "name": "OpenAI",
           "ticker": null,
           "listing_country": null
         }
@@ -200213,9 +200209,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1376,
-    "news_picked_today": 285,
-    "news_dropped_today": 1091
+    "news_seen_today": 1416,
+    "news_picked_today": 295,
+    "news_dropped_today": 1121
   },
   "book_momentum": {
     "live_count": 8,
