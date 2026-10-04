@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T09:10:51Z",
+  "generated_at": "2026-10-04T09:19:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-139",
@@ -95,6 +95,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-168",
+      "headline": "Indian-Run Pharma Plant In Ukraine's Sumy Destroyed In Russian Drone Strike, 1 Killed: Reports",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/world/indian-run-pharma-plant-in-ukraines-sumy-destroyed-in-russian-drone-strike-1-killed-reports",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T08:31:26Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "An Indian-run pharmaceutical plant in Ukraine was destroyed in a drone strike, representing a total loss of a specific asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An Indian-run pharmaceutical plant in Ukraine was destroyed in a drone strike, representing a total loss of a specific asset.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1911,55 +1954,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261004-065",
-      "headline": "Masayoshi Son’s AI ambitions outgrow SoftBank’s balance sheet",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/9b3a355e-5975-445f-9004-b95513e3856a?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T04:00:07Z",
-      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
-      "prelim_note": "SoftBank's AI investment strategy is reportedly straining its balance sheet.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "SoftBank's AI investment strategy is reportedly straining its balance sheet.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SoftBank Group",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -200064,9 +200058,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1066,
-    "news_picked_today": 222,
-    "news_dropped_today": 844
+    "news_seen_today": 1102,
+    "news_picked_today": 230,
+    "news_dropped_today": 872
   },
   "book_momentum": {
     "live_count": 8,
