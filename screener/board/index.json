@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T23:21:12Z",
+  "generated_at": "2026-10-04T23:21:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-319",
@@ -156640,6 +156640,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-d2e9e6fdd3c1",
+      "idea_version": "IDEAV-aaa393c788349404",
+      "idea_version_started_at": "2026-10-04T23:21:25Z",
+      "ticker": "APA",
+      "company": "APA Corporation",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A strike at the Forties pipeline system threatens to halt production and export volumes for North Sea assets, directly impacting revenue and operational cash flow.",
+      "why_now": "The union vote backing the strike was reported on 2026-10-04, creating immediate uncertainty regarding supply chain continuity.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-66801b327a67"
+      ],
+      "primary_source_event_id": "EVT-66801b327a67",
+      "source_headlines": [
+        "Apache workers back strike that could disrupt North Sea Forties oil pipeline, union says"
+      ],
+      "source_headline": "Apache workers back strike that could disrupt North Sea Forties oil pipeline, union says",
+      "source_url": "https://www.reuters.com/business/energy/apache-workers-back-strike-that-could-disrupt-north-sea-forties-oil-pipeline-2026-10-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T23:03:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T23:21:25Z",
+      "updated_at": "2026-10-04T23:21:25Z",
+      "decay_at": "2026-10-06T11:03:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9f47945c8197",
       "idea_version": "IDEAV-f1fe0c796f718972",
       "idea_version_started_at": "2026-10-04T17:21:36Z",
@@ -201158,8 +201228,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1307,
-    "live_count": 62,
+    "surfaced_total": 1308,
+    "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
