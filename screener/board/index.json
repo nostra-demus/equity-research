@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-04T02:34:26Z",
+  "generated_at": "2026-10-04T02:39:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20261004-020",
@@ -292,6 +292,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261004-033",
+      "headline": "US Coast Guard finds debris from missing medical aircraft off Nantucket",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/us/us-coast-guard-searching-missing-jet-carrying-6-people-bound-boston-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T02:35:54Z",
+      "sweep_file": "screener/inbox/2026-10-04_sweep.json",
+      "prelim_note": "The discovery of debris from a missing medical aircraft indicates a fatal crash, which is a significant operational and safety event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The discovery of debris from a missing medical aircraft indicates a fatal crash, which is a significant operational and safety event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -198383,7 +198426,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3199,
+    "inbox_unconsumed": 3200,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -198392,9 +198435,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 249,
-    "news_picked_today": 32,
-    "news_dropped_today": 217
+    "news_seen_today": 260,
+    "news_picked_today": 33,
+    "news_dropped_today": 227
   },
   "book_momentum": {
     "live_count": 8,
