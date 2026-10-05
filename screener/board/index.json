@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T11:43:31Z",
+  "generated_at": "2026-10-05T11:50:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-356",
@@ -488,6 +488,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-542",
+      "headline": "CH Robinson to Buy Logistics Firm RXO in $5.8 Billion Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-05/ch-robinson-to-buy-freight-broker-firm-rxo-in-5-8-billion-deal",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T11:14:18Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "CH Robinson will buy logistics firm RXO in a $5.8 billion deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CH Robinson will buy logistics firm RXO in a $5.8 billion deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CH Robinson",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "RXO",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1937,104 +1991,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261005-305",
-      "headline": "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up",
+      "inbox_id": "INB-20261005-573",
+      "headline": "8-K - ADVANCED DRAINAGE SYSTEMS, INC. (0001604028) (Filer)",
       "headline_en": null,
-      "url": "https://www.afr.com/companies/healthcare-and-fitness/csl-could-spend-up-to-2-2b-on-drug-deal-with-swiss-biotech-startup-20261005-p612ty?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T05:41:22Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/1604028/000119312526413092/0001193125-26-413092-index.htm",
+      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-05T11:00:28Z",
       "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "CSL is considering a potential $2.2 billion acquisition of a Swiss biotech firm.",
+      "prelim_note": "Routine 8-K filing.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CSL is considering a potential $2.2 billion acquisition of a Swiss biotech firm.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
+      "triage_score": 63,
+      "triage_reason": "Routine 8-K filing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CSL",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-272",
-      "headline": "Schneider Electric to buy PTC for $22.6 billion in all-cash deal",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/schneider-electric-buy-ptc-226-billion-all-cash-deal-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T05:20:51Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Schneider Electric is acquiring PTC for $22.6 billion in an all-cash deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Schneider Electric is acquiring PTC for $22.6 billion in an all-cash deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
-        "quantified": 6,
+        "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "large"
       },
       "event_types": [
-        "mna"
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Schneider Electric",
-          "ticker": null,
-          "listing_country": "FR"
-        },
-        {
-          "name": "PTC",
-          "ticker": null,
+          "name": "ADVANCED DRAINAGE SYSTEMS, INC.",
+          "ticker": "WMS",
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205580,9 +205580,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 131271,
-    "news_picked_today": 862,
-    "news_dropped_today": 13130
+    "news_seen_today": 134045,
+    "news_picked_today": 926,
+    "news_dropped_today": 13186
   },
   "book_momentum": {
     "live_count": 8,
