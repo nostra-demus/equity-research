@@ -1,33 +1,33 @@
 {
-  "generated_at": "2026-10-05T00:31:23Z",
+  "generated_at": "2026-10-05T00:36:13Z",
   "inbox": [
     {
-      "inbox_id": "INB-20261005-032",
-      "headline": "ZXZN QI-HOUSE (08395): DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITION OF 30% OF THE ISSUED SHARE CAPITAL OF THE TARGET COMPANY INVOLVING CASH AND ISSUE OF CONSIDERATION SHARES UNDER GENERAL MANDATE",
+      "inbox_id": "INB-20261005-038",
+      "headline": "ZXZN QI-HOUSE (08395): (1) DISCLOSEABLE AND CONNECTED TRANSACTION IN RELATION TO ACQUISITION OF THE ENTIRE ISSUED SHARE CAPITAL OF THE TARGET COMPANY AND THE ASSIGNMENT OF SHAREHOLDER'S LOAN; AND (2) PLACING OF NEW SHARES UNDER GENERAL MANDATE",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1005/2026100500115.pdf",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1005/2026100500123.pdf",
       "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-05T00:24:00Z",
+      "found_at": "2026-10-05T00:28:00Z",
       "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "The company is acquiring a 30% stake in a target company using cash and shares.",
+      "prelim_note": "ZXZN QI-HOUSE announced a discloseable acquisition and a share placement to fund it.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "The company is acquiring a 30% stake in a target company using cash and shares.",
+      "triage_reason": "ZXZN QI-HOUSE announced a discloseable acquisition and a share placement to fund it.",
       "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 75,
         "source_tier": 8,
         "scope": 5,
         "event": 9,
         "size": -1,
         "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
+        "materiality_label_floor": 0,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
@@ -35,7 +35,8 @@
         "size_bucket": "small"
       },
       "event_types": [
-        "mna"
+        "mna",
+        "capital_actions"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -144,6 +145,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-039",
+      "headline": "France's Schneider Electric nears $20 billion deal to acquire US software group PTC, source says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/frances-schneider-electric-nears-20-billion-deal-buy-us-software-group-ptc-ft-2026-10-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:29:47Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Schneider Electric is reportedly nearing a $20 billion acquisition of PTC.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric is reportedly nearing a $20 billion acquisition of PTC.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "PTC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -284,6 +339,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-042",
+      "headline": "ASX extends gains; CSL strikes exclusive drug deal",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/asx-to-rise-trump-aide-says-powell-should-move-on-from-fed-board-20261005-p612t1?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:33:02Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "CSL has secured an exclusive drug deal, which is a material commercial development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "CSL has secured an exclusive drug deal, which is a material commercial development.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -737,6 +841,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-040",
+      "headline": "Tata's Assam chip unit is almost ready, and a non-China supply chain is in place",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/tata-electronics-assam-semiconductor-chip-plant-11791089738819.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:30:22Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Tata's new semiconductor facility in Assam is nearing completion, signaling progress in supply chain diversification.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Tata's new semiconductor facility in Assam is nearing completion, signaling progress in supply chain diversification.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-012",
       "headline": "QUAM PLUS FIN (00952): DISCLOSEABLE TRANSACTION PROVISION OF FINANCIAL ASSISTANCE",
       "headline_en": null,
@@ -1069,6 +1223,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-043",
+      "headline": "Far East Orchard crosses S$3 billion AUM target with higher stakes in business trust managers",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/far-east-orchard-crosses-s3-billion-aum-target-higher-stakes-business-trust-managers",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:31:54Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Far East Orchard reached a S$3 billion AUM milestone, indicating growth in assets under management.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Far East Orchard reached a S$3 billion AUM milestone, indicating growth in assets under management.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Far East Orchard",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1491,6 +1694,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-041",
+      "headline": "EY India chief seeks easier GST refunds, tax credits",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/ey-india-chief-seeks-easier-gst-refunds-tax-credits/articleshow/134683260.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:14:37Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "EY India is lobbying for tax policy changes, which is routine advocacy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "EY India is lobbying for tax policy changes, which is routine advocacy.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "EY",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-004",
       "headline": "Seatrium and Karpowership Extend Collaboration with Ninth FSRU Conversion",
       "headline_en": null,
@@ -1623,55 +1875,6 @@
         {
           "name": "KLV",
           "ticker": "KLV",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-015",
-      "headline": "SUH: Change of Director's Interest Notice",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SUH?key=2924-03144304-6A1347642",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-05T00:12:20Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Routine disclosure of director shareholding changes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 40,
-      "triage_reason": "Routine disclosure of director shareholding changes.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SUH",
-          "ticker": "SUH",
           "listing_country": null
         }
       ],
@@ -202987,7 +203190,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3243,
+    "inbox_unconsumed": 3247,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -202996,9 +203199,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 115,
-    "news_picked_today": 37,
-    "news_dropped_today": 78
+    "news_seen_today": 138,
+    "news_picked_today": 44,
+    "news_dropped_today": 94
   },
   "book_momentum": {
     "live_count": 8,
