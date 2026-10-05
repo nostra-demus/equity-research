@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T23:00:38Z",
+  "generated_at": "2026-10-05T23:01:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-1020",
@@ -158245,6 +158245,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-ce779af9c495",
+      "idea_version": "IDEAV-2b65a941c2fbecf8",
+      "idea_version_started_at": "2026-10-05T23:00:55Z",
+      "ticker": "LCID",
+      "company": "Lucid Group, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Lucid is cutting production to manage inventory amid a 6.7% decline in Q3 deliveries, signaling weak demand and margin pressure.",
+      "why_now": "The delivery miss and production cuts were reported on 2026-10-05.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 73,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dcda70759d76",
+        "EVT-f6e43275ab08"
+      ],
+      "primary_source_event_id": "EVT-dcda70759d76",
+      "source_headlines": [
+        "Lucid's third-quarter deliveries miss estimates as it cuts output to run down inventory",
+        "Lucid's Q3 deliveries fall 6.7% as EV maker cuts production to align with demand"
+      ],
+      "source_headline": "Lucid's third-quarter deliveries miss estimates as it cuts output to run down inventory",
+      "source_url": "https://www.reuters.com/business/autos-transportation/lucids-third-quarter-deliveries-miss-estimates-it-cuts-output-run-down-inventory-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T20:22:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T23:00:55Z",
+      "updated_at": "2026-10-05T23:00:55Z",
+      "decay_at": "2026-10-07T08:22:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e86bc35b066d",
       "idea_version": "IDEAV-ff617e37f06fb991",
       "idea_version_started_at": "2026-10-05T04:06:14Z",
@@ -158381,6 +158452,76 @@
       "surfaced_at": "2026-10-05T01:35:08Z",
       "updated_at": "2026-10-05T01:35:08Z",
       "decay_at": "2026-10-06T13:18:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-0aed650e01e7",
+      "idea_version": "IDEAV-ee4cf31c9e3136f7",
+      "idea_version_started_at": "2026-10-05T23:00:55Z",
+      "ticker": "OPCH",
+      "company": "Option Care Health, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "McKesson is in advanced talks to acquire Option Care Health for over $5 billion, representing a significant premium to current market valuation.",
+      "why_now": "The deal report surfaced on 2026-10-05 and is currently driving price action.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e0f0cfe9ee43"
+      ],
+      "primary_source_event_id": "EVT-e0f0cfe9ee43",
+      "source_headlines": [
+        "McKesson, CD&R near $5 billion-plus deal to buy Option Care, FT reports"
+      ],
+      "source_headline": "McKesson, CD&R near $5 billion-plus deal to buy Option Care, FT reports",
+      "source_url": "https://www.reuters.com/legal/transactional/mckesson-cdr-near-5-billion-plus-deal-buy-option-care-ft-reports-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T20:46:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T23:00:55Z",
+      "updated_at": "2026-10-05T23:00:55Z",
+      "decay_at": "2026-10-07T08:46:29Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -204716,8 +204857,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1343,
-    "live_count": 61,
+    "surfaced_total": 1345,
+    "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
