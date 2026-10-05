@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T19:44:12Z",
+  "generated_at": "2026-10-05T19:55:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-777",
@@ -161385,77 +161385,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d686c1bc6f60",
-      "idea_version": "IDEAV-8bd7852eb40a6572",
-      "idea_version_started_at": "2026-10-04T08:14:49Z",
-      "ticker": "533122",
-      "company": "India Power Corporation Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is undergoing a Corporate Insolvency Resolution Process (CIRP) and the voting results from the 8th Committee of Creditors meeting indicate a progression toward liquidation or a distressed restructuring that typically wipes out equity value.",
-      "why_now": "The outcome of the 8th CoC meeting was filed with the exchange on October 4, 2026, marking a critical step in the insolvency timeline.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-97820d5ea8e7"
-      ],
-      "primary_source_event_id": "EVT-97820d5ea8e7",
-      "source_headlines": [
-        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 8th (Eighth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
-      ],
-      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 8th (Eighth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_04102026131531_IntimationofOutcomeof8thCoCVotingResults04102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T07:46:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T08:14:49Z",
-      "updated_at": "2026-10-04T08:14:49Z",
-      "decay_at": "2026-10-05T19:46:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b68ebd5b2209",
       "idea_version": "IDEAV-e36f24bb8cb4bd09",
       "idea_version_started_at": "2026-10-05T04:46:37Z",
@@ -164513,6 +164442,77 @@
       "surfaced_at": "2026-10-03T01:50:22Z",
       "updated_at": "2026-10-03T01:50:22Z",
       "decay_at": "2026-10-04T12:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d686c1bc6f60",
+      "idea_version": "IDEAV-8bd7852eb40a6572",
+      "idea_version_started_at": "2026-10-04T08:14:49Z",
+      "ticker": "533122",
+      "company": "India Power Corporation Limited",
+      "exchange": "BSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is undergoing a Corporate Insolvency Resolution Process (CIRP) and the voting results from the 8th Committee of Creditors meeting indicate a progression toward liquidation or a distressed restructuring that typically wipes out equity value.",
+      "why_now": "The outcome of the 8th CoC meeting was filed with the exchange on October 4, 2026, marking a critical step in the insolvency timeline.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-97820d5ea8e7"
+      ],
+      "primary_source_event_id": "EVT-97820d5ea8e7",
+      "source_headlines": [
+        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 8th (Eighth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
+      ],
+      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 8th (Eighth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_04102026131531_IntimationofOutcomeof8thCoCVotingResults04102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T07:46:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T08:14:49Z",
+      "updated_at": "2026-10-04T08:14:49Z",
+      "decay_at": "2026-10-05T19:46:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -168359,9 +168359,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 573,
     "shown_count": 500,
-    "hidden_count": 72,
+    "hidden_count": 73,
     "side_counts": {
       "long": {
         "total_count": 293,
@@ -168369,9 +168369,9 @@
         "hidden_count": 43
       },
       "short": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       }
     },
     "retention": {
@@ -168390,6 +168390,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d686c1bc6f60",
+        "idea_version": "IDEAV-8bd7852eb40a6572",
+        "idea_version_started_at": "2026-10-04T08:14:49Z",
+        "ticker": "533122",
+        "company": "India Power Corporation Limited",
+        "exchange": "BSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company is undergoing a Corporate Insolvency Resolution Process (CIRP) and the voting results from the 8th Committee of Creditors meeting indicate a progression toward liquidation or a distressed restructuring that typically wipes out equity value.",
+        "why_now": "The outcome of the 8th CoC meeting was filed with the exchange on October 4, 2026, marking a critical step in the insolvency timeline.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-97820d5ea8e7"
+        ],
+        "primary_source_event_id": "EVT-97820d5ea8e7",
+        "source_headlines": [
+          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 8th (Eighth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
+        ],
+        "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 8th (Eighth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
+        "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_04102026131531_IntimationofOutcomeof8thCoCVotingResults04102026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-04T07:46:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T08:14:49Z",
+        "updated_at": "2026-10-04T08:14:49Z",
+        "decay_at": "2026-10-05T19:46:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T19:46:36Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3676f1ba3169",
         "idea_version": "IDEAV-11e7da178e827185",
@@ -205493,85 +205567,12 @@
         "archived_at": "2026-09-11T12:00:04Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-85129948d8af",
-        "idea_version": "IDEAV-e15ec643a0a42a39",
-        "idea_version_started_at": "2026-09-08T09:47:09Z",
-        "ticker": "NVS",
-        "company": "Novartis",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The failure of a phase 3 clinical trial for a key asset in a $12 billion acquisition significantly impairs the expected return on investment and future revenue potential of the deal.",
-        "why_now": "The trial failure was reported today, September 8, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a28b54b6b035"
-        ],
-        "primary_source_event_id": "EVT-a28b54b6b035",
-        "source_headlines": [
-          "Novartis’ centerpiece of $12B Avidity buyout flunks ‘crucial’ phase 3 test"
-        ],
-        "source_headline": "Novartis’ centerpiece of $12B Avidity buyout flunks ‘crucial’ phase 3 test",
-        "source_url": "https://www.fiercebiotech.com/biotech/novartis-centerpiece-12b-avidity-buyout-flunks-crucial-phase-3-test",
-        "source_name": "FierceBiotech",
-        "materiality_max": 98,
-        "newest_source_at": "2026-09-08T08:19:20Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-05T08:46:50Z",
-        "updated_at": "2026-09-08T09:47:09Z",
-        "decay_at": "2026-09-09T20:19:20Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T09:10:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1341,
-    "live_count": 69,
+    "live_count": 68,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -205590,9 +205591,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 248718,
-    "news_picked_today": 1950,
-    "news_dropped_today": 18858
+    "news_seen_today": 248928,
+    "news_picked_today": 1957,
+    "news_dropped_today": 18875
   },
   "book_momentum": {
     "live_count": 8,
