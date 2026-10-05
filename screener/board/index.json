@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-05T02:55:37Z",
+  "generated_at": "2026-10-05T03:04:47Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261005-147",
+      "headline": "Sammaan Capital Limited: Sammaan Capital Limited has informed the Exchange regarding 'We wish to provide the following information on a consolidated basis with respect to the quarter ended 30 September 2026: Disbursements during Q2FY27 (quarter ended September 30, 2026) stood at approximately ₹6,000 crore, as compared to ₹3,875 crore in Q1FY27 Business scaled up strongly this quarter. The loan book saw healthy disbursements and collections a reflection of the overall quality of the f",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/IHFL_05102026082750_SCL_Q2FY27_Business_Update.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T02:58:15Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Sammaan Capital reported Q2FY27 disbursements of ₹6,000 crore, up significantly from ₹3,875 crore in Q1FY27.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sammaan Capital reported Q2FY27 disbursements of ₹6,000 crore, up significantly from ₹3,875 crore in Q1FY27.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sammaan Capital",
+          "ticker": "535789",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261005-053",
       "headline": "HAITONG UT HTUTB N2703-R HTUTB N2803-R (01905 84497 85014): TRADING HALT",
@@ -194,6 +243,60 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-148",
+      "headline": "PTC Stock Jumps After Report Says Schneider Electric Nears $20 Bln Deal",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/ptc-stock-jumps-after-report-says-schneider-electric-nears-20-bln-deal",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T02:51:14Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "PTC is reportedly nearing a $20 billion acquisition deal by Schneider Electric.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PTC is reportedly nearing a $20 billion acquisition deal by Schneider Electric.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PTC",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1840,92 +1943,6 @@
         "regulatory"
       ],
       "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-108",
-      "headline": "GST Council may withdraw exemption for banks, nominated agencies on gold, silver imports: Report",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/finance/gst-council-may-withdraw-exemption-banks-nominated-agencies-gold-silver-imports-report-20004307.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T02:10:33Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "The potential withdrawal of GST exemptions on gold and silver imports would increase costs for banks and nominated agencies, impacting margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The potential withdrawal of GST exemptions on gold and silver imports would increase costs for banks and nominated agencies, impacting margins.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-107",
-      "headline": "Trump unveils 'Super Intelligence Force' to oversee AI policy",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cqj6jenp26zyo?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T02:09:44Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "The creation of a new federal body to oversee AI policy represents a significant shift in the regulatory landscape for the technology sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The creation of a new federal body to oversee AI policy represents a significant shift in the regulatory landscape for the technology sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -204178,9 +204195,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 709,
-    "news_picked_today": 156,
-    "news_dropped_today": 553
+    "news_seen_today": 756,
+    "news_picked_today": 162,
+    "news_dropped_today": 594
   },
   "book_momentum": {
     "live_count": 8,
