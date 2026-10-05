@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-05T13:54:00Z",
+  "generated_at": "2026-10-05T14:05:01Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261005-653",
+      "headline": "25-NSE - Qorvo, Inc. (0001604778) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1604778/000135445726000942/0001354457-26-000942-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-05T13:14:55Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Nasdaq filed Form 25-NSE delisting notification for Qorvo, Inc., a regulatory-capital-structure event signaling loss of public listing status and material operational/compliance change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nasdaq filed Form 25-NSE delisting notification for Qorvo, Inc., a regulatory-capital-structure event signaling loss of public listing status and material operational/compliance change.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Qorvo, Inc.",
+          "ticker": "QRVO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261005-634",
       "headline": "Opening of Offer to Buy – Acquisition Window (Delisting) of Voluntary Delisting of Equity Shares of Hitech Corporation Limited",
@@ -1964,60 +2013,6 @@
           "name": "Monte dei Paschi di Siena",
           "ticker": "MPS.MI",
           "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-332",
-      "headline": "Shionogi to Acquire IntraBio for $2 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/shionogi-to-acquire-intrabio-for-2-billion-d1fb2d19?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T07:07:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Shionogi to acquire IntraBio for $2 billion, a significant pharma M&A deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shionogi to acquire IntraBio for $2 billion, a significant pharma M&A deal.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shionogi",
-          "ticker": "4560.T",
-          "listing_country": "JP"
-        },
-        {
-          "name": "IntraBio",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -205562,9 +205557,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 173407,
-    "news_picked_today": 1168,
-    "news_dropped_today": 14720
+    "news_seen_today": 177676,
+    "news_picked_today": 1192,
+    "news_dropped_today": 14768
   },
   "book_momentum": {
     "live_count": 8,
