@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T17:06:38Z",
+  "generated_at": "2026-10-05T17:16:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-777",
@@ -635,6 +635,168 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-891",
+      "headline": "Shionogi to buy US-based IntraBio for $2bn to expand rare disease drug business",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/pharmaceuticals/shionogi-to-buy-us-based-intrabio-for-2bn-to-expand-rare-disease-drug-business",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T16:58:56Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Shionogi is acquiring IntraBio for $2 billion to expand its rare disease drug portfolio.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shionogi is acquiring IntraBio for $2 billion to expand its rare disease drug portfolio.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shionogi",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "IntraBio",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-890",
+      "headline": "iRhythm acquires VitalConnect in $237.5M all-cash deal",
+      "headline_en": null,
+      "url": "https://www.fiercehealthcare.com/finance/irhythm-acquires-vitalconnect-2375m-all-cash-deal",
+      "source_name": "Fierce Healthcare",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T16:58:52Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "iRhythm is acquiring VitalConnect for $237.5 million in an all-cash deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "iRhythm is acquiring VitalConnect for $237.5 million in an all-cash deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "iRhythm Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "VitalConnect",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-896",
+      "headline": "C.H. Robinson to buy RXO for $5.8 billion, pushing into last-mile delivery",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/ch-robinson-buy-freight-broker-rxo-58-billion-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T16:34:05Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "C.H. Robinson is acquiring RXO for $5.8 billion to expand into last-mile delivery.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "C.H. Robinson is acquiring RXO for $5.8 billion to expand into last-mile delivery.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C.H. Robinson",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "RXO",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1859,163 +2021,6 @@
       "companies": [
         {
           "name": "GE HealthCare",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-673",
-      "headline": "BT rescues rival TalkTalk from administration",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/uks-bt-group-acquires-talktalk-out-administration-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T13:09:46Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "BT is acquiring TalkTalk out of administration, a significant consolidation event in the UK telecom sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BT is acquiring TalkTalk out of administration, a significant consolidation event in the UK telecom sector.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BT",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "TalkTalk",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-675",
-      "headline": "AkzoNobel to sell decorative paints business in South-East Asia to Nippon Paint for $1.35 bn",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/akzonobel-to-sell-decorative-paints-business-in-south-east-asia-to-nippon-paint-for-135-bn/article71547314.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T13:08:26Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "AkzoNobel is selling its South-East Asian decorative paints business to Nippon Paint for $1.35 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AkzoNobel is selling its South-East Asian decorative paints business to Nippon Paint for $1.35 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AkzoNobel",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Nippon Paint",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-680",
-      "headline": "Prismic Life Announces $5 Bln Reinsurance Deal With Prudential Financial",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/prismic-life-announces-5-bln-reinsurance-deal-prudential-financial",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T13:01:36Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Prismic Life entered a $5 billion reinsurance deal with Prudential Financial.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Prismic Life entered a $5 billion reinsurance deal with Prudential Financial.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prudential Financial",
           "ticker": null,
           "listing_country": "US"
         }
@@ -205569,9 +205574,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 224523,
-    "news_picked_today": 1595,
-    "news_dropped_today": 16957
+    "news_seen_today": 229167,
+    "news_picked_today": 1613,
+    "news_dropped_today": 16987
   },
   "book_momentum": {
     "live_count": 8,
