@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-09T23:03:03Z",
+  "archived_at": "2026-10-05T20:12:25Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-7aec883d8fe6",
-    "idea_version": "IDEAV-f0cb70b0ff20bd16",
-    "idea_version_started_at": "2026-09-06T22:34:34Z",
-    "ticker": "INA",
-    "company": "Ingenia Communities Group",
-    "exchange": "ASX",
+    "idea_id": "IDEA-0157f621dab9",
+    "idea_version": "IDEAV-76e7c56cd73c4042",
+    "idea_version_started_at": "2026-10-03T06:51:27Z",
+    "ticker": "VLVLY",
+    "company": "Volvo Car",
+    "exchange": "NASDAQ",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "Ingenia has formally rejected a non-binding indicative takeover offer, removing the near-term acquisition premium that was supporting the stock price.",
-    "why_now": "The rejection was officially disclosed in an ASX filing on September 6, 2026, which will trigger immediate downward pressure when the market opens.",
+    "reason": "The withdrawal of financial guidance due to deteriorating conditions in the Chinese auto market signals significant near-term margin compression and volume risk.",
+    "why_now": "The guidance withdrawal was announced on 2026-10-02, creating an immediate catalyst for re-rating.",
     "conviction": 75,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 19,
+      "evidence": 14,
+      "impact": 20,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-c2bcc51ec2f9"
+      "EVT-28ee22cd8bb6"
     ],
-    "primary_source_event_id": "EVT-c2bcc51ec2f9",
+    "primary_source_event_id": "EVT-28ee22cd8bb6",
     "source_headlines": [
-      "INA: Ingenia Rejects Non-Binding Indicative Offer [price-sensitive]"
+      "Volvo Car Pulls Guidance as Chinese Auto Market Worsens"
     ],
-    "source_headline": "INA: Ingenia Rejects Non-Binding Indicative Offer [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03132246-2A1695539",
-    "source_name": "ASX (Australia Exchange Filing)",
+    "source_headline": "Volvo Car Pulls Guidance as Chinese Auto Market Worsens",
+    "source_url": "https://www.wsj.com/business/earnings/volvo-car-pulls-guidance-as-chinese-auto-market-worsen-e72ca14f?mod=pls_whats_news_us_business_f",
+    "source_name": "The Wall Street Journal",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-06T22:27:10Z",
+    "newest_source_at": "2026-10-02T14:22:00Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-06T22:34:34Z",
-    "updated_at": "2026-09-06T22:34:34Z",
-    "decay_at": "2026-09-08T10:27:10Z",
+    "surfaced_at": "2026-10-02T21:12:37Z",
+    "updated_at": "2026-10-03T06:51:27Z",
+    "decay_at": "2026-10-04T02:22:00Z",
     "status": "live",
     "promoted_signal_id": null
   }

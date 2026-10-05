@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-17T22:39:02Z",
+  "archived_at": "2026-10-05T20:12:25Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-6c40bd4eca2b",
-    "idea_version": "IDEAV-f9232ba0b39969a9",
-    "idea_version_started_at": "2026-09-15T03:13:27Z",
-    "ticker": "NWL",
-    "company": "Netwealth",
-    "exchange": "ASX",
+    "idea_id": "IDEA-c293b0c4a5d4",
+    "idea_version": "IDEAV-2750ca3bdbc60c7f",
+    "idea_version_started_at": "2026-10-03T01:29:52Z",
+    "ticker": "BAYN",
+    "company": "Bayer AG",
+    "exchange": "XETRA",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "The acquisition of Paradino allows the company to scale its platform assets and increase its market share in the wealth management sector.",
-    "why_now": "The acquisition was announced via an investor presentation on 2026-09-14.",
-    "conviction": 60,
+    "reason": "Bayer is investing $2.2 billion in a new US plant to capture growth in its fastest-growing market, expanding its long-term production capacity and regional footprint.",
+    "why_now": "The announcement of this major $2.2 billion capital expenditure commitment acts as a live directional catalyst.",
+    "conviction": 55,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 19,
       "specificity": 7,
       "timing": 10,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-b34194ce3455"
+      "EVT-34e30d7673d7"
     ],
-    "primary_source_event_id": "EVT-b34194ce3455",
+    "primary_source_event_id": "EVT-34e30d7673d7",
     "source_headlines": [
-      "NWL: Netwealth to acquire Paradino (Investor Presentation) [price-sensitive]"
+      "USA: 'Fastest-growing market' — Bayer invests $2.2 billion in new US plant"
     ],
-    "source_headline": "NWL: Netwealth to acquire Paradino (Investor Presentation) [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NWL?key=2924-03135358-3A701726",
-    "source_name": "ASX (Australia Exchange Filing)",
+    "source_headline": "USA: „Am schnellsten wachsender Markt“ – Bayer investiert 2,2 Milliarden Dollar in neues US-Werk",
+    "source_url": "https://www.handelsblatt.com/unternehmen/industrie/usa-bayer-investiert-22-milliarden-dollar-in-neues-us-werk/100259162.html",
+    "source_name": "Handelsblatt",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-14T21:59:49Z",
+    "newest_source_at": "2026-10-02T19:10:06Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-15T03:13:27Z",
-    "updated_at": "2026-09-15T03:13:27Z",
-    "decay_at": "2026-09-16T09:59:49Z",
+    "surfaced_at": "2026-10-03T01:29:52Z",
+    "updated_at": "2026-10-03T01:29:52Z",
+    "decay_at": "2026-10-04T07:10:06Z",
     "status": "live",
     "promoted_signal_id": null
   }
