@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T01:35:39Z",
+  "generated_at": "2026-10-05T01:44:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-053",
@@ -746,6 +746,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-090",
+      "headline": "HMSI flags pressure from rising costs",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/hmsi-flags-pressure-from-rising-costs/articleshow/134683491.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T01:21:11Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Honda Motorcycle and Scooter India (HMSI) reported margin pressure due to rising input costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Honda Motorcycle and Scooter India (HMSI) reported margin pressure due to rising input costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honda Motorcycle and Scooter India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-089",
+      "headline": "Bajaj Housing Finance shares in focus after all key metrics grow in excess of 20% in Q2",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/bajaj-housing-finance-share-price-q2-update-all-key-metrics-grow-in-excess-of-20-pc-20004266.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T01:31:41Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Bajaj Housing Finance reported growth exceeding 20% across all key metrics in Q2, indicating strong operational performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Bajaj Housing Finance reported growth exceeding 20% across all key metrics in Q2, indicating strong operational performance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Housing Finance",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1809,98 +1907,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-016",
-      "headline": "XAR: Final September 2026 Quarterly Distribution [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.XAR?key=2924-03144303-2A1701754",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-05T00:07:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Announcement of a quarterly distribution for the fund.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Announcement of a quarterly distribution for the fund.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XAR",
-          "ticker": "XAR",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-086",
-      "headline": "Oil Prices On Oct. 5: Brent Crude Climbs 1% To Hit $103 After Yemeni Houthi Attacks Saudi Energy Facilities",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/oil-prices-on-oct-5-brent-crude-climbs-1-to-hit-103-after-yemeni-houthi-attacks-saudi-energy-facilities-12138775#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:15:56Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Oil prices rose 1% to $103 following attacks on Saudi energy facilities, indicating a supply risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Oil prices rose 1% to $103 following attacks on Saudi energy facilities, indicating a supply risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -158335,76 +158341,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-eaf659086da7",
-      "idea_version": "IDEAV-904be450c0383ddf",
-      "idea_version_started_at": "2026-10-03T13:50:18Z",
-      "ticker": "VST",
-      "company": "Vistra Corp",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is set to receive a $4.2 billion government loan to expand nuclear power generation capacity, which will significantly increase its long-term baseload energy output and revenue potential.",
-      "why_now": "The report of the $4.2 billion loan facility is a fresh catalyst as of October 3, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f787cfd24118"
-      ],
-      "primary_source_event_id": "EVT-f787cfd24118",
-      "source_headlines": [
-        "US to lend $4.2 billion to Vistra to boost nuclear power output, source says"
-      ],
-      "source_headline": "US to lend $4.2 billion to Vistra to boost nuclear power output, source says",
-      "source_url": "https://www.reuters.com/legal/litigation/us-lend-42-billion-vistra-boost-nuclear-power-output-source-says-2026-10-03/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-03T13:35:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T13:50:18Z",
-      "updated_at": "2026-10-03T13:50:18Z",
-      "decay_at": "2026-10-05T01:35:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bb6c79ef8ffe",
       "idea_version": "IDEAV-694c2576100cd2a2",
       "idea_version_started_at": "2026-10-05T01:35:08Z",
@@ -162632,6 +162568,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-eaf659086da7",
+      "idea_version": "IDEAV-904be450c0383ddf",
+      "idea_version_started_at": "2026-10-03T13:50:18Z",
+      "ticker": "VST",
+      "company": "Vistra Corp",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is set to receive a $4.2 billion government loan to expand nuclear power generation capacity, which will significantly increase its long-term baseload energy output and revenue potential.",
+      "why_now": "The report of the $4.2 billion loan facility is a fresh catalyst as of October 3, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f787cfd24118"
+      ],
+      "primary_source_event_id": "EVT-f787cfd24118",
+      "source_headlines": [
+        "US to lend $4.2 billion to Vistra to boost nuclear power output, source says"
+      ],
+      "source_headline": "US to lend $4.2 billion to Vistra to boost nuclear power output, source says",
+      "source_url": "https://www.reuters.com/legal/litigation/us-lend-42-billion-vistra-boost-nuclear-power-output-source-says-2026-10-03/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T13:35:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T13:50:18Z",
+      "updated_at": "2026-10-03T13:50:18Z",
+      "decay_at": "2026-10-05T01:35:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-ea338eeb2104",
       "idea_version": "IDEAV-21c2c01f6727e365",
       "idea_version_started_at": "2026-10-03T01:50:22Z",
@@ -166297,14 +166303,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 552,
+    "total_count": 553,
     "shown_count": 500,
-    "hidden_count": 52,
+    "hidden_count": 53,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
         "total_count": 273,
@@ -166328,6 +166334,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-eaf659086da7",
+        "idea_version": "IDEAV-904be450c0383ddf",
+        "idea_version_started_at": "2026-10-03T13:50:18Z",
+        "ticker": "VST",
+        "company": "Vistra Corp",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is set to receive a $4.2 billion government loan to expand nuclear power generation capacity, which will significantly increase its long-term baseload energy output and revenue potential.",
+        "why_now": "The report of the $4.2 billion loan facility is a fresh catalyst as of October 3, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f787cfd24118"
+        ],
+        "primary_source_event_id": "EVT-f787cfd24118",
+        "source_headlines": [
+          "US to lend $4.2 billion to Vistra to boost nuclear power output, source says"
+        ],
+        "source_headline": "US to lend $4.2 billion to Vistra to boost nuclear power output, source says",
+        "source_url": "https://www.reuters.com/legal/litigation/us-lend-42-billion-vistra-boost-nuclear-power-output-source-says-2026-10-03/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-03T13:35:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T13:50:18Z",
+        "updated_at": "2026-10-03T13:50:18Z",
+        "decay_at": "2026-10-05T01:35:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T01:35:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2e0f3a053283",
         "idea_version": "IDEAV-e90613ae4ff0e1a5",
@@ -195312,79 +195391,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-f6e3545f1ed7",
-        "idea_version": "IDEAV-28d835cb4302b991",
-        "idea_version_started_at": "2026-09-17T11:22:21Z",
-        "ticker": "BEZ.DE",
-        "company": "Berentzen-Gruppe",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company confirmed takeover talks with Sazerac, which typically results in a significant premium over the pre-announcement trading price.",
-        "why_now": "The confirmation of talks occurred on 2026-09-17, making this a live M&A event.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-bc3a2a4a0c7e"
-        ],
-        "primary_source_event_id": "EVT-bc3a2a4a0c7e",
-        "source_headlines": [
-          "Berentzen shares soar after it confirms talks over potential takeover by Sazerac"
-        ],
-        "source_headline": "Berentzen shares soar after it confirms talks over potential takeover by Sazerac",
-        "source_url": "https://www.reuters.com/business/berentzen-shares-soar-after-it-confirms-talks-over-potential-takeover-by-sazerac-2026-09-17/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-17T07:30:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-17T11:22:21Z",
-        "updated_at": "2026-09-17T11:22:21Z",
-        "decay_at": "2026-09-18T19:30:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-20T11:25:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-163e0fa1bed7",
         "idea_version": "IDEAV-f9413c81707f9e13",
         "idea_version_started_at": "2026-09-17T11:22:21Z",
@@ -203490,7 +203496,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1313,
-    "live_count": 62,
+    "live_count": 61,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
