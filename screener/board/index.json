@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T16:56:13Z",
+  "generated_at": "2026-10-05T17:06:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-777",
@@ -1469,6 +1469,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-867",
+      "headline": "Trent Q2 Update: Revenue rises 23% to ₹5,788 crore; Zudio crosses 1,000 stores",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/trent-share-price-q2-update-revenue-rises-23-to-rs-5788-crore-zudio-crosses-1000-stores-20004898.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T13:48:24Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Trent reported a 23% revenue increase to ₹5,788 crore and significant retail expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trent reported a 23% revenue increase to ₹5,788 crore and significant retail expansion.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trent",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-818",
       "headline": "Caterpillar and Ultium Cells make $1B facility investments",
       "headline_en": null,
@@ -1614,6 +1663,56 @@
           "name": "Grindr",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-881",
+      "headline": "ADNOC signs LNG deal to supply 2 million tonnes to Thailand from 2027",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/energy/adnoc-signs-lng-deal-to-supply-2-million-tonnes-to-thailand-from-2027-1.500699145",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T13:20:27Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "ADNOC signed a major LNG supply deal for 2 million tonnes annually to Thailand starting in 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ADNOC signed a major LNG supply deal for 2 million tonnes annually to Thailand starting in 2027.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ADNOC",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1917,109 +2016,6 @@
       "companies": [
         {
           "name": "Prudential Financial",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-678",
-      "headline": "Suncor selling off stakes in N.L.’s Terra Nova, White Rose and West White Rose for $1.2B",
-      "headline_en": null,
-      "url": "https://www.cbc.ca/news/canada/newfoundland-labrador/suncor-ithaca-nl-oilfields-9.7369186?cmp=rss",
-      "source_name": "CBC — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T12:58:12Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Suncor is divesting assets for $1.2 billion, a significant capital transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Suncor is divesting assets for $1.2 billion, a significant capital transaction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suncor Energy",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-652",
-      "headline": "C.H. Robinson to buy freight broker RXO for $5.8 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/ch-robinson-buy-freight-broker-rxo-58-billion-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T12:51:01Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "C.H. Robinson is acquiring RXO for $5.8 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "C.H. Robinson is acquiring RXO for $5.8 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "C.H. Robinson",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "RXO",
           "ticker": null,
           "listing_country": "US"
         }
@@ -205573,9 +205569,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 222673,
-    "news_picked_today": 1561,
-    "news_dropped_today": 16847
+    "news_seen_today": 224523,
+    "news_picked_today": 1595,
+    "news_dropped_today": 16957
   },
   "book_momentum": {
     "live_count": 8,
