@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T11:27:03Z",
+  "generated_at": "2026-10-05T11:38:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-356",
@@ -1667,6 +1667,114 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-504",
+      "headline": "BT buys struggling rival TalkTalk out of administration",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/27d5abde-c1cd-4dc1-932f-4812a41a66c4",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T06:36:39Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "BT Group acquires TalkTalk out of administration, a significant consolidation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BT Group acquires TalkTalk out of administration, a significant consolidation event.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BT Group",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "TalkTalk",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-514",
+      "headline": "BT Buys TalkTalk to Avert Collapse of UK Broadband Provider",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-05/bt-buys-talktalk-to-save-uk-broadband-provider-from-collapse",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T06:27:34Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "BT Group acquires TalkTalk to avert the distressed UK broadband provider's collapse and eliminate a competitor.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BT Group acquires TalkTalk to avert the distressed UK broadband provider's collapse and eliminate a competitor.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BT Group",
+          "ticker": "BT.L",
+          "listing_country": "GB"
+        },
+        {
+          "name": "TalkTalk Telecom Group",
+          "ticker": "TALK.L",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-324",
       "headline": "Elektronik: Schneider Electric kündigt Milliardenübernahme von PTC an",
       "headline_en": "Electronics: Schneider Electric announces multi-billion acquisition of PTC",
@@ -1924,114 +2032,6 @@
           "name": "PTC",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-284",
-      "headline": "BT closes in on deal for embattled TalkTalk",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/27d5abde-c1cd-4dc1-932f-4812a41a66c4",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T05:11:07Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "BT is nearing a deal to acquire TalkTalk, a major consolidation in the UK telecom sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BT is nearing a deal to acquire TalkTalk, a major consolidation in the UK telecom sector.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BT Group",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "TalkTalk",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-310",
-      "headline": "Schneider Electric Expands in AI With $22.6 Billion PTC Purchase",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-05/schneider-electric-to-acquire-ptc-for-more-than-20-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T05:11:05Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Schneider Electric announced a $22.6 billion acquisition of PTC to expand its AI capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Schneider Electric announced a $22.6 billion acquisition of PTC to expand its AI capabilities.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schneider Electric",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "PTC",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -205580,9 +205580,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 129619,
-    "news_picked_today": 793,
-    "news_dropped_today": 12959
+    "news_seen_today": 129836,
+    "news_picked_today": 843,
+    "news_dropped_today": 13101
   },
   "book_momentum": {
     "live_count": 8,
