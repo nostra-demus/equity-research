@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T18:56:11Z",
+  "generated_at": "2026-10-05T19:02:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-777",
@@ -792,6 +792,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-981",
+      "headline": "National Bank of Egypt 2025 net profit rises to EGP 175.5bn",
+      "headline_en": null,
+      "url": "https://www.dailynewsegypt.com/2026/10/05/national-bank-of-egypt-2025-net-profit-rises-to-egp-175-5bn/",
+      "source_name": "Daily News Egypt — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T17:48:50Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "National Bank of Egypt reported a significant net profit of EGP 175.5bn.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "National Bank of Egypt reported a significant net profit of EGP 175.5bn.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Bank of Egypt",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1981,60 +2030,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-731",
-      "headline": "Curaleaf sweetens offer to buy rival Aurora Cannabis",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-curaleaf-aurora-cannabis-takeover-offer/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T14:31:12Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Curaleaf is attempting to acquire rival Aurora Cannabis, a significant consolidation event in the sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Curaleaf is attempting to acquire rival Aurora Cannabis, a significant consolidation event in the sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Curaleaf",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Aurora Cannabis",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205594,9 +205589,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 244860,
-    "news_picked_today": 1822,
-    "news_dropped_today": 18338
+    "news_seen_today": 245280,
+    "news_picked_today": 1840,
+    "news_dropped_today": 18392
   },
   "book_momentum": {
     "live_count": 8,
