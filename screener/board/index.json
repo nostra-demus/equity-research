@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T17:55:15Z",
+  "generated_at": "2026-10-05T18:06:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-777",
@@ -1047,6 +1047,111 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-950",
+      "headline": "Amazon, Constellation sign 20-year PPA to expand Maryland nuclear plant",
+      "headline_en": null,
+      "url": "https://www.utilitydive.com/news/amazon-constellation-sign-20-year-ppa-to-expand-maryland-nuclear-plant/832145/",
+      "source_name": "Utility Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T16:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Amazon and Constellation Energy signed a 20-year power purchase agreement to expand a nuclear plant, representing a significant infrastructure and energy capacity investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amazon and Constellation Energy signed a 20-year power purchase agreement to expand a nuclear plant, representing a significant infrastructure and energy capacity investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Constellation Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-956",
+      "headline": "Oprah-backed chain files Chapter 11, closes 12 restaurants",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/breaking-news-health-food-chain-files-chapter-11-closes-12-restaurants",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T15:39:30Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Oprah-backed restaurant chain filed for Chapter 11 bankruptcy and is closing 12 locations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oprah-backed restaurant chain filed for Chapter 11 bankruptcy and is closing 12 locations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "True Food Kitchen",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-778",
       "headline": "Italian bank Intesa's improved €35 billion bid for MPS wins backing of biggest investor",
       "headline_en": null,
@@ -1925,109 +2030,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-867",
-      "headline": "Trent Q2 Update: Revenue rises 23% to ₹5,788 crore; Zudio crosses 1,000 stores",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/trent-share-price-q2-update-revenue-rises-23-to-rs-5788-crore-zudio-crosses-1000-stores-20004898.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T13:48:24Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Trent reported a 23% revenue increase to ₹5,788 crore and significant retail expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Trent reported a 23% revenue increase to ₹5,788 crore and significant retail expansion.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Trent",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-818",
-      "headline": "Caterpillar and Ultium Cells make $1B facility investments",
-      "headline_en": null,
-      "url": "https://www.constructiondive.com/news/caterpillar-ultium-cells-1b-facility-investments-avio-usa-genentech/832097/",
-      "source_name": "Construction Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T13:47:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Caterpillar and Ultium Cells are making $1 billion facility investments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Caterpillar and Ultium Cells are making $1 billion facility investments.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Caterpillar",
-          "ticker": "CAT",
-          "listing_country": "US"
-        },
-        {
-          "name": "Ultium Cells",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -159656,76 +159658,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-51f337afe9cd",
-      "idea_version": "IDEAV-e25a7694ce5c100d",
-      "idea_version_started_at": "2026-10-04T07:06:51Z",
-      "ticker": "VEDL.NS",
-      "company": "Vedanta",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Vedanta reported a significant 26% jump in power sales in Q2, indicating strong operational performance and revenue growth.",
-      "why_now": "Vedanta's power sales jumped 26% to 5,593 Million Units in Q2.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-65d5c8747e03"
-      ],
-      "primary_source_event_id": "EVT-65d5c8747e03",
-      "source_headlines": [
-        "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2"
-      ],
-      "source_headline": "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2",
-      "source_url": "https://www.outlookbusiness.com/corporate/vedanta-power-sales-jump-26-to-5593-million-units-in-q2",
-      "source_name": "Outlook Business",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-04T06:04:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T07:06:51Z",
-      "updated_at": "2026-10-04T07:06:51Z",
-      "decay_at": "2026-10-05T18:04:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-93087d826f00",
       "idea_version": "IDEAV-644521b1a793869c",
       "idea_version_started_at": "2026-10-05T02:42:33Z",
@@ -163040,78 +162972,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-839f0c1525a6",
-      "idea_version": "IDEAV-bfe9d1a7f10881be",
-      "idea_version_started_at": "2026-10-04T06:44:55Z",
-      "ticker": "VEDL",
-      "company": "Vedanta",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A 26% year-over-year increase in power sales volume indicates strong operational momentum and revenue growth for the company's energy division.",
-      "why_now": "The Q2 sales data was released on 2026-10-04.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-65d5c8747e03"
-      ],
-      "primary_source_event_id": "EVT-65d5c8747e03",
-      "source_headlines": [
-        "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2"
-      ],
-      "source_headline": "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2",
-      "source_url": "https://www.outlookbusiness.com/corporate/vedanta-power-sales-jump-26-to-5593-million-units-in-q2",
-      "source_name": "Outlook Business",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-04T06:04:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T01:50:22Z",
-      "updated_at": "2026-10-04T06:44:55Z",
-      "decay_at": "2026-10-05T18:04:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9267af00f480",
       "idea_version": "IDEAV-d719f559ae790718",
       "idea_version_started_at": "2026-10-05T03:26:33Z",
@@ -164667,6 +164527,76 @@
       "surfaced_at": "2026-10-04T00:15:36Z",
       "updated_at": "2026-10-04T00:15:36Z",
       "decay_at": "2026-10-04T19:08:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-51f337afe9cd",
+      "idea_version": "IDEAV-e25a7694ce5c100d",
+      "idea_version_started_at": "2026-10-04T07:06:51Z",
+      "ticker": "VEDL.NS",
+      "company": "Vedanta",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Vedanta reported a significant 26% jump in power sales in Q2, indicating strong operational performance and revenue growth.",
+      "why_now": "Vedanta's power sales jumped 26% to 5,593 Million Units in Q2.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-65d5c8747e03"
+      ],
+      "primary_source_event_id": "EVT-65d5c8747e03",
+      "source_headlines": [
+        "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2"
+      ],
+      "source_headline": "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2",
+      "source_url": "https://www.outlookbusiness.com/corporate/vedanta-power-sales-jump-26-to-5593-million-units-in-q2",
+      "source_name": "Outlook Business",
+      "materiality_max": 88,
+      "newest_source_at": "2026-10-04T06:04:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T07:06:51Z",
+      "updated_at": "2026-10-04T07:06:51Z",
+      "decay_at": "2026-10-05T18:04:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -167911,6 +167841,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-839f0c1525a6",
+      "idea_version": "IDEAV-bfe9d1a7f10881be",
+      "idea_version_started_at": "2026-10-04T06:44:55Z",
+      "ticker": "VEDL",
+      "company": "Vedanta",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A 26% year-over-year increase in power sales volume indicates strong operational momentum and revenue growth for the company's energy division.",
+      "why_now": "The Q2 sales data was released on 2026-10-04.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-65d5c8747e03"
+      ],
+      "primary_source_event_id": "EVT-65d5c8747e03",
+      "source_headlines": [
+        "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2"
+      ],
+      "source_headline": "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2",
+      "source_url": "https://www.outlookbusiness.com/corporate/vedanta-power-sales-jump-26-to-5593-million-units-in-q2",
+      "source_name": "Outlook Business",
+      "materiality_max": 88,
+      "newest_source_at": "2026-10-04T06:04:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T01:50:22Z",
+      "updated_at": "2026-10-04T06:44:55Z",
+      "decay_at": "2026-10-05T18:04:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-0ee45ba091ad",
       "idea_version": "IDEAV-2a729f0e47da2915",
       "idea_version_started_at": "2026-10-03T09:06:45Z",
@@ -168356,14 +168358,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 565,
+    "total_count": 567,
     "shown_count": 500,
-    "hidden_count": 65,
+    "hidden_count": 67,
     "side_counts": {
       "long": {
-        "total_count": 289,
+        "total_count": 291,
         "shown_count": 250,
-        "hidden_count": 39
+        "hidden_count": 41
       },
       "short": {
         "total_count": 276,
@@ -168387,6 +168389,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-51f337afe9cd",
+        "idea_version": "IDEAV-e25a7694ce5c100d",
+        "idea_version_started_at": "2026-10-04T07:06:51Z",
+        "ticker": "VEDL.NS",
+        "company": "Vedanta",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Vedanta reported a significant 26% jump in power sales in Q2, indicating strong operational performance and revenue growth.",
+        "why_now": "Vedanta's power sales jumped 26% to 5,593 Million Units in Q2.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-65d5c8747e03"
+        ],
+        "primary_source_event_id": "EVT-65d5c8747e03",
+        "source_headlines": [
+          "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2"
+        ],
+        "source_headline": "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2",
+        "source_url": "https://www.outlookbusiness.com/corporate/vedanta-power-sales-jump-26-to-5593-million-units-in-q2",
+        "source_name": "Outlook Business",
+        "materiality_max": 88,
+        "newest_source_at": "2026-10-04T06:04:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T07:06:51Z",
+        "updated_at": "2026-10-04T07:06:51Z",
+        "decay_at": "2026-10-05T18:04:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T18:04:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-839f0c1525a6",
+        "idea_version": "IDEAV-bfe9d1a7f10881be",
+        "idea_version_started_at": "2026-10-04T06:44:55Z",
+        "ticker": "VEDL",
+        "company": "Vedanta",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A 26% year-over-year increase in power sales volume indicates strong operational momentum and revenue growth for the company's energy division.",
+        "why_now": "The Q2 sales data was released on 2026-10-04.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-65d5c8747e03"
+        ],
+        "primary_source_event_id": "EVT-65d5c8747e03",
+        "source_headlines": [
+          "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2"
+        ],
+        "source_headline": "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2",
+        "source_url": "https://www.outlookbusiness.com/corporate/vedanta-power-sales-jump-26-to-5593-million-units-in-q2",
+        "source_name": "Outlook Business",
+        "materiality_max": 88,
+        "newest_source_at": "2026-10-04T06:04:01Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T01:50:22Z",
+        "updated_at": "2026-10-04T06:44:55Z",
+        "decay_at": "2026-10-05T18:04:01Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T18:04:01Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d9c194e5e146",
         "idea_version": "IDEAV-339c00c3d7acec96",
@@ -197381,151 +197531,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-9f47945c8197",
-        "idea_version": "IDEAV-d0c08bad9fd4fb9d",
-        "idea_version_started_at": "2026-09-18T00:48:37Z",
-        "ticker": "LMT",
-        "company": "Lockheed Martin",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The U.S. State Department's approval of a $24 billion sale of 48 F-35A aircraft to Saudi Arabia provides a significant, long-term revenue tailwind for the primary manufacturer.",
-        "why_now": "The approval was officially announced on September 17, 2026, initiating the formal sales process.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-25b5d1e1f526"
-        ],
-        "primary_source_event_id": "EVT-25b5d1e1f526",
-        "source_headlines": [
-          "State Department Approves More Than $24 Billion Sale of 48 F-35As to Saudi Arabia"
-        ],
-        "source_headline": "State Department Approves More Than $24 Billion Sale of 48 F-35As to Saudi Arabia",
-        "source_url": "https://www.defensedaily.com/state-department-approves-more-than-24-billion-sale-of-48-f-35as-to-saudi-arabia/air-force/",
-        "source_name": "Defense Daily",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-17T23:21:35Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-18T00:48:37Z",
-        "updated_at": "2026-09-18T00:48:37Z",
-        "decay_at": "2026-09-19T11:21:35Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-20T23:21:45Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-abd218ca6c78",
-        "idea_version": "IDEAV-a76c716dcc418656",
-        "idea_version_started_at": "2026-09-17T22:38:57Z",
-        "ticker": "RGR",
-        "company": "Sturm Ruger & Co Inc",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The filing of a third-party tender offer by Beretta Holding indicates a potential acquisition or significant stake accumulation, which typically drives a premium for the target company's shares.",
-        "why_now": "The SC TO-T filing was submitted on 2026-09-17, signaling immediate market-moving M&A activity.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-112ff420bf0e"
-        ],
-        "primary_source_event_id": "EVT-112ff420bf0e",
-        "source_headlines": [
-          "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)"
-        ],
-        "source_headline": "SC TO-T - Beretta Holding S.A. (0002086731) (Filed by)",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/2086731/000119380526001242/0001193805-26-001242-index.htm",
-        "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-17T20:05:58Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-17T21:24:23Z",
-        "updated_at": "2026-09-17T22:38:57Z",
-        "decay_at": "2026-09-19T08:05:58Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-20T20:17:22Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-d10a45580c7f",
         "idea_version": "IDEAV-8d5ad6a0e2dfb984",
         "idea_version_started_at": "2026-09-17T20:23:46Z",
@@ -205558,7 +205563,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1341,
-    "live_count": 76,
+    "live_count": 74,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -205577,9 +205582,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 237369,
-    "news_picked_today": 1691,
-    "news_dropped_today": 17485
+    "news_seen_today": 238980,
+    "news_picked_today": 1722,
+    "news_dropped_today": 17622
   },
   "book_momentum": {
     "live_count": 8,
