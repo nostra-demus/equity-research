@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T14:55:11Z",
+  "generated_at": "2026-10-05T15:03:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-653",
@@ -1259,6 +1259,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-709",
+      "headline": "BT rescues TalkTalk from collapse amid worries over national security threat",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/lisa-nandy-virgin-media-cma-salford-greater-manchester-b3061437.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T11:46:51Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "BT Group is acquiring TalkTalk's customer base to prevent its collapse, representing a significant consolidation in the UK telecom sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BT Group is acquiring TalkTalk's customer base to prevent its collapse, representing a significant consolidation in the UK telecom sector.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BT Group",
+          "ticker": null,
+          "listing_country": "GB"
+        },
+        {
+          "name": "TalkTalk",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-633",
       "headline": "India’s BPCL plans $3 billion bond sale to fund Brazil oil bet",
       "headline_en": null,
@@ -1955,60 +2009,6 @@
           "name": "TalkTalk Telecom Group plc",
           "ticker": "TALK.L",
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-345",
-      "headline": "Top Monte dei Paschi investor backs Intesa’s sweetened €34.5bn takeover bid",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/0d3884be-a2c4-4914-a0a2-f22af8ef3857?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T08:11:29Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "A major investor supports a €34.5bn takeover bid for Monte dei Paschi by Intesa, a significant M&A development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A major investor supports a €34.5bn takeover bid for Monte dei Paschi by Intesa, a significant M&A development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Monte dei Paschi di Siena",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Intesa Sanpaolo",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -205556,9 +205556,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 190646,
-    "news_picked_today": 1302,
-    "news_dropped_today": 15450
+    "news_seen_today": 191724,
+    "news_picked_today": 1321,
+    "news_dropped_today": 15551
   },
   "book_momentum": {
     "live_count": 8,
