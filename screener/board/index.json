@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T17:16:17Z",
+  "generated_at": "2026-10-05T17:33:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-777",
@@ -949,6 +949,60 @@
       "companies": [
         {
           "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-901",
+      "headline": "GE HealthCare to acquire Sofie Biosciences for $945M",
+      "headline_en": null,
+      "url": "https://www.medtechdive.com/news/ge-healthcare-to-acquire-sofie-biosciences-for-945m/832148/",
+      "source_name": "MedTech Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T15:22:56Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "GE HealthCare to acquire Sofie Biosciences for $945M — a named M&A transaction with quantified deal value affecting buyer's capital structure and strategic positioning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE HealthCare to acquire Sofie Biosciences for $945M — a named M&A transaction with quantified deal value affecting buyer's capital structure and strategic positioning.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE HealthCare",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Sofie Biosciences",
           "ticker": null,
           "listing_country": null
         }
@@ -1974,55 +2028,6 @@
           "name": "Adnoc",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-649",
-      "headline": "GE HealthCare to buy Sofie Biosciences for $945 million to strengthen radiopharma business",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/ge-healthcare-buy-sofie-biosciences-945-million-strengthen-radiopharma-business-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T13:09:52Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "GE HealthCare is acquiring Sofie Biosciences for $945 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE HealthCare is acquiring Sofie Biosciences for $945 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE HealthCare",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -205574,9 +205579,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 229167,
-    "news_picked_today": 1613,
-    "news_dropped_today": 16987
+    "news_seen_today": 232494,
+    "news_picked_today": 1634,
+    "news_dropped_today": 17302
   },
   "book_momentum": {
     "live_count": 8,
