@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-05T10:11:53Z",
+  "generated_at": "2026-10-05T10:32:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261005-356",
+      "headline": "IDFC First Bank Limited: IDFC First Bank Limited has informed the Exchange about Provisional Numbers for the Quarter ended September 30, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/IDFCFIRSTB_05102026151710_IDFCFB_Provisional_Release_Sep_26_sign.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T09:47:31Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "IDFC First Bank released provisional business numbers for the quarter ended September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IDFC First Bank released provisional business numbers for the quarter ended September 30, 2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDFC First Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-357",
+      "headline": "GAPACK (00468): INSIDE INFORMATION (1) DECISION OF THE LISTING COMMITTEE ON CANCELLATION OF LISTING; (2) RIGHT OF REVIEW AND REVIEW REQUEST OF THE DECISION; AND (3) CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1005/2026100501648.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T09:47:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "GAPACK received a decision from the Listing Committee to cancel its listing, with trading remaining suspended.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GAPACK received a decision from the Listing Committee to cancel its listing, with trading remaining suspended.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GAPACK",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261005-329",
       "headline": "Reliance Communications Limited: Reliance Communications Limited has informed the Exchange about Corporate Insolvency Resolution Process",
@@ -1934,109 +2032,6 @@
           "name": "CSL",
           "ticker": null,
           "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-075",
-      "headline": "Schneider Electric proche d'un accord de $20 mds pour le rachat de l'américain PTC",
-      "headline_en": "Schneider Electric close to a $20 billion deal to acquire American company PTC",
-      "url": "https://www.reuters.com/fr/affaires/schneider-electric-proche-dun-accord-de-20-mds-pour-le-rachat-de-lamricain-ptc-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:05:43Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Schneider Electric is nearing a $20 billion acquisition of PTC.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Schneider Electric is nearing a $20 billion acquisition of PTC.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schneider Electric",
-          "ticker": null,
-          "listing_country": "FR"
-        },
-        {
-          "name": "PTC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-059",
-      "headline": "Suncor sells stakes in three Canadian East Coast oil projects for up to $1.5-billion",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-suncor-sells-stakes-in-three-canadian-east-coast-oil-projects-for-up/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T00:51:36Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Suncor is divesting assets for up to $1.5-billion, impacting its capital structure and portfolio focus.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Suncor is divesting assets for up to $1.5-billion, impacting its capital structure and portfolio focus.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suncor Energy",
-          "ticker": null,
-          "listing_country": "CA"
         }
       ],
       "size_bucket": "large",
@@ -205585,9 +205580,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 117438,
-    "news_picked_today": 549,
-    "news_dropped_today": 11571
+    "news_seen_today": 124643,
+    "news_picked_today": 556,
+    "news_dropped_today": 12260
   },
   "book_momentum": {
     "live_count": 8,
