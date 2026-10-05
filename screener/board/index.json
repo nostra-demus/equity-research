@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T16:30:13Z",
+  "generated_at": "2026-10-05T16:39:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-777",
@@ -1263,6 +1263,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-818",
+      "headline": "Caterpillar and Ultium Cells make $1B facility investments",
+      "headline_en": null,
+      "url": "https://www.constructiondive.com/news/caterpillar-ultium-cells-1b-facility-investments-avio-usa-genentech/832097/",
+      "source_name": "Construction Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T13:47:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Caterpillar and Ultium Cells are making $1 billion facility investments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Caterpillar and Ultium Cells are making $1 billion facility investments.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Caterpillar",
+          "ticker": "CAT",
+          "listing_country": "US"
+        },
+        {
+          "name": "Ultium Cells",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-776",
       "headline": "airBaltic Cuts Up To 700 Jobs As Airline Moves To Reduce Mounting Debt",
       "headline_en": null,
@@ -1973,60 +2027,6 @@
           "name": "RXO",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-709",
-      "headline": "BT rescues TalkTalk from collapse amid worries over national security threat",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/lisa-nandy-virgin-media-cma-salford-greater-manchester-b3061437.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T11:46:51Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "BT Group is acquiring TalkTalk's customer base to prevent its collapse, representing a significant consolidation in the UK telecom sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BT Group is acquiring TalkTalk's customer base to prevent its collapse, representing a significant consolidation in the UK telecom sector.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BT Group",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "TalkTalk",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -205578,9 +205578,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 220282,
-    "news_picked_today": 1465,
-    "news_dropped_today": 16559
+    "news_seen_today": 221199,
+    "news_picked_today": 1501,
+    "news_dropped_today": 16667
   },
   "book_momentum": {
     "live_count": 8,
