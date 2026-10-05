@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T03:21:39Z",
+  "generated_at": "2026-10-05T03:26:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-147",
@@ -904,6 +904,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-154",
+      "headline": "SEPC Limited: We hereby informed the Exchange of the press release titled \"Major Relief for SEPC as Madras High Court Lifts Attachment on Rs.154 Crore Receivables Following Dispute Settlement\". Detailed letter is enclosed.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SHRIRAMEPC_05102026084430_SE_INTIMATION_WITH_PRESS_RELEASEsd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T03:20:07Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "The Madras High Court lifted an attachment on Rs. 154 crore receivables for SEPC Limited following a dispute settlement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The Madras High Court lifted an attachment on Rs. 154 crore receivables for SEPC Limited following a dispute settlement.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SEPC Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1911,49 +1960,6 @@
       },
       "event_types": [
         "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-152",
-      "headline": "US accuses California woman of spying for China, surveilling Taiwan president's son",
-      "headline_en": "Bolsonaro's avalanche takes over Congress, driven by Flávio",
-      "url": "https://www.reuters.com/legal/litigation/us-accuses-california-woman-spying-china-surveilling-taiwan-leaders-son-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T03:03:26Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Espionage allegations involving China and Taiwan-related targets increase geopolitical and regulatory risk for firms operating in these regions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Espionage allegations involving China and Taiwan-related targets increase geopolitical and regulatory risk for firms operating in these regions.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -204356,9 +204362,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 820,
-    "news_picked_today": 175,
-    "news_dropped_today": 645
+    "news_seen_today": 842,
+    "news_picked_today": 177,
+    "news_dropped_today": 665
   },
   "book_momentum": {
     "live_count": 8,
