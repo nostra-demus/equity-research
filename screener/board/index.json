@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T15:50:10Z",
+  "generated_at": "2026-10-05T15:51:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-653",
@@ -591,6 +591,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-773",
+      "headline": "C.H. Robinson to buy RXO for $5.8 billion in truck broking expansion",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/ch-robinson-buy-freight-broker-rxo-58-billion-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T15:34:23Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "C.H. Robinson is acquiring RXO for $5.8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "C.H. Robinson is acquiring RXO for $5.8 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C.H. Robinson",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "RXO",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-770",
+      "headline": "Schneider Expands in AI With $23 Billion Acquisition",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-05/schneider-expands-in-ai-with-23-billion-acquisition-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T15:23:11Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Schneider Electric is acquiring a company for $23 billion to expand its AI infrastructure capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric is acquiring a company for $23 billion to expand its AI infrastructure capabilities.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-767",
       "headline": "Tata Steel expanding NINL capacity to 5 MT per annum: CEO TV Narendran",
       "headline_en": null,
@@ -632,6 +735,60 @@
           "name": "Tata Steel",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-771",
+      "headline": "CH Robinson to Buy RXO in $5.8 Billion Logistics Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-05/ch-robinson-to-buy-rxo-in-5-8-billion-logistics-deal-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T15:15:52Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "C.H. Robinson is acquiring RXO for $5.8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "C.H. Robinson is acquiring RXO for $5.8 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C.H. Robinson",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "RXO",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -895,60 +1052,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261005-739",
-      "headline": "C.H. Robinson to Buy RXO for About $5.3 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/c-h-robinson-to-buy-rxo-for-about-5-billion-80a73ba1?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T14:12:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "C.H. Robinson to acquire RXO for $5.3 billion, a major M&A transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "C.H. Robinson to acquire RXO for $5.3 billion, a major M&A transaction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "C.H. Robinson",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "RXO",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261005-742",
       "headline": "Sanlam in big buy-out and delisting deal for Santam",
       "headline_en": null,
@@ -1003,50 +1106,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261005-757",
-      "headline": "C.H. Robinson to buy for $5.8 billion in truck broking expansion",
+      "inbox_id": "INB-20261005-776",
+      "headline": "airBaltic Cuts Up To 700 Jobs As Airline Moves To Reduce Mounting Debt",
       "headline_en": null,
-      "url": "https://www.reuters.com/business/ch-robinson-buy-freight-broker-rxo-58-billion-2026-10-05/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "url": "https://www.ndtvprofit.com/business/airbaltic-cuts-up-to-700-jobs-as-airline-moves-to-reduce-mounting-debt-12141730#publisher=newsstand",
+      "source_name": "NDTV Profit",
       "input_nature": "news_headline",
-      "found_at": "2026-10-05T13:52:18Z",
+      "found_at": "2026-10-05T13:40:31Z",
       "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "C.H. Robinson announces a $5.8 billion acquisition to expand its truck broking business.",
+      "prelim_note": "airBaltic is cutting up to 700 jobs to address mounting debt.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "C.H. Robinson announces a $5.8 billion acquisition to expand its truck broking business.",
-      "region": "US",
+      "triage_reason": "airBaltic is cutting up to 700 jobs to address mounting debt.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 70,
         "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
         "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
+        "materiality_label_floor": 15,
+        "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
+        "event_id": "debt_credit",
+        "size_bucket": "small"
       },
       "event_types": [
-        "mna"
+        "restructuring_layoffs",
+        "debt_credit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "C.H. Robinson",
+          "name": "airBaltic",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1917,98 +2021,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-378",
-      "headline": "This $23 billion software deal was struck at a decade-low valuation, as AI winner takes out loser",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/story/this-23-billion-software-deal-was-struck-at-a-decade-low-valuation-as-ai-winner-takes-out-loser-aa18f477?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T09:39:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "A $23 billion software acquisition deal has been struck, likely referring to a major tech consolidation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $23 billion software acquisition deal has been struck, likely referring to a major tech consolidation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-394",
-      "headline": "Neysa to raise $200 mn from Blackstone, OTPP to expand data centre platform",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/neysa-200-million-funding-blackstone-ai-cloud-gpu-india-11791176005110.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T09:30:50Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Neysa is raising $200 million from Blackstone and OTPP to expand its data center platform.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Neysa is raising $200 million from Blackstone and OTPP to expand its data center platform.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Neysa",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205555,9 +205567,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 205534,
-    "news_picked_today": 1408,
-    "news_dropped_today": 16112
+    "news_seen_today": 206955,
+    "news_picked_today": 1418,
+    "news_dropped_today": 16126
   },
   "book_momentum": {
     "live_count": 8,
