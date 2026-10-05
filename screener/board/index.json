@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T02:20:26Z",
+  "generated_at": "2026-10-05T02:42:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-053",
@@ -199,6 +199,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-124",
+      "headline": "Akzo Nobel to Sell Southeast Asia Decorative Paints Business for $1.35 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/akzo-nobel-to-sell-southeast-asia-decorative-paints-business-for-1-35-billion-4e39be48?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T02:26:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Akzo Nobel is selling its Southeast Asia decorative paints business for $1.35 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Akzo Nobel is selling its Southeast Asia decorative paints business for $1.35 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Akzo Nobel",
+          "ticker": null,
+          "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-105",
       "headline": "Govt raises deepwater gas price ceiling to $9.89 per MMBtu; APM gas cap at $7",
       "headline_en": null,
@@ -296,55 +345,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261005-104",
-      "headline": "AkzoNobel to sell South-east Asia paints business to Nippon Paint for US$1.35 billion",
+      "inbox_id": "INB-20261005-128",
+      "headline": "Oil climbs after Yemeni Houthis attack Saudi Aramco sites",
       "headline_en": null,
-      "url": "https://www.straitstimes.com/business/akzonobel-to-sell-south-east-asia-paints-business-to-nippon-paint-for-us1-35-billion",
-      "source_name": "The Straits Times",
+      "url": "https://economictimes.indiatimes.com/markets/commodities/news/oil-climbs-after-yemeni-houthis-attack-saudi-aramco-sites/articleshow/134683741.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:55:00Z",
+      "found_at": "2026-10-05T01:53:15Z",
       "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "AkzoNobel is selling its Southeast Asia paints business to Nippon Paint for US$1.35 billion.",
+      "prelim_note": "Yemeni Houthi attack on Saudi Aramco sites represents a significant geopolitical escalation and potential supply shock.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "AkzoNobel is selling its Southeast Asia paints business to Nippon Paint for US$1.35 billion.",
-      "region": "GLOBAL",
+      "triage_reason": "Yemeni Houthi attack on Saudi Aramco sites represents a significant geopolitical escalation and potential supply shock.",
+      "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
         "materiality": 85,
         "source_tier": 0,
-        "scope": 5,
-        "event": 9,
+        "scope": 6,
+        "event": 2,
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
+        "event_id": "operations",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "mna"
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "AkzoNobel",
+          "name": "Saudi Aramco",
           "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Nippon Paint",
-          "ticker": null,
-          "listing_country": null
+          "listing_country": "SA"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -897,6 +941,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-133",
+      "headline": "CSL to pay $355M upfront to co-develop Alentis’ kidney and liver drug",
+      "headline_en": null,
+      "url": "https://endpoints.news/csl-to-pay-355m-upfront-to-co-develop-alentis-kidney-and-liver-drug/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T02:22:24Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "CSL is paying $355M upfront to co-develop a drug, representing a significant capital allocation and strategic partnership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "CSL is paying $355M upfront to co-develop a drug, representing a significant capital allocation and strategic partnership.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSL",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Alentis",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-112",
       "headline": "Durban factory to make 80% of global Vaseline Petroleum Jelly",
       "headline_en": null,
@@ -1093,6 +1191,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-130",
+      "headline": "HDFC Bank new leadership to focus on three-pronged strategy: Exclusive",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/hdfc-bank-new-leadership-to-focus-on-three-pronged-strategy-exclusive-20004295.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T02:06:15Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "HDFC Bank is implementing a new three-pronged strategy under new leadership, which is a significant operational shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "HDFC Bank is implementing a new three-pronged strategy under new leadership, which is a significant operational shift.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-089",
       "headline": "Bajaj Housing Finance shares in focus after all key metrics grow in excess of 20% in Q2",
       "headline_en": null,
@@ -1235,6 +1382,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-135",
+      "headline": "Orora on spill alert as investors blast bonus plans, share price crash",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/manufacturing/orora-on-spill-alert-as-investors-blast-bonus-plans-share-price-crash-20261005-p612p2?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T02:34:23Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Orora faces investor backlash over bonus plans and share price performance, creating management and governance risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Orora faces investor backlash over bonus plans and share price performance, creating management and governance risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Orora",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1645,6 +1841,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-137",
+      "headline": "Thai Bourse Plans Dual-Class Share Structure to Boost Listings",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-05/thai-bourse-plans-dual-class-share-structure-to-boost-listings",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T02:00:42Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "The Thai stock exchange is planning a dual-class share structure to boost listings, a significant regulatory change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The Thai stock exchange is planning a dual-class share structure to boost listings, a significant regulatory change.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-099",
       "headline": "US accuses California woman of spying for China, surveilling Taiwan leader's son",
       "headline_en": null,
@@ -1679,232 +1918,6 @@
       },
       "event_types": [
         "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-066",
-      "headline": "US Marine arrested for alleged killing of a woman on Okinawa, triggers outrage from Japan",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20261005/p2g/00m/0na/010000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:00:10Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "The arrest of a US Marine in Okinawa for a serious crime creates significant diplomatic friction between the US and Japan, potentially impacting base operations and bilateral relations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The arrest of a US Marine in Okinawa for a serious crime creates significant diplomatic friction between the US and Japan, potentially impacting base operations and bilateral relations.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-102",
-      "headline": "Suncor to sell offshore Canada oil stakes to Ithaca for $842 million",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/suncor-sell-canadian-offshore-assets-ithaca-108-billion-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:52:51Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Suncor is selling offshore Canada oil assets to Ithaca for $842 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Suncor is selling offshore Canada oil assets to Ithaca for $842 million.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suncor Energy",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Ithaca Energy",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-067",
-      "headline": "Flávio diz que resultado do 1º turno da eleição decreta \"fim da era do PT\"",
-      "headline_en": "Flávio says the 1st round election result decrees the 'end of the PT era'",
-      "url": "https://www.reuters.com/pt/domestico/NEQY5TIU4ZPLREGHHIYY2YCEAY-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:00:25Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Political shifts in Brazil regarding the PT party's influence are significant for market sentiment and potential changes in economic policy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Political shifts in Brazil regarding the PT party's influence are significant for market sentiment and potential changes in economic policy.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-037",
-      "headline": "Reflationist ex-BOJ policymaker calls end to low rates, big spending",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/reflationist-ex-boj-policymaker-calls-end-low-rates-big-spending-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T00:23:18Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "A former BOJ policymaker signaling an end to low rates and fiscal stimulus suggests a shift in Japanese monetary and fiscal policy, which impacts global liquidity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "A former BOJ policymaker signaling an end to low rates and fiscal stimulus suggests a shift in Japanese monetary and fiscal policy, which impacts global liquidity.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-045",
-      "headline": "Flávio Bolsonaro takes lead in first round of Brazil election",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/028da85c-0e1f-4f1b-ad04-eac78c4f18c0?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T00:22:46Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Election results in a major economy like Brazil have significant implications for policy and market stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Election results in a major economy like Brazil have significant implications for policy and market stability.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -203947,9 +203960,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 531,
-    "news_picked_today": 119,
-    "news_dropped_today": 412
+    "news_seen_today": 648,
+    "news_picked_today": 145,
+    "news_dropped_today": 503
   },
   "book_momentum": {
     "live_count": 8,
