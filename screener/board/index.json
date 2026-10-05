@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T01:06:44Z",
+  "generated_at": "2026-10-05T01:16:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-053",
@@ -199,6 +199,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-075",
+      "headline": "Schneider Electric proche d'un accord de $20 mds pour le rachat de l'américain PTC",
+      "headline_en": "Schneider Electric close to a $20 billion deal to acquire American company PTC",
+      "url": "https://www.reuters.com/fr/affaires/schneider-electric-proche-dun-accord-de-20-mds-pour-le-rachat-de-lamricain-ptc-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T01:05:43Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Schneider Electric is nearing a $20 billion acquisition of PTC.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric is nearing a $20 billion acquisition of PTC.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "PTC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-059",
       "headline": "Suncor sells stakes in three Canadian East Coast oil projects for up to $1.5-billion",
       "headline_en": null,
@@ -240,6 +294,60 @@
           "name": "Suncor Energy",
           "ticker": null,
           "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-068",
+      "headline": "Nippon Paint to Buy Akzo’s Southeast Asia Unit for $1.35 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-05/nippon-paint-to-buy-akzo-s-southeast-asia-unit-for-1-35-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:48:07Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Nippon Paint is acquiring Akzo Nobel's Southeast Asia unit for $1.35 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nippon Paint is acquiring Akzo Nobel's Southeast Asia unit for $1.35 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nippon Paint",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Akzo Nobel",
+          "ticker": null,
+          "listing_country": "NL"
         }
       ],
       "size_bucket": "large",
@@ -486,6 +594,104 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-069",
+      "headline": "P1E: Pure One Secures A$1.17 M Equity Placement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.P1E?key=2924-03144324-2A1701750",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T01:05:40Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Pure One secured an equity placement of A$1.17 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Pure One secured an equity placement of A$1.17 million.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pure One",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-072",
+      "headline": "iX Biopharma converts US$1.2 million debt to shares to preserve cash for US expansion",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/ix-biopharma-converts-us1-2-million-debt-shares-preserve-cash-us-expansion",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T01:09:27Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "iX Biopharma is converting US$1.2 million of debt to equity to improve cash position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "iX Biopharma is converting US$1.2 million of debt to equity to improve cash position.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "iX Biopharma",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1677,196 +1883,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-014",
-      "headline": "YRL: Cancel - Proposed issue of securities - YRL",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.YRL?key=2924-03144306-6A1347641",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-05T00:14:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Cancellation of a proposed securities issuance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Cancellation of a proposed securities issuance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "YRL",
-          "ticker": "YRL",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-024",
-      "headline": "LG유플러스, 구독 플랫폼 '유독' 체질 개선...\"영상 편집부터 생성형 AI까지\"",
-      "headline_en": "LG Uplus, improving the constitution of its subscription platform 'U-Dok'... \"From video editing to generative AI\"",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278192",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "LG Uplus is upgrading its subscription platform with new AI features to improve competitiveness.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "LG Uplus is upgrading its subscription platform with new AI features to improve competitiveness.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Uplus",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-062",
-      "headline": "EPF wage ceiling hike: How it impacts employee & employer's contributions to EPF, EPS and take-home pay",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/wealth/save/epf-wage-ceiling-hike-how-it-impacts-employee-employers-contributions-to-epf-eps-and-take-home-pay/articleshow/134653562.cms",
-      "source_name": "The Economic Times Wealth",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "A hike in the EPF wage ceiling increases mandatory labor costs for employers in India.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "A hike in the EPF wage ceiling increases mandatory labor costs for employers in India.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-043",
-      "headline": "Far East Orchard crosses S$3 billion AUM target with higher stakes in business trust managers",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/far-east-orchard-crosses-s3-billion-aum-target-higher-stakes-business-trust-managers",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T00:31:54Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Far East Orchard reached a S$3 billion AUM milestone, indicating growth in assets under management.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Far East Orchard reached a S$3 billion AUM milestone, indicating growth in assets under management.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Far East Orchard",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -160576,151 +160592,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-30544aec4eac",
-      "idea_version": "IDEAV-d7953d700e77fea4",
-      "idea_version_started_at": "2026-10-03T14:22:04Z",
-      "ticker": "RCOM",
-      "company": "Reliance Communications",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Reliance Communications faces increased legal and reputational risk as the CBI has filed chargesheets against the company and its former executives in a ₹3,750-crore bank fraud case.",
-      "why_now": "The CBI chargesheets were filed today, October 3, 2026, creating an immediate negative catalyst.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9af8269e024e",
-        "EVT-fb0d524379fb"
-      ],
-      "primary_source_event_id": "EVT-9af8269e024e",
-      "source_headlines": [
-        "CBI Chargesheets Reliance Communications, Ex Chief Investment Officer Of LIC In Rs 3,750-Cr Cheating Case",
-        "CBI Chargesheets RCom, 2 Reliance ADA Executives And Former LIC Official In ₹3,750-Crore Fraud Case"
-      ],
-      "source_headline": "CBI Chargesheets Reliance Communications, Ex Chief Investment Officer Of LIC In Rs 3,750-Cr Cheating Case",
-      "source_url": "https://www.outlookbusiness.com/corporate/cbi-chargesheets-reliance-communications-ex-chief-investment-officer-of-lic-in-rs-3750-cr-cheating-case",
-      "source_name": "Outlook Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-03T13:13:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T14:22:04Z",
-      "updated_at": "2026-10-03T14:22:04Z",
-      "decay_at": "2026-10-05T01:13:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-460d29964be5",
-      "idea_version": "IDEAV-433fd1d9c73d4fa9",
-      "idea_version_started_at": "2026-10-03T13:30:20Z",
-      "ticker": "RNO",
-      "company": "Renault",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Renault's massive commitment to invest more than ten billion euros in France is highly likely to depress free cash flow and return on capital metrics due to high domestic labor costs and rigid manufacturing conditions.",
-      "why_now": "The investment plan was reported on October 3, 2026, presenting an immediate structural headwind to the company's capital allocation strategy.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d58b2b5eb1db"
-      ],
-      "primary_source_event_id": "EVT-d58b2b5eb1db",
-      "source_headlines": [
-        "Automakers: Renault to invest more than ten billion euros in France"
-      ],
-      "source_headline": "Autobauer: Renault will in Frankreich mehr als zehn Milliarden Euro investieren",
-      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-renault-will-in-frankreich-mehr-als-zehn-milliarden-euro-investieren/100259497.html",
-      "source_name": "Handelsblatt",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-03T13:07:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T13:30:20Z",
-      "updated_at": "2026-10-03T13:30:20Z",
-      "decay_at": "2026-10-05T01:07:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a34afcfddf31",
       "idea_version": "IDEAV-ffdd56a83b3aae88",
       "idea_version_started_at": "2026-10-04T14:21:24Z",
@@ -163662,6 +163533,151 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-30544aec4eac",
+      "idea_version": "IDEAV-d7953d700e77fea4",
+      "idea_version_started_at": "2026-10-03T14:22:04Z",
+      "ticker": "RCOM",
+      "company": "Reliance Communications",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Reliance Communications faces increased legal and reputational risk as the CBI has filed chargesheets against the company and its former executives in a ₹3,750-crore bank fraud case.",
+      "why_now": "The CBI chargesheets were filed today, October 3, 2026, creating an immediate negative catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9af8269e024e",
+        "EVT-fb0d524379fb"
+      ],
+      "primary_source_event_id": "EVT-9af8269e024e",
+      "source_headlines": [
+        "CBI Chargesheets Reliance Communications, Ex Chief Investment Officer Of LIC In Rs 3,750-Cr Cheating Case",
+        "CBI Chargesheets RCom, 2 Reliance ADA Executives And Former LIC Official In ₹3,750-Crore Fraud Case"
+      ],
+      "source_headline": "CBI Chargesheets Reliance Communications, Ex Chief Investment Officer Of LIC In Rs 3,750-Cr Cheating Case",
+      "source_url": "https://www.outlookbusiness.com/corporate/cbi-chargesheets-reliance-communications-ex-chief-investment-officer-of-lic-in-rs-3750-cr-cheating-case",
+      "source_name": "Outlook Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T13:13:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T14:22:04Z",
+      "updated_at": "2026-10-03T14:22:04Z",
+      "decay_at": "2026-10-05T01:13:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-460d29964be5",
+      "idea_version": "IDEAV-433fd1d9c73d4fa9",
+      "idea_version_started_at": "2026-10-03T13:30:20Z",
+      "ticker": "RNO",
+      "company": "Renault",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Renault's massive commitment to invest more than ten billion euros in France is highly likely to depress free cash flow and return on capital metrics due to high domestic labor costs and rigid manufacturing conditions.",
+      "why_now": "The investment plan was reported on October 3, 2026, presenting an immediate structural headwind to the company's capital allocation strategy.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d58b2b5eb1db"
+      ],
+      "primary_source_event_id": "EVT-d58b2b5eb1db",
+      "source_headlines": [
+        "Automakers: Renault to invest more than ten billion euros in France"
+      ],
+      "source_headline": "Autobauer: Renault will in Frankreich mehr als zehn Milliarden Euro investieren",
+      "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-renault-will-in-frankreich-mehr-als-zehn-milliarden-euro-investieren/100259497.html",
+      "source_name": "Handelsblatt",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T13:07:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T13:30:20Z",
+      "updated_at": "2026-10-03T13:30:20Z",
+      "decay_at": "2026-10-05T01:07:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-dbfac4fed0f3",
       "idea_version": "IDEAV-0fffd6a4b922e556",
       "idea_version_started_at": "2026-10-03T12:22:04Z",
@@ -165979,9 +165995,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 552,
     "shown_count": 500,
-    "hidden_count": 50,
+    "hidden_count": 52,
     "side_counts": {
       "long": {
         "total_count": 279,
@@ -165989,9 +166005,9 @@
         "hidden_count": 29
       },
       "short": {
-        "total_count": 271,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -166010,6 +166026,157 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-30544aec4eac",
+        "idea_version": "IDEAV-d7953d700e77fea4",
+        "idea_version_started_at": "2026-10-03T14:22:04Z",
+        "ticker": "RCOM",
+        "company": "Reliance Communications",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Reliance Communications faces increased legal and reputational risk as the CBI has filed chargesheets against the company and its former executives in a ₹3,750-crore bank fraud case.",
+        "why_now": "The CBI chargesheets were filed today, October 3, 2026, creating an immediate negative catalyst.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9af8269e024e",
+          "EVT-fb0d524379fb"
+        ],
+        "primary_source_event_id": "EVT-9af8269e024e",
+        "source_headlines": [
+          "CBI Chargesheets Reliance Communications, Ex Chief Investment Officer Of LIC In Rs 3,750-Cr Cheating Case",
+          "CBI Chargesheets RCom, 2 Reliance ADA Executives And Former LIC Official In ₹3,750-Crore Fraud Case"
+        ],
+        "source_headline": "CBI Chargesheets Reliance Communications, Ex Chief Investment Officer Of LIC In Rs 3,750-Cr Cheating Case",
+        "source_url": "https://www.outlookbusiness.com/corporate/cbi-chargesheets-reliance-communications-ex-chief-investment-officer-of-lic-in-rs-3750-cr-cheating-case",
+        "source_name": "Outlook Business",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-03T13:13:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T14:22:04Z",
+        "updated_at": "2026-10-03T14:22:04Z",
+        "decay_at": "2026-10-05T01:13:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T01:13:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-460d29964be5",
+        "idea_version": "IDEAV-433fd1d9c73d4fa9",
+        "idea_version_started_at": "2026-10-03T13:30:20Z",
+        "ticker": "RNO",
+        "company": "Renault",
+        "exchange": "LSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Renault's massive commitment to invest more than ten billion euros in France is highly likely to depress free cash flow and return on capital metrics due to high domestic labor costs and rigid manufacturing conditions.",
+        "why_now": "The investment plan was reported on October 3, 2026, presenting an immediate structural headwind to the company's capital allocation strategy.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d58b2b5eb1db"
+        ],
+        "primary_source_event_id": "EVT-d58b2b5eb1db",
+        "source_headlines": [
+          "Automakers: Renault to invest more than ten billion euros in France"
+        ],
+        "source_headline": "Autobauer: Renault will in Frankreich mehr als zehn Milliarden Euro investieren",
+        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/autobauer-renault-will-in-frankreich-mehr-als-zehn-milliarden-euro-investieren/100259497.html",
+        "source_name": "Handelsblatt",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-03T13:07:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T13:30:20Z",
+        "updated_at": "2026-10-03T13:30:20Z",
+        "decay_at": "2026-10-05T01:07:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T01:07:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-e92c01041db0",
         "idea_version": "IDEAV-5013a3c353b88bcf",
@@ -203015,160 +203182,12 @@
         "archived_at": "2026-09-11T00:28:40Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-9dcb830cc86c",
-        "idea_version": "IDEAV-7863a0061b902af7",
-        "idea_version_started_at": "2026-09-07T23:26:05Z",
-        "ticker": "HFR",
-        "company": "HFR",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The appointment of voluntary administrators indicates severe insolvency distress that usually results in total equity wipeout for common shareholders.",
-        "why_now": "The official administration filing was released on September 7, 2026, creating an immediate catalyst for equity liquidation.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-ccc5a0b850bc"
-        ],
-        "primary_source_event_id": "EVT-ccc5a0b850bc",
-        "source_headlines": [
-          "HFR: Appointment of Voluntary Administrators [price-sensitive]"
-        ],
-        "source_headline": "HFR: Appointment of Voluntary Administrators [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.HFR?key=2924-03132958-6A1342708",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T23:19:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T23:26:05Z",
-        "updated_at": "2026-09-07T23:26:05Z",
-        "decay_at": "2026-09-09T11:19:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T00:28:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3993a824df55",
-        "idea_version": "IDEAV-9c808b9568582d5f",
-        "idea_version_started_at": "2026-09-07T23:01:43Z",
-        "ticker": "BTC",
-        "company": "Arna Pharma",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Arna Pharma has entered voluntary administration, indicating severe financial distress and potential insolvency.",
-        "why_now": "The company announced its entry into voluntary administration via an ASX filing on September 7, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-722f1d74193b"
-        ],
-        "primary_source_event_id": "EVT-722f1d74193b",
-        "source_headlines": [
-          "BTC: Arna Pharma enters voluntary administration [price-sensitive]"
-        ],
-        "source_headline": "BTC: Arna Pharma enters voluntary administration [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BTC?key=2924-03132915-3A701253",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-07T22:52:19Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-07T23:01:43Z",
-        "updated_at": "2026-09-07T23:01:43Z",
-        "decay_at": "2026-09-09T10:52:19Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-10T23:14:01Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1309,
-    "live_count": 60,
+    "live_count": 58,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -203187,9 +203206,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 250,
-    "news_picked_today": 69,
-    "news_dropped_today": 181
+    "news_seen_today": 285,
+    "news_picked_today": 77,
+    "news_dropped_today": 208
   },
   "book_momentum": {
     "live_count": 8,
