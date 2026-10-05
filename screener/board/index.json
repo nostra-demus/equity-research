@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T04:14:44Z",
+  "generated_at": "2026-10-05T04:19:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-156",
@@ -1296,6 +1296,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-202",
+      "headline": "FSSAI Declares Everest Cumin Powder 'UNSAFE', Orders Recall Of Specific Batch Over Excess Pesticide Residues",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/india/fssai-declares-everest-cumin-powder-unsafe-orders-recall-of-specific-batch-over-excess-pesticide-residues",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T03:58:48Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "FSSAI declared a batch of Everest Cumin Powder unsafe and ordered a recall, posing a reputational and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "FSSAI declared a batch of Everest Cumin Powder unsafe and ordered a recall, posing a reputational and regulatory risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Everest Food Products",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-031",
       "headline": "Flávio lidera primeiro turno da eleição presidencial e vai enfrentar Lula no segundo, diz TSE",
       "headline_en": "Flávio leads the first round of the presidential election and will face Lula in the second, says TSE",
@@ -1492,6 +1542,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-203",
+      "headline": "Aurionpro Solutions Limited: Aurionpro Solutions Limited has informed the Exchange regarding a press release dated October 05, 2026, titled \"Aurionpro Strengthens Data Centre Growth Momentum with ₹150 Crore Follow-on Order from Global Hyperscaler.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/AURIONPRO_05102026094233_ASL_Press_Release_final_1_SD.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T04:12:54Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Aurionpro Solutions secured a ₹150 crore follow-on order from a global hyperscaler for data center services.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Aurionpro Solutions secured a ₹150 crore follow-on order from a global hyperscaler for data center services.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aurionpro Solutions",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1874,104 +1973,6 @@
       "companies": [
         {
           "name": "Ola Electric",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-090",
-      "headline": "HMSI flags pressure from rising costs",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/hmsi-flags-pressure-from-rising-costs/articleshow/134683491.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:21:11Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Honda Motorcycle and Scooter India (HMSI) reported margin pressure due to rising input costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Honda Motorcycle and Scooter India (HMSI) reported margin pressure due to rising input costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honda Motorcycle and Scooter India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-201",
-      "headline": "Yes Bank shares rise 3% after Q2 business update shows loans surging 24% YoY, deposits up 20%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/yes-bank-shares-rise-3-after-q2-business-update-shows-loans-surging-24-yoy-deposits-up-20/articleshow/134685404.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T04:07:41Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Yes Bank reported strong Q2 growth with loans up 24% and deposits up 20% YoY.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Yes Bank reported strong Q2 growth with loans up 24% and deposits up 20% YoY.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yes Bank",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -204874,9 +204875,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1425,
-    "news_picked_today": 240,
-    "news_dropped_today": 1185
+    "news_seen_today": 1466,
+    "news_picked_today": 249,
+    "news_dropped_today": 1217
   },
   "book_momentum": {
     "live_count": 8,
