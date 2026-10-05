@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T11:50:57Z",
+  "generated_at": "2026-10-05T12:06:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-356",
@@ -1991,50 +1991,55 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261005-573",
-      "headline": "8-K - ADVANCED DRAINAGE SYSTEMS, INC. (0001604028) (Filer)",
+      "inbox_id": "INB-20261005-585",
+      "headline": "ART GROUP HOLD (00565): DISCLOSEABLE TRANSACTION - DISPOSAL OF THE ENTIRE ISSUED SHARE CAPITAL OF MAX HIGH INTERNATIONAL LIMITED",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1604028/000119312526413092/0001193125-26-413092-index.htm",
-      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-05T11:00:28Z",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1005/2026100501896.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T10:42:00Z",
       "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Routine 8-K filing.",
+      "prelim_note": "Art Group Hold announced disposal of the entire issued share capital of subsidiary Max High International Limited, meeting Hong Kong's discloseable-transaction regulatory threshold, though deal value and buyer identity are not disclosed in the headline.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Routine 8-K filing.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
+      "triage_score": 95,
+      "triage_reason": "Art Group Hold announced disposal of the entire issued share capital of subsidiary Max High International Limited, meeting Hong Kong's discloseable-transaction regulatory threshold, though deal value and buyer identity are not disclosed in the headline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 40,
+        "materiality": 60,
         "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "large"
+        "event_id": "mna",
+        "size_bucket": "small"
       },
       "event_types": [
-        "operations"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "ADVANCED DRAINAGE SYSTEMS, INC.",
-          "ticker": "WMS",
-          "listing_country": "US"
+          "name": "Art Group Hold",
+          "ticker": "0565",
+          "listing_country": "HK"
+        },
+        {
+          "name": "Max High International Limited",
+          "ticker": null,
+          "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205580,9 +205585,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 134045,
-    "news_picked_today": 926,
-    "news_dropped_today": 13186
+    "news_seen_today": 139972,
+    "news_picked_today": 940,
+    "news_dropped_today": 13508
   },
   "book_momentum": {
     "live_count": 8,
