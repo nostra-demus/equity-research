@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T04:06:37Z",
+  "generated_at": "2026-10-05T04:14:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-156",
@@ -1933,50 +1933,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261005-193",
-      "headline": "India's HDFC Bank rises after CEO appointment",
+      "inbox_id": "INB-20261005-201",
+      "headline": "Yes Bank shares rise 3% after Q2 business update shows loans surging 24% YoY, deposits up 20%",
       "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-hdfc-bank-rises-after-ceo-appointment-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/yes-bank-shares-rise-3-after-q2-business-update-shows-loans-surging-24-yoy-deposits-up-20/articleshow/134685404.cms",
+      "source_name": "The Economic Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-05T04:00:30Z",
+      "found_at": "2026-10-05T04:07:41Z",
       "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "HDFC Bank shares rose following the appointment of a new CEO, signaling market confidence in the leadership transition.",
+      "prelim_note": "Yes Bank reported strong Q2 growth with loans up 24% and deposits up 20% YoY.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 87,
-      "triage_reason": "HDFC Bank shares rose following the appointment of a new CEO, signaling market confidence in the leadership transition.",
+      "triage_reason": "Yes Bank reported strong Q2 growth with loans up 24% and deposits up 20% YoY.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 65,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 65,
         "source_tier": 0,
         "scope": 6,
-        "event": 4,
-        "size": 2,
+        "event": 5,
+        "size": 1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "management"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "HDFC Bank",
+          "name": "Yes Bank",
           "ticker": null,
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -204874,9 +204874,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1357,
-    "news_picked_today": 229,
-    "news_dropped_today": 1128
+    "news_seen_today": 1425,
+    "news_picked_today": 240,
+    "news_dropped_today": 1185
   },
   "book_momentum": {
     "live_count": 8,
