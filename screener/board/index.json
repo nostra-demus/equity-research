@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T21:45:21Z",
+  "generated_at": "2026-10-05T21:55:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-1020",
@@ -886,6 +886,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-1049",
+      "headline": "OpenAI in Talks With UAE Funds, BlackRock for $30 Billion Round",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-05/openai-in-talks-with-uae-funds-blackrock-for-30-billion-round",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T20:46:28Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "OpenAI is in talks for a $30 billion funding round, a massive capital injection that significantly impacts valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "OpenAI is in talks for a $30 billion funding round, a massive capital injection that significantly impacts valuation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1963,55 +2012,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-949",
-      "headline": "IndusInd Bank Q2 Update: Net advances rise 11% to ₹3.62 lakh crore, deposits up 10%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/indusind-bank-share-price-q2-update-net-advances-rise-11-to-rs-3-62-lakh-crore-deposits-up-10-20004997.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T16:13:07Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "IndusInd Bank reported a 11% rise in net advances to ₹3.62 lakh crore and 10% growth in deposits.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IndusInd Bank reported a 11% rise in net advances to ₹3.62 lakh crore and 10% growth in deposits.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndusInd Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -204938,9 +204938,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 252746,
-    "news_picked_today": 2125,
-    "news_dropped_today": 20391
+    "news_seen_today": 253395,
+    "news_picked_today": 2139,
+    "news_dropped_today": 20425
   },
   "book_momentum": {
     "live_count": 8,
