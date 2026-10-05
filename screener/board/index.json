@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T19:59:12Z",
+  "generated_at": "2026-10-05T20:11:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-777",
@@ -635,6 +635,256 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-995",
+      "headline": "McKesson and CD&R near $5bn-plus deal to buy infusion services provider",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/0bc54eaf-d545-4591-bb7c-ec3cbc1cb89a?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T20:01:03Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "McKesson is nearing a $5 billion-plus deal to acquire an infusion services provider.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "McKesson is nearing a $5 billion-plus deal to acquire an infusion services provider.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McKesson",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-996",
+      "headline": "Oprah-Backed True Food Kitchen Files Bankruptcy After Expansion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-05/oprah-backed-true-food-kitchen-files-bankruptcy-after-expansion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T19:50:29Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "True Food Kitchen has filed for bankruptcy following failed expansion efforts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "True Food Kitchen has filed for bankruptcy following failed expansion efforts.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "True Food Kitchen",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-989",
+      "headline": "AstraZeneca CEO says Summit drug could drive next generation of cancer combinations after $2 billion investment",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/05/astrazeneca-ceo-says-summit-drug-could-drive-future-cancer-combos.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T19:44:30Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "AstraZeneca is committing a $2 billion investment to advance its cancer drug pipeline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AstraZeneca is committing a $2 billion investment to advance its cancer drug pipeline.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AstraZeneca",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-988",
+      "headline": "C.H. Robinson to Buy RXO for About $5.8 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/c-h-robinson-to-buy-rxo-for-about-5-billion-80a73ba1?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T19:44:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "C.H. Robinson is acquiring RXO for $5.8 billion, a significant consolidation in the logistics sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "C.H. Robinson is acquiring RXO for $5.8 billion, a significant consolidation in the logistics sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C.H. Robinson",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "RXO",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-999",
+      "headline": "Cargill’s Earnings Slump 52% With High Cattle Costs, Cocoa Loss",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-05/cargill-s-earnings-slump-52-with-high-cattle-costs-cocoa-loss",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T18:58:44Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Cargill reported a 52% slump in earnings due to high cattle costs and cocoa losses.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cargill reported a 52% slump in earnings due to high cattle costs and cocoa losses.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cargill",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1773,261 +2023,6 @@
           "name": "RXO",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-793",
-      "headline": "Paramount Names Leadership Team for Combined Entity Post $81 Billion Warner Deal",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/media/paramount-names-leadership-team-for-combined-entity-post-81-billion-warner-deal-c37b9b0d?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T15:09:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Paramount is formalizing leadership for the entity resulting from the $81 billion Warner deal, a major M&A integration step.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount is formalizing leadership for the entity resulting from the $81 billion Warner deal, a major M&A integration step.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-724",
-      "headline": "Shark Tank beverage brand files Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/shark-tank-beverage-brand-teaspressa-files-chapter-11-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T15:03:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "A Shark Tank beverage brand has filed for Chapter 11 bankruptcy, indicating a total loss of equity value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A Shark Tank beverage brand has filed for Chapter 11 bankruptcy, indicating a total loss of equity value.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shark Tank beverage brand",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-728",
-      "headline": "BGR Energy to restructure ₹3,736 crore debt, allot 20% equity to NARCL",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/companies/bgr-energy-to-restructure-rs-3736-crore-debt-allot-20-pc-equity-to-narcl-20004927.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T15:00:49Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "BGR Energy is restructuring ₹3,736 crore of debt and diluting 20% equity to NARCL, signaling severe financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BGR Energy is restructuring ₹3,736 crore of debt and diluting 20% equity to NARCL, signaling severe financial distress.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BGR Energy",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-734",
-      "headline": "Sainsbury's in merger talks with supermarket giant rival",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/sainsbury-morrisons-murger-aldi-asda-b3061614.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T15:00:36Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Sainsbury's is in merger talks with a rival, a major potential consolidation event in the UK retail sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sainsbury's is in merger talks with a rival, a major potential consolidation event in the UK retail sector.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sainsbury's",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-735",
-      "headline": "Sainsbury’s and Morrisons ‘held talks over a possible merger’",
-      "headline_en": null,
-      "url": "https://www.standard.co.uk/business/business-news/sainsbury-aldi-asda-lidl-competition-and-markets-authority-b1299603.html",
-      "source_name": "The Standard (Evening Standard) — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T14:44:41Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Confirmed reports of merger talks between Sainsbury's and Morrisons.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Confirmed reports of merger talks between Sainsbury's and Morrisons.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sainsbury's",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Morrisons",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -159800,77 +159795,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b520e6e5e5f6",
-      "idea_version": "IDEAV-2df1283f54ee5e2c",
-      "idea_version_started_at": "2026-10-04T08:14:49Z",
-      "ticker": "SBUX",
-      "company": "Starbucks Corporation",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Increased geopolitical friction and calls from US lawmakers to close stores in Xinjiang expose the company to heightened regulatory risk in the US and potential consumer boycotts or retaliatory state action in China, its second-largest market.",
-      "why_now": "The public escalation by Chinese authorities on October 4, 2026, in response to US legislative pressure creates a fresh risk of operational disruption in the China segment.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-74555099eca1"
-      ],
-      "primary_source_event_id": "EVT-74555099eca1",
-      "source_headlines": [
-        "China lashes out at Xinjiang ‘lie’ after US lawmaker urges Starbucks to close new stores"
-      ],
-      "source_headline": "China lashes out at Xinjiang ‘lie’ after US lawmaker urges Starbucks to close new stores",
-      "source_url": "https://www.scmp.com/news/china/diplomacy/article/3369689/china-lashes-out-xinjiang-lie-after-us-lawmaker-urges-starbucks-close-new-stores?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "materiality_max": 87,
-      "newest_source_at": "2026-10-04T08:00:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T08:14:49Z",
-      "updated_at": "2026-10-04T08:14:49Z",
-      "decay_at": "2026-10-05T20:00:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3a564694adb9",
       "idea_version": "IDEAV-8811916078b6d2bb",
       "idea_version_started_at": "2026-10-05T07:26:59Z",
@@ -164448,6 +164372,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b520e6e5e5f6",
+      "idea_version": "IDEAV-2df1283f54ee5e2c",
+      "idea_version_started_at": "2026-10-04T08:14:49Z",
+      "ticker": "SBUX",
+      "company": "Starbucks Corporation",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Increased geopolitical friction and calls from US lawmakers to close stores in Xinjiang expose the company to heightened regulatory risk in the US and potential consumer boycotts or retaliatory state action in China, its second-largest market.",
+      "why_now": "The public escalation by Chinese authorities on October 4, 2026, in response to US legislative pressure creates a fresh risk of operational disruption in the China segment.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-74555099eca1"
+      ],
+      "primary_source_event_id": "EVT-74555099eca1",
+      "source_headlines": [
+        "China lashes out at Xinjiang ‘lie’ after US lawmaker urges Starbucks to close new stores"
+      ],
+      "source_headline": "China lashes out at Xinjiang ‘lie’ after US lawmaker urges Starbucks to close new stores",
+      "source_url": "https://www.scmp.com/news/china/diplomacy/article/3369689/china-lashes-out-xinjiang-lie-after-us-lawmaker-urges-starbucks-close-new-stores?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "materiality_max": 87,
+      "newest_source_at": "2026-10-04T08:00:17Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T08:14:49Z",
+      "updated_at": "2026-10-04T08:14:49Z",
+      "decay_at": "2026-10-05T20:00:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d686c1bc6f60",
       "idea_version": "IDEAV-8bd7852eb40a6572",
       "idea_version_started_at": "2026-10-04T08:14:49Z",
@@ -168359,9 +168354,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 573,
+    "total_count": 574,
     "shown_count": 500,
-    "hidden_count": 73,
+    "hidden_count": 74,
     "side_counts": {
       "long": {
         "total_count": 293,
@@ -168369,9 +168364,9 @@
         "hidden_count": 43
       },
       "short": {
-        "total_count": 280,
+        "total_count": 281,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 31
       }
     },
     "retention": {
@@ -168390,6 +168385,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b520e6e5e5f6",
+        "idea_version": "IDEAV-2df1283f54ee5e2c",
+        "idea_version_started_at": "2026-10-04T08:14:49Z",
+        "ticker": "SBUX",
+        "company": "Starbucks Corporation",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Increased geopolitical friction and calls from US lawmakers to close stores in Xinjiang expose the company to heightened regulatory risk in the US and potential consumer boycotts or retaliatory state action in China, its second-largest market.",
+        "why_now": "The public escalation by Chinese authorities on October 4, 2026, in response to US legislative pressure creates a fresh risk of operational disruption in the China segment.",
+        "conviction": 45,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 59,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 13,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "policy_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-74555099eca1"
+        ],
+        "primary_source_event_id": "EVT-74555099eca1",
+        "source_headlines": [
+          "China lashes out at Xinjiang ‘lie’ after US lawmaker urges Starbucks to close new stores"
+        ],
+        "source_headline": "China lashes out at Xinjiang ‘lie’ after US lawmaker urges Starbucks to close new stores",
+        "source_url": "https://www.scmp.com/news/china/diplomacy/article/3369689/china-lashes-out-xinjiang-lie-after-us-lawmaker-urges-starbucks-close-new-stores?utm_source=rss_feed",
+        "source_name": "South China Morning Post",
+        "materiality_max": 87,
+        "newest_source_at": "2026-10-04T08:00:17Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T08:14:49Z",
+        "updated_at": "2026-10-04T08:14:49Z",
+        "decay_at": "2026-10-05T20:00:17Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T20:00:17Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d686c1bc6f60",
         "idea_version": "IDEAV-8bd7852eb40a6572",
@@ -205492,87 +205561,12 @@
         "archived_at": "2026-09-11T15:04:19Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c38f617866c6",
-        "idea_version": "IDEAV-bf77dc483d9d6667",
-        "idea_version_started_at": "2026-09-08T15:48:21Z",
-        "ticker": "VIVIMEDLAB",
-        "company": "Vivimed Labs Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has entered a Corporate Insolvency Resolution Process, which typically results in significant equity value destruction for shareholders.",
-        "why_now": "The filing was made public on 2026-09-08, signaling the start of formal insolvency proceedings.",
-        "conviction": 90,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-605c8b65b363"
-        ],
-        "primary_source_event_id": "EVT-605c8b65b363",
-        "source_headlines": [
-          "Vivimed Labs Limited: Vivimed Labs Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-        ],
-        "source_headline": "Vivimed Labs Limited: Vivimed Labs Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "source_url": "https://nsearchives.nseindia.com/corporate/VIVIMEDLAB_08092026163612_Notice_of_committee_of_Creditors.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-08T11:06:33Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-08T15:48:21Z",
-        "updated_at": "2026-09-08T15:48:21Z",
-        "decay_at": "2026-09-09T23:06:33Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T12:00:04Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1341,
-    "live_count": 68,
+    "live_count": 67,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -205591,9 +205585,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 248974,
-    "news_picked_today": 1966,
-    "news_dropped_today": 18912
+    "news_seen_today": 249476,
+    "news_picked_today": 1983,
+    "news_dropped_today": 19159
   },
   "book_momentum": {
     "live_count": 8,
