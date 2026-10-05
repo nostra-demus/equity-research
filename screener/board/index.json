@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T22:45:22Z",
+  "generated_at": "2026-10-05T22:50:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-1020",
@@ -161307,77 +161307,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a29b6208aef4",
-      "idea_version": "IDEAV-f22435bcea16624f",
-      "idea_version_started_at": "2026-10-04T11:29:54Z",
-      "ticker": "1876",
-      "company": "Budweiser Brewing Company APAC",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has announced a strategic review, which often precedes potential asset divestitures, restructuring, or a privatization attempt by the parent company.",
-      "why_now": "The inside information filing was released on 2026-10-04, triggering immediate market speculation on the outcome of the review.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5aab3a870d2e"
-      ],
-      "primary_source_event_id": "EVT-5aab3a870d2e",
-      "source_headlines": [
-        "BUD APAC (01876): INSIDE INFORMATION"
-      ],
-      "source_headline": "BUD APAC (01876): INSIDE INFORMATION",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1004/2026100400021.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T10:46:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T11:29:54Z",
-      "updated_at": "2026-10-04T11:29:54Z",
-      "decay_at": "2026-10-05T22:46:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b68ebd5b2209",
       "idea_version": "IDEAV-e36f24bb8cb4bd09",
       "idea_version_started_at": "2026-10-05T04:46:37Z",
@@ -163861,6 +163790,77 @@
       "surfaced_at": "2026-10-04T08:14:49Z",
       "updated_at": "2026-10-04T08:14:49Z",
       "decay_at": "2026-10-05T20:00:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a29b6208aef4",
+      "idea_version": "IDEAV-f22435bcea16624f",
+      "idea_version_started_at": "2026-10-04T11:29:54Z",
+      "ticker": "1876",
+      "company": "Budweiser Brewing Company APAC",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has announced a strategic review, which often precedes potential asset divestitures, restructuring, or a privatization attempt by the parent company.",
+      "why_now": "The inside information filing was released on 2026-10-04, triggering immediate market speculation on the outcome of the review.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5aab3a870d2e"
+      ],
+      "primary_source_event_id": "EVT-5aab3a870d2e",
+      "source_headlines": [
+        "BUD APAC (01876): INSIDE INFORMATION"
+      ],
+      "source_headline": "BUD APAC (01876): INSIDE INFORMATION",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1004/2026100400021.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T10:46:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T11:29:54Z",
+      "updated_at": "2026-10-04T11:29:54Z",
+      "decay_at": "2026-10-05T22:46:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -167495,14 +167495,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 566,
+    "total_count": 567,
     "shown_count": 500,
-    "hidden_count": 66,
+    "hidden_count": 67,
     "side_counts": {
       "long": {
-        "total_count": 292,
+        "total_count": 293,
         "shown_count": 250,
-        "hidden_count": 42
+        "hidden_count": 43
       },
       "short": {
         "total_count": 274,
@@ -167526,6 +167526,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a29b6208aef4",
+        "idea_version": "IDEAV-f22435bcea16624f",
+        "idea_version_started_at": "2026-10-04T11:29:54Z",
+        "ticker": "1876",
+        "company": "Budweiser Brewing Company APAC",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has announced a strategic review, which often precedes potential asset divestitures, restructuring, or a privatization attempt by the parent company.",
+        "why_now": "The inside information filing was released on 2026-10-04, triggering immediate market speculation on the outcome of the review.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5aab3a870d2e"
+        ],
+        "primary_source_event_id": "EVT-5aab3a870d2e",
+        "source_headlines": [
+          "BUD APAC (01876): INSIDE INFORMATION"
+        ],
+        "source_headline": "BUD APAC (01876): INSIDE INFORMATION",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1004/2026100400021.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-04T10:46:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T11:29:54Z",
+        "updated_at": "2026-10-04T11:29:54Z",
+        "decay_at": "2026-10-05T22:46:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T22:46:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9d6049b683f8",
         "idea_version": "IDEAV-e7a5004eebb679bd",
@@ -196312,80 +196386,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b8b60620b725",
-        "idea_version": "IDEAV-0ec5aeeb81870780",
-        "idea_version_started_at": "2026-09-19T02:52:36Z",
-        "ticker": "YTRA",
-        "company": "Yatra Online, Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The filing of a SC TO-T/A indicates an active third-party tender offer, which typically forces the stock price toward the offer premium.",
-        "why_now": "The SEC filing was processed on 2026-09-18, confirming the live status of the tender offer.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-61e28efa41d1",
-          "EVT-6f4d9a0af7b1"
-        ],
-        "primary_source_event_id": "EVT-61e28efa41d1",
-        "source_headlines": [
-          "SC TO-T/A - Magna Holdings Ltd. (0002125850) (Filed by)",
-          "SC TO-T/A - Yatra Online, Inc. (0001516899) (Subject)"
-        ],
-        "source_headline": "SC TO-T/A - Magna Holdings Ltd. (0002125850) (Filed by)",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/2125850/000153949726002545/0001539497-26-002545-index.htm",
-        "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-18T20:29:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-19T02:52:36Z",
-        "updated_at": "2026-09-19T02:52:36Z",
-        "decay_at": "2026-09-20T08:29:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-22T09:12:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-1f05bd3420a7",
         "idea_version": "IDEAV-b31b6c0def5cd963",
         "idea_version_started_at": "2026-09-19T17:33:45Z",
@@ -204718,7 +204718,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1343,
-    "live_count": 63,
+    "live_count": 62,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -204737,9 +204737,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 254589,
-    "news_picked_today": 2265,
-    "news_dropped_today": 21008
+    "news_seen_today": 254613,
+    "news_picked_today": 2269,
+    "news_dropped_today": 21028
   },
   "book_momentum": {
     "live_count": 8,
