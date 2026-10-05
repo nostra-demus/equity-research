@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T10:41:56Z",
+  "generated_at": "2026-10-05T10:52:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-356",
@@ -580,6 +580,55 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-394",
+      "headline": "Neysa to raise $200 mn from Blackstone, OTPP to expand data centre platform",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/neysa-200-million-funding-blackstone-ai-cloud-gpu-india-11791176005110.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T09:30:50Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Neysa is raising $200 million from Blackstone and OTPP to expand its data center platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Neysa is raising $200 million from Blackstone and OTPP to expand its data center platform.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Neysa",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1970,60 +2019,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-083",
-      "headline": "Suncor to sell Canadian offshore assets to Ithaca for $1.08 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/suncor-sell-canadian-offshore-assets-ithaca-108-billion-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:18:34Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Suncor is selling Canadian offshore assets to Ithaca for $1.08 billion, a significant divestment of capital assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Suncor is selling Canadian offshore assets to Ithaca for $1.08 billion, a significant divestment of capital assets.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Suncor Energy",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Ithaca Energy",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205569,9 +205564,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 125796,
-    "news_picked_today": 609,
-    "news_dropped_today": 12447
+    "news_seen_today": 126709,
+    "news_picked_today": 636,
+    "news_dropped_today": 12564
   },
   "book_momentum": {
     "live_count": 8,
