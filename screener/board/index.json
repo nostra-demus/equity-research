@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-05T05:05:37Z",
+  "generated_at": "2026-10-05T05:14:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261005-257",
+      "headline": "VAU: Court Approves Scheme Meeting and Scheme Booklet Despatch [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VAU?key=2924-03144417-6A1347686",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T05:06:11Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Court approval of a scheme meeting is a critical procedural step in the finalization of an M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Court approval of a scheme meeting is a critical procedural step in the finalization of an M&A transaction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vanguard Australian Property",
+          "ticker": "VAU",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261005-156",
       "headline": "Shyam Metalics and Energy Limited: Shyam Metalics And Energy Limited has informed the Exchange regarding a press release dated October 05, 2026, titled \"Shyam Metalics Signs MoU with Maharashtra Govt. to SetUp ¥50,000 Crore Integrated Steel Complex in Chandrapur\".",
@@ -1357,6 +1406,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-268",
+      "headline": "Drohnen: Hält die Wirtschaft der Ukraine Moskaus Luftangriffen stand?",
+      "headline_en": "Drones: Is Ukraine's economy withstanding Moscow's air strikes?",
+      "url": "https://www.handelsblatt.com/politik/international/drohnen-haelt-die-wirtschaft-der-ukraine-moskaus-luftangriffen-stand/100259665.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T05:02:52Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Ongoing military conflict and infrastructure targeting in Ukraine represent a significant geopolitical risk to regional stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Ongoing military conflict and infrastructure targeting in Ukraine represent a significant geopolitical risk to regional stability.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-252",
       "headline": "Elektronik: Schneider Electric plant offenbar Milliardenübernahme von PTC",
       "headline_en": "Electronics: Schneider Electric apparently planning billion-dollar takeover of PTC",
@@ -1891,104 +1983,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-031",
-      "headline": "Flávio lidera primeiro turno da eleição presidencial e vai enfrentar Lula no segundo, diz TSE",
-      "headline_en": "Flávio leads the first round of the presidential election and will face Lula in the second, says TSE",
-      "url": "https://www.reuters.com/pt/domestico/YYOB5WUPXNO5DL5Q2YO56UC7DU-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T00:08:02Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "A presidential election runoff in Brazil is a major political event that will impact the country's economic policy and market stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "A presidential election runoff in Brazil is a major political event that will impact the country's economic policy and market stability.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-195",
-      "headline": "TSMC in talks with Musk over potential role in Texas Terafab, discussions at early stage",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/tsmc-in-talks-with-musk-over-potential-role-in-texas-terafab-discussions-at-early-stage/article71545751.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T03:56:19Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "TSMC is in early-stage discussions with Tesla regarding potential involvement in a Texas-based semiconductor facility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "TSMC is in early-stage discussions with Tesla regarding potential involvement in a Texas-based semiconductor facility.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TSMC",
-          "ticker": null,
-          "listing_country": "TW"
-        },
-        {
-          "name": "Tesla",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205246,9 +205240,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2379,
-    "news_picked_today": 320,
-    "news_dropped_today": 2059
+    "news_seen_today": 2441,
+    "news_picked_today": 337,
+    "news_dropped_today": 2104
   },
   "book_momentum": {
     "live_count": 8,
