@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T03:09:40Z",
+  "generated_at": "2026-10-05T03:14:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-147",
@@ -1001,6 +1001,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-153",
+      "headline": "Marico Limited: Please find enclosed an update on the operating performance and demand trends witnessed during the quarter ended September 30, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/marico_05102026084127_Seint.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T03:12:08Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Marico Limited provided a quarterly operating performance update, which is a key indicator for investor expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Marico Limited provided a quarterly operating performance update, which is a key indicator for investor expectations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marico Limited",
+          "ticker": "531642",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-031",
       "headline": "Flávio lidera primeiro turno da eleição presidencial e vai enfrentar Lula no segundo, diz TSE",
       "headline_en": "Flávio leads the first round of the presidential election and will face Lula in the second, says TSE",
@@ -1896,49 +1945,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-144",
-      "headline": "Trump’s chief economic adviser says Powell should leave Fed board",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/trump-launches-super-intelligence-force-after-calls-for-ai-slowdown-20261005-p612sb?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T02:52:47Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Political pressure on the Federal Reserve board independence creates uncertainty regarding future monetary policy direction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Political pressure on the Federal Reserve board independence creates uncertainty regarding future monetary policy direction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -161299,79 +161305,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ae786a1903f6",
-      "idea_version": "IDEAV-b64b44f606635522",
-      "idea_version_started_at": "2026-10-03T15:24:55Z",
-      "ticker": "2222.SR",
-      "company": "Saudi Aramco",
-      "exchange": "TADAWUL",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A fire at an Aramco facility could disrupt production and negatively impact the company's revenue and margins.",
-      "why_now": "Flames and smoke were observed at the facility today, indicating an immediate operational issue.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-857405373f17"
-      ],
-      "primary_source_event_id": "EVT-857405373f17",
-      "source_headlines": [
-        "Flames, smoke seen at Aramco facility south of Saudi capital"
-      ],
-      "source_headline": "Flames, smoke seen at Aramco facility south of Saudi capital",
-      "source_url": "https://www.newarab.com/news/flames-smoke-seen-aramco-facility-south-saudi-capital",
-      "source_name": "The New Arab",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-03T15:12:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T15:24:55Z",
-      "updated_at": "2026-10-03T15:24:55Z",
-      "decay_at": "2026-10-05T03:12:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a34afcfddf31",
       "idea_version": "IDEAV-ffdd56a83b3aae88",
       "idea_version_started_at": "2026-10-04T14:21:24Z",
@@ -164603,6 +164536,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-ae786a1903f6",
+      "idea_version": "IDEAV-b64b44f606635522",
+      "idea_version_started_at": "2026-10-03T15:24:55Z",
+      "ticker": "2222.SR",
+      "company": "Saudi Aramco",
+      "exchange": "TADAWUL",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A fire at an Aramco facility could disrupt production and negatively impact the company's revenue and margins.",
+      "why_now": "Flames and smoke were observed at the facility today, indicating an immediate operational issue.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-857405373f17"
+      ],
+      "primary_source_event_id": "EVT-857405373f17",
+      "source_headlines": [
+        "Flames, smoke seen at Aramco facility south of Saudi capital"
+      ],
+      "source_headline": "Flames, smoke seen at Aramco facility south of Saudi capital",
+      "source_url": "https://www.newarab.com/news/flames-smoke-seen-aramco-facility-south-saudi-capital",
+      "source_name": "The New Arab",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T15:12:27Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T15:24:55Z",
+      "updated_at": "2026-10-03T15:24:55Z",
+      "decay_at": "2026-10-05T03:12:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-30544aec4eac",
       "idea_version": "IDEAV-d7953d700e77fea4",
       "idea_version_started_at": "2026-10-03T14:22:04Z",
@@ -167136,9 +167142,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 553,
+    "total_count": 554,
     "shown_count": 500,
-    "hidden_count": 53,
+    "hidden_count": 54,
     "side_counts": {
       "long": {
         "total_count": 280,
@@ -167146,9 +167152,9 @@
         "hidden_count": 30
       },
       "short": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       }
     },
     "retention": {
@@ -167167,6 +167173,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ae786a1903f6",
+        "idea_version": "IDEAV-b64b44f606635522",
+        "idea_version_started_at": "2026-10-03T15:24:55Z",
+        "ticker": "2222.SR",
+        "company": "Saudi Aramco",
+        "exchange": "TADAWUL",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A fire at an Aramco facility could disrupt production and negatively impact the company's revenue and margins.",
+        "why_now": "Flames and smoke were observed at the facility today, indicating an immediate operational issue.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-857405373f17"
+        ],
+        "primary_source_event_id": "EVT-857405373f17",
+        "source_headlines": [
+          "Flames, smoke seen at Aramco facility south of Saudi capital"
+        ],
+        "source_headline": "Flames, smoke seen at Aramco facility south of Saudi capital",
+        "source_url": "https://www.newarab.com/news/flames-smoke-seen-aramco-facility-south-saudi-capital",
+        "source_name": "The New Arab",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-03T15:12:27Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T15:24:55Z",
+        "updated_at": "2026-10-03T15:24:55Z",
+        "decay_at": "2026-10-05T03:12:27Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T03:12:27Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-eaf659086da7",
         "idea_version": "IDEAV-904be450c0383ddf",
@@ -204250,86 +204332,12 @@
         "archived_at": "2026-09-11T02:58:58Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-db76bcbae044",
-        "idea_version": "IDEAV-8aff9bce6dbab3c7",
-        "idea_version_started_at": "2026-09-08T00:06:31Z",
-        "ticker": "02889",
-        "company": "Pateo",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is executing a placing of new H shares under a general mandate, which will dilute existing shareholders and put immediate downward pressure on the stock price.",
-        "why_now": "The placement filing was published on September 7, 2026, creating immediate supply overhang.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-93369a48abe0"
-        ],
-        "primary_source_event_id": "EVT-93369a48abe0",
-        "source_headlines": [
-          "PATEO (02889): PLACING OF NEW H SHARES UNDER GENERAL MANDATE"
-        ],
-        "source_headline": "PATEO (02889): PLACING OF NEW H SHARES UNDER GENERAL MANDATE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0908/2026090800031.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 90,
-        "newest_source_at": "2026-09-07T23:57:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-08T00:06:31Z",
-        "updated_at": "2026-09-08T00:06:31Z",
-        "decay_at": "2026-09-09T11:57:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T00:28:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1324,
-    "live_count": 72,
+    "live_count": 71,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -204348,9 +204356,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 775,
-    "news_picked_today": 167,
-    "news_dropped_today": 608
+    "news_seen_today": 800,
+    "news_picked_today": 170,
+    "news_dropped_today": 630
   },
   "book_momentum": {
     "live_count": 8,
