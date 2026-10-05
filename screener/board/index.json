@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T11:19:58Z",
+  "generated_at": "2026-10-05T11:27:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-356",
@@ -1456,6 +1456,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-466",
+      "headline": "Schneider Electric confirma la compra por 22.600 millones de dólares de la empresa de software PTC",
+      "headline_en": "Schneider Electric confirms purchase of software company PTC for $22.6 billion.",
+      "url": "https://www.reuters.com/es/negocio/DNBGGPHNHNOV5NEMDPJVTJPMGE-2026-10-05/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T07:12:09Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Schneider Electric confirms $22.6 billion acquisition of software company PTC, a material capital deployment and strategic transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric confirms $22.6 billion acquisition of software company PTC, a material capital deployment and strategic transaction.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 88,
+      "rank_factors": {
+        "materiality": 88,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "PTC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-331",
       "headline": "Intesa Sweetens Monte dei Paschi Bid to $35.3 Billion, But Warns on Rival Deals",
       "headline_en": null,
@@ -1556,6 +1610,55 @@
           "name": "IntraBio",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-485",
+      "headline": "Lidl GB to open over 50 stores in $793 million investment drive",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/uk/lidl-gb-open-over-50-stores-part-793-million-investment-2026-10-05/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T06:59:32Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Lidl GB announces a $793 million investment to open over 50 new stores.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lidl GB announces a $793 million investment to open over 50 new stores.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lidl",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -1932,104 +2035,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-314",
-      "headline": "Shyam Metalics To Invest ₹50,000 Crore For 9 MTPA Steel Complex In Chandrapur",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/shyam-metalics-to-invest-50000-crore-for-9-mtpa-steel-complex-in-chandrapur",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T05:02:47Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Shyam Metalics announced a Rs 50,000 crore investment for a 9 MTPA steel complex in Chandrapur.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shyam Metalics announced a Rs 50,000 crore investment for a 9 MTPA steel complex in Chandrapur.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shyam Metalics",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-244",
-      "headline": "Crash alert! V2 Retail shares plunge 20% on Q2 business update; festive season shift weighs on growth",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/crash-alert-v2-retail-shares-plunge-20-on-q2-business-update-festive-season-shift-weighs-on-growth/articleshow/134685984.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T04:36:08Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Shares plunged 20% following a weak Q2 business update, indicating a significant negative shift in growth expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shares plunged 20% following a weak Q2 business update, indicating a significant negative shift in growth expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "V2 Retail",
-          "ticker": "V2RETAIL",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205575,9 +205580,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 129065,
-    "news_picked_today": 761,
-    "news_dropped_today": 12871
+    "news_seen_today": 129619,
+    "news_picked_today": 793,
+    "news_dropped_today": 12959
   },
   "book_momentum": {
     "live_count": 8,
