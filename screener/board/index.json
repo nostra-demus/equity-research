@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T05:31:21Z",
+  "generated_at": "2026-10-05T05:40:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-257",
@@ -346,6 +346,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-274",
+      "headline": "Schneider Electric to buy software group PTC for $23.7bn",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/2084f349-0829-4130-a5e6-b98929a6e633?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T05:29:45Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Schneider Electric is acquiring PTC for $23.7bn, a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric is acquiring PTC for $23.7bn, a major M&A event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "PTC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-272",
       "headline": "Schneider Electric to buy PTC for $22.6 billion in all-cash deal",
       "headline_en": null,
@@ -400,32 +454,32 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261005-239",
-      "headline": "Schneider Electric in advanced talks to buy US-based software firm PTC for roughly $20 billion: What we know",
+      "inbox_id": "INB-20261005-284",
+      "headline": "BT closes in on deal for embattled TalkTalk",
       "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/schneider-electric-in-advanced-talks-to-buy-us-based-software-firm-ptc-for-roughly-20-billion-what-we-know-11791174772132.html",
-      "source_name": "Mint",
+      "url": "https://www.ft.com/content/27d5abde-c1cd-4dc1-932f-4812a41a66c4",
+      "source_name": "Financial Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-05T04:42:57Z",
+      "found_at": "2026-10-05T05:11:07Z",
       "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Schneider Electric is in advanced talks to acquire PTC for approximately $20 billion.",
+      "prelim_note": "BT is nearing a deal to acquire TalkTalk, a major consolidation in the UK telecom sector.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Schneider Electric is in advanced talks to acquire PTC for approximately $20 billion.",
-      "region": "GLOBAL",
+      "triage_reason": "BT is nearing a deal to acquire TalkTalk, a major consolidation in the UK telecom sector.",
+      "region": "GB",
       "relevance": "material",
-      "materiality_pre_score": 85,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 85,
+        "materiality": 75,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
+        "materiality_label_floor": 10,
+        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
@@ -438,14 +492,14 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Schneider Electric",
+          "name": "BT Group",
           "ticker": null,
-          "listing_country": "FR"
+          "listing_country": "GB"
         },
         {
-          "name": "PTC Inc",
+          "name": "TalkTalk",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -1460,6 +1514,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-288",
+      "headline": "Russian air strikes targeted port infrastructure in Ukraine's Odesa region, governor says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/europe/russian-air-strikes-targeted-port-infrastructure-ukraines-odesa-region-governor-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T05:33:35Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Military strikes on port infrastructure represent a supply shock to global commodity markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Military strikes on port infrastructure represent a supply shock to global commodity markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-268",
       "headline": "Drohnen: Hält die Wirtschaft der Ukraine Moskaus Luftangriffen stand?",
       "headline_en": "Drones: Is Ukraine's economy withstanding Moscow's air strikes?",
@@ -1889,104 +1986,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-168",
-      "headline": "Embassy Developments Limited: Press Release - \"Embassy Developments Records INR 1,800 Crore in Pre-Sales at Launch of Embassy Origins\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/EMBDL_05102026090219_EDL_PressRelease.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-05T03:33:37Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Embassy Developments recorded INR 1,800 crore in pre-sales at the launch of Embassy Origins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Embassy Developments recorded INR 1,800 crore in pre-sales at the launch of Embassy Origins.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Embassy Developments",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-207",
-      "headline": "RLF: Form 604 Change in Substantial Shareholding",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RLF?key=2924-03144414-6A1347685",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-05T04:26:11Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Significant change in shareholding reported for RLF.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Significant change in shareholding reported for RLF.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RLF",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205244,9 +205243,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2565,
-    "news_picked_today": 357,
-    "news_dropped_today": 2208
+    "news_seen_today": 2649,
+    "news_picked_today": 376,
+    "news_dropped_today": 2273
   },
   "book_momentum": {
     "live_count": 8,
