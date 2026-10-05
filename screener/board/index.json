@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T10:32:58Z",
+  "generated_at": "2026-10-05T10:41:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-356",
@@ -488,6 +488,98 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-391",
+      "headline": "Shares of software maker PTC soar 34% on $23 billion deal",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=5efbfa09-fe02-415d-b0bc-bd4f9175b2c5&mod=mw_rss_bulletins",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T09:41:19Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "A $23 billion deal is a significant M&A event that will materially impact the acquiring company's financials and operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $23 billion deal is a significant M&A event that will materially impact the acquiring company's financials and operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PTC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-378",
+      "headline": "This $23 billion software deal was struck at a decade-low valuation, as AI winner takes out loser",
+      "headline_en": null,
+      "url": "https://www.marketwatch.com/story/this-23-billion-software-deal-was-struck-at-a-decade-low-valuation-as-ai-winner-takes-out-loser-aa18f477?mod=mw_rss_topstories",
+      "source_name": "MarketWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T09:39:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "A $23 billion software acquisition deal has been struck, likely referring to a major tech consolidation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $23 billion software acquisition deal has been struck, likely referring to a major tech consolidation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1929,109 +2021,6 @@
           "name": "Ithaca Energy",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-080",
-      "headline": "AkzoNobel agrees deal to sell its SE Asia decorative paint unit to Nippon Paint",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/9737146d-fda7-440f-a77d-ab954de7a1a5?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:15:23Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "AkzoNobel is divesting its SE Asia decorative paint unit to Nippon Paint, representing a significant portfolio restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AkzoNobel is divesting its SE Asia decorative paint unit to Nippon Paint, representing a significant portfolio restructuring.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AkzoNobel",
-          "ticker": null,
-          "listing_country": "NL"
-        },
-        {
-          "name": "Nippon Paint",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-093",
-      "headline": "CSL, Alentis Therapeutics Partner On Lixudebart In Deal Worth Up To $1.6 Bln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/csl-alentis-therapeutics-partner-lixudebart-deal-worth-16-bln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:10:58Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "CSL entered a partnership deal worth up to $1.6 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CSL entered a partnership deal worth up to $1.6 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CSL",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -205580,9 +205569,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 124643,
-    "news_picked_today": 556,
-    "news_dropped_today": 12260
+    "news_seen_today": 125796,
+    "news_picked_today": 609,
+    "news_dropped_today": 12447
   },
   "book_momentum": {
     "live_count": 8,
