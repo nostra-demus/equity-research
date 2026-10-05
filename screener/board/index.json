@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T23:32:27Z",
+  "generated_at": "2026-10-05T23:33:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-1020",
@@ -158454,6 +158454,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-41f871048ef0",
+      "idea_version": "IDEAV-d881e5e1a428d88d",
+      "idea_version_started_at": "2026-10-05T23:32:47Z",
+      "ticker": "ORCL",
+      "company": "Oracle Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A data breach involving 20 million records creates substantial litigation risk, regulatory scrutiny, and potential reputational damage to the firm's cloud and health data business.",
+      "why_now": "The breach was reported on 2026-10-05, and the scale of the compromise suggests significant future legal and remediation costs.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-08f447a7192f"
+      ],
+      "primary_source_event_id": "EVT-08f447a7192f",
+      "source_headlines": [
+        "Oracle 2025 Health Breach Compromised Data of 20 Million People"
+      ],
+      "source_headline": "Oracle 2025 Health Breach Compromised Data of 20 Million People",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-05/oracle-2025-health-breach-compromised-data-of-20-million-people",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T23:09:19Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/ORCL_2026-08-14",
+        "latest_decision": "Watchlist",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-10-05T23:32:47Z",
+      "updated_at": "2026-10-05T23:32:47Z",
+      "decay_at": "2026-10-07T11:09:19Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0aed650e01e7",
       "idea_version": "IDEAV-ee4cf31c9e3136f7",
       "idea_version_started_at": "2026-10-05T23:00:55Z",
@@ -158869,6 +158939,76 @@
       "surfaced_at": "2026-10-04T15:40:04Z",
       "updated_at": "2026-10-04T15:40:04Z",
       "decay_at": "2026-10-06T03:33:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3bb2116ecda7",
+      "idea_version": "IDEAV-e0bcae152608f99c",
+      "idea_version_started_at": "2026-10-05T23:32:47Z",
+      "ticker": "KKR",
+      "company": "KKR & Co. Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of Gen II Fund Services scales KKR's fee-earning assets under management in the high-margin private-capital administration space.",
+      "why_now": "The deal was announced on 2026-10-05, signaling a strategic expansion of their financial services infrastructure.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cb8a617f4ac1"
+      ],
+      "primary_source_event_id": "EVT-cb8a617f4ac1",
+      "source_headlines": [
+        "KKR Strikes Deal to Buy Private-Capital Fund Administrator Gen II"
+      ],
+      "source_headline": "KKR Strikes Deal to Buy Private-Capital Fund Administrator Gen II",
+      "source_url": "https://www.wsj.com/finance/investing/kkr-strikes-deal-to-buy-private-capital-fund-administrator-gen-ii-40b951a5?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T21:09:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T23:32:47Z",
+      "updated_at": "2026-10-05T23:32:47Z",
+      "decay_at": "2026-10-07T09:09:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -159853,6 +159993,151 @@
       "surfaced_at": "2026-10-04T14:21:24Z",
       "updated_at": "2026-10-04T14:21:24Z",
       "decay_at": "2026-10-06T02:03:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-70b8068a4e51",
+      "idea_version": "IDEAV-d13a0335d06a7192",
+      "idea_version_started_at": "2026-10-05T23:32:47Z",
+      "ticker": "PARA",
+      "company": "Paramount Global",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The merger with Skydance and the resolution of antitrust hurdles with Warner Bros removes significant overhang and provides a path to operational restructuring.",
+      "why_now": "Merger details were announced and antitrust clearance progressed on 2026-10-05.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b4b3e9e8a4b3",
+        "EVT-e701f636fd2b"
+      ],
+      "primary_source_event_id": "EVT-b4b3e9e8a4b3",
+      "source_headlines": [
+        "Ellison's Skydance Announced Merger Details",
+        "Paramount-Warner Bros merger moves ahead after antitrust fight"
+      ],
+      "source_headline": "Ellison's Skydance Announced Merger Details",
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-05/ellison-s-skydance-announced-merger-details-video",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T21:35:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T23:32:47Z",
+      "updated_at": "2026-10-05T23:32:47Z",
+      "decay_at": "2026-10-07T09:35:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-d68dba75eb46",
+      "idea_version": "IDEAV-aff42d67f17ddbe6",
+      "idea_version_started_at": "2026-10-05T23:32:47Z",
+      "ticker": "LGI",
+      "company": "LGI Limited",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of 42MW of solar generation assets expands LGI's renewable energy capacity and diversifies its revenue stream beyond landfill gas operations.",
+      "why_now": "The company released the acquisition presentation on 2026-10-05, making the growth impact immediate for investors.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-913a4caa7fbb"
+      ],
+      "primary_source_event_id": "EVT-913a4caa7fbb",
+      "source_headlines": [
+        "LGI: 42MW Solar Generation Assets Acquisition Presentation [price-sensitive]"
+      ],
+      "source_headline": "LGI: 42MW Solar Generation Assets Acquisition Presentation [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LGI?key=2924-03144603-2A1701867",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T21:21:54Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T23:32:47Z",
+      "updated_at": "2026-10-05T23:32:47Z",
+      "decay_at": "2026-10-07T09:21:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -204862,8 +205147,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1345,
-    "live_count": 59,
+    "surfaced_total": 1349,
+    "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
