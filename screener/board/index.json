@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T03:36:40Z",
+  "generated_at": "2026-10-05T03:46:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-156",
@@ -1148,6 +1148,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-168",
+      "headline": "Embassy Developments Limited: Press Release - \"Embassy Developments Records INR 1,800 Crore in Pre-Sales at Launch of Embassy Origins\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/EMBDL_05102026090219_EDL_PressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T03:33:37Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Embassy Developments recorded INR 1,800 crore in pre-sales at the launch of Embassy Origins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Embassy Developments recorded INR 1,800 crore in pre-sales at the launch of Embassy Origins.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Embassy Developments",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-031",
       "headline": "Flávio lidera primeiro turno da eleição presidencial e vai enfrentar Lula no segundo, diz TSE",
       "headline_en": "Flávio leads the first round of the presidential election and will face Lula in the second, says TSE",
@@ -1289,6 +1338,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-176",
+      "headline": "India aims to sign multibillion-dollar French jet deal by March",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/india-aims-to-sign-multibillion-dollar-french-jet-deal-by-march/article71545728.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T03:38:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "India aims to finalize a multibillion-dollar defense procurement deal with France.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "India aims to finalize a multibillion-dollar defense procurement deal with France.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1589,6 +1681,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-166",
+      "headline": "HDFC Bank shares gain after Anup Bagchi's appointment as new MD & CEO - Should you buy or sell?",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/hdfc-bank-share-price-anup-bagchi-new-md-and-ceo-reaction-tenure-outlook-buy-or-sell-target-20004219.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T03:43:15Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "HDFC Bank appointed Anup Bagchi as the new MD & CEO, a key leadership change for the bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "HDFC Bank appointed Anup Bagchi as the new MD & CEO, a key leadership change for the bank.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-158",
       "headline": "Bhavish pledges 4.32% Ola stake after earlier debt clean-up",
       "headline_en": null,
@@ -1826,153 +1967,6 @@
           "name": "Bajaj Housing Finance",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-072",
-      "headline": "iX Biopharma converts US$1.2 million debt to shares to preserve cash for US expansion",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/ix-biopharma-converts-us1-2-million-debt-shares-preserve-cash-us-expansion",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:09:27Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "iX Biopharma is converting US$1.2 million of debt to equity to improve cash position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "iX Biopharma is converting US$1.2 million of debt to equity to improve cash position.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "iX Biopharma",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-061",
-      "headline": "Multiple Security Failures Allowed FlyDubai Pilot Into Cockpit",
-      "headline_en": null,
-      "url": "https://www.wsj.com/world/middle-east/security-failures-flydubai-pilot-israel-e400e8f6?mod=rss_worldnews",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Security failures in the cockpit represent a significant operational and safety risk for the airline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Security failures in the cockpit represent a significant operational and safety risk for the airline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FlyDubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-135",
-      "headline": "Orora on spill alert as investors blast bonus plans, share price crash",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/manufacturing/orora-on-spill-alert-as-investors-blast-bonus-plans-share-price-crash-20261005-p612p2?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T02:34:23Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Orora faces investor backlash over bonus plans and share price performance, creating management and governance risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Orora faces investor backlash over bonus plans and share price performance, creating management and governance risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Orora",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "mid",
@@ -158690,76 +158684,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3591e8e99e52",
-      "idea_version": "IDEAV-b72134d626177dbe",
-      "idea_version_started_at": "2026-10-03T17:45:04Z",
-      "ticker": "RELIANCE.NS",
-      "company": "Reliance Industries",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A massive Rs 1 lakh crore capital expenditure commitment in Andhra Pradesh signals significant long-term growth and infrastructure expansion for the conglomerate.",
-      "why_now": "The investment plan was announced today, October 3, 2026, providing a fresh catalyst for capital deployment expectations.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a20c35330171"
-      ],
-      "primary_source_event_id": "EVT-a20c35330171",
-      "source_headlines": [
-        "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani"
-      ],
-      "source_headline": "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani",
-      "source_url": "https://www.freepressjournal.in/corporate-gallery/reliance-plans-rs-1-lakh-crore-investment-in-andhra-pradesh-says-anant-ambani",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-03T15:41:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T17:45:04Z",
-      "updated_at": "2026-10-03T17:45:04Z",
-      "decay_at": "2026-10-05T03:41:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fd2819ac8b2a",
       "idea_version": "IDEAV-2a3ce573752af6d6",
       "idea_version_started_at": "2026-10-05T02:42:33Z",
@@ -161322,78 +161246,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-520be705f9e6",
-      "idea_version": "IDEAV-4f8e6d586a48c30b",
-      "idea_version_started_at": "2026-10-03T16:21:41Z",
-      "ticker": "RELIANCE",
-      "company": "Reliance Industries",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Reliance Industries is planning a massive Rs 1 lakh crore (approximately $12 billion) investment in Andhra Pradesh, focusing on clean energy projects that will expand its long-term asset base and industrial footprint.",
-      "why_now": "The investment plans were officially announced by Anant Ambani on October 3, 2026, establishing a fresh, concrete capital expenditure catalyst.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a20c35330171"
-      ],
-      "primary_source_event_id": "EVT-a20c35330171",
-      "source_headlines": [
-        "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani"
-      ],
-      "source_headline": "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani",
-      "source_url": "https://www.freepressjournal.in/corporate-gallery/reliance-plans-rs-1-lakh-crore-investment-in-andhra-pradesh-says-anant-ambani",
-      "source_name": "Free Press Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-03T15:41:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T16:21:41Z",
-      "updated_at": "2026-10-03T16:21:41Z",
-      "decay_at": "2026-10-05T03:41:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-dbb0c0af5d7a",
       "idea_version": "IDEAV-1fe7fd5496fc0402",
       "idea_version_started_at": "2026-10-05T03:26:33Z",
@@ -163918,6 +163770,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-3591e8e99e52",
+      "idea_version": "IDEAV-b72134d626177dbe",
+      "idea_version_started_at": "2026-10-03T17:45:04Z",
+      "ticker": "RELIANCE.NS",
+      "company": "Reliance Industries",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A massive Rs 1 lakh crore capital expenditure commitment in Andhra Pradesh signals significant long-term growth and infrastructure expansion for the conglomerate.",
+      "why_now": "The investment plan was announced today, October 3, 2026, providing a fresh catalyst for capital deployment expectations.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a20c35330171"
+      ],
+      "primary_source_event_id": "EVT-a20c35330171",
+      "source_headlines": [
+        "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani"
+      ],
+      "source_headline": "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani",
+      "source_url": "https://www.freepressjournal.in/corporate-gallery/reliance-plans-rs-1-lakh-crore-investment-in-andhra-pradesh-says-anant-ambani",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T15:41:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T17:45:04Z",
+      "updated_at": "2026-10-03T17:45:04Z",
+      "decay_at": "2026-10-05T03:41:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-7c6921220f81",
       "idea_version": "IDEAV-a2b91e03a73036bb",
       "idea_version_started_at": "2026-10-03T06:25:08Z",
@@ -164834,6 +164756,78 @@
       "surfaced_at": "2026-10-02T22:01:37Z",
       "updated_at": "2026-10-03T21:44:54Z",
       "decay_at": "2026-10-04T08:30:53Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-520be705f9e6",
+      "idea_version": "IDEAV-4f8e6d586a48c30b",
+      "idea_version_started_at": "2026-10-03T16:21:41Z",
+      "ticker": "RELIANCE",
+      "company": "Reliance Industries",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Reliance Industries is planning a massive Rs 1 lakh crore (approximately $12 billion) investment in Andhra Pradesh, focusing on clean energy projects that will expand its long-term asset base and industrial footprint.",
+      "why_now": "The investment plans were officially announced by Anant Ambani on October 3, 2026, establishing a fresh, concrete capital expenditure catalyst.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a20c35330171"
+      ],
+      "primary_source_event_id": "EVT-a20c35330171",
+      "source_headlines": [
+        "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani"
+      ],
+      "source_headline": "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani",
+      "source_url": "https://www.freepressjournal.in/corporate-gallery/reliance-plans-rs-1-lakh-crore-investment-in-andhra-pradesh-says-anant-ambani",
+      "source_name": "Free Press Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-03T15:41:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T16:21:41Z",
+      "updated_at": "2026-10-03T16:21:41Z",
+      "decay_at": "2026-10-05T03:41:30Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -167446,14 +167440,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 554,
+    "total_count": 556,
     "shown_count": 500,
-    "hidden_count": 54,
+    "hidden_count": 56,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 282,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 32
       },
       "short": {
         "total_count": 274,
@@ -167477,6 +167471,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3591e8e99e52",
+        "idea_version": "IDEAV-b72134d626177dbe",
+        "idea_version_started_at": "2026-10-03T17:45:04Z",
+        "ticker": "RELIANCE.NS",
+        "company": "Reliance Industries",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A massive Rs 1 lakh crore capital expenditure commitment in Andhra Pradesh signals significant long-term growth and infrastructure expansion for the conglomerate.",
+        "why_now": "The investment plan was announced today, October 3, 2026, providing a fresh catalyst for capital deployment expectations.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a20c35330171"
+        ],
+        "primary_source_event_id": "EVT-a20c35330171",
+        "source_headlines": [
+          "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani"
+        ],
+        "source_headline": "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani",
+        "source_url": "https://www.freepressjournal.in/corporate-gallery/reliance-plans-rs-1-lakh-crore-investment-in-andhra-pradesh-says-anant-ambani",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-03T15:41:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T17:45:04Z",
+        "updated_at": "2026-10-03T17:45:04Z",
+        "decay_at": "2026-10-05T03:41:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T03:41:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-520be705f9e6",
+        "idea_version": "IDEAV-4f8e6d586a48c30b",
+        "idea_version_started_at": "2026-10-03T16:21:41Z",
+        "ticker": "RELIANCE",
+        "company": "Reliance Industries",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Reliance Industries is planning a massive Rs 1 lakh crore (approximately $12 billion) investment in Andhra Pradesh, focusing on clean energy projects that will expand its long-term asset base and industrial footprint.",
+        "why_now": "The investment plans were officially announced by Anant Ambani on October 3, 2026, establishing a fresh, concrete capital expenditure catalyst.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a20c35330171"
+        ],
+        "primary_source_event_id": "EVT-a20c35330171",
+        "source_headlines": [
+          "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani"
+        ],
+        "source_headline": "Reliance plans Rs 1 lakh crore investment in Andhra Pradesh, says Anant Ambani",
+        "source_url": "https://www.freepressjournal.in/corporate-gallery/reliance-plans-rs-1-lakh-crore-investment-in-andhra-pradesh-says-anant-ambani",
+        "source_name": "Free Press Journal",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-03T15:41:30Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T16:21:41Z",
+        "updated_at": "2026-10-03T16:21:41Z",
+        "decay_at": "2026-10-05T03:41:30Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T03:41:30Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ae786a1903f6",
         "idea_version": "IDEAV-b64b44f606635522",
@@ -196462,154 +196604,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3eb47bedf20c",
-        "idea_version": "IDEAV-c7b4931ea965620b",
-        "idea_version_started_at": "2026-09-17T13:01:51Z",
-        "ticker": "2371",
-        "company": "Kakaku.com",
-        "exchange": "TSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A Bain-backed group has raised its takeover offer, creating a bidding war that increases the likelihood of a higher exit price for shareholders.",
-        "why_now": "The increased offer was reported today, September 17, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-928b045b99b4"
-        ],
-        "primary_source_event_id": "EVT-928b045b99b4",
-        "source_headlines": [
-          "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT"
-        ],
-        "source_headline": "Bain-backed group raises offer for Japan's Kakaku.com, challenging EQT",
-        "source_url": "https://asia.nikkei.com/business/business-deals/bain-backed-group-raises-offer-for-japan-s-kakaku.com-challenging-eqt",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-17T08:21:14Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-17T13:01:51Z",
-        "updated_at": "2026-09-17T13:01:51Z",
-        "decay_at": "2026-09-18T20:21:14Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-20T11:25:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-1ab96b799316",
-        "idea_version": "IDEAV-0a0d16a06eb6f0f9",
-        "idea_version_started_at": "2026-09-17T11:22:21Z",
-        "ticker": "NXT.L",
-        "company": "Next",
-        "exchange": "London",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company raised its profit guidance following a strong first half, indicating better-than-expected consumer demand and operational efficiency.",
-        "why_now": "The guidance upgrade was released on 2026-09-17, providing a fresh catalyst for the stock.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-06e71de25d79"
-        ],
-        "primary_source_event_id": "EVT-06e71de25d79",
-        "source_headlines": [
-          "Next lifts profit guidance again after better-than-expected first half"
-        ],
-        "source_headline": "Next lifts profit guidance again after better-than-expected first half",
-        "source_url": "https://ukinvestormagazine.co.uk/next-lifts-profit-guidance-again-after-better-than-expected-first-half/",
-        "source_name": "UK Investor Magazine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-17T08:03:53Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-17T11:22:21Z",
-        "updated_at": "2026-09-17T11:22:21Z",
-        "decay_at": "2026-09-18T20:03:53Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-20T11:25:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-163e0fa1bed7",
         "idea_version": "IDEAV-f9413c81707f9e13",
         "idea_version_started_at": "2026-09-17T11:22:21Z",
@@ -204641,7 +204635,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1328,
-    "live_count": 75,
+    "live_count": 73,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -204660,9 +204654,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 899,
-    "news_picked_today": 189,
-    "news_dropped_today": 710
+    "news_seen_today": 957,
+    "news_picked_today": 206,
+    "news_dropped_today": 751
   },
   "book_momentum": {
     "live_count": 8,
