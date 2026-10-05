@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-05T00:21:14Z",
+  "generated_at": "2026-10-05T00:31:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261005-032",
+      "headline": "ZXZN QI-HOUSE (08395): DISCLOSEABLE TRANSACTION IN RELATION TO ACQUISITION OF 30% OF THE ISSUED SHARE CAPITAL OF THE TARGET COMPANY INVOLVING CASH AND ISSUE OF CONSIDERATION SHARES UNDER GENERAL MANDATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/1005/2026100500115.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T00:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "The company is acquiring a 30% stake in a target company using cash and shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is acquiring a 30% stake in a target company using cash and shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ZXZN QI-HOUSE",
+          "ticker": "08395",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261005-001",
       "headline": "LVGEM CHINA (00095): INSIDE INFORMATION - SIGNIFICANT PROGRESS ON THE OFFSHORE RESTRUCTURING AND UPDATE ON WINDING UP PETITION",
@@ -154,6 +203,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-035",
+      "headline": "Saudi-backed Yemeni government declares war against Houthis",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/saudi-backed-yemeni-government-declares-war-against-houthis",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:28:06Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "A declaration of war in a major oil-producing region is a significant geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A declaration of war in a major oil-producing region is a significant geopolitical escalation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-031",
       "headline": "Flávio lidera primeiro turno da eleição presidencial e vai enfrentar Lula no segundo, diz TSE",
       "headline_en": "Flávio leads the first round of the presidential election and will face Lula in the second, says TSE",
@@ -265,6 +357,49 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-037",
+      "headline": "Reflationist ex-BOJ policymaker calls end to low rates, big spending",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/reflationist-ex-boj-policymaker-calls-end-low-rates-big-spending-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:23:18Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "A former BOJ policymaker signaling an end to low rates and fiscal stimulus suggests a shift in Japanese monetary and fiscal policy, which impacts global liquidity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "A former BOJ policymaker signaling an end to low rates and fiscal stimulus suggests a shift in Japanese monetary and fiscal policy, which impacts global liquidity.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -499,6 +634,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-033",
+      "headline": "RIC: Change in substantial holding",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RIC?key=2924-03144314-3A703312",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T00:20:55Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "A change in substantial holding indicates a shift in major shareholder interest.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "A change in substantial holding indicates a shift in major shareholder interest.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RIC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -743,6 +927,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-034",
+      "headline": "KYP: Update - Notification of buy-back - KYP",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KYP?key=2924-03144311-6A1347648",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T00:17:45Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Update on a share buy-back program indicates capital return to shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Update on a share buy-back program indicates capital return to shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KYP",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-014",
       "headline": "YRL: Cancel - Proposed issue of securities - YRL",
       "headline_en": null,
@@ -885,6 +1118,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-036",
+      "headline": "Karnataka: 13 recruitments by KPSC in 2 years under ED scanner",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/karnataka/karnataka-13-recruitments-by-kpsc-in-2-years-under-ed-scanner-4170457",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:04:55Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Government recruitment agency under investigation by the Enforcement Directorate.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Government recruitment agency under investigation by the Enforcement Directorate.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -202711,7 +202987,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3237,
+    "inbox_unconsumed": 3243,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
