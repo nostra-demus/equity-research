@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T00:42:20Z",
+  "generated_at": "2026-10-05T00:51:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-038",
@@ -878,6 +878,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-048",
+      "headline": "T3D: Response to ASX Price Query [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.T3D?key=2924-03144318-6A1347650",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T00:40:20Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "The company is responding to an ASX price query, which is a formal regulatory disclosure process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "The company is responding to an ASX price query, which is a formal regulatory disclosure process.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "T3D",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-021",
       "headline": "Anup Bagchi's Act 1: Set HDFC house in order",
       "headline_en": null,
@@ -1103,6 +1152,49 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-047",
+      "headline": "Markets bet on RBI rate hike as inflation pressure builds",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/markets-bet-rbi-rate-hike-inflation-pressure-builds-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:41:52Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Market expectations for an RBI rate hike are increasing due to rising inflation pressures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Market expectations for an RBI rate hike are increasing due to rising inflation pressures.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
         "source_tier_id": "news",
         "event_id": null,
         "size_bucket": "unknown"
@@ -1645,6 +1737,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-051",
+      "headline": "Zcash gets a Washington lobbyist to push crypto policy",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/zcash-gets-a-washington-lobbyist-to-push-crypto-policy?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:35:34Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Zcash is hiring a lobbyist to influence crypto policy, a standard operational step.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "Zcash is hiring a lobbyist to influence crypto policy, a standard operational step.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zcash",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-011",
       "headline": "Saudi Arabia unexpectedly cuts oil prices to Asia",
       "headline_en": null,
@@ -1732,141 +1873,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-005",
-      "headline": "Spending on AI Is Becoming Almost Impossible for Businesses to Budget",
-      "headline_en": null,
-      "url": "https://www.wsj.com/tech/personal-tech/ai-token-spending-businesses-431ee94a?mod=rss_Technology",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Businesses are facing challenges in budgeting for AI spending, highlighting a broader macro trend in corporate capex.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Businesses are facing challenges in budgeting for AI spending, highlighting a broader macro trend in corporate capex.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-044",
-      "headline": "GST 2.0 set to amplify ease, unlock tax credit",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/economy/indicators/gst-2-0-set-to-amplify-ease-unlock-tax-credit/articleshow/134679648.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T00:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Potential regulatory changes to GST framework could impact tax efficiency across the Indian economy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 51,
-      "triage_reason": "Potential regulatory changes to GST framework could impact tax efficiency across the Indian economy.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-041",
-      "headline": "EY India chief seeks easier GST refunds, tax credits",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/ey-india-chief-seeks-easier-gst-refunds-tax-credits/articleshow/134683260.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T00:14:37Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "EY India is lobbying for tax policy changes, which is routine advocacy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "EY India is lobbying for tax policy changes, which is routine advocacy.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "EY",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -203187,9 +203193,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 155,
-    "news_picked_today": 47,
-    "news_dropped_today": 108
+    "news_seen_today": 185,
+    "news_picked_today": 52,
+    "news_dropped_today": 133
   },
   "book_momentum": {
     "live_count": 8,
