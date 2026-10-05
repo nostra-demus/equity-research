@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T05:40:21Z",
+  "generated_at": "2026-10-05T05:50:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-257",
@@ -346,20 +346,69 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261005-274",
-      "headline": "Schneider Electric to buy software group PTC for $23.7bn",
+      "inbox_id": "INB-20261005-305",
+      "headline": "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up",
       "headline_en": null,
-      "url": "https://www.ft.com/content/2084f349-0829-4130-a5e6-b98929a6e633?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
+      "url": "https://www.afr.com/companies/healthcare-and-fitness/csl-could-spend-up-to-2-2b-on-drug-deal-with-swiss-biotech-startup-20261005-p612ty?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-10-05T05:29:45Z",
+      "found_at": "2026-10-05T05:41:22Z",
       "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Schneider Electric is acquiring PTC for $23.7bn, a major M&A event.",
+      "prelim_note": "CSL is considering a potential $2.2 billion acquisition of a Swiss biotech firm.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Schneider Electric is acquiring PTC for $23.7bn, a major M&A event.",
+      "triage_reason": "CSL is considering a potential $2.2 billion acquisition of a Swiss biotech firm.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-290",
+      "headline": "France's Schneider Electric confirms $22.6 billion deal to buy US software firm PTC",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/frances-schneider-electric-nears-20-billion-deal-buy-us-software-group-ptc-ft-2026-10-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T05:40:19Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Schneider Electric has confirmed a $22.6 billion acquisition of PTC.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric has confirmed a $22.6 billion acquisition of PTC.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -376,7 +425,7 @@
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "mega"
+        "size_bucket": "large"
       },
       "event_types": [
         "mna"
@@ -394,7 +443,7 @@
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1937,55 +1986,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-153",
-      "headline": "Marico Limited: Please find enclosed an update on the operating performance and demand trends witnessed during the quarter ended September 30, 2026",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/marico_05102026084127_Seint.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-05T03:12:08Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Marico Limited provided a quarterly operating performance update, which is a key indicator for investor expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Marico Limited provided a quarterly operating performance update, which is a key indicator for investor expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marico Limited",
-          "ticker": "531642",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205243,9 +205243,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2649,
-    "news_picked_today": 376,
-    "news_dropped_today": 2273
+    "news_seen_today": 2733,
+    "news_picked_today": 401,
+    "news_dropped_today": 2332
   },
   "book_momentum": {
     "live_count": 8,
