@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-05T13:41:33Z",
+  "generated_at": "2026-10-05T13:49:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261005-634",
+      "headline": "Opening of Offer to Buy – Acquisition Window (Delisting) of Voluntary Delisting of Equity Shares of Hitech Corporation Limited",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261005-24/20261005-24.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T13:01:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Voluntary delisting offer window opens for Hitech Corporation Limited; forces shareholder exit decision and ends exchange trading.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Voluntary delisting offer window opens for Hitech Corporation Limited; forces shareholder exit decision and ends exchange trading.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hitech Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261005-356",
       "headline": "IDFC First Bank Limited: IDFC First Bank Limited has informed the Exchange about Provisional Numbers for the Quarter ended September 30, 2026",
@@ -1977,60 +2026,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-324",
-      "headline": "Elektronik: Schneider Electric kündigt Milliardenübernahme von PTC an",
-      "headline_en": "Electronics: Schneider Electric announces multi-billion acquisition of PTC",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/elektronik-schneider-electric-kuendigt-milliardenuebernahme-von-ptc-an/100259661.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T06:03:10Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Schneider Electric announces a multi-billion acquisition of PTC.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Schneider Electric announces a multi-billion acquisition of PTC.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schneider Electric",
-          "ticker": null,
-          "listing_country": "FR"
-        },
-        {
-          "name": "PTC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205572,9 +205567,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 171872,
-    "news_picked_today": 1151,
-    "news_dropped_today": 14665
+    "news_seen_today": 173407,
+    "news_picked_today": 1168,
+    "news_dropped_today": 14720
   },
   "book_momentum": {
     "live_count": 8,
