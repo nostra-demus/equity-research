@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-05T20:34:12Z",
+  "generated_at": "2026-10-05T21:01:12Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261005-1000",
+      "headline": "TWR: Tower updates FY26 guidance [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TWR?key=2924-03144524-2A1701855",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T20:30:04Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Tower updated its FY26 financial guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tower updated its FY26 financial guidance.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tower",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261005-777",
       "headline": "25-NSE/A - DAVIS COMMODITIES Ltd (0001949478) (Subject)",
@@ -635,6 +684,214 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-1014",
+      "headline": "McKesson, CD&R near $5 billion-plus deal to buy Option Care, FT reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/mckesson-cdr-near-5-billion-plus-deal-buy-option-care-ft-reports-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T20:46:29Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "McKesson is reportedly nearing a deal to acquire Option Care Health for over $5 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "McKesson is reportedly nearing a deal to acquire Option Care Health for over $5 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McKesson",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Option Care Health",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-1013",
+      "headline": "PTC Rises on Schneider Electric’s $23.7 Billion Takeover Deal | Closing Bell",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-05/ptc-rises-on-takeover-deal-closing-bell-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T20:23:41Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Schneider Electric is acquiring PTC in a deal valued at $23.7 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric is acquiring PTC in a deal valued at $23.7 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PTC",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-1009",
+      "headline": "Lucid's Q3 deliveries fall 6.7% as EV maker cuts production to align with demand",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/05/lucid-group-lcid-q3-2026-deliveries-production.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T20:22:52Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Lucid reported a 6.7% decline in Q3 deliveries and a production cut to align with demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lucid reported a 6.7% decline in Q3 deliveries and a production cut to align with demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lucid",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-1019",
+      "headline": "Lucid's third-quarter deliveries miss estimates as it cuts output to run down inventory",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/autos-transportation/lucids-third-quarter-deliveries-miss-estimates-it-cuts-output-run-down-inventory-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T20:09:47Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Lucid reported Q3 deliveries missing estimates and announced a production cut to manage inventory levels.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lucid reported Q3 deliveries missing estimates and announced a production cut to manage inventory levels.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lucid Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1763,266 +2020,6 @@
           "name": "Monte dei Paschi di Siena",
           "ticker": null,
           "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-773",
-      "headline": "C.H. Robinson to buy RXO for $5.8 billion in truck broking expansion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/ch-robinson-buy-freight-broker-rxo-58-billion-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T15:34:23Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "C.H. Robinson is acquiring RXO for $5.8 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "C.H. Robinson is acquiring RXO for $5.8 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "C.H. Robinson",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "RXO",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-770",
-      "headline": "Schneider Expands in AI With $23 Billion Acquisition",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-05/schneider-expands-in-ai-with-23-billion-acquisition-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T15:23:11Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Schneider Electric is acquiring a company for $23 billion to expand its AI infrastructure capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Schneider Electric is acquiring a company for $23 billion to expand its AI infrastructure capabilities.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schneider Electric",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-901",
-      "headline": "GE HealthCare to acquire Sofie Biosciences for $945M",
-      "headline_en": null,
-      "url": "https://www.medtechdive.com/news/ge-healthcare-to-acquire-sofie-biosciences-for-945m/832148/",
-      "source_name": "MedTech Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T15:22:56Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "GE HealthCare to acquire Sofie Biosciences for $945M — a named M&A transaction with quantified deal value affecting buyer's capital structure and strategic positioning.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE HealthCare to acquire Sofie Biosciences for $945M — a named M&A transaction with quantified deal value affecting buyer's capital structure and strategic positioning.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE HealthCare",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Sofie Biosciences",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-767",
-      "headline": "Tata Steel expanding NINL capacity to 5 MT per annum: CEO TV Narendran",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/indl-goods/svs/steel/tata-steel-expanding-ninl-capacity-to-5-mt-per-annum-ceo-tv-narendran/articleshow/134711383.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T15:18:56Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Major capacity expansion to 5 MT per annum announced by the CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Major capacity expansion to 5 MT per annum announced by the CEO.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Steel",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-771",
-      "headline": "CH Robinson to Buy RXO in $5.8 Billion Logistics Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-05/ch-robinson-to-buy-rxo-in-5-8-billion-logistics-deal-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T15:15:52Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "C.H. Robinson is acquiring RXO for $5.8 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "C.H. Robinson is acquiring RXO for $5.8 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "C.H. Robinson",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "RXO",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -158602,76 +158599,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-04bd73d1842b",
-      "idea_version": "IDEAV-403ffc34dc9c2234",
-      "idea_version_started_at": "2026-10-04T08:40:09Z",
-      "ticker": "YESBANK.NS",
-      "company": "YES Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "YES Bank reported a 24% year-over-year surge in loans to ₹3 lakh crore and a 20% increase in deposits, indicating strong business growth.",
-      "why_now": "The Q2 business update provides current financial performance metrics, making the growth story live now.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-151edcdda774"
-      ],
-      "primary_source_event_id": "EVT-151edcdda774",
-      "source_headlines": [
-        "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY"
-      ],
-      "source_headline": "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY",
-      "source_url": "https://www.cnbctv18.com/market/stocks/yes-bank-share-price-q2-business-update-loans-surge-24-to-rs-3-lakh-crore-deposits-up-20-yoy-20004109.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T08:36:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T08:40:09Z",
-      "updated_at": "2026-10-04T08:40:09Z",
-      "decay_at": "2026-10-05T20:36:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-662b507466d5",
       "idea_version": "IDEAV-3891bc16f5b4b9d3",
       "idea_version_started_at": "2026-10-05T02:42:33Z",
@@ -161453,78 +161380,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-87cbb3009f6f",
-      "idea_version": "IDEAV-cd128d98c354a1b1",
-      "idea_version_started_at": "2026-10-04T09:00:04Z",
-      "ticker": "YESBANK",
-      "company": "YES Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "YES Bank reported strong Q2 business updates with loan growth surging 24% year-over-year to ₹3 lakh crore and deposits rising 20%, indicating robust credit demand and balance sheet expansion.",
-      "why_now": "The Q2 business update was just released on October 4, 2026, acting as an immediate positive catalyst ahead of full quarterly earnings.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-151edcdda774"
-      ],
-      "primary_source_event_id": "EVT-151edcdda774",
-      "source_headlines": [
-        "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY"
-      ],
-      "source_headline": "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY",
-      "source_url": "https://www.cnbctv18.com/market/stocks/yes-bank-share-price-q2-business-update-loans-surge-24-to-rs-3-lakh-crore-deposits-up-20-yoy-20004109.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T08:36:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T09:00:04Z",
-      "updated_at": "2026-10-04T09:00:04Z",
-      "decay_at": "2026-10-05T20:36:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b68ebd5b2209",
       "idea_version": "IDEAV-e36f24bb8cb4bd09",
       "idea_version_started_at": "2026-10-05T04:46:37Z",
@@ -163113,78 +162968,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b6768fa58f3d",
-      "idea_version": "IDEAV-068d4885f6a85a04",
-      "idea_version_started_at": "2026-10-04T09:00:04Z",
-      "ticker": "SPARC",
-      "company": "Sun Pharma Advanced Research Company",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company won a favorable CESTAT ruling securing a ₹28 crore CENVAT credit refund, which will directly boost near-term cash flows and net margins.",
-      "why_now": "The legal victory was announced on October 4, 2026, providing an immediate positive operational catalyst.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-75563fee9279"
-      ],
-      "primary_source_event_id": "EVT-75563fee9279",
-      "source_headlines": [
-        "Sun Pharma Advanced Research wins ₹28 crore CENVAT credit refund case in CESTAT"
-      ],
-      "source_headline": "Sun Pharma Advanced Research wins ₹28 crore CENVAT credit refund case in CESTAT",
-      "source_url": "https://www.cnbctv18.com/market/stocks/sun-pharma-advanced-research-share-price-wins-rs-28-crore-cenvat-credit-refund-case-in-cestat-20004118.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 87,
-      "newest_source_at": "2026-10-04T08:51:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T09:00:04Z",
-      "updated_at": "2026-10-04T09:00:04Z",
-      "decay_at": "2026-10-05T20:51:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8af06d1571e5",
       "idea_version": "IDEAV-d02f3b4d16cc5893",
       "idea_version_started_at": "2026-10-05T02:00:10Z",
@@ -163255,6 +163038,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-04bd73d1842b",
+      "idea_version": "IDEAV-403ffc34dc9c2234",
+      "idea_version_started_at": "2026-10-04T08:40:09Z",
+      "ticker": "YESBANK.NS",
+      "company": "YES Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "YES Bank reported a 24% year-over-year surge in loans to ₹3 lakh crore and a 20% increase in deposits, indicating strong business growth.",
+      "why_now": "The Q2 business update provides current financial performance metrics, making the growth story live now.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-151edcdda774"
+      ],
+      "primary_source_event_id": "EVT-151edcdda774",
+      "source_headlines": [
+        "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY"
+      ],
+      "source_headline": "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY",
+      "source_url": "https://www.cnbctv18.com/market/stocks/yes-bank-share-price-q2-business-update-loans-surge-24-to-rs-3-lakh-crore-deposits-up-20-yoy-20004109.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T08:36:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T08:40:09Z",
+      "updated_at": "2026-10-04T08:40:09Z",
+      "decay_at": "2026-10-05T20:36:36Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-eaf659086da7",
@@ -164442,6 +164295,78 @@
       "surfaced_at": "2026-10-04T08:14:49Z",
       "updated_at": "2026-10-04T08:14:49Z",
       "decay_at": "2026-10-05T20:00:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-87cbb3009f6f",
+      "idea_version": "IDEAV-cd128d98c354a1b1",
+      "idea_version_started_at": "2026-10-04T09:00:04Z",
+      "ticker": "YESBANK",
+      "company": "YES Bank",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "YES Bank reported strong Q2 business updates with loan growth surging 24% year-over-year to ₹3 lakh crore and deposits rising 20%, indicating robust credit demand and balance sheet expansion.",
+      "why_now": "The Q2 business update was just released on October 4, 2026, acting as an immediate positive catalyst ahead of full quarterly earnings.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-151edcdda774"
+      ],
+      "primary_source_event_id": "EVT-151edcdda774",
+      "source_headlines": [
+        "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY"
+      ],
+      "source_headline": "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY",
+      "source_url": "https://www.cnbctv18.com/market/stocks/yes-bank-share-price-q2-business-update-loans-surge-24-to-rs-3-lakh-crore-deposits-up-20-yoy-20004109.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T08:36:36Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T09:00:04Z",
+      "updated_at": "2026-10-04T09:00:04Z",
+      "decay_at": "2026-10-05T20:36:36Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -167120,6 +167045,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-b6768fa58f3d",
+      "idea_version": "IDEAV-068d4885f6a85a04",
+      "idea_version_started_at": "2026-10-04T09:00:04Z",
+      "ticker": "SPARC",
+      "company": "Sun Pharma Advanced Research Company",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company won a favorable CESTAT ruling securing a ₹28 crore CENVAT credit refund, which will directly boost near-term cash flows and net margins.",
+      "why_now": "The legal victory was announced on October 4, 2026, providing an immediate positive operational catalyst.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-75563fee9279"
+      ],
+      "primary_source_event_id": "EVT-75563fee9279",
+      "source_headlines": [
+        "Sun Pharma Advanced Research wins ₹28 crore CENVAT credit refund case in CESTAT"
+      ],
+      "source_headline": "Sun Pharma Advanced Research wins ₹28 crore CENVAT credit refund case in CESTAT",
+      "source_url": "https://www.cnbctv18.com/market/stocks/sun-pharma-advanced-research-share-price-wins-rs-28-crore-cenvat-credit-refund-case-in-cestat-20004118.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 87,
+      "newest_source_at": "2026-10-04T08:51:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T09:00:04Z",
+      "updated_at": "2026-10-04T09:00:04Z",
+      "decay_at": "2026-10-05T20:51:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-bda77b28ce3c",
       "idea_version": "IDEAV-1ca945ca9511b3e6",
       "idea_version_started_at": "2026-10-04T07:06:51Z",
@@ -167714,14 +167711,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 562,
+    "total_count": 565,
     "shown_count": 500,
-    "hidden_count": 62,
+    "hidden_count": 65,
     "side_counts": {
       "long": {
-        "total_count": 287,
+        "total_count": 290,
         "shown_count": 250,
-        "hidden_count": 37
+        "hidden_count": 40
       },
       "short": {
         "total_count": 275,
@@ -167745,6 +167742,229 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b6768fa58f3d",
+        "idea_version": "IDEAV-068d4885f6a85a04",
+        "idea_version_started_at": "2026-10-04T09:00:04Z",
+        "ticker": "SPARC",
+        "company": "Sun Pharma Advanced Research Company",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company won a favorable CESTAT ruling securing a ₹28 crore CENVAT credit refund, which will directly boost near-term cash flows and net margins.",
+        "why_now": "The legal victory was announced on October 4, 2026, providing an immediate positive operational catalyst.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-75563fee9279"
+        ],
+        "primary_source_event_id": "EVT-75563fee9279",
+        "source_headlines": [
+          "Sun Pharma Advanced Research wins ₹28 crore CENVAT credit refund case in CESTAT"
+        ],
+        "source_headline": "Sun Pharma Advanced Research wins ₹28 crore CENVAT credit refund case in CESTAT",
+        "source_url": "https://www.cnbctv18.com/market/stocks/sun-pharma-advanced-research-share-price-wins-rs-28-crore-cenvat-credit-refund-case-in-cestat-20004118.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 87,
+        "newest_source_at": "2026-10-04T08:51:20Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T09:00:04Z",
+        "updated_at": "2026-10-04T09:00:04Z",
+        "decay_at": "2026-10-05T20:51:20Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T20:51:20Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-04bd73d1842b",
+        "idea_version": "IDEAV-403ffc34dc9c2234",
+        "idea_version_started_at": "2026-10-04T08:40:09Z",
+        "ticker": "YESBANK.NS",
+        "company": "YES Bank",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "YES Bank reported a 24% year-over-year surge in loans to ₹3 lakh crore and a 20% increase in deposits, indicating strong business growth.",
+        "why_now": "The Q2 business update provides current financial performance metrics, making the growth story live now.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-151edcdda774"
+        ],
+        "primary_source_event_id": "EVT-151edcdda774",
+        "source_headlines": [
+          "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY"
+        ],
+        "source_headline": "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY",
+        "source_url": "https://www.cnbctv18.com/market/stocks/yes-bank-share-price-q2-business-update-loans-surge-24-to-rs-3-lakh-crore-deposits-up-20-yoy-20004109.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-04T08:36:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T08:40:09Z",
+        "updated_at": "2026-10-04T08:40:09Z",
+        "decay_at": "2026-10-05T20:36:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T20:36:36Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-87cbb3009f6f",
+        "idea_version": "IDEAV-cd128d98c354a1b1",
+        "idea_version_started_at": "2026-10-04T09:00:04Z",
+        "ticker": "YESBANK",
+        "company": "YES Bank",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "YES Bank reported strong Q2 business updates with loan growth surging 24% year-over-year to ₹3 lakh crore and deposits rising 20%, indicating robust credit demand and balance sheet expansion.",
+        "why_now": "The Q2 business update was just released on October 4, 2026, acting as an immediate positive catalyst ahead of full quarterly earnings.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-151edcdda774"
+        ],
+        "primary_source_event_id": "EVT-151edcdda774",
+        "source_headlines": [
+          "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY"
+        ],
+        "source_headline": "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY",
+        "source_url": "https://www.cnbctv18.com/market/stocks/yes-bank-share-price-q2-business-update-loans-surge-24-to-rs-3-lakh-crore-deposits-up-20-yoy-20004109.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-04T08:36:36Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T09:00:04Z",
+        "updated_at": "2026-10-04T09:00:04Z",
+        "decay_at": "2026-10-05T20:36:36Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T20:36:36Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b520e6e5e5f6",
         "idea_version": "IDEAV-2df1283f54ee5e2c",
@@ -196971,79 +197191,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-4a0ef3081ed1",
-        "idea_version": "IDEAV-2c896bf0936fc8f5",
-        "idea_version_started_at": "2026-09-18T03:01:04Z",
-        "ticker": "AMAT",
-        "company": "Applied Materials",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A $5 billion capital expenditure commitment in India positions Applied Materials to capture significant market share in the expanding Indian semiconductor manufacturing ecosystem, supported by local government subsidies.",
-        "why_now": "The investment announcement was made on 2026-09-18, signaling a major shift in the company's regional manufacturing footprint.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-449d8b6b2768"
-        ],
-        "primary_source_event_id": "EVT-449d8b6b2768",
-        "source_headlines": [
-          "Applied Materials to invest $5bn in India as country ups chip support"
-        ],
-        "source_headline": "Applied Materials to invest $5bn in India as country ups chip support",
-        "source_url": "https://asia.nikkei.com/business/tech/semiconductors/applied-materials-to-invest-5bn-in-india-as-country-ups-chip-support",
-        "source_name": "Nikkei Asia",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-18T01:24:12Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-18T03:01:04Z",
-        "updated_at": "2026-09-18T03:01:04Z",
-        "decay_at": "2026-09-19T13:24:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-21T01:35:22Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-73b4f77f750c",
         "idea_version": "IDEAV-ee3711c65ab635ac",
         "idea_version_started_at": "2026-09-18T03:01:04Z",
@@ -197116,152 +197263,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-21T01:35:22Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-622d9386e914",
-        "idea_version": "IDEAV-239c742a1d76a857",
-        "idea_version_started_at": "2026-09-18T00:48:37Z",
-        "ticker": "OSUR",
-        "company": "OraSure Technologies",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The filing of a Schedule 13D indicates an activist investor has taken a significant stake, which often precedes demands for operational changes, board representation, or a strategic sale.",
-        "why_now": "The SEC filing was made public on September 18, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 16,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "governance_turnaround",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-270ae10e8769"
-        ],
-        "primary_source_event_id": "EVT-270ae10e8769",
-        "source_headlines": [
-          "SCHEDULE 13D - ORASURE TECHNOLOGIES INC (0001116463) (Subject)"
-        ],
-        "source_headline": "SCHEDULE 13D - ORASURE TECHNOLOGIES INC (0001116463) (Subject)",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1116463/000094562126001163/0000945621-26-001163-index.htm",
-        "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-        "materiality_max": 96,
-        "newest_source_at": "2026-09-18T00:08:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-18T00:48:37Z",
-        "updated_at": "2026-09-18T00:48:37Z",
-        "decay_at": "2026-09-19T12:08:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-21T00:20:47Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d38b8f11d860",
-        "idea_version": "IDEAV-90dabdbb8475e0c6",
-        "idea_version_started_at": "2026-09-18T08:52:41Z",
-        "ticker": "MGH",
-        "company": "MGH",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Receiving FIRB approval removes the final regulatory hurdle for the sale of its CM business, clearing the path for the transaction to close.",
-        "why_now": "The regulatory approval was confirmed in an exchange filing on 2026-09-17.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-287e9993fb2b"
-        ],
-        "primary_source_event_id": "EVT-287e9993fb2b",
-        "source_headlines": [
-          "MGH: FIRB approval received - sale of CM business"
-        ],
-        "source_headline": "MGH: FIRB approval received - sale of CM business",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MGH?key=2924-03136905-2A1697841",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 97,
-        "newest_source_at": "2026-09-17T23:47:43Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-18T08:52:41Z",
-        "updated_at": "2026-09-18T08:52:41Z",
-        "decay_at": "2026-09-19T11:47:43Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-20T23:56:45Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -204925,7 +204926,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1343,
-    "live_count": 70,
+    "live_count": 67,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -204944,9 +204945,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 250068,
-    "news_picked_today": 2024,
-    "news_dropped_today": 19356
+    "news_seen_today": 250868,
+    "news_picked_today": 2057,
+    "news_dropped_today": 19563
   },
   "book_momentum": {
     "live_count": 8,
