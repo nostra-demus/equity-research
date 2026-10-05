@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T13:25:03Z",
+  "generated_at": "2026-10-05T13:33:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-356",
@@ -488,6 +488,109 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-601",
+      "headline": "Nutrien to indefinitely shut Trinidad nitrogen operations",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-nutrien-to-indefinitely-shut-trinidad-nitrogen-operations/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T12:28:58Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Nutrien is indefinitely shutting down its nitrogen operations in Trinidad, representing a significant capacity reduction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nutrien is indefinitely shutting down its nitrogen operations in Trinidad, representing a significant capacity reduction.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nutrien",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-611",
+      "headline": "Akzo Nobel to sell South-east Asia paints business to Nippon Paint for US$1.35 billion",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/akzo-nobel-sell-south-east-asia-paints-business-nippon-paint-us1-35-billion",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T12:14:02Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Akzo Nobel is divesting a business unit for a quantified $1.35 billion, which is a material capital allocation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Akzo Nobel is divesting a business unit for a quantified $1.35 billion, which is a material capital allocation event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Akzo Nobel",
+          "ticker": null,
+          "listing_country": "NL"
+        },
+        {
+          "name": "Nippon Paint",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1928,109 +2031,6 @@
         {
           "name": "PTC",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-306",
-      "headline": "Schneider Electric to Acquire PTC in All-Cash Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-05/schneider-electric-to-acquire-ptc-in-all-cash-deal-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T05:48:33Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Schneider Electric is acquiring PTC in an all-cash deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Schneider Electric is acquiring PTC in an all-cash deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schneider Electric",
-          "ticker": null,
-          "listing_country": "FR"
-        },
-        {
-          "name": "PTC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-591",
-      "headline": "425 - C. H. ROBINSON WORLDWIDE, INC. (0001043277) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1043277/000119312526413211/0001193125-26-413211-index.htm",
-      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-05T12:23:54Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "SEC Form 425 filing by C.H. Robinson confirms it is party to a business-combination communication; M&A is underway or imminent but deal scale unknown.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "SEC Form 425 filing by C.H. Robinson confirms it is party to a business-combination communication; M&A is underway or imminent but deal scale unknown.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "C.H. Robinson Worldwide, Inc.",
-          "ticker": "CHRW",
           "listing_country": "US"
         }
       ],
@@ -161740,78 +161740,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5542532c33ec",
-      "idea_version": "IDEAV-f509113bfd950390",
-      "idea_version_started_at": "2026-10-04T01:45:19Z",
-      "ticker": "LEMONTREE",
-      "company": "Lemon Tree Hotels",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is splitting its ownership and management businesses to facilitate a $1 billion deployment, which improves capital efficiency and allows for faster asset-light growth.",
-      "why_now": "The announcement of the $1 billion deployment and structural split occurred on 2026-10-04.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5db0ca508f9d"
-      ],
-      "primary_source_event_id": "EVT-5db0ca508f9d",
-      "source_headlines": [
-        "Fleur to deploy $1 bn as Lemon Tree splits ownership, management businesses"
-      ],
-      "source_headline": "Fleur to deploy $1 bn as Lemon Tree splits ownership, management businesses",
-      "source_url": "https://www.livemint.com/companies/news/fleur-to-deploy-1-bn-as-lemon-tree-splits-ownership-management-businesses-11790835711651.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T01:30:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T01:45:19Z",
-      "updated_at": "2026-10-04T01:45:19Z",
-      "decay_at": "2026-10-05T13:30:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b68ebd5b2209",
       "idea_version": "IDEAV-e36f24bb8cb4bd09",
       "idea_version_started_at": "2026-10-05T04:46:37Z",
@@ -165251,6 +165179,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-5542532c33ec",
+      "idea_version": "IDEAV-f509113bfd950390",
+      "idea_version_started_at": "2026-10-04T01:45:19Z",
+      "ticker": "LEMONTREE",
+      "company": "Lemon Tree Hotels",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is splitting its ownership and management businesses to facilitate a $1 billion deployment, which improves capital efficiency and allows for faster asset-light growth.",
+      "why_now": "The announcement of the $1 billion deployment and structural split occurred on 2026-10-04.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5db0ca508f9d"
+      ],
+      "primary_source_event_id": "EVT-5db0ca508f9d",
+      "source_headlines": [
+        "Fleur to deploy $1 bn as Lemon Tree splits ownership, management businesses"
+      ],
+      "source_headline": "Fleur to deploy $1 bn as Lemon Tree splits ownership, management businesses",
+      "source_url": "https://www.livemint.com/companies/news/fleur-to-deploy-1-bn-as-lemon-tree-splits-ownership-management-businesses-11790835711651.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T01:30:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T01:45:19Z",
+      "updated_at": "2026-10-04T01:45:19Z",
+      "decay_at": "2026-10-05T13:30:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-414a14e26ddd",
       "idea_version": "IDEAV-92117cea103a5cb4",
       "idea_version_started_at": "2026-10-03T22:54:31Z",
@@ -168363,14 +168363,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 558,
+    "total_count": 559,
     "shown_count": 500,
-    "hidden_count": 58,
+    "hidden_count": 59,
     "side_counts": {
       "long": {
-        "total_count": 284,
+        "total_count": 285,
         "shown_count": 250,
-        "hidden_count": 34
+        "hidden_count": 35
       },
       "short": {
         "total_count": 274,
@@ -168394,6 +168394,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5542532c33ec",
+        "idea_version": "IDEAV-f509113bfd950390",
+        "idea_version_started_at": "2026-10-04T01:45:19Z",
+        "ticker": "LEMONTREE",
+        "company": "Lemon Tree Hotels",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is splitting its ownership and management businesses to facilitate a $1 billion deployment, which improves capital efficiency and allows for faster asset-light growth.",
+        "why_now": "The announcement of the $1 billion deployment and structural split occurred on 2026-10-04.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5db0ca508f9d"
+        ],
+        "primary_source_event_id": "EVT-5db0ca508f9d",
+        "source_headlines": [
+          "Fleur to deploy $1 bn as Lemon Tree splits ownership, management businesses"
+        ],
+        "source_headline": "Fleur to deploy $1 bn as Lemon Tree splits ownership, management businesses",
+        "source_url": "https://www.livemint.com/companies/news/fleur-to-deploy-1-bn-as-lemon-tree-splits-ownership-management-businesses-11790835711651.html",
+        "source_name": "Mint",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-04T01:30:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T01:45:19Z",
+        "updated_at": "2026-10-04T01:45:19Z",
+        "decay_at": "2026-10-05T13:30:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T13:30:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-af31c2e0f9bf",
         "idea_version": "IDEAV-53c419e82494548f",
@@ -197451,80 +197526,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-d7139893a187",
-        "idea_version": "IDEAV-71045569c67f5a6f",
-        "idea_version_started_at": "2026-09-17T16:21:54Z",
-        "ticker": "ACVA",
-        "company": "ACV Auctions Inc.",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Copart Inc. has filed a tender offer for ACV Auctions, which typically results in the target stock trading up toward the offer price.",
-        "why_now": "The SEC filing for the tender offer was made on 2026-09-17.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-11899fb46dab",
-          "EVT-3c933bb0b0ee"
-        ],
-        "primary_source_event_id": "EVT-11899fb46dab",
-        "source_headlines": [
-          "SC TO-T - COPART INC (0000900075) (Filed by)",
-          "SC TO-T - ACV Auctions Inc. (0001637873) (Subject)"
-        ],
-        "source_headline": "SC TO-T - COPART INC (0000900075) (Filed by)",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/900075/000119312526393827/0001193125-26-393827-index.htm",
-        "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-17T12:36:11Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-17T16:21:54Z",
-        "updated_at": "2026-09-17T16:21:54Z",
-        "decay_at": "2026-09-19T00:36:11Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-20T13:45:14Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-01a3bdc0a127",
         "idea_version": "IDEAV-f26a5945be582be6",
         "idea_version_started_at": "2026-09-17T16:21:54Z",
@@ -205556,7 +205557,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1341,
-    "live_count": 83,
+    "live_count": 82,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -205575,9 +205576,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 168487,
-    "news_picked_today": 1097,
-    "news_dropped_today": 14455
+    "news_seen_today": 170193,
+    "news_picked_today": 1117,
+    "news_dropped_today": 14555
   },
   "book_momentum": {
     "live_count": 8,
