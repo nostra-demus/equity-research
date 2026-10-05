@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T16:49:11Z",
+  "generated_at": "2026-10-05T16:56:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-777",
@@ -1155,6 +1155,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-861",
+      "headline": "Schneider agrees purchase of US software company PTC for $22 billion",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/schneider-agrees-purchase-of-us-software-company-ptc-for-22-billion/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T14:39:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Schneider Electric is acquiring PTC for $22 billion, a major M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric is acquiring PTC for $22 billion, a major M&A transaction.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "PTC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-731",
       "headline": "Curaleaf sweetens offer to buy rival Aurora Cannabis",
       "headline_en": null,
@@ -1209,6 +1263,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-822",
+      "headline": "Godrej Consumer Q2 Update: Revenue seen growing high-teens, EBITDA in double digits",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/godrej-consumer-share-price-q2-update-revenue-seen-growing-high-teens-ebitda-in-double-digits-20004920.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T14:19:42Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Godrej Consumer Products provided a Q2 update projecting high-teens revenue growth and double-digit EBITDA growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Godrej Consumer Products provided a Q2 update projecting high-teens revenue growth and double-digit EBITDA growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Godrej Consumer Products",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-836",
+      "headline": "Shionogi to pay $2B for IntraBio, a commercial rare disease biotech",
+      "headline_en": null,
+      "url": "https://endpoints.news/shionogi-to-pay-2b-for-intrabio-a-commercial-rare-disease-biotech/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T14:19:13Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Shionogi is acquiring IntraBio for $2B.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shionogi is acquiring IntraBio for $2B.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shionogi",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "IntraBio",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-742",
       "headline": "Sanlam in big buy-out and delisting deal for Santam",
       "headline_en": null,
@@ -1253,6 +1410,55 @@
         },
         {
           "name": "Santam",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-847",
+      "headline": "Cenovus bulks up on oil sands with $5.7-billion Athabasca buy",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-cenovus-energy-athabasca-oil-acquisition-57-billion-oil-sands-alberta/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T14:02:11Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Cenovus is acquiring Athabasca for $5.7 billion, a major consolidation in the oil sands sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cenovus is acquiring Athabasca for $5.7 billion, a major consolidation in the oil sands sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cenovus",
           "ticker": null,
           "listing_country": null
         }
@@ -1794,217 +2000,6 @@
         "event": 9,
         "size": 2,
         "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "C.H. Robinson",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "RXO",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-601",
-      "headline": "Nutrien to indefinitely shut Trinidad nitrogen operations",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-nutrien-to-indefinitely-shut-trinidad-nitrogen-operations/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T12:28:58Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Nutrien is indefinitely shutting down its nitrogen operations in Trinidad, representing a significant capacity reduction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nutrien is indefinitely shutting down its nitrogen operations in Trinidad, representing a significant capacity reduction.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nutrien",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-701",
-      "headline": "Alector soars as Roche licenses Parkinson's therapy for up to $1.27 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/alector-soars-roche-licenses-parkinsons-therapy-up-127-billion-2026-10-05/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T12:15:48Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Roche is licensing a therapy from Alector in a deal worth up to $1.27 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Roche is licensing a therapy from Alector in a deal worth up to $1.27 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alector",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Roche",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-696",
-      "headline": "Akzo Nobel to sell South-east Asia paints business to Nippon Paint for US$1.35 billion",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/akzo-nobel-sell-south-east-asia-paints-business-nippon-paint-us1-35-billion",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T12:14:02Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Confirmed US$1.35 billion asset sale of South-East Asia paints business materially changes revenue, capital structure, and strategic focus for both Akzo Nobel and Nippon Paint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Confirmed US$1.35 billion asset sale of South-East Asia paints business materially changes revenue, capital structure, and strategic focus for both Akzo Nobel and Nippon Paint.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Akzo Nobel",
-          "ticker": null,
-          "listing_country": "NL"
-        },
-        {
-          "name": "Nippon Paint",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-587",
-      "headline": "C.H. Robinson to Buy RXO for About $5 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/c-h-robinson-to-buy-rxo-for-about-5-billion-80a73ba1?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T11:56:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "C.H. Robinson to acquire RXO for approximately $5 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "C.H. Robinson to acquire RXO for approximately $5 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 6,
         "boost_weight": 1,
@@ -205578,9 +205573,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 221972,
-    "news_picked_today": 1512,
-    "news_dropped_today": 16728
+    "news_seen_today": 222673,
+    "news_picked_today": 1561,
+    "news_dropped_today": 16847
   },
   "book_momentum": {
     "live_count": 8,
