@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T10:52:58Z",
+  "generated_at": "2026-10-05T11:01:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-356",
@@ -683,6 +683,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-398",
+      "headline": "BPCL plans $3 billion bond sale to fund Brazil offshore oil project",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/bpcl-plans-3-billion-bond-sale-to-fund-brazil-offshore-oil-project/article71546441.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T09:01:09Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "BPCL plans a $3 billion bond sale to fund a major offshore oil project in Brazil.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BPCL plans a $3 billion bond sale to fund a major offshore oil project in Brazil.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BPCL",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-410",
+      "headline": "Mukesh Ambani’s Jio Platforms plans $3.8 billion IPO on October 21",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/mukesh-ambanis-jio-platforms-plans-38-billion-ipo-on-october-21/article71546400.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T08:42:12Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Jio Platforms announced a $3.8 billion IPO scheduled for October 21.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jio Platforms announced a $3.8 billion IPO scheduled for October 21.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jio Platforms",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-343",
       "headline": "Iran oil minister resigns amid fuel shortages and crude export pressure",
       "headline_en": null,
@@ -782,6 +881,60 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-420",
+      "headline": "Schneider Electric expands in AI with $22.6 billion PTC purchase",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/schneider-electric-expands-in-ai-with-226-billion-ptc-purchase/article71546109.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T08:19:24Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Schneider Electric to acquire PTC for $22.6 billion, a major capital deployment that will affect leverage, capital structure, and EPS accretion/dilution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric to acquire PTC for $22.6 billion, a major capital deployment that will affect leverage, capital structure, and EPS accretion/dilution.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric SE",
+          "ticker": "SE",
+          "listing_country": "FR"
+        },
+        {
+          "name": "PTC Software",
+          "ticker": "PTC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -891,6 +1044,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-432",
+      "headline": "Radiant World Misses Salary Payments for Employees in September",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-05/radiant-world-misses-salary-payments-for-employees-in-september",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T07:57:04Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Radiant World has missed salary payments, indicating potential liquidity or solvency issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Radiant World has missed salary payments, indicating potential liquidity or solvency issues.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Radiant World",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1824,201 +2026,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-105",
-      "headline": "Govt raises deepwater gas price ceiling to $9.89 per MMBtu; APM gas cap at $7",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/commodities/govt-raises-deepwater-gas-price-ceiling-to-9-89-per-mmbtu-apm-gas-cap-at-7-20004301.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T02:08:26Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "The Indian government increased the deepwater gas price ceiling to $9.89 per MMBtu, directly impacting revenue potential for domestic upstream producers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Indian government increased the deepwater gas price ceiling to $9.89 per MMBtu, directly impacting revenue potential for domestic upstream producers.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-106",
-      "headline": "Nippon Paint to buy Akzo’s Southeast Asia unit for $1.35 billion",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/05/companies/nippon-paint-akzo-nobel-southeast-asia/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T02:08:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Nippon Paint announced a $1.35 billion acquisition of AkzoNobel's Southeast Asia unit, a significant expansion of its regional footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nippon Paint announced a $1.35 billion acquisition of AkzoNobel's Southeast Asia unit, a significant expansion of its regional footprint.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nippon Paint",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "AkzoNobel",
-          "ticker": null,
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-128",
-      "headline": "Oil climbs after Yemeni Houthis attack Saudi Aramco sites",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/commodities/news/oil-climbs-after-yemeni-houthis-attack-saudi-aramco-sites/articleshow/134683741.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:53:15Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Yemeni Houthi attack on Saudi Aramco sites represents a significant geopolitical escalation and potential supply shock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Yemeni Houthi attack on Saudi Aramco sites represents a significant geopolitical escalation and potential supply shock.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": "SA"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-092",
-      "headline": "Boeing Just Won Another Fighter Contract. This One's Worth $20 Billion.",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/boeing-just-won-another-fighter-contract-ones-worth-20-billion",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:20:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Boeing secured a significant defense contract valued at $20 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Boeing secured a significant defense contract valued at $20 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boeing",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205564,9 +205571,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 126709,
-    "news_picked_today": 636,
-    "news_dropped_today": 12564
+    "news_seen_today": 127478,
+    "news_picked_today": 678,
+    "news_dropped_today": 12690
   },
   "book_momentum": {
     "live_count": 8,
