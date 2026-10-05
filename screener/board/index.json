@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T01:34:44Z",
+  "generated_at": "2026-10-05T01:35:35Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-053",
@@ -158124,6 +158124,77 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-81aca63b0d76",
+      "idea_version": "IDEAV-025151df8b8179b2",
+      "idea_version_started_at": "2026-10-05T01:35:08Z",
+      "ticker": "SU",
+      "company": "Suncor Energy",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Suncor is divesting its stakes in three Canadian East Coast offshore oil projects to Ithaca Energy for up to $1.5 billion ($1.08 billion base), streamlining its portfolio and generating substantial cash.",
+      "why_now": "The transaction was announced on October 5, 2026, providing an immediate cash catalyst.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 73,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-78473027df2b",
+        "EVT-5ef40eefbbea"
+      ],
+      "primary_source_event_id": "EVT-78473027df2b",
+      "source_headlines": [
+        "Suncor sells stakes in three Canadian East Coast oil projects for up to $1.5-billion",
+        "Suncor to sell Canadian offshore assets to Ithaca for $1.08 billion"
+      ],
+      "source_headline": "Suncor sells stakes in three Canadian East Coast oil projects for up to $1.5-billion",
+      "source_url": "https://www.theglobeandmail.com/business/article-suncor-sells-stakes-in-three-canadian-east-coast-oil-projects-for-up/",
+      "source_name": "The Globe and Mail",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T01:18:34Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T01:35:08Z",
+      "updated_at": "2026-10-05T01:35:08Z",
+      "decay_at": "2026-10-06T13:18:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-52c74fc97e93",
       "idea_version": "IDEAV-8f138e0c64ba38fb",
       "idea_version_started_at": "2026-10-04T19:59:51Z",
@@ -158328,6 +158399,76 @@
       "surfaced_at": "2026-10-03T13:50:18Z",
       "updated_at": "2026-10-03T13:50:18Z",
       "decay_at": "2026-10-05T01:35:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-bb6c79ef8ffe",
+      "idea_version": "IDEAV-694c2576100cd2a2",
+      "idea_version_started_at": "2026-10-05T01:35:08Z",
+      "ticker": "BA",
+      "company": "Boeing",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Boeing has secured a major new fighter jet contract worth $20 billion, bolstering its defense backlog amid commercial segment challenges.",
+      "why_now": "The contract win was publicized on October 5, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ed277c0c1c0c"
+      ],
+      "primary_source_event_id": "EVT-ed277c0c1c0c",
+      "source_headlines": [
+        "Boeing Just Won Another Fighter Contract. This One's Worth $20 Billion."
+      ],
+      "source_headline": "Boeing Just Won Another Fighter Contract. This One's Worth $20 Billion.",
+      "source_url": "https://www.fool.com/investing/2026/10/04/boeing-wins-fighter-contract-worth-20-billion/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-05T01:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T03:34:29Z",
+      "updated_at": "2026-10-05T01:35:08Z",
+      "decay_at": "2026-10-06T13:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -159104,6 +159245,146 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-90b902d53889",
+      "idea_version": "IDEAV-4e8165d4db5a2842",
+      "idea_version_started_at": "2026-10-05T01:35:08Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "AM Intelligence has placed a massive $4 billion order for 20,000 Nvidia GPUs, providing a direct boost to Nvidia's data center revenue.",
+      "why_now": "The deal was reported on October 5, 2026, highlighting sustained high-volume demand for AI hardware.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 64,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b53e7ea8cdb1"
+      ],
+      "primary_source_event_id": "EVT-b53e7ea8cdb1",
+      "source_headlines": [
+        "Greenko founders-backed AM Intelligence orders 20,000 Nvidia GPUs in $4 billion deal"
+      ],
+      "source_headline": "Greenko founders-backed AM Intelligence orders 20,000 Nvidia GPUs in $4 billion deal",
+      "source_url": "https://www.livemint.com/companies/greenko-founders-backed-am-intelligence-orders-20-000-nvidia-gpus-in-4-billion-deal-11791119927528.html",
+      "source_name": "Mint",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T00:45:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T01:35:08Z",
+      "updated_at": "2026-10-05T01:35:08Z",
+      "decay_at": "2026-10-06T12:45:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-46c3f797929b",
+      "idea_version": "IDEAV-a767d55c668ab758",
+      "idea_version_started_at": "2026-10-05T01:35:08Z",
+      "ticker": "ACN",
+      "company": "Accenture",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Accenture plans to reduce capital returns to shareholders as it diverts cash flow toward rising acquisition spending, which may pressure near-term stock performance.",
+      "why_now": "The shift in capital allocation strategy was reported on October 5, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b8e3b91619ae"
+      ],
+      "primary_source_event_id": "EVT-b8e3b91619ae",
+      "source_headlines": [
+        "Accenture to return less to shareholders as acquisition spending rises"
+      ],
+      "source_headline": "Accenture to return less to shareholders as acquisition spending rises",
+      "source_url": "https://www.livemint.com/companies/news/accenture-dividend-share-buyback-11791124709181.html",
+      "source_name": "Mint",
+      "materiality_max": 83,
+      "newest_source_at": "2026-10-05T00:48:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T01:35:08Z",
+      "updated_at": "2026-10-05T01:35:08Z",
+      "decay_at": "2026-10-06T12:48:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-51f337afe9cd",
       "idea_version": "IDEAV-e25a7694ce5c100d",
       "idea_version_started_at": "2026-10-04T07:06:51Z",
@@ -159450,6 +159731,79 @@
       "surfaced_at": "2026-10-04T08:14:49Z",
       "updated_at": "2026-10-04T08:14:49Z",
       "decay_at": "2026-10-05T20:00:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1cf9c6452cc0",
+      "idea_version": "IDEAV-ed708bf78d9544aa",
+      "idea_version_started_at": "2026-10-05T01:35:08Z",
+      "ticker": "AKZA",
+      "company": "AkzoNobel",
+      "exchange": "AMS",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "AkzoNobel is selling its Southeast Asian decorative paint business to Nippon Paint for $1.35 billion, allowing it to deleverage and focus on core higher-margin segments.",
+      "why_now": "The definitive agreement was announced on October 5, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-598e299f44d5",
+        "EVT-6c9bba3ee2a1"
+      ],
+      "primary_source_event_id": "EVT-598e299f44d5",
+      "source_headlines": [
+        "AkzoNobel agrees deal to sell its SE Asia decorative paint unit to Nippon Paint",
+        "Nippon Paint to acquire AkzoNobel’s Southeast Asian decorative paints business for $1.35 billion"
+      ],
+      "source_headline": "AkzoNobel agrees deal to sell its SE Asia decorative paint unit to Nippon Paint",
+      "source_url": "https://www.ft.com/content/9737146d-fda7-440f-a77d-ab954de7a1a5?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T01:15:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T01:35:08Z",
+      "updated_at": "2026-10-05T01:35:08Z",
+      "decay_at": "2026-10-06T13:15:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -162622,76 +162976,6 @@
       "surfaced_at": "2026-10-02T20:03:39Z",
       "updated_at": "2026-10-02T20:03:39Z",
       "decay_at": "2026-10-04T00:54:26Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-bb6c79ef8ffe",
-      "idea_version": "IDEAV-ee750cf517b46017",
-      "idea_version_started_at": "2026-10-03T10:55:05Z",
-      "ticker": "BA",
-      "company": "Boeing",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Boeing's space program received a new contract and $359 million from NASA, which should positively impact its commercial segment revenue.",
-      "why_now": "The contract news was released today, providing a current catalyst.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bb6c21b73d23"
-      ],
-      "primary_source_event_id": "EVT-bb6c21b73d23",
-      "source_headlines": [
-        "How NASA Saved Boeing's Space Program With a New Contract and $359 Million"
-      ],
-      "source_headline": "How NASA Saved Boeing's Space Program With a New Contract and $359 Million",
-      "source_url": "https://www.fool.com/investing/2026/10/03/nasa-just-saved-boeings-space-program/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-03T10:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T03:34:29Z",
-      "updated_at": "2026-10-03T10:55:05Z",
-      "decay_at": "2026-10-04T22:06:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -166013,14 +166297,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 553,
+    "total_count": 552,
     "shown_count": 500,
-    "hidden_count": 53,
+    "hidden_count": 52,
     "side_counts": {
       "long": {
-        "total_count": 280,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 30
+        "hidden_count": 29
       },
       "short": {
         "total_count": 273,
@@ -166863,79 +167147,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-10-04T22:06:18Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-bb6c79ef8ffe",
-        "idea_version": "IDEAV-ee750cf517b46017",
-        "idea_version_started_at": "2026-10-03T10:55:05Z",
-        "ticker": "BA",
-        "company": "Boeing",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Boeing's space program received a new contract and $359 million from NASA, which should positively impact its commercial segment revenue.",
-        "why_now": "The contract news was released today, providing a current catalyst.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 65,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-bb6c21b73d23"
-        ],
-        "primary_source_event_id": "EVT-bb6c21b73d23",
-        "source_headlines": [
-          "How NASA Saved Boeing's Space Program With a New Contract and $359 Million"
-        ],
-        "source_headline": "How NASA Saved Boeing's Space Program With a New Contract and $359 Million",
-        "source_url": "https://www.fool.com/investing/2026/10/03/nasa-just-saved-boeings-space-program/?source=iedfolrf0000001",
-        "source_name": "The Motley Fool",
-        "materiality_max": 98,
-        "newest_source_at": "2026-10-03T10:06:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-03T03:34:29Z",
-        "updated_at": "2026-10-03T10:55:05Z",
-        "decay_at": "2026-10-04T22:06:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-04T22:06:00Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -195101,6 +195312,79 @@
         "audit_only": true
       },
       {
+        "idea_id": "IDEA-f6e3545f1ed7",
+        "idea_version": "IDEAV-28d835cb4302b991",
+        "idea_version_started_at": "2026-09-17T11:22:21Z",
+        "ticker": "BEZ.DE",
+        "company": "Berentzen-Gruppe",
+        "exchange": "XETRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company confirmed takeover talks with Sazerac, which typically results in a significant premium over the pre-announcement trading price.",
+        "why_now": "The confirmation of talks occurred on 2026-09-17, making this a live M&A event.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-bc3a2a4a0c7e"
+        ],
+        "primary_source_event_id": "EVT-bc3a2a4a0c7e",
+        "source_headlines": [
+          "Berentzen shares soar after it confirms talks over potential takeover by Sazerac"
+        ],
+        "source_headline": "Berentzen shares soar after it confirms talks over potential takeover by Sazerac",
+        "source_url": "https://www.reuters.com/business/berentzen-shares-soar-after-it-confirms-talks-over-potential-takeover-by-sazerac-2026-09-17/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-17T07:30:18Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-17T11:22:21Z",
+        "updated_at": "2026-09-17T11:22:21Z",
+        "decay_at": "2026-09-18T19:30:18Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-20T11:25:10Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
         "idea_id": "IDEA-163e0fa1bed7",
         "idea_version": "IDEAV-f9413c81707f9e13",
         "idea_version_started_at": "2026-09-17T11:22:21Z",
@@ -203205,8 +203489,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1309,
-    "live_count": 57,
+    "surfaced_total": 1313,
+    "live_count": 62,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
