@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T04:37:22Z",
+  "generated_at": "2026-10-05T04:46:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-156",
@@ -292,6 +292,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-238",
+      "headline": "Dubai CommerCity launches $490.1 million expansion adding 91,000 sqm as occupancy hits 96 percent",
+      "headline_en": null,
+      "url": "https://economymiddleeast.com/news/dubai-commercity-launches-490-1-million-expansion-adding-91000-sqm-as-occupancy-hits-96-percent/?utm_source=rss&utm_medium=rss&utm_campaign=dubai-commercity-launches-490-1-million-expansion-adding-91000-sqm-as-occupancy-hits-96-percent",
+      "source_name": "Economy Middle East",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T04:35:07Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Dubai CommerCity announced a $490.1 million expansion project to add 91,000 sqm of space.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dubai CommerCity announced a $490.1 million expansion project to add 91,000 sqm of space.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dubai CommerCity",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1198,6 +1247,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-237",
+      "headline": "Omani Co-Pilot Hammam al-Hammami's Masterplan: 9/11 Style Plot To Crash Flydubai Flight Into Tel Aviv Building, Earlier Foiled Bid & Reason To Choose Airline - Full DETAILS",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/world/omani-co-pilot-hammam-al-hammamis-masterplan-911-style-plot-to-crash-flydubai-flight-into-tel-aviv-building-earlier-foiled-bid-reason-to-choose-airline-full-details",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T04:30:24Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Detailed report on a foiled terror plot involving a specific airline poses extreme operational and security risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Detailed report on a foiled terror plot involving a specific airline poses extreme operational and security risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FlyDubai",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-212",
       "headline": "Flydubai’s Omani co-pilot visited Ben Gurion Airport multiple times, planned crash: Israeli media",
       "headline_en": null,
@@ -1885,98 +1983,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-225",
-      "headline": "Accenture forecast boosts Indian IT stocks, lifts Nifty IT index",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/accenture-forecast-boosts-indian-it-stocks-lifts-nifty-it-index-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T04:26:17Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Accenture's positive forecast has triggered a sector-wide rally in Indian IT stocks, impacting the Nifty IT index.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Accenture's positive forecast has triggered a sector-wide rally in Indian IT stocks, impacting the Nifty IT index.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Accenture",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-176",
-      "headline": "India aims to sign multibillion-dollar French jet deal by March",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/india-aims-to-sign-multibillion-dollar-french-jet-deal-by-march/article71545728.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T03:38:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "India aims to finalize a multibillion-dollar defense procurement deal with France.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "India aims to finalize a multibillion-dollar defense procurement deal with France.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -204874,9 +204880,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1556,
-    "news_picked_today": 277,
-    "news_dropped_today": 1279
+    "news_seen_today": 1617,
+    "news_picked_today": 293,
+    "news_dropped_today": 1324
   },
   "book_momentum": {
     "live_count": 8,
