@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T23:19:19Z",
+  "generated_at": "2026-10-05T23:21:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-1020",
@@ -783,6 +783,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-1089",
+      "headline": "Oracle 2025 Health Breach Compromised Data of 20 Million People",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-05/oracle-2025-health-breach-compromised-data-of-20-million-people",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T23:09:19Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Oracle reported a health data breach affecting 20 million individuals, posing significant legal and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oracle reported a health data breach affecting 20 million individuals, posing significant legal and reputational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "cybersecurity",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1968,60 +2018,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-890",
-      "headline": "iRhythm acquires VitalConnect in $237.5M all-cash deal",
-      "headline_en": null,
-      "url": "https://www.fiercehealthcare.com/finance/irhythm-acquires-vitalconnect-2375m-all-cash-deal",
-      "source_name": "Fierce Healthcare",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T16:58:52Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "iRhythm is acquiring VitalConnect for $237.5 million in an all-cash deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "iRhythm is acquiring VitalConnect for $237.5 million in an all-cash deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "iRhythm Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "VitalConnect",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -204886,9 +204882,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 254945,
-    "news_picked_today": 2300,
-    "news_dropped_today": 21225
+    "news_seen_today": 254992,
+    "news_picked_today": 2309,
+    "news_dropped_today": 21263
   },
   "book_momentum": {
     "live_count": 8,
