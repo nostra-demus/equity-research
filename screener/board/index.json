@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T05:55:21Z",
+  "generated_at": "2026-10-05T05:59:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-257",
@@ -1849,6 +1849,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-317",
+      "headline": "L&T unit wins mega orders worth up to ₹15,000 crore in India, Saudi Arabia, UAE; Stock gains",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/larsen-and-toubro-lt-share-price-mega-order-win-up-to-15000-crore-india-saudi-uae-power-transmission-and-distribution-fy27-guidance-20004442.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T05:51:28Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "L&T unit secured major new orders totaling ₹15,000 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "L&T unit secured major new orders totaling ₹15,000 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Larsen & Toubro",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-271",
       "headline": "Saudi Aramco cuts Asia crude prices to six-year low amid recovery as oil flows rebound",
       "headline_en": null,
@@ -1939,55 +1988,6 @@
           "name": "FlyDubai",
           "ticker": null,
           "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-212",
-      "headline": "Flydubai’s Omani co-pilot visited Ben Gurion Airport multiple times, planned crash: Israeli media",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/flydubais-omani-co-pilot-visited-ben-gurion-airport-multiple-times-planned-crash-israeli-media/article71545814.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T04:25:10Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Allegations of a planned crash by a pilot represent a severe operational and security risk for the airline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Allegations of a planned crash by a pilot represent a severe operational and security risk for the airline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flydubai",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -205248,9 +205248,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2833,
-    "news_picked_today": 413,
-    "news_dropped_today": 2420
+    "news_seen_today": 2862,
+    "news_picked_today": 420,
+    "news_dropped_today": 2442
   },
   "book_momentum": {
     "live_count": 8,
