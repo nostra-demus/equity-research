@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T01:16:18Z",
+  "generated_at": "2026-10-05T01:26:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-053",
@@ -199,6 +199,168 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-083",
+      "headline": "Suncor to sell Canadian offshore assets to Ithaca for $1.08 billion",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/suncor-sell-canadian-offshore-assets-ithaca-108-billion-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T01:18:34Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Suncor is selling Canadian offshore assets to Ithaca for $1.08 billion, a significant divestment of capital assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Suncor is selling Canadian offshore assets to Ithaca for $1.08 billion, a significant divestment of capital assets.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Suncor Energy",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Ithaca Energy",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-080",
+      "headline": "AkzoNobel agrees deal to sell its SE Asia decorative paint unit to Nippon Paint",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/9737146d-fda7-440f-a77d-ab954de7a1a5?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T01:15:23Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "AkzoNobel is divesting its SE Asia decorative paint unit to Nippon Paint, representing a significant portfolio restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AkzoNobel is divesting its SE Asia decorative paint unit to Nippon Paint, representing a significant portfolio restructuring.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AkzoNobel",
+          "ticker": null,
+          "listing_country": "NL"
+        },
+        {
+          "name": "Nippon Paint",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-076",
+      "headline": "Nippon Paint to acquire AkzoNobel’s Southeast Asian decorative paints business for $1.35 billion",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/nippon-paint-to-acquire-akzonobels-southeast-asian-decorative-paints-business-for-135-billion/article71545665.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T01:14:15Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Nippon Paint is acquiring AkzoNobel's Southeast Asian decorative paints business for $1.35 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nippon Paint is acquiring AkzoNobel's Southeast Asian decorative paints business for $1.35 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nippon Paint",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "AkzoNobel",
+          "ticker": null,
+          "listing_country": "NL"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-075",
       "headline": "Schneider Electric proche d'un accord de $20 mds pour le rachat de l'américain PTC",
       "headline_en": "Schneider Electric close to a $20 billion deal to acquire American company PTC",
@@ -294,60 +456,6 @@
           "name": "Suncor Energy",
           "ticker": null,
           "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-068",
-      "headline": "Nippon Paint to Buy Akzo’s Southeast Asia Unit for $1.35 Billion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-05/nippon-paint-to-buy-akzo-s-southeast-asia-unit-for-1-35-billion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T00:48:07Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Nippon Paint is acquiring Akzo Nobel's Southeast Asia unit for $1.35 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nippon Paint is acquiring Akzo Nobel's Southeast Asia unit for $1.35 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nippon Paint",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Akzo Nobel",
-          "ticker": null,
-          "listing_country": "NL"
         }
       ],
       "size_bucket": "large",
@@ -454,60 +562,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-009",
-      "headline": "AkzoNobel to sell Southeast Asia paints business to Nippon Paint for $1.35 billion",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/akzonobel-could-sell-unit-nippon-paint-over-1-billion-ft-reports-2026-10-04/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T23:59:13Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "AkzoNobel is divesting its Southeast Asia paints business for $1.35 billion, a significant capital transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AkzoNobel is divesting its Southeast Asia paints business for $1.35 billion, a significant capital transaction.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AkzoNobel",
-          "ticker": null,
-          "listing_country": "NL"
-        },
-        {
-          "name": "Nippon Paint",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -839,6 +893,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-081",
+      "headline": "Far East Orchard crosses S$3 billion AUM target with stake buys in business trust managers",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/far-east-orchard-crosses-s3-billion-aum-target-stake-buys-business-trust-managers",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:31:54Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Far East Orchard has reached a S$3 billion AUM milestone through strategic acquisitions, indicating growth in its asset management business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Far East Orchard has reached a S$3 billion AUM milestone through strategic acquisitions, indicating growth in its asset management business.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Far East Orchard",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1513,6 +1616,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-079",
+      "headline": "Saudis Cut Flagship Oil Price to Asia to Lowest in Six Years",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-05/saudis-cut-flagship-oil-price-to-asia-to-lowest-in-six-years",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T01:09:40Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Saudi Arabia cutting oil prices to Asia to a six-year low signals a potential shift in supply strategy and pricing pressure for the energy sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Saudi Arabia cutting oil prices to Asia to a six-year low signals a potential shift in supply strategy and pricing pressure for the energy sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Saudi Aramco",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-040",
       "headline": "Tata's Assam chip unit is almost ready, and a non-China supply chain is in place",
       "headline_en": null,
@@ -1741,147 +1894,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-047",
-      "headline": "Markets bet on RBI rate hike as inflation pressure builds",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/markets-bet-rbi-rate-hike-inflation-pressure-builds-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T00:41:52Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Market expectations for an RBI rate hike are increasing due to rising inflation pressures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Market expectations for an RBI rate hike are increasing due to rising inflation pressures.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-027",
-      "headline": "이강석 대우건설 대표 공식 취임... '정상·함께·도전' 3대 경영 키워드 제시",
-      "headline_en": "Lee Kang-seok officially takes office as CEO of Daewoo E&C... presents 3 management keywords: 'Normal, Together, Challenge'",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278191",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-04T23:57:18Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Lee Kang-seok has officially taken office as CEO of Daewoo E&C, signaling a potential shift in management strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Lee Kang-seok has officially taken office as CEO of Daewoo E&C, signaling a potential shift in management strategy.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Daewoo E&C",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-034",
-      "headline": "KYP: Update - Notification of buy-back - KYP",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KYP?key=2924-03144311-6A1347648",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-05T00:17:45Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Update on a share buy-back program indicates capital return to shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Update on a share buy-back program indicates capital return to shareholders.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KYP",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -203206,9 +203218,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 285,
-    "news_picked_today": 77,
-    "news_dropped_today": 208
+    "news_seen_today": 326,
+    "news_picked_today": 85,
+    "news_dropped_today": 241
   },
   "book_momentum": {
     "live_count": 8,
