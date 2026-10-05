@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T07:13:50Z",
+  "generated_at": "2026-10-05T07:27:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-329",
@@ -158366,6 +158366,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-d93816107e63",
+      "idea_version": "IDEAV-d42b0fc859b19166",
+      "idea_version_started_at": "2026-10-05T07:26:59Z",
+      "ticker": "V2RETAIL.NS",
+      "company": "V2 Retail",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "V2 Retail shares plunged on a Q2 business update indicating that a shift in the festive season is weighing on growth.",
+      "why_now": "The shares plunged 20% on October 5, 2026, following the Q2 business update.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-895299b8b1db"
+      ],
+      "primary_source_event_id": "EVT-895299b8b1db",
+      "source_headlines": [
+        "Crash alert! V2 Retail shares plunge 20% on Q2 business update; festive season shift weighs on growth"
+      ],
+      "source_headline": "Crash alert! V2 Retail shares plunge 20% on Q2 business update; festive season shift weighs on growth",
+      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/crash-alert-v2-retail-shares-plunge-20-on-q2-business-update-festive-season-shift-weighs-on-growth/articleshow/134685984.cms",
+      "source_name": "The Economic Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T04:36:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T07:26:59Z",
+      "updated_at": "2026-10-05T07:26:59Z",
+      "decay_at": "2026-10-06T16:36:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-bb6c79ef8ffe",
       "idea_version": "IDEAV-58c5a0eb08a6556d",
       "idea_version_started_at": "2026-10-05T02:00:10Z",
@@ -158780,6 +158851,148 @@
       "surfaced_at": "2026-10-04T05:46:50Z",
       "updated_at": "2026-10-04T05:46:50Z",
       "decay_at": "2026-10-05T17:37:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-863c8a81db89",
+      "idea_version": "IDEAV-00167ca7c68becd1",
+      "idea_version_started_at": "2026-10-05T07:26:59Z",
+      "ticker": "CSL.AX",
+      "company": "CSL",
+      "exchange": "Australian",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "CSL is considering a drug deal with a Swiss biotech start-up that could be worth up to $2.2 billion.",
+      "why_now": "The potential deal was reported on October 5, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-59bf272af84c"
+      ],
+      "primary_source_event_id": "EVT-59bf272af84c",
+      "source_headlines": [
+        "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up"
+      ],
+      "source_headline": "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up",
+      "source_url": "https://www.afr.com/companies/healthcare-and-fitness/csl-could-spend-up-to-2-2b-on-drug-deal-with-swiss-biotech-startup-20261005-p612ty?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T05:41:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T07:26:59Z",
+      "updated_at": "2026-10-05T07:26:59Z",
+      "decay_at": "2026-10-06T17:41:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a4e5cade50a0",
+      "idea_version": "IDEAV-4d77b71f1aeb86e1",
+      "idea_version_started_at": "2026-10-05T07:26:59Z",
+      "ticker": "MARICO.NS",
+      "company": "Marico",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Marico is optimistic about surpassing near-term guidance and sees margin improvement in its Q2 update.",
+      "why_now": "The stock gained on October 5, 2026, following the Q2 business update.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8b748000b7a3"
+      ],
+      "primary_source_event_id": "EVT-8b748000b7a3",
+      "source_headlines": [
+        "Marico Q2 Update: Co optimistic of surpassing near-term guidance, sees margin improvement; Stock gains"
+      ],
+      "source_headline": "Marico Q2 Update: Co optimistic of surpassing near-term guidance, sees margin improvement; Stock gains",
+      "source_url": "https://www.cnbctv18.com/market/marico-share-price-q2-biz-update-near-term-guidance-surpassing-gross-margin-improvement-kopra-prices-impact-20004424.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T04:35:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T07:26:59Z",
+      "updated_at": "2026-10-05T07:26:59Z",
+      "decay_at": "2026-10-06T16:35:08Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -159972,6 +160185,151 @@
       "surfaced_at": "2026-10-04T08:14:49Z",
       "updated_at": "2026-10-04T08:14:49Z",
       "decay_at": "2026-10-05T20:00:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3a564694adb9",
+      "idea_version": "IDEAV-8811916078b6d2bb",
+      "idea_version_started_at": "2026-10-05T07:26:59Z",
+      "ticker": "VAU.AX",
+      "company": "Vanguard Australian Property",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The court has approved the scheme meeting and despatch of the scheme booklet for Vanguard Australian Property.",
+      "why_now": "The court approval was announced on October 5, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f4f7927af7c7"
+      ],
+      "primary_source_event_id": "EVT-f4f7927af7c7",
+      "source_headlines": [
+        "VAU: Court Approves Scheme Meeting and Scheme Booklet Despatch [price-sensitive]"
+      ],
+      "source_headline": "VAU: Court Approves Scheme Meeting and Scheme Booklet Despatch [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VAU?key=2924-03144417-6A1347686",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T05:06:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T07:26:59Z",
+      "updated_at": "2026-10-05T07:26:59Z",
+      "decay_at": "2026-10-06T17:06:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-cbb29109fa62",
+      "idea_version": "IDEAV-3e3b439d8d461221",
+      "idea_version_started_at": "2026-10-05T07:26:59Z",
+      "ticker": "TALK.L",
+      "company": "TalkTalk",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "BT Group is reportedly closing in on a deal to acquire embattled TalkTalk, suggesting a distressed situation for TalkTalk.",
+      "why_now": "The potential acquisition was reported on October 5, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ab289598947c"
+      ],
+      "primary_source_event_id": "EVT-ab289598947c",
+      "source_headlines": [
+        "BT closes in on deal for embattled TalkTalk"
+      ],
+      "source_headline": "BT closes in on deal for embattled TalkTalk",
+      "source_url": "https://www.ft.com/content/27d5abde-c1cd-4dc1-932f-4812a41a66c4",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T05:11:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T07:26:59Z",
+      "updated_at": "2026-10-05T07:26:59Z",
+      "decay_at": "2026-10-06T17:11:07Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -205241,8 +205599,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1336,
-    "live_count": 79,
+    "surfaced_total": 1341,
+    "live_count": 84,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -205261,9 +205619,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 24744,
+    "news_seen_today": 28071,
     "news_picked_today": 440,
-    "news_dropped_today": 7576
+    "news_dropped_today": 8008
   },
   "book_momentum": {
     "live_count": 8,
