@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T08:26:51Z",
+  "generated_at": "2026-10-05T08:29:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-329",
@@ -390,6 +390,61 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-339",
+      "headline": "BT to buy broadband supplier TalkTalk in £400m rescue deal, saving 900 jobs",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/business/2026/oct/05/bt-buy-broadband-supplier-talktalk-jobs",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T08:14:37Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "BT Group to acquire TalkTalk broadband for £400m in a stated rescue deal, altering BT's revenue mix, integration risk, capex commitment, and balance-sheet needs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BT Group to acquire TalkTalk broadband for £400m in a stated rescue deal, altering BT's revenue mix, integration risk, capex commitment, and balance-sheet needs.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 74,
+      "rank_factors": {
+        "materiality": 74,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BT Group plc",
+          "ticker": "BT.L",
+          "listing_country": "GB"
+        },
+        {
+          "name": "TalkTalk Telecom Group plc",
+          "ticker": "TALK.L",
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1980,60 +2035,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-330",
-      "headline": "BT agrees rescue deal to buy broadband operator TalkTalk",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cvze4g06526ro?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T07:46:29Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "BT agrees to acquire broadband operator TalkTalk in a rescue deal, a significant M&A event for the UK telecom sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "BT agrees to acquire broadband operator TalkTalk in a rescue deal, a significant M&A event for the UK telecom sector.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BT",
-          "ticker": "BT.A",
-          "listing_country": "GB"
-        },
-        {
-          "name": "TalkTalk",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205579,9 +205580,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 74113,
-    "news_picked_today": 489,
-    "news_dropped_today": 8271
+    "news_seen_today": 77164,
+    "news_picked_today": 491,
+    "news_dropped_today": 8293
   },
   "book_momentum": {
     "live_count": 8,
