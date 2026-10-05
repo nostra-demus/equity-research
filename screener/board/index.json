@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T13:33:05Z",
+  "generated_at": "2026-10-05T13:41:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-356",
@@ -642,6 +642,56 @@
           "name": "RXO",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-633",
+      "headline": "India’s BPCL plans $3 billion bond sale to fund Brazil oil bet",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/bonds/indias-bpcl-plans-3-billion-bond-sale-to-fund-brazil-oil-bet/articleshow/134699704.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T10:35:59Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "BPCL plans a $3 billion bond sale to fund a major capital investment in Brazil.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BPCL plans a $3 billion bond sale to fund a major capital investment in Brazil.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bharat Petroleum",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1981,60 +2031,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-328",
-      "headline": "Schneider Electric va racheter le spécialiste US des logiciels industriels PTC",
-      "headline_en": "Schneider Electric to acquire US industrial software specialist PTC",
-      "url": "https://www.reuters.com/fr/affaires/schneider-electric-va-racheter-le-spcialiste-us-des-logiciels-industriels-ptc-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T05:58:09Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Schneider Electric is planning to acquire US industrial software specialist PTC, a significant cross-border M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Schneider Electric is planning to acquire US industrial software specialist PTC, a significant cross-border M&A event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schneider Electric",
-          "ticker": null,
-          "listing_country": "FR"
-        },
-        {
-          "name": "PTC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205576,9 +205572,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 170193,
-    "news_picked_today": 1117,
-    "news_dropped_today": 14555
+    "news_seen_today": 171872,
+    "news_picked_today": 1151,
+    "news_dropped_today": 14665
   },
   "book_momentum": {
     "live_count": 8,
