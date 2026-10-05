@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T12:54:03Z",
+  "generated_at": "2026-10-05T13:04:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-356",
@@ -1991,50 +1991,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261005-588",
-      "headline": "General Remittance Advice against: Surbhi Aggarwal [Defaulter] (PAN: BNIPA1542D) in the matter of Front running by Navnit Gadoya, Surbhi Aggarwal and Chiranggi Irish Shah: under Recovery Certificate No. 9264 of 2026.",
+      "inbox_id": "INB-20261005-591",
+      "headline": "425 - C. H. ROBINSON WORLDWIDE, INC. (0001043277) (Filed by)",
       "headline_en": null,
-      "url": "https://www.sebi.gov.in/enforcement/recovery-proceedings/oct-2026/general-remittance-advice-against-surbhi-aggarwal-defaulter-pan-bnipa1542d-in-the-matter-of-front-running-by-navnit-gadoya-surbhi-aggarwal-and-chiranggi-irish-shah-under-recovery-certificate-n-_105032.html",
-      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1043277/000119312526413211/0001193125-26-413211-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-10-05T12:38:23Z",
+      "found_at": "2026-10-05T12:23:54Z",
       "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "SEBI issued a recovery certificate against an individual for front-running, indicating regulatory enforcement action.",
+      "prelim_note": "SEC Form 425 filing by C.H. Robinson confirms it is party to a business-combination communication; M&A is underway or imminent but deal scale unknown.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "SEBI issued a recovery certificate against an individual for front-running, indicating regulatory enforcement action.",
-      "region": "IN",
+      "triage_score": 99,
+      "triage_reason": "SEC Form 425 filing by C.H. Robinson confirms it is party to a business-combination communication; M&A is underway or imminent but deal scale unknown.",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 70,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 70,
         "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
         "recency": 5,
-        "materiality_label_floor": 20,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
+        "event_id": "mna",
+        "size_bucket": "large"
       },
       "event_types": [
-        "litigation_enforcement"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Surbhi Aggarwal",
-          "ticker": null,
-          "listing_country": null
+          "name": "C.H. Robinson Worldwide, Inc.",
+          "ticker": "CHRW",
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205575,9 +205575,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 158854,
-    "news_picked_today": 1017,
-    "news_dropped_today": 14103
+    "news_seen_today": 160199,
+    "news_picked_today": 1060,
+    "news_dropped_today": 14300
   },
   "book_momentum": {
     "live_count": 8,
