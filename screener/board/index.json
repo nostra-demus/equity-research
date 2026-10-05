@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T09:37:24Z",
+  "generated_at": "2026-10-05T09:40:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-329",
@@ -387,6 +387,55 @@
           "name": "AGILE GROUP",
           "ticker": "03383",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-355",
+      "headline": "Frank Kebekus vorläufiger Insolvenzverwalter bei Galeria",
+      "headline_en": "Frank Kebekus appointed as preliminary insolvency administrator at Galeria",
+      "url": "https://www.reuters.com/de/firma/frank-kebekus-vorlufiger-insolvenzverwalter-bei-galeria-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T09:11:45Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Frank Kebekus appointed as preliminary insolvency administrator for Galeria.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Frank Kebekus appointed as preliminary insolvency administrator for Galeria.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Galeria",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "mid",
@@ -1991,55 +2040,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-058",
-      "headline": "Greenko founders-backed AM Intelligence orders 20,000 Nvidia GPUs in $4 billion deal",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/greenko-founders-backed-am-intelligence-orders-20-000-nvidia-gpus-in-4-billion-deal-11791119927528.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T00:45:22Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "AM Intelligence is making a massive $4 billion investment in 20,000 Nvidia GPUs, a significant demand signal for AI infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "AM Intelligence is making a massive $4 billion investment in 20,000 Nvidia GPUs, a significant demand signal for AI infrastructure.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205585,9 +205585,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 103858,
-    "news_picked_today": 529,
-    "news_dropped_today": 10655
+    "news_seen_today": 107048,
+    "news_picked_today": 539,
+    "news_dropped_today": 10669
   },
   "book_momentum": {
     "live_count": 8,
