@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T16:27:13Z",
+  "generated_at": "2026-10-05T16:30:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-777",
@@ -640,6 +640,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-778",
+      "headline": "Italian bank Intesa's improved €35 billion bid for MPS wins backing of biggest investor",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/intesas-35-billion-bid-mps-wins-backing-top-investor-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T15:35:01Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Intesa Sanpaolo has made a confirmed €35 billion bid for MPS, representing a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intesa Sanpaolo has made a confirmed €35 billion bid for MPS, representing a major M&A event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intesa Sanpaolo",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Monte dei Paschi di Siena",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-773",
       "headline": "C.H. Robinson to buy RXO for $5.8 billion in truck broking expansion",
       "headline_en": null,
@@ -836,6 +890,60 @@
         },
         {
           "name": "RXO",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-793",
+      "headline": "Paramount Names Leadership Team for Combined Entity Post $81 Billion Warner Deal",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/media/paramount-names-leadership-team-for-combined-entity-post-81-billion-warner-deal-c37b9b0d?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T15:09:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Paramount is formalizing leadership for the entity resulting from the $81 billion Warner deal, a major M&A integration step.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount is formalizing leadership for the entity resulting from the $81 billion Warner deal, a major M&A integration step.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1919,105 +2027,6 @@
           "name": "TalkTalk",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-717",
-      "headline": "Claro NXT protocola OPA de ações da Desktop",
-      "headline_en": "Claro NXT files tender offer for Desktop shares",
-      "url": "https://www.reuters.com/pt/negocio/PAAM2CKHMFLY3MQNKHKABQFWAM-2026-10-05/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T11:32:34Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Claro NXT has filed a tender offer (OPA) to acquire shares of Desktop.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Claro NXT has filed a tender offer (OPA) to acquire shares of Desktop.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Desktop",
-          "ticker": null,
-          "listing_country": "BR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-633",
-      "headline": "India’s BPCL plans $3 billion bond sale to fund Brazil oil bet",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/bonds/indias-bpcl-plans-3-billion-bond-sale-to-fund-brazil-oil-bet/articleshow/134699704.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T10:35:59Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "BPCL plans a $3 billion bond sale to fund a major capital investment in Brazil.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BPCL plans a $3 billion bond sale to fund a major capital investment in Brazil.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bharat Petroleum",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -205569,9 +205578,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 219317,
-    "news_picked_today": 1449,
-    "news_dropped_today": 16527
+    "news_seen_today": 220282,
+    "news_picked_today": 1465,
+    "news_dropped_today": 16559
   },
   "book_momentum": {
     "live_count": 8,
