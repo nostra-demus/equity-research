@@ -1,6 +1,105 @@
 {
-  "generated_at": "2026-10-05T21:25:16Z",
+  "generated_at": "2026-10-05T21:36:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261005-1020",
+      "headline": "LGI: 42MW Solar Generation Assets Acquisition Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LGI?key=2924-03144603-2A1701867",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T21:21:54Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "LGI is acquiring 42MW of solar generation assets to expand its renewable energy capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "LGI is acquiring 42MW of solar generation assets to expand its renewable energy capacity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LGI",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-1044",
+      "headline": "25-NSE - National Healthcare Properties, Inc. (0001561032) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1561032/000135445726000950/0001354457-26-000950-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-05T21:02:19Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "SEC Form 25-NSE delisting notification for National Healthcare Properties signals equity listing termination and potential distress or restructuring; headline provides no trigger, compliance detail, or timing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEC Form 25-NSE delisting notification for National Healthcare Properties signals equity listing termination and potential distress or restructuring; headline provides no trigger, compliance detail, or timing.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "National Healthcare Properties, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261005-1000",
       "headline": "TWR: Tower updates FY26 guidance [price-sensitive]",
@@ -684,6 +783,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-1028",
+      "headline": "KKR Strikes Deal to Buy Private-Capital Fund Administrator Gen II",
+      "headline_en": null,
+      "url": "https://www.wsj.com/finance/investing/kkr-strikes-deal-to-buy-private-capital-fund-administrator-gen-ii-40b951a5?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T21:09:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "KKR is acquiring Gen II, a private-capital fund administrator, representing a significant expansion in its service capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KKR is acquiring Gen II, a private-capital fund administrator, representing a significant expansion in its service capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1861,165 +2009,6 @@
           "name": "IndusInd Bank",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-950",
-      "headline": "Amazon, Constellation sign 20-year PPA to expand Maryland nuclear plant",
-      "headline_en": null,
-      "url": "https://www.utilitydive.com/news/amazon-constellation-sign-20-year-ppa-to-expand-maryland-nuclear-plant/832145/",
-      "source_name": "Utility Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T16:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Amazon and Constellation Energy signed a 20-year power purchase agreement to expand a nuclear plant, representing a significant infrastructure and energy capacity investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Amazon and Constellation Energy signed a 20-year power purchase agreement to expand a nuclear plant, representing a significant infrastructure and energy capacity investment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Amazon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Constellation Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-956",
-      "headline": "Oprah-backed chain files Chapter 11, closes 12 restaurants",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/breaking-news-health-food-chain-files-chapter-11-closes-12-restaurants",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T15:39:30Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Oprah-backed restaurant chain filed for Chapter 11 bankruptcy and is closing 12 locations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Oprah-backed restaurant chain filed for Chapter 11 bankruptcy and is closing 12 locations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "True Food Kitchen",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-778",
-      "headline": "Italian bank Intesa's improved €35 billion bid for MPS wins backing of biggest investor",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/intesas-35-billion-bid-mps-wins-backing-top-investor-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T15:35:01Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Intesa Sanpaolo has made a confirmed €35 billion bid for MPS, representing a major M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Intesa Sanpaolo has made a confirmed €35 billion bid for MPS, representing a major M&A event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intesa Sanpaolo",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Monte dei Paschi di Siena",
-          "ticker": null,
-          "listing_country": "IT"
         }
       ],
       "size_bucket": "large",
@@ -161956,153 +161945,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-13e29c026907",
-      "idea_version": "IDEAV-0ad58ac9e3452b5a",
-      "idea_version_started_at": "2026-10-04T13:39:58Z",
-      "ticker": "ACWA",
-      "company": "ACWA Power",
-      "exchange": "Tadawul",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Reaching financial close on the Rabigh 2 expansion project de-risks a major capital expenditure project and secures long-term cash flow generation for the utility provider.",
-      "why_now": "The financial close was confirmed today, October 4, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d3c4d8002c06"
-      ],
-      "primary_source_event_id": "EVT-d3c4d8002c06",
-      "source_headlines": [
-        "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power"
-      ],
-      "source_headline": "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1941081",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-10-04T09:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T10:39:45Z",
-      "updated_at": "2026-10-04T13:39:58Z",
-      "decay_at": "2026-10-05T21:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-552d4a71e9b6",
-      "idea_version": "IDEAV-8dc126045b36813b",
-      "idea_version_started_at": "2026-10-04T09:45:15Z",
-      "ticker": "ACWAPOWER",
-      "company": "ACWA Power",
-      "exchange": "Tadawul",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reached financial close on the Rabigh 2 expansion project, securing the capital structure for a major infrastructure asset that will contribute to future revenue.",
-      "why_now": "The financial closure was officially announced on 2026-10-04.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d3c4d8002c06",
-        "EVT-19d1819c3065"
-      ],
-      "primary_source_event_id": "EVT-d3c4d8002c06",
-      "source_headlines": [
-        "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
-        "‎Acwa, Saudi Energy announce financial closure for Rabigh 2 expansion project"
-      ],
-      "source_headline": "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1941081",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-10-04T09:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T09:45:15Z",
-      "updated_at": "2026-10-04T09:45:15Z",
-      "decay_at": "2026-10-05T21:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9073a81e9f1e",
       "idea_version": "IDEAV-d4730722b9c0d20d",
       "idea_version_started_at": "2026-10-04T15:06:54Z",
@@ -165963,6 +165805,153 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-13e29c026907",
+      "idea_version": "IDEAV-0ad58ac9e3452b5a",
+      "idea_version_started_at": "2026-10-04T13:39:58Z",
+      "ticker": "ACWA",
+      "company": "ACWA Power",
+      "exchange": "Tadawul",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Reaching financial close on the Rabigh 2 expansion project de-risks a major capital expenditure project and secures long-term cash flow generation for the utility provider.",
+      "why_now": "The financial close was confirmed today, October 4, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d3c4d8002c06"
+      ],
+      "primary_source_event_id": "EVT-d3c4d8002c06",
+      "source_headlines": [
+        "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power"
+      ],
+      "source_headline": "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1941081",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-10-04T09:36:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T10:39:45Z",
+      "updated_at": "2026-10-04T13:39:58Z",
+      "decay_at": "2026-10-05T21:36:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-552d4a71e9b6",
+      "idea_version": "IDEAV-8dc126045b36813b",
+      "idea_version_started_at": "2026-10-04T09:45:15Z",
+      "ticker": "ACWAPOWER",
+      "company": "ACWA Power",
+      "exchange": "Tadawul",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reached financial close on the Rabigh 2 expansion project, securing the capital structure for a major infrastructure asset that will contribute to future revenue.",
+      "why_now": "The financial closure was officially announced on 2026-10-04.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d3c4d8002c06",
+        "EVT-19d1819c3065"
+      ],
+      "primary_source_event_id": "EVT-d3c4d8002c06",
+      "source_headlines": [
+        "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
+        "‎Acwa, Saudi Energy announce financial closure for Rabigh 2 expansion project"
+      ],
+      "source_headline": "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
+      "source_url": "https://www.argaam.com/en/article/articledetail/id/1941081",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-10-04T09:36:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T09:45:15Z",
+      "updated_at": "2026-10-04T09:45:15Z",
+      "decay_at": "2026-10-05T21:36:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d6ced9326085",
       "idea_version": "IDEAV-48a1605dbaec0599",
       "idea_version_started_at": "2026-10-03T10:25:11Z",
@@ -167711,14 +167700,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 565,
+    "total_count": 567,
     "shown_count": 500,
-    "hidden_count": 65,
+    "hidden_count": 67,
     "side_counts": {
       "long": {
-        "total_count": 290,
+        "total_count": 292,
         "shown_count": 250,
-        "hidden_count": 40
+        "hidden_count": 42
       },
       "short": {
         "total_count": 275,
@@ -167742,6 +167731,159 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-13e29c026907",
+        "idea_version": "IDEAV-0ad58ac9e3452b5a",
+        "idea_version_started_at": "2026-10-04T13:39:58Z",
+        "ticker": "ACWA",
+        "company": "ACWA Power",
+        "exchange": "Tadawul",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Reaching financial close on the Rabigh 2 expansion project de-risks a major capital expenditure project and secures long-term cash flow generation for the utility provider.",
+        "why_now": "The financial close was confirmed today, October 4, 2026.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d3c4d8002c06"
+        ],
+        "primary_source_event_id": "EVT-d3c4d8002c06",
+        "source_headlines": [
+          "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power"
+        ],
+        "source_headline": "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
+        "source_url": "https://www.argaam.com/en/article/articledetail/id/1941081",
+        "source_name": "Argaam — Company Disclosures (English)",
+        "materiality_max": 94,
+        "newest_source_at": "2026-10-04T09:36:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T10:39:45Z",
+        "updated_at": "2026-10-04T13:39:58Z",
+        "decay_at": "2026-10-05T21:36:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T21:36:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-552d4a71e9b6",
+        "idea_version": "IDEAV-8dc126045b36813b",
+        "idea_version_started_at": "2026-10-04T09:45:15Z",
+        "ticker": "ACWAPOWER",
+        "company": "ACWA Power",
+        "exchange": "Tadawul",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reached financial close on the Rabigh 2 expansion project, securing the capital structure for a major infrastructure asset that will contribute to future revenue.",
+        "why_now": "The financial closure was officially announced on 2026-10-04.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d3c4d8002c06",
+          "EVT-19d1819c3065"
+        ],
+        "primary_source_event_id": "EVT-d3c4d8002c06",
+        "source_headlines": [
+          "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
+          "‎Acwa, Saudi Energy announce financial closure for Rabigh 2 expansion project"
+        ],
+        "source_headline": "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
+        "source_url": "https://www.argaam.com/en/article/articledetail/id/1941081",
+        "source_name": "Argaam — Company Disclosures (English)",
+        "materiality_max": 94,
+        "newest_source_at": "2026-10-04T09:36:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T09:45:15Z",
+        "updated_at": "2026-10-04T09:45:15Z",
+        "decay_at": "2026-10-05T21:36:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T21:36:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b6768fa58f3d",
         "idea_version": "IDEAV-068d4885f6a85a04",
@@ -197042,155 +197184,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-954f3f21e4b8",
-        "idea_version": "IDEAV-3ebdccadb9d69eeb",
-        "idea_version_started_at": "2026-09-18T11:53:52Z",
-        "ticker": "SKYGOLD",
-        "company": "Sky Gold and Diamonds Limited",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The acquisition of Purvi Gems & Jewellery (India) Private Limited expands the company's market footprint and consolidates its position in the jewelry sector.",
-        "why_now": "The board approved the acquisition on 2026-09-18.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f55de513c7f1"
-        ],
-        "primary_source_event_id": "EVT-f55de513c7f1",
-        "source_headlines": [
-          "SKY GOLD AND DIAMONDS LIMITED: The Board at its meeting held today i.e. on 18th September 2026 has considered and approved the acquisition of Purvi Gems & Jewellery (India) Private Limited."
-        ],
-        "source_headline": "SKY GOLD AND DIAMONDS LIMITED: The Board at its meeting held today i.e. on 18th September 2026 has considered and approved the acquisition of Purvi Gems & Jewellery (India) Private Limited.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/SKYGOLD_18092026090718_OutcomeBMAcquisition.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-18T03:37:34Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-18T11:53:52Z",
-        "updated_at": "2026-09-18T11:53:52Z",
-        "decay_at": "2026-09-19T15:37:34Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-21T03:50:24Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5efadd64af04",
-        "idea_version": "IDEAV-0d4f3ec9fae0cf3e",
-        "idea_version_started_at": "2026-09-18T10:19:04Z",
-        "ticker": "8306",
-        "company": "Mitsubishi UFJ Financial Group",
-        "exchange": "TSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "A hike in the Bank of Japan policy rate to 1.25% improves net interest margins for major Japanese banks.",
-        "why_now": "The BoJ announced the rate hike on 2026-09-18.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "macro_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-49f712d5a1eb"
-        ],
-        "primary_source_event_id": "EVT-49f712d5a1eb",
-        "source_headlines": [
-          "Bank of Japan raises policy interest rate to 1.25% from 1.0%"
-        ],
-        "source_headline": "Bank of Japan raises policy interest rate to 1.25% from 1.0%",
-        "source_url": "https://english.kyodonews.net/articles/-/85444",
-        "source_name": "Kyodo News (Japan Wire)",
-        "materiality_max": 98,
-        "newest_source_at": "2026-09-18T02:55:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-18T10:19:04Z",
-        "updated_at": "2026-09-18T10:19:04Z",
-        "decay_at": "2026-09-19T14:55:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-21T03:10:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-73b4f77f750c",
         "idea_version": "IDEAV-ee3711c65ab635ac",
         "idea_version_started_at": "2026-09-18T03:01:04Z",
@@ -204926,7 +204919,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1343,
-    "live_count": 67,
+    "live_count": 65,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -204945,9 +204938,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 251828,
-    "news_picked_today": 2095,
-    "news_dropped_today": 20085
+    "news_seen_today": 252302,
+    "news_picked_today": 2120,
+    "news_dropped_today": 20228
   },
   "book_momentum": {
     "live_count": 8,
