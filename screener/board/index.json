@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T11:07:58Z",
+  "generated_at": "2026-10-05T11:08:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-356",
@@ -1201,6 +1201,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-451",
+      "headline": "Foxconn third-quarter revenue soars on AI demand, beats market forecast",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/china/foxconn-third-quarter-revenue-jumps-47-yy-beats-market-forecast-2026-10-05/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T08:08:58Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Foxconn reported strong third-quarter revenue growth driven by AI demand, beating market forecasts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Foxconn reported strong third-quarter revenue growth driven by AI demand, beating market forecasts.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Foxconn",
+          "ticker": null,
+          "listing_country": "TW"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-432",
       "headline": "Radiant World Misses Salary Payments for Employees in September",
       "headline_en": null,
@@ -1977,55 +2026,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-211",
-      "headline": "V2 Retail shares plunge 19% after Q2 business update | What lies ahead for investors?",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/v2-retail-shares-plunge-19-after-q2-business-update-what-lies-ahead-for-investors-11791173055240.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T04:23:57Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "V2 Retail shares dropped 19% following a negative business update for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "V2 Retail shares dropped 19% following a negative business update for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "V2 Retail",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205571,9 +205571,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 128079,
-    "news_picked_today": 702,
-    "news_dropped_today": 12762
+    "news_seen_today": 128584,
+    "news_picked_today": 709,
+    "news_dropped_today": 12779
   },
   "book_momentum": {
     "live_count": 8,
