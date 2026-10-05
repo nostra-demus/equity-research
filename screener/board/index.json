@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T03:47:23Z",
+  "generated_at": "2026-10-05T03:51:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-156",
@@ -958,6 +958,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261005-177",
+      "headline": "CAM: FY26 Results and Special Dividend [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAM?key=2924-03144405-2A1701770",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-05T03:44:46Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Company reported FY26 results and announced a special dividend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Company reported FY26 results and announced a special dividend.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CAM",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261005-154",
       "headline": "SEPC Limited: We hereby informed the Exchange of the press release titled \"Major Relief for SEPC as Madras High Court Lifts Attachment on Rs.154 Crore Receivables Following Dispute Settlement\". Detailed letter is enclosed.",
       "headline_en": null,
@@ -1192,6 +1242,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-183",
+      "headline": "Indian consumer firm Marico sees double-digit revenue growth in second quarter",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/india/indian-consumer-firm-marico-sees-double-digit-revenue-growth-second-quarter-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T03:45:44Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Marico provided a quarterly trading update indicating double-digit revenue growth, which directly impacts analyst expectations for the period.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Marico provided a quarterly trading update indicating double-digit revenue growth, which directly impacts analyst expectations for the period.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Marico",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1869,104 +1968,6 @@
           "name": "IKB",
           "ticker": null,
           "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-130",
-      "headline": "HDFC Bank new leadership to focus on three-pronged strategy: Exclusive",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/hdfc-bank-new-leadership-to-focus-on-three-pronged-strategy-exclusive-20004295.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T02:06:15Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "HDFC Bank is implementing a new three-pronged strategy under new leadership, which is a significant operational shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "HDFC Bank is implementing a new three-pronged strategy under new leadership, which is a significant operational shift.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "HDFC Bank",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-089",
-      "headline": "Bajaj Housing Finance shares in focus after all key metrics grow in excess of 20% in Q2",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/bajaj-housing-finance-share-price-q2-update-all-key-metrics-grow-in-excess-of-20-pc-20004266.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T01:31:41Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Bajaj Housing Finance reported growth exceeding 20% across all key metrics in Q2, indicating strong operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Bajaj Housing Finance reported growth exceeding 20% across all key metrics in Q2, indicating strong operational performance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Housing Finance",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -204725,9 +204726,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 957,
-    "news_picked_today": 206,
-    "news_dropped_today": 751
+    "news_seen_today": 988,
+    "news_picked_today": 213,
+    "news_dropped_today": 775
   },
   "book_momentum": {
     "live_count": 8,
