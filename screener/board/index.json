@@ -1,6 +1,428 @@
 {
-  "generated_at": "2026-10-05T00:00:40Z",
+  "generated_at": "2026-10-05T00:05:10Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261005-001",
+      "headline": "LVGEM CHINA (00095): INSIDE INFORMATION - SIGNIFICANT PROGRESS ON THE OFFSHORE RESTRUCTURING AND UPDATE ON WINDING UP PETITION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1005/2026100500079.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-04T23:08:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "The company reported significant progress in its offshore debt restructuring and an update on its winding-up petition, which is critical for its survival.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported significant progress in its offshore debt restructuring and an update on its winding-up petition, which is critical for its survival.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LVGEM CHINA",
+          "ticker": "00095",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-002",
+      "headline": "AGILE GROUP (03383): SIGNIFICANT PROGRESS OF THE OFFSHORE DEBT RESTRUCTURING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1005/2026100500001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-04T22:01:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "The company reported significant progress in its offshore debt restructuring, a critical step for its financial stability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported significant progress in its offshore debt restructuring, a critical step for its financial stability.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AGILE GROUP",
+          "ticker": "03383",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-009",
+      "headline": "AkzoNobel to sell Southeast Asia paints business to Nippon Paint for $1.35 billion",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/akzonobel-could-sell-unit-nippon-paint-over-1-billion-ft-reports-2026-10-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T23:59:13Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "AkzoNobel is divesting its Southeast Asia paints business for $1.35 billion, a significant capital transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AkzoNobel is divesting its Southeast Asia paints business for $1.35 billion, a significant capital transaction.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AkzoNobel",
+          "ticker": null,
+          "listing_country": "NL"
+        },
+        {
+          "name": "Nippon Paint",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-006",
+      "headline": "RBI likely to hike repo rate by 25 bps to 5.50% in October policy: ET Poll",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/economy/policy/rbi-likely-to-hike-repo-rate-by-25-bps-to-5-50-in-october-policy-et-poll/articleshow/134679410.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "An ET poll suggests the RBI is likely to hike the repo rate by 25 bps to 5.50%, which would impact the broader Indian economy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "An ET poll suggests the RBI is likely to hike the repo rate by 25 bps to 5.50%, which would impact the broader Indian economy.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-003",
+      "headline": "DYNAM JAPAN (06889): DISCLOSEABLE AND CONNECTED TRANSACTION IN RELATION TO DISPOSAL OF LEASE-ATTACHED AIRCRAFT AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1005/2026100500081.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-04T23:12:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "The company announced a discloseable and connected transaction regarding the disposal of a lease-attached aircraft.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "The company announced a discloseable and connected transaction regarding the disposal of a lease-attached aircraft.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DYNAM JAPAN",
+          "ticker": "06889",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-008",
+      "headline": "Oil prices split as Brent tops $102, Murban hits $110 per barrel on Oct. 5, 2026",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/americas/17gix0n-oil-prices-rise-brent-above-103-1.500698305",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-04T23:43:40Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Oil prices reaching $102-$110 per barrel represent a significant energy cost shock for the global economy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Oil prices reaching $102-$110 per barrel represent a significant energy cost shock for the global economy.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-007",
+      "headline": "Malaysia’s Anwar set to unveil crowd-pleasing budget as political pressure rises",
+      "headline_en": null,
+      "url": "https://www.scmp.com/week-asia/economics/article/3369573/malaysias-anwar-set-unveil-crowd-pleasing-budget-political-pressure-rises?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:00:17Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "The Malaysian government is set to unveil a new budget, which will impact the national economic outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "The Malaysian government is set to unveil a new budget, which will impact the national economic outlook.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-005",
+      "headline": "Spending on AI Is Becoming Almost Impossible for Businesses to Budget",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/personal-tech/ai-token-spending-businesses-431ee94a?mod=rss_Technology",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Businesses are facing challenges in budgeting for AI spending, highlighting a broader macro trend in corporate capex.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Businesses are facing challenges in budgeting for AI spending, highlighting a broader macro trend in corporate capex.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-004",
+      "headline": "Seatrium and Karpowership Extend Collaboration with Ninth FSRU Conversion",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/seatrium-and-karpowership-extend-collaboration-with-ninth-fsru-conversion-302897797.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-05T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Seatrium and Karpowership extended their collaboration with a ninth FSRU conversion project, indicating ongoing commercial activity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Seatrium and Karpowership extended their collaboration with a ninth FSRU conversion project, indicating ongoing commercial activity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Seatrium",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261004-319",
       "headline": "VR8: V-Iron Plant Scoping Study Supports Progression to DFS [price-sensitive]",
@@ -159355,77 +159777,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-0e02a5d86bb3",
-      "idea_version": "IDEAV-297437b036a4519e",
-      "idea_version_started_at": "2026-10-03T13:05:05Z",
-      "ticker": "BANKBARODA",
-      "company": "Bank of Baroda",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The bank released provisional Q2 business figures for the period ending September 30, 2026, which typically provide the first hard data on loan growth and deposit traction ahead of full earnings.",
-      "why_now": "The exchange filing occurred on October 3, 2026, creating a fresh data point for the market to re-rate the stock before the formal quarterly results.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-66249dab705f"
-      ],
-      "primary_source_event_id": "EVT-66249dab705f",
-      "source_headlines": [
-        "Bank of Baroda: Bank Of Baroda has informed the Exchange about Provisional Business Figures Q2 30-09-2026"
-      ],
-      "source_headline": "Bank of Baroda: Bank Of Baroda has informed the Exchange about Provisional Business Figures Q2 30-09-2026",
-      "source_url": "https://nsearchives.nseindia.com/corporate/BANKBARODA_03102026173318_SEPROVISIONAL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-03T12:03:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T13:05:05Z",
-      "updated_at": "2026-10-03T13:05:05Z",
-      "decay_at": "2026-10-05T00:03:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-13e29c026907",
       "idea_version": "IDEAV-0ad58ac9e3452b5a",
       "idea_version_started_at": "2026-10-04T13:39:58Z",
@@ -163089,6 +163440,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-0e02a5d86bb3",
+      "idea_version": "IDEAV-297437b036a4519e",
+      "idea_version_started_at": "2026-10-03T13:05:05Z",
+      "ticker": "BANKBARODA",
+      "company": "Bank of Baroda",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The bank released provisional Q2 business figures for the period ending September 30, 2026, which typically provide the first hard data on loan growth and deposit traction ahead of full earnings.",
+      "why_now": "The exchange filing occurred on October 3, 2026, creating a fresh data point for the market to re-rate the stock before the formal quarterly results.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-66249dab705f"
+      ],
+      "primary_source_event_id": "EVT-66249dab705f",
+      "source_headlines": [
+        "Bank of Baroda: Bank Of Baroda has informed the Exchange about Provisional Business Figures Q2 30-09-2026"
+      ],
+      "source_headline": "Bank of Baroda: Bank Of Baroda has informed the Exchange about Provisional Business Figures Q2 30-09-2026",
+      "source_url": "https://nsearchives.nseindia.com/corporate/BANKBARODA_03102026173318_SEPROVISIONAL.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 96,
+      "newest_source_at": "2026-10-03T12:03:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-03T13:05:05Z",
+      "updated_at": "2026-10-03T13:05:05Z",
+      "decay_at": "2026-10-05T00:03:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d6ced9326085",
       "idea_version": "IDEAV-48a1605dbaec0599",
       "idea_version_started_at": "2026-10-03T10:25:11Z",
@@ -164109,14 +164531,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 548,
+    "total_count": 549,
     "shown_count": 500,
-    "hidden_count": 48,
+    "hidden_count": 49,
     "side_counts": {
       "long": {
-        "total_count": 278,
+        "total_count": 279,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 29
       },
       "short": {
         "total_count": 270,
@@ -164140,6 +164562,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-0e02a5d86bb3",
+        "idea_version": "IDEAV-297437b036a4519e",
+        "idea_version_started_at": "2026-10-03T13:05:05Z",
+        "ticker": "BANKBARODA",
+        "company": "Bank of Baroda",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The bank released provisional Q2 business figures for the period ending September 30, 2026, which typically provide the first hard data on loan growth and deposit traction ahead of full earnings.",
+        "why_now": "The exchange filing occurred on October 3, 2026, creating a fresh data point for the market to re-rate the stock before the formal quarterly results.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-66249dab705f"
+        ],
+        "primary_source_event_id": "EVT-66249dab705f",
+        "source_headlines": [
+          "Bank of Baroda: Bank Of Baroda has informed the Exchange about Provisional Business Figures Q2 30-09-2026"
+        ],
+        "source_headline": "Bank of Baroda: Bank Of Baroda has informed the Exchange about Provisional Business Figures Q2 30-09-2026",
+        "source_url": "https://nsearchives.nseindia.com/corporate/BANKBARODA_03102026173318_SEPROVISIONAL.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 96,
+        "newest_source_at": "2026-10-03T12:03:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-03T13:05:05Z",
+        "updated_at": "2026-10-03T13:05:05Z",
+        "decay_at": "2026-10-05T00:03:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-05T00:03:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-dbfac4fed0f3",
         "idea_version": "IDEAV-0fffd6a4b922e556",
@@ -192896,81 +193392,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-7de5b0b6f75e",
-        "idea_version": "IDEAV-7555698452e29762",
-        "idea_version_started_at": "2026-09-17T13:01:51Z",
-        "ticker": "BEZ",
-        "company": "Berentzen-Gruppe",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company confirmed it is in takeover talks with Sazerac, which typically results in a premium offer for shareholders.",
-        "why_now": "The confirmation of talks occurred today, September 17, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-bc3a2a4a0c7e"
-        ],
-        "primary_source_event_id": "EVT-bc3a2a4a0c7e",
-        "source_headlines": [
-          "Berentzen shares soar after it confirms talks over potential takeover by Sazerac"
-        ],
-        "source_headline": "Berentzen shares soar after it confirms talks over potential takeover by Sazerac",
-        "source_url": "https://www.reuters.com/business/berentzen-shares-soar-after-it-confirms-talks-over-potential-takeover-by-sazerac-2026-09-17/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-17T07:30:18Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-17T13:01:51Z",
-        "updated_at": "2026-09-17T13:01:51Z",
-        "decay_at": "2026-09-18T19:30:18Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-20T11:25:10Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-163e0fa1bed7",
         "idea_version": "IDEAV-f9413c81707f9e13",
         "idea_version_started_at": "2026-09-17T11:22:21Z",
@@ -201299,7 +201720,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1309,
-    "live_count": 62,
+    "live_count": 61,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -201309,7 +201730,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3207,
+    "inbox_unconsumed": 3216,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -201318,9 +201739,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 35,
+    "news_picked_today": 9,
+    "news_dropped_today": 26
   },
   "book_momentum": {
     "live_count": 8,
