@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T19:30:12Z",
+  "generated_at": "2026-10-05T19:41:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-777",
@@ -635,6 +635,61 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-984",
+      "headline": "Boeing receives Lockheed PAC-3 MSE contract worth up to $14.7 billion",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/aerospace-defense/boeing-receives-lockheed-pac-3-mse-contract-worth-up-147-billion-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T18:53:16Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Boeing secured a defense contract worth $14.7 billion, significantly impacting its order backlog and revenue outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Boeing secured a defense contract worth $14.7 billion, significantly impacting its order backlog and revenue outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boeing",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Lockheed Martin",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1973,60 +2028,6 @@
           "name": "Morrisons",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-861",
-      "headline": "Schneider agrees purchase of US software company PTC for $22 billion",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/schneider-agrees-purchase-of-us-software-company-ptc-for-22-billion/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T14:39:00Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Schneider Electric is acquiring PTC for $22 billion, a major M&A transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Schneider Electric is acquiring PTC for $22 billion, a major M&A transaction.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Schneider Electric",
-          "ticker": null,
-          "listing_country": "FR"
-        },
-        {
-          "name": "PTC",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -205589,9 +205590,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 248338,
-    "news_picked_today": 1910,
-    "news_dropped_today": 18706
+    "news_seen_today": 248600,
+    "news_picked_today": 1934,
+    "news_dropped_today": 18826
   },
   "book_momentum": {
     "live_count": 8,
