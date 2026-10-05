@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T07:59:31Z",
+  "generated_at": "2026-10-05T08:03:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-329",
@@ -390,6 +390,168 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-337",
+      "headline": "France’s Schneider Electric to buy PTC for $22.6 billion in its biggest deal ever",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/frances-schneider-electric-to-buy-ptc-for-22-6-billion-in-its-biggest-deal-ever-20004592.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T07:16:22Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Schneider Electric to buy PTC for $22.6 billion, its biggest deal ever.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric to buy PTC for $22.6 billion, its biggest deal ever.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric",
+          "ticker": "SU.PA",
+          "listing_country": "FR"
+        },
+        {
+          "name": "PTC",
+          "ticker": "PTC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-331",
+      "headline": "Intesa Sweetens Monte dei Paschi Bid to $35.3 Billion, But Warns on Rival Deals",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/intesa-sweetens-monte-dei-paschi-bid-to-35-3-billion-but-warns-on-rival-deals-bf0094e3?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T07:10:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Intesa Sanpaolo raises its Monte dei Paschi bid to $35.3 billion, a major M&A event in European banking.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intesa Sanpaolo raises its Monte dei Paschi bid to $35.3 billion, a major M&A event in European banking.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intesa Sanpaolo",
+          "ticker": "ISP.MI",
+          "listing_country": "IT"
+        },
+        {
+          "name": "Monte dei Paschi di Siena",
+          "ticker": "MPS.MI",
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-332",
+      "headline": "Shionogi to Acquire IntraBio for $2 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/shionogi-to-acquire-intrabio-for-2-billion-d1fb2d19?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T07:07:00Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Shionogi to acquire IntraBio for $2 billion, a significant pharma M&A deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shionogi to acquire IntraBio for $2 billion, a significant pharma M&A deal.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shionogi",
+          "ticker": "4560.T",
+          "listing_country": "JP"
+        },
+        {
+          "name": "IntraBio",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1823,107 +1985,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261005-288",
-      "headline": "Russian air strikes targeted port infrastructure in Ukraine's Odesa region, governor says",
+      "inbox_id": "INB-20261005-330",
+      "headline": "BT agrees rescue deal to buy broadband operator TalkTalk",
       "headline_en": null,
-      "url": "https://www.reuters.com/world/europe/russian-air-strikes-targeted-port-infrastructure-ukraines-odesa-region-governor-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
+      "url": "https://www.bbc.co.uk/news/articles/cvze4g06526ro?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
       "input_nature": "news_headline",
-      "found_at": "2026-10-05T05:33:35Z",
+      "found_at": "2026-10-05T07:46:29Z",
       "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Military strikes on port infrastructure represent a supply shock to global commodity markets.",
+      "prelim_note": "BT agrees to acquire broadband operator TalkTalk in a rescue deal, a significant M&A event for the UK telecom sector.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 99,
-      "triage_reason": "Military strikes on port infrastructure represent a supply shock to global commodity markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-268",
-      "headline": "Drohnen: Hält die Wirtschaft der Ukraine Moskaus Luftangriffen stand?",
-      "headline_en": "Drones: Is Ukraine's economy withstanding Moscow's air strikes?",
-      "url": "https://www.handelsblatt.com/politik/international/drohnen-haelt-die-wirtschaft-der-ukraine-moskaus-luftangriffen-stand/100259665.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T05:02:52Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Ongoing military conflict and infrastructure targeting in Ukraine represent a significant geopolitical risk to regional stability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Ongoing military conflict and infrastructure targeting in Ukraine represent a significant geopolitical risk to regional stability.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-252",
-      "headline": "Elektronik: Schneider Electric plant offenbar Milliardenübernahme von PTC",
-      "headline_en": "Electronics: Schneider Electric apparently planning billion-dollar takeover of PTC",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/elektronik-schneider-electric-plant-offenbar-milliardenuebernahme-von-ptc/100259661.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T04:42:19Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Schneider Electric is reportedly planning a multi-billion dollar acquisition of PTC, a major strategic move in industrial software.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Schneider Electric is reportedly planning a multi-billion dollar acquisition of PTC, a major strategic move in industrial software.",
-      "region": "GLOBAL",
+      "triage_reason": "BT agrees to acquire broadband operator TalkTalk in a rescue deal, a significant M&A event for the UK telecom sector.",
+      "region": "GB",
       "relevance": "material",
       "materiality_pre_score": 78,
       "rank_factors": {
@@ -1947,60 +2023,17 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Schneider Electric",
-          "ticker": "SU",
-          "listing_country": "FR"
+          "name": "BT",
+          "ticker": "BT.A",
+          "listing_country": "GB"
         },
         {
-          "name": "PTC Inc.",
-          "ticker": "PTC",
-          "listing_country": "US"
+          "name": "TalkTalk",
+          "ticker": null,
+          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-035",
-      "headline": "Saudi-backed Yemeni government declares war against Houthis",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/saudi-backed-yemeni-government-declares-war-against-houthis",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T00:28:06Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "A declaration of war in a major oil-producing region is a significant geopolitical escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "A declaration of war in a major oil-producing region is a significant geopolitical escalation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205619,9 +205652,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 47396,
-    "news_picked_today": 456,
-    "news_dropped_today": 8112
+    "news_seen_today": 53266,
+    "news_picked_today": 473,
+    "news_dropped_today": 8119
   },
   "book_momentum": {
     "live_count": 8,
