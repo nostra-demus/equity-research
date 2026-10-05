@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-05T15:51:08Z",
+  "generated_at": "2026-10-05T15:58:13Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261005-777",
+      "headline": "25-NSE/A - DAVIS COMMODITIES Ltd (0001949478) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1949478/000135445726000946/0001354457-26-000946-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-05T15:25:45Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Davis Commodities Ltd is being delisted from the exchange, indicating a potential distress or compliance failure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Davis Commodities Ltd is being delisted from the exchange, indicating a potential distress or compliance failure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Davis Commodities Ltd",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261005-653",
       "headline": "25-NSE - Qorvo, Inc. (0001604778) (Subject)",
@@ -1969,55 +2018,6 @@
           "name": "Bharat Petroleum",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-391",
-      "headline": "Shares of software maker PTC soar 34% on $23 billion deal",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/bulletins/redirect/go?g=5efbfa09-fe02-415d-b0bc-bd4f9175b2c5&mod=mw_rss_bulletins",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T09:41:19Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "A $23 billion deal is a significant M&A event that will materially impact the acquiring company's financials and operations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A $23 billion deal is a significant M&A event that will materially impact the acquiring company's financials and operations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PTC",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -205567,9 +205567,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 206955,
-    "news_picked_today": 1418,
-    "news_dropped_today": 16126
+    "news_seen_today": 211050,
+    "news_picked_today": 1420,
+    "news_dropped_today": 16196
   },
   "book_momentum": {
     "live_count": 8,
