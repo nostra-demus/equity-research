@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T08:07:02Z",
+  "generated_at": "2026-10-06T08:30:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -351,6 +351,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-453",
+      "headline": "UK's Informa signs $3 billion Clarion deal, spins off academic arm",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/uks-informa-signs-3-billion-clarion-deal-spins-off-academic-arm-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T06:38:46Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Informa announced a $3 billion acquisition of Clarion and a spin-off of its academic arm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Informa announced a $3 billion acquisition of Clarion and a spin-off of its academic arm.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Informa",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1947,60 +1997,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-371",
-      "headline": "El grupo francés BPCE adquiere una participación del 7% en Banco Sabadell",
-      "headline_en": "French group BPCE acquires a 7% stake in Banco Sabadell",
-      "url": "https://www.reuters.com/es/negocio/KZOUYKLFDNJJVBFFD256CGLJEM-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T05:55:44Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "BPCE acquiring a 7% stake in Banco Sabadell is a significant strategic investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "BPCE acquiring a 7% stake in Banco Sabadell is a significant strategic investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BPCE",
-          "ticker": null,
-          "listing_country": "FR"
-        },
-        {
-          "name": "Banco Sabadell",
-          "ticker": null,
-          "listing_country": "ES"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207960,9 +207956,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 38072,
-    "news_picked_today": 605,
-    "news_dropped_today": 6650
+    "news_seen_today": 47096,
+    "news_picked_today": 630,
+    "news_dropped_today": 7225
   },
   "book_momentum": {
     "live_count": 8,
