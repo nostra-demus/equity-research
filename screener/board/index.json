@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T11:06:51Z",
+  "generated_at": "2026-10-06T11:14:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-533",
@@ -1989,50 +1989,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261006-013",
-      "headline": "NEW WORLD DEV NWD (MTN) N2802 NWD (MTN) N2706 NWCL N2701 (00017 05149 05321 05343): LAUNCH OF EXCHANGE OFFERS",
+      "inbox_id": "INB-20261006-535",
+      "headline": "SMC ELECTRIC (02381): JOINT ANNOUNCEMENT - (1) CLOSE OF MANDATORY UNCONDITIONAL CASH OFFER BY CLSA LIMITED FOR AND ON BEHALF OF MEGA NOVA HOLDINGS LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF SMC ELECTRIC LIMITED (OTHER THAN THOSE SHARES ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND OFFEROR CONCERT PARTIES); (2) RESULTS OF THE OFFER; (3) SETTLEMENT OF THE OFFER; AND (4) PUBLIC FLOAT OF THE COMPANY",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1006/2026100600021.pdf",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1006/2026100601359.pdf",
       "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-06T00:09:00Z",
+      "found_at": "2026-10-06T10:55:00Z",
       "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "New World Development is launching exchange offers for multiple medium-term notes.",
+      "prelim_note": "The mandatory unconditional cash offer for SMC Electric has closed, marking a change in ownership status.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 98,
-      "triage_reason": "New World Development is launching exchange offers for multiple medium-term notes.",
+      "triage_reason": "The mandatory unconditional cash offer for SMC Electric has closed, marking a change in ownership status.",
       "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
         "materiality": 60,
         "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
         "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
+        "scope_id": "multi_name",
         "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
+        "event_id": "mna",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "debt_credit"
+        "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "New World Development",
-          "ticker": null,
+          "name": "SMC ELECTRIC",
+          "ticker": "02381",
           "listing_country": "CN"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207067,9 +207067,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 117463,
-    "news_picked_today": 840,
-    "news_dropped_today": 10399
+    "news_seen_today": 122239,
+    "news_picked_today": 851,
+    "news_dropped_today": 10436
   },
   "book_momentum": {
     "live_count": 8,
