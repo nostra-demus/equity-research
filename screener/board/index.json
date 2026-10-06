@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T06:00:20Z",
+  "generated_at": "2026-10-06T06:03:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -150,6 +150,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-359",
+      "headline": "Yemeni forces secure Bab Al Mandeb, UAE-Jordan launch $2.3bn railway and Eagle Hills signs Syria projects",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/podcasts/trending-middle-east/2026/10/06/yemeni-forces-secure-bab-al-mandeb-uae-jordan-launch-23bn-railway-and-eagle-hills-signs-syria-projects/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T05:43:55Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "UAE and Jordan announced a $2.3 billion railway project, representing a significant infrastructure investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "UAE and Jordan announced a $2.3 billion railway project, representing a significant infrastructure investment.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1916,49 +1959,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-112",
-      "headline": "FlyDubai hijacking turns into flash point in Israeli election",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/10/06/world/politics/flydubai-hijacking-israeli-election/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T01:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Hijacking incident impacting political stability and election dynamics.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Hijacking incident impacting political stability and election dynamics.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -207931,9 +207931,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4195,
-    "news_picked_today": 490,
-    "news_dropped_today": 2738
+    "news_seen_today": 4233,
+    "news_picked_today": 501,
+    "news_dropped_today": 2746
   },
   "book_momentum": {
     "live_count": 8,
