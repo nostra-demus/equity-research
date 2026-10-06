@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-06T11:40:08Z",
+  "generated_at": "2026-10-06T11:47:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261006-552",
+      "headline": "JSW Cement Limited: Disclosure Under Regulation 30 Of The Securities And Exchange Board Of India (Listing Obligations And Disclosure Requirements) Regulations, 2015, -Commissioning Of Additional 1 MTPA Grinding Unit At Nagaur.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/JSWCL_06102026165208_SE_Intimation_Final_DSC.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-06T11:22:51Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "The company commissioned an additional 1 MTPA grinding unit, increasing production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company commissioned an additional 1 MTPA grinding unit, increasing production capacity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JSW Cement Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261006-538",
       "headline": "Osia Hyper Retail Limited: Osia Hyper Retail Limited has informed the Exchange about Publication of Form G during the Corporate Insolvency Resolution Process of Osia Hyper Retail Limited as per the provisions of the IBC 2016",
@@ -1989,60 +2038,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-021",
-      "headline": "KKR to buy fund administrator Gen II in $5.1 billion deal including debt",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/kkr-buy-fund-administrator-gen-ii-51-billion-deal-including-debt-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T00:13:40Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "KKR announced acquisition of fund administrator Gen II for $5.1 billion including debt, a confirmed strategic acquisition materially affecting capital structure and service bundling.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KKR announced acquisition of fund administrator Gen II for $5.1 billion including debt, a confirmed strategic acquisition materially affecting capital structure and service bundling.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KKR",
-          "ticker": "KKR",
-          "listing_country": "US"
-        },
-        {
-          "name": "Gen II",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207075,9 +207070,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 149674,
+    "news_seen_today": 151975,
     "news_picked_today": 875,
-    "news_dropped_today": 10988
+    "news_dropped_today": 11060
   },
   "book_momentum": {
     "live_count": 8,
