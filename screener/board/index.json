@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T22:38:05Z",
+  "generated_at": "2026-10-06T22:48:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-829",
@@ -736,6 +736,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-893",
+      "headline": "Black Hills plans $1.8 billion investment to power Google's data center",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/black-hills-plans-18-billion-investment-power-googles-data-center-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T21:11:44Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Black Hills plans $1.8 billion capital investment in power infrastructure for data-center demand, materially affecting capex commitments and revenue trajectory.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Black Hills plans $1.8 billion capital investment in power infrastructure for data-center demand, materially affecting capex commitments and revenue trajectory.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 77,
+      "rank_factors": {
+        "materiality": 77,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Black Hills",
+          "ticker": "BKH",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1976,55 +2025,6 @@
         },
         {
           "name": "Skydance",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-738",
-      "headline": "Uber is spending $2.3B to get into catering",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/10/06/uber-is-spending-2-3b-to-get-into-catering/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T14:00:25Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Uber is committing $2.3 billion to expand into the catering market, representing a significant capital allocation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Uber is committing $2.3 billion to expand into the catering market, representing a significant capital allocation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber",
           "ticker": null,
           "listing_country": "US"
         }
@@ -206851,9 +206851,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 494517,
-    "news_picked_today": 2303,
-    "news_dropped_today": 20840
+    "news_seen_today": 494693,
+    "news_picked_today": 2343,
+    "news_dropped_today": 20968
   },
   "book_momentum": {
     "live_count": 8,
