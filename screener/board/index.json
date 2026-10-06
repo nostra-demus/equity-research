@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T10:10:08Z",
+  "generated_at": "2026-10-06T10:13:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -1567,6 +1567,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-499",
+      "headline": "Steamhouse India targets 30–35% volume growth as June-quarter profit jumps 80% in Q1FY27",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/earnings/steam-house-india-q1-profit-jump-volume-growth-share-price-alpha-article-20005484.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T08:17:04Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Steamhouse India reported an 80% jump in Q1FY27 profit and targets 30-35% volume growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Steamhouse India reported an 80% jump in Q1FY27 profit and targets 30-35% volume growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Steamhouse India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-469",
       "headline": "Norsk Hydro Expects Further Hit From Gas Supply Challenges at Brazilian Alumina Plant",
       "headline_en": null,
@@ -1959,55 +2008,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-434",
-      "headline": "Top Glove Q4 profit surges 352.6% to RM157.6 million as demand-supply balance improves",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/top-glove-q4-profit-surges-352-6-rm157-6-million-demand-supply-balance-improves",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T07:09:36Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Top Glove Q4 profit jumped 352.6% to RM157.6 million, driven by demand-supply rebalancing, signaling margin recovery and improved operating leverage in nitrile-glove demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Top Glove Q4 profit jumped 352.6% to RM157.6 million, driven by demand-supply rebalancing, signaling margin recovery and improved operating leverage in nitrile-glove demand.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Top Glove Corporation",
-          "ticker": "TOPGLOV",
-          "listing_country": "MY"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207968,9 +207968,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 83238,
-    "news_picked_today": 719,
-    "news_dropped_today": 9752
+    "news_seen_today": 83683,
+    "news_picked_today": 725,
+    "news_dropped_today": 9770
   },
   "book_momentum": {
     "live_count": 8,
