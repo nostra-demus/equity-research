@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T17:38:39Z",
+  "generated_at": "2026-10-06T17:48:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-644",
@@ -1574,6 +1574,168 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-769",
+      "headline": "Filmstudios: Mega-Fusion ist durch: Paramount schließt Warner-Übernahme ab",
+      "headline_en": "Film studios: Mega-merger is through: Paramount completes Warner acquisition",
+      "url": "https://www.handelsblatt.com/unternehmen/it-medien/paramount-warner-uebernahme-abgeschlossen/100260146.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T13:22:43Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Paramount has completed the acquisition of Warner, a major media industry consolidation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount has completed the acquisition of Warner, a major media industry consolidation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-778",
+      "headline": "Paramount Skydance completes $110 billion Warner Bros Discovery deal: David Ellison takes control of new Hollywood giant",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/paramount-skydance-completes-110-billion-warner-bros-discovery-deal-david-ellison-takes-control-of-new-hollywood-giant-11791291245408.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T13:15:37Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Confirmed $110 billion acquisition completion: Paramount/Skydance acquires Warner Bros Discovery; major capital-structure event, control change to David Ellison, integration and shareholder impact material to WBD equity holders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Confirmed $110 billion acquisition completion: Paramount/Skydance acquires Warner Bros Discovery; major capital-structure event, control change to David Ellison, integration and shareholder impact material to WBD equity holders.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Warner Bros Discovery",
+          "ticker": "WBD",
+          "listing_country": "US"
+        },
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Skydance",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-771",
+      "headline": "Anduril, US Navy invest $6.6 billion to boost submarine parts production",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/aerospace-defense/anduril-us-navy-invest-66-bln-boost-submarine-parts-production-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T13:15:31Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Anduril and the US Navy are investing $6.6 billion to expand submarine parts production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anduril and the US Navy are investing $6.6 billion to expand submarine parts production capacity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anduril",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-628",
       "headline": "McKesson and CD&R strike $5.8bn deal to buy infusion services provider",
       "headline_en": null,
@@ -1893,158 +2055,6 @@
         },
         {
           "name": "Skydance Media",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-602",
-      "headline": "Nexus Advanced Technologies Signs Exclusivity For $500 Mln Defense Tech Reverse Merger",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/nexus-advanced-technologies-signs-exclusivity-500-mln-defense-tech-reverse-merger",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T12:31:14Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Nexus Advanced Technologies signs exclusivity for a $500 million defense tech reverse merger.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nexus Advanced Technologies signs exclusivity for a $500 million defense tech reverse merger.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nexus Advanced Technologies",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-603",
-      "headline": "Energy Transfer To Buy Vaquero Midstream For $2.625 Bln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/energy-transfer-buy-vaquero-midstream-2625-bln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T12:29:12Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Energy Transfer to acquire Vaquero Midstream for $2.625 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Energy Transfer to acquire Vaquero Midstream for $2.625 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Energy Transfer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-575",
-      "headline": "Energy Transfer to Acquire Vaquero Midstream for $2.63 Billion",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/energy-oil/energy-transfer-to-acquire-vaquero-midstream-for-2-63-billion-79c90c47?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T12:26:00Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Energy Transfer to acquire Vaquero Midstream for $2.63 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Energy Transfer to acquire Vaquero Midstream for $2.63 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Energy Transfer",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Vaquero Midstream",
           "ticker": null,
           "listing_country": "US"
         }
@@ -160715,77 +160725,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-863c8a81db89",
-      "idea_version": "IDEAV-00167ca7c68becd1",
-      "idea_version_started_at": "2026-10-05T07:26:59Z",
-      "ticker": "CSL.AX",
-      "company": "CSL",
-      "exchange": "Australian",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "CSL is considering a drug deal with a Swiss biotech start-up that could be worth up to $2.2 billion.",
-      "why_now": "The potential deal was reported on October 5, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-59bf272af84c"
-      ],
-      "primary_source_event_id": "EVT-59bf272af84c",
-      "source_headlines": [
-        "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up"
-      ],
-      "source_headline": "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up",
-      "source_url": "https://www.afr.com/companies/healthcare-and-fitness/csl-could-spend-up-to-2-2b-on-drug-deal-with-swiss-biotech-startup-20261005-p612ty?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T05:41:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T07:26:59Z",
-      "updated_at": "2026-10-05T07:26:59Z",
-      "decay_at": "2026-10-06T17:41:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bb6c79ef8ffe",
       "idea_version": "IDEAV-e01408efed92052c",
       "idea_version_started_at": "2026-10-06T01:22:08Z",
@@ -164222,6 +164161,77 @@
       "surfaced_at": "2026-10-03T17:45:04Z",
       "updated_at": "2026-10-03T17:45:04Z",
       "decay_at": "2026-10-05T03:41:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-863c8a81db89",
+      "idea_version": "IDEAV-00167ca7c68becd1",
+      "idea_version_started_at": "2026-10-05T07:26:59Z",
+      "ticker": "CSL.AX",
+      "company": "CSL",
+      "exchange": "Australian",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "CSL is considering a drug deal with a Swiss biotech start-up that could be worth up to $2.2 billion.",
+      "why_now": "The potential deal was reported on October 5, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-59bf272af84c"
+      ],
+      "primary_source_event_id": "EVT-59bf272af84c",
+      "source_headlines": [
+        "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up"
+      ],
+      "source_headline": "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up",
+      "source_url": "https://www.afr.com/companies/healthcare-and-fitness/csl-could-spend-up-to-2-2b-on-drug-deal-with-swiss-biotech-startup-20261005-p612ty?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T05:41:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T07:26:59Z",
+      "updated_at": "2026-10-05T07:26:59Z",
+      "decay_at": "2026-10-06T17:41:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -169766,14 +169776,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 587,
+    "total_count": 588,
     "shown_count": 500,
-    "hidden_count": 87,
+    "hidden_count": 88,
     "side_counts": {
       "long": {
-        "total_count": 309,
+        "total_count": 310,
         "shown_count": 250,
-        "hidden_count": 59
+        "hidden_count": 60
       },
       "short": {
         "total_count": 278,
@@ -169797,6 +169807,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-863c8a81db89",
+        "idea_version": "IDEAV-00167ca7c68becd1",
+        "idea_version_started_at": "2026-10-05T07:26:59Z",
+        "ticker": "CSL.AX",
+        "company": "CSL",
+        "exchange": "Australian",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "CSL is considering a drug deal with a Swiss biotech start-up that could be worth up to $2.2 billion.",
+        "why_now": "The potential deal was reported on October 5, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-59bf272af84c"
+        ],
+        "primary_source_event_id": "EVT-59bf272af84c",
+        "source_headlines": [
+          "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up"
+        ],
+        "source_headline": "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up",
+        "source_url": "https://www.afr.com/companies/healthcare-and-fitness/csl-could-spend-up-to-2-2b-on-drug-deal-with-swiss-biotech-startup-20261005-p612ty?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-05T05:41:22Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-05T07:26:59Z",
+        "updated_at": "2026-10-05T07:26:59Z",
+        "decay_at": "2026-10-06T17:41:22Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T17:41:22Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-cbb29109fa62",
         "idea_version": "IDEAV-3e3b439d8d461221",
@@ -197850,83 +197934,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-7de5b0b6f75e",
-        "idea_version": "IDEAV-6b6698fe78990b27",
-        "idea_version_started_at": "2026-09-22T09:12:36Z",
-        "ticker": "BEZ",
-        "company": "Berentzen-Gruppe",
-        "exchange": "XETRA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Sazerac has launched a takeover bid for the company, which typically forces the share price to converge toward the offer price.",
-        "why_now": "The bid was launched today, September 21, 2026, providing a clear catalyst for price appreciation toward the offer level.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-cc21bfde597e",
-          "EVT-bb3bc508e213"
-        ],
-        "primary_source_event_id": "EVT-cc21bfde597e",
-        "source_headlines": [
-          "Sazerac Company launches bid for all Berentzen shares",
-          "US spirits maker Sazerac launches takeover bid for Germany's Berentzen"
-        ],
-        "source_headline": "Sazerac Company launches bid for all Berentzen shares",
-        "source_url": "https://www.reuters.com/legal/transactional/sazerac-company-launches-bid-all-berentzen-shares-2026-09-21/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-21T05:54:33Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-22T09:12:36Z",
-        "updated_at": "2026-09-22T09:12:36Z",
-        "decay_at": "2026-09-22T17:54:33Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-24T05:59:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bbe6cce25e6c",
         "idea_version": "IDEAV-ad0d76477c61048d",
         "idea_version_started_at": "2026-09-21T05:16:02Z",
@@ -207005,7 +207012,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1379,
-    "live_count": 45,
+    "live_count": 44,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207024,9 +207031,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 455837,
-    "news_picked_today": 1434,
-    "news_dropped_today": 16693
+    "news_seen_today": 457691,
+    "news_picked_today": 1464,
+    "news_dropped_today": 16807
   },
   "book_momentum": {
     "live_count": 8,
