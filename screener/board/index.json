@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T10:48:08Z",
+  "generated_at": "2026-10-06T10:52:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -46,6 +46,65 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-532",
+      "headline": "Emera bids for national powerhouse with $35-billion Canadian Utilities, ATCO merger",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-emera-bids-for-national-powerhouse-with-35-billion-canadian-utilities/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T10:30:19Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Emera has bid $35 billion to acquire Canadian Utilities and ATCO, a massive M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Emera has bid $35 billion to acquire Canadian Utilities and ATCO, a massive M&A event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emera",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Canadian Utilities",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "ATCO",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1974,55 +2033,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-194",
-      "headline": "Riyadh Air Traffic Disrupted? Houthis Claim Widespread Strikes At Airport, Aramco Refinery",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/world/riyadh-air-traffic-disrupted-houthis-claim-widespread-strikes-at-airport-armaco-refinery-12143583#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T02:40:20Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Claims of strikes on airport and refinery infrastructure pose a major supply and operational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Claims of strikes on airport and refinery infrastructure pose a major supply and operational risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207057,9 +207067,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 103855,
-    "news_picked_today": 826,
-    "news_dropped_today": 10101
+    "news_seen_today": 105909,
+    "news_picked_today": 835,
+    "news_dropped_today": 10164
   },
   "book_momentum": {
     "live_count": 8,
