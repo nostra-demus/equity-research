@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T17:48:42Z",
+  "generated_at": "2026-10-06T17:52:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-644",
@@ -1903,6 +1903,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-787",
+      "headline": "Drone Maker Anduril Pushes Into Submarines With Maryland Factory",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-06/drone-maker-anduril-pushes-into-submarines-with-maryland-factory",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Anduril is expanding into submarine production with a new factory in Maryland.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anduril is expanding into submarine production with a new factory in Maryland.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anduril",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-622",
       "headline": "Paramount takes over Warner Bros in $110bn Hollywood merger",
       "headline_en": null,
@@ -2006,60 +2055,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-608",
-      "headline": "Paramount wraps up mega Warner Bros merger to create Hollywood powerhouse Skydance",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/media-telecom/paramount-wraps-up-mega-warner-bros-merger-create-hollywood-powerhouse-skydance-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T12:48:26Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Paramount and Skydance have completed a merger to form a new media entity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount and Skydance have completed a merger to form a new media entity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Skydance Media",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207031,9 +207026,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 457691,
-    "news_picked_today": 1464,
-    "news_dropped_today": 16807
+    "news_seen_today": 459401,
+    "news_picked_today": 1490,
+    "news_dropped_today": 16853
   },
   "book_momentum": {
     "live_count": 8,
