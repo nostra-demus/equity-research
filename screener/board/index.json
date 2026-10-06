@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T02:27:24Z",
+  "generated_at": "2026-10-06T02:37:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -350,6 +350,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-167",
+      "headline": "Google, Constellation near deal for nuclear power, Bloomberg News reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/google-constellation-near-deal-nuclear-power-bloomberg-news-reports-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T02:27:59Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Google and Constellation Energy are nearing a deal for nuclear power, which is a significant commercial development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Google and Constellation Energy are nearing a deal for nuclear power, which is a significant commercial development.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Google",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Constellation Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-160",
       "headline": "China AI Video Startup Kling Picks Banks for $1 Billion-Plus IPO",
       "headline_en": null,
@@ -399,20 +453,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261006-090",
-      "headline": "PFT: Initial Substantial Holder Notice",
+      "inbox_id": "INB-20261006-161",
+      "headline": "ADC: Notice of Initial Substantial Holder",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PFT?key=2924-03144862-3A703412",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ADC?key=2924-03144903-3A703425",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-10-06T01:17:25Z",
+      "found_at": "2026-10-06T02:29:05Z",
       "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Initial substantial holder notice indicates a new major shareholder position.",
+      "prelim_note": "Notice of initial substantial holder indicates a new significant investor stake.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 95,
-      "triage_reason": "Initial substantial holder notice indicates a new major shareholder position.",
+      "triage_reason": "Notice of initial substantial holder indicates a new significant investor stake.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 50,
@@ -437,9 +491,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "PFT",
+          "name": "ADC",
           "ticker": null,
-          "listing_country": "AU"
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
@@ -1903,55 +1957,6 @@
       "companies": [
         {
           "name": "Avenue Supermarts",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-107",
-      "headline": "Flying to get costlier as IndiGo hikes fuel surcharge",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/flying-to-get-costlier-as-indigo-hikes-fuel-surcharge/articleshow/134720447.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T01:10:32Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "IndiGo is increasing fuel surcharges, which directly impacts revenue per unit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "IndiGo is increasing fuel surcharges, which directly impacts revenue per unit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IndiGo",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -164117,78 +164122,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9073a81e9f1e",
-      "idea_version": "IDEAV-d4730722b9c0d20d",
-      "idea_version_started_at": "2026-10-04T15:06:54Z",
-      "ticker": "NYKAA",
-      "company": "FSN E-Commerce Ventures",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q2 business updates with consolidated net revenue growth expected in the late twenties and GMV growth in the high twenties, driven by robust consumer demand in its beauty and personal care segments.",
-      "why_now": "This is a live, market-moving Q2 business update released on October 4, 2026, ahead of its formal quarterly earnings release.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-88fd84df6da1"
-      ],
-      "primary_source_event_id": "EVT-88fd84df6da1",
-      "source_headlines": [
-        "Nykaa Q2 update: Consolidated net revenue growth seen in late twenties, GMV in high twenties"
-      ],
-      "source_headline": "Nykaa Q2 update: Consolidated net revenue growth seen in late twenties, GMV in high twenties",
-      "source_url": "https://www.cnbctv18.com/market/stocks/nykaa-share-price-q2-update-consolidated-net-revenue-growth-seen-in-late-twenties-gmv-in-high-twenties-20004193.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 92,
-      "newest_source_at": "2026-10-04T14:32:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T15:06:54Z",
-      "updated_at": "2026-10-04T15:06:54Z",
-      "decay_at": "2026-10-06T02:32:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-fc426f81932d",
       "idea_version": "IDEAV-56ce1b4c71454430",
       "idea_version_started_at": "2026-10-06T02:05:34Z",
@@ -168849,6 +168782,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9073a81e9f1e",
+      "idea_version": "IDEAV-d4730722b9c0d20d",
+      "idea_version_started_at": "2026-10-04T15:06:54Z",
+      "ticker": "NYKAA",
+      "company": "FSN E-Commerce Ventures",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported strong Q2 business updates with consolidated net revenue growth expected in the late twenties and GMV growth in the high twenties, driven by robust consumer demand in its beauty and personal care segments.",
+      "why_now": "This is a live, market-moving Q2 business update released on October 4, 2026, ahead of its formal quarterly earnings release.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-88fd84df6da1"
+      ],
+      "primary_source_event_id": "EVT-88fd84df6da1",
+      "source_headlines": [
+        "Nykaa Q2 update: Consolidated net revenue growth seen in late twenties, GMV in high twenties"
+      ],
+      "source_headline": "Nykaa Q2 update: Consolidated net revenue growth seen in late twenties, GMV in high twenties",
+      "source_url": "https://www.cnbctv18.com/market/stocks/nykaa-share-price-q2-update-consolidated-net-revenue-growth-seen-in-late-twenties-gmv-in-high-twenties-20004193.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 92,
+      "newest_source_at": "2026-10-04T14:32:59Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T15:06:54Z",
+      "updated_at": "2026-10-04T15:06:54Z",
+      "decay_at": "2026-10-06T02:32:59Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-5517471aff69",
       "idea_version": "IDEAV-31858abf3be56ce6",
       "idea_version_started_at": "2026-10-03T11:15:22Z",
@@ -170309,14 +170314,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 573,
     "shown_count": 500,
-    "hidden_count": 72,
+    "hidden_count": 73,
     "side_counts": {
       "long": {
-        "total_count": 295,
+        "total_count": 296,
         "shown_count": 250,
-        "hidden_count": 45
+        "hidden_count": 46
       },
       "short": {
         "total_count": 277,
@@ -170340,6 +170345,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9073a81e9f1e",
+        "idea_version": "IDEAV-d4730722b9c0d20d",
+        "idea_version_started_at": "2026-10-04T15:06:54Z",
+        "ticker": "NYKAA",
+        "company": "FSN E-Commerce Ventures",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported strong Q2 business updates with consolidated net revenue growth expected in the late twenties and GMV growth in the high twenties, driven by robust consumer demand in its beauty and personal care segments.",
+        "why_now": "This is a live, market-moving Q2 business update released on October 4, 2026, ahead of its formal quarterly earnings release.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-88fd84df6da1"
+        ],
+        "primary_source_event_id": "EVT-88fd84df6da1",
+        "source_headlines": [
+          "Nykaa Q2 update: Consolidated net revenue growth seen in late twenties, GMV in high twenties"
+        ],
+        "source_headline": "Nykaa Q2 update: Consolidated net revenue growth seen in late twenties, GMV in high twenties",
+        "source_url": "https://www.cnbctv18.com/market/stocks/nykaa-share-price-q2-update-consolidated-net-revenue-growth-seen-in-late-twenties-gmv-in-high-twenties-20004193.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 92,
+        "newest_source_at": "2026-10-04T14:32:59Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T15:06:54Z",
+        "updated_at": "2026-10-04T15:06:54Z",
+        "decay_at": "2026-10-06T02:32:59Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T02:32:59Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2c8697fc45c7",
         "idea_version": "IDEAV-6d470038be1f51a3",
@@ -199211,80 +199291,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-232e58bf1748",
-        "idea_version": "IDEAV-0c4c704b502559d7",
-        "idea_version_started_at": "2026-09-19T08:59:15Z",
-        "ticker": "TIRUPATIFL",
-        "company": "Tirupati Forge Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The receipt of an industrial license for defence manufacturing allows the company to enter a high-margin, government-backed sector, diversifying its revenue stream beyond its traditional forging business.",
-        "why_now": "The company announced the license approval on September 19, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e2a2605c35d6"
-        ],
-        "primary_source_event_id": "EVT-e2a2605c35d6",
-        "source_headlines": [
-          "Tirupati Forge Limited: Tirupati Forge Limited has informed the Exchange regarding a press release dated September 19, 2026, titled \"Receive the approval of Industrial License for Defence Manufacturing of empty shell body.\"."
-        ],
-        "source_headline": "Tirupati Forge Limited: Tirupati Forge Limited has informed the Exchange regarding a press release dated September 19, 2026, titled \"Receive the approval of Industrial License for Defence Manufacturing of empty shell body.\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/TIRUPATIFL_19092026112507_Press_Release_-_License_for_Defence_Manufacturing.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 97,
-        "newest_source_at": "2026-09-19T05:55:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-19T08:59:15Z",
-        "updated_at": "2026-09-19T08:59:15Z",
-        "decay_at": "2026-09-20T17:55:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-22T09:12:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-73741e1a1a55",
         "idea_version": "IDEAV-97c3f27c212f3dd6",
         "idea_version_started_at": "2026-09-19T08:59:15Z",
@@ -207545,7 +207551,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1358,
-    "live_count": 69,
+    "live_count": 68,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207564,9 +207570,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 844,
-    "news_picked_today": 173,
-    "news_dropped_today": 647
+    "news_seen_today": 885,
+    "news_picked_today": 181,
+    "news_dropped_today": 680
   },
   "book_momentum": {
     "live_count": 8,
