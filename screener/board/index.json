@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T03:35:27Z",
+  "generated_at": "2026-10-06T03:38:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-227",
+      "headline": "Oprah-backed True Food Kitchen files bankruptcy after expansion",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/oprah-backed-true-food-kitchen-files-bankruptcy-after-expansion",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T03:19:00Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Bankruptcy filing represents a total loss of equity value and a terminal event for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Bankruptcy filing represents a total loss of equity value and a terminal event for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "True Food Kitchen",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1176,6 +1225,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-221",
+      "headline": "FDA device recall (Class I) — CooperSurgical, Inc.: INCA (Infant Nasal Cannulae Assy) Neonatal Nasal CPAP, Replacement Set. Stay-Flex tubing component. 5 units per box. Model Numbers: 44-0712, 44-0707, 44-0709, 4 — Potential to exhibit a loose connection between the flexible tubing and the nasal cannula, during assembly or while in u",
+      "headline_en": null,
+      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-3140-2026%22",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-09-30T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Class I device recall (highest severity) for CooperSurgical regarding neonatal nasal CPAP tubing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Class I device recall (highest severity) for CooperSurgical regarding neonatal nasal CPAP tubing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CooperSurgical, Inc.",
+          "ticker": "COO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-100",
       "headline": "Steamhouse India shares in focus after Q1 profit jumps 80%, EBITDA rises 60%",
       "headline_en": null,
@@ -1854,104 +1952,6 @@
       "companies": [
         {
           "name": "Oracle",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-039",
-      "headline": "Daiwa Securities' customer data may have leaked due to unauthorized access",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20261006/p2g/00m/0bu/010000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T00:30:08Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Potential data breach involving customer information at a major financial institution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Potential data breach involving customer information at a major financial institution.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Daiwa Securities",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-202",
-      "headline": "FDA device recall (Class I) — Boston Scientific Corporation: Imager II Angiographic Catheters M001314001 IMAGER II/5/ST/65/038 BX5; M001314011 IMAGER II/5/ST/100/038 BX5; M001314021 IMAGER II/5/ST/65/035 BX 5; M001314031 — Tip may fracture or detach, leading to device fragments remaining within the patient or migrating through the vasculatur",
-      "headline_en": null,
-      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-3214-2026%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-09-30T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Class I recall for a catheter tip detachment risk, which poses a serious patient safety risk and potential liability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Class I recall for a catheter tip detachment risk, which poses a serious patient safety risk and potential liability.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Boston Scientific Corporation",
           "ticker": null,
           "listing_country": "US"
         }
@@ -207705,9 +207705,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1238,
-    "news_picked_today": 236,
-    "news_dropped_today": 906
+    "news_seen_today": 1286,
+    "news_picked_today": 261,
+    "news_dropped_today": 929
   },
   "book_momentum": {
     "live_count": 8,
