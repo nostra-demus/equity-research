@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T01:55:30Z",
+  "generated_at": "2026-10-06T02:05:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -1667,6 +1667,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-142",
+      "headline": "Solana Debuts Institutional Settlement Standard With J.P. Morgan Input",
+      "headline_en": null,
+      "url": "https://decrypt.co/380126/solana-institutional-settlement-standard-jp-morgan",
+      "source_name": "Decrypt — Crypto News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T02:01:03Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Solana and J.P. Morgan are collaborating on an institutional settlement standard, signaling increased institutional adoption of blockchain.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Solana and J.P. Morgan are collaborating on an institutional settlement standard, signaling increased institutional adoption of blockchain.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solana",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "J.P. Morgan",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-109",
       "headline": "HFCL wired for robust growth with an AI-powered surge in order book",
       "headline_en": null,
@@ -1711,6 +1765,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-133",
+      "headline": "Chinese crime network laundered over $1B for Lazarus: ZachXBT",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/chinese-crime-network-laundered-over-1b-for-lazarus-zachxbt?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T01:47:24Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Report of a $1B money laundering network linked to state-sponsored actors highlights significant financial crime and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Report of a $1B money laundering network linked to state-sponsored actors highlights significant financial crime and regulatory risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1840,104 +1937,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-060",
-      "headline": "Taylor offers ‘biggest cut to immigration’ in history; KPMG probe sparks Macquarie review; CDC signals end to $73b Firmus partnership",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/taylor-offers-biggest-cut-to-immigration-in-history-kpmg-probe-sparks-macquarie-review-cdc-signals-end-to-73b-firmus-partnership-20261006-p6136w?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T01:03:20Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Major policy shifts in immigration and corporate governance reviews at Macquarie and CDC indicate sector-wide regulatory and operational headwinds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Major policy shifts in immigration and corporate governance reviews at Macquarie and CDC indicate sector-wide regulatory and operational headwinds.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-069",
-      "headline": "Zydus, MSN Laboratories launch first generic Adempas in US",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/zydus-msn-laboratories-launch-first-generic-adempas-in-us/article71549041.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T00:56:00Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Zydus and MSN Laboratories launched a generic version of Adempas in the US, expanding their product reach.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Zydus and MSN Laboratories launched a generic version of Adempas in the US, expanding their product reach.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zydus Lifesciences",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "MSN Laboratories",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -161939,77 +161938,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2c8697fc45c7",
-      "idea_version": "IDEAV-6d470038be1f51a3",
-      "idea_version_started_at": "2026-10-04T14:21:24Z",
-      "ticker": "LESL",
-      "company": "Leslie's",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Leslie's is closing 76 locations as part of its Chapter 11 bankruptcy filing, which will lead to significant revenue loss and operational contraction.",
-      "why_now": "The announcement of store closures related to Chapter 11 was made on October 4, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b89f6bfd0e5f"
-      ],
-      "primary_source_event_id": "EVT-b89f6bfd0e5f",
-      "source_headlines": [
-        "These are the 76 Leslie's Pool locations closing as part of Chapter 11"
-      ],
-      "source_headline": "These are the 76 Leslie's Pool locations closing as part of Chapter 11",
-      "source_url": "https://www.thestreet.com/retail/these-are-the-76-leslies-pool-locations-closing-as-part-of-chapter-11",
-      "source_name": "TheStreet",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T14:03:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T14:21:24Z",
-      "updated_at": "2026-10-04T14:21:24Z",
-      "decay_at": "2026-10-06T02:03:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-282b9ed3f863",
       "idea_version": "IDEAV-507c1b826268be3c",
       "idea_version_started_at": "2026-10-06T01:46:49Z",
@@ -165793,6 +165721,77 @@
       "surfaced_at": "2026-10-04T01:14:46Z",
       "updated_at": "2026-10-04T01:14:46Z",
       "decay_at": "2026-10-05T12:45:03Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2c8697fc45c7",
+      "idea_version": "IDEAV-6d470038be1f51a3",
+      "idea_version_started_at": "2026-10-04T14:21:24Z",
+      "ticker": "LESL",
+      "company": "Leslie's",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Leslie's is closing 76 locations as part of its Chapter 11 bankruptcy filing, which will lead to significant revenue loss and operational contraction.",
+      "why_now": "The announcement of store closures related to Chapter 11 was made on October 4, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b89f6bfd0e5f"
+      ],
+      "primary_source_event_id": "EVT-b89f6bfd0e5f",
+      "source_headlines": [
+        "These are the 76 Leslie's Pool locations closing as part of Chapter 11"
+      ],
+      "source_headline": "These are the 76 Leslie's Pool locations closing as part of Chapter 11",
+      "source_url": "https://www.thestreet.com/retail/these-are-the-76-leslies-pool-locations-closing-as-part-of-chapter-11",
+      "source_name": "TheStreet",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T14:03:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T14:21:24Z",
+      "updated_at": "2026-10-04T14:21:24Z",
+      "decay_at": "2026-10-06T02:03:51Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170075,9 +170074,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 573,
+    "total_count": 574,
     "shown_count": 500,
-    "hidden_count": 73,
+    "hidden_count": 74,
     "side_counts": {
       "long": {
         "total_count": 296,
@@ -170085,9 +170084,9 @@
         "hidden_count": 46
       },
       "short": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       }
     },
     "retention": {
@@ -170106,6 +170105,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2c8697fc45c7",
+        "idea_version": "IDEAV-6d470038be1f51a3",
+        "idea_version_started_at": "2026-10-04T14:21:24Z",
+        "ticker": "LESL",
+        "company": "Leslie's",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Leslie's is closing 76 locations as part of its Chapter 11 bankruptcy filing, which will lead to significant revenue loss and operational contraction.",
+        "why_now": "The announcement of store closures related to Chapter 11 was made on October 4, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b89f6bfd0e5f"
+        ],
+        "primary_source_event_id": "EVT-b89f6bfd0e5f",
+        "source_headlines": [
+          "These are the 76 Leslie's Pool locations closing as part of Chapter 11"
+        ],
+        "source_headline": "These are the 76 Leslie's Pool locations closing as part of Chapter 11",
+        "source_url": "https://www.thestreet.com/retail/these-are-the-76-leslies-pool-locations-closing-as-part-of-chapter-11",
+        "source_name": "TheStreet",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-04T14:03:51Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T14:21:24Z",
+        "updated_at": "2026-10-04T14:21:24Z",
+        "decay_at": "2026-10-06T02:03:51Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T02:03:51Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-a34afcfddf31",
         "idea_version": "IDEAV-ffdd56a83b3aae88",
@@ -207233,86 +207306,12 @@
         "archived_at": "2026-09-11T20:03:51Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-523a4ee7d93a",
-        "idea_version": "IDEAV-6111ce52e34a3cb7",
-        "idea_version_started_at": "2026-09-08T22:44:52Z",
-        "ticker": "BALY",
-        "company": "Bally's",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The resignation of the CFO shortly after a going concern warning signals severe liquidity stress and potential failure to meet debt obligations.",
-        "why_now": "The executive departure was announced today, September 8, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 55,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-2d07e3b9d442"
-        ],
-        "primary_source_event_id": "EVT-2d07e3b9d442",
-        "source_headlines": [
-          "Bally’s CFO resigns weeks after going concern warning"
-        ],
-        "source_headline": "Bally’s CFO resigns weeks after going concern warning",
-        "source_url": "https://www.constructiondive.com/news/ballys-cfo-resigns-weeks-going-concern-warning/829798/",
-        "source_name": "Construction Dive",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-08T19:52:24Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-08T22:44:52Z",
-        "updated_at": "2026-09-08T22:44:52Z",
-        "decay_at": "2026-09-10T07:52:24Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-11T20:03:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1354,
-    "live_count": 65,
+    "live_count": 64,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207331,9 +207330,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 698,
-    "news_picked_today": 131,
-    "news_dropped_today": 543
+    "news_seen_today": 761,
+    "news_picked_today": 147,
+    "news_dropped_today": 590
   },
   "book_momentum": {
     "live_count": 8,
