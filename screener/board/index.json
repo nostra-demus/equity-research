@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T23:15:06Z",
+  "generated_at": "2026-10-06T23:24:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-894",
@@ -533,6 +533,55 @@
           "name": "Shopping Centres Australasia Property Group",
           "ticker": "SCP",
           "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-921",
+      "headline": "Joby Hit With Over $100 Million in Damages in IP Lawsuit Verdict",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/joby-hit-over-100-million-damages-ip-lawsuit-verdict",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T22:35:01Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Joby Aviation was hit with a $100 million damages verdict in an IP lawsuit, directly impacting its financial position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Joby Aviation was hit with a $100 million damages verdict in an IP lawsuit, directly impacting its financial position.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Joby Aviation",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -1955,60 +2004,6 @@
         },
         {
           "name": "Skydance Media",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-728",
-      "headline": "Paramount and Warner Bros wrap up mega deal to create Skydance",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/paramount-warner-bros-hollywood-hbo-max-b3062189.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T14:09:55Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Paramount and Warner Bros have completed a major merger deal to create Skydance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount and Warner Bros have completed a major merger deal to create Skydance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros. Discovery",
           "ticker": null,
           "listing_country": "US"
         }
@@ -206905,9 +206900,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 495015,
-    "news_picked_today": 2398,
-    "news_dropped_today": 21190
+    "news_seen_today": 495088,
+    "news_picked_today": 2410,
+    "news_dropped_today": 21251
   },
   "book_momentum": {
     "live_count": 8,
