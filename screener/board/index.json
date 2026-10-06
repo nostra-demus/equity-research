@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T02:37:24Z",
+  "generated_at": "2026-10-06T02:41:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -293,6 +293,55 @@
           "name": "LG Electronics",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-173",
+      "headline": "Mynt opens $844 million Philippine IPO, offers GCash users real-time share allocation",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/asia-pacific/mynt-opens-844-million-philippine-ipo-offers-gcash-users-real-time-share-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T02:36:09Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Mynt is launching an IPO valued at $844 million, representing a significant capital market event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Mynt is launching an IPO valued at $844 million, representing a significant capital market event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mynt",
+          "ticker": null,
+          "listing_country": "PH"
         }
       ],
       "size_bucket": "large",
@@ -1869,70 +1918,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261006-145",
-      "headline": "Central Mine Planning & Design Institute shares worth over ₹9,500 crore free up today as lock-in ends",
+      "inbox_id": "INB-20261006-172",
+      "headline": "Boeing’s preparation pays off with U.S. Navy jet-fighter contract win",
       "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/central-mine-planning-design-institute-cmpdi-share-price-shareholder-lock-in-ending-today-value-shareholding-20005237.htm",
-      "source_name": "CNBC-TV18",
+      "url": "https://www.japantimes.co.jp/business/2026/10/06/companies/boeing-turning-page/",
+      "source_name": "The Japan Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-06T02:07:02Z",
+      "found_at": "2026-10-06T02:35:00Z",
       "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Lock-in expiry of shares worth ₹9,500 crore creates potential supply pressure on the stock.",
+      "prelim_note": "Boeing secured a U.S. Navy jet-fighter contract, providing a boost to its defense order backlog.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 83,
-      "triage_reason": "Lock-in expiry of shares worth ₹9,500 crore creates potential supply pressure on the stock.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Central Mine Planning & Design Institute",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-110",
-      "headline": "DMart plunges 6.7% as Citi, Goldman retain sell call",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/dmart-falls-6-7-as-citi-goldman-retain-sell-call/articleshow/134720463.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T01:16:37Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Avenue Supermarts (DMart) stock price dropped 6.7% following sell ratings from major brokerages.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Avenue Supermarts (DMart) stock price dropped 6.7% following sell ratings from major brokerages.",
-      "region": "IN",
+      "triage_reason": "Boeing secured a U.S. Navy jet-fighter contract, providing a boost to its defense order backlog.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
@@ -1948,7 +1948,7 @@
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": null,
-        "size_bucket": "large"
+        "size_bucket": "mega"
       },
       "event_types": [
         "commercial"
@@ -1956,12 +1956,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Avenue Supermarts",
+          "name": "Boeing",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207570,9 +207570,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 885,
-    "news_picked_today": 181,
-    "news_dropped_today": 680
+    "news_seen_today": 912,
+    "news_picked_today": 188,
+    "news_dropped_today": 700
   },
   "book_momentum": {
     "live_count": 8,
