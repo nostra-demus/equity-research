@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T03:15:27Z",
+  "generated_at": "2026-10-06T03:21:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -161392,76 +161392,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-521e020bb493",
-      "idea_version": "IDEAV-ffa7f06b156e6034",
-      "idea_version_started_at": "2026-10-04T16:45:03Z",
-      "ticker": "AMZN",
-      "company": "Amazon",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Amazon is investing an additional $1 billion in AI data centers, signaling continued expansion and commitment to its AI infrastructure.",
-      "why_now": "The investment is a fresh announcement, indicating immediate capital allocation towards AI growth.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a398a2566fa1"
-      ],
-      "primary_source_event_id": "EVT-a398a2566fa1",
-      "source_headlines": [
-        "Amazon Is Spending Another $1 Billion on AI Data Centers — But This Time, It’s Not Buying a Single GPU"
-      ],
-      "source_headline": "Amazon Is Spending Another $1 Billion on AI Data Centers — But This Time, It’s Not Buying a Single GPU",
-      "source_url": "https://247wallst.com/investing/2026/10/04/amazon-is-spending-another-1-billion-on-ai-data-centers-but-this-time-its-not-buying-a-single-gpu/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T15:16:34Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/AMZN_2026-07-20",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-10-04T16:45:03Z",
-      "updated_at": "2026-10-04T16:45:03Z",
-      "decay_at": "2026-10-06T03:16:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bb6c79ef8ffe",
       "idea_version": "IDEAV-e01408efed92052c",
       "idea_version_started_at": "2026-10-06T01:22:08Z",
@@ -165607,6 +165537,76 @@
       "surfaced_at": "2026-10-04T17:21:36Z",
       "updated_at": "2026-10-04T17:21:36Z",
       "decay_at": "2026-10-05T22:54:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-521e020bb493",
+      "idea_version": "IDEAV-ffa7f06b156e6034",
+      "idea_version_started_at": "2026-10-04T16:45:03Z",
+      "ticker": "AMZN",
+      "company": "Amazon",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Amazon is investing an additional $1 billion in AI data centers, signaling continued expansion and commitment to its AI infrastructure.",
+      "why_now": "The investment is a fresh announcement, indicating immediate capital allocation towards AI growth.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a398a2566fa1"
+      ],
+      "primary_source_event_id": "EVT-a398a2566fa1",
+      "source_headlines": [
+        "Amazon Is Spending Another $1 Billion on AI Data Centers — But This Time, It’s Not Buying a Single GPU"
+      ],
+      "source_headline": "Amazon Is Spending Another $1 Billion on AI Data Centers — But This Time, It’s Not Buying a Single GPU",
+      "source_url": "https://247wallst.com/investing/2026/10/04/amazon-is-spending-another-1-billion-on-ai-data-centers-but-this-time-its-not-buying-a-single-gpu/",
+      "source_name": "24/7 Wall St.",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T15:16:34Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/AMZN_2026-07-20",
+        "latest_decision": null,
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-10-04T16:45:03Z",
+      "updated_at": "2026-10-04T16:45:03Z",
+      "decay_at": "2026-10-06T03:16:34Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170446,14 +170446,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 573,
     "shown_count": 500,
-    "hidden_count": 72,
+    "hidden_count": 73,
     "side_counts": {
       "long": {
-        "total_count": 295,
+        "total_count": 296,
         "shown_count": 250,
-        "hidden_count": 45
+        "hidden_count": 46
       },
       "short": {
         "total_count": 277,
@@ -170477,6 +170477,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-521e020bb493",
+        "idea_version": "IDEAV-ffa7f06b156e6034",
+        "idea_version_started_at": "2026-10-04T16:45:03Z",
+        "ticker": "AMZN",
+        "company": "Amazon",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Amazon is investing an additional $1 billion in AI data centers, signaling continued expansion and commitment to its AI infrastructure.",
+        "why_now": "The investment is a fresh announcement, indicating immediate capital allocation towards AI growth.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a398a2566fa1"
+        ],
+        "primary_source_event_id": "EVT-a398a2566fa1",
+        "source_headlines": [
+          "Amazon Is Spending Another $1 Billion on AI Data Centers — But This Time, It’s Not Buying a Single GPU"
+        ],
+        "source_headline": "Amazon Is Spending Another $1 Billion on AI Data Centers — But This Time, It’s Not Buying a Single GPU",
+        "source_url": "https://247wallst.com/investing/2026/10/04/amazon-is-spending-another-1-billion-on-ai-data-centers-but-this-time-its-not-buying-a-single-gpu/",
+        "source_name": "24/7 Wall St.",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-04T15:16:34Z",
+        "prior_coverage": {
+          "has_run": true,
+          "latest_run": "analyses/AMZN_2026-07-20",
+          "latest_decision": null,
+          "data_pool_present": true
+        },
+        "surfaced_at": "2026-10-04T16:45:03Z",
+        "updated_at": "2026-10-04T16:45:03Z",
+        "decay_at": "2026-10-06T03:16:34Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T03:16:34Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9073a81e9f1e",
         "idea_version": "IDEAV-d4730722b9c0d20d",
@@ -199348,80 +199421,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-232e58bf1748",
-        "idea_version": "IDEAV-0c4c704b502559d7",
-        "idea_version_started_at": "2026-09-19T08:59:15Z",
-        "ticker": "TIRUPATIFL",
-        "company": "Tirupati Forge Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The receipt of an industrial license for defence manufacturing allows the company to enter a high-margin, government-backed sector, diversifying its revenue stream beyond its traditional forging business.",
-        "why_now": "The company announced the license approval on September 19, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e2a2605c35d6"
-        ],
-        "primary_source_event_id": "EVT-e2a2605c35d6",
-        "source_headlines": [
-          "Tirupati Forge Limited: Tirupati Forge Limited has informed the Exchange regarding a press release dated September 19, 2026, titled \"Receive the approval of Industrial License for Defence Manufacturing of empty shell body.\"."
-        ],
-        "source_headline": "Tirupati Forge Limited: Tirupati Forge Limited has informed the Exchange regarding a press release dated September 19, 2026, titled \"Receive the approval of Industrial License for Defence Manufacturing of empty shell body.\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/TIRUPATIFL_19092026112507_Press_Release_-_License_for_Defence_Manufacturing.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 97,
-        "newest_source_at": "2026-09-19T05:55:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-19T08:59:15Z",
-        "updated_at": "2026-09-19T08:59:15Z",
-        "decay_at": "2026-09-20T17:55:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-22T09:12:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-73741e1a1a55",
         "idea_version": "IDEAV-97c3f27c212f3dd6",
         "idea_version_started_at": "2026-09-19T08:59:15Z",
@@ -207682,7 +207681,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1360,
-    "live_count": 71,
+    "live_count": 70,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207701,9 +207700,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1043,
+    "news_seen_today": 1070,
     "news_picked_today": 226,
-    "news_dropped_today": 793
+    "news_dropped_today": 796
   },
   "book_momentum": {
     "live_count": 8,
