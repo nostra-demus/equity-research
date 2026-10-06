@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T22:30:05Z",
+  "generated_at": "2026-10-06T22:38:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-829",
@@ -487,6 +487,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-884",
+      "headline": "Trump announces $6.6bn defense shipyard owned by top Republican donor’s firm",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/us-news/2026/oct/06/trump-shipyard-anduril-baltimore",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T21:46:33Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Trump announced a $6.6 billion defense shipyard project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Trump announced a $6.6 billion defense shipyard project.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1982,65 +2025,6 @@
       "companies": [
         {
           "name": "Uber",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-660",
-      "headline": "Paramount closes historic Warner Bros. merger to form Skydance",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/10/06/paramount-closes-historic-warner-bros-merger-to-form-skydance/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T13:57:32Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Paramount and Warner Bros closed their merger to form Skydance, confirming a major media-industry consolidation; deal value not stated in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount and Warner Bros closed their merger to form Skydance, confirming a major media-industry consolidation; deal value not stated in headline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 9,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": "PARA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Skydance",
           "ticker": null,
           "listing_country": "US"
         }
@@ -206867,9 +206851,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 494197,
-    "news_picked_today": 2271,
-    "news_dropped_today": 20728
+    "news_seen_today": 494517,
+    "news_picked_today": 2303,
+    "news_dropped_today": 20840
   },
   "book_momentum": {
     "live_count": 8,
