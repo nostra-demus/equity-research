@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T03:41:42Z",
+  "generated_at": "2026-10-06T03:51:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-244",
+      "headline": "Trump says Becton Dickinson to invest $3 billion to expand US medical product manufacturing",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/trump-says-becton-dickinson-invest-3-billion-expand-us-medical-product-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T03:41:58Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Becton Dickinson announced a $3 billion investment to expand US manufacturing capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Becton Dickinson announced a $3 billion investment to expand US manufacturing capacity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Becton Dickinson",
+          "ticker": "BDX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1718,6 +1767,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-240",
+      "headline": "Trent shares jump 9% after multi-quarter high revenue growth in Q2, but Citi says 'sell'",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/trent-share-price-q2-business-update-revenue-growth-reaction-zudio-westside-cagr-guidance-buy-sell-target-20005202.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T03:39:34Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Trent reported high revenue growth but received a sell rating from Citi.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Trent reported high revenue growth but received a sell rating from Citi.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trent",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-234",
       "headline": "Trent Shares in focus after Q2 revenue rises 23% to Rs 5,788 crore. Buy, sell or hold the stock?",
       "headline_en": null,
@@ -1859,99 +1957,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-232",
-      "headline": "FBI removes Accenture contractor for alleged involvement in a data breach that exposed details of thousands of employees",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/fbi-removes-accenture-contractor-for-alleged-involvement-in-a-data-breach-that-exposed-details-of-thousands-of-employees-11791257121089.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T03:31:20Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Accenture is involved in a data breach incident involving a contractor, posing operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Accenture is involved in a data breach incident involving a contractor, posing operational and reputational risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "cybersecurity",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Accenture",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-228",
-      "headline": "RBI MPC meeting October 2026: 25 bps repo rate hike on Oct 7? Impact on Sensex, Nifty, bank stocks decoded by experts",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/rbi-mpc-meeting-decoded-how-different-outcomes-may-impact-the-indian-stock-market-11791218169610.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T03:30:16Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "A potential 25 bps repo rate hike by the RBI would tighten monetary policy and impact market liquidity and borrowing costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "A potential 25 bps repo rate hike by the RBI would tighten monetary policy and impact market liquidity and borrowing costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -207701,9 +207706,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1329,
-    "news_picked_today": 274,
-    "news_dropped_today": 959
+    "news_seen_today": 1361,
+    "news_picked_today": 281,
+    "news_dropped_today": 984
   },
   "book_momentum": {
     "live_count": 8,
