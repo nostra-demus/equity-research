@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T12:53:19Z",
+  "generated_at": "2026-10-06T12:59:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-591",
@@ -296,6 +296,158 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-608",
+      "headline": "Paramount wraps up mega Warner Bros merger to create Hollywood powerhouse Skydance",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/media-telecom/paramount-wraps-up-mega-warner-bros-merger-create-hollywood-powerhouse-skydance-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T12:48:26Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Paramount and Skydance have completed a merger to form a new media entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount and Skydance have completed a merger to form a new media entity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount Global",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Skydance Media",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-602",
+      "headline": "Nexus Advanced Technologies Signs Exclusivity For $500 Mln Defense Tech Reverse Merger",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/nexus-advanced-technologies-signs-exclusivity-500-mln-defense-tech-reverse-merger",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T12:31:14Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Nexus Advanced Technologies signs exclusivity for a $500 million defense tech reverse merger.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nexus Advanced Technologies signs exclusivity for a $500 million defense tech reverse merger.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nexus Advanced Technologies",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-603",
+      "headline": "Energy Transfer To Buy Vaquero Midstream For $2.625 Bln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/energy-transfer-buy-vaquero-midstream-2625-bln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T12:29:12Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Energy Transfer to acquire Vaquero Midstream for $2.625 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Energy Transfer to acquire Vaquero Midstream for $2.625 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Energy Transfer",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-575",
       "headline": "Energy Transfer to Acquire Vaquero Midstream for $2.63 Billion",
       "headline_en": null,
@@ -345,6 +497,114 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-605",
+      "headline": "Uber To Acquire EzCater For $2.3 Bln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/uber-acquire-ezcater-23-bln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T12:22:43Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Uber to acquire EzCater for $2.3 billion, expanding catering and events into the Uber Eats platform.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber to acquire EzCater for $2.3 billion, expanding catering and events into the Uber Eats platform.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": "UBER",
+          "listing_country": "US"
+        },
+        {
+          "name": "EzCater",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-607",
+      "headline": "Uber to Buy EzCater for $2.3 Billion in Enterprise Delivery Push",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-06/uber-to-buy-catering-platform-ezcater-for-2-3-billion-in-cash",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T12:19:32Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Uber to acquire EzCater for $2.3 billion, expanding enterprise delivery services; confirmed M&A deal with named value and clear strategic rationale.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber to acquire EzCater for $2.3 billion, expanding enterprise delivery services; confirmed M&A deal with named value and clear strategic rationale.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber Technologies",
+          "ticker": "UBER",
+          "listing_country": "US"
+        },
+        {
+          "name": "EzCater",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1806,255 +2066,6 @@
           "name": "Tencent",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-359",
-      "headline": "Yemeni forces secure Bab Al Mandeb, UAE-Jordan launch $2.3bn railway and Eagle Hills signs Syria projects",
-      "headline_en": null,
-      "url": "https://www.thenationalnews.com/podcasts/trending-middle-east/2026/10/06/yemeni-forces-secure-bab-al-mandeb-uae-jordan-launch-23bn-railway-and-eagle-hills-signs-syria-projects/",
-      "source_name": "The National — All News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T05:43:55Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "UAE and Jordan announced a $2.3 billion railway project, representing a significant infrastructure investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "UAE and Jordan announced a $2.3 billion railway project, representing a significant infrastructure investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-321",
-      "headline": "KKR Agrees To Buy Gen II Fund Services From Hg And General Atlantic For $5.1 Bln",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/kkr-agrees-buy-gen-ii-fund-services-hg-and-general-atlantic-51-bln",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T04:53:28Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "KKR is acquiring Gen II Fund Services for $5.1 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "KKR is acquiring Gen II Fund Services for $5.1 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KKR",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Gen II Fund Services",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-252",
-      "headline": "NextEra’s $67bn Dominion takeover faces political backlash in Virginia",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/70308419-20a2-4236-a03e-346b4626997b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T04:00:17Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "NextEra's $67 billion takeover bid for Dominion is facing significant political opposition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "NextEra's $67 billion takeover bid for Dominion is facing significant political opposition.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NextEra Energy",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Dominion Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-275",
-      "headline": "BMW’s €2bn bet on Germany",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/5c712be4-5b02-4b50-a669-7bea6650cda0?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T04:00:08Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "BMW announces a 2 billion euro investment in Germany.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "BMW announces a 2 billion euro investment in Germany.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BMW",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-244",
-      "headline": "Trump says Becton Dickinson to invest $3 billion to expand US medical product manufacturing",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/trump-says-becton-dickinson-invest-3-billion-expand-us-medical-product-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T03:41:58Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Becton Dickinson announced a $3 billion investment to expand US manufacturing capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Becton Dickinson announced a $3 billion investment to expand US manufacturing capacity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Becton Dickinson",
-          "ticker": "BDX",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -207089,9 +207100,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 230096,
-    "news_picked_today": 968,
-    "news_dropped_today": 12335
+    "news_seen_today": 233335,
+    "news_picked_today": 992,
+    "news_dropped_today": 12407
   },
   "book_momentum": {
     "live_count": 8,
