@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-06T10:58:08Z",
+  "generated_at": "2026-10-06T11:06:51Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261006-533",
+      "headline": "Godrej Consumer Products Limited: Godrej Consumer Products Limited has informed the Exchange regarding a press release dated October 06, 2026, titled \"Godrej Consumer Products Expands in Indonesia with New Manufacturing Facility in Kendal\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/GODREJCP_06102026160659_SE_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-06T10:37:46Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Godrej Consumer Products is expanding its manufacturing footprint in Indonesia with a new facility in Kendal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Godrej Consumer Products is expanding its manufacturing footprint in Indonesia with a new facility in Kendal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Godrej Consumer Products Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261006-003",
       "headline": "SCP: Trading Halt [price-sensitive]",
@@ -1981,55 +2030,6 @@
           "name": "New World Development",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-057",
-      "headline": "LG Electronics Lands Up to 5 Trillion Won North America AIDC Cooling Deal",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278232",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T04:01:52Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "LG Electronics secured a cooling deal worth up to 5 trillion won in North America.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "LG Electronics secured a cooling deal worth up to 5 trillion won in North America.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Electronics",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "large",
@@ -161263,76 +161263,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d2e9e6fdd3c1",
-      "idea_version": "IDEAV-aaa393c788349404",
-      "idea_version_started_at": "2026-10-04T23:21:25Z",
-      "ticker": "APA",
-      "company": "APA Corporation",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A strike at the Forties pipeline system threatens to halt production and export volumes for North Sea assets, directly impacting revenue and operational cash flow.",
-      "why_now": "The union vote backing the strike was reported on 2026-10-04, creating immediate uncertainty regarding supply chain continuity.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-66801b327a67"
-      ],
-      "primary_source_event_id": "EVT-66801b327a67",
-      "source_headlines": [
-        "Apache workers back strike that could disrupt North Sea Forties oil pipeline, union says"
-      ],
-      "source_headline": "Apache workers back strike that could disrupt North Sea Forties oil pipeline, union says",
-      "source_url": "https://www.reuters.com/business/energy/apache-workers-back-strike-that-could-disrupt-north-sea-forties-oil-pipeline-2026-10-04/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T23:03:32Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T23:21:25Z",
-      "updated_at": "2026-10-04T23:21:25Z",
-      "decay_at": "2026-10-06T11:03:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bb6c79ef8ffe",
       "idea_version": "IDEAV-e01408efed92052c",
       "idea_version_started_at": "2026-10-06T01:22:08Z",
@@ -163986,78 +163916,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5d4bdb7aa620",
-      "idea_version": "IDEAV-2a8f2f15df8caac2",
-      "idea_version_started_at": "2026-10-04T23:04:57Z",
-      "ticker": "FGEN",
-      "company": "First Gen Corporation",
-      "exchange": "PSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is committing up to US$2.6 billion in capital expenditure for expansion while explicitly rebuffing foreign acquisition offers, signaling management's confidence in internal valuation and growth trajectory.",
-      "why_now": "The announcement of the specific US$2.6 billion expansion plan and the rejection of takeover bids provides a fresh valuation floor and growth catalyst as of October 4, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4d98918cb0e0"
-      ],
-      "primary_source_event_id": "EVT-4d98918cb0e0",
-      "source_headlines": [
-        "Philippine power giant First Gen rebuffs foreign offers, plans up to US$2.6 billion in expansion"
-      ],
-      "source_headline": "Philippine power giant First Gen rebuffs foreign offers, plans up to US$2.6 billion in expansion",
-      "source_url": "https://www.businesstimes.com.sg/international/asean/philippine-power-giant-first-gen-rebuffs-foreign-offers-plans-us2-6-billion-expansion",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T23:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T23:04:57Z",
-      "updated_at": "2026-10-04T23:04:57Z",
-      "decay_at": "2026-10-06T11:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b68ebd5b2209",
       "idea_version": "IDEAV-e36f24bb8cb4bd09",
       "idea_version_started_at": "2026-10-05T04:46:37Z",
@@ -166135,6 +165993,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-d2e9e6fdd3c1",
+      "idea_version": "IDEAV-aaa393c788349404",
+      "idea_version_started_at": "2026-10-04T23:21:25Z",
+      "ticker": "APA",
+      "company": "APA Corporation",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A strike at the Forties pipeline system threatens to halt production and export volumes for North Sea assets, directly impacting revenue and operational cash flow.",
+      "why_now": "The union vote backing the strike was reported on 2026-10-04, creating immediate uncertainty regarding supply chain continuity.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-66801b327a67"
+      ],
+      "primary_source_event_id": "EVT-66801b327a67",
+      "source_headlines": [
+        "Apache workers back strike that could disrupt North Sea Forties oil pipeline, union says"
+      ],
+      "source_headline": "Apache workers back strike that could disrupt North Sea Forties oil pipeline, union says",
+      "source_url": "https://www.reuters.com/business/energy/apache-workers-back-strike-that-could-disrupt-north-sea-forties-oil-pipeline-2026-10-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T23:03:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T23:21:25Z",
+      "updated_at": "2026-10-04T23:21:25Z",
+      "decay_at": "2026-10-06T11:03:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9f47945c8197",
       "idea_version": "IDEAV-f1fe0c796f718972",
       "idea_version_started_at": "2026-10-04T17:21:36Z",
@@ -166831,6 +166759,78 @@
       "surfaced_at": "2026-10-04T08:14:49Z",
       "updated_at": "2026-10-04T08:14:49Z",
       "decay_at": "2026-10-05T20:00:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5d4bdb7aa620",
+      "idea_version": "IDEAV-2a8f2f15df8caac2",
+      "idea_version_started_at": "2026-10-04T23:04:57Z",
+      "ticker": "FGEN",
+      "company": "First Gen Corporation",
+      "exchange": "PSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is committing up to US$2.6 billion in capital expenditure for expansion while explicitly rebuffing foreign acquisition offers, signaling management's confidence in internal valuation and growth trajectory.",
+      "why_now": "The announcement of the specific US$2.6 billion expansion plan and the rejection of takeover bids provides a fresh valuation floor and growth catalyst as of October 4, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4d98918cb0e0"
+      ],
+      "primary_source_event_id": "EVT-4d98918cb0e0",
+      "source_headlines": [
+        "Philippine power giant First Gen rebuffs foreign offers, plans up to US$2.6 billion in expansion"
+      ],
+      "source_headline": "Philippine power giant First Gen rebuffs foreign offers, plans up to US$2.6 billion in expansion",
+      "source_url": "https://www.businesstimes.com.sg/international/asean/philippine-power-giant-first-gen-rebuffs-foreign-offers-plans-us2-6-billion-expansion",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T23:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T23:04:57Z",
+      "updated_at": "2026-10-04T23:04:57Z",
+      "decay_at": "2026-10-06T11:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -169812,19 +169812,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 557,
+    "total_count": 559,
     "shown_count": 500,
-    "hidden_count": 57,
+    "hidden_count": 59,
     "side_counts": {
       "long": {
-        "total_count": 286,
+        "total_count": 287,
         "shown_count": 250,
-        "hidden_count": 36
+        "hidden_count": 37
       },
       "short": {
-        "total_count": 271,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 21
+        "hidden_count": 22
       }
     },
     "retention": {
@@ -169843,6 +169843,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d2e9e6fdd3c1",
+        "idea_version": "IDEAV-aaa393c788349404",
+        "idea_version_started_at": "2026-10-04T23:21:25Z",
+        "ticker": "APA",
+        "company": "APA Corporation",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A strike at the Forties pipeline system threatens to halt production and export volumes for North Sea assets, directly impacting revenue and operational cash flow.",
+        "why_now": "The union vote backing the strike was reported on 2026-10-04, creating immediate uncertainty regarding supply chain continuity.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-66801b327a67"
+        ],
+        "primary_source_event_id": "EVT-66801b327a67",
+        "source_headlines": [
+          "Apache workers back strike that could disrupt North Sea Forties oil pipeline, union says"
+        ],
+        "source_headline": "Apache workers back strike that could disrupt North Sea Forties oil pipeline, union says",
+        "source_url": "https://www.reuters.com/business/energy/apache-workers-back-strike-that-could-disrupt-north-sea-forties-oil-pipeline-2026-10-04/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-04T23:03:32Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T23:21:25Z",
+        "updated_at": "2026-10-04T23:21:25Z",
+        "decay_at": "2026-10-06T11:03:32Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T11:03:32Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-5d4bdb7aa620",
+        "idea_version": "IDEAV-2a8f2f15df8caac2",
+        "idea_version_started_at": "2026-10-04T23:04:57Z",
+        "ticker": "FGEN",
+        "company": "First Gen Corporation",
+        "exchange": "PSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is committing up to US$2.6 billion in capital expenditure for expansion while explicitly rebuffing foreign acquisition offers, signaling management's confidence in internal valuation and growth trajectory.",
+        "why_now": "The announcement of the specific US$2.6 billion expansion plan and the rejection of takeover bids provides a fresh valuation floor and growth catalyst as of October 4, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4d98918cb0e0"
+        ],
+        "primary_source_event_id": "EVT-4d98918cb0e0",
+        "source_headlines": [
+          "Philippine power giant First Gen rebuffs foreign offers, plans up to US$2.6 billion in expansion"
+        ],
+        "source_headline": "Philippine power giant First Gen rebuffs foreign offers, plans up to US$2.6 billion in expansion",
+        "source_url": "https://www.businesstimes.com.sg/international/asean/philippine-power-giant-first-gen-rebuffs-foreign-offers-plans-us2-6-billion-expansion",
+        "source_name": "The Business Times (Singapore)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-04T23:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T23:04:57Z",
+        "updated_at": "2026-10-04T23:04:57Z",
+        "decay_at": "2026-10-06T11:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T11:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-df9684f7875d",
         "idea_version": "IDEAV-91754f7cb8a97e1f",
@@ -198494,79 +198642,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-da4212a0c4c0",
-        "idea_version": "IDEAV-082b2c4a7048c869",
-        "idea_version_started_at": "2026-09-20T17:40:58Z",
-        "ticker": "AME",
-        "company": "AMETEK",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "AMETEK is executing a major $5 billion acquisition to accelerate its growth in high-margin industrial technology segments.",
-        "why_now": "The deal announcement on September 19, 2026, serves as an immediate catalyst for the stock as the market prices in the integration and synergy potential.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 66,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-590de1dc0f8f"
-        ],
-        "primary_source_event_id": "EVT-590de1dc0f8f",
-        "source_headlines": [
-          "AMETEK’s (AME) $5B Deal Bets Big On A Hot Streak"
-        ],
-        "source_headline": "AMETEK’s (AME) $5B Deal Bets Big On A Hot Streak",
-        "source_url": "https://finance.yahoo.com/markets/stocks/articles/ametek-ame-5b-deal-bets-183135450.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-19T18:31:35Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-19T21:17:26Z",
-        "updated_at": "2026-09-20T17:40:58Z",
-        "decay_at": "2026-09-21T06:31:35Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-22T19:34:52Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4e4abdc55d24",
         "idea_version": "IDEAV-0b0048d3e77b2ca8",
         "idea_version_started_at": "2026-09-20T17:25:16Z",
@@ -206968,87 +207043,12 @@
         "archived_at": "2026-09-12T06:25:37Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d6a9504a0851",
-        "idea_version": "IDEAV-0c68e0a5d951b7d3",
-        "idea_version_started_at": "2026-09-09T12:54:37Z",
-        "ticker": "AGSTRANS",
-        "company": "AGS Transact Technologies Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The initiation of the Corporate Insolvency Resolution Process indicates severe financial distress and likely equity wipeout for shareholders.",
-        "why_now": "The company filed the insolvency notice with the exchange on 2026-09-09.",
-        "conviction": 85,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3e2463e9c59b"
-        ],
-        "primary_source_event_id": "EVT-3e2463e9c59b",
-        "source_headlines": [
-          "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-        ],
-        "source_headline": "AGS Transact Technologies Limited: AGS Transact Technologies Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-        "source_url": "https://nsearchives.nseindia.com/corporate/AGSTRA_09092026115101_Intimation_to_BSE_And_NSE_-_17th_Coc_meeting_-_final.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-09T06:21:47Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-09T12:54:37Z",
-        "updated_at": "2026-09-09T12:54:37Z",
-        "decay_at": "2026-09-10T18:21:47Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-12T06:25:37Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1374,
-    "live_count": 76,
+    "live_count": 74,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207067,9 +207067,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 107891,
-    "news_picked_today": 837,
-    "news_dropped_today": 10330
+    "news_seen_today": 117463,
+    "news_picked_today": 840,
+    "news_dropped_today": 10399
   },
   "book_momentum": {
     "live_count": 8,
