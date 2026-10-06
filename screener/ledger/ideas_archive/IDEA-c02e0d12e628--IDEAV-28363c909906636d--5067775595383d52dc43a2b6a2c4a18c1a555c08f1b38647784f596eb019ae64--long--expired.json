@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-18T08:52:45Z",
+  "archived_at": "2026-10-06T05:17:11Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-1bc0605be1ed",
-    "idea_version": "IDEAV-d8324e0c16cac5fa",
-    "idea_version_started_at": "2026-09-15T10:07:26Z",
-    "ticker": "336260",
-    "company": "Doosan Fuel Cell",
-    "exchange": "KRX",
+    "idea_id": "IDEA-c02e0d12e628",
+    "idea_version": "IDEAV-28363c909906636d",
+    "idea_version_started_at": "2026-10-03T04:54:52Z",
+    "ticker": "6502",
+    "company": "Toshiba",
+    "exchange": "TSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "The company's order book has surpassed 1 trillion KRW, driven by increasing demand for fuel cell power solutions from AI data centers.",
-    "why_now": "The milestone was reported on September 15, 2026, reflecting a structural shift in demand for power-intensive AI infrastructure.",
+    "reason": "Toshiba plans to double its hard-disk drive supply to address the memory gap for AI chips, which should significantly boost its revenue and market share in a high-growth segment.",
+    "why_now": "This strategic decision to double supply is a live operational change announced on October 3, 2026, directly responding to current AI market demand.",
     "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 18,
+      "impact": 19,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -49,30 +49,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "sector_cycle",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-c1c4861f36e1"
+      "EVT-599efe4b103b"
     ],
-    "primary_source_event_id": "EVT-c1c4861f36e1",
+    "primary_source_event_id": "EVT-599efe4b103b",
     "source_headlines": [
-      "Doosan Fuel Cell Orders Top 1 Trillion Won on AI Power Demand"
+      "Toshiba to double hard-disk drive supply to fill AI chip memory gap"
     ],
-    "source_headline": "Doosan Fuel Cell Orders Top 1 Trillion Won on AI Power Demand",
-    "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276967",
-    "source_name": "Business Korea — All English Articles",
-    "materiality_max": 97,
-    "newest_source_at": "2026-09-15T07:10:06Z",
+    "source_headline": "Toshiba to double hard-disk drive supply to fill AI chip memory gap",
+    "source_url": "https://asia.nikkei.com/business/electronics/toshiba-to-double-hard-disk-drive-supply-to-fill-ai-chip-memory-gap",
+    "source_name": "Nikkei Asia",
+    "materiality_max": 94,
+    "newest_source_at": "2026-10-03T04:43:42Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-15T10:07:26Z",
-    "updated_at": "2026-09-15T10:07:26Z",
-    "decay_at": "2026-09-16T19:10:06Z",
+    "surfaced_at": "2026-10-03T04:54:52Z",
+    "updated_at": "2026-10-03T04:54:52Z",
+    "decay_at": "2026-10-04T16:43:42Z",
     "status": "live",
     "promoted_signal_id": null
   }

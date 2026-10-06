@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T05:16:53Z",
+  "generated_at": "2026-10-06T05:17:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -164199,6 +164199,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-fc426f81932d",
+      "idea_version": "IDEAV-f93c4cdbae8a059e",
+      "idea_version_started_at": "2026-10-06T05:17:07Z",
+      "ticker": "6594",
+      "company": "Nidec Corporation",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A management scandal and subsequent bond market sell-off indicate significant governance risk and potential liquidity pressure for the company.",
+      "why_now": "The scandal is currently unfolding as of October 6, 2026, creating immediate downward pressure on the company's credit and equity valuation.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-443f4e12ead2"
+      ],
+      "primary_source_event_id": "EVT-443f4e12ead2",
+      "source_headlines": [
+        "Nidec scandal sends bonds to bottom in test for new CEO"
+      ],
+      "source_headline": "Nidec scandal sends bonds to bottom in test for new CEO",
+      "source_url": "https://www.japantimes.co.jp/business/2026/10/06/companies/nidec-accounting-scandal-bonds-plunge/",
+      "source_name": "The Japan Times",
+      "materiality_max": 95,
+      "newest_source_at": "2026-10-06T04:34:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-06T02:05:34Z",
+      "updated_at": "2026-10-06T05:17:07Z",
+      "decay_at": "2026-10-07T16:34:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0a1283616e19",
       "idea_version": "IDEAV-60ab8984e7ab1234",
       "idea_version_started_at": "2026-10-06T04:37:12Z",
@@ -164266,78 +164338,6 @@
       "surfaced_at": "2026-10-06T04:37:12Z",
       "updated_at": "2026-10-06T04:37:12Z",
       "decay_at": "2026-10-07T16:00:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-fc426f81932d",
-      "idea_version": "IDEAV-56ce1b4c71454430",
-      "idea_version_started_at": "2026-10-06T02:05:34Z",
-      "ticker": "6594",
-      "company": "Nidec Corporation",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A management scandal is driving the company's bonds to the bottom of the market, signaling a severe crisis of confidence in the new leadership and potential for increased cost of capital.",
-      "why_now": "The bond market reaction and leadership test are occurring live as of October 6, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d1ac6720cd9d"
-      ],
-      "primary_source_event_id": "EVT-d1ac6720cd9d",
-      "source_headlines": [
-        "Nidec Scandal Sends Bonds to Bottom in Test for New President"
-      ],
-      "source_headline": "Nidec Scandal Sends Bonds to Bottom in Test for New President",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-06/nidec-scandal-sends-bonds-to-bottom-in-test-for-new-president",
-      "source_name": "Bloomberg",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-06T00:30:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T02:05:34Z",
-      "updated_at": "2026-10-06T02:05:34Z",
-      "decay_at": "2026-10-07T12:30:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -168058,78 +168058,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-c403b2e8b2c1",
-      "idea_version": "IDEAV-50d44512c2572292",
-      "idea_version_started_at": "2026-10-03T05:21:46Z",
-      "ticker": "V2RETAIL",
-      "company": "V2 Retail",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 28.4% revenue growth to ₹905 crore for Q2, signaling strong consumer demand and effective operational scaling.",
-      "why_now": "The business update was released on October 3, 2026, providing fresh data on quarterly performance.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c4158f6e1577"
-      ],
-      "primary_source_event_id": "EVT-c4158f6e1577",
-      "source_headlines": [
-        "V2 Retail Q2 business update: Revenue growth rises 28.4% to ₹905 crore"
-      ],
-      "source_headline": "V2 Retail Q2 business update: Revenue growth rises 28.4% to ₹905 crore",
-      "source_url": "https://www.cnbctv18.com/market/v2-retail-q2-business-update-fashion-retailer-quarterly-results-revenue-store-sales-20003780.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-03T05:02:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T05:21:46Z",
-      "updated_at": "2026-10-03T05:21:46Z",
-      "decay_at": "2026-10-04T17:02:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3d269b7eb9c2",
       "idea_version": "IDEAV-5300d7372e5b2356",
       "idea_version_started_at": "2026-10-03T12:06:09Z",
@@ -169141,78 +169069,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-c02e0d12e628",
-      "idea_version": "IDEAV-28363c909906636d",
-      "idea_version_started_at": "2026-10-03T04:54:52Z",
-      "ticker": "6502",
-      "company": "Toshiba",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Toshiba plans to double its hard-disk drive supply to address the memory gap for AI chips, which should significantly boost its revenue and market share in a high-growth segment.",
-      "why_now": "This strategic decision to double supply is a live operational change announced on October 3, 2026, directly responding to current AI market demand.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-599efe4b103b"
-      ],
-      "primary_source_event_id": "EVT-599efe4b103b",
-      "source_headlines": [
-        "Toshiba to double hard-disk drive supply to fill AI chip memory gap"
-      ],
-      "source_headline": "Toshiba to double hard-disk drive supply to fill AI chip memory gap",
-      "source_url": "https://asia.nikkei.com/business/electronics/toshiba-to-double-hard-disk-drive-supply-to-fill-ai-chip-memory-gap",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 94,
-      "newest_source_at": "2026-10-03T04:43:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T04:54:52Z",
-      "updated_at": "2026-10-03T04:54:52Z",
-      "decay_at": "2026-10-04T16:43:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-7341ee8a85b3",
       "idea_version": "IDEAV-b19d4bc23aa6ae50",
       "idea_version_started_at": "2026-10-04T07:06:51Z",
@@ -170000,80 +169856,6 @@
       "surfaced_at": "2026-10-03T06:25:08Z",
       "updated_at": "2026-10-03T06:25:08Z",
       "decay_at": "2026-10-04T18:19:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a499ce26ab02",
-      "idea_version": "IDEAV-8636f9e4a86b6c91",
-      "idea_version_started_at": "2026-10-03T06:10:08Z",
-      "ticker": "SBIN",
-      "company": "State Bank of India",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The SBI-led consortium's submission to the Bombay High Court confirms a massive ₹8,752 crore is still recoverable from the Mallya case, supporting potential future write-backs or provisions reversals.",
-      "why_now": "The legal update in the Bombay High Court on October 3, 2024, provides a specific figure for potential recovery that counters previous lower estimates.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c81fe26d75ba",
-        "EVT-78842051d04e"
-      ],
-      "primary_source_event_id": "EVT-c81fe26d75ba",
-      "source_headlines": [
-        "Vijay Mallya debt recovery: SBI-led consortium of banks tells Bombay High Court ₹8,752 crore still recoverable",
-        "SBI-led consortium tells Bombay HC Mallya owes over ₹8,700 crore; counters his claim of recovering more than dues"
-      ],
-      "source_headline": "Vijay Mallya debt recovery: SBI-led consortium of banks tells Bombay High Court ₹8,752 crore still recoverable",
-      "source_url": "https://www.cnbctv18.com/india/vijay-mallya-debt-recovery-sbi-led-consortium-of-banks-tells-bombay-high-court-8752-crore-rupees-still-recoverable-20003769.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-03T04:49:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T01:50:22Z",
-      "updated_at": "2026-10-03T06:10:08Z",
-      "decay_at": "2026-10-04T16:49:07Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170890,14 +170672,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 575,
+    "total_count": 572,
     "shown_count": 500,
-    "hidden_count": 75,
+    "hidden_count": 72,
     "side_counts": {
       "long": {
-        "total_count": 297,
+        "total_count": 294,
         "shown_count": 250,
-        "hidden_count": 47
+        "hidden_count": 44
       },
       "short": {
         "total_count": 278,
@@ -170907,12 +170689,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 718,
+      "evicted_count": 721,
       "oldest_retained_at": "2026-09-08T12:47:22Z",
       "side_counts": {
         "long": {
-          "evicted_count": 474,
-          "oldest_retained_at": "2026-09-16T16:57:16Z"
+          "evicted_count": 477,
+          "oldest_retained_at": "2026-09-16T23:25:36Z"
         },
         "short": {
           "evicted_count": 244,
@@ -176373,8 +176155,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-04T17:02:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-06T05:17:11Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -176450,8 +176232,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-04T16:49:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-06T05:17:11Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -176525,8 +176307,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-04T16:43:42Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-06T05:17:11Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
