@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T16:59:37Z",
+  "generated_at": "2026-10-06T17:09:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-644",
@@ -546,6 +546,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-681",
+      "headline": "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/mckesson-cdr-buy-infusion-therapy-provider-option-care-health-58-billion-deal-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T14:57:12Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "McKesson and CD&R are taking Option Care Health private in a $5.8 billion acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "McKesson and CD&R are taking Option Care Health private in a $5.8 billion acquisition.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McKesson",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Option Care Health",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-677",
       "headline": "Energy Transfer to buy Vaquero Midstream for $2.63 billion in cash-and-stock deal",
       "headline_en": null,
@@ -592,6 +646,60 @@
           "name": "Vaquero Midstream",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-689",
+      "headline": "Paramount conclude mega fusione con Warner Bros: nasce colosso Skydance",
+      "headline_en": "Paramount concludes mega merger with Warner Bros: Skydance giant is born",
+      "url": "https://www.reuters.com/it/azienda/paramount-conclude-mega-fusione-con-warner-bros-nasce-colosso-skydance-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T14:52:56Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Paramount has concluded a mega-merger with Warner Bros to form a new entity, Skydance, representing a major industry consolidation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount has concluded a mega-merger with Warner Bros to form a new entity, Skydance, representing a major industry consolidation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -649,6 +757,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-720",
+      "headline": "Applied Digital to develop 1GW data center campus in Finland",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/applied-digital-to-develop-1gw-data-center-campus-in-finland/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T14:30:56Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Applied Digital is developing a 1GW data center campus, representing a significant capital expenditure and capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Applied Digital is developing a 1GW data center campus, representing a significant capital expenditure and capacity expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Applied Digital",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1910,168 +2067,6 @@
           "name": "Canadian Utilities",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-544",
-      "headline": "Freight Broker C.H. Robinson to Buy Smaller Rival RXO",
-      "headline_en": null,
-      "url": "https://www.wsj.com/logistics-report/freight-broker-c-h-robinson-to-buy-smaller-rival-rxo-33b9989d?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T11:12:00Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "C.H. Robinson announced an acquisition of rival RXO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "C.H. Robinson announced an acquisition of rival RXO.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "C.H. Robinson",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "RXO",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-537",
-      "headline": "GE HealthCare to acquire Sofie Biosciences for $945M",
-      "headline_en": null,
-      "url": "https://www.biopharmadive.com/news/ge-healthcare-acquire-sofie-biosciences-radiopharmaceuticals/832182/",
-      "source_name": "BioPharma Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T10:38:00Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "GE HealthCare announced the acquisition of Sofie Biosciences for $945M.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "GE HealthCare announced the acquisition of Sofie Biosciences for $945M.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GE HealthCare",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-532",
-      "headline": "Emera bids for national powerhouse with $35-billion Canadian Utilities, ATCO merger",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-emera-bids-for-national-powerhouse-with-35-billion-canadian-utilities/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T10:30:19Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Emera has bid $35 billion to acquire Canadian Utilities and ATCO, a massive M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Emera has bid $35 billion to acquire Canadian Utilities and ATCO, a massive M&A event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emera",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Canadian Utilities",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "ATCO",
-          "ticker": null,
-          "listing_country": "CA"
         }
       ],
       "size_bucket": "large",
@@ -162684,78 +162679,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3a564694adb9",
-      "idea_version": "IDEAV-8811916078b6d2bb",
-      "idea_version_started_at": "2026-10-05T07:26:59Z",
-      "ticker": "VAU.AX",
-      "company": "Vanguard Australian Property",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The court has approved the scheme meeting and despatch of the scheme booklet for Vanguard Australian Property.",
-      "why_now": "The court approval was announced on October 5, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f4f7927af7c7"
-      ],
-      "primary_source_event_id": "EVT-f4f7927af7c7",
-      "source_headlines": [
-        "VAU: Court Approves Scheme Meeting and Scheme Booklet Despatch [price-sensitive]"
-      ],
-      "source_headline": "VAU: Court Approves Scheme Meeting and Scheme Booklet Despatch [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VAU?key=2924-03144417-6A1347686",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T05:06:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T07:26:59Z",
-      "updated_at": "2026-10-05T07:26:59Z",
-      "decay_at": "2026-10-06T17:06:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-cbb29109fa62",
       "idea_version": "IDEAV-3e3b439d8d461221",
       "idea_version_started_at": "2026-10-05T07:26:59Z",
@@ -165585,6 +165508,78 @@
       "surfaced_at": "2026-10-04T08:14:49Z",
       "updated_at": "2026-10-04T08:14:49Z",
       "decay_at": "2026-10-05T20:00:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3a564694adb9",
+      "idea_version": "IDEAV-8811916078b6d2bb",
+      "idea_version_started_at": "2026-10-05T07:26:59Z",
+      "ticker": "VAU.AX",
+      "company": "Vanguard Australian Property",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The court has approved the scheme meeting and despatch of the scheme booklet for Vanguard Australian Property.",
+      "why_now": "The court approval was announced on October 5, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f4f7927af7c7"
+      ],
+      "primary_source_event_id": "EVT-f4f7927af7c7",
+      "source_headlines": [
+        "VAU: Court Approves Scheme Meeting and Scheme Booklet Despatch [price-sensitive]"
+      ],
+      "source_headline": "VAU: Court Approves Scheme Meeting and Scheme Booklet Despatch [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VAU?key=2924-03144417-6A1347686",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T05:06:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T07:26:59Z",
+      "updated_at": "2026-10-05T07:26:59Z",
+      "decay_at": "2026-10-06T17:06:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -169791,14 +169786,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 585,
+    "total_count": 586,
     "shown_count": 500,
-    "hidden_count": 85,
+    "hidden_count": 86,
     "side_counts": {
       "long": {
-        "total_count": 308,
+        "total_count": 309,
         "shown_count": 250,
-        "hidden_count": 58
+        "hidden_count": 59
       },
       "short": {
         "total_count": 277,
@@ -169822,6 +169817,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3a564694adb9",
+        "idea_version": "IDEAV-8811916078b6d2bb",
+        "idea_version_started_at": "2026-10-05T07:26:59Z",
+        "ticker": "VAU.AX",
+        "company": "Vanguard Australian Property",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The court has approved the scheme meeting and despatch of the scheme booklet for Vanguard Australian Property.",
+        "why_now": "The court approval was announced on October 5, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f4f7927af7c7"
+        ],
+        "primary_source_event_id": "EVT-f4f7927af7c7",
+        "source_headlines": [
+          "VAU: Court Approves Scheme Meeting and Scheme Booklet Despatch [price-sensitive]"
+        ],
+        "source_headline": "VAU: Court Approves Scheme Meeting and Scheme Booklet Despatch [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VAU?key=2924-03144417-6A1347686",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-05T05:06:11Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-05T07:26:59Z",
+        "updated_at": "2026-10-05T07:26:59Z",
+        "decay_at": "2026-10-06T17:06:11Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T17:06:11Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d93816107e63",
         "idea_version": "IDEAV-d42b0fc859b19166",
@@ -197801,80 +197871,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-88eef3591541",
-        "idea_version": "IDEAV-8bcaca3f447dfabb",
-        "idea_version_started_at": "2026-09-21T05:53:59Z",
-        "ticker": "KPG",
-        "company": "KPG",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company is initiating a transition from an ASX listing to a Nasdaq listing, which typically increases liquidity and valuation multiples for growth-oriented firms by accessing a deeper pool of US-based capital.",
-        "why_now": "The company issued an official EGM notice on 2026-09-21 to formalize the delisting and relisting process.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-69dcf5a78b9a"
-        ],
-        "primary_source_event_id": "EVT-69dcf5a78b9a",
-        "source_headlines": [
-          "KPG: EGM Notice - Nasdaq listing, ASX delisting, loyalty shares"
-        ],
-        "source_headline": "KPG: EGM Notice - Nasdaq listing, ASX delisting, loyalty shares",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KPG?key=2924-03137680-2A1698192",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 94,
-        "newest_source_at": "2026-09-21T05:25:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-21T05:53:59Z",
-        "updated_at": "2026-09-21T05:53:59Z",
-        "decay_at": "2026-09-22T17:25:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-24T05:59:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bbe6cce25e6c",
         "idea_version": "IDEAV-ad0d76477c61048d",
         "idea_version_started_at": "2026-09-21T05:16:02Z",
@@ -207028,7 +207024,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1379,
-    "live_count": 47,
+    "live_count": 46,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207047,9 +207043,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 442889,
-    "news_picked_today": 1284,
-    "news_dropped_today": 16291
+    "news_seen_today": 445295,
+    "news_picked_today": 1333,
+    "news_dropped_today": 16410
   },
   "book_momentum": {
     "live_count": 8,
