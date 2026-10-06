@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T11:47:19Z",
+  "generated_at": "2026-10-06T11:52:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-552",
@@ -198,6 +198,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-559",
+      "headline": "Emera to acquire Canadian Utilities in $10 billion all-stock deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/emera-canadian-utilities-merge-creating-50-billion-company-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T11:36:15Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Emera announced it will acquire Canadian Utilities in a $10 billion all-stock deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Emera announced it will acquire Canadian Utilities in a $10 billion all-stock deal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emera",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Canadian Utilities",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-544",
       "headline": "Freight Broker C.H. Robinson to Buy Smaller Rival RXO",
       "headline_en": null,
@@ -244,60 +298,6 @@
           "name": "RXO",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-548",
-      "headline": "Emera to Buy Canadian Utilities in C$14.3 Billion Deal (EMA CN, CU CN)",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-06/emera-to-buy-canadian-utilities-in-c-14-3b-deal",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T10:58:16Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Emera to acquire Canadian Utilities in a C$14.3 billion deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Emera to acquire Canadian Utilities in a C$14.3 billion deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emera",
-          "ticker": "EMA",
-          "listing_country": "CA"
-        },
-        {
-          "name": "Canadian Utilities",
-          "ticker": "CU",
-          "listing_country": "CA"
         }
       ],
       "size_bucket": "large",
@@ -163779,78 +163779,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-84d3d160ac55",
-      "idea_version": "IDEAV-177fddac5c461664",
-      "idea_version_started_at": "2026-10-05T00:00:18Z",
-      "ticker": "INA",
-      "company": "Ingenia Communities Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Ingenia has opened its books to Warburg Pincus following a non-binding $3 billion acquisition proposal, signaling a high probability of a formal takeover bid at a premium.",
-      "why_now": "The stock is highly sensitive to the immediate due diligence access granted on October 4, 2026, which serves as a near-term catalyst for a binding offer.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6ead80725398"
-      ],
-      "primary_source_event_id": "EVT-6ead80725398",
-      "source_headlines": [
-        "Ingenia opens door for Warburg Pincus’ $3b bid for housing business"
-      ],
-      "source_headline": "Ingenia opens door for Warburg Pincus’ $3b bid for housing business",
-      "source_url": "https://www.afr.com/property/residential/ingenia-opens-door-for-warburg-pincus-3b-bid-for-housing-business-20261005-p612tx?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T23:50:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T07:44:58Z",
-      "updated_at": "2026-10-05T00:00:18Z",
-      "decay_at": "2026-10-06T11:50:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b68ebd5b2209",
       "idea_version": "IDEAV-e36f24bb8cb4bd09",
       "idea_version_started_at": "2026-10-05T04:46:37Z",
@@ -166764,6 +166692,78 @@
       "surfaced_at": "2026-10-04T08:14:49Z",
       "updated_at": "2026-10-04T08:14:49Z",
       "decay_at": "2026-10-05T20:00:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-84d3d160ac55",
+      "idea_version": "IDEAV-177fddac5c461664",
+      "idea_version_started_at": "2026-10-05T00:00:18Z",
+      "ticker": "INA",
+      "company": "Ingenia Communities Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Ingenia has opened its books to Warburg Pincus following a non-binding $3 billion acquisition proposal, signaling a high probability of a formal takeover bid at a premium.",
+      "why_now": "The stock is highly sensitive to the immediate due diligence access granted on October 4, 2026, which serves as a near-term catalyst for a binding offer.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6ead80725398"
+      ],
+      "primary_source_event_id": "EVT-6ead80725398",
+      "source_headlines": [
+        "Ingenia opens door for Warburg Pincus’ $3b bid for housing business"
+      ],
+      "source_headline": "Ingenia opens door for Warburg Pincus’ $3b bid for housing business",
+      "source_url": "https://www.afr.com/property/residential/ingenia-opens-door-for-warburg-pincus-3b-bid-for-housing-business-20261005-p612tx?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T23:50:29Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T07:44:58Z",
+      "updated_at": "2026-10-05T00:00:18Z",
+      "decay_at": "2026-10-06T11:50:29Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -169817,14 +169817,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 560,
+    "total_count": 561,
     "shown_count": 500,
-    "hidden_count": 60,
+    "hidden_count": 61,
     "side_counts": {
       "long": {
-        "total_count": 287,
+        "total_count": 288,
         "shown_count": 250,
-        "hidden_count": 37
+        "hidden_count": 38
       },
       "short": {
         "total_count": 273,
@@ -169848,6 +169848,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-84d3d160ac55",
+        "idea_version": "IDEAV-177fddac5c461664",
+        "idea_version_started_at": "2026-10-05T00:00:18Z",
+        "ticker": "INA",
+        "company": "Ingenia Communities Group",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Ingenia has opened its books to Warburg Pincus following a non-binding $3 billion acquisition proposal, signaling a high probability of a formal takeover bid at a premium.",
+        "why_now": "The stock is highly sensitive to the immediate due diligence access granted on October 4, 2026, which serves as a near-term catalyst for a binding offer.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6ead80725398"
+        ],
+        "primary_source_event_id": "EVT-6ead80725398",
+        "source_headlines": [
+          "Ingenia opens door for Warburg Pincus’ $3b bid for housing business"
+        ],
+        "source_headline": "Ingenia opens door for Warburg Pincus’ $3b bid for housing business",
+        "source_url": "https://www.afr.com/property/residential/ingenia-opens-door-for-warburg-pincus-3b-bid-for-housing-business-20261005-p612tx?ref=rss&utm_medium=rss&utm_source=rss_feed",
+        "source_name": "Australian Financial Review",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-04T23:50:29Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T07:44:58Z",
+        "updated_at": "2026-10-05T00:00:18Z",
+        "decay_at": "2026-10-06T11:50:29Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T11:50:29Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1ce33e97dd06",
         "idea_version": "IDEAV-63dc7c4f25cc3c36",
@@ -198644,82 +198719,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c1dfbf0d252a",
-        "idea_version": "IDEAV-8288674347a3cf00",
-        "idea_version_started_at": "2026-09-20T03:22:22Z",
-        "ticker": "ARES",
-        "company": "Ares Management",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Ares Management benefits from increased demand for alternative financing as traditional energy supply chains face geopolitical disruption and capital-intensive infrastructure projects require private credit solutions.",
-        "why_now": "The combination of Saudi Aramco supply disruptions and the ongoing need for massive data center infrastructure financing creates a structural tailwind for private capital providers.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 78,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 22,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 10,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "macro_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1a7b76aa0d89",
-          "EVT-1abbeea93663",
-          "EVT-6906e1c92e10"
-        ],
-        "primary_source_event_id": "EVT-1a7b76aa0d89",
-        "source_headlines": [
-          "Houthis Claim Missile, Drone Attacks On Riyadh, Saudi Aramco Facilities",
-          "Flames and smoke are seen near Riyadh airport after Saudi Arabia warned of an air strike threat",
-          "Aramco stops crude supplies to India; replacement barrels costlier as oil tops $100"
-        ],
-        "source_headline": "Houthis Claim Missile, Drone Attacks On Riyadh, Saudi Aramco Facilities",
-        "source_url": "https://www.ndtvprofit.com/world/houthis-claim-missile-drone-attacks-on-riyadh-saudi-aramco-facilities-12070181#publisher=newsstand",
-        "source_name": "NDTV Profit",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-19T18:34:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-20T03:22:22Z",
-        "updated_at": "2026-09-20T03:22:22Z",
-        "decay_at": "2026-09-21T06:34:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-22T19:34:52Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-4e4abdc55d24",
         "idea_version": "IDEAV-0b0048d3e77b2ca8",
         "idea_version_started_at": "2026-09-20T17:25:16Z",
@@ -207051,7 +207050,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1374,
-    "live_count": 73,
+    "live_count": 72,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207070,9 +207069,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 154633,
-    "news_picked_today": 880,
-    "news_dropped_today": 11079
+    "news_seen_today": 159757,
+    "news_picked_today": 888,
+    "news_dropped_today": 11215
   },
   "book_momentum": {
     "live_count": 8,
