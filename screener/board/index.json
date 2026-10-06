@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T01:46:34Z",
+  "generated_at": "2026-10-06T01:47:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -161998,6 +161998,79 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-282b9ed3f863",
+      "idea_version": "IDEAV-507c1b826268be3c",
+      "idea_version_started_at": "2026-10-06T01:46:49Z",
+      "ticker": "00017",
+      "company": "New World Development",
+      "exchange": "HKEX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is launching an exchange offer for nearly $1 billion of its outstanding bonds to actively manage its debt profile and extend maturities.",
+      "why_now": "The exchange offer was officially launched on October 6, 2026, creating an immediate catalyst for the company's capital structure optimization.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-214b2cd894e4",
+        "EVT-afd6643c7979"
+      ],
+      "primary_source_event_id": "EVT-afd6643c7979",
+      "source_headlines": [
+        "New World Launches Exchange Offer for Nearly $1 Billion of Bonds",
+        "NEW WORLD DEV NWD (MTN) N2802 NWD (MTN) N2706 NWCL N2701 (00017 05149 05321 05343): LAUNCH OF EXCHANGE OFFERS"
+      ],
+      "source_headline": "New World Launches Exchange Offer for Nearly $1 Billion of Bonds",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-06/new-world-launches-exchange-offer-for-nearly-1-billion-of-bonds",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-06T00:36:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-06T01:46:49Z",
+      "updated_at": "2026-10-06T01:46:49Z",
+      "decay_at": "2026-10-07T12:36:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5253ff98b1df",
       "idea_version": "IDEAV-671fc7f5e19034cf",
       "idea_version_started_at": "2026-10-06T00:37:28Z",
@@ -164369,6 +164442,78 @@
       "surfaced_at": "2026-10-05T02:19:59Z",
       "updated_at": "2026-10-05T02:19:59Z",
       "decay_at": "2026-10-06T13:21:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-ec8c1228de91",
+      "idea_version": "IDEAV-bf0f35f98c4f9d06",
+      "idea_version_started_at": "2026-10-06T01:46:49Z",
+      "ticker": "8601",
+      "company": "Daiwa Securities Group",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is facing potential reputational damage and regulatory scrutiny following unauthorized access that may have leaked customer data.",
+      "why_now": "The data breach risk was reported on October 6, 2026, posing immediate downside risk to customer trust and operational costs.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1fec3620ca13"
+      ],
+      "primary_source_event_id": "EVT-1fec3620ca13",
+      "source_headlines": [
+        "Daiwa Securities' customer data may have leaked due to unauthorized access"
+      ],
+      "source_headline": "Daiwa Securities' customer data may have leaked due to unauthorized access",
+      "source_url": "https://mainichi.jp/english/articles/20261006/p2g/00m/0bu/010000c",
+      "source_name": "The Mainichi",
+      "materiality_max": 87,
+      "newest_source_at": "2026-10-06T00:30:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-06T01:46:49Z",
+      "updated_at": "2026-10-06T01:46:49Z",
+      "decay_at": "2026-10-07T12:30:08Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -207152,8 +207297,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1352,
-    "live_count": 64,
+    "surfaced_total": 1354,
+    "live_count": 66,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
