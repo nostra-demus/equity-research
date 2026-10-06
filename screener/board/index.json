@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T05:49:25Z",
+  "generated_at": "2026-10-06T06:00:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -93,6 +93,60 @@
           "name": "ADNOC L&S",
           "ticker": null,
           "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-355",
+      "headline": "DeepSeek to raise at least US$12 billion in Tencent-backed funding",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/deepseek-raise-least-us12-billion-tencent-backed-funding",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T05:49:36Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "DeepSeek is raising at least US$12 billion in funding.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DeepSeek is raising at least US$12 billion in funding.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DeepSeek",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "Tencent",
+          "ticker": null,
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -1199,60 +1253,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261006-315",
-      "headline": "DeepSeek to Raise at Least $12 Billion in Tencent-Backed Funding",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-06/deepseek-to-raise-at-least-12-billion-in-tencent-backed-funding",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T05:00:22Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "DeepSeek is raising at least $12 billion in a new funding round, indicating significant capital inflow and valuation growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "DeepSeek is raising at least $12 billion in a new funding round, indicating significant capital inflow and valuation growth.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DeepSeek",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Tencent",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261006-281",
       "headline": "Nidec scandal sends bonds to bottom in test for new CEO",
       "headline_en": null,
@@ -1695,6 +1695,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-357",
+      "headline": "Kotak Mahindra Bank Shares Jump 4% As Q2 Advances Rise 24.7%, Deposits Grow 23.2%",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/kotak-mahindra-bank-shares-jump-4-as-q2-advances-rise-247-deposits-grow-232",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T05:32:00Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Kotak Mahindra Bank reported strong Q2 growth with advances up 24.7% and deposits up 23.2%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Kotak Mahindra Bank reported strong Q2 growth with advances up 24.7% and deposits up 23.2%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kotak Mahindra Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-303",
       "headline": "Trent Shares Surge 10% To Hit Upper Circuit After Q2 Revenue Growth Beats Expectations",
       "headline_en": null,
@@ -1922,55 +1971,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-344",
-      "headline": "‎Almarai approves 2026–2031 strategy",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1941644",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T08:34:00Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Almarai approved its strategy for 2026–2031.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Almarai approved its strategy for 2026–2031.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Almarai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -207931,9 +207931,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4080,
-    "news_picked_today": 469,
-    "news_dropped_today": 2663
+    "news_seen_today": 4195,
+    "news_picked_today": 490,
+    "news_dropped_today": 2738
   },
   "book_momentum": {
     "live_count": 8,
