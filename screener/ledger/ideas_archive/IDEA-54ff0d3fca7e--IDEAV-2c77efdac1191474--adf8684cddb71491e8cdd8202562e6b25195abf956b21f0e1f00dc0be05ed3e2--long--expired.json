@@ -1,32 +1,32 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-19T05:39:47Z",
+  "archived_at": "2026-10-06T10:47:40Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-8c817b6a9d58",
-    "idea_version": "IDEAV-ded56f40fa203a61",
-    "idea_version_started_at": "2026-09-16T11:53:50Z",
-    "ticker": "SPXC",
-    "company": "SPX Technologies",
-    "exchange": "NYSE",
+    "idea_id": "IDEA-54ff0d3fca7e",
+    "idea_version": "IDEAV-2c77efdac1191474",
+    "idea_version_started_at": "2026-10-03T10:55:05Z",
+    "ticker": "SNY",
+    "company": "Sanofi",
+    "exchange": "NASDAQ",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "long",
     "pair_with": null,
-    "reason": "The acquisition of FIS Water for $410 million expands the company's footprint in the water management sector, likely accretive to earnings given the strategic fit.",
-    "why_now": "The deal was announced on September 16, 2026.",
-    "conviction": 65,
+    "reason": "Sanofi entered a $1B upfront deal related to weight loss drugs, indicating potential future revenue streams.",
+    "why_now": "The deal was announced today, making it a current catalyst.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 62,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score": 65,
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
       "impact": 19,
       "specificity": 15,
       "timing": 10,
-      "expression": 6,
+      "expression": 7,
       "corroboration": 0,
       "learning_adjustment": 0
     },
@@ -51,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-aa9962453f75"
+      "EVT-a12c0ef1853a"
     ],
-    "primary_source_event_id": "EVT-aa9962453f75",
+    "primary_source_event_id": "EVT-a12c0ef1853a",
     "source_headlines": [
-      "SPX Technologies Acquires Water Management Firm FIS Water For $410 Mln"
+      "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more"
     ],
-    "source_headline": "SPX Technologies Acquires Water Management Firm FIS Water For $410 Mln",
-    "source_url": "https://www.nasdaq.com/articles/spx-technologies-acquires-water-management-firm-fis-water-410-mln",
-    "source_name": "Nasdaq",
-    "materiality_max": 100,
-    "newest_source_at": "2026-09-16T05:00:09Z",
+    "source_headline": "Eli Lilly’s best-ever weight loss data; Sanofi, Regeneron re-up for $1B upfront; and more",
+    "source_url": "https://endpoints.news/eli-lillys-best-ever-weight-loss-data-sanofi-regeneron-re-up-for-1b-upfront-and-more/",
+    "source_name": "Endpoints News",
+    "materiality_max": 96,
+    "newest_source_at": "2026-10-03T10:00:09Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-16T11:53:50Z",
-    "updated_at": "2026-09-16T11:53:50Z",
-    "decay_at": "2026-09-17T17:00:09Z",
+    "surfaced_at": "2026-10-01T09:32:07Z",
+    "updated_at": "2026-10-03T10:55:05Z",
+    "decay_at": "2026-10-04T22:00:09Z",
     "status": "live",
     "promoted_signal_id": null
   }

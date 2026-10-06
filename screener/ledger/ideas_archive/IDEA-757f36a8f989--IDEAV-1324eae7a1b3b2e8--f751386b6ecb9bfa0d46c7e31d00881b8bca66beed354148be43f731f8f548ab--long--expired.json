@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-19T00:23:20Z",
+  "archived_at": "2026-10-06T10:47:40Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-a88eed4d242c",
-    "idea_version": "IDEAV-930f8e09e0b3f675",
-    "idea_version_started_at": "2026-09-16T04:30:41Z",
-    "ticker": "TOK",
-    "company": "Tolukuma",
-    "exchange": "ASX",
+    "idea_id": "IDEA-757f36a8f989",
+    "idea_version": "IDEAV-1324eae7a1b3b2e8",
+    "idea_version_started_at": "2026-10-03T11:15:22Z",
+    "ticker": "AVENUESUPER",
+    "company": "Avenue Supermarts",
+    "exchange": "NSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "An 81% increase in gold resources to 909 koz significantly enhances the valuation of the company's primary asset.",
-    "why_now": "The resource upgrade was confirmed in a price-sensitive exchange filing on 2026-09-15.",
-    "conviction": 70,
+    "reason": "Avenue Supermarts (D-Mart) reported an 18% year-over-year revenue increase to Rs 19,206 crore for Q2, indicating strong operational performance and growth.",
+    "why_now": "The Q2 revenue results were released today, providing a fresh, positive earnings catalyst.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 19,
       "specificity": 7,
       "timing": 10,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-1289ba1a9e40"
+      "EVT-5eeb7d6cfe15"
     ],
-    "primary_source_event_id": "EVT-1289ba1a9e40",
+    "primary_source_event_id": "EVT-5eeb7d6cfe15",
     "source_headlines": [
-      "TOK: Tolukuma Mineral Resource Grows 81% to 909 koz Gold [price-sensitive]"
+      "D-Mart Q2 revenue rises 18% to Rs 19,206 cr; store count at 518"
     ],
-    "source_headline": "TOK: Tolukuma Mineral Resource Grows 81% to 909 koz Gold [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TOK?key=2924-03136001-6A1343999",
-    "source_name": "ASX (Australia Exchange Filing)",
-    "materiality_max": 95,
-    "newest_source_at": "2026-09-15T23:54:34Z",
+    "source_headline": "D-Mart Q2 revenue rises 18% to Rs 19,206 cr; store count at 518",
+    "source_url": "https://economictimes.indiatimes.com/markets/stocks/earnings/d-mart-q2-revenue-rise-18-pc-to-rs-19206-cr-store-count-at-518/articleshow/134656472.cms",
+    "source_name": "The Economic Times",
+    "materiality_max": 93,
+    "newest_source_at": "2026-10-03T10:06:18Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-16T04:30:41Z",
-    "updated_at": "2026-09-16T04:30:41Z",
-    "decay_at": "2026-09-17T11:54:34Z",
+    "surfaced_at": "2026-10-03T11:15:22Z",
+    "updated_at": "2026-10-03T11:15:22Z",
+    "decay_at": "2026-10-04T22:06:18Z",
     "status": "live",
     "promoted_signal_id": null
   }
