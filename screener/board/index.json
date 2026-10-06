@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T04:37:43Z",
+  "generated_at": "2026-10-06T04:51:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -943,6 +943,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-281",
+      "headline": "Nidec scandal sends bonds to bottom in test for new CEO",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/06/companies/nidec-accounting-scandal-bonds-plunge/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T04:34:00Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Nidec is facing a scandal impacting its bond pricing, creating a significant test for the new CEO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Nidec is facing a scandal impacting its bond pricing, creating a significant test for the new CEO.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nidec",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1915,55 +1965,6 @@
           "name": "Etisalat",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-266",
-      "headline": "Adani Power, Bhutan’s DGPC sign pact for 770 MW Chamkharchhu-I hydropower project",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/adani-power-bhutans-dgpc-sign-pact-for-770-mw-chamkharchhu-i-hydropower-project/article71549898.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T04:02:04Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Adani Power signed a pact for a 770 MW hydropower project in Bhutan.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Adani Power signed a pact for a 770 MW hydropower project in Bhutan.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Power",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -208144,9 +208145,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2026,
-    "news_picked_today": 355,
-    "news_dropped_today": 1527
+    "news_seen_today": 2798,
+    "news_picked_today": 357,
+    "news_dropped_today": 1981
   },
   "book_momentum": {
     "live_count": 8,
