@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T17:09:39Z",
+  "generated_at": "2026-10-06T17:17:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-644",
@@ -806,6 +806,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-725",
+      "headline": "Bund will vier weitere Meko-Fregatten für 5,6 Milliarden Euro kaufen",
+      "headline_en": "Federal government wants to buy four more Meko frigates for 5.6 billion euros",
+      "url": "https://www.reuters.com/de/welt/bund-will-vier-weitere-meko-fregatten-fr-56-milliarden-euro-kaufen-2026-10-06/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T14:25:44Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "The German government plans to purchase four additional Meko frigates for 5.6 billion euros, a significant defense contract.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The German government plans to purchase four additional Meko frigates for 5.6 billion euros, a significant defense contract.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Thyssenkrupp Marine Systems",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -2013,60 +2062,6 @@
           "name": "Energy Transfer",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-559",
-      "headline": "Emera to acquire Canadian Utilities in $10 billion all-stock deal",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/emera-canadian-utilities-merge-creating-50-billion-company-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T11:36:15Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Emera announced it will acquire Canadian Utilities in a $10 billion all-stock deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Emera announced it will acquire Canadian Utilities in a $10 billion all-stock deal.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emera",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Canadian Utilities",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -162679,79 +162674,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-cbb29109fa62",
-      "idea_version": "IDEAV-3e3b439d8d461221",
-      "idea_version_started_at": "2026-10-05T07:26:59Z",
-      "ticker": "TALK.L",
-      "company": "TalkTalk",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "BT Group is reportedly closing in on a deal to acquire embattled TalkTalk, suggesting a distressed situation for TalkTalk.",
-      "why_now": "The potential acquisition was reported on October 5, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ab289598947c"
-      ],
-      "primary_source_event_id": "EVT-ab289598947c",
-      "source_headlines": [
-        "BT closes in on deal for embattled TalkTalk"
-      ],
-      "source_headline": "BT closes in on deal for embattled TalkTalk",
-      "source_url": "https://www.ft.com/content/27d5abde-c1cd-4dc1-932f-4812a41a66c4",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T05:11:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T07:26:59Z",
-      "updated_at": "2026-10-05T07:26:59Z",
-      "decay_at": "2026-10-06T17:11:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bb113d4666c7",
       "idea_version": "IDEAV-16095ccd3c16d796",
       "idea_version_started_at": "2026-10-06T04:16:10Z",
@@ -165580,6 +165502,79 @@
       "surfaced_at": "2026-10-05T07:26:59Z",
       "updated_at": "2026-10-05T07:26:59Z",
       "decay_at": "2026-10-06T17:06:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-cbb29109fa62",
+      "idea_version": "IDEAV-3e3b439d8d461221",
+      "idea_version_started_at": "2026-10-05T07:26:59Z",
+      "ticker": "TALK.L",
+      "company": "TalkTalk",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "BT Group is reportedly closing in on a deal to acquire embattled TalkTalk, suggesting a distressed situation for TalkTalk.",
+      "why_now": "The potential acquisition was reported on October 5, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ab289598947c"
+      ],
+      "primary_source_event_id": "EVT-ab289598947c",
+      "source_headlines": [
+        "BT closes in on deal for embattled TalkTalk"
+      ],
+      "source_headline": "BT closes in on deal for embattled TalkTalk",
+      "source_url": "https://www.ft.com/content/27d5abde-c1cd-4dc1-932f-4812a41a66c4",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T05:11:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T07:26:59Z",
+      "updated_at": "2026-10-05T07:26:59Z",
+      "decay_at": "2026-10-06T17:11:07Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -169786,9 +169781,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 586,
+    "total_count": 587,
     "shown_count": 500,
-    "hidden_count": 86,
+    "hidden_count": 87,
     "side_counts": {
       "long": {
         "total_count": 309,
@@ -169796,9 +169791,9 @@
         "hidden_count": 59
       },
       "short": {
-        "total_count": 277,
+        "total_count": 278,
         "shown_count": 250,
-        "hidden_count": 27
+        "hidden_count": 28
       }
     },
     "retention": {
@@ -169817,6 +169812,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-cbb29109fa62",
+        "idea_version": "IDEAV-3e3b439d8d461221",
+        "idea_version_started_at": "2026-10-05T07:26:59Z",
+        "ticker": "TALK.L",
+        "company": "TalkTalk",
+        "exchange": "LSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "BT Group is reportedly closing in on a deal to acquire embattled TalkTalk, suggesting a distressed situation for TalkTalk.",
+        "why_now": "The potential acquisition was reported on October 5, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "pair_trade",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ab289598947c"
+        ],
+        "primary_source_event_id": "EVT-ab289598947c",
+        "source_headlines": [
+          "BT closes in on deal for embattled TalkTalk"
+        ],
+        "source_headline": "BT closes in on deal for embattled TalkTalk",
+        "source_url": "https://www.ft.com/content/27d5abde-c1cd-4dc1-932f-4812a41a66c4",
+        "source_name": "Financial Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-05T05:11:07Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-05T07:26:59Z",
+        "updated_at": "2026-10-05T07:26:59Z",
+        "decay_at": "2026-10-06T17:11:07Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T17:11:07Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3a564694adb9",
         "idea_version": "IDEAV-8811916078b6d2bb",
@@ -206944,87 +207015,12 @@
         "archived_at": "2026-09-13T11:26:27Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-14e8a146693a",
-        "idea_version": "IDEAV-75af08a2bada8d89",
-        "idea_version_started_at": "2026-09-10T08:47:13Z",
-        "ticker": "005930",
-        "company": "Samsung Electronics",
-        "exchange": "KRX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Apple's entry into the foldable smartphone market directly threatens Samsung's established dominance and premium pricing power in the foldable category.",
-        "why_now": "The competitive threat was formalized with Apple's product unveiling on September 10, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9b948459178d"
-        ],
-        "primary_source_event_id": "EVT-9b948459178d",
-        "source_headlines": [
-          "Apple Unveils First Foldable iPhone, Taking on Samsung"
-        ],
-        "source_headline": "Apple Unveils First Foldable iPhone, Taking on Samsung",
-        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276633",
-        "source_name": "Business Korea — All Articles (CDN)",
-        "materiality_max": 96,
-        "newest_source_at": "2026-09-10T04:25:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-10T08:47:13Z",
-        "updated_at": "2026-09-10T08:47:13Z",
-        "decay_at": "2026-09-11T16:25:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-13T06:54:21Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1379,
-    "live_count": 46,
+    "live_count": 45,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207043,9 +207039,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 445295,
-    "news_picked_today": 1333,
-    "news_dropped_today": 16410
+    "news_seen_today": 447533,
+    "news_picked_today": 1348,
+    "news_dropped_today": 16467
   },
   "book_momentum": {
     "live_count": 8,
