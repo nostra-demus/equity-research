@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-06T22:50:05Z",
+  "generated_at": "2026-10-06T23:02:06Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261006-894",
+      "headline": "KME: Variation of Takeover Bid [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KME?key=2924-03145376-2A1702460",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-06T22:49:14Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "KME announced a variation to a takeover bid, which directly impacts the company's capital structure and ownership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KME announced a variation to a takeover bid, which directly impacts the company's capital structure and ownership.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KME",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261006-829",
       "headline": "25-NSE - Empro Group Inc. (0002005569) (Subject)",
@@ -487,6 +536,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-915",
+      "headline": "Trump: Government will take massive stake in 'next generation' submarine shipyard",
+      "headline_en": null,
+      "url": "https://thehill.com/policy/defense/6132760-trump-taxpayers-stake-maryland-shipyard/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T22:20:56Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Government announcement of a massive stake in a submarine shipyard indicates significant capital investment and defense sector support.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Government announcement of a massive stake in a submarine shipyard indicates significant capital investment and defense sector support.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1922,114 +2014,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-733",
-      "headline": "Uber bets $2.3 billion on ezCater to narrow gap with DoorDash",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/uber-buy-us-catering-platform-ezcater-23-billion-2026-10-06/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T14:08:33Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Uber is acquiring ezCater for $2.3 billion to expand its market position.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Uber is acquiring ezCater for $2.3 billion to expand its market position.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-661",
-      "headline": "Paramount completes US$110 billion Warner Bros merger, creating Hollywood giant Skydance",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/paramount-completes-us110-billion-warner-bros-merger-creating-hollywood-giant-skydance",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T14:03:38Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Paramount and Warner Bros closed merger to form Skydance at US$110 billion transaction value, reshaping the media-entertainment sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount and Warner Bros closed merger to form Skydance at US$110 billion transaction value, reshaping the media-entertainment sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": "PARA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Skydance",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -206851,9 +206835,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 494701,
-    "news_picked_today": 2347,
-    "news_dropped_today": 20972
+    "news_seen_today": 494909,
+    "news_picked_today": 2373,
+    "news_dropped_today": 21114
   },
   "book_momentum": {
     "live_count": 8,
