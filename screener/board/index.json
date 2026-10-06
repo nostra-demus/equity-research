@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T14:54:03Z",
+  "generated_at": "2026-10-06T15:01:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-644",
@@ -443,6 +443,276 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-662",
+      "headline": "Paramount completes blockbuster £80bn takeover of Warner Bros - sparking fears of higher prices and job losses",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16187309/Paramount-completes-blockbuster-80bn-takeover-Warner-Bros-sparking-fears-higher-prices-job-losses.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T14:33:29Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Paramount's £80bn acquisition of Warner Bros reshapes media industry structure and both issuers' capital profiles.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount's £80bn acquisition of Warner Bros reshapes media industry structure and both issuers' capital profiles.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount Global",
+          "ticker": "PARA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros Discovery",
+          "ticker": "WBD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-654",
+      "headline": "Emera to acquire Canadian Utilities in $14.3-billion deal",
+      "headline_en": null,
+      "url": "https://www.cbc.ca/news/canada/nova-scotia/emera-canadian-utilities-merger-acquisition-9.7370753?cmp=rss",
+      "source_name": "CBC — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T14:24:15Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "$14.3-billion acquisition of Canadian Utilities by Emera; named deal value, large utility-sector consolidation with material capital deployment and execution risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "$14.3-billion acquisition of Canadian Utilities by Emera; named deal value, large utility-sector consolidation with material capital deployment and execution risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emera",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Canadian Utilities",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-656",
+      "headline": "45-year-old pizza chain closed more than 90 locations and filed bankruptcy 3 times",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/restaurants/bertuccis-pizza-chain-closed-about-90-locations-and-filed-bankruptcy-3-times",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T14:17:00Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "45-year-old pizza chain closed 90+ locations and filed bankruptcy; distress event is critical, but company is unnamed, precluding actionable analysis.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "45-year-old pizza chain closed 90+ locations and filed bankruptcy; distress event is critical, but company is unnamed, precluding actionable analysis.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-661",
+      "headline": "Paramount completes US$110 billion Warner Bros merger, creating Hollywood giant Skydance",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/telcos-media-tech/paramount-completes-us110-billion-warner-bros-merger-creating-hollywood-giant-skydance",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T14:03:38Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Paramount and Warner Bros closed merger to form Skydance at US$110 billion transaction value, reshaping the media-entertainment sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount and Warner Bros closed merger to form Skydance at US$110 billion transaction value, reshaping the media-entertainment sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": "PARA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Skydance",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-660",
+      "headline": "Paramount closes historic Warner Bros. merger to form Skydance",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/10/06/paramount-closes-historic-warner-bros-merger-to-form-skydance/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T13:57:32Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Paramount and Warner Bros closed their merger to form Skydance, confirming a major media-industry consolidation; deal value not stated in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount and Warner Bros closed their merger to form Skydance, confirming a major media-industry consolidation; deal value not stated in headline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 76,
+      "rank_factors": {
+        "materiality": 76,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 9,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": "PARA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Skydance",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-640",
       "headline": "Uber to Expand Uber Eats Service with $2.3 Billion Acquisition of Catering Platform",
       "headline_en": null,
@@ -530,6 +800,60 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-671",
+      "headline": "Paramount and Warner Bros. Discovery complete $110 billion media megamerger",
+      "headline_en": null,
+      "url": "https://www.theverge.com/entertainment/1005480/paramount-warner-bros-discovey-merger-closed",
+      "source_name": "The Verge",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T13:32:43Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Paramount and Warner Bros. Discovery complete $110 billion merger; confirmed mega-deal closure with quantified deal value, materially altering capital structure and future operations of both companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount and Warner Bros. Discovery complete $110 billion merger; confirmed mega-deal closure with quantified deal value, materially altering capital structure and future operations of both companies.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 82,
+      "rank_factors": {
+        "materiality": 82,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -638,6 +962,65 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-667",
+      "headline": "Skydance Is Here: Paramount Closes $110 Billion Warner Bros. Merger After Months Of Controversy",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/alisondurkee/2026/10/06/skydance-is-here-paramount-closes-110-billion-warner-bros-merger-after-months-of-controversy/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T13:02:21Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Paramount closes $110 billion merger with Warner Bros. Discovery through Skydance following months of reported negotiation controversy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount closes $110 billion merger with Warner Bros. Discovery through Skydance following months of reported negotiation controversy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount Global",
+          "ticker": "PARA",
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": "WBD",
+          "listing_country": "US"
+        },
+        {
+          "name": "Skydance Media",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1703,365 +2086,6 @@
         },
         {
           "name": "Warner Bros",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-491",
-      "headline": "Dabur India expects second quarter revenue, profit to grow in double digits",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/dabur-india-expects-double-digit-q2-consolidated-revenue-growth-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T08:43:36Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Dabur India provided positive forward-looking guidance, expecting double-digit growth in both revenue and profit for the second quarter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dabur India provided positive forward-looking guidance, expecting double-digit growth in both revenue and profit for the second quarter.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dabur India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-317",
-      "headline": "‎ADNOC L&S signs AED 1.2B contract to build 3 gas carriers",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1941635",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T08:23:00Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "ADNOC L&S signed a AED 1.2 billion contract to build 3 gas carriers, representing a significant capital investment and revenue backlog expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ADNOC L&S signed a AED 1.2 billion contract to build 3 gas carriers, representing a significant capital investment and revenue backlog expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ADNOC L&S",
-          "ticker": null,
-          "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-498",
-      "headline": "UK events firm that hosts arms fairs and comic shows sold to rival for £2bn",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/business/2026/oct/06/informa-buy-clarion-blackstone-ftse-100",
-      "source_name": "The Guardian — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T08:16:48Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Acquisition of an events firm for £2bn is a major M&A transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Acquisition of an events firm for £2bn is a major M&A transaction.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-455",
-      "headline": "Informa To Buy Clarion For £2.24 Bln In Cash, To Separate Taylor & Francis To Boost B2B Live Events",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/informa-buy-clarion-ps224-bln-cash-separate-taylor-francis-boost-b2b-live-events",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T08:03:45Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Informa to acquire Clarion for £2.24bn in cash and separate Taylor & Francis to refocus on B2B live events.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Informa to acquire Clarion for £2.24bn in cash and separate Taylor & Francis to refocus on B2B live events.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Informa",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Clarion",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-457",
-      "headline": "Informa to buy rival events firm Clarion for £2.2bn amid strategy overhaul",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/blackstone-stephen-carter-north-america-asia-holly-williams-b3061959.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T08:03:09Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Informa acquiring Clarion for £2.2bn, a quantified M&A materially affecting capital structure and strategic direction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Informa acquiring Clarion for £2.2bn, a quantified M&A materially affecting capital structure and strategic direction.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Informa",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Clarion",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-436",
-      "headline": "Events firm Informa to buy Clarion for £2.24 billion from Blackstone",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/uks-informa-signs-3-billion-clarion-deal-spins-off-academic-arm-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T07:26:27Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Informa to acquire Clarion events business from Blackstone for £2.24 billion, a named-value M&A capital-deployment event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Informa to acquire Clarion events business from Blackstone for £2.24 billion, a named-value M&A capital-deployment event.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Informa",
-          "ticker": "INF",
-          "listing_country": "GB"
-        },
-        {
-          "name": "Blackstone Inc.",
-          "ticker": "BX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-407",
-      "headline": "Informa to buy rival events business Clarion from Blackstone for £2.2bn",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/0c8c0122-cc24-4ea5-bc7f-09bfc95d3dd1?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T07:05:18Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Informa to acquire Clarion Events from Blackstone for £2.2 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Informa to acquire Clarion Events from Blackstone for £2.2 billion.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Informa",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Blackstone",
           "ticker": null,
           "listing_country": "US"
         }
@@ -163321,77 +163345,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d0ac5bb6adc6",
-      "idea_version": "IDEAV-aae02e415d68adae",
-      "idea_version_started_at": "2026-10-05T03:26:33Z",
-      "ticker": "SAMMAANCAP",
-      "company": "Sammaan Capital Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q2FY27 disbursements of approximately ₹6,000 crore, representing a sharp sequential increase from ₹3,875 crore in Q1FY27.",
-      "why_now": "The official business update filing was released on October 5, 2026, for the quarter ended September 30, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c6b964846726"
-      ],
-      "primary_source_event_id": "EVT-c6b964846726",
-      "source_headlines": [
-        "Sammaan Capital Limited: Sammaan Capital Limited has informed the Exchange regarding 'We wish to provide the following information on a consolidated basis with respect to the quarter ended 30 September 2026: Disbursements during Q2FY27 (quarter ended September 30, 2026) stood at approximately ₹6,000 crore, as compared to ₹3,875 crore in Q1FY27 Business scaled up strongly this quarter. The loan book saw healthy disbursements and collections a reflection of the overall quality of the f"
-      ],
-      "source_headline": "Sammaan Capital Limited: Sammaan Capital Limited has informed the Exchange regarding 'We wish to provide the following information on a consolidated basis with respect to the quarter ended 30 September 2026: Disbursements during Q2FY27 (quarter ended September 30, 2026) stood at approximately ₹6,000 crore, as compared to ₹3,875 crore in Q1FY27 Business scaled up strongly this quarter. The loan book saw healthy disbursements and collections a reflection of the overall quality of the f",
-      "source_url": "https://nsearchives.nseindia.com/corporate/IHFL_05102026082750_SCL_Q2FY27_Business_Update.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T02:58:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T03:26:33Z",
-      "updated_at": "2026-10-05T03:26:33Z",
-      "decay_at": "2026-10-06T14:58:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b68ebd5b2209",
       "idea_version": "IDEAV-e36f24bb8cb4bd09",
       "idea_version_started_at": "2026-10-05T04:46:37Z",
@@ -166510,6 +166463,77 @@
       "surfaced_at": "2026-10-04T06:44:55Z",
       "updated_at": "2026-10-05T03:46:58Z",
       "decay_at": "2026-10-06T14:08:26Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-d0ac5bb6adc6",
+      "idea_version": "IDEAV-aae02e415d68adae",
+      "idea_version_started_at": "2026-10-05T03:26:33Z",
+      "ticker": "SAMMAANCAP",
+      "company": "Sammaan Capital Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported strong Q2FY27 disbursements of approximately ₹6,000 crore, representing a sharp sequential increase from ₹3,875 crore in Q1FY27.",
+      "why_now": "The official business update filing was released on October 5, 2026, for the quarter ended September 30, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c6b964846726"
+      ],
+      "primary_source_event_id": "EVT-c6b964846726",
+      "source_headlines": [
+        "Sammaan Capital Limited: Sammaan Capital Limited has informed the Exchange regarding 'We wish to provide the following information on a consolidated basis with respect to the quarter ended 30 September 2026: Disbursements during Q2FY27 (quarter ended September 30, 2026) stood at approximately ₹6,000 crore, as compared to ₹3,875 crore in Q1FY27 Business scaled up strongly this quarter. The loan book saw healthy disbursements and collections a reflection of the overall quality of the f"
+      ],
+      "source_headline": "Sammaan Capital Limited: Sammaan Capital Limited has informed the Exchange regarding 'We wish to provide the following information on a consolidated basis with respect to the quarter ended 30 September 2026: Disbursements during Q2FY27 (quarter ended September 30, 2026) stood at approximately ₹6,000 crore, as compared to ₹3,875 crore in Q1FY27 Business scaled up strongly this quarter. The loan book saw healthy disbursements and collections a reflection of the overall quality of the f",
+      "source_url": "https://nsearchives.nseindia.com/corporate/IHFL_05102026082750_SCL_Q2FY27_Business_Update.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T02:58:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T03:26:33Z",
+      "updated_at": "2026-10-05T03:26:33Z",
+      "decay_at": "2026-10-06T14:58:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -169783,14 +169807,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 571,
+    "total_count": 572,
     "shown_count": 500,
-    "hidden_count": 71,
+    "hidden_count": 72,
     "side_counts": {
       "long": {
-        "total_count": 297,
+        "total_count": 298,
         "shown_count": 250,
-        "hidden_count": 47
+        "hidden_count": 48
       },
       "short": {
         "total_count": 274,
@@ -169814,6 +169838,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d0ac5bb6adc6",
+        "idea_version": "IDEAV-aae02e415d68adae",
+        "idea_version_started_at": "2026-10-05T03:26:33Z",
+        "ticker": "SAMMAANCAP",
+        "company": "Sammaan Capital Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company reported strong Q2FY27 disbursements of approximately ₹6,000 crore, representing a sharp sequential increase from ₹3,875 crore in Q1FY27.",
+        "why_now": "The official business update filing was released on October 5, 2026, for the quarter ended September 30, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c6b964846726"
+        ],
+        "primary_source_event_id": "EVT-c6b964846726",
+        "source_headlines": [
+          "Sammaan Capital Limited: Sammaan Capital Limited has informed the Exchange regarding 'We wish to provide the following information on a consolidated basis with respect to the quarter ended 30 September 2026: Disbursements during Q2FY27 (quarter ended September 30, 2026) stood at approximately ₹6,000 crore, as compared to ₹3,875 crore in Q1FY27 Business scaled up strongly this quarter. The loan book saw healthy disbursements and collections a reflection of the overall quality of the f"
+        ],
+        "source_headline": "Sammaan Capital Limited: Sammaan Capital Limited has informed the Exchange regarding 'We wish to provide the following information on a consolidated basis with respect to the quarter ended 30 September 2026: Disbursements during Q2FY27 (quarter ended September 30, 2026) stood at approximately ₹6,000 crore, as compared to ₹3,875 crore in Q1FY27 Business scaled up strongly this quarter. The loan book saw healthy disbursements and collections a reflection of the overall quality of the f",
+        "source_url": "https://nsearchives.nseindia.com/corporate/IHFL_05102026082750_SCL_Q2FY27_Business_Update.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-05T02:58:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-05T03:26:33Z",
+        "updated_at": "2026-10-05T03:26:33Z",
+        "decay_at": "2026-10-06T14:58:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T14:58:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-1cf9c6452cc0",
         "idea_version": "IDEAV-02313e1f3db82d57",
@@ -198024,80 +198122,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-7784d9bb9b3a",
-        "idea_version": "IDEAV-f8378fd98793a3b9",
-        "idea_version_started_at": "2026-09-21T03:30:16Z",
-        "ticker": "544238",
-        "company": "Premier Energies Limited",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Premier Energies Limited has commissioned India's largest solar cell facility, increasing its manufacturing capacity to 10.6 GW and becoming the largest cell manufacturer in the country.",
-        "why_now": "The company announced this significant capacity expansion and market leadership on September 21, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-fa73b199bba2"
-        ],
-        "primary_source_event_id": "EVT-fa73b199bba2",
-        "source_headlines": [
-          "Premier Energies Limited: Premier Energies Limited has informed the Exchange regarding a press release dated September 21, 2026, titled \"Premier Energies Commissions India s Largest Solar Cell Facility, becomes largest Cell manufacturer with 10.6 GW capacity\"."
-        ],
-        "source_headline": "Premier Energies Limited: Premier Energies Limited has informed the Exchange regarding a press release dated September 21, 2026, titled \"Premier Energies Commissions India s Largest Solar Cell Facility, becomes largest Cell manufacturer with 10.6 GW capacity\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/PEL2024_21092026081400_SE_Press_Release_Final.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-21T02:44:26Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-21T03:30:16Z",
-        "updated_at": "2026-09-21T03:30:16Z",
-        "decay_at": "2026-09-22T14:44:26Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-24T03:15:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-b02a5d2137a2",
         "idea_version": "IDEAV-c169a0cdc5bbe1b8",
         "idea_version_started_at": "2026-09-21T00:55:55Z",
@@ -207018,7 +207042,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1379,
-    "live_count": 61,
+    "live_count": 60,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207037,7 +207061,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 325103,
+    "news_seen_today": 329558,
     "news_picked_today": 1130,
     "news_dropped_today": 14069
   },
