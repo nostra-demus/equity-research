@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T02:52:54Z",
+  "generated_at": "2026-10-06T03:00:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -1374,6 +1374,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-189",
+      "headline": "Trent shares in focus after multi-quarter high revenue growth in Q2, but Citi says 'sell'",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/trent-share-price-q2-business-update-revenue-growth-reaction-zudio-westside-cagr-guidance-buy-sell-target-20005202.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T02:51:27Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Trent reported high revenue growth in Q2, but the stock faces downward pressure following a 'sell' rating from Citi.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Trent reported high revenue growth in Q2, but the stock faces downward pressure following a 'sell' rating from Citi.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trent",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-157",
       "headline": "LIV Golf Gets $300 Million Commitment From BC Partners Credit",
       "headline_en": null,
@@ -1906,55 +1955,6 @@
       ],
       "issuer_linkage": "primary",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-044",
-      "headline": "Noel, three SDTT trustees slam Venu, Vijay over listing ‘epiphanies’, accuse them of breaching fiduciary duties",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/tata-trusts-vs-venu-srinivasan-vijay-singh-tata-sons-listing-11791209202245.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T00:30:53Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Internal conflict among trustees of the Tata Trusts regarding fiduciary duties creates significant governance uncertainty.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Internal conflict among trustees of the Tata Trusts regarding fiduciary duties creates significant governance uncertainty.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Trusts",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -207635,9 +207635,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 946,
-    "news_picked_today": 201,
-    "news_dropped_today": 721
+    "news_seen_today": 972,
+    "news_picked_today": 207,
+    "news_dropped_today": 741
   },
   "book_momentum": {
     "live_count": 8,
