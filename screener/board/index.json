@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T23:13:39Z",
+  "generated_at": "2026-10-06T23:15:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-894",
@@ -579,6 +579,55 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-917",
+      "headline": "Anduril Investing $3.7 Billion In New High-Tech Maryland Shipyard",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/petersuciu/2026/10/06/anduril-investing-37-billion-in-new-high-tech-maryland-shipyard/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T22:02:02Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Anduril is investing $3.7 billion in a new shipyard, representing a significant capital expenditure and capacity expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anduril is investing $3.7 billion in a new shipyard, representing a significant capital expenditure and capacity expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anduril",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1962,55 +2011,6 @@
           "name": "Warner Bros. Discovery",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-731",
-      "headline": "Germany to order four more TKMS frigates for $6.3 billion, document shows",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/germany-order-four-more-tkms-frigates-63-billion-document-shows-2026-10-06/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T14:09:44Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Germany is ordering four frigates from TKMS for $6.3 billion, a significant contract win for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Germany is ordering four frigates from TKMS for $6.3 billion, a significant contract win for the company.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ThyssenKrupp Marine Systems",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -206905,9 +206905,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 495010,
-    "news_picked_today": 2396,
-    "news_dropped_today": 21187
+    "news_seen_today": 495015,
+    "news_picked_today": 2398,
+    "news_dropped_today": 21190
   },
   "book_momentum": {
     "live_count": 8,
