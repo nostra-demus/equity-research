@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T11:14:08Z",
+  "generated_at": "2026-10-06T11:16:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-533",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-537",
+      "headline": "GE HealthCare to acquire Sofie Biosciences for $945M",
+      "headline_en": null,
+      "url": "https://www.biopharmadive.com/news/ge-healthcare-acquire-sofie-biosciences-radiopharmaceuticals/832182/",
+      "source_name": "BioPharma Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T10:38:00Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "GE HealthCare announced the acquisition of Sofie Biosciences for $945M.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GE HealthCare announced the acquisition of Sofie Biosciences for $945M.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GE HealthCare",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1984,55 +2033,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-535",
-      "headline": "SMC ELECTRIC (02381): JOINT ANNOUNCEMENT - (1) CLOSE OF MANDATORY UNCONDITIONAL CASH OFFER BY CLSA LIMITED FOR AND ON BEHALF OF MEGA NOVA HOLDINGS LIMITED TO ACQUIRE ALL THE ISSUED SHARES OF SMC ELECTRIC LIMITED (OTHER THAN THOSE SHARES ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND OFFEROR CONCERT PARTIES); (2) RESULTS OF THE OFFER; (3) SETTLEMENT OF THE OFFER; AND (4) PUBLIC FLOAT OF THE COMPANY",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1006/2026100601359.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-06T10:55:00Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "The mandatory unconditional cash offer for SMC Electric has closed, marking a change in ownership status.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The mandatory unconditional cash offer for SMC Electric has closed, marking a change in ownership status.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SMC ELECTRIC",
-          "ticker": "02381",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207067,9 +207067,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 122239,
-    "news_picked_today": 851,
-    "news_dropped_today": 10436
+    "news_seen_today": 126895,
+    "news_picked_today": 859,
+    "news_dropped_today": 10452
   },
   "book_momentum": {
     "live_count": 8,
