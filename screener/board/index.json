@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T02:26:44Z",
+  "generated_at": "2026-10-06T02:27:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -161958,6 +161958,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-6a5a69a1366b",
+      "idea_version": "IDEAV-737506f706118cde",
+      "idea_version_started_at": "2026-10-06T02:27:03Z",
+      "ticker": "MCD",
+      "company": "McDonald's",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "McDonald's faces a class-action lawsuit alleging AI-powered menu price-fixing, which could result in substantial legal costs, fines, and reputational damage.",
+      "why_now": "The class-action lawsuit is a live event, indicating immediate legal and financial risk for the company.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 13,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5baac0dc181f"
+      ],
+      "primary_source_event_id": "EVT-5baac0dc181f",
+      "source_headlines": [
+        "McDonald's hit with class action alleging AI-powered menu price-fixing"
+      ],
+      "source_headline": "McDonald's hit with class action alleging AI-powered menu price-fixing",
+      "source_url": "https://www.cnbctv18.com/business/companies/mcdonalds-hit-with-class-action-alleging-ai-powered-menu-price-fixing-20005243.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 89,
+      "newest_source_at": "2026-10-06T01:40:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-06T02:27:03Z",
+      "updated_at": "2026-10-06T02:27:03Z",
+      "decay_at": "2026-10-07T13:40:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c65867c40009",
       "idea_version": "IDEAV-16e7e15b393e415f",
       "idea_version_started_at": "2026-10-06T02:05:34Z",
@@ -167553,78 +167623,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-72e70ba438d7",
-      "idea_version": "IDEAV-7ca9dda32038e80d",
-      "idea_version_started_at": "2026-10-03T03:15:01Z",
-      "ticker": "BAJFINANCE",
-      "company": "Bajaj Finance",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is diluting existing shareholders by raising Rs 17,500 crore through a Qualified Institutional Placement and warrants.",
-      "why_now": "The capital raise was announced on 2026-10-03.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-29b42a9f0a75"
-      ],
-      "primary_source_event_id": "EVT-29b42a9f0a75",
-      "source_headlines": [
-        "Bajaj Finance set to mop up Rs 17,500 crore via QIP, warrants"
-      ],
-      "source_headline": "Bajaj Finance set to mop up Rs 17,500 crore via QIP, warrants",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/bajaj-finance-set-to-mop-up-rs-17500-crore-via-qip-warrants/articleshow/134650449.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-03T02:16:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T03:15:01Z",
-      "updated_at": "2026-10-03T03:15:01Z",
-      "decay_at": "2026-10-04T14:16:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-a2d9851a780b",
       "idea_version": "IDEAV-7ec33aba21576c2d",
       "idea_version_started_at": "2026-10-03T12:22:04Z",
@@ -170311,9 +170309,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 573,
+    "total_count": 572,
     "shown_count": 500,
-    "hidden_count": 73,
+    "hidden_count": 72,
     "side_counts": {
       "long": {
         "total_count": 295,
@@ -170321,23 +170319,23 @@
         "hidden_count": 45
       },
       "short": {
-        "total_count": 278,
+        "total_count": 277,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 27
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 715,
-      "oldest_retained_at": "2026-09-08T12:16:45Z",
+      "evicted_count": 716,
+      "oldest_retained_at": "2026-09-08T12:44:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 473,
           "oldest_retained_at": "2026-09-16T16:57:16Z"
         },
         "short": {
-          "evicted_count": 242,
-          "oldest_retained_at": "2026-09-08T12:16:45Z"
+          "evicted_count": 243,
+          "oldest_retained_at": "2026-09-08T12:44:00Z"
         }
       }
     },
@@ -175802,8 +175800,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-04T14:16:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-06T02:27:07Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -207546,8 +207544,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1357,
-    "live_count": 68,
+    "surfaced_total": 1358,
+    "live_count": 69,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

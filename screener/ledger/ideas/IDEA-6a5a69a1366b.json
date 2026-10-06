@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-6a5a69a1366b",
+  "idea_version": "IDEAV-737506f706118cde",
+  "idea_version_started_at": "2026-10-06T02:27:03Z",
+  "ticker": "MCD",
+  "company": "McDonald's",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "McDonald's faces a class-action lawsuit alleging AI-powered menu price-fixing, which could result in substantial legal costs, fines, and reputational damage.",
+  "why_now": "The class-action lawsuit is a live event, indicating immediate legal and financial risk for the company.",
+  "conviction": 50,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 59,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 13,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-5baac0dc181f"
+  ],
+  "primary_source_event_id": "EVT-5baac0dc181f",
+  "source_headlines": [
+    "McDonald's hit with class action alleging AI-powered menu price-fixing"
+  ],
+  "source_headline": "McDonald's hit with class action alleging AI-powered menu price-fixing",
+  "source_url": "https://www.cnbctv18.com/business/companies/mcdonalds-hit-with-class-action-alleging-ai-powered-menu-price-fixing-20005243.htm",
+  "source_name": "CNBC-TV18",
+  "materiality_max": 89,
+  "newest_source_at": "2026-10-06T01:40:51Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-06T02:27:03Z",
+  "updated_at": "2026-10-06T02:27:03Z",
+  "decay_at": "2026-10-07T13:40:51Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
