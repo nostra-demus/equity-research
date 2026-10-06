@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T18:53:02Z",
+  "generated_at": "2026-10-06T19:02:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-644",
@@ -438,6 +438,173 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-799",
+      "headline": "Paramount closes $110 billion deal to acquire Warner Bros. Discovery",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/news/paramount-warner-bros-discovery-deal-skydance/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T18:13:30Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Paramount announced a $110 billion acquisition of Warner Bros. Discovery, a massive industry-consolidating event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount announced a $110 billion acquisition of Warner Bros. Discovery, a massive industry-consolidating event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 95,
+      "rank_factors": {
+        "materiality": 95,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-807",
+      "headline": "Paramount Completes Acquisition of Warner Bros. Discovery. Here’s What Comes Next for Skydance (SKYD).",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/paramount-completes-acquisition-warner-bros-discovery-heres-what-comes-next-skydance-skyd",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T17:36:01Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Paramount completed the acquisition of Warner Bros. Discovery, a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount completed the acquisition of Warner Bros. Discovery, a major M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Skydance",
+          "ticker": "SKYD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-823",
+      "headline": "Paramount Closes Warner Merger in Historic Hollywood Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-06/paramount-closes-warner-merger-in-historic-deal-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T16:59:05Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Paramount closed its merger with Warner in a historic Hollywood deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount closed its merger with Warner in a historic Hollywood deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Warner",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1893,163 +2060,6 @@
         },
         {
           "name": "Skydance Media",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-787",
-      "headline": "Drone Maker Anduril Pushes Into Submarines With Maryland Factory",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-06/drone-maker-anduril-pushes-into-submarines-with-maryland-factory",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Anduril is expanding into submarine production with a new factory in Maryland.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Anduril is expanding into submarine production with a new factory in Maryland.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anduril",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-622",
-      "headline": "Paramount takes over Warner Bros in $110bn Hollywood merger",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cxj0604d33qzo?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T12:59:51Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Paramount acquired Warner Bros in a $110 billion merger.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount acquired Warner Bros in a $110 billion merger.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros. Discovery",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-643",
-      "headline": "Paramount closes $111bn takeover of Warner Bros",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/93756433-eb78-422d-8ac3-30e8cc243a00?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T12:52:57Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Paramount completed a $111 billion acquisition of Warner Bros.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount completed a $111 billion acquisition of Warner Bros.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros",
           "ticker": null,
           "listing_country": "US"
         }
@@ -206667,9 +206677,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 468713,
-    "news_picked_today": 1712,
-    "news_dropped_today": 17567
+    "news_seen_today": 470513,
+    "news_picked_today": 1749,
+    "news_dropped_today": 17674
   },
   "book_momentum": {
     "live_count": 8,
