@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T00:37:00Z",
+  "generated_at": "2026-10-06T00:37:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -161890,6 +161890,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-5253ff98b1df",
+      "idea_version": "IDEAV-671fc7f5e19034cf",
+      "idea_version_started_at": "2026-10-06T00:37:28Z",
+      "ticker": "SCP",
+      "company": "Shopping Centres Australasia Property Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has entered a trading halt pending a strategic review, which typically precedes a significant corporate action or asset transaction.",
+      "why_now": "The trading halt is active as of 2026-10-05, making this a live event-driven situation.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1216eb49ccd0"
+      ],
+      "primary_source_event_id": "EVT-1216eb49ccd0",
+      "source_headlines": [
+        "SCP: Trading Halt [price-sensitive]"
+      ],
+      "source_headline": "SCP: Trading Halt [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SCP?key=2924-03144810-3A703400",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T23:59:30Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-06T00:37:28Z",
+      "updated_at": "2026-10-06T00:37:28Z",
+      "decay_at": "2026-10-07T11:59:30Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-70b8068a4e51",
       "idea_version": "IDEAV-d13a0335d06a7192",
       "idea_version_started_at": "2026-10-05T23:32:47Z",
@@ -164405,6 +164477,78 @@
       "surfaced_at": "2026-10-05T02:00:10Z",
       "updated_at": "2026-10-05T02:00:10Z",
       "decay_at": "2026-10-06T13:31:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-80b3bd3d074b",
+      "idea_version": "IDEAV-0bacb70bdd94776f",
+      "idea_version_started_at": "2026-10-06T00:37:28Z",
+      "ticker": "TRENT",
+      "company": "Trent Ltd",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported multi-quarter high revenue growth in Q2, indicating strong operational momentum and market share gains in the Indian retail sector.",
+      "why_now": "The news was released on 2026-10-06, providing a fresh catalyst for price discovery.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5edcd264ada0"
+      ],
+      "primary_source_event_id": "EVT-5edcd264ada0",
+      "source_headlines": [
+        "Trent shares in focus after multi-quarter high revenue growth in Q2"
+      ],
+      "source_headline": "Trent shares in focus after multi-quarter high revenue growth in Q2",
+      "source_url": "https://www.cnbctv18.com/market/trent-share-price-q2-business-update-revenue-growth-reaction-zudio-westside-cagr-guidance-buy-sell-target-20005202.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 78,
+      "newest_source_at": "2026-10-06T00:07:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-06T00:37:28Z",
+      "updated_at": "2026-10-06T00:37:28Z",
+      "decay_at": "2026-10-07T12:07:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -206972,8 +207116,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1349,
-    "live_count": 61,
+    "surfaced_total": 1351,
+    "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -206992,9 +207136,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 141,
-    "news_picked_today": 26,
-    "news_dropped_today": 91
+    "news_seen_today": 220,
+    "news_picked_today": 41,
+    "news_dropped_today": 155
   },
   "book_momentum": {
     "live_count": 8,
