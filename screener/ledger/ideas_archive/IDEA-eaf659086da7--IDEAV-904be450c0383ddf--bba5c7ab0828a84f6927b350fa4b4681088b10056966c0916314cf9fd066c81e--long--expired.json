@@ -1,32 +1,32 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-20T11:25:10Z",
+  "archived_at": "2026-10-06T18:52:42Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-f6e3545f1ed7",
-    "idea_version": "IDEAV-28d835cb4302b991",
-    "idea_version_started_at": "2026-09-17T11:22:21Z",
-    "ticker": "BEZ.DE",
-    "company": "Berentzen-Gruppe",
-    "exchange": "XETRA",
+    "idea_id": "IDEA-eaf659086da7",
+    "idea_version": "IDEAV-904be450c0383ddf",
+    "idea_version_started_at": "2026-10-03T13:50:18Z",
+    "ticker": "VST",
+    "company": "Vistra Corp",
+    "exchange": "NYSE",
     "ticker_verified": true,
     "listing_verified": true,
     "liquidity_verified": false,
     "listing_verification_source": "yahoo_symbol_directory",
     "direction": "long",
     "pair_with": null,
-    "reason": "The company confirmed takeover talks with Sazerac, which typically results in a significant premium over the pre-announcement trading price.",
-    "why_now": "The confirmation of talks occurred on 2026-09-17, making this a live M&A event.",
-    "conviction": 75,
+    "reason": "The company is set to receive a $4.2 billion government loan to expand nuclear power generation capacity, which will significantly increase its long-term baseload energy output and revenue potential.",
+    "why_now": "The report of the $4.2 billion loan facility is a fresh catalyst as of October 3, 2026.",
+    "conviction": 85,
     "conviction_basis": "pre_edge_proxy",
-    "trade_score": 62,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score": 67,
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
       "evidence": 14,
-      "impact": 19,
+      "impact": 21,
       "specificity": 15,
       "timing": 10,
-      "expression": 6,
+      "expression": 7,
       "corroboration": 0,
       "learning_adjustment": 0
     },
@@ -51,26 +51,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-bc3a2a4a0c7e"
+      "EVT-f787cfd24118"
     ],
-    "primary_source_event_id": "EVT-bc3a2a4a0c7e",
+    "primary_source_event_id": "EVT-f787cfd24118",
     "source_headlines": [
-      "Berentzen shares soar after it confirms talks over potential takeover by Sazerac"
+      "US to lend $4.2 billion to Vistra to boost nuclear power output, source says"
     ],
-    "source_headline": "Berentzen shares soar after it confirms talks over potential takeover by Sazerac",
-    "source_url": "https://www.reuters.com/business/berentzen-shares-soar-after-it-confirms-talks-over-potential-takeover-by-sazerac-2026-09-17/",
+    "source_headline": "US to lend $4.2 billion to Vistra to boost nuclear power output, source says",
+    "source_url": "https://www.reuters.com/legal/litigation/us-lend-42-billion-vistra-boost-nuclear-power-output-source-says-2026-10-03/",
     "source_name": "Reuters — Latest (news sitemap)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-17T07:30:18Z",
+    "newest_source_at": "2026-10-03T13:35:44Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-17T11:22:21Z",
-    "updated_at": "2026-09-17T11:22:21Z",
-    "decay_at": "2026-09-18T19:30:18Z",
+    "surfaced_at": "2026-10-03T13:50:18Z",
+    "updated_at": "2026-10-03T13:50:18Z",
+    "decay_at": "2026-10-05T01:35:44Z",
     "status": "live",
     "promoted_signal_id": null
   }

@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-10T23:14:01Z",
+  "archived_at": "2026-10-06T18:52:42Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-3993a824df55",
-    "idea_version": "IDEAV-9c808b9568582d5f",
-    "idea_version_started_at": "2026-09-07T23:01:43Z",
-    "ticker": "BTC",
-    "company": "Arna Pharma",
-    "exchange": "ASX",
+    "idea_id": "IDEA-ae786a1903f6",
+    "idea_version": "IDEAV-b64b44f606635522",
+    "idea_version_started_at": "2026-10-03T15:24:55Z",
+    "ticker": "2222.SR",
+    "company": "Saudi Aramco",
+    "exchange": "TADAWUL",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "Arna Pharma has entered voluntary administration, indicating severe financial distress and potential insolvency.",
-    "why_now": "The company announced its entry into voluntary administration via an ASX filing on September 7, 2026.",
-    "conviction": 70,
+    "reason": "A fire at an Aramco facility could disrupt production and negatively impact the company's revenue and margins.",
+    "why_now": "Flames and smoke were observed at the facility today, indicating an immediate operational issue.",
+    "conviction": 60,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 21,
       "specificity": 7,
       "timing": 10,
@@ -36,6 +36,8 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "price and market expectations",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -47,31 +49,31 @@
       "basis": "not_enough_outcomes",
       "evidenceIds": []
     },
-    "priced_in": "room",
-    "thesis_type": "balance_sheet_survival",
+    "priced_in": "unknown",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-722f1d74193b"
+      "EVT-857405373f17"
     ],
-    "primary_source_event_id": "EVT-722f1d74193b",
+    "primary_source_event_id": "EVT-857405373f17",
     "source_headlines": [
-      "BTC: Arna Pharma enters voluntary administration [price-sensitive]"
+      "Flames, smoke seen at Aramco facility south of Saudi capital"
     ],
-    "source_headline": "BTC: Arna Pharma enters voluntary administration [price-sensitive]",
-    "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BTC?key=2924-03132915-3A701253",
-    "source_name": "ASX (Australia Exchange Filing)",
+    "source_headline": "Flames, smoke seen at Aramco facility south of Saudi capital",
+    "source_url": "https://www.newarab.com/news/flames-smoke-seen-aramco-facility-south-saudi-capital",
+    "source_name": "The New Arab",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-07T22:52:19Z",
+    "newest_source_at": "2026-10-03T15:12:27Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-07T23:01:43Z",
-    "updated_at": "2026-09-07T23:01:43Z",
-    "decay_at": "2026-09-09T10:52:19Z",
+    "surfaced_at": "2026-10-03T15:24:55Z",
+    "updated_at": "2026-10-03T15:24:55Z",
+    "decay_at": "2026-10-05T03:12:27Z",
     "status": "live",
     "promoted_signal_id": null
   }
