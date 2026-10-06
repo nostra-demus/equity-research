@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-05T23:54:54Z",
+  "generated_at": "2026-10-05T23:59:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261005-1020",
@@ -833,6 +833,60 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261005-1094",
+      "headline": "Schneider Electric drops $22.6B on PTC as datacenter boom rains money on infra companies",
+      "headline_en": null,
+      "url": "https://www.theregister.com/systems/2026/10/05/schneider-electric-acquires-ptc-for-226-billion/5301254",
+      "source_name": "The Register",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T22:48:15Z",
+      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
+      "prelim_note": "Schneider Electric is acquiring PTC for $22.6 billion, a major M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Schneider Electric is acquiring PTC for $22.6 billion, a major M&A transaction.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Schneider Electric",
+          "ticker": null,
+          "listing_country": "FR"
+        },
+        {
+          "name": "PTC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1959,60 +2013,6 @@
         },
         {
           "name": "RXO",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261005-891",
-      "headline": "Shionogi to buy US-based IntraBio for $2bn to expand rare disease drug business",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/pharmaceuticals/shionogi-to-buy-us-based-intrabio-for-2bn-to-expand-rare-disease-drug-business",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-05T16:58:56Z",
-      "sweep_file": "screener/inbox/2026-10-05_sweep.json",
-      "prelim_note": "Shionogi is acquiring IntraBio for $2 billion to expand its rare disease drug portfolio.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Shionogi is acquiring IntraBio for $2 billion to expand its rare disease drug portfolio.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shionogi",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "IntraBio",
           "ticker": null,
           "listing_country": "US"
         }
@@ -205171,9 +205171,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 255175,
-    "news_picked_today": 2332,
-    "news_dropped_today": 21399
+    "news_seen_today": 255198,
+    "news_picked_today": 2337,
+    "news_dropped_today": 21417
   },
   "book_momentum": {
     "live_count": 8,
