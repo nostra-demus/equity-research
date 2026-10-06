@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-06T19:02:15Z",
+  "generated_at": "2026-10-06T19:12:05Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261006-829",
+      "headline": "25-NSE - Empro Group Inc. (0002005569) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2005569/000135445726000954/0001354457-26-000954-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-06T18:50:53Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Empro Group Inc. has filed for delisting, indicating a potential cessation of public trading or distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Empro Group Inc. has filed for delisting, indicating a potential cessation of public trading or distress.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Empro Group Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261006-644",
       "headline": "25-NSE - BIOLIFE SOLUTIONS INC (0000834365) (Subject)",
@@ -2006,65 +2055,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-667",
-      "headline": "Skydance Is Here: Paramount Closes $110 Billion Warner Bros. Merger After Months Of Controversy",
-      "headline_en": null,
-      "url": "https://www.forbes.com/sites/alisondurkee/2026/10/06/skydance-is-here-paramount-closes-110-billion-warner-bros-merger-after-months-of-controversy/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T13:02:21Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Paramount closes $110 billion merger with Warner Bros. Discovery through Skydance following months of reported negotiation controversy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount closes $110 billion merger with Warner Bros. Discovery through Skydance following months of reported negotiation controversy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": "PARA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros. Discovery",
-          "ticker": "WBD",
-          "listing_country": "US"
-        },
-        {
-          "name": "Skydance Media",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -206677,9 +206667,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 470513,
-    "news_picked_today": 1749,
-    "news_dropped_today": 17674
+    "news_seen_today": 472169,
+    "news_picked_today": 1756,
+    "news_dropped_today": 17979
   },
   "book_momentum": {
     "live_count": 8,
