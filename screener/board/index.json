@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T07:59:02Z",
+  "generated_at": "2026-10-06T08:07:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -93,6 +93,60 @@
           "name": "ADNOC L&S",
           "ticker": null,
           "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-436",
+      "headline": "Events firm Informa to buy Clarion for £2.24 billion from Blackstone",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/uks-informa-signs-3-billion-clarion-deal-spins-off-academic-arm-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T07:26:27Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Informa to acquire Clarion events business from Blackstone for £2.24 billion, a named-value M&A capital-deployment event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Informa to acquire Clarion events business from Blackstone for £2.24 billion, a named-value M&A capital-deployment event.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Informa",
+          "ticker": "INF",
+          "listing_country": "GB"
+        },
+        {
+          "name": "Blackstone Inc.",
+          "ticker": "BX",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1944,56 +1998,6 @@
           "name": "Banco Sabadell",
           "ticker": null,
           "listing_country": "ES"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-281",
-      "headline": "Nidec scandal sends bonds to bottom in test for new CEO",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/06/companies/nidec-accounting-scandal-bonds-plunge/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T04:34:00Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Nidec is facing a scandal impacting its bond pricing, creating a significant test for the new CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Nidec is facing a scandal impacting its bond pricing, creating a significant test for the new CEO.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nidec",
-          "ticker": null,
-          "listing_country": "JP"
         }
       ],
       "size_bucket": "large",
@@ -207956,9 +207960,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 31571,
-    "news_picked_today": 600,
-    "news_dropped_today": 6607
+    "news_seen_today": 38072,
+    "news_picked_today": 605,
+    "news_dropped_today": 6650
   },
   "book_momentum": {
     "live_count": 8,
