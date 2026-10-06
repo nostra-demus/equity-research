@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T22:02:30Z",
+  "generated_at": "2026-10-06T22:06:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-829",
@@ -585,6 +585,55 @@
       "companies": [
         {
           "name": "Marvell",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-869",
+      "headline": "FICO cuts workforce by 15% in AI-driven restructuring",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/world-at-work/fico-cuts-workforce-by-15-ai-driven-restructuring-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T21:23:15Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "FICO is cutting its workforce by 15% as part of an AI-driven restructuring effort.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FICO is cutting its workforce by 15% as part of an AI-driven restructuring effort.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FICO",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1992,49 +2041,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-641",
-      "headline": "Another low-cost airline files for bankruptcy protection",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/travel/flybondi-airline-files-for-bankruptcy-protection",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T13:34:58Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "An unnamed low-cost airline has filed for bankruptcy protection.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "An unnamed low-cost airline has filed for bankruptcy protection.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -206856,9 +206862,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 491565,
-    "news_picked_today": 2209,
-    "news_dropped_today": 20430
+    "news_seen_today": 492661,
+    "news_picked_today": 2215,
+    "news_dropped_today": 20448
   },
   "book_momentum": {
     "live_count": 8,
