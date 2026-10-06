@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T17:17:39Z",
+  "generated_at": "2026-10-06T17:22:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-644",
@@ -953,6 +953,60 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-726",
+      "headline": "Paramount cierra la fusión con Warner Bros para crear Skydance, un gigante de Hollywood",
+      "headline_en": "Paramount closes merger with Warner Bros to create Skydance, a Hollywood giant",
+      "url": "https://www.reuters.com/es/negocio/JWB7QYP6SJLKTMO3TQNXZECWAU-2026-10-06/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T14:15:44Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Paramount and Skydance are merging to create a major Hollywood entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount and Skydance are merging to create a major Hollywood entity.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount Global",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Skydance Media",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -2016,55 +2070,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-567",
-      "headline": "Energy Transfer to buy Vaquero Midstream for $2.63 billion in cash and stock",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/energy-transfer-buy-vaquero-midstream-263-billion-cash-stock-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T11:49:43Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Energy Transfer is acquiring Vaquero Midstream for $2.63 billion, a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Energy Transfer is acquiring Vaquero Midstream for $2.63 billion, a significant M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Energy Transfer",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207039,9 +207044,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 447533,
-    "news_picked_today": 1348,
-    "news_dropped_today": 16467
+    "news_seen_today": 449699,
+    "news_picked_today": 1363,
+    "news_dropped_today": 16500
   },
   "book_momentum": {
     "live_count": 8,
