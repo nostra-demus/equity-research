@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T05:37:49Z",
+  "generated_at": "2026-10-06T05:49:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -93,6 +93,60 @@
           "name": "ADNOC L&S",
           "ticker": null,
           "listing_country": "AE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-321",
+      "headline": "KKR Agrees To Buy Gen II Fund Services From Hg And General Atlantic For $5.1 Bln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/kkr-agrees-buy-gen-ii-fund-services-hg-and-general-atlantic-51-bln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T04:53:28Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "KKR is acquiring Gen II Fund Services for $5.1 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KKR is acquiring Gen II Fund Services for $5.1 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KKR",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Gen II Fund Services",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1874,105 +1928,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261006-272",
-      "headline": "BT’s swoop on TalkTalk has regulators over a barrel",
+      "inbox_id": "INB-20261006-344",
+      "headline": "‎Almarai approves 2026–2031 strategy",
       "headline_en": null,
-      "url": "https://www.ft.com/content/309a7685-e488-44f4-ad76-4247b7f8bb5b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
+      "url": "https://www.argaam.com/en/article/articledetail/id/1941644",
+      "source_name": "Argaam — Main News (English)",
       "input_nature": "news_headline",
-      "found_at": "2026-10-06T04:00:27Z",
+      "found_at": "2026-10-06T08:34:00Z",
       "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Regulatory scrutiny over BT's potential acquisition of TalkTalk.",
+      "prelim_note": "Almarai approved its strategy for 2026–2031.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 91,
-      "triage_reason": "Regulatory scrutiny over BT's potential acquisition of TalkTalk.",
-      "region": "GB",
+      "triage_reason": "Almarai approved its strategy for 2026–2031.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 75,
         "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory",
-        "mna"
+        "strategic_review"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "BT Group",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "TalkTalk",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-237",
-      "headline": "Moonshot said to eye Hong Kong IPO in early 2027 after value hits US$50 billion",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/moonshot-said-to-eye-hong-kong-ipo-in-early-2027-after-value-hits-us50-billion",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T03:35:00Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Moonshot is reportedly targeting a $50 billion valuation for a 2027 Hong Kong IPO, signaling significant capital market activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Moonshot is reportedly targeting a $50 billion valuation for a 2027 Hong Kong IPO, signaling significant capital market activity.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Moonshot",
+          "name": "Almarai",
           "ticker": null,
           "listing_country": null
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207932,9 +207931,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3925,
-    "news_picked_today": 437,
-    "news_dropped_today": 2540
+    "news_seen_today": 4080,
+    "news_picked_today": 469,
+    "news_dropped_today": 2663
   },
   "book_momentum": {
     "live_count": 8,
