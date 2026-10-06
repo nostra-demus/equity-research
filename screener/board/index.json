@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T01:42:05Z",
+  "generated_at": "2026-10-06T01:46:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -982,6 +982,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-115",
+      "headline": "McDonald's hit with class action alleging AI-powered menu price-fixing",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/mcdonalds-hit-with-class-action-alleging-ai-powered-menu-price-fixing-20005243.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T01:40:51Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Class action lawsuit alleging price-fixing poses potential legal and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Class action lawsuit alleging price-fixing poses potential legal and reputational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McDonald's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-077",
       "headline": "Accenture contractor removed from FBI following damaging data breach, sources say",
       "headline_en": null,
@@ -1171,6 +1220,65 @@
           "name": "Daiwa Securities",
           "ticker": null,
           "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-114",
+      "headline": "Divi's Labs, TVS Motor could replace Max Healthcare, HDFC Life in Nifty 2027 index review",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/divis-labs-tvs-motor-could-replace-max-healthcare-hdfc-life-in-nifty-2027-index-review/articleshow/134720063.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T01:40:25Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Potential inclusion in the Nifty index typically triggers mechanical buying from passive funds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Potential inclusion in the Nifty index typically triggers mechanical buying from passive funds.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "index_rebalance",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "index_rebalance"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Divi's Labs",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "TVS Motor",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Max Healthcare",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1510,6 +1618,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-119",
+      "headline": "Trump signs order for cheaper, 'red-dyed' diesel — avoids federal highway tax",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/energy/trump-signs-order-for-cheaper-red-dyed-diesel-avoids-federal-highway-tax-1.500699669",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T01:28:20Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "The executive order to reduce diesel costs via tax avoidance impacts fuel pricing and logistics costs for the transportation sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The executive order to reduce diesel costs via tax avoidance impacts fuel pricing and logistics costs for the transportation sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-093",
       "headline": "Trump expands access to tax-exempt diesel fuel",
       "headline_en": null,
@@ -1762,142 +1913,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-052",
-      "headline": "Singapore’s DayOne files for US IPO joining data centre rush",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/singapores-dayone-files-for-us-ipo-joining-data-centre-rush",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T00:43:00Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "DayOne is initiating an IPO to fund data center expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "DayOne is initiating an IPO to fund data center expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DayOne",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-041",
-      "headline": "PM calls for sweeping overhaul of information security systems following wave of cyberattacks",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261006001900315",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T00:24:42Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "The South Korean government is mandating a national overhaul of information security systems following a wave of cyberattacks, which will likely increase compliance costs for domestic firms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The South Korean government is mandating a national overhaul of information security systems following a wave of cyberattacks, which will likely increase compliance costs for domestic firms.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "cybersecurity",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "cybersecurity",
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-008",
-      "headline": "Trump Signs Order to Ease Limits on Diesel Variety to Curb Costs",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-06/trump-signs-order-to-ease-limits-on-diesel-variety-to-curb-costs",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T00:00:22Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "A change in diesel regulations could impact energy costs and logistics margins across the US economy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "A change in diesel regulations could impact energy costs and logistics margins across the US economy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -207157,9 +207172,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 618,
-    "news_picked_today": 113,
-    "news_dropped_today": 481
+    "news_seen_today": 646,
+    "news_picked_today": 120,
+    "news_dropped_today": 502
   },
   "book_momentum": {
     "live_count": 8,
