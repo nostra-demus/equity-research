@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T13:46:43Z",
+  "generated_at": "2026-10-06T13:54:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-609",
@@ -394,6 +394,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-640",
+      "headline": "Uber to Expand Uber Eats Service with $2.3 Billion Acquisition of Catering Platform",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/uber-to-acquire-business-catering-platform-ezcater-for-2-3-billion-9d501195?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T13:37:00Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Uber is acquiring a catering platform for $2.3 billion to expand its Uber Eats service.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber is acquiring a catering platform for $2.3 billion to expand its Uber Eats service.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-641",
+      "headline": "Another low-cost airline files for bankruptcy protection",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/travel/flybondi-airline-files-for-bankruptcy-protection",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T13:34:58Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "An unnamed low-cost airline has filed for bankruptcy protection.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "An unnamed low-cost airline has filed for bankruptcy protection.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-628",
       "headline": "McKesson and CD&R strike $5.8bn deal to buy infusion services provider",
       "headline_en": null,
@@ -546,6 +638,60 @@
         },
         {
           "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-643",
+      "headline": "Paramount closes $111bn takeover of Warner Bros",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/93756433-eb78-422d-8ac3-30e8cc243a00?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T12:52:57Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Paramount completed a $111 billion acquisition of Warner Bros.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount completed a $111 billion acquisition of Warner Bros.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1911,154 +2057,6 @@
       },
       "event_types": [
         "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Informa",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-409",
-      "headline": "Clarksons lifts profit guidance as freight market volatility drives record rates",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/clarksons-lifts-profit-guidance-as-freight-market-volatility-drives-record-rates/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T06:53:47Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Clarksons lifts profit guidance due to record freight rates.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Clarksons lifts profit guidance due to record freight rates.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Clarksons",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-412",
-      "headline": "Saudi Aramco chief warns of 'scarily thin’ global oil stockpiles, amid war on Iran",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/saudi-aramco-chief-warns-scarily-thin-global-oil-stockpiles-amid-war",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T06:45:03Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Aramco CEO warns of critically low global oil stockpiles amid geopolitical conflict in Iran.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aramco CEO warns of critically low global oil stockpiles amid geopolitical conflict in Iran.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [
-        {
-          "name": "Saudi Aramco",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-453",
-      "headline": "UK's Informa signs $3 billion Clarion deal, spins off academic arm",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/uks-informa-signs-3-billion-clarion-deal-spins-off-academic-arm-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T06:38:46Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Informa announced a $3 billion acquisition of Clarion and a spin-off of its academic arm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Informa announced a $3 billion acquisition of Clarion and a spin-off of its academic arm.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -161298,76 +161296,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2dc2970b998e",
-      "idea_version": "IDEAV-6476c05829bcac72",
-      "idea_version_started_at": "2026-10-05T02:19:59Z",
-      "ticker": "SU.TO",
-      "company": "Suncor Energy",
-      "exchange": "Toronto",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Suncor is selling its offshore Canada oil stakes to Ithaca Energy for $842 million, indicating a strategic divestment that may signal a focus on other assets or a need for capital.",
-      "why_now": "The sale agreement was announced today.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6c7a1b677142"
-      ],
-      "primary_source_event_id": "EVT-6c7a1b677142",
-      "source_headlines": [
-        "Suncor to sell offshore Canada oil stakes to Ithaca for $842 million"
-      ],
-      "source_headline": "Suncor to sell offshore Canada oil stakes to Ithaca for $842 million",
-      "source_url": "https://www.reuters.com/business/energy/suncor-sell-canadian-offshore-assets-ithaca-108-billion-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 79,
-      "newest_source_at": "2026-10-05T01:52:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T02:19:59Z",
-      "updated_at": "2026-10-05T02:19:59Z",
-      "decay_at": "2026-10-06T13:52:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0cca54205613",
       "idea_version": "IDEAV-5b91ffb89954394e",
       "idea_version_started_at": "2026-10-06T04:37:12Z",
@@ -166246,6 +166174,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-2dc2970b998e",
+      "idea_version": "IDEAV-6476c05829bcac72",
+      "idea_version_started_at": "2026-10-05T02:19:59Z",
+      "ticker": "SU.TO",
+      "company": "Suncor Energy",
+      "exchange": "Toronto",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Suncor is selling its offshore Canada oil stakes to Ithaca Energy for $842 million, indicating a strategic divestment that may signal a focus on other assets or a need for capital.",
+      "why_now": "The sale agreement was announced today.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6c7a1b677142"
+      ],
+      "primary_source_event_id": "EVT-6c7a1b677142",
+      "source_headlines": [
+        "Suncor to sell offshore Canada oil stakes to Ithaca for $842 million"
+      ],
+      "source_headline": "Suncor to sell offshore Canada oil stakes to Ithaca for $842 million",
+      "source_url": "https://www.reuters.com/business/energy/suncor-sell-canadian-offshore-assets-ithaca-108-billion-2026-10-05/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 79,
+      "newest_source_at": "2026-10-05T01:52:51Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T02:19:59Z",
+      "updated_at": "2026-10-05T02:19:59Z",
+      "decay_at": "2026-10-06T13:52:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-eb17dab5eaba",
       "idea_version": "IDEAV-a759ea041b9eb06c",
       "idea_version_started_at": "2026-10-04T03:11:26Z",
@@ -169785,9 +169783,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 562,
+    "total_count": 563,
     "shown_count": 500,
-    "hidden_count": 62,
+    "hidden_count": 63,
     "side_counts": {
       "long": {
         "total_count": 290,
@@ -169795,9 +169793,9 @@
         "hidden_count": 40
       },
       "short": {
-        "total_count": 272,
+        "total_count": 273,
         "shown_count": 250,
-        "hidden_count": 22
+        "hidden_count": 23
       }
     },
     "retention": {
@@ -169816,6 +169814,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2dc2970b998e",
+        "idea_version": "IDEAV-6476c05829bcac72",
+        "idea_version_started_at": "2026-10-05T02:19:59Z",
+        "ticker": "SU.TO",
+        "company": "Suncor Energy",
+        "exchange": "Toronto",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Suncor is selling its offshore Canada oil stakes to Ithaca Energy for $842 million, indicating a strategic divestment that may signal a focus on other assets or a need for capital.",
+        "why_now": "The sale agreement was announced today.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "pair_trade",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6c7a1b677142"
+        ],
+        "primary_source_event_id": "EVT-6c7a1b677142",
+        "source_headlines": [
+          "Suncor to sell offshore Canada oil stakes to Ithaca for $842 million"
+        ],
+        "source_headline": "Suncor to sell offshore Canada oil stakes to Ithaca for $842 million",
+        "source_url": "https://www.reuters.com/business/energy/suncor-sell-canadian-offshore-assets-ithaca-108-billion-2026-10-05/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 79,
+        "newest_source_at": "2026-10-05T01:52:51Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-05T02:19:59Z",
+        "updated_at": "2026-10-05T02:19:59Z",
+        "decay_at": "2026-10-06T13:52:51Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T13:52:51Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-93087d826f00",
         "idea_version": "IDEAV-644521b1a793869c",
@@ -206942,86 +207013,12 @@
         "archived_at": "2026-09-12T13:20:28Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-ab31901fa897",
-        "idea_version": "IDEAV-7614be235044d7a8",
-        "idea_version_started_at": "2026-09-09T14:52:59Z",
-        "ticker": "02293",
-        "company": "Bamboos Health Care Holdings Limited",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company issued a profit warning, indicating a material decline in earnings performance for the period.",
-        "why_now": "The warning was filed today, September 9, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-87c557b5d769"
-        ],
-        "primary_source_event_id": "EVT-87c557b5d769",
-        "source_headlines": [
-          "BAMBOOSHEALTH (02293): PROFIT WARNING"
-        ],
-        "source_headline": "BAMBOOSHEALTH (02293): PROFIT WARNING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0909/2026090900364.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-09T08:46:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-09T14:52:59Z",
-        "updated_at": "2026-09-09T14:52:59Z",
-        "decay_at": "2026-09-10T20:46:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-12T09:18:33Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1379,
-    "live_count": 70,
+    "live_count": 69,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207040,9 +207037,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 276486,
-    "news_picked_today": 1039,
-    "news_dropped_today": 13176
+    "news_seen_today": 283244,
+    "news_picked_today": 1049,
+    "news_dropped_today": 13190
   },
   "book_momentum": {
     "live_count": 8,
