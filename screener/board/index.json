@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T21:18:10Z",
+  "generated_at": "2026-10-06T21:24:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-829",
@@ -487,6 +487,49 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-853",
+      "headline": "Watch live: Trump to unveil major investment in Baltimore submarine shipyard",
+      "headline_en": null,
+      "url": "https://thehill.com/video-clips/6131726-watch-live-donald-trump-submarine-investment-baltimore-shipyard/",
+      "source_name": "The Hill — Business News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T19:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "The announcement of a major investment in a Baltimore submarine shipyard represents a significant capital expenditure project.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The announcement of a major investment in a Baltimore submarine shipyard represents a significant capital expenditure project.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1957,60 +2000,6 @@
       "triage_score": 100,
       "triage_reason": "Warner's acquisition of Paramount is completed, a major M&A event.",
       "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-769",
-      "headline": "Filmstudios: Mega-Fusion ist durch: Paramount schließt Warner-Übernahme ab",
-      "headline_en": "Film studios: Mega-merger is through: Paramount completes Warner acquisition",
-      "url": "https://www.handelsblatt.com/unternehmen/it-medien/paramount-warner-uebernahme-abgeschlossen/100260146.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T13:22:43Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Paramount has completed the acquisition of Warner, a major media industry consolidation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount has completed the acquisition of Warner, a major media industry consolidation.",
-      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
@@ -206657,9 +206646,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 487169,
-    "news_picked_today": 2129,
-    "news_dropped_today": 19790
+    "news_seen_today": 488088,
+    "news_picked_today": 2142,
+    "news_dropped_today": 19825
   },
   "book_momentum": {
     "live_count": 8,
