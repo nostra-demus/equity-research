@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T07:32:50Z",
+  "generated_at": "2026-10-06T07:58:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -1164,6 +1164,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-430",
+      "headline": "Settlement Schedule Offer to Buy – Acquisition Window (Delisting) for HITECH CORPORATION LIMITED",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261006-5/20261006-5.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-06T07:35:59Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "An acquisition offer with delisting window is a capital-structure transaction for the named company, confirmed from exchange filing; no deal value, terms, or consideration disclosed in headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "An acquisition offer with delisting window is a capital-structure transaction for the named company, confirmed from exchange filing; no deal value, terms, or consideration disclosed in headline.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HITECH CORPORATION LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-013",
       "headline": "NEW WORLD DEV NWD (MTN) N2802 NWD (MTN) N2706 NWCL N2701 (00017 05149 05321 05343): LAUNCH OF EXCHANGE OFFERS",
       "headline_en": null,
@@ -1507,6 +1556,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-434",
+      "headline": "Top Glove Q4 profit surges 352.6% to RM157.6 million as demand-supply balance improves",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/consumer-healthcare/top-glove-q4-profit-surges-352-6-rm157-6-million-demand-supply-balance-improves",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T07:09:36Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Top Glove Q4 profit jumped 352.6% to RM157.6 million, driven by demand-supply rebalancing, signaling margin recovery and improved operating leverage in nitrile-glove demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Top Glove Q4 profit jumped 352.6% to RM157.6 million, driven by demand-supply rebalancing, signaling margin recovery and improved operating leverage in nitrile-glove demand.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Top Glove Corporation",
+          "ticker": "TOPGLOV",
+          "listing_country": "MY"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1899,104 +1997,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-282",
-      "headline": "MA1: Directors Resignation",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MA1?key=2924-03144974-2A1702191",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-06T04:44:11Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Resignation of a director is a material governance event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Resignation of a director is a material governance event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MA1",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-089",
-      "headline": "CIE: Directors Resignation",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CIE?key=2924-03144860-2A1702008",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-06T01:16:25Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "The resignation of directors at CIE represents a change in management oversight.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The resignation of directors at CIE represents a change in management oversight.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CIE",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -160665,76 +160665,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-52c74fc97e93",
-      "idea_version": "IDEAV-8f138e0c64ba38fb",
-      "idea_version_started_at": "2026-10-04T19:59:51Z",
-      "ticker": "PTC",
-      "company": "PTC Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Schneider Electric is reportedly in advanced talks to acquire PTC for approximately $20 billion, which would likely trigger a significant premium over the current market valuation.",
-      "why_now": "The report of a near-term deal emerged on October 4, 2026, creating an immediate arbitrage opportunity.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1eb8834a8281"
-      ],
-      "primary_source_event_id": "EVT-1eb8834a8281",
-      "source_headlines": [
-        "France's Schneider Electric nears $20 billion deal to buy US software group PTC, FT reports"
-      ],
-      "source_headline": "France's Schneider Electric nears $20 billion deal to buy US software group PTC, FT reports",
-      "source_url": "https://www.reuters.com/business/frances-schneider-electric-nears-20-billion-deal-buy-us-software-group-ptc-ft-2026-10-04/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T19:47:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T19:39:50Z",
-      "updated_at": "2026-10-04T19:59:51Z",
-      "decay_at": "2026-10-06T07:47:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-662b507466d5",
       "idea_version": "IDEAV-3891bc16f5b4b9d3",
       "idea_version_started_at": "2026-10-05T02:42:33Z",
@@ -163798,78 +163728,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f3e7d7680a45",
-      "idea_version": "IDEAV-5e3e07009fb4c601",
-      "idea_version_started_at": "2026-10-04T19:59:51Z",
-      "ticker": "AKZOY",
-      "company": "AkzoNobel",
-      "exchange": "OTC",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The sale of a business unit for over $1 billion provides a cash infusion and allows AkzoNobel to streamline its portfolio, likely leading to improved margins and potential capital returns.",
-      "why_now": "The deal was reported on October 4, 2026, and the market has yet to fully digest the impact of the divestiture on the company's balance sheet.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2e89a042cd1e"
-      ],
-      "primary_source_event_id": "EVT-2e89a042cd1e",
-      "source_headlines": [
-        "AkzoNobel to sell unit to Nippon Paint for over $1 billion, FT reports"
-      ],
-      "source_headline": "AkzoNobel to sell unit to Nippon Paint for over $1 billion, FT reports",
-      "source_url": "https://www.reuters.com/world/asia-pacific/akzonobel-could-sell-unit-nippon-paint-over-1-billion-ft-reports-2026-10-04/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T19:47:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T19:21:51Z",
-      "updated_at": "2026-10-04T19:59:51Z",
-      "decay_at": "2026-10-06T07:47:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-b68ebd5b2209",
       "idea_version": "IDEAV-e36f24bb8cb4bd09",
       "idea_version_started_at": "2026-10-05T04:46:37Z",
@@ -165527,6 +165385,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-52c74fc97e93",
+      "idea_version": "IDEAV-8f138e0c64ba38fb",
+      "idea_version_started_at": "2026-10-04T19:59:51Z",
+      "ticker": "PTC",
+      "company": "PTC Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Schneider Electric is reportedly in advanced talks to acquire PTC for approximately $20 billion, which would likely trigger a significant premium over the current market valuation.",
+      "why_now": "The report of a near-term deal emerged on October 4, 2026, creating an immediate arbitrage opportunity.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1eb8834a8281"
+      ],
+      "primary_source_event_id": "EVT-1eb8834a8281",
+      "source_headlines": [
+        "France's Schneider Electric nears $20 billion deal to buy US software group PTC, FT reports"
+      ],
+      "source_headline": "France's Schneider Electric nears $20 billion deal to buy US software group PTC, FT reports",
+      "source_url": "https://www.reuters.com/business/frances-schneider-electric-nears-20-billion-deal-buy-us-software-group-ptc-ft-2026-10-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T19:47:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T19:39:50Z",
+      "updated_at": "2026-10-04T19:59:51Z",
+      "decay_at": "2026-10-06T07:47:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-04bd73d1842b",
       "idea_version": "IDEAV-403ffc34dc9c2234",
       "idea_version_started_at": "2026-10-04T08:40:09Z",
@@ -166923,6 +166851,78 @@
       "surfaced_at": "2026-10-04T08:14:49Z",
       "updated_at": "2026-10-04T08:14:49Z",
       "decay_at": "2026-10-05T20:00:17Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-f3e7d7680a45",
+      "idea_version": "IDEAV-5e3e07009fb4c601",
+      "idea_version_started_at": "2026-10-04T19:59:51Z",
+      "ticker": "AKZOY",
+      "company": "AkzoNobel",
+      "exchange": "OTC",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The sale of a business unit for over $1 billion provides a cash infusion and allows AkzoNobel to streamline its portfolio, likely leading to improved margins and potential capital returns.",
+      "why_now": "The deal was reported on October 4, 2026, and the market has yet to fully digest the impact of the divestiture on the company's balance sheet.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2e89a042cd1e"
+      ],
+      "primary_source_event_id": "EVT-2e89a042cd1e",
+      "source_headlines": [
+        "AkzoNobel to sell unit to Nippon Paint for over $1 billion, FT reports"
+      ],
+      "source_headline": "AkzoNobel to sell unit to Nippon Paint for over $1 billion, FT reports",
+      "source_url": "https://www.reuters.com/world/asia-pacific/akzonobel-could-sell-unit-nippon-paint-over-1-billion-ft-reports-2026-10-04/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-04T19:47:25Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T19:21:51Z",
+      "updated_at": "2026-10-04T19:59:51Z",
+      "decay_at": "2026-10-06T07:47:25Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170702,14 +170702,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 574,
     "shown_count": 500,
-    "hidden_count": 72,
+    "hidden_count": 74,
     "side_counts": {
       "long": {
-        "total_count": 294,
+        "total_count": 296,
         "shown_count": 250,
-        "hidden_count": 44
+        "hidden_count": 46
       },
       "short": {
         "total_count": 278,
@@ -170733,6 +170733,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-52c74fc97e93",
+        "idea_version": "IDEAV-8f138e0c64ba38fb",
+        "idea_version_started_at": "2026-10-04T19:59:51Z",
+        "ticker": "PTC",
+        "company": "PTC Inc.",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Schneider Electric is reportedly in advanced talks to acquire PTC for approximately $20 billion, which would likely trigger a significant premium over the current market valuation.",
+        "why_now": "The report of a near-term deal emerged on October 4, 2026, creating an immediate arbitrage opportunity.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1eb8834a8281"
+        ],
+        "primary_source_event_id": "EVT-1eb8834a8281",
+        "source_headlines": [
+          "France's Schneider Electric nears $20 billion deal to buy US software group PTC, FT reports"
+        ],
+        "source_headline": "France's Schneider Electric nears $20 billion deal to buy US software group PTC, FT reports",
+        "source_url": "https://www.reuters.com/business/frances-schneider-electric-nears-20-billion-deal-buy-us-software-group-ptc-ft-2026-10-04/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-04T19:47:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T19:39:50Z",
+        "updated_at": "2026-10-04T19:59:51Z",
+        "decay_at": "2026-10-06T07:47:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T07:47:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-f3e7d7680a45",
+        "idea_version": "IDEAV-5e3e07009fb4c601",
+        "idea_version_started_at": "2026-10-04T19:59:51Z",
+        "ticker": "AKZOY",
+        "company": "AkzoNobel",
+        "exchange": "OTC",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The sale of a business unit for over $1 billion provides a cash infusion and allows AkzoNobel to streamline its portfolio, likely leading to improved margins and potential capital returns.",
+        "why_now": "The deal was reported on October 4, 2026, and the market has yet to fully digest the impact of the divestiture on the company's balance sheet.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-2e89a042cd1e"
+        ],
+        "primary_source_event_id": "EVT-2e89a042cd1e",
+        "source_headlines": [
+          "AkzoNobel to sell unit to Nippon Paint for over $1 billion, FT reports"
+        ],
+        "source_headline": "AkzoNobel to sell unit to Nippon Paint for over $1 billion, FT reports",
+        "source_url": "https://www.reuters.com/world/asia-pacific/akzonobel-could-sell-unit-nippon-paint-over-1-billion-ft-reports-2026-10-04/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-04T19:47:25Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T19:21:51Z",
+        "updated_at": "2026-10-04T19:59:51Z",
+        "decay_at": "2026-10-06T07:47:25Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T07:47:25Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-02bbebbf9947",
         "idea_version": "IDEAV-1cb7d5d87002eed6",
@@ -199600,79 +199748,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-12b52752f576",
-        "idea_version": "IDEAV-7a11a15ca8e65ad9",
-        "idea_version_started_at": "2026-09-20T17:40:58Z",
-        "ticker": "EQIX",
-        "company": "Equinix",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Equinix is aggressively expanding its footprint with a $5 billion to $7 billion annual data center buildout plan to capture accelerating AI infrastructure demand.",
-        "why_now": "The formalization of this multi-billion dollar annual capex plan was detailed on September 19, 2026.",
-        "conviction": 72,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e93acccbf214"
-        ],
-        "primary_source_event_id": "EVT-e93acccbf214",
-        "source_headlines": [
-          "Equinix Plans $5B-$7B Annual Data Center Buildout as AI Demand Accelerates"
-        ],
-        "source_headline": "Equinix Plans $5B-$7B Annual Data Center Buildout as AI Demand Accelerates",
-        "source_url": "https://finance.yahoo.com/technology/ai/articles/equinix-plans-5b-7b-annual-120203982.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-19T12:02:03Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-20T11:25:05Z",
-        "updated_at": "2026-09-20T17:40:58Z",
-        "decay_at": "2026-09-21T00:02:03Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-22T12:09:07Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-80566e7fce69",
         "idea_version": "IDEAV-f82663b3219a08e7",
         "idea_version_started_at": "2026-09-19T12:40:06Z",
@@ -199744,81 +199819,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-22T11:39:51Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-2feb509f0ea7",
-        "idea_version": "IDEAV-94e79f4aa3e19c2e",
-        "idea_version_started_at": "2026-09-20T17:25:16Z",
-        "ticker": "MAZAGON",
-        "company": "Mazagon Dock Shipbuilders",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Mazagon Dock Shipbuilders plans a substantial capital expenditure of ₹15,000 crore to develop a new Greenfield shipyard, which should expand its operational capacity and future revenue potential.",
-        "why_now": "The company's investment plan was announced on September 19, 2026, indicating a live catalyst for future growth.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-36c8a975f28b"
-        ],
-        "primary_source_event_id": "EVT-36c8a975f28b",
-        "source_headlines": [
-          "Mazagon Dock Shipbuilders to invest ₹15,000 crore in Greenfield shipyard at Dugarajapatnam"
-        ],
-        "source_headline": "Mazagon Dock Shipbuilders to invest ₹15,000 crore in Greenfield shipyard at Dugarajapatnam",
-        "source_url": "https://www.thehindubusinessline.com/economy/logistics/mazagon-dock-shipbuilders-to-invest-15000-crore-in-greenfield-shipyard-at-dugarajapatnam/article71480163.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-19T09:54:31Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-20T17:25:16Z",
-        "updated_at": "2026-09-20T17:25:16Z",
-        "decay_at": "2026-09-20T21:54:31Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-22T10:24:36Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -207937,7 +207937,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1368,
-    "live_count": 74,
+    "live_count": 72,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207956,9 +207956,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 21178,
-    "news_picked_today": 588,
-    "news_dropped_today": 6523
+    "news_seen_today": 31571,
+    "news_picked_today": 600,
+    "news_dropped_today": 6607
   },
   "book_momentum": {
     "live_count": 8,
