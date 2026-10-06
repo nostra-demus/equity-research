@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T01:47:12Z",
+  "generated_at": "2026-10-06T01:55:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -1130,6 +1130,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261006-120",
+      "headline": "Jane Street denies market manipulation charges, questions SEBI’s renewed investigation",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/markets/jane-street-denies-market-manipulation-charges-questions-sebis-renewed-investigation/article71549762.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T01:44:39Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Jane Street is contesting a renewed investigation by SEBI regarding market manipulation charges.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Jane Street is contesting a renewed investigation by SEBI regarding market manipulation charges.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jane Street",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-128",
+      "headline": "Hong Kong quizzes HSBC over Singapore AI hub decision",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/1a4458ce-6317-4dce-a43e-95e724d7c33f?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T01:32:21Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "HSBC is facing regulatory scrutiny from Hong Kong authorities regarding its strategic decision to establish an AI hub in Singapore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "HSBC is facing regulatory scrutiny from Hong Kong authorities regarding its strategic decision to establish an AI hub in Singapore.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HSBC",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261006-102",
       "headline": "Oracle Healthcare Breach Exposes Personal Data Of Nearly 20 Million People",
       "headline_en": null,
@@ -1840,92 +1938,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-105",
-      "headline": "Health Insurance Plans May See 10% Co-Payment Rule Soon: What This Means For Your Emergency Funds?",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/personal-finance/health-insurance-plans-may-see-10-co-payment-rule-soon-what-this-means-for-your-emergency-funds-12140665#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T00:49:02Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Potential regulatory change regarding health insurance co-payment rules affecting the insurance sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Potential regulatory change regarding health insurance co-payment rules affecting the insurance sector.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-053",
-      "headline": "Trump eases red diesel limits in attempt to quell fuel inflation",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/8a733f73-d506-49ae-9030-2bbf0987bc8d?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T00:46:01Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Regulatory easing on red diesel is a policy shift intended to lower fuel inflation costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Regulatory easing on red diesel is a policy shift intended to lower fuel inflation costs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -163943,79 +163955,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a34afcfddf31",
-      "idea_version": "IDEAV-ffdd56a83b3aae88",
-      "idea_version_started_at": "2026-10-04T14:21:24Z",
-      "ticker": "SGB.PA",
-      "company": "Saint-Gobain",
-      "exchange": "EURONEXT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Saint-Gobain is actively seeking acquisitions in India with a target of $4.3 billion in business, indicating a strategy for significant growth in the region.",
-      "why_now": "The CEO's target and acquisition strategy were highlighted on October 4, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9dfe507344ce"
-      ],
-      "primary_source_event_id": "EVT-9dfe507344ce",
-      "source_headlines": [
-        "Saint-Gobain eyes more India acquisitions as CEO Sreedhar targets $4.3 billion business"
-      ],
-      "source_headline": "Saint-Gobain eyes more India acquisitions as CEO Sreedhar targets $4.3 billion business",
-      "source_url": "https://www.thehindubusinessline.com/companies/saint-gobain-eyes-more-india-acquisitions-as-ceo-sreedhar-targets-43-billion-business/article71486048.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-04T13:48:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T14:21:24Z",
-      "updated_at": "2026-10-04T14:21:24Z",
-      "decay_at": "2026-10-06T01:48:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9073a81e9f1e",
       "idea_version": "IDEAV-d4730722b9c0d20d",
       "idea_version_started_at": "2026-10-04T15:06:54Z",
@@ -167593,6 +167532,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-a34afcfddf31",
+      "idea_version": "IDEAV-ffdd56a83b3aae88",
+      "idea_version_started_at": "2026-10-04T14:21:24Z",
+      "ticker": "SGB.PA",
+      "company": "Saint-Gobain",
+      "exchange": "EURONEXT",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Saint-Gobain is actively seeking acquisitions in India with a target of $4.3 billion in business, indicating a strategy for significant growth in the region.",
+      "why_now": "The CEO's target and acquisition strategy were highlighted on October 4, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9dfe507344ce"
+      ],
+      "primary_source_event_id": "EVT-9dfe507344ce",
+      "source_headlines": [
+        "Saint-Gobain eyes more India acquisitions as CEO Sreedhar targets $4.3 billion business"
+      ],
+      "source_headline": "Saint-Gobain eyes more India acquisitions as CEO Sreedhar targets $4.3 billion business",
+      "source_url": "https://www.thehindubusinessline.com/companies/saint-gobain-eyes-more-india-acquisitions-as-ceo-sreedhar-targets-43-billion-business/article71486048.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 96,
+      "newest_source_at": "2026-10-04T13:48:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-04T14:21:24Z",
+      "updated_at": "2026-10-04T14:21:24Z",
+      "decay_at": "2026-10-06T01:48:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-1ecf3a7e4a91",
       "idea_version": "IDEAV-f146905934ad4d15",
       "idea_version_started_at": "2026-10-04T12:14:59Z",
@@ -170063,14 +170075,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 573,
     "shown_count": 500,
-    "hidden_count": 72,
+    "hidden_count": 73,
     "side_counts": {
       "long": {
-        "total_count": 295,
+        "total_count": 296,
         "shown_count": 250,
-        "hidden_count": 45
+        "hidden_count": 46
       },
       "short": {
         "total_count": 277,
@@ -170094,6 +170106,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a34afcfddf31",
+        "idea_version": "IDEAV-ffdd56a83b3aae88",
+        "idea_version_started_at": "2026-10-04T14:21:24Z",
+        "ticker": "SGB.PA",
+        "company": "Saint-Gobain",
+        "exchange": "EURONEXT",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Saint-Gobain is actively seeking acquisitions in India with a target of $4.3 billion in business, indicating a strategy for significant growth in the region.",
+        "why_now": "The CEO's target and acquisition strategy were highlighted on October 4, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "price and market expectations",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "unknown",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9dfe507344ce"
+        ],
+        "primary_source_event_id": "EVT-9dfe507344ce",
+        "source_headlines": [
+          "Saint-Gobain eyes more India acquisitions as CEO Sreedhar targets $4.3 billion business"
+        ],
+        "source_headline": "Saint-Gobain eyes more India acquisitions as CEO Sreedhar targets $4.3 billion business",
+        "source_url": "https://www.thehindubusinessline.com/companies/saint-gobain-eyes-more-india-acquisitions-as-ceo-sreedhar-targets-43-billion-business/article71486048.ece",
+        "source_name": "The Hindu BusinessLine",
+        "materiality_max": 96,
+        "newest_source_at": "2026-10-04T13:48:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-04T14:21:24Z",
+        "updated_at": "2026-10-04T14:21:24Z",
+        "decay_at": "2026-10-06T01:48:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-06T01:48:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-631ed86dc2a4",
         "idea_version": "IDEAV-14602060eb1c8687",
@@ -198890,80 +198978,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-232e58bf1748",
-        "idea_version": "IDEAV-0c4c704b502559d7",
-        "idea_version_started_at": "2026-09-19T08:59:15Z",
-        "ticker": "TIRUPATIFL",
-        "company": "Tirupati Forge Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The receipt of an industrial license for defence manufacturing allows the company to enter a high-margin, government-backed sector, diversifying its revenue stream beyond its traditional forging business.",
-        "why_now": "The company announced the license approval on September 19, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e2a2605c35d6"
-        ],
-        "primary_source_event_id": "EVT-e2a2605c35d6",
-        "source_headlines": [
-          "Tirupati Forge Limited: Tirupati Forge Limited has informed the Exchange regarding a press release dated September 19, 2026, titled \"Receive the approval of Industrial License for Defence Manufacturing of empty shell body.\"."
-        ],
-        "source_headline": "Tirupati Forge Limited: Tirupati Forge Limited has informed the Exchange regarding a press release dated September 19, 2026, titled \"Receive the approval of Industrial License for Defence Manufacturing of empty shell body.\".",
-        "source_url": "https://nsearchives.nseindia.com/corporate/TIRUPATIFL_19092026112507_Press_Release_-_License_for_Defence_Manufacturing.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 97,
-        "newest_source_at": "2026-09-19T05:55:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-19T08:59:15Z",
-        "updated_at": "2026-09-19T08:59:15Z",
-        "decay_at": "2026-09-20T17:55:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-22T09:12:40Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-73741e1a1a55",
         "idea_version": "IDEAV-97c3f27c212f3dd6",
         "idea_version_started_at": "2026-09-19T08:59:15Z",
@@ -207298,7 +207312,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1354,
-    "live_count": 66,
+    "live_count": 65,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207317,9 +207331,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 646,
-    "news_picked_today": 120,
-    "news_dropped_today": 502
+    "news_seen_today": 698,
+    "news_picked_today": 131,
+    "news_dropped_today": 543
   },
   "book_momentum": {
     "live_count": 8,
