@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T12:38:10Z",
+  "generated_at": "2026-10-06T12:44:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-562",
@@ -242,6 +242,173 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-575",
+      "headline": "Energy Transfer to Acquire Vaquero Midstream for $2.63 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/energy-oil/energy-transfer-to-acquire-vaquero-midstream-for-2-63-billion-79c90c47?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T12:26:00Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "Energy Transfer to acquire Vaquero Midstream for $2.63 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Energy Transfer to acquire Vaquero Midstream for $2.63 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Energy Transfer",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Vaquero Midstream",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-581",
+      "headline": "McKesson, CD&R to Buy Option Care Health in $5.8 Billion Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-06/mckesson-cd-r-to-buy-option-care-health-in-5-8-billion-deal",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T12:14:43Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "McKesson and CD&R to acquire Option Care Health in a $5.8 billion deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "McKesson and CD&R to acquire Option Care Health in a $5.8 billion deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McKesson",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Option Care Health",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-587",
+      "headline": "McKesson, CD&R to buy infusion therapy provider Option Care Health in $5.8 billion deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/mckesson-cdr-buy-infusion-therapy-provider-option-care-health-58-billion-deal-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T12:14:28Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "McKesson and CD&R confirmed to acquire infusion therapy provider Option Care Health for $5.8 billion in capital deployment and healthcare services expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "McKesson and CD&R confirmed to acquire infusion therapy provider Option Care Health for $5.8 billion in capital deployment and healthcare services expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "McKesson Corporation",
+          "ticker": "MCK",
+          "listing_country": "US"
+        },
+        {
+          "name": "Clayton, Dubilier & Rice",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Option Care Health",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1891,158 +2058,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-301",
-      "headline": "Trent shares hit 10% upper circuit after Q2 revenue rises 23% YoY to Rs 5,788 crore. Should you buy, sell or hold?",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/trent-in-focus-after-q2-revenue-rises-23-to-rs-5788-crore-buy-sell-or-hold-the-stock/articleshow/134721903.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T03:16:14Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Trent reported Q2 revenue growth of 23% YoY to Rs 5,788 crore, triggering a 10% upper circuit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Trent reported Q2 revenue growth of 23% YoY to Rs 5,788 crore, triggering a 10% upper circuit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Trent",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-180",
-      "headline": "Google, Constellation near billion-dollar deal for nuclear power",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/alphabet-google-constellation-near-billion-dollar-deal-for-nuclear-power-energy-artificial-intelligence-data-center-20005305.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T02:42:15Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Google and Constellation are nearing a billion-dollar deal for nuclear power, a significant commercial agreement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Google and Constellation are nearing a billion-dollar deal for nuclear power, a significant commercial agreement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Google",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Constellation",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-196",
-      "headline": "OpenAI In $30 Billion Round Talks With UAE Funds, BlackRock",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/openai-in-30-billion-round-talks-with-uae-funds-blackrock-12143570#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T02:00:56Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "OpenAI is in talks for a funding round valued at $30 billion, which would significantly impact its valuation and capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "OpenAI is in talks for a funding round valued at $30 billion, which would significantly impact its valuation and capital structure.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207076,9 +207091,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 209485,
-    "news_picked_today": 942,
-    "news_dropped_today": 12121
+    "news_seen_today": 215353,
+    "news_picked_today": 964,
+    "news_dropped_today": 12195
   },
   "book_momentum": {
     "live_count": 8,
