@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T00:15:07Z",
+  "generated_at": "2026-10-06T00:24:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-003",
@@ -464,6 +464,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-019",
+      "headline": "KB국민카드, 문페이·핑거와 손잡고 디지털자산 결제 시장 선점 나선다",
+      "headline_en": "KB Kookmin Card partners with MoonPay and Finger to lead digital asset payment market",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278223",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-05T23:55:02Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "KB Kookmin Card partners with MoonPay and Finger to enter digital-asset payment market, signaling strategic expansion; revenue impact unquantified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "KB Kookmin Card partners with MoonPay and Finger to enter digital-asset payment market, signaling strategic expansion; revenue impact unquantified.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KB Kookmin Card",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -205920,7 +205970,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3265,
+    "inbox_unconsumed": 3266,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -205929,9 +205979,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 86,
-    "news_picked_today": 18,
-    "news_dropped_today": 68
+    "news_seen_today": 117,
+    "news_picked_today": 19,
+    "news_dropped_today": 74
   },
   "book_momentum": {
     "live_count": 8,
