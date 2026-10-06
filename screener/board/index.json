@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T21:25:37Z",
+  "generated_at": "2026-10-06T21:35:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261006-829",
@@ -487,6 +487,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261006-856",
+      "headline": "ONEOK Acquires Midstream's Natural Gas Assets For $4.425 Bln",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/oneok-acquires-midstreams-natural-gas-assets-4425-bln",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T20:51:42Z",
+      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
+      "prelim_note": "ONEOK is acquiring natural gas assets for $4.425 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ONEOK is acquiring natural gas assets for $4.425 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ONEOK",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1980,60 +2029,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261006-763",
-      "headline": "Paramount: Warner-Übernahme abgeschlossen",
-      "headline_en": "Paramount: Warner acquisition completed",
-      "url": "https://www.handelsblatt.com/unternehmen/it-medien/paramount-warner-uebernahme-abgeschlossen/100260146.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T13:22:43Z",
-      "sweep_file": "screener/inbox/2026-10-06_sweep.json",
-      "prelim_note": "Warner's acquisition of Paramount is completed, a major M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Warner's acquisition of Paramount is completed, a major M&A event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -206855,9 +206850,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 488088,
-    "news_picked_today": 2142,
-    "news_dropped_today": 19825
+    "news_seen_today": 488959,
+    "news_picked_today": 2149,
+    "news_dropped_today": 20106
   },
   "book_momentum": {
     "live_count": 8,
