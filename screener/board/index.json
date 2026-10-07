@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T02:42:13Z",
+  "generated_at": "2026-10-07T02:52:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-074",
@@ -89,6 +89,60 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-165",
+      "headline": "A High-Stakes Gambit Clinched Paramount’s Warner Deal",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/media/a-high-stakes-gambit-clinched-paramounts-warner-deal-873905b0?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T02:44:00Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Paramount has finalized a major deal with Warner, representing a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount has finalized a major deal with Warner, representing a significant M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -657,6 +711,55 @@
           "name": "ARF",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-176",
+      "headline": "Venezuela's Cardon refinery halted after fire, no injuries reported",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/venezuelas-cardon-refinery-halted-amid-fire-sources-say-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T02:45:53Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "The halt of the Cardon refinery due to a fire represents a supply shock to regional fuel production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The halt of the Cardon refinery due to a fire represents a supply shock to regional fuel production.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PDVSA",
+          "ticker": null,
+          "listing_country": "VE"
         }
       ],
       "size_bucket": "unknown",
@@ -1811,153 +1914,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261007-135",
-      "headline": "'Learn Hindi or quit': Remark by Zomato supervisor in Bengaluru triggers backlash",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/india/karnataka/bengaluru/learn-hindi-or-quit-remark-by-zomato-supervisor-in-bengaluru-triggers-backlash-4173030",
-      "source_name": "Deccan Herald",
+      "inbox_id": "INB-20261007-171",
+      "headline": "셀트리온 앱토즈마, 美 FDA 2세 이상 소아 코로나19 적응증 획득",
+      "headline_en": "Celltrion Aptose Biosciences receives US FDA approval for pediatric COVID-19 indication for ages 2 and older",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278363",
+      "source_name": "Business Korea — All Articles (CDN)",
       "input_nature": "news_headline",
-      "found_at": "2026-10-07T01:59:54Z",
+      "found_at": "2026-10-07T02:13:04Z",
       "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "A controversial remark by a supervisor at Zomato has triggered a public backlash, posing a reputational risk to the company.",
+      "prelim_note": "Celltrion Aptose Biosciences received US FDA approval for a pediatric COVID-19 indication, expanding the addressable market for its product.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 87,
-      "triage_reason": "A controversial remark by a supervisor at Zomato has triggered a public backlash, posing a reputational risk to the company.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zomato",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-110",
-      "headline": "Hunter Valley community group wins landmark high court climate change case over Mount Pleasant coalmine",
-      "headline_en": null,
-      "url": "https://www.theguardian.com/environment/2026/oct/07/mount-pleasant-coalmine-case-high-court-climate-change-hunter-valley",
-      "source_name": "The Guardian — World news",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T01:44:47Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "A court ruling against the Mount Pleasant coal mine creates operational risk and potential asset impairment for the operator.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "A court ruling against the Mount Pleasant coal mine creates operational risk and potential asset impairment for the operator.",
-      "region": "OTHER",
+      "triage_reason": "Celltrion Aptose Biosciences received US FDA approval for a pediatric COVID-19 indication, expanding the addressable market for its product.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 65,
       "rank_factors": {
         "materiality": 65,
         "source_tier": 0,
         "scope": 6,
-        "event": 6,
-        "size": 0,
+        "event": 4,
+        "size": 2,
         "recency": 5,
         "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
+        "event_id": "regulatory",
+        "size_bucket": "large"
       },
       "event_types": [
-        "litigation_enforcement"
+        "product",
+        "regulatory"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Mount Pleasant coalmine",
+          "name": "Celltrion",
           "ticker": null,
-          "listing_country": null
+          "listing_country": "KR"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-123",
-      "headline": "ASIC sues adviser for alleged $34m in Shield, First Guardian kickbacks",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/financial-services/asic-sues-adviser-for-alleged-34m-in-shield-first-guardian-kickbacks-20261007-p613it?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T02:01:34Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "ASIC is suing an adviser for $34 million in alleged kickbacks, indicating significant regulatory and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "ASIC is suing an adviser for $34 million in alleged kickbacks, indicating significant regulatory and legal risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shield",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "First Guardian",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209500,9 +209501,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 892,
-    "news_picked_today": 179,
-    "news_dropped_today": 689
+    "news_seen_today": 946,
+    "news_picked_today": 193,
+    "news_dropped_today": 729
   },
   "book_momentum": {
     "live_count": 8,
