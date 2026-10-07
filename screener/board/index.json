@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T00:42:50Z",
+  "generated_at": "2026-10-07T00:49:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-029",
@@ -320,61 +320,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-030",
-      "headline": "Musk’s SpaceX in Talks to Borrow $40 Billion to Buy Nvidia Chips",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-06/spacex-seeking-to-raise-40-billion-to-buy-nvidia-chips-ft-says",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-06T22:57:42Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "SpaceX is in talks to borrow $40 billion to fund Nvidia chip purchases, a significant capital commitment and demand driver.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "SpaceX is in talks to borrow $40 billion to fund Nvidia chip purchases, a significant capital commitment and demand driver.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit",
-        "capex"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1066,6 +1011,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-047",
+      "headline": "Boston Dynamics Taps Amazon AI Executive to Accelerate Physical AI",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278329",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T04:08:15Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Boston Dynamics appointed an Amazon AI executive to accelerate physical-AI development; signals strategic commitment but provides no quantified capex, product timeline, or revenue impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Boston Dynamics appointed an Amazon AI executive to accelerate physical-AI development; signals strategic commitment but provides no quantified capex, product timeline, or revenue impact.",
+      "region": "KR",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boston Dynamics",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Hyundai Motor",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-040",
       "headline": "Wizz Financial bets on India with cross-border fintech push, eyes 2029 IPO",
       "headline_en": null,
@@ -1355,6 +1354,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-046",
+      "headline": "Apple to Launch Doorbell, Lock and Thermostat Developed With LG",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/apple-to-launch-doorbell-lock-and-thermostat-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T00:38:01Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Apple announces new smart-home product categories (doorbell, lock, thermostat) co-developed with LG; no quantified impact, scale, timeline, or earnings guidance change disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Apple announces new smart-home product categories (doorbell, lock, thermostat) co-developed with LG; no quantified impact, scale, timeline, or earnings guidance change disclosed.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apple",
+          "ticker": "AAPL",
+          "listing_country": "US"
+        },
+        {
+          "name": "LG Electronics",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-038",
       "headline": "144 - Dell Technologies Inc. (0001571996) (Subject)",
       "headline_en": null,
@@ -1502,6 +1556,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-045",
+      "headline": "GST Council may weigh wider data sharing, rare disease tax relief on Thursday",
+      "headline_en": null,
+      "url": "https://www.livemint.com/economy/gst-council-may-open-tax-data-for-wider-economic-use-consider-rare-disease-relief-11791293979209.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T00:35:54Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "GST Council to vote Thursday on wider data sharing and rare-disease tax relief; policy decision is pending, not yet confirmed, and no company is named.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "GST Council to vote Thursday on wider data sharing and rare-disease tax relief; policy decision is pending, not yet confirmed, and no company is named.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 42,
+      "rank_factors": {
+        "materiality": 42,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 3,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-042",
       "headline": "US tariffs, missing cells, evening power gaps: inside India’s solar energy bottlenecks",
       "headline_en": null,
@@ -1640,6 +1738,47 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-044",
+      "headline": "Hunter Valley community group wins landmark high court climate change case",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/environment/2026/oct/07/mount-pleasant-coalmine-case-high-court-climate-change-hunter-valley",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T00:20:29Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "not material",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "not material",
+      "region": "GB",
+      "relevance": "irrelevant",
+      "materiality_pre_score": 38,
+      "rank_factors": {
+        "materiality": 38,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209000,7 +209139,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3324,
+    "inbox_unconsumed": 3327,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209009,9 +209148,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 220,
-    "news_picked_today": 43,
-    "news_dropped_today": 177
+    "news_seen_today": 271,
+    "news_picked_today": 47,
+    "news_dropped_today": 200
   },
   "book_momentum": {
     "live_count": 8,
