@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState, type RefObject } from 'react'
 import { fmtStampLocal } from '../../lib/format'
 import { GICS_SECTORS, gicsOf } from '../../lib/gics'
 import { useStore } from '../../lib/store'
+import { ReadingAnchor } from '../../lib/ReadingAnchor'
 import { compareBriefingThemes, themeBriefingEvidence, themeStageIsStale, themesForPmSurface, validatedThemeNarrative, type Theme, type ValidatedThemeEvidence } from '../../lib/themes'
 
 /** Navigation tags only: use the existing taxonomy on exact supporting headlines, never off-theme
@@ -23,7 +24,7 @@ export function ThemeReadingCard({ theme }: { theme: Theme }) {
   const whyNow = supports.find((row) => row.event_id === narrative.why_now_event_id)
   const sectors = readingThemeSectors(theme)
   const totalSupports = (theme.assessment || theme.opportunity)?.metrics?.narrative_support_count ?? supports.length
-  return <article className="bidea theme-reading" aria-label={theme.name}>
+  return <article className="bidea theme-reading" data-reading-key={theme.theme_id} aria-label={theme.name}>
     <header className="theme-reading__head"><h3>{theme.name}</h3><span className="bidea__tag">{theme.activity === 'challenged' ? 'Challenged' : theme.activity === 'new' ? 'New' : theme.activity === 'reinforced' ? 'Developing' : 'Monitoring'}</span></header>
     {(theme.assessment || theme.opportunity)?.metrics?.pending_revalidation && <p className="bidea__refresh"><strong>New evidence awaiting revalidation</strong> · The explanation below reflects the last validated sources. New matching reports are still being checked for support or challenges.</p>}
     <div className="bidea__tags">{(sectors.length ? sectors : ['Unclassified']).map((sector) => <span className="bidea__tag" key={sector}>{sector}</span>)}{narrative.horizon && <span className="bidea__tag">Horizon: {narrative.horizon}</span>}</div>
@@ -46,7 +47,7 @@ function SourceList({ rows }: { rows: ValidatedThemeEvidence[] }) {
   </li>)}</ul>
 }
 
-export function ThemesReadingPanel() {
+export function ThemesReadingPanel({ viewport }: { viewport: RefObject<HTMLElement> }) {
   const staticMode = useStore((s) => s.staticMode)
   const index = useStore((s) => s.readingThemes)
   const [sector, setSector] = useState('all')
@@ -85,7 +86,7 @@ export function ThemesReadingPanel() {
   const stale = !!index && themes.length > 0 && (error !== null || themeStageIsStale(index.generated_at))
   const queued = index?.formation_queue?.total || 0
 
-  return <section role="tabpanel" id="ideas-themes-panel" aria-labelledby="ideas-themes-tab" aria-busy={loading}>
+  return <ReadingAnchor viewport={viewport} view={sector}><section role="tabpanel" id="ideas-themes-panel" aria-labelledby="ideas-themes-tab" aria-busy={!index && loading}>
     <div className="discovery-filters theme-reading__filters"><label>Sector <select aria-label="Theme sector" value={sector} onChange={(e) => setSector(e.target.value)}>
       <option value="all">All sectors · {themes.length}</option>{GICS_SECTORS.map((name) => <option key={name} value={name}>{name} · {tagged.filter((row) => row.sectors.includes(name)).length}</option>)}
       <option value="unclassified">Unclassified · {tagged.filter((row) => !row.sectors.length).length}</option>
@@ -101,5 +102,5 @@ export function ThemesReadingPanel() {
     {index && visible.length === 0 && <p className="bideas__queueempty">{sector !== 'all' ? `No validated themes match ${sector === 'unclassified' ? 'Unclassified' : sector}. Choose All sectors to read other themes.`
       : `No validated themes are available yet.${queued ? ` ${queued} source patterns are still being checked.` : ' Themes appear when connected source reports support a complete explanation.'}`}</p>}
     <div className="bideas__list">{visible.map(({ theme }) => <ThemeReadingCard key={theme.theme_id} theme={theme} />)}</div>
-  </section>
+  </section></ReadingAnchor>
 }
