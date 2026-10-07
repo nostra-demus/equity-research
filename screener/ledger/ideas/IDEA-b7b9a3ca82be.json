@@ -1,0 +1,74 @@
+{
+  "idea_id": "IDEA-b7b9a3ca82be",
+  "idea_version": "IDEAV-104ab8f51e976f39",
+  "idea_version_started_at": "2026-10-07T03:42:33Z",
+  "ticker": "OCBC",
+  "company": "OCBC Bank",
+  "exchange": null,
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "OCBC's shares slid 5.2%, wiping S$7 billion off its value, indicating a significant negative market reaction to recent news, likely related to earnings or guidance.",
+  "why_now": "The sharp decline in share price and value occurred today, October 7, 2026, suggesting a fresh negative catalyst that may not be fully priced in.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-1e85e08d0c29"
+  ],
+  "primary_source_event_id": "EVT-1e85e08d0c29",
+  "source_headlines": [
+    "S$7 billion wiped off OCBC value as shares slide 5.2% in heavy trade"
+  ],
+  "source_headline": "S$7 billion wiped off OCBC value as shares slide 5.2% in heavy trade",
+  "source_url": "https://www.businesstimes.com.sg/companies-markets/s7-billion-wiped-ocbc-value-shares-slide-5-2-heavy-trade",
+  "source_name": "The Business Times (Singapore)",
+  "materiality_max": 98,
+  "newest_source_at": "2026-10-07T03:02:15Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-07T03:42:33Z",
+  "updated_at": "2026-10-07T03:42:33Z",
+  "decay_at": "2026-10-08T15:02:15Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

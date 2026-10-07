@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T03:42:18Z",
+  "generated_at": "2026-10-07T03:42:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-074",
@@ -162441,6 +162441,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-c8b3d2de9e46",
+      "idea_version": "IDEAV-fadd4c8a325cf698",
+      "idea_version_started_at": "2026-10-07T03:42:33Z",
+      "ticker": "KLXE",
+      "company": "KLX Energy Services Holdings, Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A Schedule 13D filing by Cross Ocean Partners Management LP indicates activist involvement, which often signals potential for strategic changes to unlock shareholder value.",
+      "why_now": "The activist filing was made today, October 7, 2026, indicating a fresh catalyst for potential corporate action.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 72,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "governance_turnaround",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5a0536e324f7",
+        "EVT-8594c4da01a1"
+      ],
+      "primary_source_event_id": "EVT-5a0536e324f7",
+      "source_headlines": [
+        "SCHEDULE 13D - Cross Ocean Partners Management LP (0001752226) (Filed by)",
+        "SCHEDULE 13D - KLX Energy Services Holdings, Inc. (0001738827) (Subject)"
+      ],
+      "source_headline": "SCHEDULE 13D - Cross Ocean Partners Management LP (0001752226) (Filed by)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1752226/000121390026107356/0001213900-26-107356-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-10-07T01:56:31Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T03:42:33Z",
+      "updated_at": "2026-10-07T03:42:33Z",
+      "decay_at": "2026-10-08T13:56:31Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ea338eeb2104",
       "idea_version": "IDEAV-0e7b7078e1435ae1",
       "idea_version_started_at": "2026-10-07T01:37:33Z",
@@ -165787,6 +165858,78 @@
       "surfaced_at": "2026-10-05T20:12:16Z",
       "updated_at": "2026-10-05T20:12:16Z",
       "decay_at": "2026-10-07T04:58:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-b7b9a3ca82be",
+      "idea_version": "IDEAV-104ab8f51e976f39",
+      "idea_version_started_at": "2026-10-07T03:42:33Z",
+      "ticker": "OCBC",
+      "company": "OCBC Bank",
+      "exchange": null,
+      "direction": "short",
+      "pair_with": null,
+      "reason": "OCBC's shares slid 5.2%, wiping S$7 billion off its value, indicating a significant negative market reaction to recent news, likely related to earnings or guidance.",
+      "why_now": "The sharp decline in share price and value occurred today, October 7, 2026, suggesting a fresh negative catalyst that may not be fully priced in.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1e85e08d0c29"
+      ],
+      "primary_source_event_id": "EVT-1e85e08d0c29",
+      "source_headlines": [
+        "S$7 billion wiped off OCBC value as shares slide 5.2% in heavy trade"
+      ],
+      "source_headline": "S$7 billion wiped off OCBC value as shares slide 5.2% in heavy trade",
+      "source_url": "https://www.businesstimes.com.sg/companies-markets/s7-billion-wiped-ocbc-value-shares-slide-5-2-heavy-trade",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-07T03:02:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T03:42:33Z",
+      "updated_at": "2026-10-07T03:42:33Z",
+      "decay_at": "2026-10-08T15:02:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209493,8 +209636,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1399,
-    "live_count": 64,
+    "surfaced_total": 1401,
+    "live_count": 66,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
