@@ -1,4 +1,5 @@
 import { usePersonalScope } from '../../lib/personalScope'
+import { ReadingAnchor } from '../../lib/ReadingAnchor'
 // The persistent left rail of the Screener stage: a live, ranked list of everything the auto-scanner
 // reads. New items stream in over SSE the moment a cycle scores them (and backfill from disk on mount,
 // so it survives a reload). Three ways to read the wire:
@@ -142,7 +143,7 @@ function EventRow({ group, selected, shelved, fresh, unread, onPick, onShelve }:
       ? `+${group.others.length} more`
       : ''
   return (
-    <div className={`evrow${selected ? ' evrow--on' : ''}${kept ? '' : ' evrow--dropped'}${shelved ? ' evrow--shelved' : ''}${fresh ? ' evrow--fresh' : ''}${unread ? ' evrow--unread' : ''}`}>
+    <div data-reading-key={group.group} className={`evrow${selected ? ' evrow--on' : ''}${kept ? '' : ' evrow--dropped'}${shelved ? ' evrow--shelved' : ''}${fresh ? ' evrow--fresh' : ''}${unread ? ' evrow--unread' : ''}`}>
       {fresh && <span className="evrow__glow" aria-hidden />}
       {unread && <span className="evrow__unread" aria-hidden title="Unread — you haven't opened this yet" />}
       <button type="button" className="evrow__hit" onClick={() => onPick(it)} title={[unread ? '● Unread' : null, displayHeadline(it), origHl && `original: ${origHl}`].filter(Boolean).join('\n')}>
@@ -548,6 +549,8 @@ export function EventRail() {
       return false
     })
   }, [refined, scopeFilter, sectorSel, commSel, broadActive, subjectMode, subjectSel, cfg])
+  const readingView = JSON.stringify([tab, sort, filters, [...scopeFilter], sectorSel, commSel, [...subjectSel], showShelved, personal.scope, cfg.swarmId],
+    (_key, value) => value instanceof Set ? [...value] : value)
   const isFresh = (g: StoryGroup) => g.members.some((m) => freshEvents.has(m.event_id))
   // a story is unread until its lead item is opened (or "mark all read"). Read state lives on the rep, so a
   // whole cluster clears when you open it — matching how the row is keyed everywhere else.
@@ -833,7 +836,7 @@ export function EventRail() {
         </div>
       )}
 
-      <div className="evrail__list" ref={listRef}>
+      <ReadingAnchor viewport={listRef} view={readingView}><div className="evrail__list" ref={listRef}>
         {visibleGroups.map((g) => (
           <EventRow key={g.group} group={g} selected={inGroup(selected, g)} shelved={shelvedEvents.has(g.rep.event_id)} fresh={isFresh(g)} unread={isUnread(g)} onPick={pick} onShelve={toggleShelve} />
         ))}
@@ -889,7 +892,7 @@ export function EventRail() {
             {showShelved ? `Hide ${shelvedInBand} set aside` : `Show ${shelvedInBand} set aside`}
           </button>
         )}
-      </div>
+      </div></ReadingAnchor>
     </aside>
   )
 }

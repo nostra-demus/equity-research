@@ -51,9 +51,8 @@ export function PerformancePanel({ onClose }: { onClose: () => void }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const load = useCallback(async () => {
-    setError(false)
-    try { setSummary(await api.performanceSummary(24)) }
-    catch { setSummary(null); setError(true) }
+    try { setSummary(await api.performanceSummary(24)); setError(false) }
+    catch { setError(true) }
     finally { setLoading(false) }
   }, [])
   useEffect(() => {
@@ -99,7 +98,7 @@ export function PerformancePanel({ onClose }: { onClose: () => void }) {
           </div>
         </section>
 
-        {error && <div className="perfpanel__notice">Speed history is temporarily unavailable. The cockpit itself is unaffected.</div>}
+        {error && <div className="perfpanel__notice" role="status">Could not refresh speed history. {summary ? 'Showing the last loaded measurements.' : 'Measurements are temporarily unavailable.'} <button className="btn btn--ghost" onClick={() => void load()}>Retry</button></div>}
         {!!summary?.droppedSamples && (
           <div className="perfpanel__notice perfpanel__notice--warning">
             Measurement loss: {summary.droppedSamples.toLocaleString()} timing sample{summary.droppedSamples === 1 ? '' : 's'} could not be retained in this {summary.windowHours}-hour window. Speed stays “Needs attention” while that loss remains inside the selected window.
