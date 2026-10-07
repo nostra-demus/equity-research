@@ -97,6 +97,11 @@ Every async surface ships all three from its first version:
 - **Error** — recoverable: say what failed and give a retry affordance.
 - Degraded results (fallback provider, partial fetch) are never cached as final — refetch on the
   next natural trigger.
+- Background refresh keeps the last successful content mounted. Only an explicit lane/filter change
+  clears a loaded view; membership/facet updates and polling never replay its loading skeleton.
+  Key live rows by stable identity, preserve the visible row and its offset when rows arrive or move
+  above it, and keep expanded sources and focus intact. At the top, show new arrivals in place;
+  short entry motion respects reduced motion. A failed poll retains the readable content and offers Retry.
 
 ## 5. Deploy skew
 

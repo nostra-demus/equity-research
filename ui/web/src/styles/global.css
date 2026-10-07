@@ -5548,5 +5548,8 @@ a { color: inherit; }
 
 .discovery .bideas__tab--on { color: var(--accent-bright); background: var(--accent-wash); }
 .discovery .discovery-filters { margin-inline: auto; }
+.discovery-card--new { animation: discovery-arrival var(--dur) var(--ease-out) both; }
+@keyframes discovery-arrival { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .discovery-card--new { animation: none; } }
 /* Filing and live refreshes must never leave card contents inside an interrupted entry animation. */
 .discovery-card .bidea { animation: none; opacity: 1; transform: none; }
