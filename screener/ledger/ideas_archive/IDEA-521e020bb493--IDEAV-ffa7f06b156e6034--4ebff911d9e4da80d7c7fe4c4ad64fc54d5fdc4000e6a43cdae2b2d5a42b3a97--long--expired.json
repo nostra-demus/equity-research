@@ -1,0 +1,77 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-07T16:37:55Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-521e020bb493",
+    "idea_version": "IDEAV-ffa7f06b156e6034",
+    "idea_version_started_at": "2026-10-04T16:45:03Z",
+    "ticker": "AMZN",
+    "company": "Amazon",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Amazon is investing an additional $1 billion in AI data centers, signaling continued expansion and commitment to its AI infrastructure.",
+    "why_now": "The investment is a fresh announcement, indicating immediate capital allocation towards AI growth.",
+    "conviction": 60,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 65,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 19,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "independent confirmation",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-a398a2566fa1"
+    ],
+    "primary_source_event_id": "EVT-a398a2566fa1",
+    "source_headlines": [
+      "Amazon Is Spending Another $1 Billion on AI Data Centers — But This Time, It’s Not Buying a Single GPU"
+    ],
+    "source_headline": "Amazon Is Spending Another $1 Billion on AI Data Centers — But This Time, It’s Not Buying a Single GPU",
+    "source_url": "https://247wallst.com/investing/2026/10/04/amazon-is-spending-another-1-billion-on-ai-data-centers-but-this-time-its-not-buying-a-single-gpu/",
+    "source_name": "24/7 Wall St.",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-04T15:16:34Z",
+    "prior_coverage": {
+      "has_run": true,
+      "latest_run": "analyses/AMZN_2026-07-20",
+      "latest_decision": null,
+      "data_pool_present": true
+    },
+    "surfaced_at": "2026-10-04T16:45:03Z",
+    "updated_at": "2026-10-04T16:45:03Z",
+    "decay_at": "2026-10-06T03:16:34Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

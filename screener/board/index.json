@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T16:37:11Z",
+  "generated_at": "2026-10-07T16:38:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-346",
@@ -162476,6 +162476,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-30c2e14a4fb4",
+      "idea_version": "IDEAV-1ae410afa4d1f8d0",
+      "idea_version_started_at": "2026-10-07T16:37:47Z",
+      "ticker": "JOBY",
+      "company": "Joby Aviation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a significant $100 million liability from an intellectual property lawsuit verdict, which directly impacts its cash position and balance sheet.",
+      "why_now": "The verdict was reported on 2026-10-06, creating an immediate liquidity and valuation headwind.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-53f62b82f6d5"
+      ],
+      "primary_source_event_id": "EVT-53f62b82f6d5",
+      "source_headlines": [
+        "Joby Hit With Over $100 Million in Damages in IP Lawsuit Verdict"
+      ],
+      "source_headline": "Joby Hit With Over $100 Million in Damages in IP Lawsuit Verdict",
+      "source_url": "https://www.nasdaq.com/articles/joby-hit-over-100-million-damages-ip-lawsuit-verdict",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-06T22:35:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T00:42:27Z",
+      "updated_at": "2026-10-07T16:37:47Z",
+      "decay_at": "2026-10-08T10:35:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ea338eeb2104",
       "idea_version": "IDEAV-0e7b7078e1435ae1",
       "idea_version_started_at": "2026-10-07T01:37:33Z",
@@ -163316,6 +163386,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0aed650e01e7",
+      "idea_version": "IDEAV-d9d84e51cae8bb87",
+      "idea_version_started_at": "2026-10-07T16:37:47Z",
+      "ticker": "OPCH",
+      "company": "Option Care Health",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "McKesson and CD&R have agreed to take the company private in a $5.8 billion deal, providing a clear exit price for shareholders.",
+      "why_now": "The deal was announced on 2026-10-06; the stock should trade toward the acquisition price.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5be02316cda3"
+      ],
+      "primary_source_event_id": "EVT-5be02316cda3",
+      "source_headlines": [
+        "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal"
+      ],
+      "source_headline": "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal",
+      "source_url": "https://www.reuters.com/legal/transactional/mckesson-cdr-buy-infusion-therapy-provider-option-care-health-58-billion-deal-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-06T14:57:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T23:00:55Z",
+      "updated_at": "2026-10-07T16:37:47Z",
+      "decay_at": "2026-10-08T02:57:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-19fbf5765dfa",
       "idea_version": "IDEAV-86c1624b1aaf9bde",
       "idea_version_started_at": "2026-10-07T10:57:31Z",
@@ -163670,78 +163811,6 @@
       "surfaced_at": "2026-10-07T01:07:10Z",
       "updated_at": "2026-10-07T01:07:10Z",
       "decay_at": "2026-10-08T12:00:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-30c2e14a4fb4",
-      "idea_version": "IDEAV-9e262f938aabb8c2",
-      "idea_version_started_at": "2026-10-07T00:42:27Z",
-      "ticker": "JOBY",
-      "company": "Joby Aviation",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A $100 million damages verdict in an IP lawsuit creates a significant liquidity drain and potential operational disruption for the company.",
-      "why_now": "The verdict was delivered on 2026-10-06.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-53f62b82f6d5"
-      ],
-      "primary_source_event_id": "EVT-53f62b82f6d5",
-      "source_headlines": [
-        "Joby Hit With Over $100 Million in Damages in IP Lawsuit Verdict"
-      ],
-      "source_headline": "Joby Hit With Over $100 Million in Damages in IP Lawsuit Verdict",
-      "source_url": "https://www.nasdaq.com/articles/joby-hit-over-100-million-damages-ip-lawsuit-verdict",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T22:35:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T00:42:27Z",
-      "updated_at": "2026-10-07T00:42:27Z",
-      "decay_at": "2026-10-08T10:35:01Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -165411,76 +165480,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0aed650e01e7",
-      "idea_version": "IDEAV-ee4cf31c9e3136f7",
-      "idea_version_started_at": "2026-10-05T23:00:55Z",
-      "ticker": "OPCH",
-      "company": "Option Care Health, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "McKesson is in advanced talks to acquire Option Care Health for over $5 billion, representing a significant premium to current market valuation.",
-      "why_now": "The deal report surfaced on 2026-10-05 and is currently driving price action.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e0f0cfe9ee43"
-      ],
-      "primary_source_event_id": "EVT-e0f0cfe9ee43",
-      "source_headlines": [
-        "McKesson, CD&R near $5 billion-plus deal to buy Option Care, FT reports"
-      ],
-      "source_headline": "McKesson, CD&R near $5 billion-plus deal to buy Option Care, FT reports",
-      "source_url": "https://www.reuters.com/legal/transactional/mckesson-cdr-near-5-billion-plus-deal-buy-option-care-ft-reports-2026-10-05/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T20:46:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T23:00:55Z",
-      "updated_at": "2026-10-05T23:00:55Z",
-      "decay_at": "2026-10-07T08:46:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-d93816107e63",
       "idea_version": "IDEAV-d42b0fc859b19166",
       "idea_version_started_at": "2026-10-05T07:26:59Z",
@@ -165686,76 +165685,6 @@
       "surfaced_at": "2026-10-05T02:42:33Z",
       "updated_at": "2026-10-05T02:42:33Z",
       "decay_at": "2026-10-06T14:08:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3b067fdb7522",
-      "idea_version": "IDEAV-49b588a8e19f2a60",
-      "idea_version_started_at": "2026-10-04T15:40:04Z",
-      "ticker": "AVGO",
-      "company": "Broadcom",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Concerns regarding circular financing in a $42 billion chip-buying deal with Anthropic create significant governance and balance sheet quality risks.",
-      "why_now": "The emergence of circular financing allegations on October 4, 2026, introduces immediate headline and regulatory risk.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-140baac5b928"
-      ],
-      "primary_source_event_id": "EVT-140baac5b928",
-      "source_headlines": [
-        "Broadcom’s Massive $42 Billion Chip-Buying Deal with Anthropic Raises Circular Financing Worries"
-      ],
-      "source_headline": "Broadcom’s Massive $42 Billion Chip-Buying Deal with Anthropic Raises Circular Financing Worries",
-      "source_url": "https://247wallst.com/investing/2026/10/04/broadcoms-massive-42-billion-chip-buying-deal-with-anthropic-raises-circular-financing-worries/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T15:33:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T15:40:04Z",
-      "updated_at": "2026-10-04T15:40:04Z",
-      "decay_at": "2026-10-06T03:33:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -166324,146 +166253,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-02bbebbf9947",
-      "idea_version": "IDEAV-1cb7d5d87002eed6",
-      "idea_version_started_at": "2026-10-04T16:45:03Z",
-      "ticker": "SGO.PA",
-      "company": "Saint-Gobain",
-      "exchange": "Paris",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Saint-Gobain plans a significant capital expenditure of ₹11,000 crore in India over the next five years, indicating substantial growth investment in the region.",
-      "why_now": "The announcement of a five-year investment plan provides a clear, forward-looking catalyst for growth.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-445babbe274e"
-      ],
-      "primary_source_event_id": "EVT-445babbe274e",
-      "source_headlines": [
-        "Saint-Gobain plans ₹11,000 crore India push over the next five years"
-      ],
-      "source_headline": "Saint-Gobain plans ₹11,000 crore India push over the next five years",
-      "source_url": "https://www.thehindubusinessline.com/companies/saint-gobain-eyes-more-india-acquisitions-as-ceo-sreedhar-targets-43-billion-business/article71486048.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T16:35:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T16:45:03Z",
-      "updated_at": "2026-10-04T16:45:03Z",
-      "decay_at": "2026-10-06T04:35:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-521e020bb493",
-      "idea_version": "IDEAV-ffa7f06b156e6034",
-      "idea_version_started_at": "2026-10-04T16:45:03Z",
-      "ticker": "AMZN",
-      "company": "Amazon",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Amazon is investing an additional $1 billion in AI data centers, signaling continued expansion and commitment to its AI infrastructure.",
-      "why_now": "The investment is a fresh announcement, indicating immediate capital allocation towards AI growth.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a398a2566fa1"
-      ],
-      "primary_source_event_id": "EVT-a398a2566fa1",
-      "source_headlines": [
-        "Amazon Is Spending Another $1 Billion on AI Data Centers — But This Time, It’s Not Buying a Single GPU"
-      ],
-      "source_headline": "Amazon Is Spending Another $1 Billion on AI Data Centers — But This Time, It’s Not Buying a Single GPU",
-      "source_url": "https://247wallst.com/investing/2026/10/04/amazon-is-spending-another-1-billion-on-ai-data-centers-but-this-time-its-not-buying-a-single-gpu/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T15:16:34Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/AMZN_2026-07-20",
-        "latest_decision": null,
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-10-04T16:45:03Z",
-      "updated_at": "2026-10-04T16:45:03Z",
-      "decay_at": "2026-10-06T03:16:34Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-bb6c79ef8ffe",
       "idea_version": "IDEAV-e01408efed92052c",
       "idea_version_started_at": "2026-10-06T01:22:08Z",
@@ -166528,76 +166317,6 @@
       "surfaced_at": "2026-10-03T03:34:29Z",
       "updated_at": "2026-10-06T01:22:08Z",
       "decay_at": "2026-10-07T12:19:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-50f379c78b21",
-      "idea_version": "IDEAV-8ccb8002d826e8d3",
-      "idea_version_started_at": "2026-10-04T16:00:05Z",
-      "ticker": "NVDA",
-      "company": "NVIDIA Corporation",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Amazon's shift to offloading $8 billion in Nvidia hardware inventory suggests a cooling in hyperscaler capital expenditure demand for high-end AI chips, signaling a potential revenue headwind for Nvidia.",
-      "why_now": "The report surfaced on 2026-10-04 regarding a specific, large-scale inventory liquidation strategy by a primary customer.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9cd2234b8e4f"
-      ],
-      "primary_source_event_id": "EVT-9cd2234b8e4f",
-      "source_headlines": [
-        "Amazon Wants to Move $8 Billion in Nvidia Chips Off Its Books. Is AI’s Financing Model Starting to Change?"
-      ],
-      "source_headline": "Amazon Wants to Move $8 Billion in Nvidia Chips Off Its Books. Is AI’s Financing Model Starting to Change?",
-      "source_url": "https://247wallst.com/investing/2026/10/04/amazon-wants-to-move-8-billion-in-nvidia-chips-off-its-books-is-ais-financing-model-starting-to-change/",
-      "source_name": "24/7 Wall St.",
-      "materiality_max": 94,
-      "newest_source_at": "2026-10-04T15:38:29Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T16:00:05Z",
-      "updated_at": "2026-10-04T16:00:05Z",
-      "decay_at": "2026-10-06T03:38:29Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -167089,77 +166808,6 @@
       "surfaced_at": "2026-10-05T20:12:16Z",
       "updated_at": "2026-10-05T22:45:00Z",
       "decay_at": "2026-10-07T05:19:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2c8697fc45c7",
-      "idea_version": "IDEAV-6d470038be1f51a3",
-      "idea_version_started_at": "2026-10-04T14:21:24Z",
-      "ticker": "LESL",
-      "company": "Leslie's",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Leslie's is closing 76 locations as part of its Chapter 11 bankruptcy filing, which will lead to significant revenue loss and operational contraction.",
-      "why_now": "The announcement of store closures related to Chapter 11 was made on October 4, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b89f6bfd0e5f"
-      ],
-      "primary_source_event_id": "EVT-b89f6bfd0e5f",
-      "source_headlines": [
-        "These are the 76 Leslie's Pool locations closing as part of Chapter 11"
-      ],
-      "source_headline": "These are the 76 Leslie's Pool locations closing as part of Chapter 11",
-      "source_url": "https://www.thestreet.com/retail/these-are-the-76-leslies-pool-locations-closing-as-part-of-chapter-11",
-      "source_name": "TheStreet",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T14:03:51Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T14:21:24Z",
-      "updated_at": "2026-10-04T14:21:24Z",
-      "decay_at": "2026-10-06T02:03:51Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -169111,153 +168759,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-fa488fc9f689",
-      "idea_version": "IDEAV-a0dbcc5e990c294c",
-      "idea_version_started_at": "2026-10-04T17:05:26Z",
-      "ticker": "SGOB.PA",
-      "company": "Saint-Gobain",
-      "exchange": "EPA",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Saint-Gobain's planned ₹11,000 crore investment in India over the next five years is expected to significantly boost its revenue and market share in a growing economy.",
-      "why_now": "The company has announced a concrete capital expenditure plan for the next five years, indicating a clear growth catalyst starting now.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-445babbe274e"
-      ],
-      "primary_source_event_id": "EVT-445babbe274e",
-      "source_headlines": [
-        "Saint-Gobain plans ₹11,000 crore India push over the next five years"
-      ],
-      "source_headline": "Saint-Gobain plans ₹11,000 crore India push over the next five years",
-      "source_url": "https://www.thehindubusinessline.com/companies/saint-gobain-eyes-more-india-acquisitions-as-ceo-sreedhar-targets-43-billion-business/article71486048.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T16:35:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T17:05:26Z",
-      "updated_at": "2026-10-04T17:05:26Z",
-      "decay_at": "2026-10-06T04:35:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-796a3c8cf02a",
-      "idea_version": "IDEAV-ee5a39b8be994614",
-      "idea_version_started_at": "2026-10-04T11:54:46Z",
-      "ticker": "KUSUM",
-      "company": "Kusum Group",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Kusum Group's pharmaceutical plant in Ukraine has been attacked and destroyed by Russian drones, impacting its operations and potentially its revenue.",
-      "why_now": "Reports of the attack and destruction emerged on October 4, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 10,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-41151ba2493c",
-        "EVT-c0a67d52599b",
-        "EVT-d470dc288a57"
-      ],
-      "primary_source_event_id": "EVT-c0a67d52599b",
-      "source_headlines": [
-        "Russian Drone Strike Destroys Indian-Owned Pharma Unit In Ukraine, One Dead",
-        "India's Kusum Group pharma plant in Ukraine comes under attack, says report: What to know",
-        "Indian-run pharma plant in Ukraine hit by Russian drones, 1 killed, several injured"
-      ],
-      "source_headline": "Russian Drone Strike Destroys Indian-Owned Pharma Unit In Ukraine, One Dead",
-      "source_url": "https://www.ndtvprofit.com/world/russian-drone-strike-destroys-indian-owned-pharma-unit-in-ukraine-one-dead-12136681#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T11:10:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T11:54:46Z",
-      "updated_at": "2026-10-04T11:54:46Z",
-      "decay_at": "2026-10-05T23:10:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b68ebd5b2209",
       "idea_version": "IDEAV-e36f24bb8cb4bd09",
       "idea_version_started_at": "2026-10-05T04:46:37Z",
@@ -169617,295 +169118,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-a34afcfddf31",
-      "idea_version": "IDEAV-ffdd56a83b3aae88",
-      "idea_version_started_at": "2026-10-04T14:21:24Z",
-      "ticker": "SGB.PA",
-      "company": "Saint-Gobain",
-      "exchange": "EURONEXT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Saint-Gobain is actively seeking acquisitions in India with a target of $4.3 billion in business, indicating a strategy for significant growth in the region.",
-      "why_now": "The CEO's target and acquisition strategy were highlighted on October 4, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9dfe507344ce"
-      ],
-      "primary_source_event_id": "EVT-9dfe507344ce",
-      "source_headlines": [
-        "Saint-Gobain eyes more India acquisitions as CEO Sreedhar targets $4.3 billion business"
-      ],
-      "source_headline": "Saint-Gobain eyes more India acquisitions as CEO Sreedhar targets $4.3 billion business",
-      "source_url": "https://www.thehindubusinessline.com/companies/saint-gobain-eyes-more-india-acquisitions-as-ceo-sreedhar-targets-43-billion-business/article71486048.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-04T13:48:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T14:21:24Z",
-      "updated_at": "2026-10-04T14:21:24Z",
-      "decay_at": "2026-10-06T01:48:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-1ecf3a7e4a91",
-      "idea_version": "IDEAV-f146905934ad4d15",
-      "idea_version_started_at": "2026-10-04T12:14:59Z",
-      "ticker": "BT.A",
-      "company": "BT Group",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BT Group is considering an improved offer for TalkTalk, which could lead to an acquisition and potential synergies.",
-      "why_now": "BT Group is actively weighing an improved offer for TalkTalk after an initial approach was rejected, indicating live M&A discussions.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8a055edf29cd"
-      ],
-      "primary_source_event_id": "EVT-8a055edf29cd",
-      "source_headlines": [
-        "BT weighs improved TalkTalk offer after initial approach rejected"
-      ],
-      "source_headline": "BT weighs improved TalkTalk offer after initial approach rejected",
-      "source_url": "https://www.ft.com/content/d2d5a5a5-758f-472f-a2c7-1684955b0087",
-      "source_name": "Financial Times",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-04T11:03:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T12:14:59Z",
-      "updated_at": "2026-10-04T12:14:59Z",
-      "decay_at": "2026-10-05T23:03:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-90cd4c64ef0e",
-      "idea_version": "IDEAV-9c52001f574404ab",
-      "idea_version_started_at": "2026-10-04T11:54:46Z",
-      "ticker": "TALK",
-      "company": "TalkTalk",
-      "exchange": "LSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "TalkTalk has received an improved offer from BT Group, suggesting a potential acquisition that would benefit TalkTalk shareholders.",
-      "why_now": "BT Group's improved offer was reported on October 4, 2026, after an initial approach was rejected.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8a055edf29cd"
-      ],
-      "primary_source_event_id": "EVT-8a055edf29cd",
-      "source_headlines": [
-        "BT weighs improved TalkTalk offer after initial approach rejected"
-      ],
-      "source_headline": "BT weighs improved TalkTalk offer after initial approach rejected",
-      "source_url": "https://www.ft.com/content/d2d5a5a5-758f-472f-a2c7-1684955b0087",
-      "source_name": "Financial Times",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-04T11:03:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T11:54:46Z",
-      "updated_at": "2026-10-04T11:54:46Z",
-      "decay_at": "2026-10-05T23:03:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-88b7e00c8b3a",
-      "idea_version": "IDEAV-2f0876c3573d7252",
-      "idea_version_started_at": "2026-10-04T11:29:54Z",
-      "ticker": "BT.A",
-      "company": "BT Group",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "BT Group is considering an improved offer for TalkTalk after an initial rejection, which risks overpaying and increasing leverage in a capital-intensive sector.",
-      "why_now": "The report of a renewed, improved offer surfaced on 2026-10-04, signaling active M&A negotiations.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8a055edf29cd"
-      ],
-      "primary_source_event_id": "EVT-8a055edf29cd",
-      "source_headlines": [
-        "BT weighs improved TalkTalk offer after initial approach rejected"
-      ],
-      "source_headline": "BT weighs improved TalkTalk offer after initial approach rejected",
-      "source_url": "https://www.ft.com/content/d2d5a5a5-758f-472f-a2c7-1684955b0087",
-      "source_name": "Financial Times",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-04T11:03:09Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T11:29:54Z",
-      "updated_at": "2026-10-04T11:29:54Z",
-      "decay_at": "2026-10-05T23:03:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-fc426f81932d",
       "idea_version": "IDEAV-f93c4cdbae8a059e",
       "idea_version_started_at": "2026-10-06T05:17:07Z",
@@ -169972,78 +169184,6 @@
       "surfaced_at": "2026-10-06T02:05:34Z",
       "updated_at": "2026-10-06T05:17:07Z",
       "decay_at": "2026-10-07T16:34:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9073a81e9f1e",
-      "idea_version": "IDEAV-d4730722b9c0d20d",
-      "idea_version_started_at": "2026-10-04T15:06:54Z",
-      "ticker": "NYKAA",
-      "company": "FSN E-Commerce Ventures",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported strong Q2 business updates with consolidated net revenue growth expected in the late twenties and GMV growth in the high twenties, driven by robust consumer demand in its beauty and personal care segments.",
-      "why_now": "This is a live, market-moving Q2 business update released on October 4, 2026, ahead of its formal quarterly earnings release.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-88fd84df6da1"
-      ],
-      "primary_source_event_id": "EVT-88fd84df6da1",
-      "source_headlines": [
-        "Nykaa Q2 update: Consolidated net revenue growth seen in late twenties, GMV in high twenties"
-      ],
-      "source_headline": "Nykaa Q2 update: Consolidated net revenue growth seen in late twenties, GMV in high twenties",
-      "source_url": "https://www.cnbctv18.com/market/stocks/nykaa-share-price-q2-update-consolidated-net-revenue-growth-seen-in-late-twenties-gmv-in-high-twenties-20004193.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 92,
-      "newest_source_at": "2026-10-04T14:32:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T15:06:54Z",
-      "updated_at": "2026-10-04T15:06:54Z",
-      "decay_at": "2026-10-06T02:32:59Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170188,150 +169328,6 @@
       "surfaced_at": "2026-10-05T04:46:37Z",
       "updated_at": "2026-10-05T04:46:37Z",
       "decay_at": "2026-10-06T16:12:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-631ed86dc2a4",
-      "idea_version": "IDEAV-14602060eb1c8687",
-      "idea_version_started_at": "2026-10-04T12:14:59Z",
-      "ticker": "EVEREST",
-      "company": "Everest Food Products",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Everest Food Products faces a recall of its Cumin Powder due to excess pesticide residues, which will negatively impact sales and brand reputation.",
-      "why_now": "The FSSAI has issued a recall for Everest Cumin Powder today, October 4, 2026, creating an immediate operational and reputational challenge.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6bb3d72bc1ca"
-      ],
-      "primary_source_event_id": "EVT-6bb3d72bc1ca",
-      "source_headlines": [
-        "Everest Cumin Powder Recalled By FSSAI Over Excess Pesticide Residues — Check Batch Details"
-      ],
-      "source_headline": "Everest Cumin Powder Recalled By FSSAI Over Excess Pesticide Residues — Check Batch Details",
-      "source_url": "https://www.ndtvprofit.com/business/everest-cumin-powder-recalled-by-fssai-over-excess-pesticide-residues-check-batch-details-12137033#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-04T11:39:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T12:14:59Z",
-      "updated_at": "2026-10-04T12:14:59Z",
-      "decay_at": "2026-10-05T23:39:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-e3abafc0f06f",
-      "idea_version": "IDEAV-e17ff0a90b6f08a4",
-      "idea_version_started_at": "2026-10-04T11:54:46Z",
-      "ticker": "EFPL",
-      "company": "Everest Food Products",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Everest Food Products' cumin powder is being recalled by the FSSAI due to excess pesticide residues, which will negatively impact sales and brand reputation.",
-      "why_now": "The recall was announced on October 4, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6bb3d72bc1ca"
-      ],
-      "primary_source_event_id": "EVT-6bb3d72bc1ca",
-      "source_headlines": [
-        "Everest Cumin Powder Recalled By FSSAI Over Excess Pesticide Residues — Check Batch Details"
-      ],
-      "source_headline": "Everest Cumin Powder Recalled By FSSAI Over Excess Pesticide Residues — Check Batch Details",
-      "source_url": "https://www.ndtvprofit.com/business/everest-cumin-powder-recalled-by-fssai-over-excess-pesticide-residues-check-batch-details-12137033#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-04T11:39:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T11:54:46Z",
-      "updated_at": "2026-10-04T11:54:46Z",
-      "decay_at": "2026-10-05T23:39:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171430,33 +170426,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 588,
+    "total_count": 573,
     "shown_count": 500,
-    "hidden_count": 88,
+    "hidden_count": 73,
     "side_counts": {
       "long": {
-        "total_count": 310,
+        "total_count": 302,
         "shown_count": 250,
-        "hidden_count": 60
+        "hidden_count": 52
       },
       "short": {
-        "total_count": 278,
+        "total_count": 271,
         "shown_count": 250,
-        "hidden_count": 28
+        "hidden_count": 21
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 779,
-      "oldest_retained_at": "2026-09-10T02:51:03Z",
+      "evicted_count": 793,
+      "oldest_retained_at": "2026-09-10T14:02:02Z",
       "side_counts": {
         "long": {
-          "evicted_count": 514,
-          "oldest_retained_at": "2026-09-20T08:29:45Z"
+          "evicted_count": 521,
+          "oldest_retained_at": "2026-09-20T21:54:31Z"
         },
         "short": {
-          "evicted_count": 265,
-          "oldest_retained_at": "2026-09-10T02:51:03Z"
+          "evicted_count": 272,
+          "oldest_retained_at": "2026-09-10T14:02:02Z"
         }
       }
     },
@@ -173618,79 +172614,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-10-07T09:09:00Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-0aed650e01e7",
-        "idea_version": "IDEAV-ee4cf31c9e3136f7",
-        "idea_version_started_at": "2026-10-05T23:00:55Z",
-        "ticker": "OPCH",
-        "company": "Option Care Health, Inc.",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "McKesson is in advanced talks to acquire Option Care Health for over $5 billion, representing a significant premium to current market valuation.",
-        "why_now": "The deal report surfaced on 2026-10-05 and is currently driving price action.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e0f0cfe9ee43"
-        ],
-        "primary_source_event_id": "EVT-e0f0cfe9ee43",
-        "source_headlines": [
-          "McKesson, CD&R near $5 billion-plus deal to buy Option Care, FT reports"
-        ],
-        "source_headline": "McKesson, CD&R near $5 billion-plus deal to buy Option Care, FT reports",
-        "source_url": "https://www.reuters.com/legal/transactional/mckesson-cdr-near-5-billion-plus-deal-buy-option-care-ft-reports-2026-10-05/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-05T20:46:29Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T23:00:55Z",
-        "updated_at": "2026-10-05T23:00:55Z",
-        "decay_at": "2026-10-07T08:46:29Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-07T08:46:29Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -177041,8 +175964,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T04:35:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177116,8 +176039,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T04:35:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177189,8 +176112,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T03:38:29Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177262,8 +176185,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T03:33:48Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177335,8 +176258,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T03:16:34Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177410,8 +176333,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T02:32:59Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177484,8 +176407,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T02:03:51Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177560,8 +176483,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T01:48:02Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177635,8 +176558,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T23:39:02Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177710,8 +176633,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T23:39:02Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177788,8 +176711,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T23:10:56Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177863,8 +176786,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T23:03:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177938,8 +176861,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T23:03:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -178013,8 +176936,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T23:03:09Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T16:37:55Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -199747,6 +198670,80 @@
         "audit_only": true
       },
       {
+        "idea_id": "IDEA-20e5e51f52a2",
+        "idea_version": "IDEAV-5b11fb26214d40a7",
+        "idea_version_started_at": "2026-09-23T11:19:42Z",
+        "ticker": "GLENMARK",
+        "company": "Glenmark Pharmaceuticals",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The U.S. FDA issued a Voluntary Action Indicated (VAI) classification for the company's Goa facility, removing a significant regulatory overhang and allowing for potential new product approvals from that site.",
+        "why_now": "The EIR report was received and disclosed on September 23, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 16,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a6702376e2a6"
+        ],
+        "primary_source_event_id": "EVT-a6702376e2a6",
+        "source_headlines": [
+          "Glenmark Pharmaceuticals Limited: Glenmark Pharmaceuticals Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"Glenmark Pharmaceuticals receives Establishment Inspection Report (EIR) from U.S. FDA for its Goa facility with VAI classification\"."
+        ],
+        "source_headline": "Glenmark Pharmaceuticals Limited: Glenmark Pharmaceuticals Limited has informed the Exchange regarding a press release dated September 23, 2026, titled \"Glenmark Pharmaceuticals receives Establishment Inspection Report (EIR) from U.S. FDA for its Goa facility with VAI classification\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/GLENMARK_23092026083959_SEPressRelease23092026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 94,
+        "newest_source_at": "2026-09-23T03:11:06Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-23T11:19:42Z",
+        "updated_at": "2026-09-23T11:19:42Z",
+        "decay_at": "2026-09-24T15:11:06Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-26T09:49:55Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
         "idea_id": "IDEA-78f3934a8dda",
         "idea_version": "IDEAV-753de62d1e71d3d5",
         "idea_version_started_at": "2026-09-23T05:05:14Z",
@@ -208679,7 +207676,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1408,
-    "live_count": 40,
+    "live_count": 41,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
