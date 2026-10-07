@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-07T01:02:15Z",
+  "generated_at": "2026-10-07T01:06:53Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261007-068",
+      "headline": "Paramount closes Warner merger in historic Hollywood deal",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/07/paramount-warner-merger-deal/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Paramount has closed a merger with Warner, a major consolidation event in the media industry.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount has closed a merger with Warner, a major consolidation event in the media industry.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261007-029",
       "headline": "SpaceX seeking to raise US$40 billion to buy Nvidia chips: Financial Times",
@@ -557,6 +611,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-070",
+      "headline": "FlyDubai Attacker Was Part of Pilot Hiring Spree at Fast-Growing Airline",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/airlines/flydubai-attacker-was-part-of-pilot-hiring-spree-at-fast-growing-airline-27291c41?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Operational and reputational risk identified regarding pilot hiring practices at FlyDubai following an attack.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Operational and reputational risk identified regarding pilot hiring practices at FlyDubai following an attack.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FlyDubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-027",
       "headline": "Chevron evacuates some workers from Gulf of Mexico platforms at risk of storm",
       "headline_en": null,
@@ -845,6 +949,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-067",
+      "headline": "High Court rules on mine emissions; Humm chair, director exit amid probe; France’s debt bomb should worry Chalmers and CEOs",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/high-court-rules-on-mine-emissions-humm-chair-director-exit-amid-probe-france-s-debt-bomb-should-worry-chalmers-and-ceos-20261007-p613io?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T01:03:34Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "The Australian High Court ruling on mine emissions and the departure of Humm's chair and director amid a probe represent significant regulatory and governance risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "The Australian High Court ruling on mine emissions and the departure of Humm's chair and director amid a probe represent significant regulatory and governance risks.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "executive_exit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory",
+        "management",
+        "executive_exit"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Humm Group",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-057",
       "headline": "Malaysia PM Anwar set to boost budget spending as election speculation grows",
       "headline_en": null,
@@ -1028,6 +1183,55 @@
           "name": "CMA",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-069",
+      "headline": "TGH: Change of Chief Financial Officer & Joint Company Secretary",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.TGH?key=2924-03145467-2A1702567",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-07T01:00:15Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Change of CFO is a material management change for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Change of CFO is a material management change for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TGH",
+          "ticker": null,
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "unknown",
@@ -1771,197 +1975,6 @@
           "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-058",
-      "headline": "From ₹999 EMI to ₹1 lakh off: Hyundai’s festive deals could change your car-buying plan",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/photo/from-rs999-emi-to-rs1-lakh-off-hyundais-festive-deals-could-change-your-car-buying-plan-559876-2026-10-07?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:30:06Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Hyundai offering festive discounts to stimulate sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Hyundai offering festive discounts to stimulate sales.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hyundai Motor",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-063",
-      "headline": "Judge lets US fund seek New York Fed documents tied to Radiant World",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/government/us-judge-authorizes-fund-subpoena-new-york-fed-documents-related-radiant-world-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:51:32Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "A judge has allowed a US fund to seek documents from the New York Fed regarding Radiant World, a legal procedural step.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "A judge has allowed a US fund to seek documents from the New York Fed regarding Radiant World, a legal procedural step.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Radiant World",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-059",
-      "headline": "파리바게뜨 '파란라벨', 한글 이름으로 싱가포르 공략 성공",
-      "headline_en": "Paris Baguette's 'Blue Label' succeeds in targeting Singapore with Korean name",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278327",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:35:34Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Paris Baguette expanding brand presence in Singapore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Paris Baguette expanding brand presence in Singapore.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SPC Group",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-045",
-      "headline": "GST Council may weigh wider data sharing, rare disease tax relief on Thursday",
-      "headline_en": null,
-      "url": "https://www.livemint.com/economy/gst-council-may-open-tax-data-for-wider-economic-use-consider-rare-disease-relief-11791293979209.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:35:54Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "GST Council to vote Thursday on wider data sharing and rare-disease tax relief; policy decision is pending, not yet confirmed, and no company is named.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 56,
-      "triage_reason": "GST Council to vote Thursday on wider data sharing and rare-disease tax relief; policy decision is pending, not yet confirmed, and no company is named.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 42,
-      "rank_factors": {
-        "materiality": 42,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -209148,9 +209161,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 358,
-    "news_picked_today": 65,
-    "news_dropped_today": 269
+    "news_seen_today": 389,
+    "news_picked_today": 73,
+    "news_dropped_today": 292
   },
   "book_momentum": {
     "live_count": 8,
