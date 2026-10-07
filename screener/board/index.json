@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T18:07:32Z",
+  "generated_at": "2026-10-07T18:17:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-495",
@@ -595,6 +595,207 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-665",
+      "headline": "Australia's AirTrunk to triple Japan data center investment to up to $30bn",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/editor-s-picks/interview/australia-s-airtrunk-to-triple-japan-data-center-investment-to-up-to-30bn",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T18:09:35Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "AirTrunk announced a major capacity expansion in Japan with a planned investment of up to $30 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AirTrunk announced a major capacity expansion in Japan with a planned investment of up to $30 billion.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AirTrunk",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-662",
+      "headline": "Bangladesh flag carrier buys 10 Airbus jets amid regional hub ambitions",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/business-deals/bangladesh-flag-carrier-buys-10-airbus-jets-amid-regional-hub-ambitions",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T18:09:35Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Biman Bangladesh Airlines is purchasing 10 Airbus jets to expand its fleet and regional hub capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Biman Bangladesh Airlines is purchasing 10 Airbus jets to expand its fleet and regional hub capabilities.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Airbus",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-639",
+      "headline": "Layoff news: Porsche to terminate 9,000 jobs, management positions face 40% cuts; car prices to go up 20%",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/layoff-news-porsche-to-terminate-9-000-jobs-management-positions-face-40-cuts-car-prices-to-go-up-20-11791395563763.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T18:02:25Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Porsche announced a massive restructuring involving 9,000 job cuts and significant management reductions, alongside a 20% price hike.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Porsche announced a massive restructuring involving 9,000 job cuts and significant management reductions, alongside a 20% price hike.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Porsche",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-657",
+      "headline": "Apollo Joins $11.5 Billion Race for German Gas Giant Uniper",
+      "headline_en": null,
+      "url": "https://oilprice.com/Latest-Energy-News/World-News/Apollo-Joins-115-Billion-Race-for-German-Gas-Giant-Uniper.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T17:45:00Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Apollo Global Management is participating in an $11.5 billion acquisition process for Uniper.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apollo Global Management is participating in an $11.5 billion acquisition process for Uniper.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apollo Global Management",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Uniper",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-596",
       "headline": "Boots sold in £7bn deal to Canadian billionaire family",
       "headline_en": null,
@@ -639,6 +840,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-676",
+      "headline": "SpaceX Seeks $40B for Nvidia Chips as AI Megadeals Loom",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/bloomberg-tech-10-7-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T17:17:15Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "SpaceX is seeking $40 billion for Nvidia chips, representing a massive capital expenditure and supply chain impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX is seeking $40 billion for Nvidia chips, representing a massive capital expenditure and supply chain impact.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1765,245 +2020,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-335",
-      "headline": "Sindicatos de mina chilena Centinela dicen fracasa diálogo contractual con Antofagasta; iniciarán huelga",
-      "headline_en": "Unions at Chilean mine Centinela say contract dialogue with Antofagasta fails; will start strike",
-      "url": "https://www.reuters.com/es/negocio/2VZSW2U2PZK57II5QDZM4726XY-2026-10-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T05:01:05Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Workers at the Centinela mine are initiating a strike after contract negotiations with Antofagasta failed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Workers at the Centinela mine are initiating a strike after contract negotiations with Antofagasta failed.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Antofagasta",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-318",
-      "headline": "LG Electronics’ Preliminary Earnings Disappoint",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/lg-electronics-preliminary-earnings-miss-street-views-231fd48d?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T04:59:00Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "LG Electronics reported preliminary earnings that disappointed market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LG Electronics reported preliminary earnings that disappointed market expectations.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-338",
-      "headline": "RBI Raises FY27 CPI Inflation Forecast To 5.2% From 5%; Hikes Repo Rate To 5.50%",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/economy/rbi-inflation-fy27-outlook-hike-repo-rate-geopolitical-uncertainty-us-iran-war-food-prices-oil-prices-today-rate-cuts-off-table-12149315#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T04:58:12Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "RBI hikes repo rate to 5.50% and raises FY27 CPI inflation forecast to 5.2%, tightening monetary conditions and increasing discount rates for all Indian equities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "RBI hikes repo rate to 5.50% and raises FY27 CPI inflation forecast to 5.2%, tightening monetary conditions and increasing discount rates for all Indian equities.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "guidance_change"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-337",
-      "headline": "Milliarden-Deal in Hollywood - Skydance schließt Übernahme von Warner Bros. ab",
-      "headline_en": "Billion-dollar deal in Hollywood - Skydance completes acquisition of Warner Bros.",
-      "url": "https://www.reuters.com/de/welt/milliarden-deal-hollywood-skydance-schliet-bernahme-von-warner-bros-ab-2026-10-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T04:57:58Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Skydance has completed its acquisition of Warner Bros.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Skydance has completed its acquisition of Warner Bros.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Skydance",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Warner Bros.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-344",
-      "headline": "RBI MPC meeting 2026: Repo rate hiked by 25 basis points to 5.5%; GDP growth forecast raised to 7.1% for FY27",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/business/rbi-mpc-meeting-2026-repo-rate-hiked-by-25-basis-points-to-55-gdp-growth-forecast-raised-to-71-for-fy27-newsalert-4173194",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T04:45:33Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "RBI Monetary Policy Committee raises repo rate 25bp to 5.5% and upgrades FY27 GDP growth forecast to 7.1%; official central-bank policy and consensus revision from primary source; rate hike compresses multiples, growth upgrade supports earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "RBI Monetary Policy Committee raises repo rate 25bp to 5.5% and upgrades FY27 GDP growth forecast to 7.1%; official central-bank policy and consensus revision from primary source; rate hike compresses multiples, growth upgrade supports earnings.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 88,
-      "rank_factors": {
-        "materiality": 88,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -207976,9 +207992,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 708799,
-    "news_picked_today": 1047,
-    "news_dropped_today": 8089
+    "news_seen_today": 719907,
+    "news_picked_today": 1124,
+    "news_dropped_today": 8636
   },
   "book_momentum": {
     "live_count": 8,
