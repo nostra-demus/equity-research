@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-a29b6208aef4",
-  "idea_version": "IDEAV-f22435bcea16624f",
-  "idea_version_started_at": "2026-10-04T11:29:54Z",
-  "ticker": "1876",
-  "company": "Budweiser Brewing Company APAC",
-  "exchange": "HKEX",
+  "idea_id": "IDEA-19fbf5765dfa",
+  "idea_version": "IDEAV-86c1624b1aaf9bde",
+  "idea_version_started_at": "2026-10-07T10:57:31Z",
+  "ticker": "ANTO",
+  "company": "Antofagasta",
+  "exchange": "LSE",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "The company has announced a strategic review, which often precedes potential asset divestitures, restructuring, or a privatization attempt by the parent company.",
-  "why_now": "The inside information filing was released on 2026-10-04, triggering immediate market speculation on the outcome of the review.",
-  "conviction": 65,
+  "reason": "Strike at Centinela mine will disrupt Antofagasta's copper output, cutting revenue and earnings.",
+  "why_now": "Unions announced strike start following failed contract talks on 2026-10-07.",
+  "conviction": 58,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 25,
-    "impact": 19,
+    "evidence": 14,
+    "impact": 18,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,26 +49,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-5aab3a870d2e"
+    "EVT-461a7dd1d4fd"
   ],
-  "primary_source_event_id": "EVT-5aab3a870d2e",
+  "primary_source_event_id": "EVT-461a7dd1d4fd",
   "source_headlines": [
-    "BUD APAC (01876): INSIDE INFORMATION"
+    "Unions at Chilean mine Centinela say contract dialogue with Antofagasta fails; will start strike"
   ],
-  "source_headline": "BUD APAC (01876): INSIDE INFORMATION",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1004/2026100400021.pdf",
-  "source_name": "HKEXnews (HK Exchange Filing)",
+  "source_headline": "Sindicatos de mina chilena Centinela dicen fracasa diálogo contractual con Antofagasta; iniciarán huelga",
+  "source_url": "https://www.reuters.com/es/negocio/2VZSW2U2PZK57II5QDZM4726XY-2026-10-07/",
+  "source_name": "Reuters — Latest (news sitemap)",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-04T10:46:00Z",
+  "newest_source_at": "2026-10-07T05:01:05Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-04T11:29:54Z",
-  "updated_at": "2026-10-04T11:29:54Z",
-  "decay_at": "2026-10-05T22:46:00Z",
+  "surfaced_at": "2026-10-07T10:57:31Z",
+  "updated_at": "2026-10-07T10:57:31Z",
+  "decay_at": "2026-10-08T17:01:05Z",
   "status": "live",
   "promoted_signal_id": null
 }

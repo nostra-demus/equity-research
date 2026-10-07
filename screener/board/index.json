@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T10:57:06Z",
+  "generated_at": "2026-10-07T10:57:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-328",
@@ -163884,6 +163884,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-19fbf5765dfa",
+      "idea_version": "IDEAV-86c1624b1aaf9bde",
+      "idea_version_started_at": "2026-10-07T10:57:31Z",
+      "ticker": "ANTO",
+      "company": "Antofagasta",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Strike at Centinela mine will disrupt Antofagasta's copper output, cutting revenue and earnings.",
+      "why_now": "Unions announced strike start following failed contract talks on 2026-10-07.",
+      "conviction": 58,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-461a7dd1d4fd"
+      ],
+      "primary_source_event_id": "EVT-461a7dd1d4fd",
+      "source_headlines": [
+        "Unions at Chilean mine Centinela say contract dialogue with Antofagasta fails; will start strike"
+      ],
+      "source_headline": "Sindicatos de mina chilena Centinela dicen fracasa diálogo contractual con Antofagasta; iniciarán huelga",
+      "source_url": "https://www.reuters.com/es/negocio/2VZSW2U2PZK57II5QDZM4726XY-2026-10-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T05:01:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T10:57:31Z",
+      "updated_at": "2026-10-07T10:57:31Z",
+      "decay_at": "2026-10-08T17:01:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b5f944e5cba6",
       "idea_version": "IDEAV-6449edd0b4c90a82",
       "idea_version_started_at": "2026-10-07T05:02:45Z",
@@ -167276,76 +167348,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-04bd73d1842b",
-      "idea_version": "IDEAV-403ffc34dc9c2234",
-      "idea_version_started_at": "2026-10-04T08:40:09Z",
-      "ticker": "YESBANK.NS",
-      "company": "YES Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "YES Bank reported a 24% year-over-year surge in loans to ₹3 lakh crore and a 20% increase in deposits, indicating strong business growth.",
-      "why_now": "The Q2 business update provides current financial performance metrics, making the growth story live now.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-151edcdda774"
-      ],
-      "primary_source_event_id": "EVT-151edcdda774",
-      "source_headlines": [
-        "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY"
-      ],
-      "source_headline": "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY",
-      "source_url": "https://www.cnbctv18.com/market/stocks/yes-bank-share-price-q2-business-update-loans-surge-24-to-rs-3-lakh-crore-deposits-up-20-yoy-20004109.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T08:36:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T08:40:09Z",
-      "updated_at": "2026-10-04T08:40:09Z",
-      "decay_at": "2026-10-05T20:36:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-662b507466d5",
       "idea_version": "IDEAV-3891bc16f5b4b9d3",
       "idea_version_started_at": "2026-10-05T02:42:33Z",
@@ -167480,76 +167482,6 @@
       "surfaced_at": "2026-10-04T15:40:04Z",
       "updated_at": "2026-10-04T15:40:04Z",
       "decay_at": "2026-10-06T03:33:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d9c194e5e146",
-      "idea_version": "IDEAV-339c00c3d7acec96",
-      "idea_version_started_at": "2026-10-04T05:46:50Z",
-      "ticker": "MT",
-      "company": "ArcelorMittal",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $1 billion investment in Brazil signals a strategic expansion to capture market share as Chinese steel import competition wanes in the region.",
-      "why_now": "The investment plan was announced today, October 4, 2026, providing a fresh catalyst for capital deployment.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-004b2a06de0b"
-      ],
-      "primary_source_event_id": "EVT-004b2a06de0b",
-      "source_headlines": [
-        "Indian group ArcelorMittal plans $1 billion investment in Brazil as Chinese steel imports decline"
-      ],
-      "source_headline": "Indian group ArcelorMittal plans $1 billion investment in Brazil as Chinese steel imports decline",
-      "source_url": "https://www.thehindubusinessline.com/companies/indian-group-arcelormittal-plans-1-billion-investment-in-brazil-as-chinese-steel-imports-decline/article71542891.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T05:37:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T05:46:50Z",
-      "updated_at": "2026-10-04T05:46:50Z",
-      "decay_at": "2026-10-05T17:37:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -167978,76 +167910,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-9f47945c8197",
-      "idea_version": "IDEAV-f1fe0c796f718972",
-      "idea_version_started_at": "2026-10-04T17:21:36Z",
-      "ticker": "LMT",
-      "company": "Lockheed Martin",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $10.5 billion military aircraft bid in India serves as a massive revenue catalyst for the firm's international expansion strategy.",
-      "why_now": "The expansion plan details and the specific $10.5bn bid competition were highlighted on October 4, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f624a7f4fa30"
-      ],
-      "primary_source_event_id": "EVT-f624a7f4fa30",
-      "source_headlines": [
-        "Lockheed Martin’s India expansion plan hinges on $10.5bn military aircraft bid: Which firms are competing for project?"
-      ],
-      "source_headline": "Lockheed Martin’s India expansion plan hinges on $10.5bn military aircraft bid: Which firms are competing for project?",
-      "source_url": "https://www.livemint.com/companies/news/lockheed-martin-s-india-expansion-plan-hinges-on-10-5bn-military-aircraft-bid-which-firms-are-competing-for-project-11791107461403.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T10:54:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T17:21:36Z",
-      "updated_at": "2026-10-04T17:21:36Z",
-      "decay_at": "2026-10-05T22:54:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-02bbebbf9947",
       "idea_version": "IDEAV-1cb7d5d87002eed6",
       "idea_version_started_at": "2026-10-04T16:45:03Z",
@@ -168328,76 +168190,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-51f337afe9cd",
-      "idea_version": "IDEAV-e25a7694ce5c100d",
-      "idea_version_started_at": "2026-10-04T07:06:51Z",
-      "ticker": "VEDL.NS",
-      "company": "Vedanta",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Vedanta reported a significant 26% jump in power sales in Q2, indicating strong operational performance and revenue growth.",
-      "why_now": "Vedanta's power sales jumped 26% to 5,593 Million Units in Q2.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-65d5c8747e03"
-      ],
-      "primary_source_event_id": "EVT-65d5c8747e03",
-      "source_headlines": [
-        "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2"
-      ],
-      "source_headline": "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2",
-      "source_url": "https://www.outlookbusiness.com/corporate/vedanta-power-sales-jump-26-to-5593-million-units-in-q2",
-      "source_name": "Outlook Business",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-04T06:04:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T07:06:51Z",
-      "updated_at": "2026-10-04T07:06:51Z",
-      "decay_at": "2026-10-05T18:04:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-93087d826f00",
       "idea_version": "IDEAV-644521b1a793869c",
       "idea_version_started_at": "2026-10-05T02:42:33Z",
@@ -168604,77 +168396,6 @@
       "surfaced_at": "2026-10-04T14:21:24Z",
       "updated_at": "2026-10-04T14:21:24Z",
       "decay_at": "2026-10-06T02:03:51Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b520e6e5e5f6",
-      "idea_version": "IDEAV-2df1283f54ee5e2c",
-      "idea_version_started_at": "2026-10-04T08:14:49Z",
-      "ticker": "SBUX",
-      "company": "Starbucks Corporation",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Increased geopolitical friction and calls from US lawmakers to close stores in Xinjiang expose the company to heightened regulatory risk in the US and potential consumer boycotts or retaliatory state action in China, its second-largest market.",
-      "why_now": "The public escalation by Chinese authorities on October 4, 2026, in response to US legislative pressure creates a fresh risk of operational disruption in the China segment.",
-      "conviction": 45,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 13,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-74555099eca1"
-      ],
-      "primary_source_event_id": "EVT-74555099eca1",
-      "source_headlines": [
-        "China lashes out at Xinjiang ‘lie’ after US lawmaker urges Starbucks to close new stores"
-      ],
-      "source_headline": "China lashes out at Xinjiang ‘lie’ after US lawmaker urges Starbucks to close new stores",
-      "source_url": "https://www.scmp.com/news/china/diplomacy/article/3369689/china-lashes-out-xinjiang-lie-after-us-lawmaker-urges-starbucks-close-new-stores?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "materiality_max": 87,
-      "newest_source_at": "2026-10-04T08:00:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T08:14:49Z",
-      "updated_at": "2026-10-04T08:14:49Z",
-      "decay_at": "2026-10-05T20:00:17Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170341,220 +170062,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-a29b6208aef4",
-      "idea_version": "IDEAV-f22435bcea16624f",
-      "idea_version_started_at": "2026-10-04T11:29:54Z",
-      "ticker": "1876",
-      "company": "Budweiser Brewing Company APAC",
-      "exchange": "HKEX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has announced a strategic review, which often precedes potential asset divestitures, restructuring, or a privatization attempt by the parent company.",
-      "why_now": "The inside information filing was released on 2026-10-04, triggering immediate market speculation on the outcome of the review.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5aab3a870d2e"
-      ],
-      "primary_source_event_id": "EVT-5aab3a870d2e",
-      "source_headlines": [
-        "BUD APAC (01876): INSIDE INFORMATION"
-      ],
-      "source_headline": "BUD APAC (01876): INSIDE INFORMATION",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1004/2026100400021.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T10:46:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T11:29:54Z",
-      "updated_at": "2026-10-04T11:29:54Z",
-      "decay_at": "2026-10-05T22:46:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-87cbb3009f6f",
-      "idea_version": "IDEAV-cd128d98c354a1b1",
-      "idea_version_started_at": "2026-10-04T09:00:04Z",
-      "ticker": "YESBANK",
-      "company": "YES Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "YES Bank reported strong Q2 business updates with loan growth surging 24% year-over-year to ₹3 lakh crore and deposits rising 20%, indicating robust credit demand and balance sheet expansion.",
-      "why_now": "The Q2 business update was just released on October 4, 2026, acting as an immediate positive catalyst ahead of full quarterly earnings.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-151edcdda774"
-      ],
-      "primary_source_event_id": "EVT-151edcdda774",
-      "source_headlines": [
-        "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY"
-      ],
-      "source_headline": "YES Bank Q2 Business Update: Loans surge 24% to ₹3 lakh crore; deposits up 20% YoY",
-      "source_url": "https://www.cnbctv18.com/market/stocks/yes-bank-share-price-q2-business-update-loans-surge-24-to-rs-3-lakh-crore-deposits-up-20-yoy-20004109.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T08:36:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T09:00:04Z",
-      "updated_at": "2026-10-04T09:00:04Z",
-      "decay_at": "2026-10-05T20:36:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-d686c1bc6f60",
-      "idea_version": "IDEAV-8bd7852eb40a6572",
-      "idea_version_started_at": "2026-10-04T08:14:49Z",
-      "ticker": "533122",
-      "company": "India Power Corporation Limited",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company is undergoing a Corporate Insolvency Resolution Process (CIRP) and the voting results from the 8th Committee of Creditors meeting indicate a progression toward liquidation or a distressed restructuring that typically wipes out equity value.",
-      "why_now": "The outcome of the 8th CoC meeting was filed with the exchange on October 4, 2026, marking a critical step in the insolvency timeline.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-97820d5ea8e7"
-      ],
-      "primary_source_event_id": "EVT-97820d5ea8e7",
-      "source_headlines": [
-        "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 8th (Eighth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)"
-      ],
-      "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Outcome of the Voting Results of the 8th (Eighth) Meeting of the Committee of Creditors (CoC) of India Power Corporation Limited (IPCL)",
-      "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_04102026131531_IntimationofOutcomeof8thCoCVotingResults04102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T07:46:36Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T08:14:49Z",
-      "updated_at": "2026-10-04T08:14:49Z",
-      "decay_at": "2026-10-05T19:46:36Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b68ebd5b2209",
       "idea_version": "IDEAV-e36f24bb8cb4bd09",
       "idea_version_started_at": "2026-10-05T04:46:37Z",
@@ -171053,298 +170560,6 @@
       "surfaced_at": "2026-10-04T11:29:54Z",
       "updated_at": "2026-10-04T11:29:54Z",
       "decay_at": "2026-10-05T23:03:09Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5d7419f0c968",
-      "idea_version": "IDEAV-cbc7e30da752241a",
-      "idea_version_started_at": "2026-10-04T10:21:39Z",
-      "ticker": "MIS",
-      "company": "Al Moammar Information Systems",
-      "exchange": "Tadawul",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a contract from HUMAIN valued at 148% of its 2025 revenue, providing a massive, immediate boost to its order backlog and future earnings visibility.",
-      "why_now": "The contract award was announced on 2026-10-04.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d8b5cce1b378"
-      ],
-      "primary_source_event_id": "EVT-d8b5cce1b378",
-      "source_headlines": [
-        "‎MIS gets HUMAIN order worth 148% of 2025 revenue"
-      ],
-      "source_headline": "‎MIS gets HUMAIN order worth 148% of 2025 revenue",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1941115",
-      "source_name": "Argaam — Main News (English)",
-      "materiality_max": 96,
-      "newest_source_at": "2026-10-04T10:13:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T10:21:39Z",
-      "updated_at": "2026-10-04T10:21:39Z",
-      "decay_at": "2026-10-05T22:13:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-13e29c026907",
-      "idea_version": "IDEAV-0ad58ac9e3452b5a",
-      "idea_version_started_at": "2026-10-04T13:39:58Z",
-      "ticker": "ACWA",
-      "company": "ACWA Power",
-      "exchange": "Tadawul",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Reaching financial close on the Rabigh 2 expansion project de-risks a major capital expenditure project and secures long-term cash flow generation for the utility provider.",
-      "why_now": "The financial close was confirmed today, October 4, 2026.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d3c4d8002c06"
-      ],
-      "primary_source_event_id": "EVT-d3c4d8002c06",
-      "source_headlines": [
-        "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power"
-      ],
-      "source_headline": "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1941081",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-10-04T09:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T10:39:45Z",
-      "updated_at": "2026-10-04T13:39:58Z",
-      "decay_at": "2026-10-05T21:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-552d4a71e9b6",
-      "idea_version": "IDEAV-8dc126045b36813b",
-      "idea_version_started_at": "2026-10-04T09:45:15Z",
-      "ticker": "ACWAPOWER",
-      "company": "ACWA Power",
-      "exchange": "Tadawul",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reached financial close on the Rabigh 2 expansion project, securing the capital structure for a major infrastructure asset that will contribute to future revenue.",
-      "why_now": "The financial closure was officially announced on 2026-10-04.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d3c4d8002c06",
-        "EVT-19d1819c3065"
-      ],
-      "primary_source_event_id": "EVT-d3c4d8002c06",
-      "source_headlines": [
-        "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
-        "‎Acwa, Saudi Energy announce financial closure for Rabigh 2 expansion project"
-      ],
-      "source_headline": "‎Financial close reached for Rabigh 2 expansion project in Saudi Arabia: ACWA Power",
-      "source_url": "https://www.argaam.com/en/article/articledetail/id/1941081",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-10-04T09:36:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T09:45:15Z",
-      "updated_at": "2026-10-04T09:45:15Z",
-      "decay_at": "2026-10-05T21:36:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-7341ee8a85b3",
-      "idea_version": "IDEAV-b19d4bc23aa6ae50",
-      "idea_version_started_at": "2026-10-04T07:06:51Z",
-      "ticker": "JIO.NS",
-      "company": "Jio Platforms",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Jio Platforms is expected to launch its IPO by the end of October at a significant enterprise valuation, indicating strong investor interest and potential for growth.",
-      "why_now": "The IPO is likely by Oct end at an enterprise valuation of $143-146 billion.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0d0eb89277cd"
-      ],
-      "primary_source_event_id": "EVT-0d0eb89277cd",
-      "source_headlines": [
-        "Jio Platforms IPO likely by Oct end at enterprise valuation of $143-146 billion"
-      ],
-      "source_headline": "Jio Platforms IPO likely by Oct end at enterprise valuation of $143-146 billion",
-      "source_url": "https://www.thehindubusinessline.com/markets/jio-platforms-ipo-likely-by-oct-end-at-enterprise-valuation-of-143-146-billion/article71543036.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 93,
-      "newest_source_at": "2026-10-04T06:15:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T07:06:51Z",
-      "updated_at": "2026-10-04T07:06:51Z",
-      "decay_at": "2026-10-05T18:15:20Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171927,223 +171142,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-9d6049b683f8",
-      "idea_version": "IDEAV-e7a5004eebb679bd",
-      "idea_version_started_at": "2026-10-04T11:04:47Z",
-      "ticker": "DLF",
-      "company": "DLF Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company fully sold out its Aureva luxury project, generating ₹1,985 crore in sales, which bolsters cash flow and validates high-end demand in the Gurugram market.",
-      "why_now": "The sales milestone was reported on 2026-10-04.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b88f4bf86dba"
-      ],
-      "primary_source_event_id": "EVT-b88f4bf86dba",
-      "source_headlines": [
-        "DLF’s The Aureva luxury project in Gurugram fully sold out, records ₹1,985 crore in sales"
-      ],
-      "source_headline": "DLF’s The Aureva luxury project in Gurugram fully sold out, records ₹1,985 crore in sales",
-      "source_url": "https://www.cnbctv18.com/market/stocks/dlf-share-price-the-aureva-luxury-project-in-gurugram-fully-sold-out-records-rs-1985-crore-in-sales-20004132.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-04T10:22:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T11:04:47Z",
-      "updated_at": "2026-10-04T11:04:47Z",
-      "decay_at": "2026-10-05T22:22:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3676f1ba3169",
-      "idea_version": "IDEAV-11e7da178e827185",
-      "idea_version_started_at": "2026-10-04T07:44:58Z",
-      "ticker": "KITEX",
-      "company": "Kitex Garments",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The Andhra Pradesh government has invited Kitex to lead a massive 2,000-acre textile park, which will significantly expand its manufacturing footprint and capacity.",
-      "why_now": "The official invitation was extended on October 4, 2026, acting as a direct catalyst for long-term capacity expansion.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5ac5479a2b7c"
-      ],
-      "primary_source_event_id": "EVT-5ac5479a2b7c",
-      "source_headlines": [
-        "Andhra Pradesh invites Kitex to lead 2,000-acre textile park"
-      ],
-      "source_headline": "Andhra Pradesh invites Kitex to lead 2,000-acre textile park",
-      "source_url": "https://www.thehindubusinessline.com/companies/andhra-pradesh-invites-kitex-to-lead-2000-acre-textile-park/article71543128.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-04T06:53:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T07:44:58Z",
-      "updated_at": "2026-10-04T07:44:58Z",
-      "decay_at": "2026-10-05T18:53:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-839f0c1525a6",
-      "idea_version": "IDEAV-bfe9d1a7f10881be",
-      "idea_version_started_at": "2026-10-04T06:44:55Z",
-      "ticker": "VEDL",
-      "company": "Vedanta",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A 26% year-over-year increase in power sales volume indicates strong operational momentum and revenue growth for the company's energy division.",
-      "why_now": "The Q2 sales data was released on 2026-10-04.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-65d5c8747e03"
-      ],
-      "primary_source_event_id": "EVT-65d5c8747e03",
-      "source_headlines": [
-        "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2"
-      ],
-      "source_headline": "Vedanta Power Sales Jump 26% To 5,593 Million Units In Q2",
-      "source_url": "https://www.outlookbusiness.com/corporate/vedanta-power-sales-jump-26-to-5593-million-units-in-q2",
-      "source_name": "Outlook Business",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-04T06:04:01Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-03T01:50:22Z",
-      "updated_at": "2026-10-04T06:44:55Z",
-      "decay_at": "2026-10-05T18:04:01Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-96d594d4f3c4",
       "idea_version": "IDEAV-40a30b1c3c8570a3",
       "idea_version_started_at": "2026-10-05T02:19:59Z",
@@ -172288,298 +171286,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-b6768fa58f3d",
-      "idea_version": "IDEAV-068d4885f6a85a04",
-      "idea_version_started_at": "2026-10-04T09:00:04Z",
-      "ticker": "SPARC",
-      "company": "Sun Pharma Advanced Research Company",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company won a favorable CESTAT ruling securing a ₹28 crore CENVAT credit refund, which will directly boost near-term cash flows and net margins.",
-      "why_now": "The legal victory was announced on October 4, 2026, providing an immediate positive operational catalyst.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-75563fee9279"
-      ],
-      "primary_source_event_id": "EVT-75563fee9279",
-      "source_headlines": [
-        "Sun Pharma Advanced Research wins ₹28 crore CENVAT credit refund case in CESTAT"
-      ],
-      "source_headline": "Sun Pharma Advanced Research wins ₹28 crore CENVAT credit refund case in CESTAT",
-      "source_url": "https://www.cnbctv18.com/market/stocks/sun-pharma-advanced-research-share-price-wins-rs-28-crore-cenvat-credit-refund-case-in-cestat-20004118.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 87,
-      "newest_source_at": "2026-10-04T08:51:20Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T09:00:04Z",
-      "updated_at": "2026-10-04T09:00:04Z",
-      "decay_at": "2026-10-05T20:51:20Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-bda77b28ce3c",
-      "idea_version": "IDEAV-1ca945ca9511b3e6",
-      "idea_version_started_at": "2026-10-04T07:06:51Z",
-      "ticker": "NESTLEIND.NS",
-      "company": "Nestle India",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Nestle India's low-fat dairy whitener has been found 'unsafe' and 'substandard' by Indian regulators, posing a significant risk to its reputation and sales.",
-      "why_now": "Regulators found Nestle India's low-fat dairy whitener sample 'unsafe' and 'substandard' in India.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-467cd98c280c",
-        "EVT-4a3115de2c86"
-      ],
-      "primary_source_event_id": "EVT-467cd98c280c",
-      "source_headlines": [
-        "Nestle's low-fat dairy whitener sample found 'unsafe' in India, says regulator",
-        "Nestle India’s ‘Low-Fat Dairy Whitener’ Found ‘Unsafe, Substandard’ At Hotel Lalit: FSSAI"
-      ],
-      "source_headline": "Nestle's low-fat dairy whitener sample found 'unsafe' in India, says regulator",
-      "source_url": "https://www.cnbctv18.com/market/nestle-low-fat-dairy-whitener-sample-found-unsafe-in-india-says-regulator-20004083.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 87,
-      "newest_source_at": "2026-10-04T06:12:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T07:06:51Z",
-      "updated_at": "2026-10-04T07:06:51Z",
-      "decay_at": "2026-10-05T18:12:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-da5da8c3aacc",
-      "idea_version": "IDEAV-d5857ca2546cbc27",
-      "idea_version_started_at": "2026-10-04T07:06:51Z",
-      "ticker": "EMIRATES.DU",
-      "company": "Emirates",
-      "exchange": "DFM",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Regional tensions are causing significant flight delays and cancellations for UAE carriers like Emirates, impacting operations and revenue.",
-      "why_now": "UAE flights are experiencing delays and cancellations due to persistent regional tensions.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "macro_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-bf38b4dd6b3a"
-      ],
-      "primary_source_event_id": "EVT-bf38b4dd6b3a",
-      "source_headlines": [
-        "UAE flights status update: Emirates, Etihad, Air Arabia, flydubai delays, cancellations as regional tensions persist"
-      ],
-      "source_headline": "UAE flights status update: Emirates, Etihad, Air Arabia, flydubai delays, cancellations as regional tensions persist",
-      "source_url": "https://gulfnews.com/business/aviation/uae-flights-status-update-emirates-etihad-air-arabia-flydubai-delays-cancellations-as-regional-tensions-persist-1.500697646",
-      "source_name": "Gulf News",
-      "materiality_max": 87,
-      "newest_source_at": "2026-10-04T06:28:40Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T07:06:51Z",
-      "updated_at": "2026-10-04T07:06:51Z",
-      "decay_at": "2026-10-05T18:28:40Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5e41e1261439",
-      "idea_version": "IDEAV-4ec543586643665b",
-      "idea_version_started_at": "2026-10-04T06:44:55Z",
-      "ticker": "NESTLEIND",
-      "company": "Nestle India",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The FSSAI declaring a specific dairy product 'unsafe' creates significant reputational risk and potential for mandatory product recalls, impacting short-term sales and brand equity.",
-      "why_now": "The regulatory finding was reported on 2026-10-04.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-467cd98c280c",
-        "EVT-4a3115de2c86"
-      ],
-      "primary_source_event_id": "EVT-467cd98c280c",
-      "source_headlines": [
-        "Nestle's low-fat dairy whitener sample found 'unsafe' in India, says regulator",
-        "Nestle India’s ‘Low-Fat Dairy Whitener’ Found ‘Unsafe, Substandard’ At Hotel Lalit: FSSAI"
-      ],
-      "source_headline": "Nestle's low-fat dairy whitener sample found 'unsafe' in India, says regulator",
-      "source_url": "https://www.cnbctv18.com/market/nestle-low-fat-dairy-whitener-sample-found-unsafe-in-india-says-regulator-20004083.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 87,
-      "newest_source_at": "2026-10-04T06:12:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T06:44:55Z",
-      "updated_at": "2026-10-04T06:44:55Z",
-      "decay_at": "2026-10-05T18:12:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-8af06d1571e5",
       "idea_version": "IDEAV-d02f3b4d16cc5893",
       "idea_version_started_at": "2026-10-05T02:00:10Z",
@@ -172662,33 +171368,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 581,
+    "total_count": 562,
     "shown_count": 500,
-    "hidden_count": 81,
+    "hidden_count": 62,
     "side_counts": {
       "long": {
-        "total_count": 308,
+        "total_count": 294,
         "shown_count": 250,
-        "hidden_count": 58
+        "hidden_count": 44
       },
       "short": {
-        "total_count": 273,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 18
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 760,
-      "oldest_retained_at": "2026-09-09T14:34:09Z",
+      "evicted_count": 779,
+      "oldest_retained_at": "2026-09-10T02:51:03Z",
       "side_counts": {
         "long": {
-          "evicted_count": 500,
-          "oldest_retained_at": "2026-09-19T01:18:09Z"
+          "evicted_count": 514,
+          "oldest_retained_at": "2026-09-20T08:29:45Z"
         },
         "short": {
-          "evicted_count": 260,
-          "oldest_retained_at": "2026-09-09T14:34:09Z"
+          "evicted_count": 265,
+          "oldest_retained_at": "2026-09-10T02:51:03Z"
         }
       }
     },
@@ -177382,8 +176088,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T22:54:57Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177456,8 +176162,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T22:46:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177532,8 +176238,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T22:22:28Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177607,8 +176313,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T22:13:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177683,8 +176389,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T21:36:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177760,8 +176466,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T21:36:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177835,8 +176541,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T20:51:20Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177908,8 +176614,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T20:36:36Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177983,8 +176689,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T20:36:36Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -178057,8 +176763,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T20:00:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -178131,8 +176837,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T19:46:36Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -178206,8 +176912,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T18:53:12Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -178282,8 +176988,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T18:28:40Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -178358,8 +177064,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T18:15:20Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -178434,8 +177140,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T18:12:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -178511,8 +177217,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T18:12:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -178584,8 +177290,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T18:04:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -178659,8 +177365,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T18:04:01Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -178732,8 +177438,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T17:37:15Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T10:57:38Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -209897,8 +208603,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1407,
-    "live_count": 65,
+    "surfaced_total": 1408,
+    "live_count": 66,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
