@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T21:46:00Z",
+  "generated_at": "2026-10-07T21:48:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-495",
@@ -590,6 +590,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-690",
+      "headline": "Levi Q3 Income Declines From Higher Expenses; Raises FY26 Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/levi-q3-income-declines-higher-expenses-raises-fy26-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:24:48Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Levi reported a Q3 income decline but raised its FY26 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Levi reported a Q3 income decline but raised its FY26 guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Levi Strauss & Co",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1962,55 +2012,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-543",
-      "headline": "CRH To Acquire NCC Industry's Operations In Denmark, Finland",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/crh-acquire-ncc-industrys-operations-denmark-finland",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T06:59:02Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "CRH is acquiring NCC Industry's operations in Denmark and Finland, representing a cross-border expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CRH is acquiring NCC Industry's operations in Denmark and Finland, representing a cross-border expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CRH",
-          "ticker": null,
-          "listing_country": "IE"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208139,9 +208140,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1175909,
-    "news_picked_today": 1310,
-    "news_dropped_today": 15578
+    "news_seen_today": 1181975,
+    "news_picked_today": 1316,
+    "news_dropped_today": 15596
   },
   "book_momentum": {
     "live_count": 8,
