@@ -226,14 +226,15 @@ export function ActivityHistory({ onLoaded }: { onLoaded?: (s: { runCount: numbe
 
   // (re)fetch on mount + whenever a filter changes, and auto-refresh every 15s so in-flight runs settle
   const queryKey = JSON.stringify([fromTo, ticker, kind, user, status, qDebounced])
-  const previousQuery = useRef(queryKey)
+  const [previousQuery, setPreviousQuery] = useState(queryKey)
+  if (previousQuery !== queryKey) {
+    setPreviousQuery(queryKey)
+    reqGen.current++
+    setData(null)
+    setError(false)
+    setLoading(true)
+  }
   useEffect(() => {
-    if (previousQuery.current !== queryKey) {
-      previousQuery.current = queryKey
-      setData(null)
-      setError(false)
-      setLoading(true)
-    }
     load()
     const id = setInterval(load, 15_000)
     return () => clearInterval(id)

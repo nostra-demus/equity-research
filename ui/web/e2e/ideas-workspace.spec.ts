@@ -217,7 +217,7 @@ test('background refresh preserves reading, loaded depth, source disclosure and 
   cards[41].event!.reports.push({ ...cards[41].event!.reports[0], event_id: 'added-source' })
   hold = false
   release!()
-  await expect(page.locator('.discovery-card')).toHaveCount(90)
+  await expect(page.locator('.discovery-card')).toHaveCount(61)
   expect(Math.abs((await reading.boundingBox())!.y - before)).toBeLessThan(2)
   expect(await reading.evaluate((el) => el === (window as any).readingNode)).toBe(true)
   await expect(reading.locator('details')).toHaveAttribute('open', '')
@@ -225,7 +225,10 @@ test('background refresh preserves reading, loaded depth, source disclosure and 
   const boundary = await page.locator('.discovery-card').last().getAttribute('data-reading-key')
   cards.unshift(...Array.from({ length: 45 }, (_, index) => ({ ...liveCard(1000 + index), updated_at: new Date(Date.now() + 60_000 + index).toISOString() })))
   await page.clock.fastForward(30_100)
-  await expect(page.locator('.discovery-card')).toHaveCount(150)
+  // Only real arrivals extend the mounted window; API page padding must not ratchet it upward.
+  await expect(page.locator('.discovery-card')).toHaveCount(106)
+  await page.clock.fastForward(30_100)
+  await expect(page.locator('.discovery-card')).toHaveCount(106)
   await expect(page.locator(`[data-reading-key="${boundary}"]`)).toHaveCount(1)
   expect(Math.abs((await reading.boundingBox())!.y - before)).toBeLessThan(2)
   failed = true
@@ -250,6 +253,73 @@ test('background refresh preserves reading, loaded depth, source disclosure and 
   await expect(page.locator('.discovery-card').first()).toContainText('Developing event 100')
   expect(await page.locator('.discovery').evaluate((el) => el.scrollTop)).toBe(0)
   expect(await page.locator('.discovery-card').first().evaluate((el) => getComputedStyle(el).animationName)).toBe('none')
+})
+
+test('automatic reconciliation is bounded when a loaded card disappears', async ({ page, context }) => {
+  const cards = Array.from({ length: 500 }, (_, i) => liveCard(i + 1))
+  let reads = 0
+  await context.route('**/api/screener/board', (route) => route.fulfill({ json: { signals: [], live: [], ideas: [], resumable: [], counts: {} } }))
+  await context.route('**/api/screener/idea-workspace?*', (route) => {
+    reads++
+    const q = new URL(route.request().url()).searchParams
+    return route.fulfill({ json: discoveryPage(cards, q.get('lane') as IdeaLane, [], 'all', Number(q.get('cursor'))) })
+  })
+  await page.clock.install()
+  await page.goto('/e2e/ideas.html')
+  await expect(page.locator('.discovery-card')).toHaveCount(30)
+  const reading = page.locator('.discovery-card').filter({ has: page.getByText('Developing event 20', { exact: true }) })
+  await reading.scrollIntoViewIfNeeded()
+  const before = (await reading.boundingBox())!.y
+  const beforeReads = reads
+  cards.splice(2, 1)
+  await page.clock.fastForward(30_100)
+  await expect(page.getByRole('alert')).toContainText('Showing the last loaded cards.')
+  expect(reads - beforeReads).toBe(5)
+  await expect(page.locator('.discovery-card')).toHaveCount(30)
+  expect(Math.abs((await reading.boundingBox())!.y - before)).toBeLessThan(2)
+  await page.getByRole('button', { name: 'Retry', exact: true }).click()
+  await expect(page.getByRole('alert')).toHaveCount(0)
+  await expect(page.getByText('Developing event 3', { exact: true })).toHaveCount(0)
+  await expect(page.locator('.discovery-card')).toHaveCount(30)
+  // The last fetched page may contain unread padding; it must remain available to Show more.
+  await page.getByRole('button', { name: 'Show more', exact: true }).click()
+  await expect(page.locator('.discovery-card')).toHaveCount(60)
+})
+
+test('sparse portfolio views retain their raw pagination depth for quiet background checks', async ({ page, context }) => {
+  const now = new Date().toISOString()
+  const cards = Array.from({ length: 300 }, (_, i) => discoveryIdea({ idea_id: `IDEA-CO${i}`, idea_version: String(i), idea_version_started_at: now,
+    ticker: `CO${i}`, exchange: 'NYSE', company: `Company ${i}`, direction: 'long', pair_with: null, reason: `Company ${i} development`, why_now: 'A new disclosure is available.',
+    source_event_ids: [`EVT-${i}`], source_headlines: ['New disclosure'], source_name: 'Fixture filing', source_url: 'https://example.test/filing',
+    updated_at: now, newest_source_at: now, surfaced_at: now, decay_at: new Date(Date.now() + 86_400_000).toISOString(), status: 'live',
+    trade_score: 50, conviction: 50, trade_score_basis: 'evidence_gate_v2', missing_checks: [], prior_coverage: null, thesis_type: 'company_specific',
+  }))
+  await context.route('**/api/screener/board', (route) => route.fulfill({ json: { signals: [], live: [], ideas: [], resumable: [], counts: {} } }))
+  await context.route('**/api/screener/idea-workspace?*', (route) => {
+    const q = new URL(route.request().url()).searchParams
+    return route.fulfill({ json: discoveryPage(cards, q.get('lane') as IdeaLane, [], 'all', Number(q.get('cursor'))) })
+  })
+  await page.clock.install()
+  await page.goto('/e2e/ideas.html')
+  await page.evaluate(async () => {
+    const { usePersonalScopeStore } = await import('/src/lib/personalScope.ts')
+    usePersonalScopeStore.setState({ portfolio: { members: [{ ticker: 'CO299', name: 'Company 299', listingCountry: 'US' }], status: 'ready', error: null, asOf: null, unresolved: 0 } })
+    usePersonalScopeStore.getState().setScope('portfolio')
+  })
+  await page.getByRole('tab', { name: 'Long', exact: true }).click()
+  await expect(page.locator('.discovery-card')).toHaveCount(1)
+  await expect(page.getByText('Company 299 development', { exact: true })).toBeVisible()
+  await page.clock.fastForward(30_100)
+  await expect(page.getByRole('alert')).toHaveCount(0)
+  await expect(page.locator('.discovery-card')).toHaveCount(1)
+  // Membership publication is also an automatic refresh of this same view.
+  await page.evaluate(async () => {
+    const { usePersonalScopeStore } = await import('/src/lib/personalScope.ts')
+    const prior = usePersonalScopeStore.getState().portfolio
+    usePersonalScopeStore.setState({ portfolio: { ...prior, members: [...prior.members] } })
+  })
+  await expect(page.getByRole('alert')).toHaveCount(0)
+  await expect(page.locator('.discovery-card')).toHaveCount(1)
 })
 
 test('live news rail preserves the visible story during prepends and updates', async ({ page }) => {

@@ -64,18 +64,33 @@ export function IdeasWorkspace() {
   const [busy, setBusy] = useState<string | null>(null)
   const [undo, setUndo] = useState<DiscoveryCard | null>(null)
   const count = useRef(30)
+  const pageDepth = useRef(1)
   const sequence = useRef(0)
   const pending = useRef(false)
   const mounted = useRef(true)
   const hideKey = [...hidden].sort().join(',')
   const viewKey = JSON.stringify([lane, hideKey, kind, personal.scope])
-  const previousView = useRef(viewKey)
+  const [previousView, setPreviousView] = useState(viewKey)
   const viewport = useRef<HTMLDivElement>(null)
   const pageRef = useRef(page)
   pageRef.current = page
   const [arrivals, setArrivals] = useState<Set<string>>(new Set())
 
-  const load = useCallback(async (refresh = false, more = false) => {
+  // Reset an explicit view before React commits it, so old results never flash under new filters.
+  if (previousView !== viewKey) {
+    setPreviousView(viewKey)
+    count.current = 30
+    pageDepth.current = 1
+    pageRef.current = null
+    sequence.current++
+    setPage(null)
+    setLoading(true)
+    setError(null)
+    setUndo(null)
+    setArrivals(new Set())
+  }
+
+  const load = useCallback(async (refresh = false, more = false, background = false) => {
     const seq = ++sequence.current
     pending.current = true
     setLoading(true)
@@ -91,7 +106,11 @@ export function IdeasWorkspace() {
       for (const row of rows) remaining.delete(row.key)
       const target = count.current
       const cursors = new Set<string>(['0'])
+      // An externally archived card cannot be recovered. Bound automatic scans; Retry / Show more
+      // can reconcile the full result on demand while a limited poll retains the last good view.
+      const maxPages = background ? Math.max(pageDepth.current, Math.ceil(Math.max(target, previousKeys.size) / 30)) + 4 : Infinity
       while (next.next_cursor && (rows.filter(matches).length < target || remaining.size > 0)) {
+        if (cursors.size >= maxPages) throw new Error('Could not update every loaded card. Retry to check the full list.')
         if (cursors.has(next.next_cursor)) throw new Error('The next page did not advance. Please retry.')
         cursors.add(next.next_cursor)
         next = await api.ideasWorkspace(lane, hideKey, kind, next.next_cursor)
@@ -101,11 +120,16 @@ export function IdeasWorkspace() {
         for (const row of next.rows) remaining.delete(row.key)
       }
       if (seq !== sequence.current || !mounted.current) return
-      const visible = rows.filter(matches)
-      count.current = Math.max(target, visible.length)
+      pageDepth.current = cursors.size
+      // Retain prior keys and the requested window, not incidental padding from the last API page.
+      // Otherwise each single prepend mounts another full page and eventually defeats pagination.
+      let matched = 0
+      const kept = rows.filter((row) => matches(row) && (++matched <= target || previousKeys.has(row.key)))
+      // Show more refetches from the head; unread page padding still means more is available.
+      const hasMore = next.next_cursor || (kept.length < rows.filter(matches).length ? '0' : null)
       setArrivals(viewport.current && viewport.current.scrollTop <= 1 && previousKeys.size
-        ? new Set(rows.filter((row) => !previousKeys.has(row.key)).map((row) => row.key)) : new Set())
-      setPage({ ...next, rows: [...new Map(rows.map((r) => [r.key, r])).values()] })
+        ? new Set(kept.filter((row) => !previousKeys.has(row.key)).map((row) => row.key)) : new Set())
+      setPage({ ...next, next_cursor: hasMore, rows: [...new Map(kept.map((r) => [r.key, r])).values()] })
       setError(null)
     } catch (e: any) {
       if (seq === sequence.current && mounted.current) setError(e?.message || 'Could not load ideas. Please retry.')
@@ -116,17 +140,8 @@ export function IdeasWorkspace() {
 
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; sequence.current++ } }, [])
   useEffect(() => {
-    if (previousView.current !== viewKey) {
-      previousView.current = viewKey
-      count.current = 30
-      pageRef.current = null
-      setPage(null)
-      setError(null)
-      setUndo(null)
-      setArrivals(new Set())
-    }
-    void load()
-    const refreshVisible = () => { if (document.visibilityState === 'visible' && !pending.current) void load() }
+    void load(false, false, !!pageRef.current)
+    const refreshVisible = () => { if (document.visibilityState === 'visible' && !pending.current) void load(false, false, true) }
     const timer = setInterval(refreshVisible, 30_000)
     document.addEventListener('visibilitychange', refreshVisible)
     return () => { clearInterval(timer); document.removeEventListener('visibilitychange', refreshVisible); sequence.current++ }
@@ -201,7 +216,7 @@ export function IdeasWorkspace() {
               : <NewsLeadCard idea={card.payload as unknown as BoardIdea} side={side} filed={filed} onAction={() => loadRef.current(true)} timelineStatus={card.payload.status === 'promoted' ? 'promoted' : 'current'} />}
         </div>
       })}</div>
-      {page?.next_cursor && <button type="button" className="discovery-more" disabled={loadingMore} onClick={() => { count.current += 30; void load(false, true) }}>{loadingMore ? 'Loading…' : 'Show more'}</button>}
+      {page?.next_cursor && <button type="button" className="discovery-more" disabled={loadingMore} onClick={() => { count.current = Math.max(count.current, visibleRows.length) + 30; void load(false, true) }}>{loadingMore ? 'Loading…' : 'Show more'}</button>}
     </section>
   </div></ReadingAnchor>
 }
