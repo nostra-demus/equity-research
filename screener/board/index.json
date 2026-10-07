@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T23:35:02Z",
+  "generated_at": "2026-10-07T23:37:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-708",
@@ -783,6 +783,55 @@
           "name": "BHP Group",
           "ticker": "BHP",
           "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-711",
+      "headline": "Samsung forecasts record third-quarter profit of $80 billion on the back of AI boom",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/08/samsung-q3-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T22:58:05Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Samsung forecasts a record quarterly profit of $80 billion, a significant financial event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung forecasts a record quarterly profit of $80 billion, a significant financial event.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "mega",
@@ -1940,60 +1989,6 @@
           "name": "ESR Group",
           "ticker": null,
           "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-478",
-      "headline": "ANTA Sports Becomes PUMA's Largest Shareholder With Acquisition Of 29.06% Stake",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/anta-sports-becomes-pumas-largest-shareholder-acquisition-2906-stake",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T12:27:30Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "ANTA Sports acquired a 29.06% stake in PUMA, making it the largest shareholder.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "ANTA Sports acquired a 29.06% stake in PUMA, making it the largest shareholder.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ANTA Sports",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "PUMA",
-          "ticker": null,
-          "listing_country": "DE"
         }
       ],
       "size_bucket": "large",
@@ -208125,9 +208120,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1610839,
-    "news_picked_today": 1467,
-    "news_dropped_today": 16429
+    "news_seen_today": 1616550,
+    "news_picked_today": 1471,
+    "news_dropped_today": 16449
   },
   "book_momentum": {
     "live_count": 8,
