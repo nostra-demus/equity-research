@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T02:20:16Z",
+  "generated_at": "2026-10-07T02:22:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-074",
@@ -162228,6 +162228,75 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-e402cc95df0c",
+      "idea_version": "IDEAV-429c2de77c7b4d0a",
+      "idea_version_started_at": "2026-10-07T02:20:38Z",
+      "ticker": "BHP",
+      "company": "BHP Group",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "BHP Group has reported a transaction regarding its Kambalda Nickel Concentrator, which could optimize its asset portfolio and operational efficiency.",
+      "why_now": "The transaction was reported as price-sensitive information on October 7, 2026, indicating a fresh catalyst for the stock.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6a541f65451b"
+      ],
+      "primary_source_event_id": "EVT-6a541f65451b",
+      "source_headlines": [
+        "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]"
+      ],
+      "source_headline": "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LM8?key=2924-03145473-6A1348080",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T01:04:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T02:20:38Z",
+      "updated_at": "2026-10-07T02:20:38Z",
+      "decay_at": "2026-10-08T13:04:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ce779af9c495",
       "idea_version": "IDEAV-2b65a941c2fbecf8",
       "idea_version_started_at": "2026-10-05T23:00:55Z",
@@ -164045,6 +164114,78 @@
       "surfaced_at": "2026-10-06T02:27:03Z",
       "updated_at": "2026-10-06T02:27:03Z",
       "decay_at": "2026-10-07T13:40:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-fe0a4c2c5819",
+      "idea_version": "IDEAV-d68460b7735328f4",
+      "idea_version_started_at": "2026-10-07T02:20:38Z",
+      "ticker": "005930",
+      "company": "Samsung Electronics",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Samsung's $5 billion expansion in Vietnam aims to move it up the semiconductor value chain, potentially boosting future revenue and market share in a critical industry.",
+      "why_now": "The expansion news was reported on October 7, 2026, indicating a new strategic investment that will impact future growth.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c19172418c92"
+      ],
+      "primary_source_event_id": "EVT-c19172418c92",
+      "source_headlines": [
+        "Samsung takes Vietnam up semiconductor value chain with $5bn expansion"
+      ],
+      "source_headline": "Samsung takes Vietnam up semiconductor value chain with $5bn expansion",
+      "source_url": "https://asia.nikkei.com/business/tech/semiconductors/samsung-takes-vietnam-up-semiconductor-value-chain-with-5bn-expansion",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T01:34:24Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T02:20:38Z",
+      "updated_at": "2026-10-07T02:20:38Z",
+      "decay_at": "2026-10-08T13:34:24Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209353,8 +209494,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1395,
-    "live_count": 61,
+    "surfaced_total": 1397,
+    "live_count": 63,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
