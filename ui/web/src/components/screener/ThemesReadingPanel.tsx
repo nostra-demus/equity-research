@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { api } from '../../lib/api'
 import { fmtStampLocal } from '../../lib/format'
 import { GICS_SECTORS, gicsOf } from '../../lib/gics'
 import { useStore } from '../../lib/store'
-import { compareBriefingThemes, themeBriefingEvidence, themeStageIsStale, themesForPmSurface, validatedThemeNarrative, type Theme, type ThemesIndex, type ValidatedThemeEvidence } from '../../lib/themes'
+import { compareBriefingThemes, themeBriefingEvidence, themeStageIsStale, themesForPmSurface, validatedThemeNarrative, type Theme, type ValidatedThemeEvidence } from '../../lib/themes'
 
 /** Navigation tags only: use the existing taxonomy on exact supporting headlines, never off-theme
  * members or unverified company guesses. One theme can belong to several sectors. */
@@ -23,18 +22,20 @@ export function ThemeReadingCard({ theme }: { theme: Theme }) {
   const challenges = evidence.filter((row) => row.stance === 'challenges')
   const whyNow = supports.find((row) => row.event_id === narrative.why_now_event_id)
   const sectors = readingThemeSectors(theme)
+  const totalSupports = (theme.assessment || theme.opportunity)?.metrics?.narrative_support_count ?? supports.length
   return <article className="bidea theme-reading" aria-label={theme.name}>
     <header className="theme-reading__head"><h3>{theme.name}</h3><span className="bidea__tag">{theme.activity === 'challenged' ? 'Challenged' : theme.activity === 'new' ? 'New' : theme.activity === 'reinforced' ? 'Developing' : 'Monitoring'}</span></header>
     {(theme.assessment || theme.opportunity)?.metrics?.pending_revalidation && <p className="bidea__refresh"><strong>New evidence awaiting revalidation</strong> · The explanation below reflects the last validated sources. New matching reports are still being checked for support or challenges.</p>}
     <div className="bidea__tags">{(sectors.length ? sectors : ['Unclassified']).map((sector) => <span className="bidea__tag" key={sector}>{sector}</span>)}{narrative.horizon && <span className="bidea__tag">Horizon: {narrative.horizon}</span>}</div>
+    <p className="theme-reading__updated">Theme interpretation · Inference, not from filings</p>
     <p className="theme-reading__thesis">{narrative.thesis}</p>
     <div><h4>What is happening and why now</h4><p>{narrative.why_now}</p>
       {whyNow && <p className="theme-reading__citation"><a href={whyNow.url} target="_blank" rel="noreferrer">{whyNow.source_name} ↗</a> · Source observed <time dateTime={whyNow.found_at}>{fmtStampLocal(whyNow.found_at)}</time></p>}
     </div>
-    <div><h4>Why it matters <small>· research interpretation</small></h4><ol>{narrative.mechanism_steps.map((step, i) => <li key={i}>{step}</li>)}</ol></div>
+    <div><h4>Why it matters <small>· Inference, not from filings</small></h4><ol>{narrative.mechanism_steps.map((step, i) => <li key={i}>{step}</li>)}</ol></div>
     {challenges.length > 0 && <div className="theme-reading__challenges"><h4>Evidence that challenges the theme</h4><SourceList rows={challenges} /></div>}
     <div><h4>What would change this view</h4><p>{narrative.falsifier}</p></div>
-    <details className="theme-reading__sources" open><summary>Supporting sources · {supports.length} retained reports</summary><SourceList rows={supports} /></details>
+    <details className="theme-reading__sources" open><summary>Supporting source excerpt · {supports.length} shown of {totalSupports} supporting reports</summary><SourceList rows={supports} /></details>
     <p className="theme-reading__foot">Validated <time dateTime={narrative.validated_at}>{fmtStampLocal(narrative.validated_at)}</time> · A theme to study before choosing companies.</p>
   </article>
 }
@@ -47,7 +48,7 @@ function SourceList({ rows }: { rows: ValidatedThemeEvidence[] }) {
 
 export function ThemesReadingPanel() {
   const staticMode = useStore((s) => s.staticMode)
-  const [index, setIndex] = useState<ThemesIndex | null>(null)
+  const index = useStore((s) => s.readingThemes)
   const [sector, setSector] = useState('all')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -64,10 +65,8 @@ export function ThemesReadingPanel() {
       try {
         // This is a read-only projection of the approved-source pipeline. Opening the tab never
         // generates a brief, starts research, or changes the wire's geo/company/market selections.
-        const next = await api.newsThemes()
-        if (!next || !Array.isArray(next.themes) || typeof next.generated_at !== 'string'
-          || next.themes.some((t) => !t || typeof t.theme_id !== 'string' || typeof t.name !== 'string')) throw new Error('The theme data could not be read. Please retry.')
-        if (alive) { setIndex(next); setError(null) }
+        await useStore.getState().refreshReadingThemes()
+        if (alive) setError(null)
       } catch (e: any) {
         if (alive) setError(e?.message || 'Could not load themes. Please retry.')
       } finally {

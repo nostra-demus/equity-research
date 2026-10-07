@@ -180,6 +180,8 @@ and chat-first; the rules that keep it that way:
   index and show explanations and exact supporting/challenging source links inline. Sector navigation
   uses the shared GICS taxonomy on supporting headlines, labels the tags as inferred, and keeps
   unclassified themes accessible. Company, portfolio and listing filters do not hide this discovery step.
+  The all-sector snapshot shares the store's SSE revision/removal guards; wire slice changes cannot
+  relabel it. Generated claims carry the inference qualifier, and source excerpts show the full total.
   Opening or refreshing Themes is read-only and never triggers research or model generation.
 - The command bar owns its row. Panels and full-screen tools live below it, including when the bar wraps.
 - `Workspace` owns the stage, report, chat, and Activity geometry. At readable widths, report and chat

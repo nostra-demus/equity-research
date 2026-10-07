@@ -191,8 +191,9 @@ test('Themes precedes Events: read source-backed explanations, filter sectors, r
   await context.route('**/api/screener/board', (route) => route.fulfill({ json: { signals: [], live: [], ideas: [], resumable: [], counts: {} } }))
   await context.route('**/api/screener/idea-workspace?*', (route) => { ideaReads++; return route.fulfill({ json: discoveryPage([], 'events', [], 'all', 0) }) })
   await context.route('**/api/news/themes', async (route) => {
+    const snapshot = structuredClone(response)
     if (delay) await new Promise<void>((resolve) => { release = resolve })
-    return fail ? route.fulfill({ status: 503, json: { error: 'Theme source unavailable' } }) : route.fulfill({ json: response })
+    return fail ? route.fulfill({ status: 503, json: { error: 'Theme source unavailable' } }) : route.fulfill({ json: snapshot })
   })
   await page.goto('/e2e/ideas.html')
   await expect(page.getByRole('tab', { name: 'Events', exact: true })).toHaveAttribute('aria-selected', 'true')
@@ -206,7 +207,8 @@ test('Themes precedes Events: read source-backed explanations, filter sectors, r
   await expect(page.getByRole('heading', { name: 'AI software security', exact: true })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Bank lending demand', exact: true })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'What is happening and why now' })).toHaveCount(3)
-  await expect(page.getByRole('heading', { name: 'Why it matters · research interpretation' })).toHaveCount(3)
+  await expect(page.getByRole('heading', { name: 'Why it matters · Inference, not from filings' })).toHaveCount(3)
+  await expect(page.getByText('Theme interpretation · Inference, not from filings', { exact: true })).toHaveCount(3)
   await expect(page.getByRole('link', { name: 'Software security demand expands 1' })).toHaveAttribute('href', 'https://example.test/tech/1')
   await expect(page.getByLabel('Hide Hong Kong listings')).toHaveCount(0)
   await page.screenshot({ path: testInfo.outputPath('themes-dark.png'), fullPage: true })
@@ -222,6 +224,34 @@ test('Themes precedes Events: read source-backed explanations, filter sectors, r
   await expect(page.getByRole('heading', { name: 'New research capacity', exact: true })).toBeVisible()
   expect(ideaReads).toBe(readsBeforeFilter)
   await page.getByLabel('Theme sector').selectOption('all')
+  // Retire a theme during an older HTTP read. SSE must remove it immediately, and that response
+  // or a buffered equal-revision update must never resurrect it, even when later polling fails.
+  delay = true; release = undefined
+  await page.getByRole('button', { name: 'Refresh themes', exact: true }).click()
+  await expect.poll(() => !!release).toBe(true)
+  const unknownSummary = response.themes.find((t) => t.theme_id === unknown.theme_id)!
+  await page.evaluate(async (id) => { const { useStore } = await import('/src/lib/store.ts'); useStore.getState()._handleNewsEvent({ type: 'theme-remove', removal: { theme_id: id, reason: 'retired', merged_into: null, rev: 10 } }) }, unknown.theme_id)
+  await expect(page.getByRole('heading', { name: 'New research capacity', exact: true })).toHaveCount(0)
+  delay = false; release!()
+  await expect(page.getByRole('button', { name: 'Refresh themes', exact: true })).toBeEnabled()
+  await expect(page.getByRole('heading', { name: 'New research capacity', exact: true })).toHaveCount(0)
+  await page.evaluate(async (theme) => { const { useStore } = await import('/src/lib/store.ts'); useStore.getState()._handleNewsEvent({ type: 'theme-update', theme }) }, unknownSummary)
+  await expect(page.getByRole('heading', { name: 'New research capacity', exact: true })).toHaveCount(0)
+  // Qualification can change at the same revision. An older response cannot erase that live truth.
+  delay = true; release = undefined
+  await page.getByRole('button', { name: 'Refresh themes', exact: true }).click()
+  await expect.poll(() => !!release).toBe(true)
+  const updatedBank = response.themes.find((t) => t.theme_id === bank.theme_id)!
+  updatedBank.narrative!.thesis = 'Bank lending demand is changing the capacity banks need for new lending.'
+  updatedBank.assessment.metrics.narrative_support_count = 8
+  updatedBank.assessment.metrics.high_quality_evidence_count = 8
+  updatedBank.assessment.metrics.unique_evidence_count = 8
+  await page.evaluate(async (theme) => { const { useStore } = await import('/src/lib/store.ts'); useStore.getState()._handleNewsEvent({ type: 'theme-update', theme }) }, updatedBank)
+  await expect(page.getByText(updatedBank.narrative!.thesis, { exact: true })).toBeVisible()
+  await expect(page.getByText('Supporting source excerpt · 3 shown of 8 supporting reports', { exact: true })).toBeVisible()
+  delay = false; release!()
+  await expect(page.getByRole('button', { name: 'Refresh themes', exact: true })).toBeEnabled()
+  await expect(page.getByText(updatedBank.narrative!.thesis, { exact: true })).toBeVisible()
   fail = true
   await page.getByRole('button', { name: 'Refresh themes', exact: true }).click()
   await expect(page.getByRole('alert')).toContainText('Showing the last loaded themes.')
@@ -233,7 +263,7 @@ test('Themes precedes Events: read source-backed explanations, filter sectors, r
   bankSummary.evidence.push({ ...bankSummary.evidence[0], event_id: 'bank-challenge', headline: 'Bank credit losses challenge demand', stance: 'challenges', url: 'https://example.test/challenge' })
   bankSummary.activity = bankSummary.assessment.activity = 'challenged'
   bankSummary.assessment.metrics.recent_24h_challenge_count = 1
-  bankSummary.assessment.metrics.unique_evidence_count = 4
+  bankSummary.assessment.metrics.unique_evidence_count = 9
   bankSummary.assessment.metrics.pending_revalidation = true
   bankSummary.conviction = bankSummary.assessment.conviction = 'watch'
   await page.getByRole('button', { name: 'Retry', exact: true }).click()

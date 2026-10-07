@@ -130,6 +130,9 @@ test('shared shell uses the same bounded panels in light and derived swarm theme
       document.documentElement.dataset.theme = 'light'
     }, swarm)
     await openPanels(page)
+    // Measure the settled panes after their real entrance animation, as in the desktop layout check.
+    await page.getByRole('button', { name: 'Close report', exact: true }).click({ trial: true })
+    await page.getByRole('button', { name: 'Close chat', exact: true }).click({ trial: true })
     await within(page, page.locator('.reader'))
     await within(page, page.locator('.chatpanel'))
   }
