@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-07T23:21:10Z",
+  "generated_at": "2026-10-07T23:23:09Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261007-708",
+      "headline": "PMM: Suspension from Quotation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PMM?key=2924-03145974-6A1348256",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-07T23:10:49Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Suspension from quotation is a significant liquidity and regulatory event for a listed entity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Suspension from quotation is a significant liquidity and regulatory event for a listed entity.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pmm",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261007-704",
       "headline": "ANO: First Quarter FY27 Australian Revenue Down 71% [price-sensitive]",
@@ -1948,56 +1997,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-487",
-      "headline": "Crystal Jade closes four more outlets, cuts 120 jobs ahead of proposed sale",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/crystal-jade-closes-four-more-outlets-cuts-120-jobs-ahead-of-proposed-sale",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T12:05:48Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Crystal Jade is undergoing significant restructuring, including 120 job cuts and outlet closures, ahead of a potential sale.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Crystal Jade is undergoing significant restructuring, including 120 job cuts and outlet closures, ahead of a potential sale.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Crystal Jade",
-          "ticker": null,
-          "listing_country": "SG"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208126,9 +208125,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1553445,
-    "news_picked_today": 1446,
-    "news_dropped_today": 16330
+    "news_seen_today": 1564973,
+    "news_picked_today": 1452,
+    "news_dropped_today": 16348
   },
   "book_momentum": {
     "live_count": 8,
