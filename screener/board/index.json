@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T05:51:28Z",
+  "generated_at": "2026-10-07T05:55:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-328",
@@ -441,6 +441,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-338",
+      "headline": "RBI Raises FY27 CPI Inflation Forecast To 5.2% From 5%; Hikes Repo Rate To 5.50%",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/economy/rbi-inflation-fy27-outlook-hike-repo-rate-geopolitical-uncertainty-us-iran-war-food-prices-oil-prices-today-rate-cuts-off-table-12149315#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T04:58:12Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "RBI hikes repo rate to 5.50% and raises FY27 CPI inflation forecast to 5.2%, tightening monetary conditions and increasing discount rates for all Indian equities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RBI hikes repo rate to 5.50% and raises FY27 CPI inflation forecast to 5.2%, tightening monetary conditions and increasing discount rates for all Indian equities.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "guidance_change"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-337",
       "headline": "Milliarden-Deal in Hollywood - Skydance schließt Übernahme von Warner Bros. ab",
       "headline_en": "Billion-dollar deal in Hollywood - Skydance completes acquisition of Warner Bros.",
@@ -490,6 +534,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-344",
+      "headline": "RBI MPC meeting 2026: Repo rate hiked by 25 basis points to 5.5%; GDP growth forecast raised to 7.1% for FY27",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/business/rbi-mpc-meeting-2026-repo-rate-hiked-by-25-basis-points-to-55-gdp-growth-forecast-raised-to-71-for-fy27-newsalert-4173194",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T04:45:33Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "RBI Monetary Policy Committee raises repo rate 25bp to 5.5% and upgrades FY27 GDP growth forecast to 7.1%; official central-bank policy and consensus revision from primary source; rate hike compresses multiples, growth upgrade supports earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RBI Monetary Policy Committee raises repo rate 25bp to 5.5% and upgrades FY27 GDP growth forecast to 7.1%; official central-bank policy and consensus revision from primary source; rate hike compresses multiples, growth upgrade supports earnings.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 88,
+      "rank_factors": {
+        "materiality": 88,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1860,104 +1947,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-176",
-      "headline": "Venezuela's Cardon refinery halted after fire, no injuries reported",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/venezuelas-cardon-refinery-halted-amid-fire-sources-say-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T02:45:53Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "The halt of the Cardon refinery due to a fire represents a supply shock to regional fuel production.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The halt of the Cardon refinery due to a fire represents a supply shock to regional fuel production.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PDVSA",
-          "ticker": null,
-          "listing_country": "VE"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-274",
-      "headline": "CAR: Becoming a substantial holder from CBA",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CAR?key=2924-03145564-3A703550",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-07T04:24:35Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Commonwealth Bank of Australia has become a substantial holder in Carsales.com Ltd.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Commonwealth Bank of Australia has become a substantial holder in Carsales.com Ltd.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carsales.com Ltd",
-          "ticker": "CAR",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209931,9 +209920,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6155,
-    "news_picked_today": 501,
-    "news_dropped_today": 2851
+    "news_seen_today": 7541,
+    "news_picked_today": 509,
+    "news_dropped_today": 2915
   },
   "book_momentum": {
     "live_count": 8,
