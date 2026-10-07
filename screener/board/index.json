@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T22:53:09Z",
+  "generated_at": "2026-10-07T22:59:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-693",
@@ -685,6 +685,55 @@
           "name": "BHP Group",
           "ticker": "BHP",
           "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-697",
+      "headline": "Samsung Q3 profit jumps 783% as AI memory boom lifts chip earnings",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/samsung-q3-profit-jumps-783-ai-memory-boom-lifts-chip-earnings-2026-10-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T22:50:04Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Samsung reported a 783% jump in Q3 profit driven by AI memory demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung reported a 783% jump in Q3 profit driven by AI memory demand.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electronics",
+          "ticker": null,
+          "listing_country": "KR"
         }
       ],
       "size_bucket": "mega",
@@ -1954,61 +2003,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-513",
-      "headline": "SpaceX Wants to Borrow $40 Billion to Buy Nvidia Chips",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/07/spacex-wants-to-borrow-40-billion-to-buy-nvidia-chips/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T11:15:14Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "SpaceX seeking to borrow $40 billion to buy Nvidia chips is a significant capital raise and potential large purchase, impacting both companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX seeking to borrow $40 billion to buy Nvidia chips is a significant capital raise and potential large purchase, impacting both companies.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208137,9 +208131,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1443374,
-    "news_picked_today": 1402,
-    "news_dropped_today": 16134
+    "news_seen_today": 1460834,
+    "news_picked_today": 1412,
+    "news_dropped_today": 16172
   },
   "book_momentum": {
     "live_count": 8,
