@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T20:53:55Z",
+  "generated_at": "2026-10-07T20:55:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-495",
@@ -162272,6 +162272,79 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-48fab202d92b",
+      "idea_version": "IDEAV-65c5e22efadad95c",
+      "idea_version_started_at": "2026-10-07T20:55:35Z",
+      "ticker": "PNN.L",
+      "company": "Pennon Group",
+      "exchange": "London",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company is executing a dilutive £550 million rights issue and cutting its dividend to address financial strain caused by record regulatory fines for sewage spills.",
+      "why_now": "The rights issue was officially launched today, October 7, 2026, creating immediate downward pressure on equity value.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 77,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7c20c72a68ec",
+        "EVT-e1b89b886904",
+        "EVT-da630567bb98"
+      ],
+      "primary_source_event_id": "EVT-7c20c72a68ec",
+      "source_headlines": [
+        "Troubled South West Water owner taps investors for £550m days after being handed record fine for sewage spills",
+        "South West Water owner asks investors for £550m after record sewage fine",
+        "UK's Pennon launches £550 million rights issue, cuts dividend to fund investment"
+      ],
+      "source_headline": "Troubled South West Water owner taps investors for £550m days after being handed record fine for sewage spills",
+      "source_url": "https://www.thisismoney.co.uk/money/markets/article-16189369/Troubled-South-West-Water-owner-taps-investors-550m-days-handed-record-fine-sewage-spills.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T10:50:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T20:55:35Z",
+      "updated_at": "2026-10-07T20:55:35Z",
+      "decay_at": "2026-10-08T22:50:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e402cc95df0c",
       "idea_version": "IDEAV-429c2de77c7b4d0a",
       "idea_version_started_at": "2026-10-07T02:20:38Z",
@@ -163527,6 +163600,76 @@
       "surfaced_at": "2026-10-07T01:37:33Z",
       "updated_at": "2026-10-07T01:37:33Z",
       "decay_at": "2026-10-08T12:09:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e0fd057ceca0",
+      "idea_version": "IDEAV-9883cb5211945f80",
+      "idea_version_started_at": "2026-10-07T20:55:35Z",
+      "ticker": "ADTX",
+      "company": "Aditxt, Inc.",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has received a delisting notification from the exchange, signaling severe distress and potential loss of liquidity.",
+      "why_now": "The SEC filing was processed today, October 7, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e2c49687f5e4"
+      ],
+      "primary_source_event_id": "EVT-e2c49687f5e4",
+      "source_headlines": [
+        "25-NSE - Aditxt, Inc. (0001726711) (Subject)"
+      ],
+      "source_headline": "25-NSE - Aditxt, Inc. (0001726711) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1726711/000135445726000962/0001354457-26-000962-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T13:08:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T20:55:35Z",
+      "updated_at": "2026-10-07T20:55:35Z",
+      "decay_at": "2026-10-09T01:08:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -207981,8 +208124,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1414,
-    "live_count": 37,
+    "surfaced_total": 1416,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -208001,7 +208144,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 980292,
+    "news_seen_today": 986270,
     "news_picked_today": 1264,
     "news_dropped_today": 15120
   },
