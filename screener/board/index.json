@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T17:29:28Z",
+  "generated_at": "2026-10-07T17:35:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-495",
@@ -1324,6 +1324,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-541",
+      "headline": "UK's Pennon launches £550 million rights issue, cuts dividend to fund investment",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/uks-pennon-launches-550-million-rights-issue-cuts-dividend-fund-investment-2026-10-07/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T07:08:31Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Pennon is launching a 550 million GBP rights issue and cutting its dividend to fund investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pennon is launching a 550 million GBP rights issue and cutting its dividend to fund investment.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "dividend_cut",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions",
+        "dividend_cut"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pennon",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-543",
+      "headline": "CRH To Acquire NCC Industry's Operations In Denmark, Finland",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/crh-acquire-ncc-industrys-operations-denmark-finland",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T06:59:02Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "CRH is acquiring NCC Industry's operations in Denmark and Finland, representing a cross-border expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CRH is acquiring NCC Industry's operations in Denmark and Finland, representing a cross-border expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CRH",
+          "ticker": null,
+          "listing_country": "IE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-131",
       "headline": "Trump Ties Tariff Cuts to S. Korea’s $150 Billion Shipbuilding Investment",
       "headline_en": null,
@@ -1901,109 +2000,6 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-165",
-      "headline": "A High-Stakes Gambit Clinched Paramount’s Warner Deal",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/media/a-high-stakes-gambit-clinched-paramounts-warner-deal-873905b0?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T02:44:00Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Paramount has finalized a major deal with Warner, representing a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount has finalized a major deal with Warner, representing a significant M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-162",
-      "headline": "(LEAD) LG Electronics Q3 operating profit up 13.5 pct on solid home appliance sales",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261007004251320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T02:26:24Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "LG Electronics reported a 13.5% increase in Q3 operating profit driven by home appliance sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LG Electronics reported a 13.5% increase in Q3 operating profit driven by home appliance sales.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -207779,9 +207775,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 569565,
-    "news_picked_today": 872,
-    "news_dropped_today": 6488
+    "news_seen_today": 581956,
+    "news_picked_today": 919,
+    "news_dropped_today": 6561
   },
   "book_momentum": {
     "live_count": 8,
