@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T22:06:00Z",
+  "generated_at": "2026-10-07T22:09:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-495",
@@ -590,6 +590,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-692",
+      "headline": "Braskem Creditors Balk at Restructuring Plan as Deadline Looms",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/braskem-creditors-balk-at-restructuring-plan-as-deadline-looms",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:41:19Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Creditors are rejecting Braskem's restructuring plan as a deadline approaches, increasing default risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Creditors are rejecting Braskem's restructuring plan as a deadline approaches, increasing default risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Braskem",
+          "ticker": null,
+          "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1957,56 +2006,6 @@
       "companies": [
         {
           "name": "South West Water",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-541",
-      "headline": "UK's Pennon launches £550 million rights issue, cuts dividend to fund investment",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/uks-pennon-launches-550-million-rights-issue-cuts-dividend-fund-investment-2026-10-07/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T07:08:31Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Pennon is launching a 550 million GBP rights issue and cutting its dividend to fund investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pennon is launching a 550 million GBP rights issue and cutting its dividend to fund investment.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "dividend_cut",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions",
-        "dividend_cut"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pennon",
           "ticker": null,
           "listing_country": "GB"
         }
@@ -208140,9 +208139,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1259625,
-    "news_picked_today": 1329,
-    "news_dropped_today": 15751
+    "news_seen_today": 1271669,
+    "news_picked_today": 1332,
+    "news_dropped_today": 15772
   },
   "book_momentum": {
     "live_count": 8,
