@@ -1,0 +1,249 @@
+{
+  "schema_version": "1.0",
+  "ticker": "EMAAR",
+  "original_decision_date": "2026-07-03",
+  "review_date": "2026-10-07",
+  "review_window": "90d",
+  "original_decision": "Starter Position Only",
+  "basket": "Selected",
+  "entry_price": 12.2,
+  "tracking_price": null,
+  "review_price": 11.46,
+  "absolute_return_pct": -6.065574,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "at-risk",
+  "forecast_results": [
+    {
+      "prediction": "Q2 2026 EPS beats AED 0.47 consensus by at least 5% on backlog POC recognition",
+      "status": "falsified",
+      "evidence": "Q2 basic/diluted EPS is reported as AED 0.42, below the AED 0.494 beat threshold. The rounded disclosure does not alone settle the finer AED 0.422 miss cutoff. [Web: Emaar H1 2026 interim filing reproduction, income statement p.2, published 2026-08-07 (unverified reproduction)](https://financialfilings.com/filings/emaar-properties-pjsc/interim-quarterly-report/2026/50378793/) [analyses/EMAAR_2026-07-03/decision_record.json, forecast_ledger, scenarios and notes, 2026-07-03]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "prediction": "Sukuk 3 (AED 2.75 Bn) refinanced or repaid on schedule Sep-15-2026 without balance sheet strain",
+      "status": "not assessable",
+      "evidence": "The maturity window elapsed, but no redemption/refinancing exchange notice was obtained. A contractual date is not proof of repayment. [analyses/EMAAR_2026-07-03/decision_record.json, forecast_ledger, scenarios and notes, 2026-07-03]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "prediction": "FY2026 revenue exceeds AED 40 Bn on continued backlog POC conversion (FY2025: AED 33.5 Bn)",
+      "status": "still open",
+      "evidence": "H1 revenue rose 21% to AED 23.9bn and pretax profit rose 23% to AED 12.8bn; backlog was AED 164.9bn. These are not Q2 EPS or evidence that governance and masterplan risks cleared. The annual window runs to 2027-03-31; H1 growth is not annual confirmation. [Web: Emaar H1 2026 results release, 2026-08-07 (unverified)](https://feeds.dfm.ae/documents/2026/Aug/7/52433569-0887-4100-ba14-58ee448166f1/Emaar%20Properties%20H1%202026%20Press%20Release%20%20%20English.P.pdf) [analyses/EMAAR_2026-07-03/decision_record.json, forecast_ledger, scenarios and notes, 2026-07-03]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "prediction": "AED 200 Bn masterplan capital-discipline disclosure in H2 2026 shows phased capex compatible with FCF positive at group level",
+      "status": "still open",
+      "evidence": "The H2 window remains open; no primary annual capex phasing/pre-sale-gate disclosure was sourced. [analyses/EMAAR_2026-07-03/decision_record.json, forecast_ledger, scenarios and notes, 2026-07-03]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "prediction": "Emaar Misr EGP-denominated net income stabilises or recovers in H1 2026 results (reversal of 64% decline seen in FY2025)",
+      "status": "not assessable",
+      "evidence": "No Emaar Misr H1 EGP net-income filing was obtained; the September window elapsed without assessable outcome evidence. [analyses/EMAAR_2026-07-03/decision_record.json, forecast_ledger, scenarios and notes, 2026-07-03]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "prediction": "Stock re-rates to AED 20+ (base fair value low-end) within 12 months as backlog POC revenue recognition becomes visible in quarterly results",
+      "status": "still open",
+      "evidence": "The 2027-07-03 price window remains open; one AED 11.46 close cannot settle the ten-consecutive-day AED 20 test. [Web: DFM daily bulletin, EMAAR ordinary shares, 2026-10-07 (indicative, unverified)](https://service.dfm.ae/Bulletins?L=1) [analyses/EMAAR_2026-07-03/decision_record.json, forecast_ledger, scenarios and notes, 2026-07-03]",
+      "as_of": "2026-10-07"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Q2 results",
+      "status": "materialized",
+      "evidence": "Results were released 2026-08-07. The beat prediction failed; the EPS result is not proof of a revenue contraction. [Web: Emaar H1 2026 interim filing reproduction, income statement p.2, published 2026-08-07 (unverified reproduction)](https://financialfilings.com/filings/emaar-properties-pjsc/interim-quarterly-report/2026/50378793/)",
+      "as_of": "2026-10-07"
+    },
+    {
+      "catalyst": "Sukuk 3 maturity",
+      "status": "not assessable",
+      "evidence": "The contractual September date passed; redemption and funding source were not verified.",
+      "as_of": "2026-10-07"
+    },
+    {
+      "catalyst": "Q3 results, approximate November window",
+      "status": "pending",
+      "evidence": "The future cadence-based date remains unproven. [analyses/EMAAR_2026-07-03/final_thesis.md, §7, 2026-07-03]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "catalyst": "Masterplan capital discipline disclosure, H2 2026",
+      "status": "pending",
+      "evidence": "No sourced annual phasing or pre-sale gates were found; the window remains open.",
+      "as_of": "2026-10-07"
+    },
+    {
+      "catalyst": "Re-rating, H2 2026–H1 2027",
+      "status": "pending",
+      "evidence": "The remaining window is open; no price attribution is established.",
+      "as_of": "2026-10-07"
+    },
+    {
+      "catalyst": "FY2026 results and dividend, approximate March 2027",
+      "status": "pending",
+      "evidence": "Future annual window; no forward distribution is confirmed.",
+      "as_of": "2026-10-07"
+    },
+    {
+      "catalyst": "Related-party resolution",
+      "status": "not assessable",
+      "evidence": "The prior review already identified the English annual report and government-entity disclosure exemption; no newly sourced disclosure resolves owner alignment. [analyses/EMAAR_2026-07-03/reviews/2026-08-03_30d_decision_review.json, memo_delta, 2026-08-03]",
+      "as_of": "2026-10-07"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Government-owner / RF-OWN-004",
+      "status": "not assessable",
+      "evidence": "The owner cap was already misapplied at decision time and corrected by the replacement. That process failure is established, but new owner conduct is not. [analyses/EMAAR_2026-07-03/corrections.json, superseded_by and errata, 2026-07-17]; [analyses/EMAAR_2026-07-10/memo.md, decision and valuation, 2026-07-10]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "risk": "Disclosure/RPT opacity / RF-DISC-001 and RF-DISC-002",
+      "status": "not assessable",
+      "evidence": "No new primary evidence clears the compensation or owner-alignment gaps. [analyses/EMAAR_2026-07-03/corrections.json, superseded_by and errata, 2026-07-17]; [analyses/EMAAR_2026-07-10/memo.md, decision and valuation, 2026-07-10]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "risk": "Emaar Misr / EMAAR-MISR-COLLAPSE",
+      "status": "not assessable",
+      "evidence": "No H1 EGP outcome filing was obtained; do not carry the original critical description as a proven new decline.",
+      "as_of": "2026-10-07"
+    },
+    {
+      "risk": "Masterplan capital discipline",
+      "status": "not assessable",
+      "evidence": "No new annual capex phasing or financing disclosure was verified.",
+      "as_of": "2026-10-07"
+    },
+    {
+      "risk": "Cash quality / OCF-INFLATION",
+      "status": "not assessable",
+      "evidence": "No current normalized operating FCF bridge was verified; reported earnings growth does not settle deposit-driven cash quality.",
+      "as_of": "2026-10-07"
+    },
+    {
+      "risk": "Dubai sales/cycle reversal",
+      "status": "not assessable",
+      "evidence": "H1 recognised-revenue growth does not establish new-sale resilience. The standalone Q2 UAE sales threshold remains unverified. [Web: Emaar H1 2026 results release, 2026-08-07 (unverified)](https://feeds.dfm.ae/documents/2026/Aug/7/52433569-0887-4100-ba14-58ee448166f1/Emaar%20Properties%20H1%202026%20Press%20Release%20%20%20English.P.pdf)",
+      "as_of": "2026-10-07"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [
+    "bad math",
+    "ignored red flag"
+  ],
+  "lessons": [
+    "The historical Starter Position Only call is superseded by the July Watchlist replacement; it must not be restored to the standing set or treated as a current entry recommendation. [analyses/EMAAR_2026-07-03/corrections.json, superseded_by and errata, 2026-07-17]; [analyses/EMAAR_2026-07-10/memo.md, decision and valuation, 2026-07-10]",
+    "Review close AED 11.46 on DFM, 2026-10-07, versus frozen AED 12.20 anchor dated 2026-06-28. Price return = (11.46 / 12.20 - 1) × 100 = -6.065574%. This is price-only and excludes distributions. [Web: DFM daily bulletin, EMAAR ordinary shares, 2026-10-07 (indicative, unverified)](https://service.dfm.ae/Bulletins?L=1)",
+    "No same-window total-return DFM General Index or MSCI UAE Real Estate series was verified; local market coverage contains only FRED series. Benchmark/sector/relative returns remain null, so no skill/luck or benchmark-performance verdict is supported.",
+    "The 90-day check does not validate the original upside narrative. The EPS beat forecast failed, whereas H1 revenue and pretax profit grew; weaker EPS against consensus is not evidence that all operating metrics deteriorated. [Web: Emaar H1 2026 interim filing reproduction, income statement p.2, published 2026-08-07 (unverified reproduction)](https://financialfilings.com/filings/emaar-properties-pjsc/interim-quarterly-report/2026/50378793/) [Web: Emaar H1 2026 results release, 2026-08-07 (unverified)](https://feeds.dfm.ae/documents/2026/Aug/7/52433569-0887-4100-ba14-58ee448166f1/Emaar%20Properties%20H1%202026%20Press%20Release%20%20%20English.P.pdf)",
+    "Process defects were knowable from the original record: AED 20 bear target above AED 12.20 entry is a +63.934426% gain, not capital-loss protection; RF-OWN-004 imposed a stronger cap than Starter Position Only. Post-decision results are not used to invent these errors. [analyses/EMAAR_2026-07-03/decision_record.json, forecast_ledger, scenarios and notes, 2026-07-03] [analyses/EMAAR_2026-07-03/corrections.json, superseded_by and errata, 2026-07-17]; [analyses/EMAAR_2026-07-10/memo.md, decision and valuation, 2026-07-10]",
+    "Annual revenue prediction (>AED 40bn) and confirmation trigger (>=AED 38bn) disagree; the record also uses conflicting FY2025 revenue baselines. Preserve the original, do not resolve this forecast by silently replacing its threshold. [analyses/EMAAR_2026-07-03/decision_record.json, forecast_ledger, scenarios and notes, 2026-07-03] [analyses/EMAAR_2026-07-03/memo.md, §2, 2026-07-03]"
+  ],
+  "module_calibration_notes": {
+    "most_responsible": "valuation supplied the re-rating case; management-governance owner cap should have constrained final synthesis.",
+    "most_accurate_so_far": "Not assessable as a performance ranking; the Q2 beat setup failed while H1 recognised growth persisted.",
+    "key_variable": "Separate recognised backlog conversion from new-sale resilience; missing masterplan phasing and EGP subsidiary results remain gaps.",
+    "decision_time_calibration": "The original conviction/rating was too permissive given its own owner flag and gain-only bear branch; this uses decision-time inputs, not August results. [analyses/EMAAR_2026-07-03/decision_record.json, forecast_ledger, scenarios and notes, 2026-07-03]"
+  },
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "The frozen Starter Position Only was superseded by a Watchlist; no verified new evidence clears the replacement owner/capital-discipline bar. [analyses/EMAAR_2026-07-03/corrections.json, superseded_by and errata, 2026-07-17]; [analyses/EMAAR_2026-07-10/memo.md, decision and valuation, 2026-07-10]"
+  },
+  "confidence_update": {
+    "before": 52,
+    "after": null,
+    "change_reason": "The historical model is superseded and the beat prediction failed, but missing current primary outcomes prevent a defensible new numerical score."
+  },
+  "next_check": {
+    "date": "2026-12-30",
+    "label": "Q3 results, masterplan annual capex/pre-sale gates and overdue Sukuk/Misr evidence",
+    "trigger": "Obtain the primary Q3 filing and standalone UAE sales, annual masterplan phasing, the September redemption notice and H1 EGP subsidiary results; apply the standing Watchlist replacement before considering entry. [analyses/EMAAR_2026-07-03/corrections.json, superseded_by and errata, 2026-07-17]; [analyses/EMAAR_2026-07-10/memo.md, decision and valuation, 2026-07-10]"
+  },
+  "learning": {
+    "why_right_or_wrong": "The original was process-defective before outcomes were known and the beat forecast subsequently failed; price fell, but absent benchmark returns and unresolved owner/capex outcomes prevent a causal performance verdict.",
+    "error_source": "bad math",
+    "rule_for_future": "Do not approve a conviction call whose bear target is above entry or whose final rating exceeds its own binding owner cap.",
+    "future_research_check": "For EMAAR, resolve the standing Watchlist owner cap and build a genuine capital-loss branch before discussing entry; separately verify new UAE sales, normalized operating FCF, masterplan phasing and the exact EPS threshold."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "",
+    "pre_mortem_verdict": "",
+    "pre_mortem_confidence_haircut": null,
+    "outcome_vs_verdict": "not_applicable",
+    "notes": "No pre-mortem file exists for this decision."
+  },
+  "memo_delta": {
+    "summary": "The original Starter Position Only is superseded by Watchlist, with decision-time process defects carried forward. Q2 missed the beat threshold even as H1 recognised revenue and pretax profit grew. The September financing and Egyptian subsidiary outcomes remain unverified; the standing entry bar is not cleared.",
+    "thesis_delta_verdict": "weakened",
+    "changed_sections": [
+      {
+        "section": "Decision and scenario protection",
+        "original_claim": "Starter Position Only with a bear target AED 20 above entry AED 12.20.",
+        "new_evidence": "The July replacement is Watchlist; the original is retained for audit and is excluded from standing scoring.",
+        "evidence_source": "[analyses/EMAAR_2026-07-03/corrections.json, superseded_by and errata, 2026-07-17]; [analyses/EMAAR_2026-07-10/memo.md, decision and valuation, 2026-07-10]",
+        "materiality_score": 90,
+        "impact_direction": "negative",
+        "impacted_modules": [
+          "valuation",
+          "management-governance"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      },
+      {
+        "section": "Consensus beat / nearest catalyst",
+        "original_claim": "Q2 EPS predicted to beat the frozen AED 0.47 consensus by at least 5%.",
+        "new_evidence": "Q2 basic/diluted EPS is reported as AED 0.42, below the AED 0.494 beat threshold. The rounded disclosure does not alone settle the finer AED 0.422 miss cutoff.",
+        "evidence_source": "[Web: Emaar H1 2026 interim filing reproduction, income statement p.2, published 2026-08-07 (unverified reproduction)](https://financialfilings.com/filings/emaar-properties-pjsc/interim-quarterly-report/2026/50378793/)",
+        "materiality_score": 80,
+        "impact_direction": "negative",
+        "impacted_modules": [
+          "earnings"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "The realised EPS result invalidates the original beat setup; use the standing replacement run, not the superseded model.",
+        "rerun_command": "/research:earnings EMAAR"
+      },
+      {
+        "section": "Backlog conversion",
+        "original_claim": "Backlog supports recognised growth while owner/capex risks constrain the thesis.",
+        "new_evidence": "H1 revenue rose 21% to AED 23.9bn and pretax profit rose 23% to AED 12.8bn; backlog was AED 164.9bn. These are not Q2 EPS or evidence that governance and masterplan risks cleared.",
+        "evidence_source": "[Web: Emaar H1 2026 results release, 2026-08-07 (unverified)](https://feeds.dfm.ae/documents/2026/Aug/7/52433569-0887-4100-ba14-58ee448166f1/Emaar%20Properties%20H1%202026%20Press%20Release%20%20%20English.P.pdf)",
+        "materiality_score": 45,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "business-model",
+          "earnings"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      }
+    ],
+    "stage_one_comment": "Emaar stays under observation through the standing Watchlist replacement. The original Starter Position Only publication remains frozen for audit, but its owner-cap application and gain-only bear scenario were already defective at decision time. The latest DFM close is 11.46 dirhams, a 6.07% price decline from the frozen 12.20-dirham anchor; a verified matching benchmark total return is unavailable. The second-quarter EPS beat prediction failed, while first-half revenue and pretax profit still grew. Those findings must travel together: a consensus miss does not establish that backlog conversion collapsed. The masterplan capital schedule, Sukuk redemption evidence and Egyptian subsidiary outcome remain unresolved in this review. Do not add based on the old upside target. Obtain the primary quarterly results and financing disclosures, refresh the earnings setup, and test the replacement governance and capital-discipline conditions before reconsidering entry.",
+    "watch_items": [
+      "Obtain the primary Q3 filing and standalone UAE sales, annual masterplan phasing, the September redemption notice and H1 EGP subsidiary results; apply the standing Watchlist replacement before considering entry. [analyses/EMAAR_2026-07-03/corrections.json, superseded_by and errata, 2026-07-17]; [analyses/EMAAR_2026-07-10/memo.md, decision and valuation, 2026-07-10]",
+      "Resolve standalone Q2 UAE sales against the original threshold; an H1 group sales total is not the same test.",
+      "Keep the annual revenue threshold/baseline inconsistency visible rather than awarding a false confirmation.",
+      "Verify normalized operating FCF and dividend coverage using itemised deposit and capex adjustments."
+    ],
+    "management_questions": [
+      "What is the annual cash capex schedule for the masterplan, and which pre-sale gates protect minority shareholders?",
+      "Was Sukuk 3 redeemed on time, from which funding source, and was new debt issued?",
+      "What were standalone Q2 UAE new property sales on a matched year-on-year basis?",
+      "What drove Emaar Misr H1 EGP profit, and can the primary subsidiary filing be supplied?",
+      "Which disclosures resolve owner alignment and related-party transaction exposure?"
+    ],
+    "memo_delta_file": "analyses/EMAAR_2026-07-03/reviews/2026-10-07_90d_memo_delta.md"
+  }
+}
