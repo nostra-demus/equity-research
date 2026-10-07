@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T23:52:10Z",
+  "generated_at": "2026-10-07T23:58:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-708",
@@ -791,6 +791,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-724",
+      "headline": "REEDIÇÃO Samsung estima salto de quase 9 vezes no lucro do 3º tri puxado por IA",
+      "headline_en": "REISSUE Samsung estimates nearly 9-fold jump in Q3 profit driven by AI",
+      "url": "https://www.reuters.com/pt/tecnologia/QXYS3O45VNJLBGT7N2E26KIOE4-2026-10-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T23:17:32Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Samsung estimates a nearly 9x jump in Q3 profit, a major earnings signal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung estimates a nearly 9x jump in Q3 profit, a major earnings signal.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-711",
       "headline": "Samsung forecasts record third-quarter profit of $80 billion on the back of AI boom",
       "headline_en": null,
@@ -830,6 +879,55 @@
       "companies": [
         {
           "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-717",
+      "headline": "Samsung Reaches New Profit Record With Memory Chip Windfall",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/samsung-reaches-new-profit-record-with-memory-chip-windfall",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T22:54:57Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Samsung reported a record profit driven by memory chip demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung reported a record profit driven by memory chip demand.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electronics",
           "ticker": null,
           "listing_country": "KR"
         }
@@ -1881,114 +1979,6 @@
           "name": "Boots Group",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-453",
-      "headline": "Brookfield enters Indian logistics with 10.5 million sq ft ESR portfolio buyout",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/brookfield-enters-indian-logistics-with-10-5-million-sq-ft-esr-portfolio-buyout-11791375694489.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T13:18:15Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Brookfield is entering the Indian logistics market through a 10.5 million sq ft portfolio acquisition.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brookfield is entering the Indian logistics market through a 10.5 million sq ft portfolio acquisition.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brookfield Asset Management",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "ESR Group",
-          "ticker": null,
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-475",
-      "headline": "Brookfield to Buy ESR India Warehouse Parks in $444 Million Deal",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/brookfield-to-buy-esr-india-warehouse-parks-in-444-million-deal",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T12:29:39Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Brookfield is acquiring ESR India warehouse assets for $444 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Brookfield is acquiring ESR India warehouse assets for $444 million.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brookfield",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "ESR Group",
-          "ticker": null,
-          "listing_country": "HK"
         }
       ],
       "size_bucket": "large",
@@ -208120,9 +208110,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1673172,
-    "news_picked_today": 1506,
-    "news_dropped_today": 16582
+    "news_seen_today": 1684230,
+    "news_picked_today": 1520,
+    "news_dropped_today": 16664
   },
   "book_momentum": {
     "live_count": 8,
