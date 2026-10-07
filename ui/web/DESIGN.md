@@ -176,6 +176,11 @@ and chat-first; the rules that keep it that way:
 
 ## 9. Workspace panels
 
+- Ideas includes a Themes reading tab before Events. Themes use the existing validated, evidence-bound
+  index and show explanations and exact supporting/challenging source links inline. Sector navigation
+  uses the shared GICS taxonomy on supporting headlines, labels the tags as inferred, and keeps
+  unclassified themes accessible. Company, portfolio and listing filters do not hide this discovery step.
+  Opening or refreshing Themes is read-only and never triggers research or model generation.
 - The command bar owns its row. Panels and full-screen tools live below it, including when the bar wraps.
 - `Workspace` owns the stage, report, chat, and Activity geometry. At readable widths, report and chat
   tile beside each other; narrower desktops select one pane through the workspace navigation. The

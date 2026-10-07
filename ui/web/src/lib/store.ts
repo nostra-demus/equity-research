@@ -1269,8 +1269,8 @@ interface State {
   // the other), exactly like themesView.
   ideasOpen: boolean
   scIdeasLandingSet: boolean
-  ideasLane: IdeaLane
-  setIdeasLane: (lane: IdeaLane) => void
+  ideasLane: IdeaLane | 'themes'
+  setIdeasLane: (lane: IdeaLane | 'themes') => void
   // "Calendar" tab — the forward events calendar (upcoming earnings + macro, server /api/calendar). Another
   // sibling of Themes/Best-ideas in the wire's tab row; mutually exclusive with them.
   calendarOpen: boolean
