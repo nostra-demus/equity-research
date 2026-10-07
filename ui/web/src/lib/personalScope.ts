@@ -135,12 +135,14 @@ export function usePersonalScope(enabled = true) {
   const watchlist = usePersonalScopeStore((s) => s.watchlist)
   const facets = useStore((s) => s.scFacets?.companies)
   const scope = enabled ? selected : 'universe'
-  const membership = scope === 'watchlist' ? watchlist : portfolio
+  // Universe does not depend on holdings, watchlist refresh status, or company facets.
+  const membership = scope === 'universe' ? null : scope === 'watchlist' ? watchlist : portfolio
+  const scopeFacets = scope === 'universe' ? undefined : facets
   return useMemo(() => {
-    const members = membership.status === 'ready' || membership.status === 'loading' ? membership.members.map((member) => memberWithFacets(member, facets || [])) : []
+    const members = membership && (membership.status === 'ready' || membership.status === 'loading') ? membership.members.map((member) => memberWithFacets(member, scopeFacets || [])) : []
     return ({
     scope, label: SCOPE_LABELS[scope], membership,
     matches: (item: Filterable) => matchesPersonalScope(item, scope, members),
     company: (ticker?: string | null, name = '', listingCountry?: string | null) => matchesPersonalScope({ headline: '', companies: [{ ticker: ticker || null, name, listing_country: listingCountry }] }, scope, members),
-  }) }, [scope, membership, facets])
+  }) }, [scope, membership, scopeFacets])
 }
