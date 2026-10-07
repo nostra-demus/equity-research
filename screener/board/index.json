@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T03:02:07Z",
+  "generated_at": "2026-10-07T03:12:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-074",
@@ -1436,6 +1436,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-192",
+      "headline": "VillageMD Sells Another 27 Primary Care Clinics To Harbor Health",
+      "headline_en": null,
+      "url": "https://www.forbes.com/sites/brucejapsen/2026/10/06/villagemd-sells-another-27-clinics-to-harbor-health/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T02:19:43Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "VillageMD is selling 27 primary care clinics to Harbor Health, continuing the consolidation of these assets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "VillageMD is selling 27 primary care clinics to Harbor Health, continuing the consolidation of these assets.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "VillageMD",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Harbor Health",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-064",
       "headline": "Oil prices rise as storms and air strikes threaten supply",
       "headline_en": null,
@@ -1569,6 +1623,55 @@
           "name": "Tokyo Electron",
           "ticker": null,
           "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-194",
+      "headline": "S$7 billion wiped off OCBC value as shares slide 4.9% in heavy trade",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/s7-billion-wiped-ocbc-value-shares-slide-4-9-heavy-trade",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T03:02:15Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "OCBC Bank experienced a significant market capitalization decline of S$7 billion following a 4.9% share price drop.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "OCBC Bank experienced a significant market capitalization decline of S$7 billion following a 4.9% share price drop.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OCBC Bank",
+          "ticker": null,
+          "listing_country": "SG"
         }
       ],
       "size_bucket": "large",
@@ -1861,109 +1964,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-061",
-      "headline": "넥센타이어, 호주 서부 퍼스에 물류센터 신설",
-      "headline_en": "Nexen Tire establishes new logistics center in Perth, Western Australia",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278325",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:31:09Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Nexen Tire expanding logistics capacity with a new center in Perth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Nexen Tire expanding logistics capacity with a new center in Perth.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nexen Tire",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-008",
-      "headline": "ET Exclusive: Flipkart’s former suites write to Walmart board, seek fair treatment and full cash out of vested ESOPs",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/et-exclusive-flipkarts-former-suites-write-to-walmart-board-seek-fair-treatment-and-full-cash-out-of-vested-esops/articleshow/134749769.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Former Flipkart executives are seeking legal intervention regarding ESOP cash-outs from Walmart.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Former Flipkart executives are seeking legal intervention regarding ESOP cash-outs from Walmart.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Walmart",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Flipkart",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209580,9 +209580,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 946,
-    "news_picked_today": 193,
-    "news_dropped_today": 729
+    "news_seen_today": 1034,
+    "news_picked_today": 220,
+    "news_dropped_today": 790
   },
   "book_momentum": {
     "live_count": 8,
