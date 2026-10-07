@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T21:27:58Z",
+  "generated_at": "2026-10-07T21:32:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-495",
@@ -590,6 +590,49 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-688",
+      "headline": "After closing 60 stores, used car chain faces bankruptcy drop-dead date",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/after-closing-60-stores-americas-car-mart-faces-bankruptcy-drop-dead-date",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:03:00Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "A used car chain is facing a potential bankruptcy deadline after significant store closures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A used car chain is facing a potential bankruptcy deadline after significant store closures.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1968,49 +2011,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-131",
-      "headline": "Trump Ties Tariff Cuts to S. Korea’s $150 Billion Shipbuilding Investment",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278358",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T05:34:09Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Trump linked tariff cuts to a potential $150 billion investment in the South Korean shipbuilding sector, a massive capital commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Trump linked tariff cuts to a potential $150 billion investment in the South Korean shipbuilding sector, a massive capital commitment.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208139,9 +208139,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1109791,
-    "news_picked_today": 1284,
-    "news_dropped_today": 15460
+    "news_seen_today": 1121721,
+    "news_picked_today": 1291,
+    "news_dropped_today": 15477
   },
   "book_momentum": {
     "live_count": 8,
