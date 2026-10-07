@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T01:06:53Z",
+  "generated_at": "2026-10-07T01:07:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-068",
@@ -162303,6 +162303,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-90b902d53889",
+      "idea_version": "IDEAV-5a2cb3450d7842dc",
+      "idea_version_started_at": "2026-10-07T01:07:10Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "SpaceX is seeking $40 billion in financing specifically earmarked for the purchase of Nvidia chips, representing a massive, concentrated demand catalyst.",
+      "why_now": "Reports of the $40 billion financing round led by Apollo surfaced on October 7, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 72,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1268c14438d6",
+        "EVT-dab3c6cf4f3f"
+      ],
+      "primary_source_event_id": "EVT-1268c14438d6",
+      "source_headlines": [
+        "SpaceX seeking to raise US$40 billion to buy Nvidia chips: Financial Times",
+        "SpaceX seeks $40 billion financing led by Apollo to buy Nvidia chips, FT reports"
+      ],
+      "source_headline": "SpaceX seeking to raise US$40 billion to buy Nvidia chips: Financial Times",
+      "source_url": "https://www.straitstimes.com/business/companies-markets/spacex-seeking-to-raise-us40-billion-to-buy-nvidia-chips-financial-times",
+      "source_name": "The Straits Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T00:25:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T01:35:08Z",
+      "updated_at": "2026-10-07T01:07:10Z",
+      "decay_at": "2026-10-08T12:25:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-07f356ae2f72",
       "idea_version": "IDEAV-95fb1e83fe45acd4",
       "idea_version_started_at": "2026-10-06T23:57:28Z",
@@ -162857,6 +162928,146 @@
       "surfaced_at": "2026-10-06T21:25:08Z",
       "updated_at": "2026-10-06T21:25:08Z",
       "decay_at": "2026-10-08T02:24:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-6620ff045c07",
+      "idea_version": "IDEAV-00105b23d1457dbd",
+      "idea_version_started_at": "2026-10-07T01:07:10Z",
+      "ticker": "FICO",
+      "company": "Fair Isaac Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A 15% workforce reduction driven by AI-restructuring is expected to significantly expand operating margins by replacing human labor with automated processes.",
+      "why_now": "The restructuring plan was announced on October 6, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-da977be1d70e"
+      ],
+      "primary_source_event_id": "EVT-da977be1d70e",
+      "source_headlines": [
+        "FICO cuts workforce by 15% in AI-driven restructuring"
+      ],
+      "source_headline": "FICO cuts workforce by 15% in AI-driven restructuring",
+      "source_url": "https://www.reuters.com/business/world-at-work/fico-cuts-workforce-by-15-ai-driven-restructuring-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-06T21:23:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T01:07:10Z",
+      "updated_at": "2026-10-07T01:07:10Z",
+      "decay_at": "2026-10-08T09:23:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8f220a5a3968",
+      "idea_version": "IDEAV-9caedc01668f4d84",
+      "idea_version_started_at": "2026-10-07T01:07:10Z",
+      "ticker": "APO",
+      "company": "Apollo Global Management",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Leading a $40 billion financing round for SpaceX generates significant fee income and strengthens Apollo's position in high-profile private credit and structured equity.",
+      "why_now": "The FT report on Apollo leading this specific financing round was published October 7, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dab3c6cf4f3f"
+      ],
+      "primary_source_event_id": "EVT-dab3c6cf4f3f",
+      "source_headlines": [
+        "SpaceX seeks $40 billion financing led by Apollo to buy Nvidia chips, FT reports"
+      ],
+      "source_headline": "SpaceX seeks $40 billion financing led by Apollo to buy Nvidia chips, FT reports",
+      "source_url": "https://www.reuters.com/business/media-telecom/spacex-seeks-40-billion-buy-nvidia-chips-ft-reports-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T00:15:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T01:07:10Z",
+      "updated_at": "2026-10-07T01:07:10Z",
+      "decay_at": "2026-10-08T12:15:28Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -163698,6 +163909,79 @@
       "surfaced_at": "2026-10-06T02:27:03Z",
       "updated_at": "2026-10-06T02:27:03Z",
       "decay_at": "2026-10-07T13:40:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-b56a76426b54",
+      "idea_version": "IDEAV-76c1a28902b71f17",
+      "idea_version_started_at": "2026-10-07T01:07:10Z",
+      "ticker": "SAVE",
+      "company": "Spirit Airlines",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has filed for bankruptcy and canceled 2,500 flights, indicating a total breakdown of operations and likely equity wipeout.",
+      "why_now": "The bankruptcy filing and mass cancellations occurred on October 7, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-16bc1b27fccd"
+      ],
+      "primary_source_event_id": "EVT-16bc1b27fccd",
+      "source_headlines": [
+        "South America's Spirit Airlines canceled 2,500 flights, files for bankruptcy"
+      ],
+      "source_headline": "South America's Spirit Airlines canceled 2,500 flights, files for bankruptcy",
+      "source_url": "https://www.thestreet.com/travel/flybondi-airline-files-for-bankruptcy-protection",
+      "source_name": "TheStreet",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T00:00:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T01:07:10Z",
+      "updated_at": "2026-10-07T01:07:10Z",
+      "decay_at": "2026-10-08T12:00:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -167503,76 +167787,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-90b902d53889",
-      "idea_version": "IDEAV-4e8165d4db5a2842",
-      "idea_version_started_at": "2026-10-05T01:35:08Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "AM Intelligence has placed a massive $4 billion order for 20,000 Nvidia GPUs, providing a direct boost to Nvidia's data center revenue.",
-      "why_now": "The deal was reported on October 5, 2026, highlighting sustained high-volume demand for AI hardware.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 64,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b53e7ea8cdb1"
-      ],
-      "primary_source_event_id": "EVT-b53e7ea8cdb1",
-      "source_headlines": [
-        "Greenko founders-backed AM Intelligence orders 20,000 Nvidia GPUs in $4 billion deal"
-      ],
-      "source_headline": "Greenko founders-backed AM Intelligence orders 20,000 Nvidia GPUs in $4 billion deal",
-      "source_url": "https://www.livemint.com/companies/greenko-founders-backed-am-intelligence-orders-20-000-nvidia-gpus-in-4-billion-deal-11791119927528.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T00:45:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T01:35:08Z",
-      "updated_at": "2026-10-05T01:35:08Z",
-      "decay_at": "2026-10-06T12:45:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-51f337afe9cd",
       "idea_version": "IDEAV-e25a7694ce5c100d",
       "idea_version_started_at": "2026-10-04T07:06:51Z",
@@ -167777,76 +167991,6 @@
       "surfaced_at": "2026-10-04T04:59:59Z",
       "updated_at": "2026-10-04T04:59:59Z",
       "decay_at": "2026-10-05T16:00:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-af31c2e0f9bf",
-      "idea_version": "IDEAV-53c419e82494548f",
-      "idea_version_started_at": "2026-10-04T01:14:46Z",
-      "ticker": "AAPL",
-      "company": "Apple",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Strong pre-order demand for the new iPhone Duo suggests potential for higher-than-expected hardware revenue in the upcoming quarter.",
-      "why_now": "Pre-orders are scheduled to begin on October 12, 2026, creating a near-term catalyst for sentiment.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ff409a09aa17"
-      ],
-      "primary_source_event_id": "EVT-ff409a09aa17",
-      "source_headlines": [
-        "Apple iPhone Duo pre-orders on October 12: 6 million-unit buzz, but there’s a catch"
-      ],
-      "source_headline": "Apple iPhone Duo pre-orders on October 12: 6 million-unit buzz, but there’s a catch",
-      "source_url": "https://www.businesstoday.in/latest/photo/apple-iphone-duo-pre-orders-on-october-12-6-million-unit-buzz-but-theres-a-catch-559098-2026-10-04?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "materiality_max": 83,
-      "newest_source_at": "2026-10-04T00:45:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T01:14:46Z",
-      "updated_at": "2026-10-04T01:14:46Z",
-      "decay_at": "2026-10-05T12:45:03Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171906,14 +172050,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 580,
+    "total_count": 578,
     "shown_count": 500,
-    "hidden_count": 80,
+    "hidden_count": 78,
     "side_counts": {
       "long": {
-        "total_count": 306,
+        "total_count": 304,
         "shown_count": 250,
-        "hidden_count": 56
+        "hidden_count": 54
       },
       "short": {
         "total_count": 274,
@@ -171923,11 +172067,11 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 754,
+      "evicted_count": 755,
       "oldest_retained_at": "2026-09-09T12:53:20Z",
       "side_counts": {
         "long": {
-          "evicted_count": 496,
+          "evicted_count": 497,
           "oldest_retained_at": "2026-09-18T20:21:14Z"
         },
         "short": {
@@ -174246,79 +174390,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-10-06T13:18:34Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-90b902d53889",
-        "idea_version": "IDEAV-4e8165d4db5a2842",
-        "idea_version_started_at": "2026-10-05T01:35:08Z",
-        "ticker": "NVDA",
-        "company": "Nvidia",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "AM Intelligence has placed a massive $4 billion order for 20,000 Nvidia GPUs, providing a direct boost to Nvidia's data center revenue.",
-        "why_now": "The deal was reported on October 5, 2026, highlighting sustained high-volume demand for AI hardware.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 64,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "commodity_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-b53e7ea8cdb1"
-        ],
-        "primary_source_event_id": "EVT-b53e7ea8cdb1",
-        "source_headlines": [
-          "Greenko founders-backed AM Intelligence orders 20,000 Nvidia GPUs in $4 billion deal"
-        ],
-        "source_headline": "Greenko founders-backed AM Intelligence orders 20,000 Nvidia GPUs in $4 billion deal",
-        "source_url": "https://www.livemint.com/companies/greenko-founders-backed-am-intelligence-orders-20-000-nvidia-gpus-in-4-billion-deal-11791119927528.html",
-        "source_name": "Mint",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-05T00:45:22Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-05T01:35:08Z",
-        "updated_at": "2026-10-05T01:35:08Z",
-        "decay_at": "2026-10-06T12:45:22Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-06T12:45:22Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -177901,8 +177972,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-05T12:45:03Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T01:07:24Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -200064,6 +200135,83 @@
         "audit_only": true
       },
       {
+        "idea_id": "IDEA-7de5b0b6f75e",
+        "idea_version": "IDEAV-6b6698fe78990b27",
+        "idea_version_started_at": "2026-09-22T09:12:36Z",
+        "ticker": "BEZ",
+        "company": "Berentzen-Gruppe",
+        "exchange": "XETRA",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Sazerac has launched a takeover bid for the company, which typically forces the share price to converge toward the offer price.",
+        "why_now": "The bid was launched today, September 21, 2026, providing a clear catalyst for price appreciation toward the offer level.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-cc21bfde597e",
+          "EVT-bb3bc508e213"
+        ],
+        "primary_source_event_id": "EVT-cc21bfde597e",
+        "source_headlines": [
+          "Sazerac Company launches bid for all Berentzen shares",
+          "US spirits maker Sazerac launches takeover bid for Germany's Berentzen"
+        ],
+        "source_headline": "Sazerac Company launches bid for all Berentzen shares",
+        "source_url": "https://www.reuters.com/legal/transactional/sazerac-company-launches-bid-all-berentzen-shares-2026-09-21/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-21T05:54:33Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-22T09:12:36Z",
+        "updated_at": "2026-09-22T09:12:36Z",
+        "decay_at": "2026-09-22T17:54:33Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-24T05:59:51Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
         "idea_id": "IDEA-bbe6cce25e6c",
         "idea_version": "IDEAV-ad0d76477c61048d",
         "idea_version_started_at": "2026-09-21T05:16:02Z",
@@ -209141,8 +209289,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1390,
-    "live_count": 55,
+    "surfaced_total": 1393,
+    "live_count": 59,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

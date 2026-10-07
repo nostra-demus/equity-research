@@ -1,21 +1,21 @@
 {
-  "idea_id": "IDEA-90b902d53889",
-  "idea_version": "IDEAV-5a2cb3450d7842dc",
+  "idea_id": "IDEA-8f220a5a3968",
+  "idea_version": "IDEAV-9caedc01668f4d84",
   "idea_version_started_at": "2026-10-07T01:07:10Z",
-  "ticker": "NVDA",
-  "company": "Nvidia",
-  "exchange": "NASDAQ",
+  "ticker": "APO",
+  "company": "Apollo Global Management",
+  "exchange": "NYSE",
   "ticker_verified": true,
   "listing_verified": true,
   "liquidity_verified": false,
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "long",
   "pair_with": null,
-  "reason": "SpaceX is seeking $40 billion in financing specifically earmarked for the purchase of Nvidia chips, representing a massive, concentrated demand catalyst.",
-  "why_now": "Reports of the $40 billion financing round led by Apollo surfaced on October 7, 2026.",
-  "conviction": 60,
+  "reason": "Leading a $40 billion financing round for SpaceX generates significant fee income and strengthens Apollo's position in high-profile private credit and structured equity.",
+  "why_now": "The FT report on Apollo leading this specific financing round was published October 7, 2026.",
+  "conviction": 50,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 72,
+  "trade_score": 65,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
@@ -23,13 +23,14 @@
     "specificity": 15,
     "timing": 10,
     "expression": 7,
-    "corroboration": 7,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -42,32 +43,30 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "commodity_conditional",
+  "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-1268c14438d6",
     "EVT-dab3c6cf4f3f"
   ],
-  "primary_source_event_id": "EVT-1268c14438d6",
+  "primary_source_event_id": "EVT-dab3c6cf4f3f",
   "source_headlines": [
-    "SpaceX seeking to raise US$40 billion to buy Nvidia chips: Financial Times",
     "SpaceX seeks $40 billion financing led by Apollo to buy Nvidia chips, FT reports"
   ],
-  "source_headline": "SpaceX seeking to raise US$40 billion to buy Nvidia chips: Financial Times",
-  "source_url": "https://www.straitstimes.com/business/companies-markets/spacex-seeking-to-raise-us40-billion-to-buy-nvidia-chips-financial-times",
-  "source_name": "The Straits Times",
+  "source_headline": "SpaceX seeks $40 billion financing led by Apollo to buy Nvidia chips, FT reports",
+  "source_url": "https://www.reuters.com/business/media-telecom/spacex-seeks-40-billion-buy-nvidia-chips-ft-reports-2026-10-06/",
+  "source_name": "Reuters — Latest (news sitemap)",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-07T00:25:00Z",
+  "newest_source_at": "2026-10-07T00:15:28Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-05T01:35:08Z",
+  "surfaced_at": "2026-10-07T01:07:10Z",
   "updated_at": "2026-10-07T01:07:10Z",
-  "decay_at": "2026-10-08T12:25:00Z",
+  "decay_at": "2026-10-08T12:15:28Z",
   "status": "live",
   "promoted_signal_id": null
 }
