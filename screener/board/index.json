@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-07T23:16:09Z",
+  "generated_at": "2026-10-07T23:19:10Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261007-704",
+      "headline": "ANO: First Quarter FY27 Australian Revenue Down 71% [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ANO?key=2924-03145962-2A1702645",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-07T22:58:19Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "ANO reported a 71% decline in Q1 FY27 Australian revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ANO reported a 71% decline in Q1 FY27 Australian revenue.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ANO",
+          "ticker": "ANO",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261007-693",
       "headline": "FMG: September 2026 Quarterly Performance Update [price-sensitive]",
@@ -1949,60 +1998,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-501",
-      "headline": "Cenovus to Buy Athabasca in Deal Worth $4B",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/cenovus_to_buy_athabasca_in_deal_worth_4b-07-oct-2026-184791-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T11:38:00Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Cenovus's acquisition of Athabasca for $4B is a significant M&A event that will alter the capital structure and operational landscape of both companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Cenovus's acquisition of Athabasca for $4B is a significant M&A event that will alter the capital structure and operational landscape of both companies.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cenovus Energy Inc.",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Athabasca Oil Corporation",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208131,9 +208126,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1536119,
-    "news_picked_today": 1436,
-    "news_dropped_today": 16292
+    "news_seen_today": 1547645,
+    "news_picked_today": 1444,
+    "news_dropped_today": 16308
   },
   "book_momentum": {
     "live_count": 8,
