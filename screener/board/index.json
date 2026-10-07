@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T05:27:10Z",
+  "generated_at": "2026-10-07T05:29:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-328",
@@ -235,6 +235,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-329",
+      "headline": "Paramount closes Warner merger in historic Hollywood deal",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/paramount-closes-warner-merger-in-historic-hollywood-deal/article71554293.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T05:13:30Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Paramount and Warner have closed a merger deal, representing a major consolidation in the media sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Paramount and Warner have closed a merger deal, representing a major consolidation in the media sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Paramount",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Warner",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-318",
       "headline": "LG Electronics’ Preliminary Earnings Disappoint",
       "headline_en": null,
@@ -276,60 +330,6 @@
           "name": "LG Electronics",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-315",
-      "headline": "Paramount closes Warner merger in historic Hollywood deal",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/07/companies/paramount-warner-merger-deal/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T04:25:00Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Paramount has completed a major merger with Warner, a significant consolidation event in the media sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount has completed a major merger with Warner, a significant consolidation event in the media sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Warner",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1444,6 +1444,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-332",
+      "headline": "RBI MPC Raises Repo Rate By 25 Bps To 5.5%, Policy Stance Changed To ‘Calibrated Tightening'",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/rbi-mpc-raises-repo-rate-by-25-bps-to-55-policy-stance-changed-to-calibrated-tightening",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T04:50:36Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "The RBI raised the repo rate by 25 bps to 5.5% and shifted its policy stance to 'calibrated tightening', directly impacting borrowing costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The RBI raised the repo rate by 25 bps to 5.5% and shifted its policy stance to 'calibrated tightening', directly impacting borrowing costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-295",
       "headline": "RBI MPC meeting LIVE updates: Repo rate raised by 25 bps; stance shifts to calibrated tightening",
       "headline_en": null,
@@ -1888,55 +1931,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-020",
-      "headline": "SCHEDULE 13D - Fog Cutter Holdings, LLC (0001838658) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1838658/000121390026107336/0001213900-26-107336-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-07T00:14:57Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "A Schedule 13D filing indicates a significant ownership stake or activist position in a company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A Schedule 13D filing indicates a significant ownership stake or activist position in a company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fog Cutter Holdings, LLC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -209911,9 +209905,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3997,
-    "news_picked_today": 463,
-    "news_dropped_today": 2390
+    "news_seen_today": 4160,
+    "news_picked_today": 468,
+    "news_dropped_today": 2409
   },
   "book_momentum": {
     "live_count": 8,
