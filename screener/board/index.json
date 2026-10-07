@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T22:23:07Z",
+  "generated_at": "2026-10-07T22:32:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-693",
@@ -43,6 +43,55 @@
           "name": "Fortescue",
           "ticker": null,
           "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-694",
+      "headline": "Department of War's Office of Strategic Capital Announces $1.5 Billion Conditional Loan Commitment to Wolfspeed, Inc.",
+      "headline_en": null,
+      "url": "https://www.war.gov/News/Releases/Release/Article/4621223/department-of-wars-office-of-strategic-capital-announces-15-billion-conditional/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-07T20:00:24Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Wolfspeed, Inc. received a $1.5 billion conditional loan commitment from the U.S. government to support capital expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Wolfspeed, Inc. received a $1.5 billion conditional loan commitment from the U.S. government to support capital expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wolfspeed, Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1960,56 +2009,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-515",
-      "headline": "Troubled South West Water owner taps investors for £550m days after being handed record fine for sewage spills",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16189369/Troubled-South-West-Water-owner-taps-investors-550m-days-handed-record-fine-sewage-spills.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T10:50:57Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Pennon Group (South West Water) is raising 550 million GBP in equity following a record regulatory fine.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pennon Group (South West Water) is raising 550 million GBP in equity following a record regulatory fine.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pennon Group",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208138,9 +208137,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1331531,
-    "news_picked_today": 1341,
-    "news_dropped_today": 15883
+    "news_seen_today": 1361210,
+    "news_picked_today": 1342,
+    "news_dropped_today": 15954
   },
   "book_momentum": {
     "live_count": 8,
