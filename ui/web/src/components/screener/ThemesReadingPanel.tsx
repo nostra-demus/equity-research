@@ -25,8 +25,8 @@ export function ThemeReadingCard({ theme }: { theme: Theme }) {
   const sectors = readingThemeSectors(theme)
   return <article className="bidea theme-reading" aria-label={theme.name}>
     <header className="theme-reading__head"><h3>{theme.name}</h3><span className="bidea__tag">{theme.activity === 'challenged' ? 'Challenged' : theme.activity === 'new' ? 'New' : theme.activity === 'reinforced' ? 'Developing' : 'Monitoring'}</span></header>
-    {(theme.assessment || theme.opportunity)?.metrics.pending_revalidation && <p className="bidea__refresh"><strong>New evidence awaiting revalidation</strong>The explanation below reflects the last validated sources. New matching reports are still being checked for support or challenges.</p>}
-    <div className="bidea__tags">{(sectors.length ? sectors : ['Unclassified']).map((sector) => <span className="bidea__tag" key={sector}>{sector}</span>)}<span className="bidea__tag">Horizon: {narrative.horizon}</span></div>
+    {(theme.assessment || theme.opportunity)?.metrics?.pending_revalidation && <p className="bidea__refresh"><strong>New evidence awaiting revalidation</strong> · The explanation below reflects the last validated sources. New matching reports are still being checked for support or challenges.</p>}
+    <div className="bidea__tags">{(sectors.length ? sectors : ['Unclassified']).map((sector) => <span className="bidea__tag" key={sector}>{sector}</span>)}{narrative.horizon && <span className="bidea__tag">Horizon: {narrative.horizon}</span>}</div>
     <p className="theme-reading__thesis">{narrative.thesis}</p>
     <div><h4>What is happening and why now</h4><p>{narrative.why_now}</p>
       {whyNow && <p className="theme-reading__citation"><a href={whyNow.url} target="_blank" rel="noreferrer">{whyNow.source_name} ↗</a> · Source observed <time dateTime={whyNow.found_at}>{fmtStampLocal(whyNow.found_at)}</time></p>}
@@ -41,7 +41,7 @@ export function ThemeReadingCard({ theme }: { theme: Theme }) {
 
 function SourceList({ rows }: { rows: ValidatedThemeEvidence[] }) {
   return <ul className="discovery-reports">{rows.map((row) => <li key={row.event_id}><a href={row.url} target="_blank" rel="noreferrer">{row.headline}</a>
-    <small>{row.source_name} · {row.source_tier.replace(/_/g, ' ')} · Source observed <time dateTime={row.found_at}>{fmtStampLocal(row.found_at)}</time> · Reported, unverified</small>
+    <small>{row.source_name} · {row.source_tier?.replace(/_/g, ' ') || 'Source tier unavailable'} · Source observed <time dateTime={row.found_at}>{fmtStampLocal(row.found_at)}</time> · Reported, unverified</small>
   </li>)}</ul>
 }
 
