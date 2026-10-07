@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T04:18:16Z",
+  "generated_at": "2026-10-07T04:19:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-242",
@@ -164204,6 +164204,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-30544aec4eac",
+      "idea_version": "IDEAV-78dcd0b979c43ba2",
+      "idea_version_started_at": "2026-10-07T04:19:01Z",
+      "ticker": "RCOM",
+      "company": "Reliance Communications",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Department of Telecommunications has terminated the company's spectrum licenses, effectively halting its core operational capacity and ability to generate revenue.",
+      "why_now": "The termination is effective immediately as of October 7, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f15a0e365cc1"
+      ],
+      "primary_source_event_id": "EVT-f15a0e365cc1",
+      "source_headlines": [
+        "Reliance Communications Spectrum Terminated By DoT With Immediate Effect. Here's Why"
+      ],
+      "source_headline": "Reliance Communications Spectrum Terminated By DoT With Immediate Effect. Here's Why",
+      "source_url": "https://www.ndtvprofit.com/markets/reliance-communications-shares-today-spectrum-terminated-by-dot-with-immediate-effect-heres-why-12148820#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T02:21:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T04:19:01Z",
+      "updated_at": "2026-10-07T04:19:01Z",
+      "decay_at": "2026-10-08T14:21:48Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-fe0a4c2c5819",
       "idea_version": "IDEAV-d68460b7735328f4",
       "idea_version_started_at": "2026-10-07T02:20:38Z",
@@ -166302,6 +166374,79 @@
       "surfaced_at": "2026-10-06T04:37:12Z",
       "updated_at": "2026-10-06T04:37:12Z",
       "decay_at": "2026-10-07T16:00:27Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-684ad4aa3e76",
+      "idea_version": "IDEAV-8301f39fbc9bd8a6",
+      "idea_version_started_at": "2026-10-07T04:19:01Z",
+      "ticker": "ARF",
+      "company": "Arena REIT",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company announced a significant child care portfolio acquisition that is expected to be accretive to earnings and expands its footprint in a stable asset class.",
+      "why_now": "The deal was announced and market-reacted on October 7, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-3ac228adb398"
+      ],
+      "primary_source_event_id": "EVT-3ac228adb398",
+      "source_headlines": [
+        "ASX seesaws; Arena REIT soars 13pc on child care deal"
+      ],
+      "source_headline": "ASX seesaws; Arena REIT soars 13pc on child care deal",
+      "source_url": "https://www.afr.com/markets/equity-markets/s-and-p-500-resets-record-high-20261007-p613d9?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "materiality_max": 90,
+      "newest_source_at": "2026-10-07T04:13:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T04:19:01Z",
+      "updated_at": "2026-10-07T04:19:01Z",
+      "decay_at": "2026-10-08T16:13:49Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209578,8 +209723,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1402,
-    "live_count": 67,
+    "surfaced_total": 1404,
+    "live_count": 69,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
