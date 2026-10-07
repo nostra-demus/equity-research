@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T16:59:54Z",
+  "generated_at": "2026-10-07T17:00:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-346",
@@ -447,6 +447,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-417",
+      "headline": "Third Coast to buy Oklahoma bank for $240M",
+      "headline_en": null,
+      "url": "https://www.bankingdive.com/news/third-coast-texas-buy-oklahoma-bank-240-million/832392/",
+      "source_name": "Banking Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T16:14:50Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Third Coast is acquiring an Oklahoma bank for $240 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Third Coast is acquiring an Oklahoma bank for $240 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Third Coast",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-391",
       "headline": "Canada's Weston family to buy UK's Boots in $8.9 billion deal",
       "headline_en": null,
@@ -599,6 +648,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-436",
+      "headline": "£6.7bn deal announced to buy Boots' 1,800 UK and Ireland stores",
+      "headline_en": null,
+      "url": "https://news.sky.com/story/67bn-deal-announced-to-buy-boots-1800-uk-and-ireland-stores-13596180",
+      "source_name": "Sky News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T14:16:00Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "A £6.7bn deal has been announced to acquire Boots' 1,800 UK and Ireland stores.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A £6.7bn deal has been announced to acquire Boots' 1,800 UK and Ireland stores.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boots",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1917,98 +2015,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-050",
-      "headline": "ARF: Edge Early Learning Administration Update [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ARF?key=2924-03145456-3A703532",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-07T00:46:00Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "ARF provided an update on the administration of Edge Early Learning, indicating potential distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "ARF provided an update on the administration of Edge Early Learning, indicating potential distress.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ARF",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-322",
-      "headline": "RBI MPC meeting LIVE updates: 25 bps repo rate hike, stance changed to 'calibrated tightening'; cuts ruled out",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/economy/rbi-mpc-meeting-live-updates-monetary-policy-october-2026-announcements-repo-rate-decision-inflation-growth-outlook-rbi-governor-sanjay-malhotra-liveblog-20006172.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T05:13:10Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "The RBI hiked the repo rate by 25 bps and shifted to a 'calibrated tightening' stance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "The RBI hiked the repo rate by 25 bps and shifted to a 'calibrated tightening' stance.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
