@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-07T01:07:41Z",
+  "generated_at": "2026-10-07T01:17:04Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261007-074",
+      "headline": "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LM8?key=2924-03145473-6A1348080",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-07T01:04:55Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "BHP announced a transaction regarding its Kambalda Nickel Concentrator, a material asset disposal/restructuring event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "BHP announced a transaction regarding its Kambalda Nickel Concentrator, a material asset disposal/restructuring event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BHP Group",
+          "ticker": "BHP",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261007-068",
       "headline": "Paramount closes Warner merger in historic Hollywood deal",
@@ -460,6 +509,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-077",
+      "headline": "RBI MPC meeting LIVE: Repo Rate, CRR, SLR, Reverse RR in focus as Governor Sanjay Malhotra to declare outcome today",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/rbi-mpc-meeting-live-repo-rate-crr-slr-reverse-rr-in-focus-as-governor-sanjay-malhotra-to-declare-outcome-today-11791306808901.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T01:07:24Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "The Reserve Bank of India is announcing its monetary policy decision, which impacts interest rates and the broader economy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The Reserve Bank of India is announcing its monetary policy decision, which impacts interest rates and the broader economy.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1000,6 +1092,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-081",
+      "headline": "EU: Deutschland und Frankreich wollen das Verbrenner-Aus weiter lockern",
+      "headline_en": "EU: Germany and France want to further relax the combustion engine ban",
+      "url": "https://www.handelsblatt.com/politik/international/eu-deutschland-und-frankreich-wollen-das-verbrenner-aus-weiter-lockern/100256426.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T00:59:49Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Germany and France are seeking to further relax the EU's ban on internal combustion engine vehicles, which would impact automotive sector regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Germany and France are seeking to further relax the EU's ban on internal combustion engine vehicles, which would impact automotive sector regulatory risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-057",
       "headline": "Malaysia PM Anwar set to boost budget spending as election speculation grows",
       "headline_en": null,
@@ -1283,6 +1418,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-078",
+      "headline": "CNBC Daily Open: Fragile rebound in oil exports threatened by Iran attacks in Hormuz",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/07/trump-hormuz-oil-diesel-iran-anthropic-ai.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T01:11:37Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Geopolitical escalation in the Strait of Hormuz threatens global oil supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Geopolitical escalation in the Strait of Hormuz threatens global oil supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1773,208 +1951,6 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-046",
-      "headline": "Apple to Launch Doorbell, Lock and Thermostat Developed With LG",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-10-07/apple-to-launch-doorbell-lock-and-thermostat-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:38:01Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Apple announces new smart-home product categories (doorbell, lock, thermostat) co-developed with LG; no quantified impact, scale, timeline, or earnings guidance change disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Apple announces new smart-home product categories (doorbell, lock, thermostat) co-developed with LG; no quantified impact, scale, timeline, or earnings guidance change disclosed.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": "AAPL",
-          "listing_country": "US"
-        },
-        {
-          "name": "LG Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-060",
-      "headline": "KGC 부여공장, 건기식 업계 최초 '폐기물 매립 제로' 플래티넘 획득",
-      "headline_en": "KGC Buyeo plant becomes the first in the health supplement industry to achieve 'Zero Waste to Landfill' Platinum",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278328",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:34:44Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "KGC factory achieves zero waste certification, improving ESG profile.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "KGC factory achieves zero waste certification, improving ESG profile.",
-      "region": "KR",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Korea Ginseng Corp",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-038",
-      "headline": "144 - Dell Technologies Inc. (0001571996) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1571996/000119312526415996/0001193125-26-415996-index.htm",
-      "source_name": "SEC EDGAR — Latest Form 144 (Proposed Insider Sale)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-07T00:27:50Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Proposed insider sale by Silver Lake Partners in Dell Technologies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Proposed insider sale by Silver Lake Partners in Dell Technologies.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dell Technologies Inc.",
-          "ticker": "DELL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-005",
-      "headline": "First Digital签署最终协议:将成为上市公司，以构建智能体经济基础设施为主",
-      "headline_en": "First Digital signs definitive agreement: to become a public company, focusing on building infrastructure for the agentic economy",
-      "url": "https://www.globenewswire.com/news-release/2026/10/07/3376152/0/zh-hans/first-digital%E7%AD%BE%E7%BD%B2%E6%9C%80%E7%BB%88%E5%8D%8F%E8%AE%AE-%E5%B0%86%E6%88%90%E4%B8%BA%E4%B8%8A%E5%B8%82%E5%85%AC%E5%8F%B8-%E4%BB%A5%E6%9E%84%E5%BB%BA%E6%99%BA%E8%83%BD%E4%BD%93%E7%BB%8F%E6%B5%8E%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E4%B8%BA%E4%B8%BB.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "First Digital signed a definitive agreement to become a public company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "First Digital signed a definitive agreement to become a public company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "First Digital",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -209309,9 +209285,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 389,
-    "news_picked_today": 73,
-    "news_dropped_today": 292
+    "news_seen_today": 448,
+    "news_picked_today": 86,
+    "news_dropped_today": 338
   },
   "book_momentum": {
     "live_count": 8,
