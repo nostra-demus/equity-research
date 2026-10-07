@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-07T22:20:01Z",
+  "generated_at": "2026-10-07T22:23:07Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261007-693",
+      "headline": "FMG: September 2026 Quarterly Performance Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FMG?key=2924-03145859-6A1348210",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-07T22:04:39Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Fortescue released its quarterly performance update, which is explicitly flagged as price-sensitive information.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fortescue released its quarterly performance update, which is explicitly flagged as price-sensitive information.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fortescue",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261007-495",
       "headline": "JSW Steel Limited: Early redemption of US$500,000,000, 3.95% Notes due 2027",
@@ -1961,56 +2010,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-523",
-      "headline": "South West Water owner asks investors for £550m after record sewage fine",
-      "headline_en": null,
-      "url": "https://www.independent.co.uk/news/business/south-west-water-pennon-keith-haslett-b3062618.html",
-      "source_name": "The Independent — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T08:34:44Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "South West Water is seeking 550 million GBP in capital following a record sewage fine.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "South West Water is seeking 550 million GBP in capital following a record sewage fine.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capital_actions",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "South West Water",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208139,9 +208138,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1313690,
-    "news_picked_today": 1340,
-    "news_dropped_today": 15860
+    "news_seen_today": 1331531,
+    "news_picked_today": 1341,
+    "news_dropped_today": 15883
   },
   "book_momentum": {
     "live_count": 8,
