@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T17:24:03Z",
+  "generated_at": "2026-10-07T17:28:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-495",
@@ -1224,6 +1224,106 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-515",
+      "headline": "Troubled South West Water owner taps investors for £550m days after being handed record fine for sewage spills",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16189369/Troubled-South-West-Water-owner-taps-investors-550m-days-handed-record-fine-sewage-spills.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T10:50:57Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Pennon Group (South West Water) is raising 550 million GBP in equity following a record regulatory fine.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pennon Group (South West Water) is raising 550 million GBP in equity following a record regulatory fine.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pennon Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-523",
+      "headline": "South West Water owner asks investors for £550m after record sewage fine",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/south-west-water-pennon-keith-haslett-b3062618.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T08:34:44Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "South West Water is seeking 550 million GBP in capital following a record sewage fine.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "South West Water is seeking 550 million GBP in capital following a record sewage fine.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "South West Water",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-131",
       "headline": "Trump Ties Tariff Cuts to S. Korea’s $150 Billion Shipbuilding Investment",
       "headline_en": null,
@@ -1923,109 +2023,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-248",
-      "headline": "Reliance Communications Spectrum Terminated By DoT With Immediate Effect. Here's Why",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/reliance-communications-shares-today-spectrum-terminated-by-dot-with-immediate-effect-heres-why-12148820#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T02:21:48Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "The Department of Telecommunications terminated Reliance Communications' spectrum, a significant regulatory action impacting assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Department of Telecommunications terminated Reliance Communications' spectrum, a significant regulatory action impacting assets.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Communications",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-116",
-      "headline": "Uber to acquire ezCater in $2.3 billion deal as Uber Eats expands",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/uber-to-acquire-ezcater-in-23-billion-deal-as-uber-eats-expands/article71554083.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T02:01:39Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Uber is acquiring ezCater for $2.3 billion to expand its Uber Eats division.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Uber is acquiring ezCater for $2.3 billion to expand its Uber Eats division.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "ezCater",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207782,9 +207779,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 557078,
-    "news_picked_today": 828,
-    "news_dropped_today": 6436
+    "news_seen_today": 569565,
+    "news_picked_today": 872,
+    "news_dropped_today": 6488
   },
   "book_momentum": {
     "live_count": 8,
