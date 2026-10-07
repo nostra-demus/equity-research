@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T20:26:13Z",
+  "generated_at": "2026-10-07T20:26:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-495",
@@ -162838,6 +162838,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-850cc3e2123d",
+      "idea_version": "IDEAV-f1b28979f3548f01",
+      "idea_version_started_at": "2026-10-07T20:26:28Z",
+      "ticker": "CVE",
+      "company": "Cenovus Energy Inc.",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Cenovus is acquiring Athabasca Oil for $4B, which expands its oil sands asset base and increases production capacity.",
+      "why_now": "The deal was announced today, October 7, 2026, providing an immediate catalyst for consolidation in the energy sector.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5d88a5fea193"
+      ],
+      "primary_source_event_id": "EVT-5d88a5fea193",
+      "source_headlines": [
+        "Cenovus to Buy Athabasca in Deal Worth $4B"
+      ],
+      "source_headline": "Cenovus to Buy Athabasca in Deal Worth $4B",
+      "source_url": "https://www.rigzone.com/news/cenovus_to_buy_athabasca_in_deal_worth_4b-07-oct-2026-184791-article/?rss=true",
+      "source_name": "Rigzone",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T11:38:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T20:26:28Z",
+      "updated_at": "2026-10-07T20:26:28Z",
+      "decay_at": "2026-10-08T23:38:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-6b2cd695b3aa",
       "idea_version": "IDEAV-87b8e00201af1c15",
       "idea_version_started_at": "2026-10-06T23:13:15Z",
@@ -163604,6 +163674,77 @@
       "surfaced_at": "2026-10-05T23:00:55Z",
       "updated_at": "2026-10-07T16:37:47Z",
       "decay_at": "2026-10-08T02:57:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-af4308e96a78",
+      "idea_version": "IDEAV-282b700c2f8a316e",
+      "idea_version_started_at": "2026-10-07T20:26:28Z",
+      "ticker": "JSWSTEEL",
+      "company": "JSW Steel Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The early redemption of $500M in notes due 2027 reduces interest expense and improves the company's balance sheet leverage profile.",
+      "why_now": "The filing was released today, October 7, 2026, signaling management's confidence in liquidity and debt management.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-be192d950d38"
+      ],
+      "primary_source_event_id": "EVT-be192d950d38",
+      "source_headlines": [
+        "JSW Steel Limited: Early redemption of US$500,000,000, 3.95% Notes due 2027"
+      ],
+      "source_headline": "JSW Steel Limited: Early redemption of US$500,000,000, 3.95% Notes due 2027",
+      "source_url": "https://nsearchives.nseindia.com/corporate/jessydenny_07102026221350_Redemption_of_Notes.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T16:44:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T20:26:28Z",
+      "updated_at": "2026-10-07T20:26:28Z",
+      "decay_at": "2026-10-09T04:44:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -165109,76 +165250,6 @@
       "surfaced_at": "2026-10-05T07:26:59Z",
       "updated_at": "2026-10-05T07:26:59Z",
       "decay_at": "2026-10-06T16:36:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-52c74fc97e93",
-      "idea_version": "IDEAV-8f138e0c64ba38fb",
-      "idea_version_started_at": "2026-10-04T19:59:51Z",
-      "ticker": "PTC",
-      "company": "PTC Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Schneider Electric is reportedly in advanced talks to acquire PTC for approximately $20 billion, which would likely trigger a significant premium over the current market valuation.",
-      "why_now": "The report of a near-term deal emerged on October 4, 2026, creating an immediate arbitrage opportunity.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1eb8834a8281"
-      ],
-      "primary_source_event_id": "EVT-1eb8834a8281",
-      "source_headlines": [
-        "France's Schneider Electric nears $20 billion deal to buy US software group PTC, FT reports"
-      ],
-      "source_headline": "France's Schneider Electric nears $20 billion deal to buy US software group PTC, FT reports",
-      "source_url": "https://www.reuters.com/business/frances-schneider-electric-nears-20-billion-deal-buy-us-software-group-ptc-ft-2026-10-04/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T19:47:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T19:39:50Z",
-      "updated_at": "2026-10-04T19:59:51Z",
-      "decay_at": "2026-10-06T07:47:43Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -168982,78 +169053,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f3e7d7680a45",
-      "idea_version": "IDEAV-5e3e07009fb4c601",
-      "idea_version_started_at": "2026-10-04T19:59:51Z",
-      "ticker": "AKZOY",
-      "company": "AkzoNobel",
-      "exchange": "OTC",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The sale of a business unit for over $1 billion provides a cash infusion and allows AkzoNobel to streamline its portfolio, likely leading to improved margins and potential capital returns.",
-      "why_now": "The deal was reported on October 4, 2026, and the market has yet to fully digest the impact of the divestiture on the company's balance sheet.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-2e89a042cd1e"
-      ],
-      "primary_source_event_id": "EVT-2e89a042cd1e",
-      "source_headlines": [
-        "AkzoNobel to sell unit to Nippon Paint for over $1 billion, FT reports"
-      ],
-      "source_headline": "AkzoNobel to sell unit to Nippon Paint for over $1 billion, FT reports",
-      "source_url": "https://www.reuters.com/world/asia-pacific/akzonobel-could-sell-unit-nippon-paint-over-1-billion-ft-reports-2026-10-04/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-04T19:47:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-04T19:21:51Z",
-      "updated_at": "2026-10-04T19:59:51Z",
-      "decay_at": "2026-10-06T07:47:25Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-b68ebd5b2209",
       "idea_version": "IDEAV-e36f24bb8cb4bd09",
       "idea_version_started_at": "2026-10-05T04:46:37Z",
@@ -170721,14 +170720,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 583,
+    "total_count": 581,
     "shown_count": 500,
-    "hidden_count": 83,
+    "hidden_count": 81,
     "side_counts": {
       "long": {
-        "total_count": 310,
+        "total_count": 308,
         "shown_count": 250,
-        "hidden_count": 60
+        "hidden_count": 58
       },
       "short": {
         "total_count": 273,
@@ -170738,12 +170737,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 793,
+      "evicted_count": 795,
       "oldest_retained_at": "2026-09-10T14:02:02Z",
       "side_counts": {
         "long": {
-          "evicted_count": 521,
-          "oldest_retained_at": "2026-09-20T21:54:31Z"
+          "evicted_count": 523,
+          "oldest_retained_at": "2026-09-21T00:38:37Z"
         },
         "short": {
           "evicted_count": 272,
@@ -176872,8 +176871,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T07:47:43Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T20:26:35Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -176947,8 +176946,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T07:47:25Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-07T20:26:35Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -207987,8 +207986,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1412,
-    "live_count": 35,
+    "surfaced_total": 1414,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
