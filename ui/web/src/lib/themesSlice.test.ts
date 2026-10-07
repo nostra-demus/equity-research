@@ -516,7 +516,7 @@ try {
   api.newsThemes = (...args) => { calls.push(args); return new Promise<ThemesIndex>((resolve, reject) => pending.push({ resolve, reject })) }
   useStore.setState({ readingThemes: null, themes: [], themesView: null, selectedTheme: null,
     themesGeo: { country: 'IN', geoRegion: 'asia', label: 'India' }, themesSubject: 'GOLD' })
-  const reader = { ...cachedTheme, theme_id: 'THM-READER-RACE', rev: 3 }
+  const reader = { ...cachedTheme, theme_id: 'THM-deadf00d', rev: 3 }
   const oldRead = useStore.getState().refreshReadingThemes()
   const newRead = useStore.getState().refreshReadingThemes()
   pending[1].resolve(indexOf(reader, '2026-08-04T00:02:00Z')); await newRead
@@ -550,9 +550,13 @@ try {
   const revalidationReader = useStore.getState().refreshReadingThemes()
   pending[0].resolve({ ...indexOf({ ...reader, rev: 5 }, '2026-08-04T00:04:00Z'), formation_queue: revalidation }); await revalidationReader
   assert.equal(useStore.getState().readingThemes?.formation_queue?.total, 1, 're-created reader theme keeps its current formation/revalidation disclosure')
+  assert.deepEqual(useStore.getState().readingThemes?.formation_queue?.candidates.map((c) => c.theme_id), [reader.theme_id])
+  assert.equal(useStore.getState().readingThemes?.formation_queue?.client_withheld, 0)
   const revalidationWire = useStore.getState().refreshThemes()
   pending[1].resolve({ ...indexOf({ ...reader, rev: 5 }, '2026-08-04T00:04:00Z'), formation_queue: revalidation }); await revalidationWire
   assert.equal(useStore.getState().themeFormationQueue?.total, 1, 'wire uses the same re-creation exception to the formation floor')
+  assert.deepEqual(useStore.getState().themeFormationQueue?.candidates.map((c) => c.theme_id), [reader.theme_id])
+  assert.equal(useStore.getState().themeFormationQueue?.client_withheld, 0)
 
   pending = []
   const beforeUpsert = useStore.getState().refreshReadingThemes()
