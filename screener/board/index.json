@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-07T03:47:14Z",
+  "generated_at": "2026-10-07T04:00:31Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261007-242",
+      "headline": "KIG: Removal from Official List",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KIG?key=2924-03145557-2A1702624",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-07T03:51:10Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "KIG is being removed from the official ASX list, which typically indicates a delisting event or failure to meet listing requirements.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "KIG is being removed from the official ASX list, which typically indicates a delisting event or failure to meet listing requirements.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kingsgate Consolidated Limited",
+          "ticker": "KIG",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261007-074",
       "headline": "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]",
@@ -89,6 +138,60 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-234",
+      "headline": "SpaceX in talks to borrow $40 billion to buy Nvidia chips",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/spacex-in-talks-to-borrow-40-billion-to-buy-nvidia-chips/article71554179.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T03:47:29Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "SpaceX is reportedly in talks to borrow $40 billion to fund significant capital expenditure on Nvidia chips.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX is reportedly in talks to borrow $40 billion to fund significant capital expenditure on Nvidia chips.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1872,104 +1975,6 @@
         {
           "name": "Cynata Therapeutics",
           "ticker": "CYP",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-093",
-      "headline": "Tokyo Electron Eyes 1 Trillion Yen Operating Profit on Samsung, SK hynix Spending",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278341",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T04:47:50Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Tokyo Electron projects 1 trillion yen in operating profit driven by increased spending from major clients Samsung and SK hynix.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Tokyo Electron projects 1 trillion yen in operating profit driven by increased spending from major clients Samsung and SK hynix.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tokyo Electron",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-228",
-      "headline": "Acure Asset Management shops $110m suburban malls in Queensland and WA",
-      "headline_en": null,
-      "url": "https://www.afr.com/street-talk/acure-asset-management-shops-110m-suburban-malls-in-queensland-and-wa-20261007-p613k7?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T03:24:10Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Acure Asset Management is shopping for $110 million in suburban mall assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Acure Asset Management is shopping for $110 million in suburban mall assets.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Acure Asset Management",
-          "ticker": null,
           "listing_country": null
         }
       ],
@@ -209656,9 +209661,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1198,
-    "news_picked_today": 271,
-    "news_dropped_today": 903
+    "news_seen_today": 1270,
+    "news_picked_today": 285,
+    "news_dropped_today": 937
   },
   "book_momentum": {
     "live_count": 8,
