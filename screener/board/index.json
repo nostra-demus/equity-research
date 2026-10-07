@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T04:48:23Z",
+  "generated_at": "2026-10-07T05:03:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-285",
@@ -164186,6 +164186,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-b5f944e5cba6",
+      "idea_version": "IDEAV-6449edd0b4c90a82",
+      "idea_version_started_at": "2026-10-07T05:02:45Z",
+      "ticker": "SWASTIKA",
+      "company": "Swastika Infra Limited",
+      "exchange": "BSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a single order worth ₹615.76 crore from MSEDCL, which represents a significant revenue catalyst for its infrastructure order book.",
+      "why_now": "The order was officially announced via exchange filing on October 07, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9680fd6c9212"
+      ],
+      "primary_source_event_id": "EVT-9680fd6c9212",
+      "source_headlines": [
+        "Swastika Infra Limited: Swastika Infra Limited has informed the Exchange regarding a press release dated October 07, 2026, titled \"'Climbing the Value Curve: Secures Single Order of ₹615.76 Crore from MSEDCL .\"."
+      ],
+      "source_headline": "Swastika Infra Limited: Swastika Infra Limited has informed the Exchange regarding a press release dated October 07, 2026, titled \"'Climbing the Value Curve: Secures Single Order of ₹615.76 Crore from MSEDCL .\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/SWASTIKAINFRA_07102026100901_Swastika_Infra_Limited_-_Press_Release_v4.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T04:42:09Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T05:02:45Z",
+      "updated_at": "2026-10-07T05:02:45Z",
+      "decay_at": "2026-10-08T16:42:09Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-30544aec4eac",
       "idea_version": "IDEAV-78dcd0b979c43ba2",
       "idea_version_started_at": "2026-10-07T04:19:01Z",
@@ -165851,78 +165922,6 @@
       "surfaced_at": "2026-10-05T23:32:47Z",
       "updated_at": "2026-10-05T23:32:47Z",
       "decay_at": "2026-10-07T09:21:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-828c99426cfb",
-      "idea_version": "IDEAV-c4a75088c689b88b",
-      "idea_version_started_at": "2026-10-05T20:12:16Z",
-      "ticker": "IRTC",
-      "company": "iRhythm Technologies",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The acquisition of VitalConnect for $237.5 million in cash expands iRhythm's remote monitoring capabilities, likely accelerating revenue growth in their core cardiac monitoring segment.",
-      "why_now": "The deal was announced on October 5, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0c7ba7b8fe54"
-      ],
-      "primary_source_event_id": "EVT-0c7ba7b8fe54",
-      "source_headlines": [
-        "iRhythm acquires VitalConnect in $237.5M all-cash deal"
-      ],
-      "source_headline": "iRhythm acquires VitalConnect in $237.5M all-cash deal",
-      "source_url": "https://www.fiercehealthcare.com/finance/irhythm-acquires-vitalconnect-2375m-all-cash-deal",
-      "source_name": "Fierce Healthcare",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T16:58:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T20:12:16Z",
-      "updated_at": "2026-10-05T20:12:16Z",
-      "decay_at": "2026-10-07T04:58:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -168913,6 +168912,78 @@
       "surfaced_at": "2026-10-03T22:54:31Z",
       "updated_at": "2026-10-05T20:12:16Z",
       "decay_at": "2026-10-07T03:35:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-828c99426cfb",
+      "idea_version": "IDEAV-c4a75088c689b88b",
+      "idea_version_started_at": "2026-10-05T20:12:16Z",
+      "ticker": "IRTC",
+      "company": "iRhythm Technologies",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of VitalConnect for $237.5 million in cash expands iRhythm's remote monitoring capabilities, likely accelerating revenue growth in their core cardiac monitoring segment.",
+      "why_now": "The deal was announced on October 5, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0c7ba7b8fe54"
+      ],
+      "primary_source_event_id": "EVT-0c7ba7b8fe54",
+      "source_headlines": [
+        "iRhythm acquires VitalConnect in $237.5M all-cash deal"
+      ],
+      "source_headline": "iRhythm acquires VitalConnect in $237.5M all-cash deal",
+      "source_url": "https://www.fiercehealthcare.com/finance/irhythm-acquires-vitalconnect-2375m-all-cash-deal",
+      "source_name": "Fierce Healthcare",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-05T16:58:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T20:12:16Z",
+      "updated_at": "2026-10-05T20:12:16Z",
+      "decay_at": "2026-10-07T04:58:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -172611,14 +172682,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 574,
+    "total_count": 575,
     "shown_count": 500,
-    "hidden_count": 74,
+    "hidden_count": 75,
     "side_counts": {
       "long": {
-        "total_count": 302,
+        "total_count": 303,
         "shown_count": 250,
-        "hidden_count": 52
+        "hidden_count": 53
       },
       "short": {
         "total_count": 272,
@@ -172642,6 +172713,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-828c99426cfb",
+        "idea_version": "IDEAV-c4a75088c689b88b",
+        "idea_version_started_at": "2026-10-05T20:12:16Z",
+        "ticker": "IRTC",
+        "company": "iRhythm Technologies",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of VitalConnect for $237.5 million in cash expands iRhythm's remote monitoring capabilities, likely accelerating revenue growth in their core cardiac monitoring segment.",
+        "why_now": "The deal was announced on October 5, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0c7ba7b8fe54"
+        ],
+        "primary_source_event_id": "EVT-0c7ba7b8fe54",
+        "source_headlines": [
+          "iRhythm acquires VitalConnect in $237.5M all-cash deal"
+        ],
+        "source_headline": "iRhythm acquires VitalConnect in $237.5M all-cash deal",
+        "source_url": "https://www.fiercehealthcare.com/finance/irhythm-acquires-vitalconnect-2375m-all-cash-deal",
+        "source_name": "Fierce Healthcare",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-05T16:58:52Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-05T20:12:16Z",
+        "updated_at": "2026-10-05T20:12:16Z",
+        "decay_at": "2026-10-07T04:58:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-07T04:58:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-414a14e26ddd",
         "idea_version": "IDEAV-ed90380c6389388c",
@@ -200697,80 +200843,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1fb1540d67d2",
-        "idea_version": "IDEAV-5fbbfccabcb4bb68",
-        "idea_version_started_at": "2026-09-22T12:28:28Z",
-        "ticker": "BASF",
-        "company": "BASF India",
-        "exchange": "BSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "BASF India is evaluating a significant capital investment in MDI (Methylene Diphenyl Diisocyanate) production, which would expand its domestic manufacturing footprint.",
-        "why_now": "The investment evaluation was formally disclosed to the exchange on September 21, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f89b275f2b87"
-        ],
-        "primary_source_event_id": "EVT-f89b275f2b87",
-        "source_headlines": [
-          "BASF India Limited: BASF India Limited has informed the Exchange regarding 'BASF evaluates MDI investment in India'."
-        ],
-        "source_headline": "BASF India Limited: BASF India Limited has informed the Exchange regarding 'BASF evaluates MDI investment in India'.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/BASFIL_21092026132704_SEletter21092026Signed.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 97,
-        "newest_source_at": "2026-09-21T08:01:45Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-22T12:28:28Z",
-        "updated_at": "2026-09-22T12:28:28Z",
-        "decay_at": "2026-09-22T20:01:45Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-24T16:36:33Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bbe6cce25e6c",
         "idea_version": "IDEAV-ad0d76477c61048d",
         "idea_version_started_at": "2026-09-21T05:16:02Z",
@@ -209848,7 +209920,7 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1406,
+    "surfaced_total": 1407,
     "live_count": 71,
     "promoted_total": 0,
     "machine_confirmed": 0,
@@ -209868,9 +209940,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1846,
-    "news_picked_today": 362,
-    "news_dropped_today": 1412
+    "news_seen_today": 2661,
+    "news_picked_today": 394,
+    "news_dropped_today": 1736
   },
   "book_momentum": {
     "live_count": 8,
