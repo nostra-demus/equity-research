@@ -87,7 +87,7 @@
       "as_of": "2026-10-07"
     }
   ],
-  "decision_quality": "not assessable",
+  "decision_quality": "good process / bad luck or too early",
   "error_taxonomy": [],
   "lessons": [
     "Review price: Web: Stock Analysis, NYSE:NU daily history, 2026-10-06 close US$15.66; https://stockanalysis.com/stocks/nu/history/ (indicative, unverified). Use the last completed common session, not the unfinished October 7 US session.",
@@ -97,7 +97,8 @@
     "Rejected / Avoid means no executed long or short. The rise is a foregone gain, not a realized short loss. A roughly 30-day price outcome cannot settle the 12-month valuation thesis or November earnings forecasts.",
     "September 30 management denied pursuing Monzo and said its capital-allocation framework was unchanged. This is a stated position, not proof of future returns or of a reduced Group discount rate. [Nu Holdings Form 6-K, Statement Regarding Media Reports, 2026-09-30; https://www.sec.gov/Archives/edgar/data/1691493/000129281426004752/nu20260930_6k.htm]",
     "Decision-time process judgments use only the frozen record/memo; October news is outcome evidence. No new bad-process finding is established.",
-    "The conservative effective decision-time conviction is 47/100 from the September 1 corrections metadata_recovery, rather than the frozen raw 53. No new pre-mortem ran in this run. [analyses/NU_2026-09-01/corrections.json, metadata_recovery and runtime written_at 2026-09-01]"
+    "The conservative effective decision-time conviction is 47/100 from the September 1 corrections metadata_recovery, rather than the frozen raw 53. No new pre-mortem ran in this run. [analyses/NU_2026-09-01/corrections.json, metadata_recovery and runtime written_at 2026-09-01]",
+    "Decision quality uses the too-early bucket: the no-position call missed the observed relative gain, while the on-track operating thesis remains unresolved. This is not a completed vindication of process. [frameworks/DECISION_LEDGER.md, §10; NU_2026-09-01/decision_record.json, frozen forecasts]"
   ],
   "module_calibration_notes": {
     "most_responsible": "valuation: the required return, earnings fade and peer reconciliation drove Avoid.",

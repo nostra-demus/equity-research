@@ -37,7 +37,7 @@
     {
       "prediction": "AED 200 Bn masterplan capital-discipline disclosure in H2 2026 shows phased capex compatible with FCF positive at group level",
       "status": "still open",
-      "evidence": "The reviewed H1 release repeats the AED200bn project value, not a peak annual capex schedule; project value is not capex. The frozen test is <40%×AED24.3bn = AED9.72bn peak-year capex, with its normalised-FCF assumption retained. [Emaar Properties H1 2026 press release, DFM filing 2026-08-07, consolidated income statement p.6; https://feeds.dfm.ae/documents/2026/Aug/7/52433569-0887-4100-ba14-58ee448166f1/Emaar%20Properties%20H1%202026%20Press%20Release%20%20%20English.P.pdf; analyses/EMAAR_2026-07-03/decision_record.json, forecast ledger, 2026-07-03]",
+      "evidence": "The reviewed H1 release repeats the AED200bn project value, not a peak annual capex schedule; project value is not capex. The frozen test is <40%×AED24.3bn = AED9.72bn peak-year capex, with its normalised-FCF assumption retained. [Emaar Properties H1 2026 press release, DFM filing 2026-08-07, project-announcement section; https://feeds.dfm.ae/documents/2026/Aug/7/52433569-0887-4100-ba14-58ee448166f1/Emaar%20Properties%20H1%202026%20Press%20Release%20%20%20English.P.pdf; analyses/EMAAR_2026-07-03/decision_record.json, forecast ledger, 2026-07-03]",
       "as_of": "2026-10-07"
     },
     {
@@ -56,8 +56,8 @@
   "catalyst_results": [
     {
       "catalyst": "Q2/H1 2026 results",
-      "status": "materialized; confirmation not met",
-      "evidence": "The reproduced standalone Q2 basic/diluted EPS is AED0.42 versus AED0.38 in Q2 2025: (0.42/0.38−1)×100 = 10.53% growth, yet below both the frozen AED0.494 confirmation and AED0.422 falsification threshold. This is a provisional web-reproduction result; issuer-hosted interim PDF verification remains necessary. [Web: FinancialFilings reproduction of Emaar H1 2026 interim consolidated statement of income, filed 2026-08-07, three-month period ended 2026-06-30, basic and diluted EPS row; https://financialfilings.com/filings/emaar-properties-pjsc/interim-quarterly-report/2026/50378793/ (indicative, unverified reproduction; original PDF fetch timed out)] The group H1 release was filed on August 7. Q2 UAE standalone new-sales thresholds remain unscored without exact quarter data.",
+      "status": "materialized; bearish EPS trigger provisionally fired",
+      "evidence": "The reproduced standalone Q2 basic/diluted EPS is AED0.42 versus AED0.38 in Q2 2025: (0.42/0.38−1)×100 = 10.53% growth, yet below both the frozen AED0.494 confirmation and AED0.422 falsification threshold. This is a provisional web-reproduction result; issuer-hosted interim PDF verification remains necessary. [Web: FinancialFilings reproduction of Emaar H1 2026 interim consolidated statement of income, filed 2026-08-07, three-month period ended 2026-06-30, basic and diluted EPS row; https://financialfilings.com/filings/emaar-properties-pjsc/interim-quarterly-report/2026/50378793/ (indicative, unverified reproduction; original PDF fetch timed out)] The group H1 release was filed on August 7. Q2 UAE standalone new-sales thresholds remain unscored without exact quarter data. The frozen catalyst bearish EPS trigger is <AED0.43; reproduced AED0.42 crosses it provisionally. [analyses/EMAAR_2026-07-03/final_thesis.md, §7 Catalyst Calendar, 2026-07-03]",
       "as_of": "2026-10-07"
     },
     {
@@ -75,7 +75,19 @@
     {
       "catalyst": "Masterplan phasing and pre-sale gates, H2 2026",
       "status": "pending",
-      "evidence": "The reviewed release did not settle annual capex or pre-sale gates. The reviewed H1 release repeats the AED200bn project value, not a peak annual capex schedule; project value is not capex. The frozen test is <40%×AED24.3bn = AED9.72bn peak-year capex, with its normalised-FCF assumption retained. [Emaar Properties H1 2026 press release, DFM filing 2026-08-07, consolidated income statement p.6; https://feeds.dfm.ae/documents/2026/Aug/7/52433569-0887-4100-ba14-58ee448166f1/Emaar%20Properties%20H1%202026%20Press%20Release%20%20%20English.P.pdf; analyses/EMAAR_2026-07-03/decision_record.json, forecast ledger, 2026-07-03]",
+      "evidence": "The reviewed release did not settle annual capex or pre-sale gates. The reviewed H1 release repeats the AED200bn project value, not a peak annual capex schedule; project value is not capex. The frozen test is <40%×AED24.3bn = AED9.72bn peak-year capex, with its normalised-FCF assumption retained. [Emaar Properties H1 2026 press release, DFM filing 2026-08-07, project-announcement section; https://feeds.dfm.ae/documents/2026/Aug/7/52433569-0887-4100-ba14-58ee448166f1/Emaar%20Properties%20H1%202026%20Press%20Release%20%20%20English.P.pdf; analyses/EMAAR_2026-07-03/decision_record.json, forecast ledger, 2026-07-03]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "catalyst": "Re-rating trigger, H2 2026–H1 2027 (undated)",
+      "status": "pending",
+      "evidence": "The window remains open. One H1 conversion result cannot establish two consecutive confirming quarters or the absence of a cycle break; no forced owner-driven re-rating mechanism was proven. [analyses/EMAAR_2026-07-03/final_thesis.md, §7 Catalyst Calendar, 2026-07-03; Emaar H1 2026 press release, DFM filing 2026-08-07, p.6]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "catalyst": "FY2026 full-year results and dividend, approximately March 2027",
+      "status": "pending",
+      "evidence": "The estimated window and FY2026 period remain ahead. No FY2026 annual EPS or dividend announcement was obtained to test the frozen EPS>AED2.00/DPS≥AED1.20 bullish levels or the capital-spending coverage risk. Timing remains inferred, not issuer-confirmed. [analyses/EMAAR_2026-07-03/final_thesis.md, §7 Catalyst Calendar, 2026-07-03; filing inventory inspected 2026-10-07]",
       "as_of": "2026-10-07"
     },
     {
