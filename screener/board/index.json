@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-07T17:00:54Z",
+  "generated_at": "2026-10-07T17:52:32Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261007-495",
+      "headline": "JSW Steel Limited: Early redemption of US$500,000,000, 3.95% Notes due 2027",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/jessydenny_07102026221350_Redemption_of_Notes.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-07T16:44:02Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "JSW Steel's early redemption of US$500,000,000 in notes indicates strong cash flow or a favorable refinancing opportunity, improving its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JSW Steel's early redemption of US$500,000,000 in notes indicates strong cash flow or a favorable refinancing opportunity, improving its capital structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JSW Steel Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-571",
+      "headline": "Polyplex Corporation Limited: Polyplex Corporation Limited has informed the Exchange about proposed Capacity addition by Polyplex Thailand, a material subsidiary of the Company.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/POLYPLEX_07102026202813_PCL_Reg30_Disclosure_PTL_BOPP_Machine.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-07T14:58:27Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Polyplex Corporation announced a capacity addition by its material subsidiary, Polyplex Thailand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Polyplex Corporation announced a capacity addition by its material subsidiary, Polyplex Thailand.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Polyplex Corporation Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261007-346",
       "headline": "LDROBOT (01236): DISCLOSEABLE TRANSACTION ACQUISITION OF THE ENTIRE EQUITY INTEREST OF SABO-MASCHINENFABRIK GMBH",
@@ -51,6 +149,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-572",
+      "headline": "DEEP SOURCE (00990): VOLUNTARY ANNOUNCEMENT AND BUSINESS UPDATE - MALAYSIA DATA CENTRE PROJECT A 10-YEAR DATA CENTRE SERVICES AGREEMENT AND LETTER OF INTENT FOR CONSTRUCTION WORKS",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1007/2026100702003.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-07T14:25:00Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Deep Source signed a 10-year data centre services agreement and a letter of intent for construction works in Malaysia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Deep Source signed a 10-year data centre services agreement and a letter of intent for construction works in Malaysia.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Deep Source",
+          "ticker": "00990",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-351",
       "headline": "LAI GROUP (08455): (1) PROPOSED CAPITAL REORGANISATION; (2) PROPOSED CHANGE IN BOARD LOT SIZE; (3) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (4) PROPOSED RIGHTS ISSUE ON THE BASIS OF TWO RIGHTS SHARES FOR EVERY ONE ADJUSTED SHARE HELD ON THE RECORD DATE ON NON-FULLY UNDERWRITTEN BASIS; AND (5) CONNECTED TRANSACTION IN RELATION TO THE UNDERWRITING AGREEMENT",
       "headline_en": null,
@@ -92,6 +240,55 @@
           "name": "LAI GROUP",
           "ticker": "08455",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-609",
+      "headline": "25-NSE - Aditxt, Inc. (0001726711) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1726711/000135445726000962/0001354457-26-000962-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-07T13:08:14Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Aditxt, Inc. is subject to a delisting notification from the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aditxt, Inc. is subject to a delisting notification from the exchange.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aditxt, Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -398,6 +595,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-596",
+      "headline": "Boots sold in £7bn deal to Canadian billionaire family",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cwly0jyk2vl5o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T17:18:30Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Acquisition of Boots for £7bn is a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of Boots for £7bn is a major M&A event.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boots",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-386",
       "headline": "‎Al Aziziah REIT targets SAR 52M Riyadh property acquisition",
       "headline_en": null,
@@ -694,6 +940,678 @@
           "name": "Boots",
           "ticker": null,
           "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-438",
+      "headline": "Billionaire Weston family to buy Boots in $8.9bn deal",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/68c0fcb8-a69e-4767-a7fc-f84acb04cbd7?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T13:50:35Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "The Weston family is acquiring Boots in an $8.9 billion deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Weston family is acquiring Boots in an $8.9 billion deal.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boots Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-437",
+      "headline": "Fairfax Financial To Partner With Wittington To Acquire Boots Group",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/fairfax-financial-partner-wittington-acquire-boots-group",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T13:49:11Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Fairfax Financial and Wittington are acquiring Boots Group for $8.9 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Fairfax Financial and Wittington are acquiring Boots Group for $8.9 billion.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fairfax Financial",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Boots Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-446",
+      "headline": "Weston family to buy British retailer Boots for $8.9-billion with Fairfax backing",
+      "headline_en": null,
+      "url": "https://www.theglobeandmail.com/business/article-weston-family-wittington-buys-boots-with-fairfax-backing/",
+      "source_name": "The Globe and Mail",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T13:38:01Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "The Weston family is acquiring Boots for $8.9 billion with Fairfax backing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Weston family is acquiring Boots for $8.9 billion with Fairfax backing.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boots Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-453",
+      "headline": "Brookfield enters Indian logistics with 10.5 million sq ft ESR portfolio buyout",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/brookfield-enters-indian-logistics-with-10-5-million-sq-ft-esr-portfolio-buyout-11791375694489.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T13:18:15Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Brookfield is entering the Indian logistics market through a 10.5 million sq ft portfolio acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brookfield is entering the Indian logistics market through a 10.5 million sq ft portfolio acquisition.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brookfield Asset Management",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "ESR Group",
+          "ticker": null,
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-475",
+      "headline": "Brookfield to Buy ESR India Warehouse Parks in $444 Million Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/brookfield-to-buy-esr-india-warehouse-parks-in-444-million-deal",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T12:29:39Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Brookfield is acquiring ESR India warehouse assets for $444 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brookfield is acquiring ESR India warehouse assets for $444 million.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brookfield",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "ESR Group",
+          "ticker": null,
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-478",
+      "headline": "ANTA Sports Becomes PUMA's Largest Shareholder With Acquisition Of 29.06% Stake",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/anta-sports-becomes-pumas-largest-shareholder-acquisition-2906-stake",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T12:27:30Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "ANTA Sports acquired a 29.06% stake in PUMA, making it the largest shareholder.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ANTA Sports acquired a 29.06% stake in PUMA, making it the largest shareholder.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ANTA Sports",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "PUMA",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-487",
+      "headline": "Crystal Jade closes four more outlets, cuts 120 jobs ahead of proposed sale",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/companies-markets/crystal-jade-closes-four-more-outlets-cuts-120-jobs-ahead-of-proposed-sale",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T12:05:48Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Crystal Jade is undergoing significant restructuring, including 120 job cuts and outlet closures, ahead of a potential sale.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Crystal Jade is undergoing significant restructuring, including 120 job cuts and outlet closures, ahead of a potential sale.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "restructuring_layoffs",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Crystal Jade",
+          "ticker": null,
+          "listing_country": "SG"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-501",
+      "headline": "Cenovus to Buy Athabasca in Deal Worth $4B",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/cenovus_to_buy_athabasca_in_deal_worth_4b-07-oct-2026-184791-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T11:38:00Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Cenovus's acquisition of Athabasca for $4B is a significant M&A event that will alter the capital structure and operational landscape of both companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cenovus's acquisition of Athabasca for $4B is a significant M&A event that will alter the capital structure and operational landscape of both companies.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cenovus Energy Inc.",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Athabasca Oil Corporation",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-513",
+      "headline": "SpaceX Wants to Borrow $40 Billion to Buy Nvidia Chips",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/10/07/spacex-wants-to-borrow-40-billion-to-buy-nvidia-chips/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T11:15:14Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "SpaceX seeking to borrow $40 billion to buy Nvidia chips is a significant capital raise and potential large purchase, impacting both companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX seeking to borrow $40 billion to buy Nvidia chips is a significant capital raise and potential large purchase, impacting both companies.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-515",
+      "headline": "Troubled South West Water owner taps investors for £550m days after being handed record fine for sewage spills",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16189369/Troubled-South-West-Water-owner-taps-investors-550m-days-handed-record-fine-sewage-spills.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T10:50:57Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Pennon Group (South West Water) is raising 550 million GBP in equity following a record regulatory fine.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pennon Group (South West Water) is raising 550 million GBP in equity following a record regulatory fine.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pennon Group",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-523",
+      "headline": "South West Water owner asks investors for £550m after record sewage fine",
+      "headline_en": null,
+      "url": "https://www.independent.co.uk/news/business/south-west-water-pennon-keith-haslett-b3062618.html",
+      "source_name": "The Independent — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T08:34:44Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "South West Water is seeking 550 million GBP in capital following a record sewage fine.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "South West Water is seeking 550 million GBP in capital following a record sewage fine.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "South West Water",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-541",
+      "headline": "UK's Pennon launches £550 million rights issue, cuts dividend to fund investment",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/uks-pennon-launches-550-million-rights-issue-cuts-dividend-fund-investment-2026-10-07/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T07:08:31Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Pennon is launching a 550 million GBP rights issue and cutting its dividend to fund investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pennon is launching a 550 million GBP rights issue and cutting its dividend to fund investment.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "dividend_cut",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions",
+        "dividend_cut"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pennon",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-543",
+      "headline": "CRH To Acquire NCC Industry's Operations In Denmark, Finland",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/crh-acquire-ncc-industrys-operations-denmark-finland",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T06:59:02Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "CRH is acquiring NCC Industry's operations in Denmark and Finland, representing a cross-border expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CRH is acquiring NCC Industry's operations in Denmark and Finland, representing a cross-border expansion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CRH",
+          "ticker": null,
+          "listing_country": "IE"
         }
       ],
       "size_bucket": "large",
@@ -1087,934 +2005,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-262",
-      "headline": "Sanlam’s $1.2 Billion Santam Bet Puts Capital Choices in Focus",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/sanlam-s-1-2-billion-santam-bet-puts-capital-choices-in-focus",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T04:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Sanlam is making a $1.2 billion acquisition of Santam, a major capital allocation event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Sanlam is making a $1.2 billion acquisition of Santam, a major capital allocation event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sanlam",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Santam",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-234",
-      "headline": "SpaceX in talks to borrow $40 billion to buy Nvidia chips",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/spacex-in-talks-to-borrow-40-billion-to-buy-nvidia-chips/article71554179.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T03:47:29Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "SpaceX is reportedly in talks to borrow $40 billion to fund significant capital expenditure on Nvidia chips.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX is reportedly in talks to borrow $40 billion to fund significant capital expenditure on Nvidia chips.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-232",
-      "headline": "From Harry Potter to CNN: What Paramount Skydance gets after $110 billion Warner Bros deal | 5 key things to know",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/from-harry-potter-to-cnn-what-paramount-skydance-gets-after-110-billion-warner-bros-deal-5-key-things-to-know-11791340167787.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T03:38:41Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Details regarding a $110 billion merger deal involving Paramount, Skydance, and Warner Bros.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Details regarding a $110 billion merger deal involving Paramount, Skydance, and Warner Bros.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros. Discovery",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-177",
-      "headline": "LG Electronics’ Preliminary Earnings Miss Street Views",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/lg-electronics-preliminary-earnings-miss-street-views-231fd48d?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T02:50:00Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "LG Electronics reported preliminary earnings that missed analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LG Electronics reported preliminary earnings that missed analyst expectations.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-165",
-      "headline": "A High-Stakes Gambit Clinched Paramount’s Warner Deal",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/media/a-high-stakes-gambit-clinched-paramounts-warner-deal-873905b0?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T02:44:00Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Paramount has finalized a major deal with Warner, representing a significant M&A event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount has finalized a major deal with Warner, representing a significant M&A event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-162",
-      "headline": "(LEAD) LG Electronics Q3 operating profit up 13.5 pct on solid home appliance sales",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261007004251320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T02:26:24Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "LG Electronics reported a 13.5% increase in Q3 operating profit driven by home appliance sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LG Electronics reported a 13.5% increase in Q3 operating profit driven by home appliance sales.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-248",
-      "headline": "Reliance Communications Spectrum Terminated By DoT With Immediate Effect. Here's Why",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/reliance-communications-shares-today-spectrum-terminated-by-dot-with-immediate-effect-heres-why-12148820#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T02:21:48Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "The Department of Telecommunications terminated Reliance Communications' spectrum, a significant regulatory action impacting assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Department of Telecommunications terminated Reliance Communications' spectrum, a significant regulatory action impacting assets.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Communications",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-116",
-      "headline": "Uber to acquire ezCater in $2.3 billion deal as Uber Eats expands",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/uber-to-acquire-ezcater-in-23-billion-deal-as-uber-eats-expands/article71554083.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T02:01:39Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Uber is acquiring ezCater for $2.3 billion to expand its Uber Eats division.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Uber is acquiring ezCater for $2.3 billion to expand its Uber Eats division.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "ezCater",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-090",
-      "headline": "Samsung takes Vietnam up semiconductor value chain with $5bn expansion",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/tech/semiconductors/samsung-takes-vietnam-up-semiconductor-value-chain-with-5bn-expansion",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T01:34:24Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Samsung announced a $5 billion semiconductor capacity expansion in Vietnam.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung announced a $5 billion semiconductor capacity expansion in Vietnam.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-096",
-      "headline": "Paramount wraps up mega Warner Bros merger to create Hollywood powerhouse Skydance",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/business/paramount-wraps-up-mega-warner-bros-merger-to-create-hollywood-powerhouse-skydance-2-20006190.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T01:34:14Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Skydance Media completes its merger with Paramount Global to form a new entity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Skydance Media completes its merger with Paramount Global to form a new entity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount Global",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-068",
-      "headline": "Paramount closes Warner merger in historic Hollywood deal",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/07/paramount-warner-merger-deal/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T01:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Paramount has closed a merger with Warner, a major consolidation event in the media industry.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Paramount has closed a merger with Warner, a major consolidation event in the media industry.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Paramount",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Warner Bros. Discovery",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-029",
-      "headline": "SpaceX seeking to raise US$40 billion to buy Nvidia chips: Financial Times",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/spacex-seeking-to-raise-us40-billion-to-buy-nvidia-chips-financial-times",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:25:00Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "SpaceX is reportedly seeking to raise $40 billion specifically to purchase Nvidia chips, representing a massive demand signal for Nvidia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX is reportedly seeking to raise $40 billion specifically to purchase Nvidia chips, representing a massive demand signal for Nvidia.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit",
-        "capex"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-018",
-      "headline": "SpaceX seeks $40 billion financing led by Apollo to buy Nvidia chips, FT reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/media-telecom/spacex-seeks-40-billion-buy-nvidia-chips-ft-reports-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:15:28Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "SpaceX is seeking $40 billion in financing to purchase Nvidia chips, a significant capital allocation and demand event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "SpaceX is seeking $40 billion in financing to purchase Nvidia chips, a significant capital allocation and demand event.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Apollo Global Management",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-001",
-      "headline": "South America's Spirit Airlines canceled 2,500 flights, files for bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/travel/flybondi-airline-files-for-bankruptcy-protection",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:00:48Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Spirit Airlines has filed for bankruptcy and canceled 2,500 flights.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Spirit Airlines has filed for bankruptcy and canceled 2,500 flights.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Spirit Airlines",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-015",
-      "headline": "Japan's $15 billion Rapidus chip bet hinges on winning customers",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/japans-15-billion-rapidus-chip-bet-hinges-winning-customers-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:00:25Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Rapidus is undertaking a $15 billion capital-intensive semiconductor manufacturing project.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Rapidus is undertaking a $15 billion capital-intensive semiconductor manufacturing project.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rapidus",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-264",
-      "headline": "IZMO Limited: IZMO Limited has informed the Exchange regarding a press release dated October 07, 2026, titled \"izmo Microsystems and IIT Madras Enter Phase II of ₹99.94 Crore MeitY-Sanctioned Silicon Photonics Program\".",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/IZMO_07102026094510_Intimation_and_PR.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-07T04:19:32Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "IZMO Limited announced a ₹99.94 crore silicon photonics program in collaboration with IIT Madras.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "IZMO Limited announced a ₹99.94 crore silicon photonics program in collaboration with IIT Madras.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IZMO Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-308",
-      "headline": "Oil gains as US storm and Houthi air strikes threaten supply",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/oil-prices-rise-storms-air-strikes-threaten-supply-2026-10-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T04:36:30Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Oil prices are rising due to supply threats from a US storm and Houthi air strikes.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Oil prices are rising due to supply threats from a US storm and Houthi air strikes.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-137",
-      "headline": "SpaceX seeks $40 billion to buy Nvidia chips for Elon Musk’s AI expansion",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/world/spacex-seeks-40-billion-to-buy-nvidia-chips-for-elon-musks-ai-expansion-20006239.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T02:23:37Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "SpaceX is seeking $40 billion in funding specifically to purchase Nvidia chips for AI infrastructure expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "SpaceX is seeking $40 billion in funding specifically to purchase Nvidia chips for AI infrastructure expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -162482,6 +162472,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-97064c0977c4",
+      "idea_version": "IDEAV-1915c819d18b2098",
+      "idea_version_started_at": "2026-10-07T17:29:03Z",
+      "ticker": "OKE",
+      "company": "ONEOK",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of midstream natural gas assets for $4.425 billion expands the company's footprint and increases fee-based cash flow generation.",
+      "why_now": "The deal was announced on 2026-10-06.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-794028d1a43e"
+      ],
+      "primary_source_event_id": "EVT-794028d1a43e",
+      "source_headlines": [
+        "ONEOK Acquires Midstream's Natural Gas Assets For $4.425 Bln"
+      ],
+      "source_headline": "ONEOK Acquires Midstream's Natural Gas Assets For $4.425 Bln",
+      "source_url": "https://www.nasdaq.com/articles/oneok-acquires-midstreams-natural-gas-assets-4425-bln",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-06T20:51:42Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-06T23:57:28Z",
+      "updated_at": "2026-10-07T17:29:03Z",
+      "decay_at": "2026-10-08T08:51:42Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-30c2e14a4fb4",
       "idea_version": "IDEAV-1ae410afa4d1f8d0",
       "idea_version_started_at": "2026-10-07T16:37:47Z",
@@ -162692,76 +162752,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-97064c0977c4",
-      "idea_version": "IDEAV-4b9328d65e794375",
-      "idea_version_started_at": "2026-10-06T23:57:28Z",
-      "ticker": "OKE",
-      "company": "ONEOK Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "ONEOK has acquired Midstream's natural gas assets for $4.425 billion, which should expand its operational footprint and revenue base in the midstream sector.",
-      "why_now": "The acquisition was announced and completed on October 6, 2026, providing a fresh catalyst for the company's valuation.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-794028d1a43e"
-      ],
-      "primary_source_event_id": "EVT-794028d1a43e",
-      "source_headlines": [
-        "ONEOK Acquires Midstream's Natural Gas Assets For $4.425 Bln"
-      ],
-      "source_headline": "ONEOK Acquires Midstream's Natural Gas Assets For $4.425 Bln",
-      "source_url": "https://www.nasdaq.com/articles/oneok-acquires-midstreams-natural-gas-assets-4425-bln",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T20:51:42Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T23:57:28Z",
-      "updated_at": "2026-10-06T23:57:28Z",
-      "decay_at": "2026-10-08T08:51:42Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-add212649783",
       "idea_version": "IDEAV-1f1aac3bac245d0e",
       "idea_version_started_at": "2026-10-06T21:25:08Z",
@@ -162826,76 +162816,6 @@
       "surfaced_at": "2026-10-06T18:52:33Z",
       "updated_at": "2026-10-06T21:25:08Z",
       "decay_at": "2026-10-08T02:57:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-3a9ccd3353ea",
-      "idea_version": "IDEAV-75df0eb21037aa68",
-      "idea_version_started_at": "2026-10-06T23:13:15Z",
-      "ticker": "ET",
-      "company": "Energy Transfer",
-      "exchange": "NYSE MKT",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Energy Transfer is acquiring Vaquero Midstream for $2.63 billion, which will increase its gathering and processing capacity in the Permian Basin and likely improve cash flow margins.",
-      "why_now": "The acquisition was announced today, October 6, 2026, and represents a strategic consolidation in the midstream energy sector.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7de959aa3139"
-      ],
-      "primary_source_event_id": "EVT-7de959aa3139",
-      "source_headlines": [
-        "Energy Transfer to buy Vaquero Midstream for $2.63 billion in cash-and-stock deal"
-      ],
-      "source_headline": "Energy Transfer to buy Vaquero Midstream for $2.63 billion in cash-and-stock deal",
-      "source_url": "https://www.reuters.com/legal/litigation/energy-transfer-buy-vaquero-midstream-263-billion-cash-stock-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T14:53:23Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T23:13:15Z",
-      "updated_at": "2026-10-06T23:13:15Z",
-      "decay_at": "2026-10-08T02:53:23Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -163042,6 +162962,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-5fc26901c29d",
+      "idea_version": "IDEAV-3db29a9ec98416a6",
+      "idea_version_started_at": "2026-10-07T17:29:03Z",
+      "ticker": "BKH",
+      "company": "Black Hills Corp",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is committing to a $1.8 billion capital expenditure project to provide power infrastructure for a Google data center, which will drive long-term regulated rate base growth.",
+      "why_now": "The investment plan was announced on 2026-10-06.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-94efc385854d"
+      ],
+      "primary_source_event_id": "EVT-94efc385854d",
+      "source_headlines": [
+        "Black Hills plans $1.8 billion investment to power Google's data center"
+      ],
+      "source_headline": "Black Hills plans $1.8 billion investment to power Google's data center",
+      "source_url": "https://www.reuters.com/business/energy/black-hills-plans-18-billion-investment-power-googles-data-center-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-06T21:11:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T00:42:27Z",
+      "updated_at": "2026-10-07T17:29:03Z",
+      "decay_at": "2026-10-08T09:11:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-6620ff045c07",
       "idea_version": "IDEAV-00105b23d1457dbd",
       "idea_version_started_at": "2026-10-07T01:07:10Z",
@@ -163182,76 +163172,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5fc26901c29d",
-      "idea_version": "IDEAV-15eb9aface3b6ec8",
-      "idea_version_started_at": "2026-10-07T00:42:27Z",
-      "ticker": "BKH",
-      "company": "Black Hills",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is committing $1.8 billion in capital expenditure to power a Google data center, which provides a long-term, utility-scale revenue stream.",
-      "why_now": "The investment plan was announced on 2026-10-06.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-94efc385854d"
-      ],
-      "primary_source_event_id": "EVT-94efc385854d",
-      "source_headlines": [
-        "Black Hills plans $1.8 billion investment to power Google's data center"
-      ],
-      "source_headline": "Black Hills plans $1.8 billion investment to power Google's data center",
-      "source_url": "https://www.reuters.com/business/energy/black-hills-plans-18-billion-investment-power-googles-data-center-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T21:11:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T00:42:27Z",
-      "updated_at": "2026-10-07T00:42:27Z",
-      "decay_at": "2026-10-08T09:11:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-47ec7c967504",
       "idea_version": "IDEAV-2a5ac6529fe3446c",
       "idea_version_started_at": "2026-10-06T21:25:08Z",
@@ -163316,6 +163236,146 @@
       "surfaced_at": "2026-10-06T21:25:08Z",
       "updated_at": "2026-10-06T21:25:08Z",
       "decay_at": "2026-10-08T02:30:56Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3a9ccd3353ea",
+      "idea_version": "IDEAV-999273f9675a3d1b",
+      "idea_version_started_at": "2026-10-07T17:29:03Z",
+      "ticker": "ET",
+      "company": "Energy Transfer",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $2.63 billion acquisition of Vaquero Midstream adds significant gathering and processing capacity, enhancing the company's scale in key basins.",
+      "why_now": "The transaction was announced on 2026-10-06.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-7de959aa3139"
+      ],
+      "primary_source_event_id": "EVT-7de959aa3139",
+      "source_headlines": [
+        "Energy Transfer to buy Vaquero Midstream for $2.63 billion in cash-and-stock deal"
+      ],
+      "source_headline": "Energy Transfer to buy Vaquero Midstream for $2.63 billion in cash-and-stock deal",
+      "source_url": "https://www.reuters.com/legal/litigation/energy-transfer-buy-vaquero-midstream-263-billion-cash-stock-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-06T14:53:23Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-06T23:13:15Z",
+      "updated_at": "2026-10-07T17:29:03Z",
+      "decay_at": "2026-10-08T02:53:23Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8c352967472b",
+      "idea_version": "IDEAV-330fb87e30e71ebe",
+      "idea_version_started_at": "2026-10-07T17:12:46Z",
+      "ticker": "EMA",
+      "company": "Emera",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The $14.3 billion acquisition of Canadian Utilities creates significant balance sheet pressure and integration risk for the acquirer.",
+      "why_now": "The acquisition was announced on 2026-10-06.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5f79ff3e5d99"
+      ],
+      "primary_source_event_id": "EVT-5f79ff3e5d99",
+      "source_headlines": [
+        "Emera to acquire Canadian Utilities in $14.3-billion deal"
+      ],
+      "source_headline": "Emera to acquire Canadian Utilities in $14.3-billion deal",
+      "source_url": "https://www.cbc.ca/news/canada/nova-scotia/emera-canadian-utilities-merger-acquisition-9.7370753?cmp=rss",
+      "source_name": "CBC — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-06T14:24:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T17:12:46Z",
+      "updated_at": "2026-10-07T17:12:46Z",
+      "decay_at": "2026-10-08T02:24:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -207681,8 +207741,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1408,
-    "live_count": 41,
+    "surfaced_total": 1409,
+    "live_count": 42,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207701,9 +207761,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 519515,
-    "news_picked_today": 686,
-    "news_dropped_today": 6146
+    "news_seen_today": 631202,
+    "news_picked_today": 1005,
+    "news_dropped_today": 7315
   },
   "book_momentum": {
     "live_count": 8,
