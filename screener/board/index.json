@@ -1,44 +1,44 @@
 {
-  "generated_at": "2026-10-07T00:27:16Z",
+  "generated_at": "2026-10-07T00:41:12Z",
   "inbox": [
     {
-      "inbox_id": "INB-20261007-017",
-      "headline": "ASX declines; SpaceX to raise $US40b to buy Nvidia chips",
+      "inbox_id": "INB-20261007-029",
+      "headline": "SpaceX seeking to raise US$40 billion to buy Nvidia chips: Financial Times",
       "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/s-and-p-500-resets-record-high-20261007-p613d9?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
+      "url": "https://www.straitstimes.com/business/companies-markets/spacex-seeking-to-raise-us40-billion-to-buy-nvidia-chips-financial-times",
+      "source_name": "The Straits Times",
       "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:21:53Z",
+      "found_at": "2026-10-07T00:25:00Z",
       "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "SpaceX is reportedly seeking $40 billion in financing to purchase Nvidia chips, representing a massive capital expenditure and demand signal for Nvidia.",
+      "prelim_note": "SpaceX is reportedly seeking to raise $40 billion specifically to purchase Nvidia chips, representing a massive demand signal for Nvidia.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "SpaceX is reportedly seeking $40 billion in financing to purchase Nvidia chips, representing a massive capital expenditure and demand signal for Nvidia.",
-      "region": "GLOBAL",
+      "triage_reason": "SpaceX is reportedly seeking to raise $40 billion specifically to purchase Nvidia chips, representing a massive demand signal for Nvidia.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
         "scope": 5,
-        "event": 9,
+        "event": 7,
         "size": 2,
         "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
+        "materiality_label_floor": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
       },
       "event_types": [
-        "mna",
+        "debt_credit",
         "capex"
       ],
-      "issuer_linkage": "primary",
+      "issuer_linkage": "secondary",
       "companies": [
         {
           "name": "SpaceX",
@@ -47,11 +47,11 @@
         },
         {
           "name": "Nvidia",
-          "ticker": null,
+          "ticker": "NVDA",
           "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -215,6 +215,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-017",
+      "headline": "ASX declines; SpaceX to raise $US40b to buy Nvidia chips",
+      "headline_en": null,
+      "url": "https://www.afr.com/markets/equity-markets/s-and-p-500-resets-record-high-20261007-p613d9?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T00:21:53Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "SpaceX is reportedly seeking $40 billion in financing to purchase Nvidia chips, representing a massive capital expenditure and demand signal for Nvidia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX is reportedly seeking $40 billion in financing to purchase Nvidia chips, representing a massive capital expenditure and demand signal for Nvidia.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-019",
       "headline": "Musk’s SpaceX in Talks to Raise $40 Billion to Buy Nvidia Chips",
       "headline_en": null,
@@ -265,6 +320,61 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-030",
+      "headline": "Musk’s SpaceX in Talks to Borrow $40 Billion to Buy Nvidia Chips",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-06/spacex-seeking-to-raise-40-billion-to-buy-nvidia-chips-ft-says",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-06T22:57:42Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "SpaceX is in talks to borrow $40 billion to fund Nvidia chip purchases, a significant capital commitment and demand driver.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "SpaceX is in talks to borrow $40 billion to fund Nvidia chip purchases, a significant capital commitment and demand driver.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit",
+        "capex"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -759,6 +869,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-041",
+      "headline": "L&T Realty targets 150 million sq ft portfolio by 2031 with focus on luxury housing",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/lt-realty-targets-150-million-sq-ft-portfolio-by-2031-with-focus-on-luxury-housing-11791272333172.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T00:30:53Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Real-estate company targets 150 million sq ft portfolio expansion by 2031; quantified target material but forward-looking and not yet a committed capex spend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 74,
+      "triage_reason": "Real-estate company targets 150 million sq ft portfolio expansion by 2031; quantified target material but forward-looking and not yet a committed capex spend.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "L&T Realty",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-021",
       "headline": "CMA: Retail Deliveries Update",
       "headline_en": null,
@@ -906,6 +1066,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-040",
+      "headline": "Wizz Financial bets on India with cross-border fintech push, eyes 2029 IPO",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/wizz-financial-bets-on-india-with-cross-border-fintech-push-eyes-2029-ipo-11791284761761.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T00:31:13Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Fintech company announces India market entry and forward-looking 2029 IPO target; no quantified investment or confirmed capital commitment yet.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "Fintech company announces India market entry and forward-looking 2029 IPO target; no quantified investment or confirmed capital commitment yet.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 48,
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wizz Financial",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-026",
       "headline": "BHP Sells Shuttered Australian Nickel Plant to Gold Fields",
       "headline_en": null,
@@ -955,6 +1165,50 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-043",
+      "headline": "UK universities review China ties after MI5 espionage alert",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/politics/international-relations/uk-universities-review-china-ties-after-mi5-espionage-alert",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T00:34:23Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "MI5 espionage alert prompts UK universities to review China academic partnerships, creating regulatory and legal risk for UK companies dependent on cross-border research collaboration.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "MI5 espionage alert prompts UK universities to review China academic partnerships, creating regulatory and legal risk for UK companies dependent on cross-border research collaboration.",
+      "region": "GB",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 52,
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1101,6 +1355,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-038",
+      "headline": "144 - Dell Technologies Inc. (0001571996) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1571996/000119312526415996/0001193125-26-415996-index.htm",
+      "source_name": "SEC EDGAR — Latest Form 144 (Proposed Insider Sale)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-07T00:27:50Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Proposed insider sale by Silver Lake Partners in Dell Technologies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "Proposed insider sale by Silver Lake Partners in Dell Technologies.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 35,
+      "rank_factors": {
+        "materiality": 35,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dell Technologies Inc.",
+          "ticker": "DELL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-005",
       "headline": "First Digital签署最终协议:将成为上市公司，以构建智能体经济基础设施为主",
       "headline_en": "First Digital signs definitive agreement: to become a public company, focusing on building infrastructure for the agentic economy",
@@ -1199,6 +1502,51 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261007-042",
+      "headline": "US tariffs, missing cells, evening power gaps: inside India’s solar energy bottlenecks",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india-solar-power-capacity-cell-panel-manufacturing-us-solar-tariffs-11791279430659.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T00:30:53Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Investigative reporting on India's solar sector bottlenecks (US tariffs, cell-supply gaps, evening power constraints); no new shock event or company name, but real sector-wide headwinds disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Investigative reporting on India's solar sector bottlenecks (US tariffs, cell-supply gaps, evening power constraints); no new shock event or company name, but real sector-wide headwinds disclosed.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "operations",
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261007-013",
       "headline": "(LEAD) Nuri rocket set for 5th launch to place 15 satellites into orbit",
       "headline_en": null,
@@ -1243,6 +1591,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-031",
+      "headline": "4 - Warner Bros. Discovery, Inc. (0001437107) (Issuer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1437107/000155490426000006/0001554904-26-000006-index.htm",
+      "source_name": "SEC EDGAR — Latest Form 4 (Insider Transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-07T00:33:31Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Routine Form 4 filing for Warner Bros. Discovery.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Routine Form 4 filing for Warner Bros. Discovery.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 25,
+      "rank_factors": {
+        "materiality": 25,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Warner Bros. Discovery, Inc.",
+          "ticker": "WBD",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1378,6 +1775,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-033",
+      "headline": "4 - QUICKLOGIC Corp (0000882508) (Issuer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/882508/000125411726000002/0001254117-26-000002-index.htm",
+      "source_name": "SEC EDGAR — Latest Form 4 (Insider Transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-07T00:30:35Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Routine Form 4 filing for QuickLogic Corp.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 40,
+      "triage_reason": "Routine Form 4 filing for QuickLogic Corp.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 20,
+      "rank_factors": {
+        "materiality": 20,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QuickLogic Corp",
+          "ticker": "QUIK",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208412,7 +208858,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3315,
+    "inbox_unconsumed": 3324,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
