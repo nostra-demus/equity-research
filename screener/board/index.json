@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T04:14:04Z",
+  "generated_at": "2026-10-07T04:18:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261007-242",
@@ -138,6 +138,60 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261007-262",
+      "headline": "Sanlam’s $1.2 Billion Santam Bet Puts Capital Choices in Focus",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/sanlam-s-1-2-billion-santam-bet-puts-capital-choices-in-focus",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
+      "prelim_note": "Sanlam is making a $1.2 billion acquisition of Santam, a major capital allocation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sanlam is making a $1.2 billion acquisition of Santam, a major capital allocation event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sanlam",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Santam",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1887,37 +1941,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261007-192",
-      "headline": "VillageMD Sells Another 27 Primary Care Clinics To Harbor Health",
+      "inbox_id": "INB-20261007-263",
+      "headline": "ASX seesaws; Arena REIT soars 13pc on child care deal",
       "headline_en": null,
-      "url": "https://www.forbes.com/sites/brucejapsen/2026/10/06/villagemd-sells-another-27-clinics-to-harbor-health/",
-      "source_name": "Forbes",
+      "url": "https://www.afr.com/markets/equity-markets/s-and-p-500-resets-record-high-20261007-p613d9?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
       "input_nature": "news_headline",
-      "found_at": "2026-10-07T02:19:43Z",
+      "found_at": "2026-10-07T04:13:49Z",
       "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "VillageMD is selling 27 primary care clinics to Harbor Health, continuing the consolidation of these assets.",
+      "prelim_note": "Arena REIT shares rose 13% following a child care acquisition deal.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "VillageMD is selling 27 primary care clinics to Harbor Health, continuing the consolidation of these assets.",
-      "region": "US",
+      "triage_score": 90,
+      "triage_reason": "Arena REIT shares rose 13% following a child care acquisition deal.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 55,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 55,
         "source_tier": 0,
         "scope": 5,
         "event": 9,
-        "size": 0,
+        "size": 1,
         "recency": 5,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "multi_name",
         "source_tier_id": "news",
         "event_id": "mna",
-        "size_bucket": "unknown"
+        "size_bucket": "mid"
       },
       "event_types": [
         "mna"
@@ -1925,60 +1979,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "VillageMD",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Harbor Health",
+          "name": "Arena REIT",
           "ticker": null,
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261007-064",
-      "headline": "Oil prices rise as storms and air strikes threaten supply",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/oil-prices-rise-storms-air-strikes-threaten-supply-2026-10-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T00:48:31Z",
-      "sweep_file": "screener/inbox/2026-10-07_sweep.json",
-      "prelim_note": "Oil prices are rising due to supply threats from storms and air strikes, impacting global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Oil prices are rising due to supply threats from storms and air strikes, impacting global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209592,9 +209598,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1395,
-    "news_picked_today": 305,
-    "news_dropped_today": 1018
+    "news_seen_today": 1719,
+    "news_picked_today": 329,
+    "news_dropped_today": 1318
   },
   "book_momentum": {
     "live_count": 8,
