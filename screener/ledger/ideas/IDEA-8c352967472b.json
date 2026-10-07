@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-8c352967472b",
+  "idea_version": "IDEAV-330fb87e30e71ebe",
+  "idea_version_started_at": "2026-10-07T17:12:46Z",
+  "ticker": "EMA",
+  "company": "Emera",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The $14.3 billion acquisition of Canadian Utilities creates significant balance sheet pressure and integration risk for the acquirer.",
+  "why_now": "The acquisition was announced on 2026-10-06.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 15,
+    "timing": 6,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-5f79ff3e5d99"
+  ],
+  "primary_source_event_id": "EVT-5f79ff3e5d99",
+  "source_headlines": [
+    "Emera to acquire Canadian Utilities in $14.3-billion deal"
+  ],
+  "source_headline": "Emera to acquire Canadian Utilities in $14.3-billion deal",
+  "source_url": "https://www.cbc.ca/news/canada/nova-scotia/emera-canadian-utilities-merger-acquisition-9.7370753?cmp=rss",
+  "source_name": "CBC — Business",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-06T14:24:15Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-07T17:12:46Z",
+  "updated_at": "2026-10-07T17:12:46Z",
+  "decay_at": "2026-10-08T02:24:15Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
