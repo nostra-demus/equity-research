@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T14:26:03Z",
+  "generated_at": "2026-10-08T14:29:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-613",
@@ -1028,6 +1028,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-631",
+      "headline": "Chipotle Jumps After Report That Starbucks Has Explored Takeover",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/chipotle-jumps-after-report-that-starbucks-has-explored-takeover",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T14:15:55Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Reported takeover interest in Chipotle by Starbucks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reported takeover interest in Chipotle by Starbucks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chipotle Mexican Grill",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Starbucks",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-627",
       "headline": "Starbucks has explored takeover of Chipotle in restaurant megadeal",
       "headline_en": null,
@@ -1934,55 +1988,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-481",
-      "headline": "Kingspan hit with €40 million EU fine for misleading data on Slovenian deal",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/kingspan-hit-with-40-million-eu-fine-misleading-data-slovenian-deal-2026-10-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T09:58:52Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Kingspan fined €40 million by EU for misleading data on Slovenian deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Kingspan fined €40 million by EU for misleading data on Slovenian deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kingspan",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208509,9 +208514,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3516236,
-    "news_picked_today": 1154,
-    "news_dropped_today": 7630
+    "news_seen_today": 3531754,
+    "news_picked_today": 1160,
+    "news_dropped_today": 7648
   },
   "book_momentum": {
     "live_count": 8,
