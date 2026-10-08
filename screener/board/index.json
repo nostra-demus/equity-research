@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T04:37:14Z",
+  "generated_at": "2026-10-08T04:52:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-300",
@@ -1758,6 +1758,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-407",
+      "headline": "SK하이닉스 솔리다임, 美 IPO 주관사 선정…\"기업가치 최대 136조원 관측\"",
+      "headline_en": "SK Hynix's Solidigm selects US IPO underwriters... 'valuation estimated at up to 136 trillion won'",
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278483",
+      "source_name": "Business Korea — All Articles (CDN)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T03:39:38Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "SK Hynix's Solidigm unit has selected underwriters for a US IPO, with a potential valuation of up to 136 trillion won.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "SK Hynix's Solidigm unit has selected underwriters for a US IPO, with a potential valuation of up to 136 trillion won.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Solidigm",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-335",
       "headline": "Samsung forecasts record third-quarter profit of $80 billion as AI boom fuels chip demand",
       "headline_en": null,
@@ -1951,55 +2005,6 @@
           "name": "Raytheon",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-333",
-      "headline": "Samsung reaches new profit record with memory chip windfall",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/samsung-reaches-new-profit-record-memory-chip-windfall",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T01:04:18Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Samsung reports record profit driven by memory chip demand, confirming strong sector performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Samsung reports record profit driven by memory chip demand, confirming strong sector performance.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
         }
       ],
       "size_bucket": "mega",
@@ -208246,9 +208251,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 402402,
-    "news_picked_today": 586,
-    "news_dropped_today": 2678
+    "news_seen_today": 444764,
+    "news_picked_today": 594,
+    "news_dropped_today": 2766
   },
   "book_momentum": {
     "live_count": 8,
