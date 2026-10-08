@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T12:07:17Z",
+  "generated_at": "2026-10-08T12:14:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-532",
@@ -164224,6 +164224,79 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-1a38d7aae72f",
+      "idea_version": "IDEAV-d24c0a838f1de7e8",
+      "idea_version_started_at": "2026-10-08T12:13:45Z",
+      "ticker": "PEP",
+      "company": "PepsiCo",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company lowered its FY26 core EPS growth guidance due to persistent cost pressures and a slower-than-anticipated turnaround in its North American segment.",
+      "why_now": "The guidance cut was officially announced on October 8, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 77,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d44b1f981ad8",
+        "EVT-3c059d606ad2",
+        "EVT-474ba1c68a00"
+      ],
+      "primary_source_event_id": "EVT-d44b1f981ad8",
+      "source_headlines": [
+        "PepsiCo Lowers Guidance on Mounting Costs in North America",
+        "PepsiCo cuts earnings forecast as North American turnaround takes longer than expected",
+        "PepsiCo Q3 Profit Climbs, Cuts FY26 Core EPS Growth View, Updates Revenue Outlook - Update"
+      ],
+      "source_headline": "PepsiCo Lowers Guidance on Mounting Costs in North America",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-08/pepsico-lowers-guidance-on-mounting-costs-in-north-america",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T10:38:59Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T12:13:45Z",
+      "updated_at": "2026-10-08T12:13:45Z",
+      "decay_at": "2026-10-09T22:38:59Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-48fab202d92b",
       "idea_version": "IDEAV-65c5e22efadad95c",
       "idea_version_started_at": "2026-10-07T20:55:35Z",
@@ -165066,76 +165139,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-a64262a5c954",
-      "idea_version": "IDEAV-922a73086f5125d5",
-      "idea_version_started_at": "2026-10-07T01:37:33Z",
-      "ticker": "CVX",
-      "company": "Chevron",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The evacuation of Gulf of Mexico platforms due to an approaching storm will temporarily reduce oil and gas production volumes, negatively impacting near-term revenue.",
-      "why_now": "The evacuation is occurring as of October 7, 2026, creating an immediate operational disruption.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-517d738350fe"
-      ],
-      "primary_source_event_id": "EVT-517d738350fe",
-      "source_headlines": [
-        "Chevron evacuates some workers from Gulf of Mexico platforms at risk of storm"
-      ],
-      "source_headline": "Chevron evacuates some workers from Gulf of Mexico platforms at risk of storm",
-      "source_url": "https://www.reuters.com/business/energy/chevron-evacuates-some-workers-gulf-mexico-platforms-risk-storm-2026-10-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 85,
-      "newest_source_at": "2026-10-07T00:09:43Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T01:37:33Z",
-      "updated_at": "2026-10-07T01:37:33Z",
-      "decay_at": "2026-10-08T12:09:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-4ba039a627fc",
       "idea_version": "IDEAV-efc4f2805b65c377",
       "idea_version_started_at": "2026-10-08T05:28:22Z",
@@ -165272,6 +165275,83 @@
       "surfaced_at": "2026-10-07T20:55:35Z",
       "updated_at": "2026-10-07T20:55:35Z",
       "decay_at": "2026-10-09T01:08:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9db64567877d",
+      "idea_version": "IDEAV-ce3246fc7e0d5290",
+      "idea_version_started_at": "2026-10-08T12:13:45Z",
+      "ticker": "TCS",
+      "company": "Tata Consultancy Services",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company reported strong Q2 results with 11.2% YoY revenue growth, AI revenue exceeding $3 billion, and robust deal wins of $9.6 billion.",
+      "why_now": "The earnings were released and filed on October 8, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a7e86d1dd6be",
+        "EVT-049d661ee1c7",
+        "EVT-ad0d1a587559",
+        "EVT-49d39aba54ad"
+      ],
+      "primary_source_event_id": "EVT-a7e86d1dd6be",
+      "source_headlines": [
+        "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding a press release dated October 8, 2026, titled \"International Growth and Strategic Wins Underpin TCS Q2\".",
+        "TCS Q2 Results 2026 out: Revenue up 11.20% YoY, net profit stood at ₹13,884 cr | ₹12 per share dividend declared",
+        "TCS Q2 Results Live Updates: Profit beats estimates; AI revenue tops $3 billion; deal wins at $9.6 billion",
+        "LIVE: TCS Q2 results 2026, quarterly dividend amount, record, payment date out; revenue, TCV, margin, profit numbers"
+      ],
+      "source_headline": "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding a press release dated October 8, 2026, titled \"International Growth and Strategic Wins Underpin TCS Q2\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TCS_CORPCS_08102026154325_PressReleaseletter.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T11:01:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T12:13:45Z",
+      "updated_at": "2026-10-08T12:13:45Z",
+      "decay_at": "2026-10-09T23:01:32Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -168116,6 +168196,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-a64262a5c954",
+      "idea_version": "IDEAV-922a73086f5125d5",
+      "idea_version_started_at": "2026-10-07T01:37:33Z",
+      "ticker": "CVX",
+      "company": "Chevron",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The evacuation of Gulf of Mexico platforms due to an approaching storm will temporarily reduce oil and gas production volumes, negatively impacting near-term revenue.",
+      "why_now": "The evacuation is occurring as of October 7, 2026, creating an immediate operational disruption.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 16,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-517d738350fe"
+      ],
+      "primary_source_event_id": "EVT-517d738350fe",
+      "source_headlines": [
+        "Chevron evacuates some workers from Gulf of Mexico platforms at risk of storm"
+      ],
+      "source_headline": "Chevron evacuates some workers from Gulf of Mexico platforms at risk of storm",
+      "source_url": "https://www.reuters.com/business/energy/chevron-evacuates-some-workers-gulf-mexico-platforms-risk-storm-2026-10-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 85,
+      "newest_source_at": "2026-10-07T00:09:43Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T01:37:33Z",
+      "updated_at": "2026-10-07T01:37:33Z",
+      "decay_at": "2026-10-08T12:09:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-a10eefcd2440",
       "idea_version": "IDEAV-26cd2b03882c573b",
       "idea_version_started_at": "2026-10-06T01:22:08Z",
@@ -170944,9 +171094,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 559,
+    "total_count": 560,
     "shown_count": 500,
-    "hidden_count": 59,
+    "hidden_count": 60,
     "side_counts": {
       "long": {
         "total_count": 292,
@@ -170954,9 +171104,9 @@
         "hidden_count": 42
       },
       "short": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       }
     },
     "retention": {
@@ -170975,6 +171125,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a64262a5c954",
+        "idea_version": "IDEAV-922a73086f5125d5",
+        "idea_version_started_at": "2026-10-07T01:37:33Z",
+        "ticker": "CVX",
+        "company": "Chevron",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The evacuation of Gulf of Mexico platforms due to an approaching storm will temporarily reduce oil and gas production volumes, negatively impacting near-term revenue.",
+        "why_now": "The evacuation is occurring as of October 7, 2026, creating an immediate operational disruption.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 62,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 16,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-517d738350fe"
+        ],
+        "primary_source_event_id": "EVT-517d738350fe",
+        "source_headlines": [
+          "Chevron evacuates some workers from Gulf of Mexico platforms at risk of storm"
+        ],
+        "source_headline": "Chevron evacuates some workers from Gulf of Mexico platforms at risk of storm",
+        "source_url": "https://www.reuters.com/business/energy/chevron-evacuates-some-workers-gulf-mexico-platforms-risk-storm-2026-10-07/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 85,
+        "newest_source_at": "2026-10-07T00:09:43Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-07T01:37:33Z",
+        "updated_at": "2026-10-07T01:37:33Z",
+        "decay_at": "2026-10-08T12:09:43Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-08T12:09:43Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b56a76426b54",
         "idea_version": "IDEAV-76c1a28902b71f17",
@@ -208118,85 +208341,12 @@
         "archived_at": "2026-09-15T18:56:28Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-c7c3c3693e6e",
-        "idea_version": "IDEAV-38f366266b568ca0",
-        "idea_version_started_at": "2026-09-13T06:54:12Z",
-        "ticker": "AZN",
-        "company": "AstraZeneca",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The failure of a late-stage breast cancer drug trial removes a key pipeline asset and potential future revenue stream, negatively impacting the company's long-term growth outlook.",
-        "why_now": "The trial failure was reported on 2026-09-12, creating an immediate negative catalyst for the stock.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e20ca352585c"
-        ],
-        "primary_source_event_id": "EVT-e20ca352585c",
-        "source_headlines": [
-          "AstraZeneca's breast cancer drug fails in late-stage trial"
-        ],
-        "source_headline": "AstraZeneca's breast cancer drug fails in late-stage trial",
-        "source_url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/pharmaceuticals/astrazenecas-breast-cancer-drug-fails-in-late-stage-trial/articleshow/134125851.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 94,
-        "newest_source_at": "2026-09-12T10:54:26Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T06:54:12Z",
-        "updated_at": "2026-09-13T06:54:12Z",
-        "decay_at": "2026-09-13T22:54:26Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T18:56:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1428,
-    "live_count": 35,
+    "surfaced_total": 1430,
+    "live_count": 36,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -208215,7 +208365,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2596214,
+    "news_seen_today": 2660471,
     "news_picked_today": 1005,
     "news_dropped_today": 6579
   },
