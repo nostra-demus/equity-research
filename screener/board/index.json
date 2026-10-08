@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-08T11:46:20Z",
+  "generated_at": "2026-10-08T11:50:50Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261008-532",
+      "headline": "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process - Updates on Insolvency Proceeding - Order dated 07.10.2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BGRENERGY_08102026170909_BGREnergyNCLATorderIntimation.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-08T11:39:41Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "The company is undergoing a corporate insolvency resolution process, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is undergoing a corporate insolvency resolution process, indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BGR Energy Systems Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-549",
+      "headline": "Directions under Section 35 A read with Section 56 of the Banking Regulation Act, 1949 – The Tiruvalla Urban Co-operative Bank Ltd., Tiruvalla, Pathanamthitta",
+      "headline_en": null,
+      "url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63763",
+      "source_name": "Reserve Bank of India (RBI) — Press Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-08T11:35:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "The Reserve Bank of India issued directions to The Tiruvalla Urban Co-operative Bank Ltd. under the Banking Regulation Act, 1949.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Reserve Bank of India issued directions to The Tiruvalla Urban Co-operative Bank Ltd. under the Banking Regulation Act, 1949.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Tiruvalla Urban Co-operative Bank Ltd.",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261008-528",
       "headline": "XIN YUAN ENT (01748): JOINT ANNOUNCEMENT (1) PRE-CONDITIONAL VOLUNTARY GENERAL CASH OFFER BY ICBC INTERNATIONAL CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); AND (2) CESSATION OF AN EXECUTIVE DIRECTORSHIP AND RESIGNATION OF AN INDEPENDENT NON-EXECUTIVE DIRECTOR",
@@ -1879,104 +1977,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-372",
-      "headline": "Samsung profit surges ninefold to $80bn on AI chip demand",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/8943785b-0919-4a49-8ab5-48e4a35a6e00?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T01:50:30Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Samsung reported a ninefold surge in profit to $80bn, driven by AI chip demand, significantly impacting market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung reported a ninefold surge in profit to $80bn, driven by AI chip demand, significantly impacting market expectations.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-390",
-      "headline": "LG에너지솔루션, 3분기 영업익 7560억원 전년비 25.7% 성장",
-      "headline_en": "LG Energy Solution, Q3 operating profit grew 25.7% year-on-year to 756 billion KRW",
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278453",
-      "source_name": "Business Korea — All Articles (CDN)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T01:12:21Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "LG Energy Solution reported a 25.7% year-on-year growth in Q3 operating profit to 756 billion KRW.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LG Energy Solution reported a 25.7% year-on-year growth in Q3 operating profit to 756 billion KRW.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Energy Solution",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208209,9 +208209,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2496462,
-    "news_picked_today": 958,
-    "news_dropped_today": 6410
+    "news_seen_today": 2508740,
+    "news_picked_today": 983,
+    "news_dropped_today": 6481
   },
   "book_momentum": {
     "live_count": 8,
