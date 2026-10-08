@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T01:10:15Z",
+  "generated_at": "2026-10-08T01:22:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-034",
@@ -149,6 +149,170 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-118",
+      "headline": "Broadcom Plans $50 Billion Financing for OpenAI Chips, WSJ Says",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/broadcom-plans-50-billion-financing-for-openai-chips-wsj-says",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:25:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Broadcom is reportedly planning $50 billion in financing to support OpenAI chip production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Broadcom is reportedly planning $50 billion in financing to support OpenAI chip production.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Broadcom",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-121",
+      "headline": "Apollo, banks in talks to finance SpaceX's $40 billion Nvidia GPU purchase",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/07/spacex-nvidia-chips-apollo-financing.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:16:24Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Apollo and banks are in talks to finance a $40 billion Nvidia GPU purchase for SpaceX.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Apollo and banks are in talks to finance a $40 billion Nvidia GPU purchase for SpaceX.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Apollo Global Management",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-115",
+      "headline": "Applied Digital's revenue soars, loss widens on growing AI investments",
+      "headline_en": null,
+      "url": "https://www.reuters.com/technology/applied-digitals-revenue-soars-loss-widens-growing-ai-investments-2026-10-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:23:22Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Applied Digital reported revenue growth alongside a widening net loss due to AI investments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Applied Digital reported revenue growth alongside a widening net loss due to AI investments.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Applied Digital",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-040",
       "headline": "Sindicatos de mina chilena Centinela inician huelga",
       "headline_en": "Unions at Chilean mine Centinela begin strike",
@@ -193,6 +357,65 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-131",
+      "headline": "Oracle, Broadcom and SpaceX Seek Blockbuster Debt Deals to Pay for AI Chips",
+      "headline_en": null,
+      "url": "https://www.wsj.com/tech/oracle-broadcom-and-spacex-seek-blockbuster-debt-deals-to-pay-for-ai-chips-848e8032?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:01:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Oracle, Broadcom, and SpaceX are seeking large debt deals to fund AI chip investments, signaling significant capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Oracle, Broadcom, and SpaceX are seeking large debt deals to fund AI chip investments, signaling significant capital expenditure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oracle",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Broadcom",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -290,52 +513,49 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261008-114",
-      "headline": "Broadcom Holds Early Talks About Financing Deal for OpenAI Chips",
+      "inbox_id": "INB-20261008-127",
+      "headline": "Finland Halts Work At Two Planned Google Data Centres Over Forest Clearance",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/broadcom-plans-50-billion-financing-for-openai-chips-wsj-says",
-      "source_name": "Bloomberg",
+      "url": "https://www.nasdaq.com/articles/finland-halts-work-two-planned-google-data-centres-over-forest-clearance",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-10-07T21:25:00Z",
+      "found_at": "2026-10-07T21:04:40Z",
       "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Broadcom is in early talks to finance a deal for OpenAI chips, indicating potential strategic expansion.",
+      "prelim_note": "Finland's regulator halted two Google data-center builds citing forest-clearance concerns, delaying capex and European cloud-infrastructure expansion.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 89,
-      "triage_reason": "Broadcom is in early talks to finance a deal for OpenAI chips, indicating potential strategic expansion.",
-      "region": "GLOBAL",
+      "triage_reason": "Finland's regulator halted two Google data-center builds citing forest-clearance concerns, delaying capex and European cloud-infrastructure expansion.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 72,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 72,
         "source_tier": 0,
-        "scope": 5,
-        "event": 9,
+        "scope": 6,
+        "event": 6,
         "size": 2,
         "recency": 3,
-        "materiality_label_floor": 5,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "mna",
+        "event_id": "capex",
         "size_bucket": "mega"
       },
       "event_types": [
-        "mna"
+        "capex",
+        "regulatory",
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Broadcom",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
+          "name": "Alphabet",
+          "ticker": "GOOGL",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -443,6 +663,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-149",
+      "headline": "Venezuela's Maduro to face new US charges over alleged torture of Americans, says official",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/americas/maduro-wife-expected-face-new-charges-over-alleged-torture-americans-cnn-says-2026-10-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T20:25:49Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "New US charges against a head of state increase geopolitical risk and potential for further sanctions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "New US charges against a head of state increase geopolitical risk and potential for further sanctions.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Venezuela",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-038",
       "headline": "TikTok Accused by NY of Running Secret Safety Tests on Teens",
       "headline_en": null,
@@ -488,6 +757,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-143",
+      "headline": "Stock Market Today, Oct. 7: QXO Falls 7% on RBC Price-Target Cut to $18",
+      "headline_en": null,
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/10/07/stock-market-today-oct-7-qxo-falls-7-on-rbc-price-target-cut-to-usd18/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T20:43:36Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "QXO shares fell 7% following an RBC price target cut to $18.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "QXO shares fell 7% following an RBC price target cut to $18.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "credit_rating_downgrade",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "credit_rating_downgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "QXO",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -691,6 +1009,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-126",
+      "headline": "Wolfspeed secures $1.5 billion conditional loan commitment from US defense department",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/wolfspeed-secures-15-billion-conditional-loan-commitment-us-defense-department-2026-10-07/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:09:43Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "$1.5 billion conditional loan commitment from US Defense Department to Wolfspeed for semiconductor/RF capacity; quantified capital win enabling growth and strengthening balance sheet, confirmed from official source.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "$1.5 billion conditional loan commitment from US Defense Department to Wolfspeed for semiconductor/RF capacity; quantified capital win enabling growth and strengthening balance sheet, confirmed from official source.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Wolfspeed",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-066",
       "headline": "Medical device maker Centinel Spine discloses revenue rise in US IPO filing",
       "headline_en": null,
@@ -844,6 +1212,142 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-123",
+      "headline": "Donald Trump Threatened 300% Tariffs on Countries That Don't Invest in the U.S., Just Days After a Trump-Xi Summit Offered Only Limited Trade Relief. Here's Why That Threat Keeps Markets on Edge.",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/donald-trump-threatened-300-tariffs-countries-dont-invest-us-just-days-after-trump-xi",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:10:38Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Trump threatens 300% tariffs on countries not investing in US, following limited China trade relief; elevates export and supply-chain risk broadly but no company named, no law enacted, conditional on implementation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Trump threatens 300% tariffs on countries not investing in US, following limited China trade relief; elevates export and supply-chain risk broadly but no company named, no law enacted, conditional on implementation.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 62,
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 8,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-145",
+      "headline": "Major North American airline permanently exits 13 markets",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/travel/westjet-airline-permanently-exits-13-markets",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T20:37:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "A major North American airline is permanently exiting 13 markets, signaling a reduction in operational footprint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "A major North American airline is permanently exiting 13 markets, signaling a reduction in operational footprint.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-155",
+      "headline": "Levi Growth Slows After Marketing Baggy Jeans Over Low-Rise",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/levi-growth-slows-after-it-marketed-baggy-jeans-over-low-rise",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T20:19:04Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Levi Strauss reports slowing growth due to product strategy missteps regarding fashion trends.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Levi Strauss reports slowing growth due to product strategy missteps regarding fashion trends.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Levi Strauss",
+          "ticker": "LEVI",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-081",
       "headline": "Workers at Chile's Centinela copper mine strike after talks fail",
       "headline_en": null,
@@ -888,6 +1392,153 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-120",
+      "headline": "Firmus cancels appearance at government AI inquiry amid IPO rewrite",
+      "headline_en": null,
+      "url": "https://www.afr.com/politics/federal/australia-news-live-updates-bond-sell-off-continues-as-yields-hit-24-year-high-france-rocked-by-violence-20261008-p613pf?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:22:03Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Firmus canceled an appearance at an AI inquiry while undergoing an IPO rewrite, signaling potential internal instability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Firmus canceled an appearance at an AI inquiry while undergoing an IPO rewrite, signaling potential internal instability.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Firmus",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-133",
+      "headline": "Titan Mining, US Army advance strategic graphite processing plant in Alabama",
+      "headline_en": null,
+      "url": "https://www.mining.com/titan-mining-us-army-advance-strategic-graphite-processing-plant-in-alabama/",
+      "source_name": "Mining.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:01:04Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Titan Mining and the US Army are advancing a strategic graphite processing plant, representing a significant capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Titan Mining and the US Army are advancing a strategic graphite processing plant, representing a significant capital investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Titan Mining",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-150",
+      "headline": "Argan's 2026 Outlook: $2.5 Billion Project Backlog Drives Reliable Power Infrastructure Expansion",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/argans-2026-outlook-25-billion-project-backlog-drives-reliable-power-infrastructure",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T20:23:10Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Argan announced a $2.5 billion project backlog, indicating significant revenue visibility and infrastructure expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Argan announced a $2.5 billion project backlog, indicating significant revenue visibility and infrastructure expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 3,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Argan",
+          "ticker": "AGX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -979,6 +1630,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-128",
+      "headline": "KKRTC bus operations disrupted due to diesel shortage",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/karnataka/kkrtc-bus-operations-disrupted-due-to-diesel-shortage-4174257",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:08:16Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Diesel shortage is disrupting KKRTC bus operations, impacting service delivery and operational costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Diesel shortage is disrupting KKRTC bus operations, impacting service delivery and operational costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "KKRTC",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1169,49 +1869,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261008-087",
-      "headline": "Venezuela's Maduro to face new US charges over alleged torture of Americans, official says",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/americas/maduro-wife-expected-face-new-charges-over-alleged-torture-americans-cnn-says-2026-10-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T21:52:21Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "New US charges against Venezuelan leadership increase geopolitical risk and potential for further sanctions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "New US charges against Venezuelan leadership increase geopolitical risk and potential for further sanctions.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261008-088",
       "headline": "Maduro enfrentará novas acusações dos EUA por suposta tortura de norte-americanos, diz autoridade",
       "headline_en": "Maduro will face new US charges for alleged torture of Americans, says official",
@@ -1255,608 +1912,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261008-105",
-      "headline": "FirstFT: China rejects EU request for voluntary curbs on hybrid car exports",
+      "inbox_id": "INB-20261008-146",
+      "headline": "Glaukos says late-stage eye disease treatment shows lasting benefits after single dose",
       "headline_en": null,
-      "url": "https://www.ft.com/content/5539d473-604b-42b3-ba6d-0dbb3353957b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/glaukos-says-late-stage-eye-disease-treatment-shows-lasting-benefits-after-2026-10-07/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-10-07T21:34:04Z",
+      "found_at": "2026-10-07T20:35:39Z",
       "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "China's rejection of EU requests for export curbs on hybrid cars increases trade friction and regulatory risk for the automotive sector.",
+      "prelim_note": "Glaukos reported that a late-stage eye disease treatment shows lasting benefits after a single dose.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "China's rejection of EU requests for export curbs on hybrid cars increases trade friction and regulatory risk for the automotive sector.",
-      "region": "GLOBAL",
+      "triage_score": 80,
+      "triage_reason": "Glaukos reported that a late-stage eye disease treatment shows lasting benefits after a single dose.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
         "materiality": 60,
         "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-110",
-      "headline": "Watchdog: Trump administration illegally withheld federal research funds",
-      "headline_en": null,
-      "url": "https://thehill.com/policy/healthcare/6135023-trump-hhs-ahrq-violations/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T21:26:59Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "A watchdog report indicates illegal withholding of federal research funds by the previous administration.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "A watchdog report indicates illegal withholding of federal research funds by the previous administration.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-039",
-      "headline": "Banco Central peruano mantiene tasa en 4,25% por más de un año, contrario a expectativas",
-      "headline_en": "Peruvian Central Bank maintains rate at 4.25% for more than a year, contrary to expectations",
-      "url": "https://www.reuters.com/es/negocio/6L2SKJ73PNMC7PVUUMAZM3F7W4-2026-10-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T23:41:43Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "The Central Bank of Peru maintained its interest rate at 4.25%, contrary to market expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "The Central Bank of Peru maintained its interest rate at 4.25%, contrary to market expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-005",
-      "headline": "ANTA Sports schließt den Erwerb einer Beteiligung von 29,06 % an PUMA ab und wird zum größten Anteilseigner",
-      "headline_en": "ANTA Sports closes acquisition of 29.06% stake in PUMA and becomes largest shareholder",
-      "url": "https://www.prnewswire.com/news-releases/anta-sports-schlieWt-den-erwerb-einer-beteiligung-von-29-06--an-puma-ab-und-wird-zum-groWten-anteilseigner-302901228.html",
-      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T13:50:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "ANTA Sports closed acquisition of a 29.06% stake in PUMA, becoming the largest shareholder and triggering a governance and strategic-control shift in the €15bn+ European athletic-goods manufacturer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "ANTA Sports closed acquisition of a 29.06% stake in PUMA, becoming the largest shareholder and triggering a governance and strategic-control shift in the €15bn+ European athletic-goods manufacturer.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ANTA Sports",
-          "ticker": "2020.HK",
-          "listing_country": "HK"
-        },
-        {
-          "name": "PUMA SE",
-          "ticker": "PUM",
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-011",
-      "headline": "ANTA Sports completa la adquisición del 29,06 % de las acciones de PUMA y se convierte en el mayor accionista",
-      "headline_en": "ANTA Sports completes the acquisition of 29.06% of PUMA shares and becomes the largest shareholder",
-      "url": "https://www.prnewswire.com/news-releases/anta-sports-completa-la-adquisicion-del-29-06--de-las-acciones-de-puma-y-se-convierte-en-el-mayor-accionista-302901177.html",
-      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T12:59:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "ANTA Sports acquired a 29.06% stake in PUMA, becoming its largest shareholder.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "ANTA Sports acquired a 29.06% stake in PUMA, becoming its largest shareholder.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ANTA Sports",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "PUMA",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-069",
-      "headline": "U.S. loaning $4.2 billion to energy firm with crashing stock",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/stocks/us-department-energy-loan-4-billion-vistra-vst-crashing-stock",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T22:17:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "$4.2 billion U.S. government loan to energy company with crashing stock signals distress or special-situation capital intervention, but company identity not disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "$4.2 billion U.S. government loan to energy company with crashing stock signals distress or special-situation capital intervention, but company identity not disclosed.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 56,
-      "rank_factors": {
-        "materiality": 56,
-        "source_tier": 0,
         "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "unnamed energy company",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-099",
-      "headline": "Fortescue Says Dispute With China’s CMRG Hits Iron Ore Sales",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/fortescue-flags-lower-iron-ore-sales-as-china-dispute-drags-on",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T22:46:37Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Fortescue, a major global iron ore producer, reports sales disruption from a dispute with China's CMRG, with no quantified revenue or margin impact disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "Fortescue, a major global iron ore producer, reports sales disruption from a dispute with China's CMRG, with no quantified revenue or margin impact disclosed.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fortescue Metals Group",
-          "ticker": "FMG",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-092",
-      "headline": "Oil falls with focus on Hormuz vessel attacks and Mideast flows",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/energy-commodities/oil-falls-focus-hormuz-vessel-attacks-and-mideast-flows",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T22:09:13Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Geopolitical escalation in the Strait of Hormuz is impacting global oil supply and pricing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Geopolitical escalation in the Strait of Hormuz is impacting global oil supply and pricing.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
         "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-102",
-      "headline": "IEA to accelerate oil reserve release, says 100 million barrels still to come",
-      "headline_en": null,
-      "url": "https://japantoday.com/category/business/iea-to-accelerate-oil-reserve-release-says-100-million-barrels-still-to-come1",
-      "source_name": "Japan Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T21:37:16Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "The IEA announced an additional 100 million barrels of oil to be released, representing a significant supply shock to global energy markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "The IEA announced an additional 100 million barrels of oil to be released, representing a significant supply shock to global energy markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-098",
-      "headline": "NCC säljer affärsområde Industry för 8,2 miljarder SEK och stärker fokus på bygg och anläggning",
-      "headline_en": "NCC sells Industry business area for 8.2 billion SEK and strengthens focus on construction and civil engineering",
-      "url": "https://news.cision.com/se/ncc/r/ncc-saljer-affarsomrade-industry-for-8-2-miljarder-sek-och-starker-fokus-pa-bygg-och-anlaggning,c4405357",
-      "source_name": "Cision — Sweden Regulatory & Company News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T06:15:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "NCC is selling its Industry business area for 8.2 billion SEK to focus on construction and civil engineering.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "NCC is selling its Industry business area for 8.2 billion SEK to focus on construction and civil engineering.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
         "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NCC",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-113",
-      "headline": "Lululemon overhauls leadership team with two new roles",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-lululemon-leadership-shakeup-new-executive-roles-heidi-oneill-ceo/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T21:20:53Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Lululemon is restructuring its leadership team with two new roles.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 65,
-      "triage_reason": "Lululemon is restructuring its leadership team with two new roles.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
         "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lululemon",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-101",
-      "headline": "Major shareholder could force Barbie maker to consider a sale",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/stocks/mattel-ariel-investments-sale-pressure-authentic-brands",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T21:37:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Unconfirmed report of activist shareholder pressure on Mattel could trigger a strategic review or sale process, but no shareholder identified, no SEC filing cited, and the claim rests on rumor rather than disclosed fact or primary source.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Unconfirmed report of activist shareholder pressure on Mattel could trigger a strategic review or sale process, but no shareholder identified, no SEC filing cited, and the claim rests on rumor rather than disclosed fact or primary source.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mattel Inc.",
-          "ticker": "MAT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-076",
-      "headline": "OpenAI Says a Secret AI Model Cracked Hundreds of Open Math Problems in One Prompt—Mathematicians Want Receipts",
-      "headline_en": null,
-      "url": "https://decrypt.co/380366/openai-secret-ai-model-cracked-hundreds-math-problems-one-prompt",
-      "source_name": "Decrypt — Crypto News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T21:46:03Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "OpenAI's reported breakthrough in solving complex math problems demonstrates significant progress in AI capabilities, impacting the competitive landscape.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "OpenAI's reported breakthrough in solving complex math problems demonstrates significant progress in AI capabilities, impacting the competitive landscape.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
+        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": null,
-        "size_bucket": "large"
+        "size_bucket": "mid"
       },
       "event_types": [
         "product"
@@ -1864,66 +1950,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "OpenAI",
+          "name": "Glaukos",
           "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-030",
-      "headline": "Halozyme Wins Injunction Stopping Manufacture and Sale of Merck's Keytruda SC in Multiple European Markets | HALO Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/HALO/halozyme-wins-injunction-stopping-manufacture-and-sale-of-merck-s-xxserhzpa9w8.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Halozyme won an injunction against Merck's Keytruda SC, creating a significant legal and operational risk for Merck.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Halozyme won an injunction against Merck's Keytruda SC, creating a significant legal and operational risk for Merck.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Halozyme",
-          "ticker": "HALO",
-          "listing_country": "US"
-        },
-        {
-          "name": "Merck",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210039,9 +210071,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 58284,
-    "news_picked_today": 132,
-    "news_dropped_today": 1020
+    "news_seen_today": 62565,
+    "news_picked_today": 179,
+    "news_dropped_today": 1189
   },
   "book_momentum": {
     "live_count": 8,
