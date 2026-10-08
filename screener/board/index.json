@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T14:34:40Z",
+  "generated_at": "2026-10-08T14:38:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-613",
@@ -1028,6 +1028,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-632",
+      "headline": "Ellison Family Invests About $17 Billion in Warner Bros. Takeover",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-08/ellisons-invest-17-billion-in-warner-bros-takeover-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T14:24:49Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "The Ellison family is investing $17 billion into a potential takeover of Warner Bros. Discovery.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Ellison family is investing $17 billion into a potential takeover of Warner Bros. Discovery.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-631",
       "headline": "Chipotle Jumps After Report That Starbucks Has Explored Takeover",
       "headline_en": null,
@@ -1939,55 +1988,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-492",
-      "headline": "Ellisons invest about $17bn in Warner Bros takeover",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news-fast-news/ellisons-invest-about-17bn-in-warner-bros-takeover/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T10:00:21Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Large $17 billion acquisition of Warner Bros.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Large $17 billion acquisition of Warner Bros.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Warner Bros",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208586,9 +208586,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3562820,
-    "news_picked_today": 1161,
-    "news_dropped_today": 7671
+    "news_seen_today": 3593868,
+    "news_picked_today": 1164,
+    "news_dropped_today": 7716
   },
   "book_momentum": {
     "live_count": 8,
