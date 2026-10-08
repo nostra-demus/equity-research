@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T13:34:39Z",
+  "generated_at": "2026-10-08T13:35:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-561",
@@ -164857,6 +164857,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-97e320120234",
+      "idea_version": "IDEAV-b90c660984470378",
+      "idea_version_started_at": "2026-10-08T13:35:02Z",
+      "ticker": "PCRX",
+      "company": "Pacira BioSciences",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Viatris has agreed to acquire the company for $1.65 billion, creating a significant premium over the current market valuation.",
+      "why_now": "The acquisition was announced today, October 8, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fe1bfd816352",
+        "EVT-144cde8faaf2"
+      ],
+      "primary_source_event_id": "EVT-fe1bfd816352",
+      "source_headlines": [
+        "Viatris to buy pain therapy maker Pacira Biosciences for $1.65 billion",
+        "Viatris to Buy Pacira BioSciences for $1.65 Billion"
+      ],
+      "source_headline": "Viatris to buy pain therapy maker Pacira Biosciences for $1.65 billion",
+      "source_url": "https://www.reuters.com/legal/litigation/viatris-acquire-pacira-biosciences-165-billion-deal-2026-10-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T12:48:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T13:35:02Z",
+      "updated_at": "2026-10-08T13:35:02Z",
+      "decay_at": "2026-10-10T00:48:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-4ba039a627fc",
       "idea_version": "IDEAV-efc4f2805b65c377",
       "idea_version_started_at": "2026-10-08T05:28:22Z",
@@ -164993,6 +165065,78 @@
       "surfaced_at": "2026-10-07T20:55:35Z",
       "updated_at": "2026-10-07T20:55:35Z",
       "decay_at": "2026-10-09T01:08:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-790093145eaa",
+      "idea_version": "IDEAV-b7d8c650422f7266",
+      "idea_version_started_at": "2026-10-08T13:35:02Z",
+      "ticker": "EZJ",
+      "company": "EasyJet",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The airline is doubling its winter flight capacity cuts, indicating that rising operational costs are severely impacting margins.",
+      "why_now": "The announcement was made today, October 8, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ba5d75b53172"
+      ],
+      "primary_source_event_id": "EVT-ba5d75b53172",
+      "source_headlines": [
+        "EasyJet doubles winter flight cuts amid rising costs"
+      ],
+      "source_headline": "EasyJet doubles winter flight cuts amid rising costs",
+      "source_url": "https://www.ft.com/content/e24cfc54-ef45-487c-a94f-948abb60dd65?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T12:54:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T13:35:02Z",
+      "updated_at": "2026-10-08T13:35:02Z",
+      "decay_at": "2026-10-10T00:54:56Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -208342,8 +208486,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1430,
-    "live_count": 30,
+    "surfaced_total": 1432,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
