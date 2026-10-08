@@ -1,0 +1,221 @@
+{
+  "schema_version": "1.0",
+  "ticker": "AMZN",
+  "original_decision_date": "2026-07-10",
+  "review_date": "2026-10-08",
+  "review_window": "90d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 238.34,
+  "tracking_price": null,
+  "review_price": 259.92,
+  "absolute_return_pct": 9.054292,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "price_basis": {
+    "instrument": "AMZN ordinary shares, NASDAQ, USD",
+    "anchor_as_of": "2026-07-01",
+    "review_as_of": "2026-10-07",
+    "source": "Stock Analysis AMZN daily history, 2026-10-07 completed close, accessed 2026-10-08, indicative/unverified; https://stockanalysis.com/stocks/amzn/history/",
+    "basis": "Price-only opportunity cost of an unexecuted Watchlist call; no short or long paper trade. Dividend-inclusive total return not established."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "",
+    "pre_mortem_verdict": "",
+    "pre_mortem_confidence_haircut": null,
+    "outcome_vs_verdict": "not_applicable",
+    "notes": "No pre_mortem*.json exists in this run folder."
+  },
+  "thesis_status": "broken",
+  "decision_quality": "genuine miss",
+  "error_taxonomy": [
+    "bad base rate",
+    "bad causal inference",
+    "valuation multiple error"
+  ],
+  "forecast_results": [
+    {
+      "prediction": "AWS segment margin compresses 100-300bp in FY2026 vs FY2025 (35.4%) as D&A from $131.8B capex wave flows through Technology & Infrastructure costs",
+      "status": "falsified",
+      "evidence": "Q2 AWS operating margin = 16,621 / 42,232 = 39.36%; derived Q1 = (30,782 - 16,621) / (79,819 - 42,232) = 37.68%, both above 35%. These two reported quarters fire the recorded early falsifier, although the full-year result is not known. [Amazon Q2 2026 10-Q, Note 10 segment information / Note 2 investments / Note 4 Globalstar / MD&A guidance, filed 2026-07-30; https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm]",
+      "as_of": "2026-10-08"
+    },
+    {
+      "prediction": "Q2 2026 consolidated EBIT lands in the $23-25B range (above $23.4B consensus mid-point) driven by AWS acceleration and advertising strength",
+      "status": "confirmed",
+      "evidence": "Q2 operating income was $27.461bn; Q3 guidance midpoint = ($22.5bn + $26.5bn) / 2 = $24.5bn. Both recorded confirmation thresholds ($24bn) clear. The prose prediction of $23\u201325bn was exceeded; this is confirmation of the frozen trigger, not accuracy of the narrower range. [Amazon Q2 2026 10-Q, Note 10 segment information / Note 2 investments / Note 4 Globalstar / MD&A guidance, filed 2026-07-30; https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm]",
+      "as_of": "2026-10-08"
+    },
+    {
+      "prediction": "Amazon's Anthropic $60.6B Level 3 investment is not marked down materially (>$15B reduction) in the next 12 months, keeping GAAP EPS noise elevated but not a shock",
+      "status": "still open",
+      "evidence": "No $15bn write-down in the reviewed quarter: Anthropic preferred-stock upward adjustments were $50.5bn in Q2. The twelve-month test remains open; later quarters were not inferred. [Amazon Q2 2026 10-Q, Note 10 segment information / Note 2 investments / Note 4 Globalstar / MD&A guidance, filed 2026-07-30; https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm]",
+      "as_of": "2026-10-08"
+    },
+    {
+      "prediction": "AMZN stock re-rates to $190-210 range within 12 months as the market prices in D&A cost pressure and the Anthropic noise becomes more visible",
+      "status": "still open",
+      "evidence": "The July 2027 window remains open. The October 7 indicative close of $259.92 exceeds the original $247 bull case; this alone cannot settle the two-quarter-end/margin conjunction. [Stock Analysis daily history, 2026-10-07, indicative/unverified; https://stockanalysis.com/stocks/amzn/history/]",
+      "as_of": "2026-10-08"
+    },
+    {
+      "prediction": "Amazon completes the Globalstar acquisition within 12 months, adding incremental satellite network risk and M&A integration distraction",
+      "status": "still open",
+      "evidence": "The filing expects a 2027 close, subject to conditions; it does not establish completion before July 2027. [Amazon Q2 2026 10-Q, Note 10 segment information / Note 2 investments / Note 4 Globalstar / MD&A guidance, filed 2026-07-30; https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm]",
+      "as_of": "2026-10-08"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "Q2 results and Q3 guidance, estimated July 31",
+      "status": "materialized",
+      "evidence": "Q2 operating income was $27.461bn; Q3 guidance midpoint = ($22.5bn + $26.5bn) / 2 = $24.5bn. Both recorded confirmation thresholds ($24bn) clear. The prose prediction of $23\u201325bn was exceeded; this is confirmation of the frozen trigger, not accuracy of the narrower range. [Amazon Q2 2026 10-Q, Note 10 segment information / Note 2 investments / Note 4 Globalstar / MD&A guidance, filed 2026-07-30; https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm] Actual release was July 30. [Amazon Q2 2026 earnings release, results and guidance, 2026-07-30; https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx]",
+      "as_of": "2026-10-08"
+    },
+    {
+      "catalyst": "Leo commercial launch, Q3 2026",
+      "status": "not assessable",
+      "evidence": "The July release discusses preparation for initial service this year, not proof of a Q3 commercial launch or cost capitalization. [Amazon Q2 2026 earnings release, results and guidance, 2026-07-30; https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx]",
+      "as_of": "2026-10-08"
+    },
+    {
+      "catalyst": "Q3 results and Q4 guidance, estimated October",
+      "status": "pending",
+      "evidence": "The original October window is unconfirmed; no Q3 results are available in the evidence inspected as of this review. [final_thesis.md \u00a77, frozen 2026-07-10; Amazon Q2 2026 10-Q, Note 10 segment information / Note 2 investments / Note 4 Globalstar / MD&A guidance, filed 2026-07-30; https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm]",
+      "as_of": "2026-10-08"
+    },
+    {
+      "catalyst": "US tariff policy, 2026",
+      "status": "not assessable",
+      "evidence": "No matched seller-GMV or tariff-sensitivity evidence acquired. [final_thesis.md \u00a77, 2026-07-10; evidence search cutoff 2026-10-08]",
+      "as_of": "2026-10-08"
+    },
+    {
+      "catalyst": "FTC decision, 2026\u201327",
+      "status": "not assessable",
+      "evidence": "No final remedy obtained; no inference of dismissal or breakup. [final_thesis.md \u00a77, 2026-07-10; evidence search cutoff 2026-10-08]",
+      "as_of": "2026-10-08"
+    },
+    {
+      "catalyst": "Buyback initiation, undated",
+      "status": "not assessable",
+      "evidence": "No post-decision authorization/execution evidence acquired. [final_thesis.md \u00a77, 2026-07-10; evidence search cutoff 2026-10-08]",
+      "as_of": "2026-10-08"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "D&A compression / AWS slowdown",
+      "status": "not materialized",
+      "evidence": "Q2 AWS operating margin = 16,621 / 42,232 = 39.36%; derived Q1 = (30,782 - 16,621) / (79,819 - 42,232) = 37.68%, both above 35%. These two reported quarters fire the recorded early falsifier, although the full-year result is not known. [Amazon Q2 2026 10-Q, Note 10 segment information / Note 2 investments / Note 4 Globalstar / MD&A guidance, filed 2026-07-30; https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm] The original Q2 <30% margin trigger did not fire; this does not remove future capex risk.",
+      "as_of": "2026-10-08"
+    },
+    {
+      "risk": "RF-ACC-001 Anthropic accounting noise",
+      "status": "materialized",
+      "evidence": "The Q2 release includes $53.4bn non-operating other income, primarily Anthropic; do not count it as operating earnings. [Amazon Q2 2026 earnings release, results and guidance, 2026-07-30; https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx]",
+      "as_of": "2026-10-08"
+    },
+    {
+      "risk": "RF-ACC-002 useful-life accounting; RF-OPS-001 quarterly D&A allocation",
+      "status": "not assessable",
+      "evidence": "Segment margin can be measured; it does not identify the lag or recover undisclosed segment D&A. [decision_record.json red flags, 2026-07-10; Amazon Q2 2026 10-Q, Note 10 segment information / Note 2 investments / Note 4 Globalstar / MD&A guidance, filed 2026-07-30; https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm]",
+      "as_of": "2026-10-08"
+    },
+    {
+      "risk": "RF-CAP-002 dormant buybacks / dilution",
+      "status": "not assessable",
+      "evidence": "No matched post-decision share-count/buyback analysis obtained. [decision_record.json, 2026-07-10; cutoff 2026-10-08]",
+      "as_of": "2026-10-08"
+    },
+    {
+      "risk": "Antitrust structural remedy and M&A execution",
+      "status": "not assessable",
+      "evidence": "Globalstar remains conditional in the filing; no closing or final antitrust remedy acquired. [Amazon Q2 2026 10-Q, Note 10 segment information / Note 2 investments / Note 4 Globalstar / MD&A guidance, filed 2026-07-30; https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm]",
+      "as_of": "2026-10-08"
+    }
+  ],
+  "lessons": [
+    "Price-only opportunity cost: (259.92 / 238.34 - 1) \u00d7 100 = 9.054292%. The July 1 anchor predates the July 10 decision by nine days. This is forgone upside on Watchlist, never a short loss. [Frozen decision_record.json, 2026-07-10; Stock Analysis AMZN history, 2026-10-07 close, accessed 2026-10-08, indicative/unverified; https://stockanalysis.com/stocks/amzn/history/]",
+    "No matched index total-return series was acquired. Web ETF adjusted-close anchors were inconsistent across cached snapshots; S&P 500 and Nasdaq 100 returns and relatives remain null. Raw price change is not benchmark-scoreable. [Market feed inspection and Yahoo Finance / Stock Analysis history, 2026-10-08]",
+    "Decision-time process defect: the frozen memo \u00a78 bull case was only $247, +3.6%, while requiring multiple conditions; \u00a75 compared implied profit growth with consolidated revenue history. These weaknesses existed before the print. New results explain the outcome, not the existence of those defects. [final_thesis.md \u00a7\u00a75,8, 2026-07-10]",
+    "The original JSON and memo have different forecast/kill lists. This review scores all five record forecasts literally, acknowledges the memo\u2019s different bearish Q2 call, and rewrites neither. [decision_record.json forecast_ledger; final_thesis.md \u00a719, frozen 2026-07-10]"
+  ],
+  "action_now": {
+    "label": "Keep watching",
+    "reason": "The original Watchlist no-entry call missed the near-term operating mechanism; a new valuation is needed before entry, regardless of the price rise."
+  },
+  "confidence_update": {
+    "before": 57,
+    "after": null,
+    "change_reason": "The margin falsifier fired, but no current valuation rerun or matched total-return series supports a numeric replacement conviction."
+  },
+  "next_check": {
+    "date": null,
+    "label": "Q3 results: AWS margin and Q4 operating guidance",
+    "trigger": "Recheck the original record\u2019s below-30% margin / cost-growth test and the memo\u2019s T&I cost-rate warning on matching Q3 data; do not treat the prior $247 bull target as a live valuation."
+  },
+  "learning": {
+    "why_right_or_wrong": "The operating-margin compression rationale failed its own early test while the stock rose above the entire original scenario range. This is a provisional false-negative diagnosis of a Watchlist, not a fictional executed loss or a new Buy rating.",
+    "error_source": "bad base rate; bad causal inference; valuation multiple error",
+    "rule_for_future": "At decision time, match profit-growth claims to segment profit history and ensure scenarios span an ordinary earnings surprise before computing expected return.",
+    "future_research_check": "For AMZN, recheck whether AWS operating-margin expansion can absorb capex and rebuild the scenario span before repeating the old D&A-compression/no-entry thesis."
+  },
+  "module_calibration_notes": {
+    "most_responsible": "valuation and earnings",
+    "most_accurate": "catalyst\u2019s recorded profit confirmation trigger cleared; its narrower range did not",
+    "missed_key_variable": "earnings and valuation: AWS absorption and scenario span",
+    "confidence_judgment": "57 was capped by weak edge, but the cap did not repair the decision-time base-rate mismatch.",
+    "evidence_partition": "Process judgments use only the frozen memo \u00a7\u00a75/8 and record conflicts; July 30 disclosures and October prices are outcome evidence."
+  },
+  "memo_delta": {
+    "summary": "The original Watchlist mechanism is broken at this checkpoint: reported AWS margins fire the early falsifier. Keep watching pending a new valuation.",
+    "thesis_delta_verdict": "broken",
+    "changed_sections": [
+      {
+        "section": "AWS margin / forecast ledger",
+        "original_claim": "D&A compresses AWS margins; sustained margins above 35% falsify.",
+        "new_evidence": "Q2 AWS operating margin = 16,621 / 42,232 = 39.36%; derived Q1 = (30,782 - 16,621) / (79,819 - 42,232) = 37.68%, both above 35%. These two reported quarters fire the recorded early falsifier, although the full-year result is not known. [Amazon Q2 2026 10-Q, Note 10 segment information / Note 2 investments / Note 4 Globalstar / MD&A guidance, filed 2026-07-30; https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm]",
+        "evidence_source": "Amazon Q2 2026 10-Q, Note 10 segment information / Note 2 investments / Note 4 Globalstar / MD&A guidance, filed 2026-07-30; https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+        "materiality_score": 90,
+        "impact_direction": "negative",
+        "impacted_modules": [
+          "earnings"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "Reconcile the named test and the matching reporting basis before any new decision.",
+        "rerun_command": "/research:earnings AMZN"
+      },
+      {
+        "section": "Q2 catalyst and scenario span",
+        "original_claim": "Q2 profit $23\u201325bn; original bull target $247.",
+        "new_evidence": "Q2 operating income was $27.461bn; Q3 guidance midpoint = ($22.5bn + $26.5bn) / 2 = $24.5bn. Both recorded confirmation thresholds ($24bn) clear. The prose prediction of $23\u201325bn was exceeded; this is confirmation of the frozen trigger, not accuracy of the narrower range. [Amazon Q2 2026 10-Q, Note 10 segment information / Note 2 investments / Note 4 Globalstar / MD&A guidance, filed 2026-07-30; https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm] The October 7 indicative close is $259.92.",
+        "evidence_source": "Amazon Q2 2026 10-Q, Note 10 segment information / Note 2 investments / Note 4 Globalstar / MD&A guidance, filed 2026-07-30; https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm; Stock Analysis AMZN history, 2026-10-07, indicative/unverified; https://stockanalysis.com/stocks/amzn/history/",
+        "materiality_score": 90,
+        "impact_direction": "mixed",
+        "impacted_modules": [
+          "catalyst",
+          "valuation"
+        ],
+        "rerun_recommended": true,
+        "rerun_reason": "Reconcile the named test and the matching reporting basis before any new decision.",
+        "rerun_command": "/research:valuation AMZN"
+      }
+    ],
+    "stage_one_comment": "Amazon remains a name to watch, but we should stop repeating the July explanation for staying out. Its next results showed that AWS was absorbing investment faster than the compression case allowed: the reported and derived quarterly margins both exceed the original early falsification threshold. The recorded profit confirmation test also passed, although the narrower forecast range understated the result. The shares are above the original bull target; that exposes an outcome the scenario set did not span, rather than establishing that the shares are cheap today. We took no Watchlist position, so this is missed upside, not a trading loss. The process lesson comes from the July memo itself: a small bull case and a profit-growth claim tested against consolidated revenue history were weak before the result arrived. Keep watching until earnings and valuation are reassessed. Full-year margins and the longer price forecast are not yet settled. No new numerical conviction is justified by this limited review.",
+    "watch_items": [
+      "Q3 AWS margin and matching revenue/cost data; exact release date unproven.",
+      "FY2026 margin test at annual reporting, estimated February 2027.",
+      "Anthropic accounting adjustments and Globalstar completion by the original July 2027 window."
+    ],
+    "management_questions": [
+      "What portion of AWS margin expansion reflects revenue absorption versus useful-life changes?",
+      "How does installed capacity translate into AWS billing relative to depreciation?",
+      "What assumptions explain the next-quarter operating guidance?",
+      "What milestones must precede Globalstar closing?"
+    ],
+    "memo_delta_file": "analyses/AMZN_2026-07-10/reviews/2026-10-08_90d_memo_delta.md"
+  }
+}
