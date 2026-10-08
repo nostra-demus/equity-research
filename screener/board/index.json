@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T10:41:57Z",
+  "generated_at": "2026-10-08T10:45:22Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-508",
@@ -532,6 +532,105 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-512",
+      "headline": "PepsiCo cuts earnings forecast as North American turnaround takes longer than expected",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/08/pepsico-pep-q3-2026-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T10:38:59Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "PepsiCo cut its earnings forecast due to a slower-than-expected turnaround in North America.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PepsiCo cut its earnings forecast due to a slower-than-expected turnaround in North America.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PepsiCo",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-513",
+      "headline": "TCS Q2 Results 2026 out: Revenue up 11.20% YoY, net profit stood at ₹13,884 cr | ₹12 per share dividend declared",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/tcs-q2-results-2026-out-revenue-up-11-20-yoy-net-profit-stood-at-rs-13-884-cr-rs-12-per-share-dividend-declared-11791454795124.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T10:27:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "TCS reported 11.2% revenue growth and Rs 13,884 crore profit with a Rs 12 dividend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TCS reported 11.2% revenue growth and Rs 13,884 crore profit with a Rs 12 dividend.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Consultancy Services",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1882,110 +1981,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-104",
-      "headline": "Petrobras arremata 19 blocos em leilão de concessão por R$3 bi",
-      "headline_en": "Petrobras wins 19 blocks in concession auction for R$3 billion",
-      "url": "https://www.reuters.com/pt/negocio/NZGUM54UTBPNBGNQHIGP7AKSSA-2026-10-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T21:38:14Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Petrobras acquired 19 oil blocks in a concession auction for R$3 billion, representing a major capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Petrobras acquired 19 oil blocks in a concession auction for R$3 billion, representing a major capital investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Petrobras",
-          "ticker": null,
-          "listing_country": "BR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-118",
-      "headline": "Broadcom Plans $50 Billion Financing for OpenAI Chips, WSJ Says",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/broadcom-plans-50-billion-financing-for-openai-chips-wsj-says",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T21:25:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Broadcom is reportedly planning $50 billion in financing to support OpenAI chip production.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Broadcom is reportedly planning $50 billion in financing to support OpenAI chip production.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex",
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Broadcom",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "OpenAI",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208218,9 +208213,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2102523,
-    "news_picked_today": 873,
-    "news_dropped_today": 5943
+    "news_seen_today": 2113617,
+    "news_picked_today": 886,
+    "news_dropped_today": 5978
   },
   "book_momentum": {
     "live_count": 8,
