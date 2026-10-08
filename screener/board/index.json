@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T16:55:35Z",
+  "generated_at": "2026-10-08T17:01:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-651",
@@ -166020,78 +166020,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-19fbf5765dfa",
-      "idea_version": "IDEAV-86c1624b1aaf9bde",
-      "idea_version_started_at": "2026-10-07T10:57:31Z",
-      "ticker": "ANTO",
-      "company": "Antofagasta",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Strike at Centinela mine will disrupt Antofagasta's copper output, cutting revenue and earnings.",
-      "why_now": "Unions announced strike start following failed contract talks on 2026-10-07.",
-      "conviction": 58,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-461a7dd1d4fd"
-      ],
-      "primary_source_event_id": "EVT-461a7dd1d4fd",
-      "source_headlines": [
-        "Unions at Chilean mine Centinela say contract dialogue with Antofagasta fails; will start strike"
-      ],
-      "source_headline": "Sindicatos de mina chilena Centinela dicen fracasa diálogo contractual con Antofagasta; iniciarán huelga",
-      "source_url": "https://www.reuters.com/es/negocio/2VZSW2U2PZK57II5QDZM4726XY-2026-10-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-07T05:01:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T10:57:31Z",
-      "updated_at": "2026-10-07T10:57:31Z",
-      "decay_at": "2026-10-08T17:01:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-e402cc95df0c",
       "idea_version": "IDEAV-429c2de77c7b4d0a",
       "idea_version_started_at": "2026-10-07T02:20:38Z",
@@ -168191,6 +168119,78 @@
       "surfaced_at": "2026-10-06T02:27:03Z",
       "updated_at": "2026-10-06T02:27:03Z",
       "decay_at": "2026-10-07T13:40:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-19fbf5765dfa",
+      "idea_version": "IDEAV-86c1624b1aaf9bde",
+      "idea_version_started_at": "2026-10-07T10:57:31Z",
+      "ticker": "ANTO",
+      "company": "Antofagasta",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Strike at Centinela mine will disrupt Antofagasta's copper output, cutting revenue and earnings.",
+      "why_now": "Unions announced strike start following failed contract talks on 2026-10-07.",
+      "conviction": 58,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-461a7dd1d4fd"
+      ],
+      "primary_source_event_id": "EVT-461a7dd1d4fd",
+      "source_headlines": [
+        "Unions at Chilean mine Centinela say contract dialogue with Antofagasta fails; will start strike"
+      ],
+      "source_headline": "Sindicatos de mina chilena Centinela dicen fracasa diálogo contractual con Antofagasta; iniciarán huelga",
+      "source_url": "https://www.reuters.com/es/negocio/2VZSW2U2PZK57II5QDZM4726XY-2026-10-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T05:01:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T10:57:31Z",
+      "updated_at": "2026-10-07T10:57:31Z",
+      "decay_at": "2026-10-08T17:01:05Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171320,9 +171320,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 573,
+    "total_count": 574,
     "shown_count": 500,
-    "hidden_count": 73,
+    "hidden_count": 74,
     "side_counts": {
       "long": {
         "total_count": 304,
@@ -171330,9 +171330,9 @@
         "hidden_count": 54
       },
       "short": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       }
     },
     "retention": {
@@ -171351,6 +171351,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-19fbf5765dfa",
+        "idea_version": "IDEAV-86c1624b1aaf9bde",
+        "idea_version_started_at": "2026-10-07T10:57:31Z",
+        "ticker": "ANTO",
+        "company": "Antofagasta",
+        "exchange": "LSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Strike at Centinela mine will disrupt Antofagasta's copper output, cutting revenue and earnings.",
+        "why_now": "Unions announced strike start following failed contract talks on 2026-10-07.",
+        "conviction": 58,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-461a7dd1d4fd"
+        ],
+        "primary_source_event_id": "EVT-461a7dd1d4fd",
+        "source_headlines": [
+          "Unions at Chilean mine Centinela say contract dialogue with Antofagasta fails; will start strike"
+        ],
+        "source_headline": "Sindicatos de mina chilena Centinela dicen fracasa diálogo contractual con Antofagasta; iniciarán huelga",
+        "source_url": "https://www.reuters.com/es/negocio/2VZSW2U2PZK57II5QDZM4726XY-2026-10-07/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-07T05:01:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-07T10:57:31Z",
+        "updated_at": "2026-10-07T10:57:31Z",
+        "decay_at": "2026-10-08T17:01:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-08T17:01:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b5f944e5cba6",
         "idea_version": "IDEAV-6449edd0b4c90a82",
@@ -208499,87 +208574,12 @@
         "archived_at": "2026-09-15T18:56:28Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-9151c385c64c",
-        "idea_version": "IDEAV-fb531805840aef11",
-        "idea_version_started_at": "2026-09-12T16:36:23Z",
-        "ticker": "SP",
-        "company": "Shapoorji Pallonji Group",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Tata Sons' potential public listing could negatively impact the Shapoorji Pallonji Group, which has historical ties and financial entanglements.",
-        "why_now": "News of Tata Sons' public listing plans emerged today, September 12, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e030e63dc659"
-        ],
-        "primary_source_event_id": "EVT-e030e63dc659",
-        "source_headlines": [
-          "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group"
-        ],
-        "source_headline": "Suspense ends! Tata Sons to go for public listing, directs RBI - Know how it will impact Shapoorji Pallonji group",
-        "source_url": "https://www.livemint.com/companies/news/rbi-rejects-tata-sons-deregistration-bid-listing-requirement-stays-11789218797955.html",
-        "source_name": "Mint",
-        "materiality_max": 99,
-        "newest_source_at": "2026-09-12T13:37:53Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-12T16:36:23Z",
-        "updated_at": "2026-09-12T16:36:23Z",
-        "decay_at": "2026-09-14T01:37:53Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T18:56:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1434,
-    "live_count": 26,
+    "live_count": 25,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -208598,9 +208598,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4614060,
-    "news_picked_today": 1265,
-    "news_dropped_today": 8791
+    "news_seen_today": 4679152,
+    "news_picked_today": 1266,
+    "news_dropped_today": 8838
   },
   "book_momentum": {
     "live_count": 8,
