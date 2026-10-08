@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T11:42:16Z",
+  "generated_at": "2026-10-08T11:46:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-528",
@@ -44,6 +44,55 @@
           "name": "XIN YUAN ENT",
           "ticker": "01748",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-531",
+      "headline": "PAKKA LIMITED: PAKKA LIMITED has informed the Exchange about Disclosure pursuant to Regulation 30 and other applicable provisions of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 Allotment of the Tranche 3 of unlisted, secured, unrated, redeemable non-convertible debentures ( NCDs ) of face value of INR 1,00,000, on a private placement basis, aggregating up to INR 50 Crores (Indian Rupees Fifty Crores Only) against the total issue of INR 540 Crores approved by the Boar",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/yashpakka_08102026165019_2610_NCD_Allotment_Outcome_08102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-08T11:20:27Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Company raised INR 50 Crores via non-convertible debentures as part of a larger INR 540 Crores issuance plan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company raised INR 50 Crores via non-convertible debentures as part of a larger INR 540 Crores issuance plan.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pakka Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "small",
@@ -1909,55 +1958,6 @@
         "size": 2,
         "recency": 4,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "LG Energy Solution",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-352",
-      "headline": "(LEAD) LG Energy Q3 operating profit up 25.7 pct on ESS demand",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261008001451320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T00:24:15Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "LG Energy reported a 25.7% increase in Q3 operating profit, a significant quantified performance update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "LG Energy reported a 25.7% increase in Q3 operating profit, a significant quantified performance update.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -208209,9 +208209,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2484228,
-    "news_picked_today": 954,
-    "news_dropped_today": 6342
+    "news_seen_today": 2496462,
+    "news_picked_today": 958,
+    "news_dropped_today": 6410
   },
   "book_momentum": {
     "live_count": 8,
