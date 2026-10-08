@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T12:15:28Z",
+  "generated_at": "2026-10-08T12:20:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-532",
@@ -881,6 +881,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-560",
+      "headline": "Viatris to buy pain therapy maker Pacira Biosciences for $1.65 billion",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/viatris-acquire-pacira-biosciences-165-billion-deal-2026-10-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T11:56:44Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Viatris is acquiring Pacira Biosciences for $1.65 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Viatris is acquiring Pacira Biosciences for $1.65 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viatris",
+          "ticker": "VTRS",
+          "listing_country": "US"
+        },
+        {
+          "name": "Pacira Biosciences",
+          "ticker": "PCRX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-553",
       "headline": "PepsiCo cuts forecast, deepens cost cuts as N.America recovery drags",
       "headline_en": null,
@@ -980,6 +1034,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-557",
+      "headline": "Tcs Q2 Results: TCS profit jumps 15% to ₹13,884cr, AI revenue tops $3.1bn; board announces ₹12 dividend",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/india-business/tcs-q2-results-net-profit-rises-15-to-rs-13884-crore-revenue-up-11/articleshow/134788770.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T11:35:38Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "TCS reported a 15% profit jump to ₹13,884cr and announced a ₹12 dividend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TCS reported a 15% profit jump to ₹13,884cr and announced a ₹12 dividend.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Consultancy Services",
+          "ticker": "TCS",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1885,104 +1989,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-385",
-      "headline": "Samsung flags $95.7 billion profit on AI boom, highest quarterly for any tech company",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/samsung-flags-95-7-billion-profit-on-ai-boom-highest-quarterly-for-any-tech-company",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T03:25:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Samsung reported a record $95.7 billion quarterly profit, a massive financial event for the tech sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung reported a record $95.7 billion quarterly profit, a massive financial event for the tech sector.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-358",
-      "headline": "Jubilant FoodWorks shares in focus after Q2 revenue rises 12%, Domino’s India LFL at 4%",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/jubilant-foodworks-share-price-q2-results-revenue-rises-dominos-india-lfl-20007223.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T02:27:26Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Jubilant FoodWorks reported a 12% revenue increase in Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Jubilant FoodWorks reported a 12% revenue increase in Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jubilant FoodWorks",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208364,9 +208370,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2686409,
-    "news_picked_today": 1011,
-    "news_dropped_today": 6597
+    "news_seen_today": 2699366,
+    "news_picked_today": 1024,
+    "news_dropped_today": 6632
   },
   "book_momentum": {
     "live_count": 8,
