@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T13:35:23Z",
+  "generated_at": "2026-10-08T13:39:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-561",
@@ -979,6 +979,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-610",
+      "headline": "Emera to Acquire Canadian Utilities for $10B",
+      "headline_en": null,
+      "url": "https://www.rigzone.com/news/emera_to_acquire_canadian_utilities_for_10b-08-oct-2026-184801-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T13:18:28Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Emera announced an acquisition of Canadian Utilities for $10 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Emera announced an acquisition of Canadian Utilities for $10 billion.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emera",
+          "ticker": null,
+          "listing_country": "CA"
+        },
+        {
+          "name": "Canadian Utilities",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-599",
       "headline": "EasyJet doubles winter flight cuts amid rising costs",
       "headline_en": null,
@@ -1932,55 +1986,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-435",
-      "headline": "Deloitte hit with £11m fine after missing £30m taxpayer fraud at UK transport giant",
-      "headline_en": null,
-      "url": "https://www.cityam.com/deloitte-hit-with-11m-fine-after-missing-30m-taxpayer-fraud-at-uk-transport-giant/",
-      "source_name": "City A.M.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T08:06:20Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Deloitte hit with a £11 million fine for audit failures related to a £30 million fraud.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Deloitte hit with a £11 million fine for audit failures related to a £30 million fraud.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Deloitte",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208506,9 +208511,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3180548,
-    "news_picked_today": 1101,
-    "news_dropped_today": 7227
+    "news_seen_today": 3225644,
+    "news_picked_today": 1109,
+    "news_dropped_today": 7243
   },
   "book_momentum": {
     "live_count": 8,
