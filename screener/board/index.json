@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T17:34:52Z",
+  "generated_at": "2026-10-08T17:42:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-651",
@@ -1131,6 +1131,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-654",
+      "headline": "Oryx Energies Sold for About $1 Billion in Management Buyout",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-08/oryx-energies-sold-for-about-1-billion-in-management-buyout",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T17:24:32Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Oryx Energies was sold in a management buyout for approximately $1 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oryx Energies was sold in a management buyout for approximately $1 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oryx Energies",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-647",
       "headline": "TCS Q2 Results: Net profit rises 15% to ₹13,884 crore, beats estimates",
       "headline_en": null,
@@ -1948,55 +1997,6 @@
           "name": "Tata Consultancy Services",
           "ticker": "TCS",
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-594",
-      "headline": "PepsiCo Lowers Guidance On Mounting Costs In North America",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/pepsico-lowers-guidance-on-mounting-costs-in-north-america-12156435#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T11:21:10Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "PepsiCo lowered its financial guidance due to rising costs in North America.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PepsiCo lowered its financial guidance due to rising costs in North America.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PepsiCo",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -208598,9 +208598,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5004359,
-    "news_picked_today": 1282,
-    "news_dropped_today": 9110
+    "news_seen_today": 5037045,
+    "news_picked_today": 1287,
+    "news_dropped_today": 9177
   },
   "book_momentum": {
     "live_count": 8,
