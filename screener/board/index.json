@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-08T05:22:10Z",
+  "generated_at": "2026-10-08T05:27:10Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261008-408",
+      "headline": "STEEL EXCHANGE INDIA LIMITED: STEEL EXCHANGE INDIA LIMITED has informed the Exchange regarding a press release dated October 08, 2026, titled \"Steel Exchange India Limited Clocks Approximately ₹340 Crore Revenue in Q2 FY27, up 45% YoY and 25% QoQ, Driven by Record Re-bar Production\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/STEELXIND_08102026100116_Intimation_of_Press_Release_08102026_Final_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-08T04:31:41Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Steel Exchange India Limited reported Q2 FY27 revenue of approximately ₹340 crore, representing a 45% YoY and 25% QoQ increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Steel Exchange India Limited reported Q2 FY27 revenue of approximately ₹340 crore, representing a 45% YoY and 25% QoQ increase.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "STEEL EXCHANGE INDIA LIMITED",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261008-300",
       "headline": "RCT: Bidder's Statement - Commencement of Despatch [price-sensitive]",
@@ -1954,60 +2003,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-194",
-      "headline": "US approves over $2bn in weapons sales to Egypt, Kuwait and UAE",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/news/us-approves-over-2bn-weapons-sales-egypt-kuwait-and-uae",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T19:10:19Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "The US government approved over $2 billion in weapons sales to Egypt, Kuwait, and the UAE.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The US government approved over $2 billion in weapons sales to Egypt, Kuwait, and the UAE.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lockheed Martin",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Raytheon",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208251,9 +208246,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 503626,
-    "news_picked_today": 608,
-    "news_dropped_today": 3280
+    "news_seen_today": 512171,
+    "news_picked_today": 618,
+    "news_dropped_today": 3318
   },
   "book_momentum": {
     "live_count": 8,
