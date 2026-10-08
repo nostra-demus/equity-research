@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-08T03:53:12Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-81aca63b0d76",
+    "idea_version": "IDEAV-025151df8b8179b2",
+    "idea_version_started_at": "2026-10-05T01:35:08Z",
+    "ticker": "SU",
+    "company": "Suncor Energy",
+    "exchange": "NYSE",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "Suncor is divesting its stakes in three Canadian East Coast offshore oil projects to Ithaca Energy for up to $1.5 billion ($1.08 billion base), streamlining its portfolio and generating substantial cash.",
+    "why_now": "The transaction was announced on October 5, 2026, providing an immediate cash catalyst.",
+    "conviction": 75,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 73,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 14,
+      "impact": 20,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 7,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-78473027df2b",
+      "EVT-5ef40eefbbea"
+    ],
+    "primary_source_event_id": "EVT-78473027df2b",
+    "source_headlines": [
+      "Suncor sells stakes in three Canadian East Coast oil projects for up to $1.5-billion",
+      "Suncor to sell Canadian offshore assets to Ithaca for $1.08 billion"
+    ],
+    "source_headline": "Suncor sells stakes in three Canadian East Coast oil projects for up to $1.5-billion",
+    "source_url": "https://www.theglobeandmail.com/business/article-suncor-sells-stakes-in-three-canadian-east-coast-oil-projects-for-up/",
+    "source_name": "The Globe and Mail",
+    "materiality_max": 100,
+    "newest_source_at": "2026-10-05T01:18:34Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-05T01:35:08Z",
+    "updated_at": "2026-10-05T01:35:08Z",
+    "decay_at": "2026-10-06T13:18:34Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
