@@ -10,177 +10,170 @@
   "tracking_price": null,
   "review_price": 15.66,
   "absolute_return_pct": 9.51049,
-  "benchmark_return_pct": 1.516711,
+  "benchmark_return_pct": null,
   "sector_return_pct": null,
-  "benchmark_relative_return_pct": 7.993779,
+  "benchmark_relative_return_pct": null,
   "sector_relative_return_pct": null,
   "thesis_status": "on-track",
   "forecast_results": [
     {
       "prediction": "Nu's Q3 2026 standalone revenue will be below US$5,936.74m.",
       "status": "still open",
-      "evidence": "The frozen test window is 2026-11-05 to 2026-11-20; the inspected pool has no Q3 2026 interim filing. No substitute quarter or new consensus is used. [NU_2026-09-01/decision_record.json, forecast ledger, 2026-09-01; data/NU/Filings inventory inspected 2026-10-07]",
+      "evidence": "The frozen outcome window is 2026-11-05 to 2026-11-20, after this review. The pool contains Q2/H1 filings, not a Q3 outcome. [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and review_schedule, 2026-09-01]",
       "as_of": "2026-10-07"
     },
     {
       "prediction": "Nu's Q3 2026 GAAP diluted EPS will be below US$0.22164.",
       "status": "still open",
-      "evidence": "The frozen test window is 2026-11-05 to 2026-11-20; the inspected pool has no Q3 2026 interim filing. No substitute quarter or new consensus is used. [NU_2026-09-01/decision_record.json, forecast ledger, 2026-09-01; data/NU/Filings inventory inspected 2026-10-07]",
+      "evidence": "The frozen outcome window is 2026-11-05 to 2026-11-20, after this review. The pool contains Q2/H1 filings, not a Q3 outcome. [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and review_schedule, 2026-09-01]",
       "as_of": "2026-10-07"
     }
   ],
   "catalyst_results": [
     {
-      "catalyst": "Brazilian presidential election, October 2026",
-      "status": "partly materialized; pending",
-      "evidence": "The first-round event was reported and associated with a Brazil-asset rally; the full October election and its credit/funding effects remain unresolved. [Web: Yahoo Finance syndicated David Moadel report, 2026-10-05, Brazil first-round election rally; https://finance.yahoo.com/markets/stocks/articles/nu-holdings-spikes-12-brazil-124525550.html (indicative, unverified; reported association, not a quantified causal attribution)]",
+      "catalyst": "October 2026 Brazilian presidential election",
+      "status": "pending",
+      "evidence": "The original month-only policy/funding/credit test remains unresolved; a share-price rise alone cannot establish the company-specific policy outcome. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
       "as_of": "2026-10-07"
     },
     {
-      "catalyst": "Q3 2026 results and call",
+      "catalyst": "Q3 results and call",
       "status": "pending",
-      "evidence": "November 12 is vendor-scheduled, issuer-unconfirmed in the frozen catalyst calendar. Judge the standalone Q3 filing in the November 5–20 forecast window. [NU_2026-09-01/final_thesis.md, Catalyst Calendar, 2026-09-01]",
+      "evidence": "12 November is vendor-scheduled, issuer-unconfirmed in the frozen thesis; the November forecast window has not opened. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
       "as_of": "2026-10-07"
     },
     {
-      "catalyst": "Brazil IBS/CBS financial-services tax start, 2027-01-01",
+      "catalyst": "Brazil IBS/CBS tax commencement, 2027-01-01",
       "status": "pending",
-      "evidence": "The effective date has not arrived; no newly sourced issuer estimate settles net earnings after mitigation. [NU_2026-09-01/final_thesis.md, Catalyst Calendar, 2026-09-01]",
+      "evidence": "Future date; no realised earnings-offset assessment is available. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
       "as_of": "2026-10-07"
     },
     {
-      "catalyst": "Margin-loan facility maturity, 2027-06-01",
+      "catalyst": "Margin-loan maturity, 2027-06-01",
       "status": "pending",
-      "evidence": "Contractual window remains ahead; no new refinancing outcome was obtained. [NU_2026-09-01/final_thesis.md, Catalyst Calendar, 2026-09-01]",
+      "evidence": "Future maturity; repayment/refinancing outcome not yet observable. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
       "as_of": "2026-10-07"
     },
     {
-      "catalyst": "Class A buyback authorization expiry, 2027-06-03",
+      "catalyst": "Buyback authorization expiry, 2027-06-03",
       "status": "pending",
-      "evidence": "Expiry remains ahead; authorization alone does not establish executed purchases or a lower diluted share count. [NU_2026-09-01/final_thesis.md, Catalyst Calendar, 2026-09-01]",
+      "evidence": "Future expiry; authorization does not establish execution. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
       "as_of": "2026-10-07"
     }
   ],
   "risk_results": [
     {
-      "risk": "RF-EARN-08-MATERIAL — Five High findings converge on one credit-cycle risk: spread durability, the raised FQ3 bar, lender-specific cash/accrual divergence, the US$991.046m deferred-tax benefit, and the US$504.700m downside-macro allowance bound. These are not proof of a misstatement.",
-      "status": "pending / not assessable",
-      "evidence": "No post-decision operating/audit filing obtained settles this risk. Preserve the original qualifiers: the earnings bound is not proof of misstatement and the audit-firm sanction concerned another issuer. [NU_2026-09-01/decision_record.json, red flags, 2026-09-01; data/NU/Filings inventory 2026-10-07]",
-      "as_of": "2026-10-07"
-    },
-    {
-      "risk": "RF-AUD-007 — KPMG Brazil was censured and fined US$700,000 by the PCAOB for work involving another issuer; Nu was not named. Nu's FY2023–FY2025 audit opinions were clean and FY2025 ICFR was effective.",
-      "status": "pending / not assessable",
-      "evidence": "No post-decision operating/audit filing obtained settles this risk. Preserve the original qualifiers: the earnings bound is not proof of misstatement and the audit-firm sanction concerned another issuer. [NU_2026-09-01/decision_record.json, red flags, 2026-09-01; data/NU/Filings inventory 2026-10-07]",
-      "as_of": "2026-10-07"
-    },
-    {
-      "risk": "The residual-income duration or required return is wrong; sustained residual earnings or a lower Group cost of equity could make US$8.47 too low.",
-      "status": "pending / not assessable",
-      "evidence": "The price rise does not prove a scope-matched Group required return or credit durability. The valuation-rate dispute was already explicit at decision time. [NU_2026-09-01/decision_record.json, killer risk and kill criteria, 2026-09-01]",
-      "as_of": "2026-10-07"
-    },
-    {
-      "risk": "Missing bank-specific regulatory capital, liquidity, asset-quality and provisioning evidence",
+      "risk": "Raised Q3 earnings bar / RF-EARN-08-MATERIAL",
       "status": "not assessable",
-      "evidence": "The inspected pool supplies no new completed bank-specific survival synthesis. Missing data is not evidence of distress. [NU_2026-09-01/memo.md, What We'd Need to Get More Confident, 2026-09-01; pool inventory 2026-10-07]",
+      "evidence": "No Q3 standalone IFRS revenue, diluted EPS, credit-cost or provision outcome is available. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "risk": "Group cost of equity / killer risk to Avoid",
+      "status": "not assessable",
+      "evidence": "No new group-wide post-tax USD rate build proves the 9.78% invalidation threshold; the September scope correction is a model correction, not a realised operating outcome. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "risk": "Bank-specific solvency",
+      "status": "not assessable",
+      "evidence": "Regulatory capital/liquidity and asset-quality coverage remains incomplete. This absence is not evidence of distress. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "risk": "Brazil policy, FX/rates and tax",
+      "status": "not assessable",
+      "evidence": "No sourced company-level realised effect settles the original triggers. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "risk": "RF-AUD-007",
+      "status": "not assessable",
+      "evidence": "No new Nu-specific audit finding was sourced. The original PCAOB action concerned another issuer; it remains a non-gate auditor-firm concern, not proof against Nu. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
+      "as_of": "2026-10-07"
+    },
+    {
+      "risk": "Liquidity/positioning and thesis timing",
+      "status": "not assessable",
+      "evidence": "The price has moved against Avoid, but the earnings and valuation causal tests remain unresolved. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
       "as_of": "2026-10-07"
     }
   ],
-  "decision_quality": "good process / bad luck or too early",
+  "decision_quality": "not assessable",
   "error_taxonomy": [],
   "lessons": [
-    "Review price: Web: Stock Analysis, NYSE:NU daily history, 2026-10-06 close US$15.66; https://stockanalysis.com/stocks/nu/history/ (indicative, unverified). Use the last completed common session, not the unfinished October 7 US session.",
-    "Frozen price US$14.30 is dated 2026-08-29, a Saturday; the history corroborates August 28 as its session. Anchor SPY to that same session. [NU_2026-09-01/decision_record.json, entry_price_source/timestamp, 2026-09-01; Web: Stock Analysis, NYSE:NU daily history, 2026-10-06 close US$15.66; https://stockanalysis.com/stocks/nu/history/ (indicative, unverified)]",
-    "Benchmark: Web: Stock Analysis, NYSEARCA:SPY daily history, 2026-08-28 adjusted close US$767.45 and 2026-10-06 adjusted close US$779.09; https://stockanalysis.com/etf/spy/history/ (indicative, unverified). Adjusted-close total-return proxy = (779.09/767.45 - 1) × 100 = 1.516711%; NU price return = (15.66/14.30 - 1) × 100 = 9.510490%; relative difference = 7.993779 percentage points. Proxy includes vendor adjustment conventions; NU figures track price return.",
-    "Sector return is null: the frozen record names no sector benchmark and the local market feed covers neither NU nor SPY. Do not invent a sector or replace relative results with raw returns.",
-    "Rejected / Avoid means no executed long or short. The rise is a foregone gain, not a realized short loss. A roughly 30-day price outcome cannot settle the 12-month valuation thesis or November earnings forecasts.",
-    "September 30 management denied pursuing Monzo and said its capital-allocation framework was unchanged. This is a stated position, not proof of future returns or of a reduced Group discount rate. [Nu Holdings Form 6-K, Statement Regarding Media Reports, 2026-09-30; https://www.sec.gov/Archives/edgar/data/1691493/000129281426004752/nu20260930_6k.htm]",
-    "Decision-time process judgments use only the frozen record/memo; October news is outcome evidence. No new bad-process finding is established.",
-    "The conservative effective decision-time conviction is 47/100 from the September 1 corrections metadata_recovery, rather than the frozen raw 53. No new pre-mortem ran in this run. [analyses/NU_2026-09-01/corrections.json, metadata_recovery and runtime written_at 2026-09-01]",
-    "Decision quality uses the too-early bucket: the no-position call missed the observed relative gain, while the on-track operating thesis remains unresolved. This is not a completed vindication of process. [frameworks/DECISION_LEDGER.md, §10; NU_2026-09-01/decision_record.json, frozen forecasts]"
+    "The original Avoid remains a no-entry call while both Q3 forecasts are unresolved. NU closed at US$15.66 on 6 October, 9.510490% above the frozen US$14.30 anchor; this is opportunity cost, not a short-position loss. No new Q3 filing or scope-matched Group cost-of-equity evidence was found in the reviewed pool. [Web: ChartExchange, NYSE NU Class A historical close, 2026-10-06, retrieved 2026-10-07 (indicative, unverified)](https://chartexchange.com/symbol/nyse-nu/historical/)",
+    "The return is (15.66 / 14.30 - 1) × 100 = 9.510490%, through the latest completed US close on 2026-10-06; the 2026-10-07 session is incomplete. The entry is the frozen vendor anchor dated 2026-08-29. [Web: ChartExchange, NYSE NU Class A historical close, 2026-10-06, retrieved 2026-10-07 (indicative, unverified)](https://chartexchange.com/symbol/nyse-nu/historical/)",
+    "The local market feed contains only FRED series. A same-window, independently verified SPY total-return pair was not obtained; sector_benchmark is blank. Benchmark, sector and relative returns remain null; the call is not benchmark-scoreable.",
+    "The 30-day window has not resolved the Q3 causal tests. Price opportunity cost cannot establish skill, luck or a genuine miss; decision quality remains not assessable. Avoid was never an executed short.",
+    "Both 55% miss probabilities are judgment and correlated; this review does not convert an unresolved forecast into an empirical success. [analyses/NU_2026-09-01/decision_record.json, forecast_ledger and review_schedule, 2026-09-01]"
   ],
   "module_calibration_notes": {
-    "most_responsible": "valuation: the required return, earnings fade and peer reconciliation drove Avoid.",
-    "most_accurate_so_far": "Not assessable before Q3 operating evidence.",
-    "missed_key_variable": "No proven new omission; the Group discount-rate/duration dispute was already the killer risk.",
-    "outcome_driver": "Post-decision price action and reported election association cannot establish earnings or valuation-model accuracy.",
-    "decision_time_confidence": "Retain the frozen published conviction as before; do not backfit a numeric haircut from a short price move. Data sufficiency was already capped by the missing bank framework."
+    "most_responsible": "valuation drove Avoid; earnings supplied the raised-bar hypothesis. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
+    "most_accurate_so_far": "Not assessable before Q3 and a matched Group rate outcome.",
+    "key_variable": "Durable residual earnings and a scope-matched Group cost of equity remain the falsifiers; do not use a Brazil CGU rate as a Group hurdle.",
+    "decision_time_calibration": "Effective frozen conviction was 47. The original counterevidence and unresolved prudential data already limited conviction; no post-decision price rise justifies a hindsight process penalty. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]"
   },
   "action_now": {
     "label": "Stay away",
-    "reason": "No new scope-matched valuation or operating/credit evidence clears the frozen Avoid bar. This limited review authorizes no trade and does not refresh fair value."
+    "reason": "Keep the original Avoid as a no-entry stance pending the Q3 credit/earnings and Group valuation tests; this is not a short instruction. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]"
   },
   "confidence_update": {
     "before": 47,
     "after": null,
-    "change_reason": "Q3 forecasts and the Group required-return dispute remain unresolved; a defensible review-time confidence score is not assessable."
+    "change_reason": "No resolved earnings/credit outcome or sourced Group rate supports a new numeric conviction; the effective decision-time haircut remains the reference."
   },
   "next_check": {
     "date": "2026-11-30",
-    "label": "90-day checkpoint after the Q3 revenue, diluted-EPS and credit test",
-    "trigger": "Read Q3 2026 standalone revenue and diluted EPS against US$5.93674bn / US$0.22164; test the stronger conjunction >US$6.11484bn / >US$0.23272 with same-basis year-on-year credit stability. The forecast window is November 5–20; November 12 remains issuer-unconfirmed."
+    "label": "Q3 standalone IFRS revenue, diluted EPS and same-basis credit outcomes at the 90-day checkpoint",
+    "trigger": "Settle revenue below/at or above US$5,936.74m and diluted EPS below/at or above US$0.22164 against standalone Q3 2025 US$4.173bn and US$0.1595; test the material dual-beat thresholds US$6.11484bn and US$0.23272 alongside credit. No reported stub exists. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]"
   },
   "learning": {
-    "why_right_or_wrong": "The frozen Avoid has a foregone price gain versus its anchor; its reason has neither been confirmed nor falsified because Q3 and the Group-rate test are unresolved. Reported election-linked buying is not proof of improved credit returns.",
+    "why_right_or_wrong": "Price has moved against the no-entry call, but its November forecasts and Group-rate falsifier are unresolved; an opportunity cost is observable, a causal verdict is not.",
     "error_source": "",
-    "rule_for_future": "Keep price outcome separate from operating-thesis outcome; retain the decision-time rate-scope caveat and positive tail rather than treating Avoid as a short.",
-    "future_research_check": "Obtain a matched Group post-tax USD required return, the Q3 standalone filing and bank prudential evidence before discussing a new NU decision."
-  },
-  "memo_delta": {
-    "summary": "Avoid remains provisional; price performance went against the no-position call while its decisive operating and valuation tests remain ahead.",
-    "thesis_delta_verdict": "too_early",
-    "stage_one_comment": "The original 2026-09-01 NU call remains Avoid, with no long or short position. As of the October 6 close, the stock is above the frozen US$14.30 anchor, so the no-position decision has a foregone gain. That price result has not settled the investment thesis. Both recorded Q3 miss forecasts are still open in their November 5–20 window, and the Group required-return assumption remains unresolved. The October first-round election was reported alongside buying in Brazilian assets; this does not prove better loan performance or durable returns. Management also denied pursuing Monzo on September 30. Keep the frozen valuation and its positive tail visible, preserve the credit and bank-prudential gaps, and obtain the Q3 standalone filing before revisiting the decision. Review-time confidence is not assessable.",
-    "changed_sections": [
-      {
-        "section": "Valuation and Fair Value",
-        "original_claim": "The frozen 12-month base fair value was US$8.472197, below the US$14.30 anchor; the positive tail acknowledged a lower Group required return.",
-        "new_evidence": "NU closed at US$15.66 on October 6; this changes the observed price outcome, not the frozen fair-value model.",
-        "evidence_source": "Web: Stock Analysis, NYSE:NU daily history, 2026-10-06 close US$15.66; https://stockanalysis.com/stocks/nu/history/ (indicative, unverified)",
-        "materiality_score": 55,
-        "impact_direction": "negative",
-        "impacted_modules": [
-          "valuation"
-        ],
-        "rerun_recommended": false,
-        "rerun_reason": "No module rerun is required by this limited outcome update.",
-        "rerun_command": ""
-      },
-      {
-        "section": "Catalysts",
-        "original_claim": "The October election was a future macro event; Q3 remained the decisive earnings/credit test.",
-        "new_evidence": "The first-round election event occurred and was reported alongside a Brazil-asset rally; the full election and economic consequences remain pending.",
-        "evidence_source": "Web: Yahoo Finance syndicated David Moadel report, 2026-10-05, Brazil first-round election rally; https://finance.yahoo.com/markets/stocks/articles/nu-holdings-spikes-12-brazil-124525550.html (indicative, unverified; reported association, not a quantified causal attribution)",
-        "materiality_score": 40,
-        "impact_direction": "mixed",
-        "impacted_modules": [
-          "catalyst"
-        ],
-        "rerun_recommended": false,
-        "rerun_reason": "No module rerun is required by this limited outcome update.",
-        "rerun_command": ""
-      }
-    ],
-    "watch_items": [
-      "Q3 2026 standalone revenue and diluted EPS in the November 5–20 forecast window, against the frozen bars and same-quarter 2025 basis.",
-      "Same-basis early/90+ delinquency, credit cost, ECL coverage and risk-adjusted NIM versus Q3 2025.",
-      "A sourced Group post-tax USD required return; never substitute a Brazil Investments CGU rate.",
-      "The remaining October election and subsequent company funding/credit disclosures; no causal earnings claim from price action alone.",
-      "January 1, 2027 tax start and subsequently disclosed mitigation; June 2027 facility maturity and buyback expiry."
-    ],
-    "management_questions": [
-      "What Group post-tax USD required return and profit-fade assumptions are defensible on one consistent scope?",
-      "What part of Q3 spread improvement survives after credit loss, funding and operating cost on a like-for-like basis?",
-      "Can you provide capital, liquidity and provisioning evidence for each material regulated perimeter?",
-      "How will the January 2027 tax change affect after-tax returns after measured price, mix and cost offsets?"
-    ],
-    "memo_delta_file": "analyses/NU_2026-09-01/reviews/2026-10-07_30d_memo_delta.md"
+    "rule_for_future": "Freeze the earnings bar and evaluate a premium lender using a matched Group rate plus realised credit outcomes; separate a no-entry opportunity cost from an executed short loss.",
+    "future_research_check": "For NU, recheck Q3 standalone IFRS revenue and diluted EPS against the frozen US$5,936.74m / US$0.22164 bars, same-basis credit outcomes, and a group-wide post-tax USD cost of equity before restating Avoid as confirmed."
   },
   "pre_mortem_check": {
     "pre_mortem_file": "",
     "pre_mortem_verdict": "",
     "pre_mortem_confidence_haircut": null,
     "outcome_vs_verdict": "not_applicable",
-    "notes": "no pre-mortem ran for this decision"
+    "notes": "No pre-mortem file exists in this targeted-rerun folder. The inherited effective confidence 47 remains, but it is not a new audit outcome. [analyses/NU_2026-08-31/corrections.json, 2026-09-01]"
+  },
+  "memo_delta": {
+    "summary": "The original Avoid remains a no-entry call while both Q3 forecasts are unresolved. NU closed at US$15.66 on 6 October, 9.510490% above the frozen US$14.30 anchor; this is opportunity cost, not a short-position loss. No new Q3 filing or scope-matched Group cost-of-equity evidence was found in the reviewed pool.",
+    "thesis_delta_verdict": "too_early",
+    "stage_one_comment": "Nu remains an Avoid while the next earnings and credit tests are unresolved. The latest completed US close was 15.66 dollars on 6 October, compared with the frozen 14.30-dollar anchor. That is a 9.51% opportunity cost for staying out, not a loss on an executed short. We cannot yet say whether the original valuation caution was right or wrong for its stated reason. The November forecasts still require standalone revenue and diluted EPS to be tested against the frozen consensus, alongside delinquency, credit cost and provisioning. A lower, properly scoped Group cost of equity could also weaken the call. Keep the no-entry stance under review, retain the effective decision-time conviction of 47 as the historical reference, and obtain the primary Q3 filing before changing the conclusion. No new numerical conviction or benchmark-relative performance claim is supported today.",
+    "changed_sections": [
+      {
+        "section": "Decision at a glance / current price",
+        "original_claim": "The memo used US$14.30, vendor as of 2026-08-29.",
+        "new_evidence": "Latest completed NYSE close is US$15.66 on 2026-10-06; anchor-relative opportunity cost is +9.510490%, without a verified benchmark total return.",
+        "evidence_source": "[Web: ChartExchange, NYSE NU Class A historical close, 2026-10-06, retrieved 2026-10-07 (indicative, unverified)](https://chartexchange.com/symbol/nyse-nu/historical/)",
+        "materiality_score": 45,
+        "impact_direction": "negative",
+        "impacted_modules": [
+          "valuation",
+          "catalyst"
+        ],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      }
+    ],
+    "watch_items": [
+      "Settle revenue below/at or above US$5,936.74m and diluted EPS below/at or above US$0.22164 against standalone Q3 2025 US$4.173bn and US$0.1595; test the material dual-beat thresholds US$6.11484bn and US$0.23272 alongside credit. No reported stub exists. [analyses/NU_2026-09-01/final_thesis.md, §§7, 9–10, 2026-09-01]",
+      "Confirm issuer Q3 reporting date; the frozen 12 November date is vendor-scheduled, not issuer-confirmed.",
+      "Obtain primary-regulator capital/liquidity returns for all material regulated perimeters.",
+      "Recheck the Group post-tax USD rate and direct-peer comparability before calling the premium excessive."
+    ],
+    "management_questions": [
+      "What group-wide post-tax USD cost of equity is appropriate, with beta and country-risk assumptions shown?",
+      "How did Q3 delinquency, credit cost and provision coverage change on the same reporting basis?",
+      "How much of Q3 profit reflects recurring operating income versus tax effects?",
+      "What are the capital and liquidity buffers across each material regulated entity?"
+    ],
+    "memo_delta_file": "analyses/NU_2026-09-01/reviews/2026-10-07_30d_memo_delta.md"
   }
 }
