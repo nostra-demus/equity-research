@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-08T11:03:43Z",
+  "generated_at": "2026-10-08T11:06:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261008-524",
+      "headline": "CHINA CBS INTL (00989): JOINT ANNOUNCEMENT (1) CLOSE OF THE UNCONDITIONAL MANDATORY CASH OFFER BY DL SECURITIES (HK) LIMITED FOR AND ON BEHALF OF GROUND GROUP (HONG KONG) CO., LIMITED TO ACQUIRE ALL THE ISSUED SHARES IN CHINA CHANGBAISHAN INTERNATIONAL HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED OR AGREED TO BE ACQUIRED BY THE OFFEROR AND PARTIES ACTING IN CONCERT WITH IT); (2) RESULTS OF THE OFFER; (3) SETTLEMENT OF THE OFFER; AND (4) PUBLIC FLOAT OF THE COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1008/2026100800977.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-08T10:59:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Completion of a mandatory cash offer for all issued shares of the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Completion of a mandatory cash offer for all issued shares of the company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHINA CHANGBAISHAN INTERNATIONAL HOLDINGS LIMITED",
+          "ticker": "00989",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261008-521",
       "headline": "CON AERO TECH (00232): ANNOUNCEMENT - (1) DESPATCH OF CHEQUES AND COMPLETION OF WIRE TRANSFERS FOR PAYMENT OF THE SPECIAL DIVIDEND ON DISPOSAL AND THE CASH DIVIDEND ON PROPERTY DISPOSAL; (2) WITHDRAWAL OF LISTING; AND (3) WINDING UP PROPOSAL",
@@ -1933,55 +1982,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-353",
-      "headline": "(2nd LD) Samsung's Q3 operating profit reaches new high of 107.4 tln won",
-      "headline_en": null,
-      "url": "https://en.yna.co.kr/view/AEN20261008000952320",
-      "source_name": "Yonhap News Agency — All News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T00:10:50Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Samsung reported a record-high Q3 operating profit of 107.4 trillion won, a major financial milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung reported a record-high Q3 operating profit of 107.4 trillion won, a major financial milestone.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208214,9 +208214,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2226231,
-    "news_picked_today": 911,
-    "news_dropped_today": 6097
+    "news_seen_today": 2249227,
+    "news_picked_today": 915,
+    "news_dropped_today": 6117
   },
   "book_momentum": {
     "live_count": 8,
