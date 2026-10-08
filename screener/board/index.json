@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T05:27:10Z",
+  "generated_at": "2026-10-08T05:28:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-408",
@@ -165366,6 +165366,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-4ba039a627fc",
+      "idea_version": "IDEAV-efc4f2805b65c377",
+      "idea_version_started_at": "2026-10-08T05:28:22Z",
+      "ticker": "SSNLF",
+      "company": "Samsung Electronics",
+      "exchange": "OTC Markets",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A 9-fold jump in Q3 profit driven by AI memory chip demand confirms a significant cyclical recovery in the semiconductor segment.",
+      "why_now": "The earnings estimate was released on 2026-10-07.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "sector_cycle",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-76ae520f8139",
+        "EVT-8c94a2dab8cf"
+      ],
+      "primary_source_event_id": "EVT-76ae520f8139",
+      "source_headlines": [
+        "Samsung Reaches New Profit Record With Memory Chip Windfall",
+        "REISSUE Samsung estimates nearly 9-fold jump in Q3 profit driven by AI"
+      ],
+      "source_headline": "Samsung Reaches New Profit Record With Memory Chip Windfall",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-07/samsung-reaches-new-profit-record-with-memory-chip-windfall",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T23:17:32Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T05:28:22Z",
+      "updated_at": "2026-10-08T05:28:22Z",
+      "decay_at": "2026-10-09T11:17:32Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-e0fd057ceca0",
       "idea_version": "IDEAV-9883cb5211945f80",
       "idea_version_started_at": "2026-10-07T20:55:35Z",
@@ -166796,77 +166868,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-d93816107e63",
-      "idea_version": "IDEAV-d42b0fc859b19166",
-      "idea_version_started_at": "2026-10-05T07:26:59Z",
-      "ticker": "V2RETAIL.NS",
-      "company": "V2 Retail",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "V2 Retail shares plunged on a Q2 business update indicating that a shift in the festive season is weighing on growth.",
-      "why_now": "The shares plunged 20% on October 5, 2026, following the Q2 business update.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-895299b8b1db"
-      ],
-      "primary_source_event_id": "EVT-895299b8b1db",
-      "source_headlines": [
-        "Crash alert! V2 Retail shares plunge 20% on Q2 business update; festive season shift weighs on growth"
-      ],
-      "source_headline": "Crash alert! V2 Retail shares plunge 20% on Q2 business update; festive season shift weighs on growth",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/crash-alert-v2-retail-shares-plunge-20-on-q2-business-update-festive-season-shift-weighs-on-growth/articleshow/134685984.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T04:36:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T07:26:59Z",
-      "updated_at": "2026-10-05T07:26:59Z",
-      "decay_at": "2026-10-06T16:36:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-6b2cd695b3aa",
       "idea_version": "IDEAV-87b8e00201af1c15",
       "idea_version_started_at": "2026-10-06T23:13:15Z",
@@ -167352,77 +167353,6 @@
       "surfaced_at": "2026-10-05T07:26:59Z",
       "updated_at": "2026-10-05T07:26:59Z",
       "decay_at": "2026-10-06T17:41:22Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a4e5cade50a0",
-      "idea_version": "IDEAV-4d77b71f1aeb86e1",
-      "idea_version_started_at": "2026-10-05T07:26:59Z",
-      "ticker": "MARICO.NS",
-      "company": "Marico",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Marico is optimistic about surpassing near-term guidance and sees margin improvement in its Q2 update.",
-      "why_now": "The stock gained on October 5, 2026, following the Q2 business update.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8b748000b7a3"
-      ],
-      "primary_source_event_id": "EVT-8b748000b7a3",
-      "source_headlines": [
-        "Marico Q2 Update: Co optimistic of surpassing near-term guidance, sees margin improvement; Stock gains"
-      ],
-      "source_headline": "Marico Q2 Update: Co optimistic of surpassing near-term guidance, sees margin improvement; Stock gains",
-      "source_url": "https://www.cnbctv18.com/market/marico-share-price-q2-biz-update-near-term-guidance-surpassing-gross-margin-improvement-kopra-prices-impact-20004424.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T04:35:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T07:26:59Z",
-      "updated_at": "2026-10-05T07:26:59Z",
-      "decay_at": "2026-10-06T16:35:08Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -169657,296 +169587,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-3a564694adb9",
-      "idea_version": "IDEAV-8811916078b6d2bb",
-      "idea_version_started_at": "2026-10-05T07:26:59Z",
-      "ticker": "VAU.AX",
-      "company": "Vanguard Australian Property",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The court has approved the scheme meeting and despatch of the scheme booklet for Vanguard Australian Property.",
-      "why_now": "The court approval was announced on October 5, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f4f7927af7c7"
-      ],
-      "primary_source_event_id": "EVT-f4f7927af7c7",
-      "source_headlines": [
-        "VAU: Court Approves Scheme Meeting and Scheme Booklet Despatch [price-sensitive]"
-      ],
-      "source_headline": "VAU: Court Approves Scheme Meeting and Scheme Booklet Despatch [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VAU?key=2924-03144417-6A1347686",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T05:06:11Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T07:26:59Z",
-      "updated_at": "2026-10-05T07:26:59Z",
-      "decay_at": "2026-10-06T17:06:11Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-cbb29109fa62",
-      "idea_version": "IDEAV-3e3b439d8d461221",
-      "idea_version_started_at": "2026-10-05T07:26:59Z",
-      "ticker": "TALK.L",
-      "company": "TalkTalk",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "BT Group is reportedly closing in on a deal to acquire embattled TalkTalk, suggesting a distressed situation for TalkTalk.",
-      "why_now": "The potential acquisition was reported on October 5, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ab289598947c"
-      ],
-      "primary_source_event_id": "EVT-ab289598947c",
-      "source_headlines": [
-        "BT closes in on deal for embattled TalkTalk"
-      ],
-      "source_headline": "BT closes in on deal for embattled TalkTalk",
-      "source_url": "https://www.ft.com/content/27d5abde-c1cd-4dc1-932f-4812a41a66c4",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T05:11:07Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T07:26:59Z",
-      "updated_at": "2026-10-05T07:26:59Z",
-      "decay_at": "2026-10-06T17:11:07Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3c5c5efb3f6a",
-      "idea_version": "IDEAV-ccf839fbe89a67be",
-      "idea_version_started_at": "2026-10-05T04:46:37Z",
-      "ticker": "V2RETAIL",
-      "company": "V2 Retail Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Shares have plunged 19% following a weak Q2 business update, suggesting the market is repricing growth expectations downward due to fundamental operational misses.",
-      "why_now": "The sharp 19% dislocation occurred on October 5, 2026, following the Q2 update; momentum often continues as analysts revise targets.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cddbac2a6f09"
-      ],
-      "primary_source_event_id": "EVT-cddbac2a6f09",
-      "source_headlines": [
-        "V2 Retail shares plunge 19% after Q2 business update | What lies ahead for investors?"
-      ],
-      "source_headline": "V2 Retail shares plunge 19% after Q2 business update | What lies ahead for investors?",
-      "source_url": "https://www.livemint.com/market/stock-market-news/v2-retail-shares-plunge-19-after-q2-business-update-what-lies-ahead-for-investors-11791173055240.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T04:23:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T04:46:37Z",
-      "updated_at": "2026-10-05T04:46:37Z",
-      "decay_at": "2026-10-06T16:23:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-737e5bc9f0da",
-      "idea_version": "IDEAV-d85caecac0ca1469",
-      "idea_version_started_at": "2026-10-05T04:46:37Z",
-      "ticker": "MARICO",
-      "company": "Marico Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is reporting double-digit revenue growth for the second quarter, signaling a recovery in consumption and volume growth in its core FMCG portfolio.",
-      "why_now": "The update was released on October 5, 2026, providing a fresh catalyst ahead of the full quarterly earnings release.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-81658ccffc83"
-      ],
-      "primary_source_event_id": "EVT-81658ccffc83",
-      "source_headlines": [
-        "Marico sees double-digit revenue growth in second quarter"
-      ],
-      "source_headline": "Marico sees double-digit revenue growth in second quarter",
-      "source_url": "https://www.thehindubusinessline.com/companies/marico-sees-double-digit-revenue-growth-in-second-quarter/article71545776.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T04:16:59Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T04:46:37Z",
-      "updated_at": "2026-10-05T04:46:37Z",
-      "decay_at": "2026-10-06T16:16:59Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-bb113d4666c7",
       "idea_version": "IDEAV-16095ccd3c16d796",
       "idea_version_started_at": "2026-10-06T04:16:10Z",
@@ -170085,78 +169725,6 @@
       "surfaced_at": "2026-10-03T16:21:41Z",
       "updated_at": "2026-10-06T02:05:34Z",
       "decay_at": "2026-10-07T13:07:35Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b19428ab6739",
-      "idea_version": "IDEAV-26af0ddb19db730f",
-      "idea_version_started_at": "2026-10-05T04:46:37Z",
-      "ticker": "LT",
-      "company": "Larsen & Toubro",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "L&T secured massive power transmission orders valued between ₹10,000-15,000 crore across India and the Middle East, significantly boosting its order book and revenue visibility.",
-      "why_now": "The contract win was announced on October 5, 2026, representing a major new commercial milestone.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1765e41a70aa"
-      ],
-      "primary_source_event_id": "EVT-1765e41a70aa",
-      "source_headlines": [
-        "L&T wins ₹10,000-15,000 crore power transmission orders in India, Middle East"
-      ],
-      "source_headline": "L&T wins ₹10,000-15,000 crore power transmission orders in India, Middle East",
-      "source_url": "https://economictimes.indiatimes.com/industry/energy/power/lt-wins-10000-15000-crore-power-transmission-orders-in-india-middle-east/articleshow/134685525.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-05T04:16:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T04:46:37Z",
-      "updated_at": "2026-10-05T04:46:37Z",
-      "decay_at": "2026-10-06T16:16:31Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170302,77 +169870,6 @@
       "surfaced_at": "2026-10-06T04:37:12Z",
       "updated_at": "2026-10-06T04:37:12Z",
       "decay_at": "2026-10-07T16:00:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-173140ce480e",
-      "idea_version": "IDEAV-0364cbc970698272",
-      "idea_version_started_at": "2026-10-05T04:46:37Z",
-      "ticker": "AURIONPRO",
-      "company": "Aurionpro Solutions",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a ₹150 crore follow-on order from a global hyperscaler, demonstrating strong momentum in its high-margin data center business segment.",
-      "why_now": "The press release detailing the follow-on order was issued on October 5, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-59ba556b2521"
-      ],
-      "primary_source_event_id": "EVT-59ba556b2521",
-      "source_headlines": [
-        "Aurionpro Solutions Limited: Aurionpro Solutions Limited has informed the Exchange regarding a press release dated October 05, 2026, titled \"Aurionpro Strengthens Data Centre Growth Momentum with ₹150 Crore Follow-on Order from Global Hyperscaler.\"."
-      ],
-      "source_headline": "Aurionpro Solutions Limited: Aurionpro Solutions Limited has informed the Exchange regarding a press release dated October 05, 2026, titled \"Aurionpro Strengthens Data Centre Growth Momentum with ₹150 Crore Follow-on Order from Global Hyperscaler.\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/AURIONPRO_05102026094233_ASL_Press_Release_final_1_SD.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-05T04:12:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T04:46:37Z",
-      "updated_at": "2026-10-05T04:46:37Z",
-      "decay_at": "2026-10-06T16:12:54Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170966,33 +170463,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 561,
+    "total_count": 553,
     "shown_count": 500,
-    "hidden_count": 61,
+    "hidden_count": 53,
     "side_counts": {
       "long": {
-        "total_count": 294,
+        "total_count": 289,
         "shown_count": 250,
-        "hidden_count": 44
+        "hidden_count": 39
       },
       "short": {
-        "total_count": 267,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 14
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 824,
-      "oldest_retained_at": "2026-09-11T09:46:12Z",
+      "evicted_count": 832,
+      "oldest_retained_at": "2026-09-11T23:04:08Z",
       "side_counts": {
         "long": {
-          "evicted_count": 545,
-          "oldest_retained_at": "2026-09-22T16:02:49Z"
+          "evicted_count": 550,
+          "oldest_retained_at": "2026-09-22T17:25:50Z"
         },
         "short": {
-          "evicted_count": 279,
-          "oldest_retained_at": "2026-09-11T09:46:12Z"
+          "evicted_count": 282,
+          "oldest_retained_at": "2026-09-11T23:04:08Z"
         }
       }
     },
@@ -175024,8 +174521,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T17:11:07Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-08T05:28:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -175099,8 +174596,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T17:06:11Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-08T05:28:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -175173,8 +174670,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T16:36:08Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-08T05:28:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -175247,8 +174744,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T16:35:08Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-08T05:28:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -175323,8 +174820,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T16:23:57Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-08T05:28:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -175398,8 +174895,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T16:16:59Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-08T05:28:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -175473,8 +174970,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T16:16:31Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-08T05:28:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -175547,8 +175044,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T16:12:54Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-08T05:28:26Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -208226,8 +207723,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1419,
-    "live_count": 33,
+    "surfaced_total": 1420,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
