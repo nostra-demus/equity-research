@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T09:42:53Z",
+  "generated_at": "2026-10-08T09:47:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-440",
@@ -335,6 +335,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-466",
+      "headline": "Insecticides India cuts FY27 growth outlook as weak monsoon hits agrochemical demand",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/insecticides-india-cuts-fy27-growth-outlook-weak-monsoon-expects-premium-products-support-h2-el-nino-q2-earnings-weather-conditions-rains-20007628.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T09:35:12Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Insecticides India cut its FY27 growth outlook due to weak monsoon-related demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Insecticides India cut its FY27 growth outlook due to weak monsoon-related demand.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Insecticides India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1951,60 +2000,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-256",
-      "headline": "Chevron Is Offloading Hess Midstream and Taking a $3 Billion to $4 Billion Hit. Here's What It Means for CVX Stock.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/07/chevron-is-offloading-hess-midstream-and-taking-a-3-billion-to-4-billion-hit-heres-what-it-means-for-cvx-stock/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T18:05:02Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Chevron is taking a $3 billion to $4 billion charge related to offloading Hess Midstream assets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Chevron is taking a $3 billion to $4 billion charge related to offloading Hess Midstream assets.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chevron",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Hess Midstream",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207737,9 +207732,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1826371,
-    "news_picked_today": 790,
-    "news_dropped_today": 5474
+    "news_seen_today": 1847055,
+    "news_picked_today": 799,
+    "news_dropped_today": 5489
   },
   "book_momentum": {
     "live_count": 8,
