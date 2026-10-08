@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-08T12:20:21Z",
+  "generated_at": "2026-10-08T12:21:27Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261008-561",
+      "headline": "Directions under Section 35 A read with Section 56 of the Banking Regulation Act, 1949 – Sri Mahatma Basaveshwar Co-operative Bank Ltd., Afzalpur",
+      "headline_en": null,
+      "url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63764",
+      "source_name": "Reserve Bank of India (RBI) — Press Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-08T11:50:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "The RBI has issued regulatory directions under Section 35 A against Sri Mahatma Basaveshwar Co-operative Bank Ltd., indicating significant operational or solvency risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The RBI has issued regulatory directions under Section 35 A against Sri Mahatma Basaveshwar Co-operative Bank Ltd., indicating significant operational or solvency risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sri Mahatma Basaveshwar Co-operative Bank Ltd.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261008-532",
       "headline": "BGR Energy Systems Limited: BGR Energy Systems Limited has informed the Exchange about Corporate Insolvency Resolution Process - Updates on Insolvency Proceeding - Order dated 07.10.2026.",
@@ -1940,55 +1989,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-321",
-      "headline": "Samsung Operating Profit Hits Record 107 Trillion Won on AI Memory Boom",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278445",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T04:04:37Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Samsung reported a record operating profit of 107 trillion won driven by AI memory demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung reported a record operating profit of 107 trillion won driven by AI memory demand.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208370,9 +208370,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2699366,
-    "news_picked_today": 1024,
-    "news_dropped_today": 6632
+    "news_seen_today": 2725160,
+    "news_picked_today": 1025,
+    "news_dropped_today": 6655
   },
   "book_momentum": {
     "live_count": 8,
