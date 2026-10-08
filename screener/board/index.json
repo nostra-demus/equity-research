@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-08T20:54:34Z",
+  "generated_at": "2026-10-08T20:56:46Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261008-670",
+      "headline": "OCC Assesses $350 Million Civil Money Penalty Against American Express",
+      "headline_en": null,
+      "url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-87.html",
+      "source_name": "Office of the Comptroller of the Currency — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-08T20:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "The OCC assessed a $350 million civil money penalty against American Express for anti-money laundering and internal control failures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The OCC assessed a $350 million civil money penalty against American Express for anti-money laundering and internal control failures.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "American Express",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261008-667",
       "headline": "S-4/A - Sono Group S.a r.l. (0002083142) (Filer)",
@@ -1932,60 +1981,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-610",
-      "headline": "Emera to Acquire Canadian Utilities for $10B",
-      "headline_en": null,
-      "url": "https://www.rigzone.com/news/emera_to_acquire_canadian_utilities_for_10b-08-oct-2026-184801-article/?rss=true",
-      "source_name": "Rigzone",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T13:18:28Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Emera announced an acquisition of Canadian Utilities for $10 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Emera announced an acquisition of Canadian Utilities for $10 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emera",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Canadian Utilities",
-          "ticker": null,
-          "listing_country": "CA"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208509,9 +208504,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6925120,
-    "news_picked_today": 1397,
-    "news_dropped_today": 10915
+    "news_seen_today": 6960364,
+    "news_picked_today": 1402,
+    "news_dropped_today": 10934
   },
   "book_momentum": {
     "live_count": 8,
