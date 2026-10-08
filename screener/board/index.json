@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T03:40:20Z",
+  "generated_at": "2026-10-08T03:42:20Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-300",
@@ -169,6 +169,55 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-385",
+      "headline": "Samsung flags $95.7 billion profit on AI boom, highest quarterly for any tech company",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/samsung-flags-95-7-billion-profit-on-ai-boom-highest-quarterly-for-any-tech-company",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T03:25:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Samsung reported a record $95.7 billion quarterly profit, a massive financial event for the tech sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung reported a record $95.7 billion quarterly profit, a massive financial event for the tech sector.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1965,56 +2014,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-341",
-      "headline": "Samsung projects $80 billion profit on AI boom, highest quarterly for any tech company",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/samsung-projects-80-billion-profit-on-ai-boom-highest-quarterly-for-any-tech-company-20007147.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T00:58:44Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Samsung projects record quarterly profit of $80 billion driven by AI demand, representing a quantified guidance raise for a mega-cap semiconductor and electronics leader.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Samsung projects record quarterly profit of $80 billion driven by AI demand, representing a quantified guidance raise for a mega-cap semiconductor and electronics leader.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": "005930",
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210122,9 +210121,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 284178,
-    "news_picked_today": 513,
-    "news_dropped_today": 2415
+    "news_seen_today": 287702,
+    "news_picked_today": 522,
+    "news_dropped_today": 2430
   },
   "book_momentum": {
     "live_count": 8,
