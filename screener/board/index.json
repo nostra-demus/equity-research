@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T03:49:20Z",
+  "generated_at": "2026-10-08T03:52:46Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-300",
@@ -1247,6 +1247,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-400",
+      "headline": "Opmobility révise ses objectifs 2026 et annonce des suppressions de postes en France et en Allemagne",
+      "headline_en": "Opmobility revises its 2026 targets and announces job cuts in France and Germany",
+      "url": "https://www.reuters.com/fr/affaires/opmobility-rvise-ses-objectifs-2026-et-annonce-des-suppressions-de-postes-en-2026-10-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T17:05:44Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Opmobility revised its 2026 targets downward and announced job cuts in France and Germany.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Opmobility revised its 2026 targets downward and announced job cuts in France and Germany.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Opmobility",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-285",
       "headline": "Brookfield to acquire 8 ESR logistics parks for $450 million",
       "headline_en": null,
@@ -1959,57 +2009,6 @@
         {
           "name": "SpaceX",
           "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-189",
-      "headline": "UPS Worker Missed Email, Letting China Get F-35 Parts",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/ups-worker-missed-security-email-letting-china-get-f-35-parts",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T19:17:08Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "A UPS employee error enabled unauthorized export of classified F-35 components to China, creating regulatory enforcement and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "A UPS employee error enabled unauthorized export of classified F-35 components to China, creating regulatory enforcement and reputational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 76,
-      "rank_factors": {
-        "materiality": 76,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "regulatory",
-        "operations",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "United Parcel Service",
-          "ticker": "UPS",
           "listing_country": "US"
         }
       ],
@@ -210121,9 +210120,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 305154,
-    "news_picked_today": 532,
-    "news_dropped_today": 2468
+    "news_seen_today": 312145,
+    "news_picked_today": 543,
+    "news_dropped_today": 2481
   },
   "book_momentum": {
     "live_count": 8,
