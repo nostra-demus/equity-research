@@ -6,9 +6,11 @@ import type { ArchivedBoardIdea, BoardIdea, SupplyChainLead } from '../../lib/ty
 import { NewsLeadCard } from './BestIdeasView'
 import { ChainCard } from './ChainLane'
 import { usePersonalScope } from '../../lib/personalScope'
+import { ThemesReadingPanel } from './ThemesReadingPanel'
 import { ReadingAnchor } from '../../lib/ReadingAnchor'
 
-const TABS: { id: IdeaLane; label: string }[] = [
+const TABS: { id: IdeaLane | 'themes'; label: string }[] = [
+  { id: 'themes', label: 'Themes' },
   { id: 'events', label: 'Events' }, { id: 'long', label: 'Long' }, { id: 'short', label: 'Short' },
   { id: 'chain', label: 'Chain' }, { id: 'archives', label: 'Idea archives' },
 ]
@@ -49,7 +51,7 @@ export function EventsCard({ card }: { card: DiscoveryCard }) {
 export function IdeasWorkspace() {
   const staticMode = useStore((s) => s.staticMode)
   const lane = useStore((s) => s.ideasLane)
-  const personal = usePersonalScope(lane !== 'events')
+  const personal = usePersonalScope(lane !== 'events' && lane !== 'themes')
   const matches = useCallback((card: DiscoveryCard) => card.kind === 'event' || (card.kind === 'chain'
     ? personal.company(String(card.payload.symbol || ''), String(card.payload.name || ''), card.listings.long)
     : personal.company(String(card.payload.ticker || ''), String(card.payload.company || ''), card.listings.long)
@@ -91,6 +93,7 @@ export function IdeasWorkspace() {
   }
 
   const load = useCallback(async (refresh = false, more = false, background = false) => {
+    if (lane === 'themes') return
     const seq = ++sequence.current
     pending.current = true
     setLoading(true)
@@ -140,6 +143,7 @@ export function IdeasWorkspace() {
 
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; sequence.current++ } }, [])
   useEffect(() => {
+    if (lane === 'themes') return
     void load(false, false, !!pageRef.current)
     const refreshVisible = () => { if (document.visibilityState === 'visible' && !pending.current) void load(false, false, true) }
     const timer = setInterval(refreshVisible, 30_000)
@@ -180,13 +184,14 @@ export function IdeasWorkspace() {
           e.preventDefault(); setLane(TABS[next].id); document.getElementById(`ideas-${TABS[next].id}-tab`)?.focus()
         }}>{tab.label}</button>)}
     </div>
-    <div className="discovery-filters" role="group" aria-label="Listing market exclusions">
+    {lane !== 'themes' && <div className="discovery-filters" role="group" aria-label="Listing market exclusions">
       {([['HK', 'Hong Kong'], ['IN', 'India']] as const).map(([market, label]) => <label key={market}>
         <input type="checkbox" checked={hidden.includes(market)} onChange={(e) => changeHidden(e.target.checked ? [...hidden, market] : hidden.filter((m) => m !== market))} />Hide {label} listings
       </label>)}
       <button type="button" onClick={() => changeHidden([])}>Show all markets</button>
       {lane === 'events' && <small>Company cards only · global events stay visible</small>}
-    </div>
+    </div>}
+    {lane === 'themes' ? <ThemesReadingPanel viewport={viewport} /> : <>
     {undo && <div className="discovery-notice" role="status">Saved to Idea archives. <button type="button" disabled={!!busy} onClick={() => void file(undo, 'restore')}>Undo</button><button type="button" aria-label="Dismiss undo notice" onClick={() => setUndo(null)}>×</button></div>}
     {error && <div className="bideas__fetch bideas__fetch--bad" role="alert">{error} {page && 'Showing the last loaded cards.'}<button type="button" disabled={loading} onClick={() => void load()}>Retry</button></div>}
     <section role="tabpanel" id={`ideas-${lane}-panel`} aria-labelledby={`ideas-${lane}-tab`} aria-busy={!page && loading}>
@@ -218,5 +223,6 @@ export function IdeasWorkspace() {
       })}</div>
       {page?.next_cursor && <button type="button" className="discovery-more" disabled={loadingMore} onClick={() => { count.current = Math.max(count.current, visibleRows.length) + 30; void load(false, true) }}>{loadingMore ? 'Loading…' : 'Show more'}</button>}
     </section>
+    </>}
   </div></ReadingAnchor>
 }
