@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T02:42:25Z",
+  "generated_at": "2026-10-08T02:52:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-300",
@@ -193,6 +193,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-358",
+      "headline": "Jubilant FoodWorks shares in focus after Q2 revenue rises 12%, Domino’s India LFL at 4%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/jubilant-foodworks-share-price-q2-results-revenue-rises-dominos-india-lfl-20007223.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T02:27:26Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Jubilant FoodWorks reported a 12% revenue increase in Q2.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Jubilant FoodWorks reported a 12% revenue increase in Q2.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Jubilant FoodWorks",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-364",
+      "headline": "‘The best address in Singapore’: Why Malaysia’s IOI Properties is betting billions on the CBD",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/the-best-address-in-singapore-why-malaysias-ioi-properties-is-betting-billions-on-the-cbd",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T02:03:58Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "IOI Properties is committing billions to a major real estate development in Singapore's CBD.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "IOI Properties is committing billions to a major real estate development in Singapore's CBD.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IOI Properties",
+          "ticker": null,
+          "listing_country": "MY"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-311",
       "headline": "Samsung Q3 profit jumps nearly 9 times to $80bn in AI chip boom",
       "headline_en": null,
@@ -232,6 +330,55 @@
       "companies": [
         {
           "name": "Samsung Electronics",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-360",
+      "headline": "Samsung projects nearly nine-fold jump in Q3 operating profit on AI chip demand",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/samsung-projects-nearly-nine-fold-jump-in-q3-operating-profit-on-ai-chip-demand/article71558197.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T01:57:14Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Samsung projects a nine-fold increase in Q3 operating profit driven by AI chip demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung projects a nine-fold increase in Q3 operating profit driven by AI chip demand.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung",
           "ticker": null,
           "listing_country": "KR"
         }
@@ -1858,158 +2005,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-111",
-      "headline": "Loans set to get dearer as RBI hikes repo rate after 44 months",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/loans-set-to-get-dearer-as-rbi-hikes-repo-rate-after-44-months/articleshow/134774530.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T21:21:11Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "The RBI hiked the repo rate for the first time in 44 months, increasing borrowing costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The RBI hiked the repo rate for the first time in 44 months, increasing borrowing costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-330",
-      "headline": "Japan beer giants raided over alleged price-fixing cartel",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cm5yn3592xk9o?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T00:53:46Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Japanese beer companies are under investigation for alleged price-fixing, which poses significant regulatory and legal risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Japanese beer companies are under investigation for alleged price-fixing, which poses significant regulatory and legal risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Asahi Group",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Kirin Holdings",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Sapporo Holdings",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-089",
-      "headline": "Fortescue Flags Lower Iron Ore Sales as China Dispute Drags On",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-07/fortescue-flags-lower-iron-ore-sales-as-china-dispute-drags-on",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T22:46:37Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Fortescue flagged lower iron ore sales due to a China dispute, directly impacting revenue expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Fortescue flagged lower iron ore sales due to a China dispute, directly impacting revenue expectations.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fortescue",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210122,9 +210117,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 136700,
-    "news_picked_today": 425,
-    "news_dropped_today": 2095
+    "news_seen_today": 161914,
+    "news_picked_today": 444,
+    "news_dropped_today": 2124
   },
   "book_momentum": {
     "live_count": 8,
