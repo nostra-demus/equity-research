@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T13:04:15Z",
+  "generated_at": "2026-10-08T13:08:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-561",
@@ -930,6 +930,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-597",
+      "headline": "Viatris to Buy Pacira BioSciences for $1.65 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/health/pharma/viatris-to-buy-pacira-biosciences-for-1-65-billion-0ba22d4d?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T12:48:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Viatris to acquire Pacira BioSciences for $1.65 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Viatris to acquire Pacira BioSciences for $1.65 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viatris",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Pacira BioSciences",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-584",
       "headline": "TCS Q2 Results Highlights: Profit beats estimates; AI revenue tops $3 billion; deal wins at $9.6 billion",
       "headline_en": null,
@@ -1133,60 +1187,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-554",
-      "headline": "Viatris to acquire Pacira Biosciences in $1.65 billion deal",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/litigation/viatris-acquire-pacira-biosciences-165-billion-deal-2026-10-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T11:50:40Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Viatris is acquiring Pacira Biosciences in a deal valued at $1.65 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Viatris is acquiring Pacira Biosciences in a deal valued at $1.65 billion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Viatris",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Pacira Biosciences",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164515,75 +164515,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e402cc95df0c",
-      "idea_version": "IDEAV-429c2de77c7b4d0a",
-      "idea_version_started_at": "2026-10-07T02:20:38Z",
-      "ticker": "BHP",
-      "company": "BHP Group",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "BHP Group has reported a transaction regarding its Kambalda Nickel Concentrator, which could optimize its asset portfolio and operational efficiency.",
-      "why_now": "The transaction was reported as price-sensitive information on October 7, 2026, indicating a fresh catalyst for the stock.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 76,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6a541f65451b"
-      ],
-      "primary_source_event_id": "EVT-6a541f65451b",
-      "source_headlines": [
-        "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]"
-      ],
-      "source_headline": "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LM8?key=2924-03145473-6A1348080",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-07T01:04:55Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T02:20:38Z",
-      "updated_at": "2026-10-07T02:20:38Z",
-      "decay_at": "2026-10-08T13:04:55Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c8b3d2de9e46",
       "idea_version": "IDEAV-fadd4c8a325cf698",
       "idea_version_started_at": "2026-10-07T03:42:33Z",
@@ -166589,6 +166520,75 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-e402cc95df0c",
+      "idea_version": "IDEAV-429c2de77c7b4d0a",
+      "idea_version_started_at": "2026-10-07T02:20:38Z",
+      "ticker": "BHP",
+      "company": "BHP Group",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "BHP Group has reported a transaction regarding its Kambalda Nickel Concentrator, which could optimize its asset portfolio and operational efficiency.",
+      "why_now": "The transaction was reported as price-sensitive information on October 7, 2026, indicating a fresh catalyst for the stock.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6a541f65451b"
+      ],
+      "primary_source_event_id": "EVT-6a541f65451b",
+      "source_headlines": [
+        "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]"
+      ],
+      "source_headline": "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LM8?key=2924-03145473-6A1348080",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T01:04:55Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T02:20:38Z",
+      "updated_at": "2026-10-07T02:20:38Z",
+      "decay_at": "2026-10-08T13:04:55Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-ce779af9c495",
@@ -171101,14 +171101,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 563,
+    "total_count": 564,
     "shown_count": 500,
-    "hidden_count": 63,
+    "hidden_count": 64,
     "side_counts": {
       "long": {
-        "total_count": 295,
+        "total_count": 296,
         "shown_count": 250,
-        "hidden_count": 45
+        "hidden_count": 46
       },
       "short": {
         "total_count": 268,
@@ -171132,6 +171132,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e402cc95df0c",
+        "idea_version": "IDEAV-429c2de77c7b4d0a",
+        "idea_version_started_at": "2026-10-07T02:20:38Z",
+        "ticker": "BHP",
+        "company": "BHP Group",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "BHP Group has reported a transaction regarding its Kambalda Nickel Concentrator, which could optimize its asset portfolio and operational efficiency.",
+        "why_now": "The transaction was reported as price-sensitive information on October 7, 2026, indicating a fresh catalyst for the stock.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 76,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6a541f65451b"
+        ],
+        "primary_source_event_id": "EVT-6a541f65451b",
+        "source_headlines": [
+          "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]"
+        ],
+        "source_headline": "LM8: BHP Reports Kambalda Nickel Concentrator Transaction [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LM8?key=2924-03145473-6A1348080",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-07T01:04:55Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-07T02:20:38Z",
+        "updated_at": "2026-10-07T02:20:38Z",
+        "decay_at": "2026-10-08T13:04:55Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-08T13:04:55Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-ea338eeb2104",
         "idea_version": "IDEAV-0e7b7078e1435ae1",
@@ -198679,80 +198751,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-b4c40d311f62",
-        "idea_version": "IDEAV-498376c33123426a",
-        "idea_version_started_at": "2026-09-26T19:03:28Z",
-        "ticker": "RRKABEL",
-        "company": "R R Kabel Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "R R Kabel has executed a definitive Business Transfer Agreement to acquire the business undertaking of U M Cables Limited, expanding its manufacturing footprint and product portfolio.",
-        "why_now": "The execution of the acquisition agreement was officially disclosed in an exchange filing on September 25, 2026.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1825b4c4e719"
-        ],
-        "primary_source_event_id": "EVT-1825b4c4e719",
-        "source_headlines": [
-          "R R Kabel Limited: RRKABEL: R R Kabel Limited has informed the Exchange about the execution of the Business Transfer Agreement for purchase and acquisition of the Business Undertaking of U M Cables Limited by the Company."
-        ],
-        "source_headline": "R R Kabel Limited: RRKABEL: R R Kabel Limited has informed the Exchange about the execution of the Business Transfer Agreement for purchase and acquisition of the Business Undertaking of U M Cables Limited by the Company.",
-        "source_url": "https://nsearchives.nseindia.com/corporate/RRKL1995_25092026165354_Intimation_Reg_30_BTA.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-25T11:24:54Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-26T19:03:28Z",
-        "updated_at": "2026-09-26T19:03:28Z",
-        "decay_at": "2026-09-26T23:24:54Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-28T11:25:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-111ec83cfb59",
         "idea_version": "IDEAV-a9aa0b416610b566",
         "idea_version_started_at": "2026-09-25T05:48:29Z",
@@ -208351,7 +208349,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1430,
-    "live_count": 33,
+    "live_count": 32,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -208370,9 +208368,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2943102,
-    "news_picked_today": 1067,
-    "news_dropped_today": 7045
+    "news_seen_today": 2987154,
+    "news_picked_today": 1073,
+    "news_dropped_today": 7063
   },
   "book_momentum": {
     "live_count": 8,
