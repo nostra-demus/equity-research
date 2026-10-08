@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T00:25:05Z",
+  "generated_at": "2026-10-08T00:32:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-034",
@@ -46,6 +46,105 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-040",
+      "headline": "Sindicatos de mina chilena Centinela inician huelga",
+      "headline_en": "Unions at Chilean mine Centinela begin strike",
+      "url": "https://www.reuters.com/es/negocio/2VZSW2U2PZK57II5QDZM4726XY-2026-10-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T23:34:53Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Workers at the Centinela mine in Chile have initiated a strike, creating a supply shock for copper production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Workers at the Centinela mine in Chile have initiated a strike, creating a supply shock for copper production.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Centinela",
+          "ticker": null,
+          "listing_country": "CL"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-038",
+      "headline": "TikTok Accused by NY of Running Secret Safety Tests on Teens",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/tiktok-accused-by-ny-of-running-secret-safety-tests-on-teens",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T23:31:19Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "TikTok faces potential regulatory and legal risk following accusations of secret safety testing on minors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "TikTok faces potential regulatory and legal risk following accusations of secret safety testing on minors.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TikTok",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -100,6 +199,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-037",
+      "headline": "Fortescue iron ore sales slump as China cranks up the pressure",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/mining/fortescue-iron-ore-sales-slump-as-china-cranks-up-the-pressure-20261008-p613sf?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T23:43:29Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Fortescue faces pressure from declining iron ore sales in China, a key market for its revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Fortescue faces pressure from declining iron ore sales in China, a key market for its revenue.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fortescue",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-041",
+      "headline": "US lobbies allies to cut ties to anti-disinformation conference over panel critical of Washington, sources say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/americas/us-lobbies-allies-cut-ties-anti-disinformation-conference-over-panel-critical-2026-10-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T23:33:43Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "US diplomatic efforts to isolate a conference panel indicate heightened geopolitical and regulatory friction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "US diplomatic efforts to isolate a conference panel indicate heightened geopolitical and regulatory friction.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-036",
       "headline": "Robot data startup Mecka AI nabs $60M from Sequoia",
       "headline_en": null,
@@ -144,6 +335,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-039",
+      "headline": "Banco Central peruano mantiene tasa en 4,25% por más de un año, contrario a expectativas",
+      "headline_en": "Peruvian Central Bank maintains rate at 4.25% for more than a year, contrary to expectations",
+      "url": "https://www.reuters.com/es/negocio/6L2SKJ73PNMC7PVUUMAZM3F7W4-2026-10-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T23:41:43Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "The Central Bank of Peru maintained its interest rate at 4.25%, contrary to market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "The Central Bank of Peru maintained its interest rate at 4.25%, contrary to market expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307,6 +541,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-049",
+      "headline": "Safe Pro Expects Record 2,300% Revenue Growth in Q3 2026 Driven by Multiple Government Contracts for AI-Powered Threat Detection and Mapping",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/07/3376435/0/en/safe-pro-expects-record-2-300-revenue-growth-in-q3-2026-driven-by-multiple-government-contracts-for-ai-powered-threat-detection-and-mapping.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-07T12:02:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Company expects 2,300% revenue growth in Q3 2026 due to new government contracts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Company expects 2,300% revenue growth in Q3 2026 due to new government contracts.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Safe Pro",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -615,20 +898,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261008-002",
-      "headline": "Parabolic Announces Preliminary Q3 2026 Revenue of $4.7 Million; Representing 106% Sequential Revenue Growth | PARA Stock News",
+      "inbox_id": "INB-20261008-048",
+      "headline": "TOYO Celebrates Completed 2 GW Module Expansion at Texas Facility with Ribbon-Cutting Ceremony | TOYO Stock News",
       "headline_en": null,
-      "url": "https://www.stocktitan.net/news/PARA/parabolic-announces-preliminary-q3-2026-revenue-of-4-7-million-wuaho5e6ddgx.html",
+      "url": "https://www.stocktitan.net/news/TOYO/toyo-celebrates-completed-2-gw-module-expansion-at-texas-facility-3bu1t8cl04r4.html",
       "source_name": "Stock Titan — Latest News",
       "input_nature": "company_press_release",
-      "found_at": "2026-10-07T14:15:00Z",
+      "found_at": "2026-10-07T12:00:00Z",
       "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Parabolic reported preliminary Q3 2026 revenue of $4.7 million, reflecting 106% sequential growth.",
+      "prelim_note": "Completion of a 2 GW module manufacturing expansion in Texas.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 51,
-      "triage_reason": "Parabolic reported preliminary Q3 2026 revenue of $4.7 million, reflecting 106% sequential growth.",
+      "triage_reason": "Completion of a 2 GW module manufacturing expansion in Texas.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -636,25 +919,25 @@
         "materiality": 75,
         "source_tier": -36,
         "scope": 6,
-        "event": 5,
+        "event": 6,
         "size": -1,
-        "recency": 2,
+        "recency": 1,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
+        "event_id": "capex",
         "size_bucket": "small"
       },
       "event_types": [
-        "earnings_revenue_margin"
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Parabolic",
-          "ticker": null,
+          "name": "TOYO",
+          "ticker": "TOYO",
           "listing_country": "US"
         }
       ],
@@ -762,50 +1045,51 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261008-029",
-      "headline": "OpenWorld Announces Term Sheet for Up to $130 Million IP-Backed Transaction with BeyondAI | OPNW Stock News",
+      "inbox_id": "INB-20261008-045",
+      "headline": "Fluence Energy (NASDAQ: FLNC) Faces Securities Class Action Amid Inability to Ramp Houston Facility - HBSS",
       "headline_en": null,
-      "url": "https://www.stocktitan.net/news/OPNW/open-world-announces-term-sheet-for-up-to-130-million-ip-backed-47gr42penmf0.html",
-      "source_name": "Stock Titan — Latest News",
+      "url": "https://www.prnewswire.com/news-releases/fluence-energy-nasdaq-flnc-faces-securities-class-action-amid-inability-to-ramp-houston-facility--hbss-302900494.html",
+      "source_name": "PR Newswire — All News Releases",
       "input_nature": "company_press_release",
-      "found_at": "2026-10-07T12:30:00Z",
+      "found_at": "2026-10-07T12:06:00Z",
       "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "OpenWorld announced a term sheet for a $130 million IP-backed transaction.",
+      "prelim_note": "Fluence Energy faces a securities class action suit concurrent with inability to ramp its Houston facility, signaling operational execution failure and revenue/cash-flow exposure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "OpenWorld announced a term sheet for a $130 million IP-backed transaction.",
+      "triage_score": 49,
+      "triage_reason": "Fluence Energy faces a securities class action suit concurrent with inability to ramp its Houston facility, signaling operational execution failure and revenue/cash-flow exposure.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 65,
       "rank_factors": {
         "materiality": 65,
         "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 2,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
         "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "unknown"
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
       },
       "event_types": [
-        "mna"
+        "litigation_enforcement",
+        "operations"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "OpenWorld",
-          "ticker": "OPNW",
+          "name": "Fluence Energy",
+          "ticker": "FLNC",
           "listing_country": "US"
         }
       ],
-      "size_bucket": "unknown",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -955,6 +1239,109 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-042",
+      "headline": "Madison Street Capital Acts as Exclusive Advisor to IEM Electric, Inc. (\"IEM\") on its Sale to Norlee Group (\"NLG\")",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/madison-street-capital-acts-as-exclusive-advisor-to-iem-electric-inc-iem-on-its-sale-to-norlee-group-nlg-302901136.html",
+      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-07T12:17:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "IEM Electric, Inc. was sold to Norlee Group, representing a completed M&A transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "IEM Electric, Inc. was sold to Norlee Group, representing a completed M&A transaction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IEM Electric, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Norlee Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-050",
+      "headline": "Esperion Reaches Settlement Agreement with Sixth ANDA Filer Not to Market Generic Version of NEXLETOL® (bempedoic acid) & NEXLIZET® (bempedoic acid & ezetimibe) Prior to April 19, 2040",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/07/3376420/0/en/esperion-reaches-settlement-agreement-with-sixth-anda-filer-not-to-market-generic-version-of-nexletol-bempedoic-acid-nexlizet-bempedoic-acid-ezetimibe-prior-to-april-19-2040.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-07T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Settlement agreement prevents generic competition for key products until 2040.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Settlement agreement prevents generic competition for key products until 2040.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Esperion",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1249,50 +1636,86 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261008-021",
-      "headline": "Wellspect HealthCare Announces U.S. Medicare Reimbursement Access for Surity™ Urinary Management Portfolio",
+      "inbox_id": "INB-20261008-047",
+      "headline": "Military ordered to be ready for possible Iran strikes as Trump weighs timing",
       "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/10/07/3376476/0/en/wellspect-healthcare-announces-u-s-medicare-reimbursement-access-for-surity-urinary-management-portfolio.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T12:34:00Z",
+      "url": "https://www.axios.com/2026/10/07/trump-us-central-command-iran-israel-war-elections",
+      "source_name": "Axios",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T23:08:17Z",
       "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "US Medicare reimbursement approval for Surity™ urinary management portfolio removes major payer barrier and expands addressable market for products.",
+      "prelim_note": "US military ordered to readiness for possible Iran strikes, escalating geopolitical risk and triggering repricing of oil, defense equities, and risk sentiment.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 46,
-      "triage_reason": "US Medicare reimbursement approval for Surity™ urinary management portfolio removes major payer barrier and expands addressable market for products.",
-      "region": "US",
+      "triage_reason": "US military ordered to readiness for possible Iran strikes, escalating geopolitical risk and triggering repricing of oil, defense equities, and risk sentiment.",
+      "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 68,
+      "materiality_pre_score": 78,
       "rank_factors": {
-        "materiality": 68,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 4,
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
         "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 2,
+        "recency": 4,
+        "materiality_label_floor": 7,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "regulatory",
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
         "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory",
-        "commercial"
+        "macro_sector"
       ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Wellspect HealthCare",
-          "ticker": null,
-          "listing_country": null
-        }
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-046",
+      "headline": "Attacks on tankers in Hormuz hit highest of any week since start of Iran war, sources say",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/attacks-tankers-hormuz-hit-highest-any-week-start-iran-war-sources-say",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T23:06:11Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Military escalation in Strait of Hormuz reached highest weekly attack frequency since conflict began, shifting global oil-supply risk and shipping-cost repricing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Military escalation in Strait of Hormuz reached highest weekly attack frequency since conflict began, shifting global oil-supply risk and shipping-cost repricing.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
       ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1349,20 +1772,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261008-016",
-      "headline": "Onfolio Holdings Receives Nasdaq Extension to Regain Compliance with Stockholders’ Equity Requirement",
+      "inbox_id": "INB-20261008-044",
+      "headline": "FuelCell Energy Announces Chief Financial Officer Transition | FCEL Stock News",
       "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/10/07/3376505/0/en/onfolio-holdings-receives-nasdaq-extension-to-regain-compliance-with-stockholders-equity-requirement.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
+      "url": "https://www.stocktitan.net/news/FCEL/fuel-cell-energy-announces-chief-financial-officer-of0lda0ygfp2.html",
+      "source_name": "Stock Titan — Latest News",
       "input_nature": "company_press_release",
-      "found_at": "2026-10-07T13:00:00Z",
+      "found_at": "2026-10-07T12:15:00Z",
       "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Onfolio Holdings received a Nasdaq extension to regain compliance with stockholders' equity requirements, avoiding immediate delisting.",
+      "prelim_note": "FuelCell Energy announced a CFO transition, which can signal management instability or strategic shifts.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 45,
-      "triage_reason": "Onfolio Holdings received a Nasdaq extension to regain compliance with stockholders' equity requirements, avoiding immediate delisting.",
+      "triage_reason": "FuelCell Energy announced a CFO transition, which can signal management instability or strategic shifts.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 55,
@@ -1370,25 +1793,25 @@
         "materiality": 55,
         "source_tier": -36,
         "scope": 6,
-        "event": 4,
+        "event": 5,
         "size": -1,
-        "recency": 2,
+        "recency": 1,
         "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "company",
-        "event_id": "regulatory",
+        "event_id": "executive_exit",
         "size_bucket": "small"
       },
       "event_types": [
-        "regulatory"
+        "executive_exit"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Onfolio Holdings Inc.",
-          "ticker": null,
+          "name": "FuelCell Energy",
+          "ticker": "FCEL",
           "listing_country": "US"
         }
       ],
@@ -1550,251 +1973,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-008",
-      "headline": "Endeavor Catalyst Closes Oversubscribed $320 Million Fund V as Europe Becomes Its Fastest-Growing Market",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261007252386/en/Endeavor-Catalyst-Closes-Oversubscribed-320-Million-Fund-V-as-Europe-Becomes-Its-Fastest-Growing-Market/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
-      "source_name": "Business Wire — Funding News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T13:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Endeavor Catalyst closed a $320 million fund, indicating successful capital raising.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "Endeavor Catalyst closed a $320 million fund, indicating successful capital raising.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Endeavor Catalyst",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-013",
-      "headline": "AIBotics and Empulser Position ‘Power. Persistence. Autonomy.’ Strategy as Pentagon Accelerates Autonomous Warfare Capabilities",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/10/07/3376595/0/en/aibotics-and-empulser-position-power-persistence-autonomy-strategy-as-pentagon-accelerates-autonomous-warfare-capabilities.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T14:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "AIBotics and Empulser are positioning their strategy to support the Pentagon's acceleration of autonomous warfare capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "AIBotics and Empulser are positioning their strategy to support the Pentagon's acceleration of autonomous warfare capabilities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AIBotics",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-025",
-      "headline": "Trio-Tech International Secures New $4.45 Million Three-Year Burn-in Equipment Contract From Automotive Semiconductor Customer",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261007247502/en/Trio-Tech-International-Secures-New-4.45-Million-Three-Year-Burn-in-Equipment-Contract-From-Automotive-Semiconductor-Customer/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Trio-Tech secured a $4.45 million contract, which is material for a company of its size.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Trio-Tech secured a $4.45 million contract, which is material for a company of its size.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Trio-Tech International",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-014",
-      "headline": "AIBotics and Empulser Position ‘Power. Persistence. Autonomy.’ Strategy as Pentagon Accelerates Autonomous Warfare Capabilities | AIBT Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/AIBT/ai-botics-and-empulser-position-power-persistence-autonomy-strategy-wzrel64iy1n4.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T14:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "AIBotics and Empulser are positioning their strategy to support the Pentagon's acceleration of autonomous warfare capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "AIBotics and Empulser are positioning their strategy to support the Pentagon's acceleration of autonomous warfare capabilities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AIBotics",
-          "ticker": "AIBT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-028",
-      "headline": "Trio-Tech International Secures New $4.45 Million Three-Year Burn-in Equipment Contract From Automotive Semiconductor Customer | TRT Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/TRT/trio-tech-international-secures-new-4-45-million-three-year-burn-in-2etx68q4fyk6.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Trio-Tech secured a $4.45 million contract, which is material for a company of its size.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Trio-Tech secured a $4.45 million contract, which is material for a company of its size.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Trio-Tech International",
-          "ticker": "TRT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209901,7 +210079,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3363,
+    "inbox_unconsumed": 3367,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209910,9 +210088,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 20988,
-    "news_picked_today": 36,
-    "news_dropped_today": 372
+    "news_seen_today": 26013,
+    "news_picked_today": 50,
+    "news_dropped_today": 454
   },
   "book_momentum": {
     "live_count": 8,
