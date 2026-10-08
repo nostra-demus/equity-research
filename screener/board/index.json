@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T09:16:55Z",
+  "generated_at": "2026-10-08T09:28:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-440",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-461",
+      "headline": "Brigade Enterprises Limited: Brigade Enterprises Limited has informed the Exchange regarding a press release dated October 08, 2026, titled \"Brigade Group Completing 40 Years, Unveils Ambitious Growth Roadmap for the Next Three Years with investment outlay of around Rs. 40K Crores\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BRIGADE_08102026124120_28PressReleaseBrigadeGroupCompleting40Years.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-08T07:11:35Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Brigade Group announced an ambitious growth roadmap for the next three years with a massive investment outlay of around Rs. 40,000 Crores.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Brigade Group announced an ambitious growth roadmap for the next three years with a massive investment outlay of around Rs. 40,000 Crores.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Brigade Enterprises Limited",
+          "ticker": "BRIGADE",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1956,55 +2005,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-401",
-      "headline": "VPOWER GROUP (01608): INSIDE INFORMATION - UPDATE ON THE PROPOSED RESTRUCTURING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1008/2026100800259.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-08T04:27:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "VPower Group provided an update on its proposed restructuring.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "VPower Group provided an update on its proposed restructuring.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "VPOWER GROUP",
-          "ticker": "01608",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165088,76 +165088,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6620ff045c07",
-      "idea_version": "IDEAV-00105b23d1457dbd",
-      "idea_version_started_at": "2026-10-07T01:07:10Z",
-      "ticker": "FICO",
-      "company": "Fair Isaac Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A 15% workforce reduction driven by AI-restructuring is expected to significantly expand operating margins by replacing human labor with automated processes.",
-      "why_now": "The restructuring plan was announced on October 6, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-da977be1d70e"
-      ],
-      "primary_source_event_id": "EVT-da977be1d70e",
-      "source_headlines": [
-        "FICO cuts workforce by 15% in AI-driven restructuring"
-      ],
-      "source_headline": "FICO cuts workforce by 15% in AI-driven restructuring",
-      "source_url": "https://www.reuters.com/business/world-at-work/fico-cuts-workforce-by-15-ai-driven-restructuring-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T21:23:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T01:07:10Z",
-      "updated_at": "2026-10-07T01:07:10Z",
-      "decay_at": "2026-10-08T09:23:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-8f220a5a3968",
       "idea_version": "IDEAV-9caedc01668f4d84",
       "idea_version_started_at": "2026-10-07T01:07:10Z",
@@ -165434,77 +165364,6 @@
       "surfaced_at": "2026-10-07T20:55:35Z",
       "updated_at": "2026-10-07T20:55:35Z",
       "decay_at": "2026-10-09T01:08:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-b07e95090e8c",
-      "idea_version": "IDEAV-12eeb52aaffdf41b",
-      "idea_version_started_at": "2026-10-07T18:07:00Z",
-      "ticker": "FICO",
-      "company": "Fair Isaac Corporation",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 15% workforce reduction in an AI-driven restructuring suggests significant operational headwinds or a pivot to mitigate declining margins.",
-      "why_now": "The restructuring announcement occurred on October 6, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-da977be1d70e"
-      ],
-      "primary_source_event_id": "EVT-da977be1d70e",
-      "source_headlines": [
-        "FICO cuts workforce by 15% in AI-driven restructuring"
-      ],
-      "source_headline": "FICO cuts workforce by 15% in AI-driven restructuring",
-      "source_url": "https://www.reuters.com/business/world-at-work/fico-cuts-workforce-by-15-ai-driven-restructuring-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T21:23:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T18:07:00Z",
-      "updated_at": "2026-10-07T18:07:00Z",
-      "decay_at": "2026-10-08T09:23:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -167080,6 +166939,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-6620ff045c07",
+      "idea_version": "IDEAV-00105b23d1457dbd",
+      "idea_version_started_at": "2026-10-07T01:07:10Z",
+      "ticker": "FICO",
+      "company": "Fair Isaac Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A 15% workforce reduction driven by AI-restructuring is expected to significantly expand operating margins by replacing human labor with automated processes.",
+      "why_now": "The restructuring plan was announced on October 6, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-da977be1d70e"
+      ],
+      "primary_source_event_id": "EVT-da977be1d70e",
+      "source_headlines": [
+        "FICO cuts workforce by 15% in AI-driven restructuring"
+      ],
+      "source_headline": "FICO cuts workforce by 15% in AI-driven restructuring",
+      "source_url": "https://www.reuters.com/business/world-at-work/fico-cuts-workforce-by-15-ai-driven-restructuring-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-06T21:23:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T01:07:10Z",
+      "updated_at": "2026-10-07T01:07:10Z",
+      "decay_at": "2026-10-08T09:23:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-47ec7c967504",
       "idea_version": "IDEAV-2a5ac6529fe3446c",
       "idea_version_started_at": "2026-10-06T21:25:08Z",
@@ -167844,6 +167773,77 @@
       "surfaced_at": "2026-10-06T01:22:08Z",
       "updated_at": "2026-10-06T01:22:08Z",
       "decay_at": "2026-10-07T12:00:22Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b07e95090e8c",
+      "idea_version": "IDEAV-12eeb52aaffdf41b",
+      "idea_version_started_at": "2026-10-07T18:07:00Z",
+      "ticker": "FICO",
+      "company": "Fair Isaac Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A 15% workforce reduction in an AI-driven restructuring suggests significant operational headwinds or a pivot to mitigate declining margins.",
+      "why_now": "The restructuring announcement occurred on October 6, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-da977be1d70e"
+      ],
+      "primary_source_event_id": "EVT-da977be1d70e",
+      "source_headlines": [
+        "FICO cuts workforce by 15% in AI-driven restructuring"
+      ],
+      "source_headline": "FICO cuts workforce by 15% in AI-driven restructuring",
+      "source_url": "https://www.reuters.com/business/world-at-work/fico-cuts-workforce-by-15-ai-driven-restructuring-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-06T21:23:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T18:07:00Z",
+      "updated_at": "2026-10-07T18:07:00Z",
+      "decay_at": "2026-10-08T09:23:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170464,19 +170464,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 554,
+    "total_count": 556,
     "shown_count": 500,
-    "hidden_count": 54,
+    "hidden_count": 56,
     "side_counts": {
       "long": {
-        "total_count": 290,
+        "total_count": 291,
         "shown_count": 250,
-        "hidden_count": 40
+        "hidden_count": 41
       },
       "short": {
-        "total_count": 264,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 15
       }
     },
     "retention": {
@@ -170495,6 +170495,153 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6620ff045c07",
+        "idea_version": "IDEAV-00105b23d1457dbd",
+        "idea_version_started_at": "2026-10-07T01:07:10Z",
+        "ticker": "FICO",
+        "company": "Fair Isaac Corporation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A 15% workforce reduction driven by AI-restructuring is expected to significantly expand operating margins by replacing human labor with automated processes.",
+        "why_now": "The restructuring plan was announced on October 6, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-da977be1d70e"
+        ],
+        "primary_source_event_id": "EVT-da977be1d70e",
+        "source_headlines": [
+          "FICO cuts workforce by 15% in AI-driven restructuring"
+        ],
+        "source_headline": "FICO cuts workforce by 15% in AI-driven restructuring",
+        "source_url": "https://www.reuters.com/business/world-at-work/fico-cuts-workforce-by-15-ai-driven-restructuring-2026-10-06/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-06T21:23:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-07T01:07:10Z",
+        "updated_at": "2026-10-07T01:07:10Z",
+        "decay_at": "2026-10-08T09:23:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-08T09:23:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-b07e95090e8c",
+        "idea_version": "IDEAV-12eeb52aaffdf41b",
+        "idea_version_started_at": "2026-10-07T18:07:00Z",
+        "ticker": "FICO",
+        "company": "Fair Isaac Corporation",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A 15% workforce reduction in an AI-driven restructuring suggests significant operational headwinds or a pivot to mitigate declining margins.",
+        "why_now": "The restructuring announcement occurred on October 6, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-da977be1d70e"
+        ],
+        "primary_source_event_id": "EVT-da977be1d70e",
+        "source_headlines": [
+          "FICO cuts workforce by 15% in AI-driven restructuring"
+        ],
+        "source_headline": "FICO cuts workforce by 15% in AI-driven restructuring",
+        "source_url": "https://www.reuters.com/business/world-at-work/fico-cuts-workforce-by-15-ai-driven-restructuring-2026-10-06/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-06T21:23:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-07T18:07:00Z",
+        "updated_at": "2026-10-07T18:07:00Z",
+        "decay_at": "2026-10-08T09:23:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-08T09:23:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5fc26901c29d",
         "idea_version": "IDEAV-3db29a9ec98416a6",
@@ -197973,81 +198120,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-c5e832af6e4a",
-        "idea_version": "IDEAV-ffffe22aed34dbc3",
-        "idea_version_started_at": "2026-09-25T05:48:29Z",
-        "ticker": "LALPATHLAB",
-        "company": "Dr Lal PathLabs",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Dr Lal PathLabs is acquiring a 70% stake in SN Genelab for Rs 168 crore, which is expected to expand its market presence and revenue streams.",
-        "why_now": "The acquisition was announced on September 24, 2026, making it a current event.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e51a9d85fc0f"
-        ],
-        "primary_source_event_id": "EVT-e51a9d85fc0f",
-        "source_headlines": [
-          "Dr Lal PathLabs to acquire 70 pc stake in SN Genelab for Rs 168 crore"
-        ],
-        "source_headline": "Dr Lal PathLabs to acquire 70 pc stake in SN Genelab for Rs 168 crore",
-        "source_url": "https://economictimes.indiatimes.com/industry/healthcare/biotech/healthcare/dr-lal-pathlabs-to-acquire-70-pc-stake-in-sn-genelab-for-rs-168-crore/articleshow/134465323.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-24T14:59:20Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-25T05:48:29Z",
-        "updated_at": "2026-09-25T05:48:29Z",
-        "decay_at": "2026-09-26T02:59:20Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-27T15:10:16Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-619361061ae1",
         "idea_version": "IDEAV-c4434260af074150",
         "idea_version_started_at": "2026-09-25T05:48:29Z",
@@ -207643,87 +207715,12 @@
         "archived_at": "2026-09-15T10:07:39Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-5cad2a1c485b",
-        "idea_version": "IDEAV-69a1a105084ea018",
-        "idea_version_started_at": "2026-09-13T19:16:47Z",
-        "ticker": "543427.NS",
-        "company": "SEDEMAC Mechatronics Limited",
-        "exchange": "NSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has informed the exchange about actions taken or orders passed, suggesting potential regulatory or legal issues that could adversely affect its business.",
-        "why_now": "The event was reported on September 12, 2026, indicating a current development.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 15,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-dc41624bf2c3"
-        ],
-        "primary_source_event_id": "EVT-dc41624bf2c3",
-        "source_headlines": [
-          "SEDEMAC Mechatronics Limited: SEDEMAC Mechatronics Limited has informed the Exchange about Action(s) taken or orders passed"
-        ],
-        "source_headline": "SEDEMAC Mechatronics Limited: SEDEMAC Mechatronics Limited has informed the Exchange about Action(s) taken or orders passed",
-        "source_url": "https://nsearchives.nseindia.com/corporate/SEDEMAC2007_12092026134909_20260912-ClosureofGSTSearch.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 94,
-        "newest_source_at": "2026-09-12T08:19:31Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T19:16:47Z",
-        "updated_at": "2026-09-13T19:16:47Z",
-        "decay_at": "2026-09-13T20:19:31Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T10:07:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1421,
-    "live_count": 33,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207742,9 +207739,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1682891,
-    "news_picked_today": 758,
-    "news_dropped_today": 5194
+    "news_seen_today": 1744161,
+    "news_picked_today": 777,
+    "news_dropped_today": 5367
   },
   "book_momentum": {
     "live_count": 8,
