@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T10:45:22Z",
+  "generated_at": "2026-10-08T10:50:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-508",
@@ -628,6 +628,56 @@
           "name": "Tata Consultancy Services",
           "ticker": null,
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-518",
+      "headline": "PepsiCo Q3 Profit Climbs, Cuts FY26 Core EPS Growth View, Updates Revenue Outlook - Update",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/pepsico-q3-profit-climbs-cuts-fy26-core-eps-growth-view-updates-revenue-outlook-update",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T10:26:24Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "PepsiCo reported Q3 profit growth but cut its FY26 core EPS growth guidance, signaling a negative outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PepsiCo reported Q3 profit growth but cut its FY26 core EPS growth guidance, signaling a negative outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PepsiCo",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -1932,55 +1982,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-085",
-      "headline": "Levi Strauss lifts annual profit outlook on tariff refunds, holiday demand",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/levi-strauss-lifts-annual-profit-outlook-tariff-refunds-holiday-demand-2026-10-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T22:10:19Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Levi Strauss raised its annual profit outlook, signaling improved operational performance and demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Levi Strauss raised its annual profit outlook, signaling improved operational performance and demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Levi Strauss",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208213,9 +208214,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2113617,
-    "news_picked_today": 886,
-    "news_dropped_today": 5978
+    "news_seen_today": 2124805,
+    "news_picked_today": 893,
+    "news_dropped_today": 5995
   },
   "book_momentum": {
     "live_count": 8,
