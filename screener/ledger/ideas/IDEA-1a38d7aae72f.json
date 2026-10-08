@@ -1,0 +1,75 @@
+{
+  "idea_id": "IDEA-1a38d7aae72f",
+  "idea_version": "IDEAV-d24c0a838f1de7e8",
+  "idea_version_started_at": "2026-10-08T12:13:45Z",
+  "ticker": "PEP",
+  "company": "PepsiCo",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company lowered its FY26 core EPS growth guidance due to persistent cost pressures and a slower-than-anticipated turnaround in its North American segment.",
+  "why_now": "The guidance cut was officially announced on October 8, 2026.",
+  "conviction": 85,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 77,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 10,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-d44b1f981ad8",
+    "EVT-3c059d606ad2",
+    "EVT-474ba1c68a00"
+  ],
+  "primary_source_event_id": "EVT-d44b1f981ad8",
+  "source_headlines": [
+    "PepsiCo Lowers Guidance on Mounting Costs in North America",
+    "PepsiCo cuts earnings forecast as North American turnaround takes longer than expected",
+    "PepsiCo Q3 Profit Climbs, Cuts FY26 Core EPS Growth View, Updates Revenue Outlook - Update"
+  ],
+  "source_headline": "PepsiCo Lowers Guidance on Mounting Costs in North America",
+  "source_url": "https://www.bloomberg.com/news/articles/2026-10-08/pepsico-lowers-guidance-on-mounting-costs-in-north-america",
+  "source_name": "Bloomberg",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-08T10:38:59Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-08T12:13:45Z",
+  "updated_at": "2026-10-08T12:13:45Z",
+  "decay_at": "2026-10-09T22:38:59Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
