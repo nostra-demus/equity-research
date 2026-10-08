@@ -5,6 +5,9 @@ import path from 'node:path'
 import { buildDiscoveryEvents, discoveryIdea, discoveryPage, fileDiscoveryCard, projectDiscovery, readFilingActions } from '../../server/src/news/ideas/ideas-workspace'
 import type { IdeaLane } from '../../shared/ideas-workspace'
 import type { FeedItem } from '../../server/src/news/types'
+import { createTheme } from '../../server/src/news/themes/discover'
+import { buildThemesIndex } from '../../server/src/news/themes/store'
+import { attachValidNarrative } from '../../server/test/themes-fixtures'
 
 test('Ideas → Events default, filters, filing, reload and keyboard navigation', async ({ page, context }, testInfo) => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-browser-'))
@@ -161,6 +164,145 @@ test('Ideas → Events default, filters, filing, reload and keyboard navigation'
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 })
 
+test('Themes precedes Events: read source-backed explanations, filter sectors, refresh and recover', async ({ page, context }, testInfo) => {
+  const now = new Date()
+  const makeTheme = (id: string, name: string, subject: string, headline: string) => {
+    const rows = [1, 2, 3].map((n) => ({ event_id: `${id}-${n}`, dedup_group: `${id}-${n}`, headline: `${headline} ${n}`,
+      found_at: now.toISOString(), companies: [], event_types: ['capex'], issuer_linkage: 'sector' as const,
+      triage_score: 85, source_tier: 'company', source_name: 'Fixture source', url: `https://example.test/${id}/${n}` }))
+    const theme = createTheme(rows, now, 'claude')
+    theme.name = name
+    theme.description = `${name} connects new demand with capacity spending.`
+    theme.needs_rename = false
+    attachValidNarrative(theme, { anchor_terms: [subject, 'demand'],
+      thesis: `${name} is changing how businesses invest in capacity.`, why_now: `${name} has new reported demand this week.`,
+      mechanism_steps: ['Demand changes the capacity businesses need.', 'Capacity spending changes suppliers’ revenue and costs.'],
+      falsifier: 'Reported demand falls for two consecutive quarters.', validated_at: now.toISOString(), expressions: [] })
+    return theme
+  }
+  const technology = makeTheme('tech', 'AI software security', 'software', 'Software security demand expands')
+  const bank = makeTheme('bank', 'Bank lending demand', 'bank', 'Bank lending demand expands')
+  const unknown = makeTheme('unknown', 'New research capacity', 'research', 'Research capacity demand expands')
+  let response = buildThemesIndex([technology, bank, unknown], () => now)
+  let fail = false
+  let delay = false
+  let release: (() => void) | undefined
+  let ideaReads = 0
+  await context.route('**/api/screener/board', (route) => route.fulfill({ json: { signals: [], live: [], ideas: [], resumable: [], counts: {} } }))
+  await context.route('**/api/screener/idea-workspace?*', (route) => { ideaReads++; return route.fulfill({ json: discoveryPage([], 'events', [], 'all', 0) }) })
+  await context.route('**/api/news/themes', async (route) => {
+    const snapshot = structuredClone(response)
+    if (delay) await new Promise<void>((resolve) => { release = resolve })
+    return fail ? route.fulfill({ status: 503, json: { error: 'Theme source unavailable' } }) : route.fulfill({ json: snapshot })
+  })
+  await page.goto('/e2e/ideas.html')
+  await expect(page.getByRole('tab', { name: 'Events', exact: true })).toHaveAttribute('aria-selected', 'true')
+  // Portfolio and listing filters must not erase themes before companies have been discovered.
+  await page.evaluate(async () => { const { usePersonalScopeStore } = await import('/src/lib/personalScope.ts'); usePersonalScopeStore.getState().setScope('portfolio') })
+  delay = true
+  await page.getByRole('tab', { name: 'Themes', exact: true }).click()
+  await expect(page.getByRole('status', { name: 'Loading themes' })).toBeVisible()
+  await expect.poll(() => !!release).toBe(true)
+  release!(); delay = false
+  await expect(page.getByRole('heading', { name: 'AI software security', exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Bank lending demand', exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'What is happening and why now' })).toHaveCount(3)
+  await expect(page.getByRole('heading', { name: 'Why it matters · Inference, not from filings' })).toHaveCount(3)
+  await expect(page.getByText('Theme interpretation · Inference, not from filings', { exact: true })).toHaveCount(3)
+  await expect(page.getByRole('link', { name: 'Software security demand expands 1' })).toHaveAttribute('href', 'https://example.test/tech/1')
+  await expect(page.getByLabel('Hide Hong Kong listings')).toHaveCount(0)
+  await page.screenshot({ path: testInfo.outputPath('themes-dark.png'), fullPage: true })
+  const readsBeforeFilter = ideaReads
+  await page.getByLabel('Theme sector').selectOption('Information Technology')
+  await expect(page.getByRole('heading', { name: 'AI software security', exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Bank lending demand', exact: true })).toHaveCount(0)
+  await page.getByLabel('Theme sector').selectOption('Financials')
+  await expect(page.getByRole('heading', { name: 'Bank lending demand', exact: true })).toBeVisible()
+  await page.getByLabel('Theme sector').selectOption('Energy')
+  await expect(page.getByText('No validated themes match Energy.', { exact: false })).toBeVisible()
+  await page.getByLabel('Theme sector').selectOption('unclassified')
+  await expect(page.getByRole('heading', { name: 'New research capacity', exact: true })).toBeVisible()
+  expect(ideaReads).toBe(readsBeforeFilter)
+  await page.getByLabel('Theme sector').selectOption('all')
+  // Preserve the reader's card, focus and source disclosure when an earlier theme grows live.
+  const bankReading = page.getByRole('article', { name: 'Bank lending demand', exact: true })
+  const bankSources = bankReading.locator('summary')
+  await bankSources.click()
+  await expect(bankReading.locator('details')).not.toHaveAttribute('open', '')
+  await bankSources.focus()
+  const readingTop = (await bankReading.boundingBox())!.y
+  const longerTechnology = response.themes.find((t) => t.theme_id === technology.theme_id)!
+  longerTechnology.narrative!.why_now = 'Software security demand expands as businesses add automated systems and assess the controls those systems need. '.repeat(20)
+  await page.evaluate(async (theme) => { const { useStore } = await import('/src/lib/store.ts'); useStore.getState()._handleNewsEvent({ type: 'theme-update', theme }) }, longerTechnology)
+  await expect(page.getByText(longerTechnology.narrative!.why_now, { exact: true })).toBeVisible()
+  expect(Math.abs((await bankReading.boundingBox())!.y - readingTop)).toBeLessThan(2)
+  await expect(bankSources).toBeFocused()
+  await expect(bankReading.locator('details')).not.toHaveAttribute('open', '')
+  // Retire a theme during an older HTTP read. SSE must remove it immediately, and that response
+  // or a buffered equal-revision update must never resurrect it, even when later polling fails.
+  delay = true; release = undefined
+  await page.getByRole('button', { name: 'Refresh themes', exact: true }).click()
+  await expect.poll(() => !!release).toBe(true)
+  const unknownSummary = response.themes.find((t) => t.theme_id === unknown.theme_id)!
+  await page.evaluate(async (id) => { const { useStore } = await import('/src/lib/store.ts'); useStore.getState()._handleNewsEvent({ type: 'theme-remove', removal: { theme_id: id, reason: 'retired', merged_into: null, rev: 10 } }) }, unknown.theme_id)
+  await expect(page.getByRole('heading', { name: 'New research capacity', exact: true })).toHaveCount(0)
+  delay = false; release!()
+  await expect(page.getByRole('button', { name: 'Refresh themes', exact: true })).toBeEnabled()
+  await expect(page.getByRole('heading', { name: 'New research capacity', exact: true })).toHaveCount(0)
+  await page.evaluate(async (theme) => { const { useStore } = await import('/src/lib/store.ts'); useStore.getState()._handleNewsEvent({ type: 'theme-update', theme }) }, unknownSummary)
+  await expect(page.getByRole('heading', { name: 'New research capacity', exact: true })).toHaveCount(0)
+  // Qualification can change at the same revision. An older response cannot erase that live truth.
+  delay = true; release = undefined
+  await page.getByRole('button', { name: 'Refresh themes', exact: true }).click()
+  await expect.poll(() => !!release).toBe(true)
+  const updatedBank = response.themes.find((t) => t.theme_id === bank.theme_id)!
+  updatedBank.narrative!.thesis = 'Bank lending demand is changing the capacity banks need for new lending.'
+  updatedBank.assessment.metrics.narrative_support_count = 8
+  updatedBank.assessment.metrics.high_quality_evidence_count = 8
+  updatedBank.assessment.metrics.unique_evidence_count = 8
+  await page.evaluate(async (theme) => { const { useStore } = await import('/src/lib/store.ts'); useStore.getState()._handleNewsEvent({ type: 'theme-update', theme }) }, updatedBank)
+  await expect(page.getByText(updatedBank.narrative!.thesis, { exact: true })).toBeVisible()
+  await expect(page.getByText('Supporting source excerpt · 3 shown of 8 supporting reports', { exact: true })).toBeVisible()
+  delay = false; release!()
+  await expect(page.getByRole('button', { name: 'Refresh themes', exact: true })).toBeEnabled()
+  await expect(page.getByText(updatedBank.narrative!.thesis, { exact: true })).toBeVisible()
+  fail = true
+  await page.getByRole('button', { name: 'Refresh themes', exact: true }).click()
+  await expect(page.getByRole('alert')).toContainText('Showing the last loaded themes.')
+  await expect(page.getByRole('heading', { name: 'AI software security', exact: true })).toBeVisible()
+  fail = false
+  // Old/malformed narratives fail closed; explicit challenge sources stay visible.
+  response.themes.find((t) => t.theme_id === technology.theme_id)!.narrative = null
+  const bankSummary = response.themes.find((t) => t.theme_id === bank.theme_id)!
+  bankSummary.evidence.push({ ...bankSummary.evidence[0], event_id: 'bank-challenge', headline: 'Bank credit losses challenge demand', stance: 'challenges', url: 'https://example.test/challenge' })
+  bankSummary.activity = bankSummary.assessment.activity = 'challenged'
+  bankSummary.assessment.metrics.recent_24h_challenge_count = 1
+  bankSummary.assessment.metrics.unique_evidence_count = 9
+  bankSummary.assessment.metrics.pending_revalidation = true
+  bankSummary.conviction = bankSummary.assessment.conviction = 'watch'
+  await page.getByRole('button', { name: 'Retry', exact: true }).click()
+  await expect(page.getByRole('alert')).toHaveCount(0)
+  await expect(page.getByRole('heading', { name: 'AI software security', exact: true })).toHaveCount(0)
+  await expect(page.getByRole('link', { name: 'Bank credit losses challenge demand' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Evidence that challenges the theme' })).toBeVisible()
+  await expect(page.getByText('New evidence awaiting revalidation', { exact: true })).toBeVisible()
+  await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'light'))
+  await page.screenshot({ path: testInfo.outputPath('themes-light.png'), fullPage: true })
+  await page.evaluate(() => { const app = document.querySelector('.app') as HTMLElement; app.dataset.swarm = 'future'; app.style.setProperty('--swarm-color', '#8b5cf6') })
+  await page.setViewportSize({ width: 390, height: 844 })
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+  await page.screenshot({ path: testInfo.outputPath('themes-mobile-derived.png'), fullPage: true })
+  await page.getByRole('tab', { name: 'Themes', exact: true }).focus()
+  await page.keyboard.press('ArrowRight')
+  await expect(page.getByRole('tab', { name: 'Events', exact: true })).toBeFocused()
+  await expect(page.getByLabel('Hide Hong Kong listings')).toBeVisible()
+  await page.keyboard.press('ArrowLeft')
+  await expect(page.getByRole('tab', { name: 'Themes', exact: true })).toBeFocused()
+  await expect(page.getByRole('heading', { name: 'Bank lending demand', exact: true })).toBeVisible()
+  response = { ...response, themes: [], generated_at: now.toISOString() }
+  await page.getByRole('button', { name: 'Refresh themes', exact: true }).click()
+  await expect(page.getByText('No validated themes are available yet.', { exact: false })).toBeVisible()
+})
 const liveCard = (index: number): import('../../shared/ideas-workspace').DiscoveryCard => ({
   key: `event-${index.toString(16).padStart(24, '0')}`, kind: 'event', aliases: [`family:fixture-${index}`],
   sides: [], listings: { long: null, short: null }, updated_at: new Date(Date.now() - index * 1000).toISOString(),

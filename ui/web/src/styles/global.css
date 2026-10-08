@@ -5520,7 +5520,7 @@ a { color: inherit; }
 .fundbook__cards--inset { border: none; border-radius: 0; border-top: 1px solid var(--hairline); }
 
 /* Research selection: global events and durable human filing, using shared theme tokens. */
-.discovery .discovery-tabs { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.discovery .discovery-tabs { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 .discovery-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 16px 0; color: var(--text-muted); font-size: 12px; }
 .discovery-filters label { display: flex; align-items: center; gap: 6px; }
 .discovery-filters input { accent-color: var(--accent); }
@@ -5553,3 +5553,24 @@ a { color: inherit; }
 @media (prefers-reduced-motion: reduce) { .discovery-card--new { animation: none; } }
 /* Filing and live refreshes must never leave card contents inside an interrupted entry animation. */
 .discovery-card .bidea { animation: none; opacity: 1; transform: none; }
+.theme-reading { gap: 20px; padding: 24px; animation: none; opacity: 1; transform: none; overflow-wrap: anywhere; }
+.theme-reading__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.theme-reading h3 { margin: 0; font-size: 19px; line-height: 1.4; font-weight: 600; }
+.theme-reading h4 { margin: 0 0 7px; font-size: 13px; font-weight: 600; }
+.theme-reading h4 small { color: var(--text-muted); font-weight: 400; }
+.theme-reading p, .theme-reading li { margin: 0; font-size: 14px; line-height: 1.75; }
+.theme-reading .theme-reading__thesis { font-size: 16px; line-height: 1.7; }
+.theme-reading ol { margin: 0; padding-left: 22px; }
+.theme-reading li + li { margin-top: 8px; }
+.theme-reading .theme-reading__citation, .theme-reading .theme-reading__foot, .theme-reading__updated { font-size: 11px; color: var(--text-muted); }
+.theme-reading .theme-reading__citation { margin-top: 8px; }
+.theme-reading a { color: var(--accent-bright); text-underline-offset: 3px; }
+.theme-reading__sources { border-top: 1px solid var(--hairline); padding-top: 14px; }
+.theme-reading__sources summary { font-size: 12px; }
+.theme-reading .discovery-reports { margin-bottom: 0; }
+.theme-reading .discovery-reports li { font-size: 13px; }
+.theme-reading .discovery-reports small { font-size: 11px; }
+.theme-reading__challenges { border-left: 2px solid var(--conv-warn); padding-left: 14px; }
+.theme-reading__filters select { max-width: 100%; padding: 8px 10px; border: 1px solid var(--hairline); border-radius: var(--r-sm); background: var(--surface-2); color: var(--text); font: inherit; }
+.theme-reading__updated { margin: -4px 0 18px; }
+@media (max-width: 640px) { .theme-reading { padding: 18px 14px; } .theme-reading__head { flex-wrap: wrap; } }
