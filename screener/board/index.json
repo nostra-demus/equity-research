@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T05:32:16Z",
+  "generated_at": "2026-10-08T05:41:04Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-408",
@@ -1818,6 +1818,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-411",
+      "headline": "Mahindra & Mahindra Financial Services Limited: Mahindra & Mahindra Financial Services Limited has informed the Exchange about Credit Rating",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/M_MFIN_08102026104354_MMFSLCreditRating_08_Oct_2026signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-08T05:14:06Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "The company is disclosing a credit rating update, which is a standard but material event for a financial services firm.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "The company is disclosing a credit rating update, which is a standard but material event for a financial services firm.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "credit_rating_upgrade",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "credit_rating_upgrade"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahindra & Mahindra Financial Services Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-294",
       "headline": "SCHEDULE 13D - Vos James H (0001323271) (Filed by)",
       "headline_en": null,
@@ -1959,55 +2008,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-293",
-      "headline": "SCHEDULE 13D - Calamos Aksia Alternative Credit & Income Fund (0001937073) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1937073/000110465926114474/0001104659-26-114474-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-08T01:57:15Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "A Schedule 13D filing indicates a significant ownership stake or potential activist interest in Calamos Aksia Alternative Credit & Income Fund.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "A Schedule 13D filing indicates a significant ownership stake or potential activist interest in Calamos Aksia Alternative Credit & Income Fund.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Calamos Aksia Alternative Credit & Income Fund",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207748,9 +207748,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 529561,
-    "news_picked_today": 620,
-    "news_dropped_today": 3340
+    "news_seen_today": 555553,
+    "news_picked_today": 624,
+    "news_dropped_today": 3408
   },
   "book_momentum": {
     "live_count": 8,
