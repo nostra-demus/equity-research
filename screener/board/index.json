@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T02:53:23Z",
+  "generated_at": "2026-10-08T02:58:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-300",
@@ -365,6 +365,55 @@
         "size": 2,
         "recency": 5,
         "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-372",
+      "headline": "Samsung profit surges ninefold to $80bn on AI chip demand",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/8943785b-0919-4a49-8ab5-48e4a35a6e00?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T01:50:30Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Samsung reported a ninefold surge in profit to $80bn, driven by AI chip demand, significantly impacting market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung reported a ninefold surge in profit to $80bn, driven by AI chip demand, significantly impacting market expectations.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1962,55 +2011,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-365",
-      "headline": "Russia Attacks Japan Tobacco Plant in Ukraine",
-      "headline_en": null,
-      "url": "https://www.nippon.com/en/news/yjj2026100701159/",
-      "source_name": "nippon.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T01:54:05Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "A Japan Tobacco plant in Ukraine was attacked, representing a direct operational risk and asset damage.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "A Japan Tobacco plant in Ukraine was attacked, representing a direct operational risk and asset damage.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Japan Tobacco",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -164816,76 +164816,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-add212649783",
-      "idea_version": "IDEAV-1f1aac3bac245d0e",
-      "idea_version_started_at": "2026-10-06T21:25:08Z",
-      "ticker": "MCK",
-      "company": "McKesson Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "McKesson, in partnership with CD&R, is taking infusion therapy provider Option Care private in a $5.8 billion deal, which could enhance its market position in healthcare services.",
-      "why_now": "The deal to take Option Care private was announced today, October 6, 2026, providing a clear catalyst for McKesson.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5be02316cda3"
-      ],
-      "primary_source_event_id": "EVT-5be02316cda3",
-      "source_headlines": [
-        "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal"
-      ],
-      "source_headline": "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal",
-      "source_url": "https://www.reuters.com/legal/transactional/mckesson-cdr-buy-infusion-therapy-provider-option-care-health-58-billion-deal-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T14:57:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T18:52:33Z",
-      "updated_at": "2026-10-06T21:25:08Z",
-      "decay_at": "2026-10-08T02:57:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-850cc3e2123d",
       "idea_version": "IDEAV-f1b28979f3548f01",
       "idea_version_started_at": "2026-10-07T20:26:28Z",
@@ -165441,77 +165371,6 @@
       "surfaced_at": "2026-10-07T18:07:00Z",
       "updated_at": "2026-10-07T18:07:00Z",
       "decay_at": "2026-10-08T09:23:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-0aed650e01e7",
-      "idea_version": "IDEAV-d9d84e51cae8bb87",
-      "idea_version_started_at": "2026-10-07T16:37:47Z",
-      "ticker": "OPCH",
-      "company": "Option Care Health",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "McKesson and CD&R have agreed to take the company private in a $5.8 billion deal, providing a clear exit price for shareholders.",
-      "why_now": "The deal was announced on 2026-10-06; the stock should trade toward the acquisition price.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5be02316cda3"
-      ],
-      "primary_source_event_id": "EVT-5be02316cda3",
-      "source_headlines": [
-        "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal"
-      ],
-      "source_headline": "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal",
-      "source_url": "https://www.reuters.com/legal/transactional/mckesson-cdr-buy-infusion-therapy-provider-option-care-health-58-billion-deal-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T14:57:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T23:00:55Z",
-      "updated_at": "2026-10-07T16:37:47Z",
-      "decay_at": "2026-10-08T02:57:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -166803,6 +166662,76 @@
       "surfaced_at": "2026-10-05T01:35:08Z",
       "updated_at": "2026-10-05T01:35:08Z",
       "decay_at": "2026-10-06T13:18:34Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-add212649783",
+      "idea_version": "IDEAV-1f1aac3bac245d0e",
+      "idea_version_started_at": "2026-10-06T21:25:08Z",
+      "ticker": "MCK",
+      "company": "McKesson Corporation",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "McKesson, in partnership with CD&R, is taking infusion therapy provider Option Care private in a $5.8 billion deal, which could enhance its market position in healthcare services.",
+      "why_now": "The deal to take Option Care private was announced today, October 6, 2026, providing a clear catalyst for McKesson.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5be02316cda3"
+      ],
+      "primary_source_event_id": "EVT-5be02316cda3",
+      "source_headlines": [
+        "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal"
+      ],
+      "source_headline": "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal",
+      "source_url": "https://www.reuters.com/legal/transactional/mckesson-cdr-buy-infusion-therapy-provider-option-care-health-58-billion-deal-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-06T14:57:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-06T18:52:33Z",
+      "updated_at": "2026-10-06T21:25:08Z",
+      "decay_at": "2026-10-08T02:57:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -168346,6 +168275,77 @@
       "surfaced_at": "2026-10-05T02:42:33Z",
       "updated_at": "2026-10-05T02:42:33Z",
       "decay_at": "2026-10-06T13:31:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-0aed650e01e7",
+      "idea_version": "IDEAV-d9d84e51cae8bb87",
+      "idea_version_started_at": "2026-10-07T16:37:47Z",
+      "ticker": "OPCH",
+      "company": "Option Care Health",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "McKesson and CD&R have agreed to take the company private in a $5.8 billion deal, providing a clear exit price for shareholders.",
+      "why_now": "The deal was announced on 2026-10-06; the stock should trade toward the acquisition price.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5be02316cda3"
+      ],
+      "primary_source_event_id": "EVT-5be02316cda3",
+      "source_headlines": [
+        "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal"
+      ],
+      "source_headline": "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal",
+      "source_url": "https://www.reuters.com/legal/transactional/mckesson-cdr-buy-infusion-therapy-provider-option-care-health-58-billion-deal-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-06T14:57:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T23:00:55Z",
+      "updated_at": "2026-10-07T16:37:47Z",
+      "decay_at": "2026-10-08T02:57:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -172838,14 +172838,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 587,
+    "total_count": 589,
     "shown_count": 500,
-    "hidden_count": 87,
+    "hidden_count": 89,
     "side_counts": {
       "long": {
-        "total_count": 313,
+        "total_count": 315,
         "shown_count": 250,
-        "hidden_count": 63
+        "hidden_count": 65
       },
       "short": {
         "total_count": 274,
@@ -172869,6 +172869,153 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-add212649783",
+        "idea_version": "IDEAV-1f1aac3bac245d0e",
+        "idea_version_started_at": "2026-10-06T21:25:08Z",
+        "ticker": "MCK",
+        "company": "McKesson Corporation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "McKesson, in partnership with CD&R, is taking infusion therapy provider Option Care private in a $5.8 billion deal, which could enhance its market position in healthcare services.",
+        "why_now": "The deal to take Option Care private was announced today, October 6, 2026, providing a clear catalyst for McKesson.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5be02316cda3"
+        ],
+        "primary_source_event_id": "EVT-5be02316cda3",
+        "source_headlines": [
+          "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal"
+        ],
+        "source_headline": "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal",
+        "source_url": "https://www.reuters.com/legal/transactional/mckesson-cdr-buy-infusion-therapy-provider-option-care-health-58-billion-deal-2026-10-06/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-06T14:57:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-06T18:52:33Z",
+        "updated_at": "2026-10-06T21:25:08Z",
+        "decay_at": "2026-10-08T02:57:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-08T02:57:12Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-0aed650e01e7",
+        "idea_version": "IDEAV-d9d84e51cae8bb87",
+        "idea_version_started_at": "2026-10-07T16:37:47Z",
+        "ticker": "OPCH",
+        "company": "Option Care Health",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "McKesson and CD&R have agreed to take the company private in a $5.8 billion deal, providing a clear exit price for shareholders.",
+        "why_now": "The deal was announced on 2026-10-06; the stock should trade toward the acquisition price.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5be02316cda3"
+        ],
+        "primary_source_event_id": "EVT-5be02316cda3",
+        "source_headlines": [
+          "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal"
+        ],
+        "source_headline": "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal",
+        "source_url": "https://www.reuters.com/legal/transactional/mckesson-cdr-buy-infusion-therapy-provider-option-care-health-58-billion-deal-2026-10-06/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-06T14:57:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-05T23:00:55Z",
+        "updated_at": "2026-10-07T16:37:47Z",
+        "decay_at": "2026-10-08T02:57:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-08T02:57:12Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3a9ccd3353ea",
         "idea_version": "IDEAV-999273f9675a3d1b",
@@ -200724,80 +200871,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ce4d9a3cbd38",
-        "idea_version": "IDEAV-b3bb21eb9fb2fa0c",
-        "idea_version_started_at": "2026-09-24T23:14:04Z",
-        "ticker": "8697",
-        "company": "Japan Exchange Group",
-        "exchange": "TSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company announced a positive revision to its earnings and dividend forecasts, signaling stronger-than-expected operational performance.",
-        "why_now": "The filing was released today, 2026-09-24, providing an immediate catalyst for a re-rating.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c586f95714b1"
-        ],
-        "primary_source_event_id": "EVT-c586f95714b1",
-        "source_headlines": [
-          "[JPX]Notice of Revisions to Earnings Forecast and Dividend Forecast"
-        ],
-        "source_headline": "[JPX]Notice of Revisions to Earnings Forecast and Dividend Forecast",
-        "source_url": "https://www.jpx.co.jp/english/corporate/news/news-releases/0063/vk0khi000002bwbb-att/20260924_E.pdf",
-        "source_name": "Japan Exchange Group (JPX) — News Release",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-24T03:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-24T23:14:04Z",
-        "updated_at": "2026-09-24T23:14:04Z",
-        "decay_at": "2026-09-25T15:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-27T03:19:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-bfad6f23179e",
         "idea_version": "IDEAV-f73316026dc66369",
         "idea_version_started_at": "2026-09-24T16:36:19Z",
@@ -200869,80 +200942,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-09-27T02:53:57Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a85bb583dca8",
-        "idea_version": "IDEAV-901fdab91d427bdb",
-        "idea_version_started_at": "2026-09-24T16:36:19Z",
-        "ticker": "9984.T",
-        "company": "SoftBank Group",
-        "exchange": "Tokyo Stock Exchange",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "SoftBank Group is raising $11.1 billion through bond issuance to fund its investment in OpenAI, which is expected to boost its strategic positioning.",
-        "why_now": "The bond issuance and funding plan were reported on September 24, 2026.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 74,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 7,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-1704c2896411",
-          "EVT-40e63e4ca332"
-        ],
-        "primary_source_event_id": "EVT-1704c2896411",
-        "source_headlines": [
-          "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
-          "BREAKING NEWS: SoftBank Group to raise $11.1 bil. to fund OpenAI investment"
-        ],
-        "source_headline": "Fierce Biotech Layoff Tracker 2026: BMS slashes 265 HQ roles; Novo reveals 4k more employees were laid off",
-        "source_url": "https://www.fiercebiotech.com/biotech/fierce-biotech-layoff-tracker-2026",
-        "source_name": "FierceBiotech",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-24T02:10:50Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-24T16:36:19Z",
-        "updated_at": "2026-09-24T16:36:19Z",
-        "decay_at": "2026-09-25T14:10:50Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-27T02:20:03Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
       },
@@ -210102,7 +210101,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1416,
-    "live_count": 33,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210121,9 +210120,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 165468,
-    "news_picked_today": 450,
-    "news_dropped_today": 2142
+    "news_seen_today": 179564,
+    "news_picked_today": 458,
+    "news_dropped_today": 2158
   },
   "book_momentum": {
     "live_count": 8,
