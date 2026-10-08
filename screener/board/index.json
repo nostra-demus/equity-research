@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T11:58:44Z",
+  "generated_at": "2026-10-08T12:01:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-532",
@@ -873,6 +873,110 @@
           "name": "China International Capital Corporation",
           "ticker": "06166",
           "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-553",
+      "headline": "PepsiCo cuts forecast, deepens cost cuts as N.America recovery drags",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/pepsico-cuts-annual-core-profit-forecast-higher-costs-hurt-margins-2026-10-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T11:50:52Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "PepsiCo cut its forecast and announced deeper cost cuts due to weak North American recovery.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PepsiCo cut its forecast and announced deeper cost cuts due to weak North American recovery.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change",
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PepsiCo",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-554",
+      "headline": "Viatris to acquire Pacira Biosciences in $1.65 billion deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/litigation/viatris-acquire-pacira-biosciences-165-billion-deal-2026-10-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T11:50:40Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Viatris is acquiring Pacira Biosciences in a deal valued at $1.65 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Viatris is acquiring Pacira Biosciences in a deal valued at $1.65 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viatris",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Pacira Biosciences",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1879,104 +1983,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-364",
-      "headline": "‘The best address in Singapore’: Why Malaysia’s IOI Properties is betting billions on the CBD",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/the-best-address-in-singapore-why-malaysias-ioi-properties-is-betting-billions-on-the-cbd",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T02:03:58Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "IOI Properties is committing billions to a major real estate development in Singapore's CBD.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "IOI Properties is committing billions to a major real estate development in Singapore's CBD.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IOI Properties",
-          "ticker": null,
-          "listing_country": "MY"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-311",
-      "headline": "Samsung Q3 profit jumps nearly 9 times to $80bn in AI chip boom",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/tech/semiconductors/samsung-q3-profit-jumps-nearly-9-times-to-80bn-in-ai-chip-boom",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T02:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Samsung reported a Q3 profit jump of nearly 9 times to $80bn driven by AI chip demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung reported a Q3 profit jump of nearly 9 times to $80bn driven by AI chip demand.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -166204,79 +166210,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b56a76426b54",
-      "idea_version": "IDEAV-76c1a28902b71f17",
-      "idea_version_started_at": "2026-10-07T01:07:10Z",
-      "ticker": "SAVE",
-      "company": "Spirit Airlines",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has filed for bankruptcy and canceled 2,500 flights, indicating a total breakdown of operations and likely equity wipeout.",
-      "why_now": "The bankruptcy filing and mass cancellations occurred on October 7, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-16bc1b27fccd"
-      ],
-      "primary_source_event_id": "EVT-16bc1b27fccd",
-      "source_headlines": [
-        "South America's Spirit Airlines canceled 2,500 flights, files for bankruptcy"
-      ],
-      "source_headline": "South America's Spirit Airlines canceled 2,500 flights, files for bankruptcy",
-      "source_url": "https://www.thestreet.com/travel/flybondi-airline-files-for-bankruptcy-protection",
-      "source_name": "TheStreet",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-07T00:00:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T01:07:10Z",
-      "updated_at": "2026-10-07T01:07:10Z",
-      "decay_at": "2026-10-08T12:00:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ee428476df74",
       "idea_version": "IDEAV-cbfa3857d567820b",
       "idea_version_started_at": "2026-10-07T04:37:41Z",
@@ -168530,6 +168463,79 @@
       "surfaced_at": "2026-10-06T02:27:03Z",
       "updated_at": "2026-10-06T02:27:03Z",
       "decay_at": "2026-10-07T13:40:51Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-b56a76426b54",
+      "idea_version": "IDEAV-76c1a28902b71f17",
+      "idea_version_started_at": "2026-10-07T01:07:10Z",
+      "ticker": "SAVE",
+      "company": "Spirit Airlines",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has filed for bankruptcy and canceled 2,500 flights, indicating a total breakdown of operations and likely equity wipeout.",
+      "why_now": "The bankruptcy filing and mass cancellations occurred on October 7, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-16bc1b27fccd"
+      ],
+      "primary_source_event_id": "EVT-16bc1b27fccd",
+      "source_headlines": [
+        "South America's Spirit Airlines canceled 2,500 flights, files for bankruptcy"
+      ],
+      "source_headline": "South America's Spirit Airlines canceled 2,500 flights, files for bankruptcy",
+      "source_url": "https://www.thestreet.com/travel/flybondi-airline-files-for-bankruptcy-protection",
+      "source_name": "TheStreet",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T00:00:48Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T01:07:10Z",
+      "updated_at": "2026-10-07T01:07:10Z",
+      "decay_at": "2026-10-08T12:00:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170938,9 +170944,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 558,
+    "total_count": 559,
     "shown_count": 500,
-    "hidden_count": 58,
+    "hidden_count": 59,
     "side_counts": {
       "long": {
         "total_count": 292,
@@ -170948,9 +170954,9 @@
         "hidden_count": 42
       },
       "short": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       }
     },
     "retention": {
@@ -170969,6 +170975,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b56a76426b54",
+        "idea_version": "IDEAV-76c1a28902b71f17",
+        "idea_version_started_at": "2026-10-07T01:07:10Z",
+        "ticker": "SAVE",
+        "company": "Spirit Airlines",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has filed for bankruptcy and canceled 2,500 flights, indicating a total breakdown of operations and likely equity wipeout.",
+        "why_now": "The bankruptcy filing and mass cancellations occurred on October 7, 2026.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 23,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-16bc1b27fccd"
+        ],
+        "primary_source_event_id": "EVT-16bc1b27fccd",
+        "source_headlines": [
+          "South America's Spirit Airlines canceled 2,500 flights, files for bankruptcy"
+        ],
+        "source_headline": "South America's Spirit Airlines canceled 2,500 flights, files for bankruptcy",
+        "source_url": "https://www.thestreet.com/travel/flybondi-airline-files-for-bankruptcy-protection",
+        "source_name": "TheStreet",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-07T00:00:48Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-07T01:07:10Z",
+        "updated_at": "2026-10-07T01:07:10Z",
+        "decay_at": "2026-10-08T12:00:48Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-08T12:00:48Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-30c2e14a4fb4",
         "idea_version": "IDEAV-1ae410afa4d1f8d0",
@@ -208109,88 +208191,12 @@
         "archived_at": "2026-09-15T18:56:28Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3123eadb829a",
-        "idea_version": "IDEAV-b568e8d769be3684",
-        "idea_version_started_at": "2026-09-12T15:35:59Z",
-        "ticker": "DPSCLTD",
-        "company": "DPSC Limited",
-        "exchange": "BSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is facing a formal Corporate Insolvency Resolution Process due to persistent regulatory non-compliance and payment defaults.",
-        "why_now": "The filing on 2026-09-12 confirms the initiation of insolvency proceedings, creating immediate balance sheet risk.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3c227efbfb17",
-          "EVT-e898c891a625"
-        ],
-        "primary_source_event_id": "EVT-e898c891a625",
-        "source_headlines": [
-          "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Notices for non-compliance with Regulation 33 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations )",
-          "DPSC Limited: DPSC Limited has informed the Exchange about Delay/default in the payment of fines/penalties/dues etc. to authority regarding Notices for non-compliance with Regulation 33 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations )"
-        ],
-        "source_headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Notices for non-compliance with Regulation 33 of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 ( Listing Regulations )",
-        "source_url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_12092026152931_IntimationofimpositionoffineunderReg30ofSEBI_LODR__12092026.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-12T09:59:44Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-12T15:35:59Z",
-        "updated_at": "2026-09-12T15:35:59Z",
-        "decay_at": "2026-09-13T21:59:44Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T10:07:39Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1428,
-    "live_count": 36,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -208209,9 +208215,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2545912,
-    "news_picked_today": 992,
-    "news_dropped_today": 6520
+    "news_seen_today": 2570748,
+    "news_picked_today": 995,
+    "news_dropped_today": 6541
   },
   "book_momentum": {
     "live_count": 8,
