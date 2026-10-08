@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T10:07:56Z",
+  "generated_at": "2026-10-08T10:13:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-467",
@@ -482,6 +482,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-481",
+      "headline": "Kingspan hit with €40 million EU fine for misleading data on Slovenian deal",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/kingspan-hit-with-40-million-eu-fine-misleading-data-slovenian-deal-2026-10-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T09:58:52Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Kingspan fined €40 million by EU for misleading data on Slovenian deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Kingspan fined €40 million by EU for misleading data on Slovenian deal.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kingspan",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1916,56 +1965,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Opmobility lowered its 2026 guidance and announced 770 job cuts due to automotive market weakness.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Opmobility",
-          "ticker": null,
-          "listing_country": "FR"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-282",
-      "headline": "Opmobility abaisse ses objectifs 2026 et annonce des suppressions de postes en France et en Allemagne",
-      "headline_en": "Opmobility lowers 2026 targets and announces job cuts in France and Germany",
-      "url": "https://www.reuters.com/fr/affaires/opmobility-rvise-ses-objectifs-2026-et-annonce-des-suppressions-de-postes-en-2026-10-07/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T17:32:40Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Opmobility lowered 2026 guidance and announced job cuts in France and Germany.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Opmobility lowered 2026 guidance and announced job cuts in France and Germany.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -207945,9 +207944,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1951848,
-    "news_picked_today": 826,
-    "news_dropped_today": 5630
+    "news_seen_today": 1962649,
+    "news_picked_today": 834,
+    "news_dropped_today": 5670
   },
   "book_momentum": {
     "live_count": 8,
