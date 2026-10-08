@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T10:33:19Z",
+  "generated_at": "2026-10-08T10:34:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-467",
@@ -164869,6 +164869,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-d837632c1545",
+      "idea_version": "IDEAV-e4436fe4626d600f",
+      "idea_version_started_at": "2026-10-08T10:33:41Z",
+      "ticker": "NATL",
+      "company": "NCR Atleos",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The UK regulator's approval of Brink's disposals removes a significant antitrust hurdle for the proposed $4 billion takeover of NCR Atleos.",
+      "why_now": "The regulatory update was reported today, October 8, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c3ab90444a7c"
+      ],
+      "primary_source_event_id": "EVT-c3ab90444a7c",
+      "source_headlines": [
+        "U.K. Regulator Says Brink’s Disposals Could Clear Way for $4 Billion NCR Atleos Takeover"
+      ],
+      "source_headline": "U.K. Regulator Says Brink’s Disposals Could Clear Way for $4 Billion NCR Atleos Takeover",
+      "source_url": "https://www.wsj.com/business/deals/u-k-regulator-says-brinks-disposals-could-clear-way-for-4-billion-ncr-atleos-takeover-46694444?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T09:46:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T10:33:41Z",
+      "updated_at": "2026-10-08T10:33:41Z",
+      "decay_at": "2026-10-09T21:46:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-7c6921220f81",
       "idea_version": "IDEAV-2311ef024b312cd4",
       "idea_version_started_at": "2026-10-08T08:41:14Z",
@@ -165285,6 +165355,222 @@
       "surfaced_at": "2026-10-07T20:55:35Z",
       "updated_at": "2026-10-07T20:55:35Z",
       "decay_at": "2026-10-09T01:08:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-26f859b2a348",
+      "idea_version": "IDEAV-00839b718ba53ef4",
+      "idea_version_started_at": "2026-10-08T10:33:41Z",
+      "ticker": "KRX",
+      "company": "Kingspan",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a €40 million EU fine for providing misleading data regarding a past acquisition, which will directly impact net income and potentially damage regulatory standing.",
+      "why_now": "The fine was announced today, October 8, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0fa5bb769b31"
+      ],
+      "primary_source_event_id": "EVT-0fa5bb769b31",
+      "source_headlines": [
+        "Kingspan hit with €40 million EU fine for misleading data on Slovenian deal"
+      ],
+      "source_headline": "Kingspan hit with €40 million EU fine for misleading data on Slovenian deal",
+      "source_url": "https://www.reuters.com/world/kingspan-hit-with-40-million-eu-fine-misleading-data-slovenian-deal-2026-10-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T09:58:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T10:33:41Z",
+      "updated_at": "2026-10-08T10:33:41Z",
+      "decay_at": "2026-10-09T21:58:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-67f596a2a4df",
+      "idea_version": "IDEAV-718b024ba90f160f",
+      "idea_version_started_at": "2026-10-08T10:33:41Z",
+      "ticker": "TSCO",
+      "company": "Tesco",
+      "exchange": "LSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Tesco raised its profit outlook floor following a first-half earnings beat, signaling improved margin performance in its core retail business.",
+      "why_now": "The guidance update was released today, October 8, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-fa9275b02b12"
+      ],
+      "primary_source_event_id": "EVT-fa9275b02b12",
+      "source_headlines": [
+        "Tesco raises profit outlook floor after first-half beat"
+      ],
+      "source_headline": "Tesco raises profit outlook floor after first-half beat",
+      "source_url": "https://www.reuters.com/business/britains-tesco-raises-profit-outlook-floor-after-first-half-rise-2026-10-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T08:57:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T10:33:41Z",
+      "updated_at": "2026-10-08T10:33:41Z",
+      "decay_at": "2026-10-09T20:57:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-a5928bf09a1d",
+      "idea_version": "IDEAV-cee404a50949d919",
+      "idea_version_started_at": "2026-10-08T10:33:41Z",
+      "ticker": "INSECTICID",
+      "company": "Insecticides India",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company cut its FY27 growth outlook due to weak monsoon conditions negatively impacting demand for its agrochemical products.",
+      "why_now": "The guidance cut was announced today, October 8, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-40106fb923e2"
+      ],
+      "primary_source_event_id": "EVT-40106fb923e2",
+      "source_headlines": [
+        "Insecticides India cuts FY27 growth outlook as weak monsoon hits agrochemical demand"
+      ],
+      "source_headline": "Insecticides India cuts FY27 growth outlook as weak monsoon hits agrochemical demand",
+      "source_url": "https://www.cnbctv18.com/business/companies/insecticides-india-cuts-fy27-growth-outlook-weak-monsoon-expects-premium-products-support-h2-el-nino-q2-earnings-weather-conditions-rains-20007628.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T09:35:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T10:33:41Z",
+      "updated_at": "2026-10-08T10:33:41Z",
+      "decay_at": "2026-10-09T21:35:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -207924,8 +208210,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1424,
-    "live_count": 33,
+    "surfaced_total": 1428,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
