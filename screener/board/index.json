@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T18:20:48Z",
+  "generated_at": "2026-10-08T18:26:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-651",
@@ -1131,6 +1131,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-657",
+      "headline": "Viatris to make $1.65B Pacira acquisition, adding to momentum in pain",
+      "headline_en": null,
+      "url": "https://endpoints.news/viatris-to-make-1-65b-pacira-acquisition-adding-to-momentum-in-pain/",
+      "source_name": "Endpoints News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T18:13:05Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Viatris announced the acquisition of Pacira for $1.65 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Viatris announced the acquisition of Pacira for $1.65 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viatris",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Pacira BioSciences",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-654",
       "headline": "Oryx Energies Sold for About $1 Billion in Management Buyout",
       "headline_en": null,
@@ -1950,56 +2004,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-557",
-      "headline": "Tcs Q2 Results: TCS profit jumps 15% to ₹13,884cr, AI revenue tops $3.1bn; board announces ₹12 dividend",
-      "headline_en": null,
-      "url": "https://timesofindia.indiatimes.com/business/india-business/tcs-q2-results-net-profit-rises-15-to-rs-13884-crore-revenue-up-11/articleshow/134788770.cms",
-      "source_name": "The Times of India (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T11:35:38Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "TCS reported a 15% profit jump to ₹13,884cr and announced a ₹12 dividend.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TCS reported a 15% profit jump to ₹13,884cr and announced a ₹12 dividend.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Consultancy Services",
-          "ticker": "TCS",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208598,9 +208602,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5346232,
-    "news_picked_today": 1304,
-    "news_dropped_today": 9616
+    "news_seen_today": 5411336,
+    "news_picked_today": 1307,
+    "news_dropped_today": 9661
   },
   "book_momentum": {
     "live_count": 8,
