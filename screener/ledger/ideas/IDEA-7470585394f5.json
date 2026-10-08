@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-7470585394f5",
+  "idea_version": "IDEAV-83274d58128db603",
+  "idea_version_started_at": "2026-10-08T14:29:57Z",
+  "ticker": "POLYCAB",
+  "company": "Polycab India Limited",
+  "exchange": "NSE",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The initiation of a Corporate Insolvency Resolution Process indicates severe liquidity distress and potential equity wipeout for shareholders.",
+  "why_now": "The exchange filing was released on 2026-10-08, making this a live default event.",
+  "conviction": 90,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "balance_sheet_survival",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-e81305b54265"
+  ],
+  "primary_source_event_id": "EVT-e81305b54265",
+  "source_headlines": [
+    "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+  ],
+  "source_headline": "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+  "source_url": "https://nsearchives.nseindia.com/corporate/POLYCAB_08102026190117_Intimation_to_Stock_Exchange.pdf",
+  "source_name": "BSE / NSE Exchange Filing",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-08T13:31:27Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-08T14:29:57Z",
+  "updated_at": "2026-10-08T14:29:57Z",
+  "decay_at": "2026-10-10T01:31:27Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
