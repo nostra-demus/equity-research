@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T00:12:07Z",
+  "generated_at": "2026-10-08T00:15:12Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-005",
@@ -156,6 +156,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-017",
+      "headline": "Foss & Company Closes $58 Million Tax Equity Investment in Utility-Scale Battery Storage Project with GridStor",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/foss--company-closes-58-million-tax-equity-investment-in-utility-scale-battery-storage-project-with-gridstor-302896802.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-07T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Foss & Company closed a $58 million tax equity investment in a utility-scale battery storage project with GridStor.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Foss & Company closed a $58 million tax equity investment in a utility-scale battery storage project with GridStor.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Foss & Company",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "GridStor",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -409,6 +463,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-012",
+      "headline": "API International Boosts Midwest Capacity By 75% to Meet Growing Eastern U.S. Demand",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/api-international-boosts-midwest-capacity-by-75-to-meet-growing-eastern-us-demand-302862062.html",
+      "source_name": "PR Newswire — General Business",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-07T14:04:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "API International is increasing its Midwest capacity by 75% to meet demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "API International is increasing its Midwest capacity by 75% to meet demand.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "API International",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-006",
       "headline": "Rocket Pharmaceuticals Highlights FDA-Aligned Pivotal Phase 2 Trial and Updated Clinical Findings for RP-A501 Following Danon Disease Investor Webinar",
       "headline_en": null,
@@ -454,6 +557,154 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-018",
+      "headline": "Sonorous Neurovascular Receives FDA IDE Approval for First U.S. Pivotal Trial of a Venous Sinus Stent to Treat Pulsatile Tinnitus",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/sonorous-neurovascular-receives-fda-ide-approval-for-first-us-pivotal-trial-of-a-venous-sinus-stent-to-treat-pulsatile-tinnitus-302900664.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-07T12:53:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Sonorous Neurovascular received FDA IDE approval to begin a pivotal trial for a medical device to treat pulsatile tinnitus.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "Sonorous Neurovascular received FDA IDE approval to begin a pivotal trial for a medical device to treat pulsatile tinnitus.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "product",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sonorous Neurovascular",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-016",
+      "headline": "Onfolio Holdings Receives Nasdaq Extension to Regain Compliance with Stockholders’ Equity Requirement",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/07/3376505/0/en/onfolio-holdings-receives-nasdaq-extension-to-regain-compliance-with-stockholders-equity-requirement.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-07T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Onfolio Holdings received a Nasdaq extension to regain compliance with stockholders' equity requirements, avoiding immediate delisting.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "Onfolio Holdings received a Nasdaq extension to regain compliance with stockholders' equity requirements, avoiding immediate delisting.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Onfolio Holdings Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-015",
+      "headline": "Första Gripen E tillverkad i Brasilien genomför sin första flygning",
+      "headline_en": "First Gripen E manufactured in Brazil completes its first flight",
+      "url": "https://news.cision.com/se/saab/r/forsta-gripen-e-tillverkad-i-brasilien-genomfor-sin-forsta-flygning,c4405791",
+      "source_name": "Cision — Sweden Regulatory & Company News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-07T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Saab's first Gripen E fighter jet manufactured in Brazil has completed its maiden flight, marking a milestone in local production capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Saab's first Gripen E fighter jet manufactured in Brazil has completed its maiden flight, marking a milestone in local production capabilities.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saab AB",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -552,6 +803,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-013",
+      "headline": "AIBotics and Empulser Position ‘Power. Persistence. Autonomy.’ Strategy as Pentagon Accelerates Autonomous Warfare Capabilities",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/07/3376595/0/en/aibotics-and-empulser-position-power-persistence-autonomy-strategy-as-pentagon-accelerates-autonomous-warfare-capabilities.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-07T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "AIBotics and Empulser are positioning their strategy to support the Pentagon's acceleration of autonomous warfare capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "AIBotics and Empulser are positioning their strategy to support the Pentagon's acceleration of autonomous warfare capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AIBotics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-014",
+      "headline": "AIBotics and Empulser Position ‘Power. Persistence. Autonomy.’ Strategy as Pentagon Accelerates Autonomous Warfare Capabilities | AIBT Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/AIBT/ai-botics-and-empulser-position-power-persistence-autonomy-strategy-wzrel64iy1n4.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-07T14:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "AIBotics and Empulser are positioning their strategy to support the Pentagon's acceleration of autonomous warfare capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "AIBotics and Empulser are positioning their strategy to support the Pentagon's acceleration of autonomous warfare capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 2,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AIBotics",
+          "ticker": "AIBT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208656,7 +209005,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3338,
+    "inbox_unconsumed": 3345,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -208665,9 +209014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5433,
-    "news_picked_today": 11,
-    "news_dropped_today": 205
+    "news_seen_today": 15819,
+    "news_picked_today": 18,
+    "news_dropped_today": 246
   },
   "book_momentum": {
     "live_count": 8,
