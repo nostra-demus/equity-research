@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-08T05:41:10Z",
+  "generated_at": "2026-10-08T05:44:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261008-412",
+      "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_08102026110702_ComplianceUnderReg46ofSEBI_LODR_30092026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-08T05:37:15Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "DPSC Limited has entered the Corporate Insolvency Resolution Process, indicating a formal bankruptcy or insolvency filing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DPSC Limited has entered the Corporate Insolvency Resolution Process, indicating a formal bankruptcy or insolvency filing.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DPSC Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261008-408",
       "headline": "STEEL EXCHANGE INDIA LIMITED: STEEL EXCHANGE INDIA LIMITED has informed the Exchange regarding a press release dated October 08, 2026, titled \"Steel Exchange India Limited Clocks Approximately ₹340 Crore Revenue in Q2 FY27, up 45% YoY and 25% QoQ, Driven by Record Re-bar Production\".",
@@ -1959,55 +2008,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-335",
-      "headline": "Samsung forecasts record third-quarter profit of $80 billion as AI boom fuels chip demand",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/08/samsung-q3-earnings.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T00:51:23Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Samsung (mega-cap) officially forecasts record Q3 profit of $80 billion; primary source, specific earnings number, clear AI-driven chip-demand tailwind.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Samsung (mega-cap) officially forecasts record Q3 profit of $80 billion; primary source, specific earnings number, clear AI-driven chip-demand tailwind.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207748,9 +207748,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 555553,
-    "news_picked_today": 624,
-    "news_dropped_today": 3408
+    "news_seen_today": 564255,
+    "news_picked_today": 627,
+    "news_dropped_today": 3429
   },
   "book_momentum": {
     "live_count": 8,
