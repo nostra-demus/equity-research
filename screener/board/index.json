@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T03:15:56Z",
+  "generated_at": "2026-10-08T03:20:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-300",
@@ -1659,6 +1659,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-380",
+      "headline": "Oasis urges Nidec to seek a buyout and warns of delisting risk",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/08/companies/oasis-urge-nidec-buyout/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T03:10:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Activist investor Oasis Management is pushing Nidec to explore a buyout and highlighting delisting risks, which could force a strategic review.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Activist investor Oasis Management is pushing Nidec to explore a buyout and highlighting delisting risks, which could force a strategic review.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nidec",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-194",
       "headline": "US approves over $2bn in weapons sales to Egypt, Kuwait and UAE",
       "headline_en": null,
@@ -1966,55 +2015,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-269",
-      "headline": "Air Products to build LNG-based air separation unit for Petronas-led venture in Malaysia",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/air-products-build-lng-based-air-separation-unit-petronas-led-venture-malaysia-2026-10-07/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T17:51:51Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Air Products is building a new LNG-based air separation unit, representing a significant capital investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Air Products is building a new LNG-based air separation unit, representing a significant capital investment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air Products",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210122,9 +210122,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 223204,
-    "news_picked_today": 483,
-    "news_dropped_today": 2253
+    "news_seen_today": 237812,
+    "news_picked_today": 484,
+    "news_dropped_today": 2276
   },
   "book_momentum": {
     "live_count": 8,
