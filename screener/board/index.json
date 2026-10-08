@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T16:25:32Z",
+  "generated_at": "2026-10-08T16:34:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-637",
@@ -1082,6 +1082,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-647",
+      "headline": "TCS Q2 Results: Net profit rises 15% to ₹13,884 crore, beats estimates",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/tcs-trumps-q2-estimates-net-profit-grows-15-to-13884-crore/article71559330.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T16:16:37Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "TCS reported a 15% increase in net profit to ₹13,884 crore, beating market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TCS reported a 15% increase in net profit to ₹13,884 crore, beating market expectations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TCS",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-645",
       "headline": "Viatris boosts pain drug portfolio with $1.7B buyout of Pacira",
       "headline_en": null,
@@ -1948,55 +1997,6 @@
           "name": "Tata Consultancy Services",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-512",
-      "headline": "PepsiCo cuts earnings forecast as North American turnaround takes longer than expected",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/08/pepsico-pep-q3-2026-earnings.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T10:38:59Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "PepsiCo cut its earnings forecast due to a slower-than-expected turnaround in North America.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PepsiCo cut its earnings forecast due to a slower-than-expected turnaround in North America.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PepsiCo",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -208598,9 +208598,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4387258,
-    "news_picked_today": 1244,
-    "news_dropped_today": 8500
+    "news_seen_today": 4452204,
+    "news_picked_today": 1246,
+    "news_dropped_today": 8570
   },
   "book_momentum": {
     "live_count": 8,
