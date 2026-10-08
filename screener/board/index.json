@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T12:36:05Z",
+  "generated_at": "2026-10-08T12:44:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-561",
@@ -930,6 +930,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-584",
+      "headline": "TCS Q2 Results Highlights: Profit beats estimates; AI revenue tops $3 billion; deal wins at $9.6 billion",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/tcs-q2-results-2026-live-updates-tata-consultancy-services-revenue-profit-margin-deal-wins-dividend-share-price-liveblog-20007378.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T12:16:15Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "TCS reported Q2 profit beating estimates with $9.6 billion in deal wins and $3 billion in AI revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TCS reported Q2 profit beating estimates with $9.6 billion in deal wins and $3 billion in AI revenue.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Consultancy Services",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-560",
       "headline": "Viatris to buy pain therapy maker Pacira Biosciences for $1.65 billion",
       "headline_en": null,
@@ -975,6 +1024,61 @@
         {
           "name": "Pacira Biosciences",
           "ticker": "PCRX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-583",
+      "headline": "Crescent Energy To Buy Devon's Eagle Ford Assets For $3.85 Bln; Launches $1 Bln Stock Offering",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/crescent-energy-buy-devons-eagle-ford-assets-385-bln-launches-1-bln-stock-offering",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T11:53:45Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Crescent Energy is acquiring assets for $3.85 billion and launching a $1 billion stock offering.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Crescent Energy is acquiring assets for $3.85 billion and launching a $1 billion stock offering.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Crescent Energy",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Devon Energy",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -1138,6 +1242,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-594",
+      "headline": "PepsiCo Lowers Guidance On Mounting Costs In North America",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/pepsico-lowers-guidance-on-mounting-costs-in-north-america-12156435#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T11:21:10Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "PepsiCo lowered its financial guidance due to rising costs in North America.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PepsiCo lowered its financial guidance due to rising costs in North America.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PepsiCo",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-527",
       "headline": "LIVE: TCS Q2 results 2026, quarterly dividend amount, record, payment date out; revenue, TCV, margin, profit numbers",
       "headline_en": null,
@@ -1177,55 +1330,6 @@
       "companies": [
         {
           "name": "Tata Consultancy Services",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-522",
-      "headline": "TCS Q2 Results Live Updates: Profit beats estimates; AI revenue tops $3 billion; deal wins at $9.6 billion",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/tcs-q2-results-2026-live-updates-tata-consultancy-services-revenue-profit-margin-deal-wins-dividend-share-price-liveblog-20007378.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T10:50:20Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "TCS reported Q2 profit beating estimates with $3 billion in AI revenue and $9.6 billion in deal wins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "TCS reported Q2 profit beating estimates with $3 billion in AI revenue and $9.6 billion in deal wins.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TCS",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -1886,109 +1990,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-318",
-      "headline": "Solidigm Eyes U.S. IPO at Up to $100 Billion Valuation",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278461",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T05:06:18Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Solidigm is preparing for a potential U.S. IPO at a valuation of up to $100 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Solidigm is preparing for a potential U.S. IPO at a valuation of up to $100 billion.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Solidigm",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-409",
-      "headline": "Fredun Pharmaceuticals Acquires 26% Stake In Goodman Vetcare For ₹300 Crore",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/fredun-pharmaceuticals-acquires-26-stake-in-goodman-vetcare-for-300-crore",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T04:51:54Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Fredun Pharmaceuticals is acquiring a 26% stake in Goodman Vetcare for 300 crore rupees.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Fredun Pharmaceuticals is acquiring a 26% stake in Goodman Vetcare for 300 crore rupees.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fredun Pharmaceuticals",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Goodman Vetcare",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208370,9 +208371,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2738269,
-    "news_picked_today": 1026,
-    "news_dropped_today": 6678
+    "news_seen_today": 2765567,
+    "news_picked_today": 1061,
+    "news_dropped_today": 6811
   },
   "book_momentum": {
     "live_count": 8,
