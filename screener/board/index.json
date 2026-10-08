@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T01:47:16Z",
+  "generated_at": "2026-10-08T01:51:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-034",
@@ -1758,6 +1758,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-250",
+      "headline": "Ericsson bets on localisation to deepen its India footprint; eyes country as manufacturing hub",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/ericsson-bets-on-localisation-to-deepen-its-india-footprint-eyes-country-as-manufacturing-hub/articleshow/134772668.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T18:13:22Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Ericsson is expanding its manufacturing footprint in India, signaling a strategic shift in its global supply chain.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Ericsson is expanding its manufacturing footprint in India, signaling a strategic shift in its global supply chain.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ericsson",
+          "ticker": null,
+          "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-066",
       "headline": "Medical device maker Centinel Spine discloses revenue rise in US IPO filing",
       "headline_en": null,
@@ -1950,49 +1999,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-145",
-      "headline": "Major North American airline permanently exits 13 markets",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/travel/westjet-airline-permanently-exits-13-markets",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T20:37:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "A major North American airline is permanently exiting 13 markets, signaling a reduction in operational footprint.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "A major North American airline is permanently exiting 13 markets, signaling a reduction in operational footprint.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210108,9 +210114,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 81930,
-    "news_picked_today": 284,
-    "news_dropped_today": 1492
+    "news_seen_today": 89220,
+    "news_picked_today": 289,
+    "news_dropped_today": 1511
   },
   "book_momentum": {
     "live_count": 8,
