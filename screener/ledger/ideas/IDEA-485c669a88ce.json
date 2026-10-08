@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-485c669a88ce",
+  "idea_version": "IDEAV-06239fe61967f059",
+  "idea_version_started_at": "2026-10-08T21:44:30Z",
+  "ticker": "AXP",
+  "company": "American Express",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The OCC assessed a $350 million civil money penalty against the company, which will directly impact near-term earnings and reflects regulatory scrutiny.",
+  "why_now": "The penalty was announced by the OCC on October 8, 2026.",
+  "conviction": 70,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 60,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-8a023925b812"
+  ],
+  "primary_source_event_id": "EVT-8a023925b812",
+  "source_headlines": [
+    "OCC Assesses $350 Million Civil Money Penalty Against American Express"
+  ],
+  "source_headline": "OCC Assesses $350 Million Civil Money Penalty Against American Express",
+  "source_url": "https://www.occ.gov/news-issuances/news-releases/2026/nr-occ-2026-87.html",
+  "source_name": "Office of the Comptroller of the Currency — News Releases",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-08T20:30:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-08T21:44:30Z",
+  "updated_at": "2026-10-08T21:44:30Z",
+  "decay_at": "2026-10-10T08:30:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
