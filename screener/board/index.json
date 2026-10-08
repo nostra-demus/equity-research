@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T11:08:58Z",
+  "generated_at": "2026-10-08T11:12:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-524",
@@ -630,6 +630,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-527",
+      "headline": "LIVE: TCS Q2 results 2026, quarterly dividend amount, record, payment date out; revenue, TCV, margin, profit numbers",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/live-tcs-q2-results-2026-quarterly-dividend-amount-record-payment-date-out-revenue-tcv-margin-profit-numbers-11791451540325.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T11:01:32Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "TCS reported Q2 2026 financial results including revenue, margin, and profit figures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TCS reported Q2 2026 financial results including revenue, margin, and profit figures.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Consultancy Services",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1932,56 +1981,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-347",
-      "headline": "ASX declines as materials plunge; Maas dives 25pc on Firmus worries",
-      "headline_en": null,
-      "url": "https://www.afr.com/markets/equity-markets/asx-to-drop-global-bond-yields-surge-anew-20261008-p613pn?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T00:11:32Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Maas (ASX-listed) collapsed 25% in a single session on disclosed Firmus-related concerns, indicating material counterparty or operational distress tied to unconfirmed allegations (headline #1).",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Maas (ASX-listed) collapsed 25% in a single session on disclosed Firmus-related concerns, indicating material counterparty or operational distress tied to unconfirmed allegations (headline #1).",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 82,
-      "rank_factors": {
-        "materiality": 82,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial",
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Maas",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208214,9 +208213,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2260821,
-    "news_picked_today": 919,
-    "news_dropped_today": 6137
+    "news_seen_today": 2283961,
+    "news_picked_today": 925,
+    "news_dropped_today": 6155
   },
   "book_momentum": {
     "live_count": 8,
