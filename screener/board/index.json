@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-08T11:35:28Z",
+  "generated_at": "2026-10-08T11:39:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261008-528",
+      "headline": "XIN YUAN ENT (01748): JOINT ANNOUNCEMENT (1) PRE-CONDITIONAL VOLUNTARY GENERAL CASH OFFER BY ICBC INTERNATIONAL CAPITAL LIMITED FOR AND ON BEHALF OF THE OFFEROR TO ACQUIRE ALL THE ISSUED SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND/OR PARTIES ACTING IN CONCERT WITH IT); AND (2) CESSATION OF AN EXECUTIVE DIRECTORSHIP AND RESIGNATION OF AN INDEPENDENT NON-EXECUTIVE DIRECTOR",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1008/2026100801035.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-08T11:21:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "The company is subject to a voluntary general cash offer to acquire all issued shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is subject to a voluntary general cash offer to acquire all issued shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna",
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "XIN YUAN ENT",
+          "ticker": "01748",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261008-524",
       "headline": "CHINA CBS INTL (00989): JOINT ANNOUNCEMENT (1) CLOSE OF THE UNCONDITIONAL MANDATORY CASH OFFER BY DL SECURITIES (HK) LIMITED FOR AND ON BEHALF OF GROUND GROUP (HONG KONG) CO., LIMITED TO ACQUIRE ALL THE ISSUED SHARES IN CHINA CHANGBAISHAN INTERNATIONAL HOLDINGS LIMITED (OTHER THAN THOSE ALREADY OWNED OR AGREED TO BE ACQUIRED BY THE OFFEROR AND PARTIES ACTING IN CONCERT WITH IT); (2) RESULTS OF THE OFFER; (3) SETTLEMENT OF THE OFFER; AND (4) PUBLIC FLOAT OF THE COMPANY",
@@ -1924,60 +1974,6 @@
           "name": "LG Energy Solution",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-291",
-      "headline": "The logic behind Emera’s $14.3-billion acquisition of Canadian Utilities is murky so far",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-the-logic-behind-emeras-143-billion-acquisition-of-canadian-utilities/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T00:22:47Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Emera is acquiring Canadian Utilities in a deal valued at $14.3 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Emera is acquiring Canadian Utilities in a deal valued at $14.3 billion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emera",
-          "ticker": null,
-          "listing_country": "CA"
-        },
-        {
-          "name": "Canadian Utilities",
-          "ticker": null,
-          "listing_country": "CA"
         }
       ],
       "size_bucket": "large",
@@ -208213,9 +208209,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2436176,
-    "news_picked_today": 943,
-    "news_dropped_today": 6305
+    "news_seen_today": 2472227,
+    "news_picked_today": 953,
+    "news_dropped_today": 6319
   },
   "book_momentum": {
     "live_count": 8,
