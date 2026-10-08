@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-08T15:03:56Z",
+  "generated_at": "2026-10-08T15:05:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261008-636",
+      "headline": "CNBM (03323): CONNECTED TRANSACTION AND DISCLOSEABLE TRANSACTION SUBSCRIPTION OF SHARES IN AND DEEMED DISPOSAL OF EQUITY INTEREST IN SINOMA SCIENCE & TECHNOLOGY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1008/2026100801401.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-08T14:22:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "CNBM announced a connected and discloseable transaction involving the subscription and deemed disposal of equity interest in Sinoma Science & Technology.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CNBM announced a connected and discloseable transaction involving the subscription and deemed disposal of equity interest in Sinoma Science & Technology.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CNBM",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "Sinoma Science & Technology",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261008-613",
       "headline": "Opening of Offer to Buy – Acquisition Window (Takeover) of PREMIER EXPLOSIVES LIMITED",
@@ -1928,55 +1982,6 @@
       },
       "event_types": [
         "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PepsiCo",
-          "ticker": "PEP",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-485",
-      "headline": "PepsiCo Lowers Guidance on Mounting Costs in North America",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-08/pepsico-lowers-guidance-on-mounting-costs-in-north-america",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T10:04:43Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "PepsiCo lowered its guidance due to mounting costs in North America, indicating margin pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PepsiCo lowered its guidance due to mounting costs in North America, indicating margin pressure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
         "guidance_change"
       ],
       "issuer_linkage": "primary",
@@ -208587,9 +208592,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3827997,
-    "news_picked_today": 1176,
-    "news_dropped_today": 7896
+    "news_seen_today": 3859181,
+    "news_picked_today": 1180,
+    "news_dropped_today": 7916
   },
   "book_momentum": {
     "live_count": 8,
