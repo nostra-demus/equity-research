@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-7470585394f5",
-  "idea_version": "IDEAV-ffc4a9332af08053",
+  "idea_id": "IDEA-c59cbad8d027",
+  "idea_version": "IDEAV-84e3072f0ca2e2b5",
   "idea_version_started_at": "2026-10-08T16:19:11Z",
-  "ticker": "POLYCAB",
-  "company": "Polycab India Limited",
-  "exchange": "NSE",
+  "ticker": "CPB",
+  "company": "Campbell Soup Company",
+  "exchange": "NYSE",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The company has entered a formal Corporate Insolvency Resolution Process, signaling severe financial distress and potential equity wipeout.",
-  "why_now": "The exchange filing was released on 2026-10-08, making this an immediate liquidity and solvency crisis.",
-  "conviction": 90,
+  "reason": "A 36% dividend cut highlights significant balance sheet strain and debt servicing challenges following the Rao's acquisition.",
+  "why_now": "The dividend cut was announced on 2026-10-08.",
+  "conviction": 80,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 25,
-    "impact": 23,
+    "evidence": 14,
+    "impact": 21,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,6 +32,7 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -48,26 +49,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-922a052e7d2c"
+    "EVT-e49feec70a72"
   ],
-  "primary_source_event_id": "EVT-922a052e7d2c",
+  "primary_source_event_id": "EVT-e49feec70a72",
   "source_headlines": [
-    "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+    "Campbell’s Slashes Dividend 36% to Combat Debt From Rao’s Acquisition"
   ],
-  "source_headline": "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-  "source_url": "https://nsearchives.nseindia.com/corporate/POLYCAB_08102026204050_StockExchangeIntimationCIRPupdate08102026F.pdf",
-  "source_name": "BSE / NSE Exchange Filing",
+  "source_headline": "Campbell’s Slashes Dividend 36% to Combat Debt From Rao’s Acquisition",
+  "source_url": "https://247wallst.com/investing/2026/10/08/campbells-slashes-dividend-36-to-combat-debt-from-raos-acquisition/",
+  "source_name": "24/7 Wall St.",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-08T15:11:15Z",
+  "newest_source_at": "2026-10-08T15:45:44Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-08T14:29:57Z",
+  "surfaced_at": "2026-10-08T16:19:11Z",
   "updated_at": "2026-10-08T16:19:11Z",
-  "decay_at": "2026-10-10T03:11:15Z",
+  "decay_at": "2026-10-10T03:45:44Z",
   "status": "live",
   "promoted_signal_id": null
 }
