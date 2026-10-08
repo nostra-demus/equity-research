@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-08T09:08:17Z",
+  "generated_at": "2026-10-08T09:12:58Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261008-440",
+      "headline": "Astron Paper & Board Mill Limited: Astron Paper & Board Mill Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ASTRON_08102026142934_Outcome-_5th_meeting.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-08T09:00:21Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Astron Paper & Board Mill Limited has entered the Corporate Insolvency Resolution Process, indicating a potential default or insolvency event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Astron Paper & Board Mill Limited has entered the Corporate Insolvency Resolution Process, indicating a potential default or insolvency event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Astron Paper & Board Mill Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261008-439",
       "headline": "FAST RETAIL-DRS (06288): ANNUAL RESULTS ANNOUNCEMENT FOR THE YEAR ENDED 31 AUGUST 2026 AND RESUMPTION OF TRADING",
@@ -237,6 +286,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-445",
+      "headline": "Tesco raises profit outlook floor after first-half beat",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/britains-tesco-raises-profit-outlook-floor-after-first-half-rise-2026-10-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T08:57:37Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Tesco raised its profit outlook floor following a first-half earnings beat.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tesco raised its profit outlook floor following a first-half earnings beat.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesco",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1907,104 +2005,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-427",
-      "headline": "UK's Imperial Brands affirms annual outlook, launches $2 billion share buyback",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/uks-imperial-brands-affirms-annual-outlook-launches-2-billion-share-buyback-2026-10-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T06:53:34Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Company launched a $2 billion share buyback and affirmed annual outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Company launched a $2 billion share buyback and affirmed annual outlook.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Imperial Brands",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-418",
-      "headline": "Imperial Brands to Launch $2 Billion Buyback After Meeting Profit Growth Target",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/earnings/imperial-brands-to-launch-2-billion-buyback-after-meeting-profit-growth-target-504da753?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T06:45:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Imperial Brands announced a $2 billion share buyback after meeting profit growth targets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Imperial Brands announced a $2 billion share buyback after meeting profit growth targets.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Imperial Brands",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -165088,76 +165088,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5fc26901c29d",
-      "idea_version": "IDEAV-3db29a9ec98416a6",
-      "idea_version_started_at": "2026-10-07T17:29:03Z",
-      "ticker": "BKH",
-      "company": "Black Hills Corp",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is committing to a $1.8 billion capital expenditure project to provide power infrastructure for a Google data center, which will drive long-term regulated rate base growth.",
-      "why_now": "The investment plan was announced on 2026-10-06.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-94efc385854d"
-      ],
-      "primary_source_event_id": "EVT-94efc385854d",
-      "source_headlines": [
-        "Black Hills plans $1.8 billion investment to power Google's data center"
-      ],
-      "source_headline": "Black Hills plans $1.8 billion investment to power Google's data center",
-      "source_url": "https://www.reuters.com/business/energy/black-hills-plans-18-billion-investment-power-googles-data-center-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T21:11:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T00:42:27Z",
-      "updated_at": "2026-10-07T17:29:03Z",
-      "decay_at": "2026-10-08T09:11:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6620ff045c07",
       "idea_version": "IDEAV-00105b23d1457dbd",
       "idea_version_started_at": "2026-10-07T01:07:10Z",
@@ -167074,6 +167004,76 @@
       "surfaced_at": "2026-10-06T21:25:08Z",
       "updated_at": "2026-10-06T21:25:08Z",
       "decay_at": "2026-10-08T02:24:15Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5fc26901c29d",
+      "idea_version": "IDEAV-3db29a9ec98416a6",
+      "idea_version_started_at": "2026-10-07T17:29:03Z",
+      "ticker": "BKH",
+      "company": "Black Hills Corp",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company is committing to a $1.8 billion capital expenditure project to provide power infrastructure for a Google data center, which will drive long-term regulated rate base growth.",
+      "why_now": "The investment plan was announced on 2026-10-06.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-94efc385854d"
+      ],
+      "primary_source_event_id": "EVT-94efc385854d",
+      "source_headlines": [
+        "Black Hills plans $1.8 billion investment to power Google's data center"
+      ],
+      "source_headline": "Black Hills plans $1.8 billion investment to power Google's data center",
+      "source_url": "https://www.reuters.com/business/energy/black-hills-plans-18-billion-investment-power-googles-data-center-2026-10-06/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-06T21:11:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T00:42:27Z",
+      "updated_at": "2026-10-07T17:29:03Z",
+      "decay_at": "2026-10-08T09:11:44Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170464,14 +170464,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 553,
+    "total_count": 554,
     "shown_count": 500,
-    "hidden_count": 53,
+    "hidden_count": 54,
     "side_counts": {
       "long": {
-        "total_count": 289,
+        "total_count": 290,
         "shown_count": 250,
-        "hidden_count": 39
+        "hidden_count": 40
       },
       "short": {
         "total_count": 264,
@@ -170495,6 +170495,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5fc26901c29d",
+        "idea_version": "IDEAV-3db29a9ec98416a6",
+        "idea_version_started_at": "2026-10-07T17:29:03Z",
+        "ticker": "BKH",
+        "company": "Black Hills Corp",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company is committing to a $1.8 billion capital expenditure project to provide power infrastructure for a Google data center, which will drive long-term regulated rate base growth.",
+        "why_now": "The investment plan was announced on 2026-10-06.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-94efc385854d"
+        ],
+        "primary_source_event_id": "EVT-94efc385854d",
+        "source_headlines": [
+          "Black Hills plans $1.8 billion investment to power Google's data center"
+        ],
+        "source_headline": "Black Hills plans $1.8 billion investment to power Google's data center",
+        "source_url": "https://www.reuters.com/business/energy/black-hills-plans-18-billion-investment-power-googles-data-center-2026-10-06/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-06T21:11:44Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-07T00:42:27Z",
+        "updated_at": "2026-10-07T17:29:03Z",
+        "decay_at": "2026-10-08T09:11:44Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-08T09:11:44Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-97064c0977c4",
         "idea_version": "IDEAV-1915c819d18b2098",
@@ -198122,80 +198195,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-2ae207956495",
-        "idea_version": "IDEAV-1c81b4a70efb53f5",
-        "idea_version_started_at": "2026-09-25T05:48:29Z",
-        "ticker": "02465",
-        "company": "LOPAL TECH",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "LOPAL TECH is investing in the construction of its global headquarters and a new innovation center, signaling expansion and future growth potential.",
-        "why_now": "The investment announcement was made via an exchange filing on September 24, 2026.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a76b81837acb"
-        ],
-        "primary_source_event_id": "EVT-a76b81837acb",
-        "source_headlines": [
-          "LOPAL TECH (02465): ANNOUNCEMENT IN RELATION TO THE INVESTMENT IN THE CONSTRUCTION OF THE GLOBAL HEADQUARTERS AND THE NEW ENERGY, NEW MATERIALS AND ARTIFICIAL INTELLIGENCE SMART INNOVATION CENTRE AND CUMULATIVE OUTWARD INVESTMENTS"
-        ],
-        "source_headline": "LOPAL TECH (02465): ANNOUNCEMENT IN RELATION TO THE INVESTMENT IN THE CONSTRUCTION OF THE GLOBAL HEADQUARTERS AND THE NEW ENERGY, NEW MATERIALS AND ARTIFICIAL INTELLIGENCE SMART INNOVATION CENTRE AND CUMULATIVE OUTWARD INVESTMENTS",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0924/2026092402161.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-24T13:41:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-25T05:48:29Z",
-        "updated_at": "2026-09-25T05:48:29Z",
-        "decay_at": "2026-09-26T01:41:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-27T13:53:47Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-5cafd3edd0bd",
         "idea_version": "IDEAV-bea16d395573f816",
         "idea_version_started_at": "2026-09-24T22:18:36Z",
@@ -207724,7 +207723,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1421,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207743,9 +207742,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1631778,
-    "news_picked_today": 746,
-    "news_dropped_today": 5134
+    "news_seen_today": 1652246,
+    "news_picked_today": 757,
+    "news_dropped_today": 5171
   },
   "book_momentum": {
     "live_count": 8,
