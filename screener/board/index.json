@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T08:30:30Z",
+  "generated_at": "2026-10-08T08:34:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-412",
@@ -1606,6 +1606,57 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-437",
+      "headline": "Tesco Plc H1 Profit Climbs; Lifts Share Buyback, FY27 Outlook",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/tesco-plc-h1-profit-climbs-lifts-share-buyback-fy27-outlook",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T06:30:20Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Tesco reported H1 profit growth, increased buybacks, and updated its FY27 outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Tesco reported H1 profit growth, increased buybacks, and updated its FY27 outlook.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesco Plc",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-285",
       "headline": "Brookfield to acquire 8 ESR logistics parks for $450 million",
       "headline_en": null,
@@ -1954,60 +2005,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-379",
-      "headline": "Shell, Chevron cut Gulf of Mexico output as Tropical Storm Isaias approaches",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/energy/shell-chevron-cut-gulf-mexico-output-tropical-storm-isaias-approaches-2026-10-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T00:29:44Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Shell and Chevron are cutting Gulf of Mexico output due to an approaching tropical storm, creating a supply disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Shell and Chevron are cutting Gulf of Mexico output due to an approaching tropical storm, creating a supply disruption.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 2,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Shell",
-          "ticker": null,
-          "listing_country": "GB"
-        },
-        {
-          "name": "Chevron",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -207748,9 +207745,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1416259,
-    "news_picked_today": 714,
-    "news_dropped_today": 4878
+    "news_seen_today": 1445242,
+    "news_picked_today": 725,
+    "news_dropped_today": 4891
   },
   "book_momentum": {
     "live_count": 8,
