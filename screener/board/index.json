@@ -1,6 +1,56 @@
 {
-  "generated_at": "2026-10-08T21:26:14Z",
+  "generated_at": "2026-10-08T21:37:15Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261008-679",
+      "headline": "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors",
+      "headline_en": null,
+      "url": "https://www.war.gov/News/Releases/Release/Article/4622796/department-of-war-awards-63-billion-multi-year-contract-to-rtxs-raytheon-for-sm/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-08T21:00:08Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "RTX's Raytheon unit was awarded a $6.3 billion multi-year contract for SM-3 interceptors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "RTX's Raytheon unit was awarded a $6.3 billion multi-year contract for SM-3 interceptors.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RTX Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261008-670",
       "headline": "OCC Assesses $350 Million Civil Money Penalty Against American Express",
@@ -1327,6 +1377,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-676",
+      "headline": "Stock Market Today, Oct. 8: Chipotle Surges 6% on New Starbucks Takeover Report",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/stock-market-today-oct-8-chipotle-surges-6-new-starbucks-takeover-report",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T21:06:41Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Chipotle stock rose 6% following reports of a potential takeover by Starbucks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Chipotle stock rose 6% following reports of a potential takeover by Starbucks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Chipotle Mexican Grill",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Starbucks",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-675",
       "headline": "Aritzia Lifts Guidance as U.S. Sales Support Higher Profit, Revenue",
       "headline_en": null,
@@ -1877,106 +1981,6 @@
         {
           "name": "Chipotle",
           "ticker": "CMG",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-624",
-      "headline": "Global cookie chain closes 57 locations in 2026, franchisee owners file Chapter 7 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/crumbl-cookie-chain-closes-57-locations-in-2026-franchisee-files-chapter-7-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T13:47:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "A global cookie chain is closing 57 locations and franchisees have filed for Chapter 7 bankruptcy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A global cookie chain is closing 57 locations and franchisees have filed for Chapter 7 bankruptcy.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs",
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Global cookie chain",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-623",
-      "headline": "PepsiCo slashes forecast, deepens cost cuts as N.America recovery drags",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/pepsico-cuts-annual-core-profit-forecast-higher-costs-hurt-margins-2026-10-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T13:33:48Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "PepsiCo cut its financial forecast and announced deeper cost-cutting measures due to a slow recovery in North America.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "PepsiCo cut its financial forecast and announced deeper cost-cutting measures due to a slow recovery in North America.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change",
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PepsiCo",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -208504,9 +208508,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7227503,
-    "news_picked_today": 1440,
-    "news_dropped_today": 11184
+    "news_seen_today": 7352788,
+    "news_picked_today": 1449,
+    "news_dropped_today": 11271
   },
   "book_momentum": {
     "live_count": 8,
