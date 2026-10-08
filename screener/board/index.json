@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T12:21:27Z",
+  "generated_at": "2026-10-08T12:36:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-561",
@@ -164583,77 +164583,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-90b902d53889",
-      "idea_version": "IDEAV-5a2cb3450d7842dc",
-      "idea_version_started_at": "2026-10-07T01:07:10Z",
-      "ticker": "NVDA",
-      "company": "Nvidia",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "SpaceX is seeking $40 billion in financing specifically earmarked for the purchase of Nvidia chips, representing a massive, concentrated demand catalyst.",
-      "why_now": "Reports of the $40 billion financing round led by Apollo surfaced on October 7, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 72,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1268c14438d6",
-        "EVT-dab3c6cf4f3f"
-      ],
-      "primary_source_event_id": "EVT-1268c14438d6",
-      "source_headlines": [
-        "SpaceX seeking to raise US$40 billion to buy Nvidia chips: Financial Times",
-        "SpaceX seeks $40 billion financing led by Apollo to buy Nvidia chips, FT reports"
-      ],
-      "source_headline": "SpaceX seeking to raise US$40 billion to buy Nvidia chips: Financial Times",
-      "source_url": "https://www.straitstimes.com/business/companies-markets/spacex-seeking-to-raise-us40-billion-to-buy-nvidia-chips-financial-times",
-      "source_name": "The Straits Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-07T00:25:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T01:35:08Z",
-      "updated_at": "2026-10-07T01:07:10Z",
-      "decay_at": "2026-10-08T12:25:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c8b3d2de9e46",
       "idea_version": "IDEAV-fadd4c8a325cf698",
       "idea_version_started_at": "2026-10-07T03:42:33Z",
@@ -166796,6 +166725,77 @@
       "surfaced_at": "2026-10-05T23:00:55Z",
       "updated_at": "2026-10-05T23:00:55Z",
       "decay_at": "2026-10-07T08:22:52Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-90b902d53889",
+      "idea_version": "IDEAV-5a2cb3450d7842dc",
+      "idea_version_started_at": "2026-10-07T01:07:10Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "SpaceX is seeking $40 billion in financing specifically earmarked for the purchase of Nvidia chips, representing a massive, concentrated demand catalyst.",
+      "why_now": "Reports of the $40 billion financing round led by Apollo surfaced on October 7, 2026.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 72,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1268c14438d6",
+        "EVT-dab3c6cf4f3f"
+      ],
+      "primary_source_event_id": "EVT-1268c14438d6",
+      "source_headlines": [
+        "SpaceX seeking to raise US$40 billion to buy Nvidia chips: Financial Times",
+        "SpaceX seeks $40 billion financing led by Apollo to buy Nvidia chips, FT reports"
+      ],
+      "source_headline": "SpaceX seeking to raise US$40 billion to buy Nvidia chips: Financial Times",
+      "source_url": "https://www.straitstimes.com/business/companies-markets/spacex-seeking-to-raise-us40-billion-to-buy-nvidia-chips-financial-times",
+      "source_name": "The Straits Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T00:25:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-05T01:35:08Z",
+      "updated_at": "2026-10-07T01:07:10Z",
+      "decay_at": "2026-10-08T12:25:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171100,14 +171100,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 561,
+    "total_count": 562,
     "shown_count": 500,
-    "hidden_count": 61,
+    "hidden_count": 62,
     "side_counts": {
       "long": {
-        "total_count": 293,
+        "total_count": 294,
         "shown_count": 250,
-        "hidden_count": 43
+        "hidden_count": 44
       },
       "short": {
         "total_count": 268,
@@ -171131,6 +171131,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-90b902d53889",
+        "idea_version": "IDEAV-5a2cb3450d7842dc",
+        "idea_version_started_at": "2026-10-07T01:07:10Z",
+        "ticker": "NVDA",
+        "company": "Nvidia",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "SpaceX is seeking $40 billion in financing specifically earmarked for the purchase of Nvidia chips, representing a massive, concentrated demand catalyst.",
+        "why_now": "Reports of the $40 billion financing round led by Apollo surfaced on October 7, 2026.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 72,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "commodity_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-1268c14438d6",
+          "EVT-dab3c6cf4f3f"
+        ],
+        "primary_source_event_id": "EVT-1268c14438d6",
+        "source_headlines": [
+          "SpaceX seeking to raise US$40 billion to buy Nvidia chips: Financial Times",
+          "SpaceX seeks $40 billion financing led by Apollo to buy Nvidia chips, FT reports"
+        ],
+        "source_headline": "SpaceX seeking to raise US$40 billion to buy Nvidia chips: Financial Times",
+        "source_url": "https://www.straitstimes.com/business/companies-markets/spacex-seeking-to-raise-us40-billion-to-buy-nvidia-chips-financial-times",
+        "source_name": "The Straits Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-07T00:25:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-05T01:35:08Z",
+        "updated_at": "2026-10-07T01:07:10Z",
+        "decay_at": "2026-10-08T12:25:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-08T12:25:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8f220a5a3968",
         "idea_version": "IDEAV-9caedc01668f4d84",
@@ -198679,80 +198753,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-a70b7479699d",
-        "idea_version": "IDEAV-89abbbb1e00cfa80",
-        "idea_version_started_at": "2026-09-26T19:03:28Z",
-        "ticker": "9626",
-        "company": "Bilibili Inc.",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Bilibili has proposed an off-market share buy-back alongside a notice of an Extraordinary General Meeting, which will reduce outstanding share count and support equity value.",
-        "why_now": "The announcement was filed on September 25, 2026, setting up an upcoming shareholder vote at the Extraordinary General Meeting.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4169b2f0aa4b"
-        ],
-        "primary_source_event_id": "EVT-4169b2f0aa4b",
-        "source_headlines": [
-          "BILIBILI-W (09626): (1) PROPOSED OFF-MARKET SHARE BUY-BACK; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING"
-        ],
-        "source_headline": "BILIBILI-W (09626): (1) PROPOSED OFF-MARKET SHARE BUY-BACK; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500895.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-25T10:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-26T19:03:28Z",
-        "updated_at": "2026-09-26T19:03:28Z",
-        "decay_at": "2026-09-26T22:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-28T11:25:12Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-111ec83cfb59",
         "idea_version": "IDEAV-a9aa0b416610b566",
         "idea_version_started_at": "2026-09-25T05:48:29Z",
@@ -208351,7 +208351,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1430,
-    "live_count": 35,
+    "live_count": 34,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -208370,9 +208370,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2725160,
-    "news_picked_today": 1025,
-    "news_dropped_today": 6655
+    "news_seen_today": 2738269,
+    "news_picked_today": 1026,
+    "news_dropped_today": 6678
   },
   "book_momentum": {
     "live_count": 8,
