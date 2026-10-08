@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-08T10:54:23Z",
+  "generated_at": "2026-10-08T11:00:25Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261008-521",
+      "headline": "CON AERO TECH (00232): ANNOUNCEMENT - (1) DESPATCH OF CHEQUES AND COMPLETION OF WIRE TRANSFERS FOR PAYMENT OF THE SPECIAL DIVIDEND ON DISPOSAL AND THE CASH DIVIDEND ON PROPERTY DISPOSAL; (2) WITHDRAWAL OF LISTING; AND (3) WINDING UP PROPOSAL",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1008/2026100800965.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-08T10:54:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "The company is proceeding with a winding up proposal and withdrawal of listing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is proceeding with a winding up proposal and withdrawal of listing.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CON AERO TECH",
+          "ticker": "00232",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261008-508",
       "headline": "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding a press release dated October 8, 2026, titled \"International Growth and Strategic Wins Underpin TCS Q2\".",
@@ -532,6 +581,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-522",
+      "headline": "TCS Q2 Results Live Updates: Profit beats estimates; AI revenue tops $3 billion; deal wins at $9.6 billion",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/tcs-q2-results-2026-live-updates-tata-consultancy-services-revenue-profit-margin-deal-wins-dividend-share-price-liveblog-20007378.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T10:50:20Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "TCS reported Q2 profit beating estimates with $3 billion in AI revenue and $9.6 billion in deal wins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TCS reported Q2 profit beating estimates with $3 billion in AI revenue and $9.6 billion in deal wins.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TCS",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1865,104 +1963,6 @@
         "size": 2,
         "recency": 4,
         "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung Electronics",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-292",
-      "headline": "Ellisons Invest About $17 Billion in Warner Bros. Takeover",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-08/ellisons-invest-an-estimated-17-billion-in-warner-bros-buyout",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-08T00:02:41Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "The Ellison family is investing $17 billion in a takeover of Warner Bros.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The Ellison family is investing $17 billion in a takeover of Warner Bros.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Warner Bros.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-034",
-      "headline": "Samsung Sees Operating Profit Topping $80 Billion Amid AI Boom",
-      "headline_en": null,
-      "url": "https://www.wsj.com/tech/samsung-sees-operating-profit-topping-80-billion-amid-ai-boom-1e00ca3f?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T23:41:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Samsung projects operating profit exceeding $80 billion, a major positive indicator for the semiconductor and AI sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung projects operating profit exceeding $80 billion, a major positive indicator for the semiconductor and AI sector.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -208214,9 +208214,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2147085,
-    "news_picked_today": 899,
-    "news_dropped_today": 6037
+    "news_seen_today": 2203364,
+    "news_picked_today": 907,
+    "news_dropped_today": 6077
   },
   "book_momentum": {
     "live_count": 8,
