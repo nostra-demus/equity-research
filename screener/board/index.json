@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T08:39:30Z",
+  "generated_at": "2026-10-08T08:41:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-439",
@@ -165018,6 +165018,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7c6921220f81",
+      "idea_version": "IDEAV-2311ef024b312cd4",
+      "idea_version_started_at": "2026-10-08T08:41:14Z",
+      "ticker": "AVGO",
+      "company": "Broadcom",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A $50 billion financing plan for OpenAI chips underscores Broadcom's critical role as a custom silicon provider in the AI infrastructure build-out.",
+      "why_now": "The report surfaced on October 7, 2026, highlighting a massive expansion in the company's addressable market.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e8348f272268"
+      ],
+      "primary_source_event_id": "EVT-e8348f272268",
+      "source_headlines": [
+        "Broadcom Plans $50 Billion Financing for OpenAI Chips, WSJ Says"
+      ],
+      "source_headline": "Broadcom Plans $50 Billion Financing for OpenAI Chips, WSJ Says",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-07/broadcom-plans-50-billion-financing-for-openai-chips-wsj-says",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T21:25:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T08:41:14Z",
+      "updated_at": "2026-10-08T08:41:14Z",
+      "decay_at": "2026-10-09T09:25:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-850cc3e2123d",
       "idea_version": "IDEAV-f1b28979f3548f01",
       "idea_version_started_at": "2026-10-07T20:26:28Z",
@@ -167284,77 +167354,6 @@
       "surfaced_at": "2026-10-05T23:32:47Z",
       "updated_at": "2026-10-05T23:32:47Z",
       "decay_at": "2026-10-07T09:09:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-863c8a81db89",
-      "idea_version": "IDEAV-00167ca7c68becd1",
-      "idea_version_started_at": "2026-10-05T07:26:59Z",
-      "ticker": "CSL.AX",
-      "company": "CSL",
-      "exchange": "Australian",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "CSL is considering a drug deal with a Swiss biotech start-up that could be worth up to $2.2 billion.",
-      "why_now": "The potential deal was reported on October 5, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-59bf272af84c"
-      ],
-      "primary_source_event_id": "EVT-59bf272af84c",
-      "source_headlines": [
-        "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up"
-      ],
-      "source_headline": "CSL could spend up to $2.2b on drug deal with Swiss biotech start-up",
-      "source_url": "https://www.afr.com/companies/healthcare-and-fitness/csl-could-spend-up-to-2-2b-on-drug-deal-with-swiss-biotech-startup-20261005-p612ty?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T05:41:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-05T07:26:59Z",
-      "updated_at": "2026-10-05T07:26:59Z",
-      "decay_at": "2026-10-06T17:41:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170465,14 +170464,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 553,
+    "total_count": 552,
     "shown_count": 500,
-    "hidden_count": 53,
+    "hidden_count": 52,
     "side_counts": {
       "long": {
-        "total_count": 289,
+        "total_count": 288,
         "shown_count": 250,
-        "hidden_count": 39
+        "hidden_count": 38
       },
       "short": {
         "total_count": 264,
@@ -170482,12 +170481,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 832,
+      "evicted_count": 833,
       "oldest_retained_at": "2026-09-11T23:04:08Z",
       "side_counts": {
         "long": {
-          "evicted_count": 550,
-          "oldest_retained_at": "2026-09-22T17:25:50Z"
+          "evicted_count": 551,
+          "oldest_retained_at": "2026-09-22T17:54:33Z"
         },
         "short": {
           "evicted_count": 282,
@@ -174447,8 +174446,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-06T17:41:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-08T08:41:18Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -207725,8 +207724,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1420,
-    "live_count": 34,
+    "surfaced_total": 1421,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -207745,7 +207744,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1474531,
+    "news_seen_today": 1484321,
     "news_picked_today": 732,
     "news_dropped_today": 4932
   },
