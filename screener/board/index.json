@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T00:32:07Z",
+  "generated_at": "2026-10-08T00:40:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261008-034",
@@ -194,6 +194,204 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-065",
+      "headline": "SoftBank subsidiary's cloud service disrupted in cyberattack",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261008/p2g/00m/0bu/004000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T22:51:54Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "A SoftBank subsidiary experienced a cloud service disruption due to a cyberattack, impacting operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "A SoftBank subsidiary experienced a cloud service disruption due to a cyberattack, impacting operations.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "cybersecurity",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SoftBank",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-067",
+      "headline": "UPS Worker Missed Email, Letting China Get F-35 Parts",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-07/ups-worker-missed-email-letting-china-get-f-35-parts",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T22:49:21Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "A security breach involving F-35 parts due to a process failure at UPS represents a significant operational and regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "A security breach involving F-35 parts due to a process failure at UPS represents a significant operational and regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UPS",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-073",
+      "headline": "NICE collected Rs 4,756 crore illegally from toll: HD Kumaraswamy",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/karnataka/bengaluru/nice-collected-rs-4756-crore-illegally-from-toll-hd-kumaraswamy-4174240",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:57:47Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Allegations of illegal toll collection totaling Rs 4,756 crore against Nandi Infrastructure Corridor Enterprises (NICE) pose significant legal and financial risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Allegations of illegal toll collection totaling Rs 4,756 crore against Nandi Infrastructure Corridor Enterprises (NICE) pose significant legal and financial risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nandi Infrastructure Corridor Enterprises",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-066",
+      "headline": "Medical device maker Centinel Spine discloses revenue rise in US IPO filing",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/medical-device-maker-centinel-spine-discloses-revenue-rise-us-ipo-filing-2026-10-07/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T22:50:53Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Centinel Spine disclosed revenue growth in an IPO filing, providing new financial data.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Centinel Spine disclosed revenue growth in an IPO filing, providing new financial data.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Centinel Spine",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -492,6 +690,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-069",
+      "headline": "U.S. loaning $4.2 billion to energy firm with crashing stock",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/stocks/us-department-energy-loan-4-billion-vistra-vst-crashing-stock",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T22:17:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "$4.2 billion U.S. government loan to energy company with crashing stock signals distress or special-situation capital intervention, but company identity not disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "$4.2 billion U.S. government loan to energy company with crashing stock signals distress or special-situation capital intervention, but company identity not disclosed.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 56,
+      "rank_factors": {
+        "materiality": 56,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "unnamed energy company",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-076",
+      "headline": "OpenAI Says a Secret AI Model Cracked Hundreds of Open Math Problems in One Prompt—Mathematicians Want Receipts",
+      "headline_en": null,
+      "url": "https://decrypt.co/380366/openai-secret-ai-model-cracked-hundreds-math-problems-one-prompt",
+      "source_name": "Decrypt — Crypto News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:46:03Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "OpenAI's reported breakthrough in solving complex math problems demonstrates significant progress in AI capabilities, impacting the competitive landscape.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "OpenAI's reported breakthrough in solving complex math problems demonstrates significant progress in AI capabilities, impacting the competitive landscape.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-030",
       "headline": "Halozyme Wins Injunction Stopping Manufacture and Sale of Merck's Keytruda SC in Multiple European Markets | HALO Stock News",
       "headline_en": null,
@@ -546,6 +843,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261008-074",
+      "headline": "Why Black Hills Stock Rocketed Higher Today",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/07/why-black-hills-stock-rocketed-higher-today/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:46:36Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Black Hills Corporation experienced a significant stock price movement, indicating a material shift in market sentiment or operational outlook.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Black Hills Corporation experienced a significant stock price movement, indicating a material shift in market sentiment or operational outlook.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Black Hills Corporation",
+          "ticker": "BKH",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261008-049",
       "headline": "Safe Pro Expects Record 2,300% Revenue Growth in Q3 2026 Driven by Multiple Government Contracts for AI-Powered Threat Detection and Mapping",
       "headline_en": null,
@@ -590,6 +936,228 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-072",
+      "headline": "Circular on property tax exemption to be put on hold: Karnataka minister Eshwar Khandre",
+      "headline_en": null,
+      "url": "https://www.deccanherald.com/india/karnataka/circular-on-property-tax-exemption-to-be-put-on-hold-karnataka-minister-eshwar-khandre-4174229",
+      "source_name": "Deccan Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T22:20:29Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "The Karnataka government is pausing a property tax exemption, which impacts local fiscal policy and taxpayer obligations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "The Karnataka government is pausing a property tax exemption, which impacts local fiscal policy and taxpayer obligations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-068",
+      "headline": "Trump to propose relaxing oil and gas methane rules",
+      "headline_en": null,
+      "url": "https://thehill.com/newsletters/energy-environment/6135217-trump-administration-epa-proposes-methane-changes/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T22:15:46Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Proposed relaxation of oil & gas methane emissions rules could reduce operator compliance capex and improve cash flow across the sector, but remains a proposal without official regulatory filing or company-specific quantification.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Proposed relaxation of oil & gas methane emissions rules could reduce operator compliance capex and improve cash flow across the sector, but remains a proposal without official regulatory filing or company-specific quantification.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-075",
+      "headline": "Trump’s New AI Czar to Visit Top AI Firms on Silicon Valley Tour",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-07/trump-s-new-ai-czar-to-visit-top-ai-firms-on-silicon-valley-tour",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T21:56:23Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "The appointment of an AI Czar and upcoming visits to major firms signal increased regulatory scrutiny and policy focus on the AI sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "The appointment of an AI Czar and upcoming visits to major firms signal increased regulatory scrutiny and policy focus on the AI sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-071",
+      "headline": "Trump urged Xi to talk to Takaichi and lift export curbs on Japan, sources say",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/china/diplomacy/article/3370064/trump-urged-xi-talk-takaichi-and-lift-export-curbs-japan-sources-say?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T22:00:11Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Unconfirmed report (sources say) of Trump urging China to lift semiconductor export restrictions on Japan; if true could shift semiconductor supply/demand expectations, but no official policy change or company-level event disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Unconfirmed report (sources say) of Trump urging China to lift semiconductor export restrictions on Japan; if true could shift semiconductor supply/demand expectations, but no official policy change or company-level event disclosed.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 47,
+      "rank_factors": {
+        "materiality": 47,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-053",
+      "headline": "X-Bow Awarded Nearly $70M to Develop Advanced Booster for Future Navy Missiles",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/x-bow-awarded-nearly-70m-to-develop-advanced-booster-for-future-navy-missiles-302901101.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-07T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "X-Bow was awarded a $70 million contract to develop missile boosters for the U.S. Navy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "X-Bow was awarded a $70 million contract to develop missile boosters for the U.S. Navy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "X-Bow",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -744,6 +1312,104 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-064",
+      "headline": "Pre-orders are live on Nvidia RTX Spark devices, secure the Surface Laptop Ultra or other RTX Spark laptops here — starting at $2,599",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/laptops/pre-orders-are-live-on-nvidia-rtx-spark-devices-secure-the-surface-laptop-ultra-or-other-rtx-spark-laptop-starting-at-usd2-599-pricing-and-availability-revealed-on-several-models",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T22:52:39Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "New product launch and pre-orders for Nvidia-powered devices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "New product launch and pre-orders for Nvidia-powered devices.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261008-070",
+      "headline": "Shankara Buildpro shares to trade adjusted for 1:5 stock split - All you need to know",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/shankara-buildpro-share-price-stock-split-record-date-today-adjustment-value-change-demerger-returns-20007051.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-07T22:40:15Z",
+      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
+      "prelim_note": "Stock split is a mechanical corporate action without impact to business fundamentals or per-share intrinsic value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Stock split is a mechanical corporate action without impact to business fundamentals or per-share intrinsic value.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 42,
+      "rank_factors": {
+        "materiality": 42,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shankara Buildpro",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1293,686 +1959,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-050",
-      "headline": "Esperion Reaches Settlement Agreement with Sixth ANDA Filer Not to Market Generic Version of NEXLETOL® (bempedoic acid) & NEXLIZET® (bempedoic acid & ezetimibe) Prior to April 19, 2040",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/10/07/3376420/0/en/esperion-reaches-settlement-agreement-with-sixth-anda-filer-not-to-market-generic-version-of-nexletol-bempedoic-acid-nexlizet-bempedoic-acid-ezetimibe-prior-to-april-19-2040.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Settlement agreement prevents generic competition for key products until 2040.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "Settlement agreement prevents generic competition for key products until 2040.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Esperion",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-012",
-      "headline": "API International Boosts Midwest Capacity By 75% to Meet Growing Eastern U.S. Demand",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/api-international-boosts-midwest-capacity-by-75-to-meet-growing-eastern-us-demand-302862062.html",
-      "source_name": "PR Newswire — General Business",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T14:04:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "API International is increasing its Midwest capacity by 75% to meet demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "API International is increasing its Midwest capacity by 75% to meet demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "API International",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-006",
-      "headline": "Rocket Pharmaceuticals Highlights FDA-Aligned Pivotal Phase 2 Trial and Updated Clinical Findings for RP-A501 Following Danon Disease Investor Webinar",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261007068126/en/Rocket-Pharmaceuticals-Highlights-FDA-Aligned-Pivotal-Phase-2-Trial-and-Updated-Clinical-Findings-for-RP-A501-Following-Danon-Disease-Investor-Webinar/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T13:36:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Rocket Pharmaceuticals' RP-A501 Phase 2 trial for Danon disease confirmed FDA-aligned and pivotal-stage; regulatory de-risking reduces redesign probability and shortens approval timeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Rocket Pharmaceuticals' RP-A501 Phase 2 trial for Danon disease confirmed FDA-aligned and pivotal-stage; regulatory de-risking reduces redesign probability and shortens approval timeline.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 67,
-      "rank_factors": {
-        "materiality": 67,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "regulatory",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "regulatory",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rocket Pharmaceuticals",
-          "ticker": "RCKT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-019",
-      "headline": "Circle8 Netherlands Secures $314 Million Four-Year Contract With DUO Groningen | ATLN Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/ATLN/circle8-netherlands-secures-314-million-four-year-contract-with-duo-y9ill1vd8hr2.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T12:45:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Circle8 Netherlands secured a $314 million contract with DUO Groningen.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Circle8 Netherlands secured a $314 million contract with DUO Groningen.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Circle8",
-          "ticker": null,
-          "listing_country": "NL"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-022",
-      "headline": "Metalsource Mining Launches Major Step Out Program With 1.1 km Northern Target to Test Broader Scale of Silver Hill | MSMMF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/MSMMF/metalsource-mining-launches-major-step-out-program-with-1-1-km-v7w9nfp1z86t.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Junior mining company launches major step-out drilling program with 1.1 km northern target, committing material exploration capex and signalling management conviction in resource extension.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Junior mining company launches major step-out drilling program with 1.1 km northern target, committing material exploration capex and signalling management conviction in resource extension.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 8,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Metalsource Mining",
-          "ticker": "MSMMF",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-033",
-      "headline": "UN peacekeeping force in Lebanon says shots fired at Israeli border post",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/2026/10/7/un-peacekeeping-force-in-lebanon-says-shots-fired-at-israeli-border-post?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-10-07T23:33:29Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Shots fired at an Israeli border post involving UN peacekeepers represents a significant geopolitical escalation in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Shots fired at an Israeli border post involving UN peacekeepers represents a significant geopolitical escalation in the region.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-031",
-      "headline": "Ultragenyx Enters into Agreement to Sell Rare Pediatric Disease Priority Review Voucher for $210 Million | RARE Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/RARE/ultragenyx-enters-into-agreement-to-sell-rare-pediatric-disease-2b4a80nn6vvv.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Sells Priority Review Voucher (regulatory asset) for $210 million in cash; material one-time capital inflow affecting liquidity and near-term balance-sheet structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "Sells Priority Review Voucher (regulatory asset) for $210 million in cash; material one-time capital inflow affecting liquidity and near-term balance-sheet structure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ultragenyx Pharmaceutical",
-          "ticker": "RARE",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-047",
-      "headline": "Military ordered to be ready for possible Iran strikes as Trump weighs timing",
-      "headline_en": null,
-      "url": "https://www.axios.com/2026/10/07/trump-us-central-command-iran-israel-war-elections",
-      "source_name": "Axios",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T23:08:17Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "US military ordered to readiness for possible Iran strikes, escalating geopolitical risk and triggering repricing of oil, defense equities, and risk sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "US military ordered to readiness for possible Iran strikes, escalating geopolitical risk and triggering repricing of oil, defense equities, and risk sentiment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-046",
-      "headline": "Attacks on tankers in Hormuz hit highest of any week since start of Iran war, sources say",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/attacks-tankers-hormuz-hit-highest-any-week-start-iran-war-sources-say",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-07T23:06:11Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Military escalation in Strait of Hormuz reached highest weekly attack frequency since conflict began, shifting global oil-supply risk and shipping-cost repricing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "Military escalation in Strait of Hormuz reached highest weekly attack frequency since conflict began, shifting global oil-supply risk and shipping-cost repricing.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-018",
-      "headline": "Sonorous Neurovascular Receives FDA IDE Approval for First U.S. Pivotal Trial of a Venous Sinus Stent to Treat Pulsatile Tinnitus",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/sonorous-neurovascular-receives-fda-ide-approval-for-first-us-pivotal-trial-of-a-venous-sinus-stent-to-treat-pulsatile-tinnitus-302900664.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T12:53:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Sonorous Neurovascular received FDA IDE approval to begin a pivotal trial for a medical device to treat pulsatile tinnitus.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "Sonorous Neurovascular received FDA IDE approval to begin a pivotal trial for a medical device to treat pulsatile tinnitus.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Sonorous Neurovascular",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-044",
-      "headline": "FuelCell Energy Announces Chief Financial Officer Transition | FCEL Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/FCEL/fuel-cell-energy-announces-chief-financial-officer-of0lda0ygfp2.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T12:15:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "FuelCell Energy announced a CFO transition, which can signal management instability or strategic shifts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "FuelCell Energy announced a CFO transition, which can signal management instability or strategic shifts.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "executive_exit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FuelCell Energy",
-          "ticker": "FCEL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-015",
-      "headline": "Första Gripen E tillverkad i Brasilien genomför sin första flygning",
-      "headline_en": "First Gripen E manufactured in Brazil completes its first flight",
-      "url": "https://news.cision.com/se/saab/r/forsta-gripen-e-tillverkad-i-brasilien-genomfor-sin-forsta-flygning,c4405791",
-      "source_name": "Cision — Sweden Regulatory & Company News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Saab's first Gripen E fighter jet manufactured in Brazil has completed its maiden flight, marking a milestone in local production capabilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "Saab's first Gripen E fighter jet manufactured in Brazil has completed its maiden flight, marking a milestone in local production capabilities.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saab AB",
-          "ticker": null,
-          "listing_country": "SE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-027",
-      "headline": "Tempus Announces Multi-Year Collaboration with Moderna and Merck",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261007586639/en/Tempus-Announces-Multi-Year-Collaboration-with-Moderna-and-Merck/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Tempus entered a multi-year collaboration with major pharmaceutical companies Moderna and Merck.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Tempus entered a multi-year collaboration with major pharmaceutical companies Moderna and Merck.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tempus",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Moderna",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Merck",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261008-003",
-      "headline": "Novelis Produces First Coil at Greenfield Aluminum Rolling and Recycling Plant in Alabama",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/novelis-produces-first-coil-at-greenfield-aluminum-rolling-and-recycling-plant-in-alabama-302901242.html",
-      "source_name": "PR Newswire — General Business",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-07T14:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-08_sweep.json",
-      "prelim_note": "Novelis commissions a greenfield aluminum rolling/recycling plant in Alabama, confirming capex ramp on track; headline does not quantify plant capex, utilization timeline, or expected revenue contribution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "Novelis commissions a greenfield aluminum rolling/recycling plant in Alabama, confirming capex ramp on track; headline does not quantify plant capex, utilization timeline, or expected revenue contribution.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 62,
-      "rank_factors": {
-        "materiality": 62,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Novelis Inc.",
-          "ticker": "NOVL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210088,9 +210074,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 26013,
-    "news_picked_today": 50,
-    "news_dropped_today": 454
+    "news_seen_today": 30942,
+    "news_picked_today": 76,
+    "news_dropped_today": 572
   },
   "book_momentum": {
     "live_count": 8,
