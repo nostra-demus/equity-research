@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T17:38:10Z",
+  "generated_at": "2026-10-09T17:43:11Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-406",
@@ -1428,6 +1428,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-420",
+      "headline": "Delta Air Lines cuts 2026 earnings forecast, Q3 profit misses analyst estimates, shares dip 1.72%",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/delta-air-lines-cuts-2026-earnings-forecast-q3-profit-misses-analyst-estimates-shares-dip-172-11791557802233.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T17:31:54Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Delta Air Lines cut its 2026 earnings forecast and missed Q3 profit estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delta Air Lines cut its 2026 earnings forecast and missed Q3 profit estimates.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delta Air Lines",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-416",
       "headline": "Tata Motors raises Iveco takeover offer to €14.40 per share",
       "headline_en": null,
@@ -1924,60 +1974,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-334",
-      "headline": "Pilgrim's Pride forms special committee to review meatpacker JBS buyout bid",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/legalindustry/pilgrims-pride-forms-special-committee-review-meatpacker-jbs-buyout-bid-2026-10-09/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T13:17:44Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Pilgrim's Pride has formed a special committee to evaluate a buyout bid from JBS, signaling a potential major M&A transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Pilgrim's Pride has formed a special committee to evaluate a buyout bid from JBS, signaling a potential major M&A transaction.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pilgrim's Pride",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "JBS",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209025,9 +209021,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13253013,
-    "news_picked_today": 888,
-    "news_dropped_today": 8208
+    "news_seen_today": 13301181,
+    "news_picked_today": 892,
+    "news_dropped_today": 8252
   },
   "book_momentum": {
     "live_count": 8,
