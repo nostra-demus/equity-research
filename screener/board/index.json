@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-09T11:17:43Z",
+  "generated_at": "2026-10-09T11:21:37Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-301",
+      "headline": "Mahanagar Telephone Nigam Limited: COMPLIANCE WITH REGULATION 30 & 51 OF SEBI (LODR) REGULATIONS, 2015 & SEBICIRCULAR NO SEBI/HO/CFD/CMD1/CIR/P/2019/140 DATED 21.11.2019 INTIMATION OF DEFAULT IN THE PAYMENT OF PRINCIPAL (INSTALMENT) & INTEREST OF BANKS BY MTNL AS ON30.09.2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MTNL_09102026164022_SE_SD_MONTHLY_09102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T11:11:01Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "The company has officially disclosed a default on principal and interest payments to banks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has officially disclosed a default on principal and interest payments to banks.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahanagar Telephone Nigam Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-298",
       "headline": "HANG YICK HLDGS (01894): ANNOUNCEMENT PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY RAINBOW CAPITAL (HK) LIMITED FOR AND ON BEHALF OF MR. NGAI WA PING TO ACQUIRE 30,000,000 SHARES IN HANG YICK HOLDINGS COMPANY LIMITED (OTHER THAN THOSE ALREADY OWNED BY MR. NGAI WA PING AND PARTIES ACTING IN CONCERT WITH HIM) SATISFACTION OF PRE-CONDITION",
@@ -1907,55 +1956,6 @@
         {
           "name": "SHANGHAI XNG",
           "ticker": "03666",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-259",
-      "headline": "RSUN PPT (01996): INSIDE INFORMATION - EXTENSION OF EARLY RSA FEE DEADLINE AND BASE RSA FEE DEADLINE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900384.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T09:01:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Rsun Property is extending the deadline for its debt restructuring agreement, signaling ongoing liquidity stress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Rsun Property is extending the deadline for its debt restructuring agreement, signaling ongoing liquidity stress.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RSUN PPT",
-          "ticker": "01996",
           "listing_country": "CN"
         }
       ],
@@ -208785,9 +208785,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8099088,
-    "news_picked_today": 459,
-    "news_dropped_today": 5685
+    "news_seen_today": 8170239,
+    "news_picked_today": 467,
+    "news_dropped_today": 5701
   },
   "book_momentum": {
     "live_count": 8,
