@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-09T11:28:30Z",
+  "generated_at": "2026-10-09T11:32:44Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-307",
+      "headline": "Mahanagar Telephone Nigam Limited: COMPLIANCE WITH SEBI MASTER CIRCULAR NO. SEBI/ HO/CFD/PoD2/CIR/P/2023/120 dtd. July 11,2023 DISCLOSURES BY LISTED ENTITIES OF DEFAULTS ON PAYMENT OF INTEREST / REPAYMENT OF PRINCIPAL AMOUNT ON LOANS FROM BANKS / FINANCIAL INSTITUTIONS AND UNLISTED DEBTSECURITIES FOR THE QUARTER ENDED 30.09.2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MTNL_09102026164539_SE_SD_QRT_09102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T11:16:49Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Mahanagar Telephone Nigam Limited disclosed defaults on interest and principal payments for the quarter ended September 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mahanagar Telephone Nigam Limited disclosed defaults on interest and principal payments for the quarter ended September 30, 2026.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahanagar Telephone Nigam Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-301",
       "headline": "Mahanagar Telephone Nigam Limited: COMPLIANCE WITH REGULATION 30 & 51 OF SEBI (LODR) REGULATIONS, 2015 & SEBICIRCULAR NO SEBI/HO/CFD/CMD1/CIR/P/2019/140 DATED 21.11.2019 INTIMATION OF DEFAULT IN THE PAYMENT OF PRINCIPAL (INSTALMENT) & INTEREST OF BANKS BY MTNL AS ON30.09.2026",
@@ -1906,55 +1955,6 @@
       "companies": [
         {
           "name": "Pavna Industries Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-265",
-      "headline": "Xtranet Technologies Limited: Xtranet Technologies Limited has informed the Exchange about Acquisition",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/XTRANET_09102026151932_Intimation_Proposed_Wholly_Owned_Subsidiary.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T09:50:17Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Xtranet Technologies Limited has announced an acquisition, which is a material corporate event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Xtranet Technologies Limited has announced an acquisition, which is a material corporate event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Xtranet Technologies Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -208785,9 +208785,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8241432,
-    "news_picked_today": 473,
-    "news_dropped_today": 5767
+    "news_seen_today": 8288942,
+    "news_picked_today": 479,
+    "news_dropped_today": 5785
   },
   "book_momentum": {
     "live_count": 8,
