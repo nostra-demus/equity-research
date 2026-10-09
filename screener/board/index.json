@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-09T09:56:10Z",
+  "generated_at": "2026-10-09T10:01:52Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-266",
+      "headline": "GUANGNAN (HOLD) (01203): Profit Warning",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900675.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T09:49:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Guangnan (Hold) has issued a profit warning, indicating a negative impact on earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Guangnan (Hold) has issued a profit warning, indicating a negative impact on earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GUANGNAN (HOLD)",
+          "ticker": "01203",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-260",
       "headline": "Expleo Solutions Limited: Expleo Solutions Limited has informed the Exchange about Acquisition",
@@ -1228,6 +1277,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-265",
+      "headline": "Xtranet Technologies Limited: Xtranet Technologies Limited has informed the Exchange about Acquisition",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/XTRANET_09102026151932_Intimation_Proposed_Wholly_Owned_Subsidiary.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T09:50:17Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Xtranet Technologies Limited has announced an acquisition, which is a material corporate event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Xtranet Technologies Limited has announced an acquisition, which is a material corporate event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Xtranet Technologies Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-253",
       "headline": "SHANGHAI XNG (03666): ADDITIONAL RESUMPTION GUIDANCE AND CONTINUED SUSPENSION OF TRADING",
       "headline_en": null,
@@ -1865,105 +1963,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-239",
-      "headline": "Aritzia Forecasts Q3 Revenue Growth, Raises FY27 Outlook As Q2 Results Jump",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/aritzia-forecasts-q3-revenue-growth-raises-fy27-outlook-q2-results-jump",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T08:52:59Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Company reported strong Q2 results and raised FY27 guidance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Company reported strong Q2 results and raised FY27 guidance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aritzia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-141",
-      "headline": "TCS shares surge 5% after D-Street cheers strong Q2 results - Should you book profit or invest more? Experts' suggestion",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/tcs-shares-surge-5-after-d-street-cheers-strong-q2-results-should-you-book-profit-or-invest-more-experts-suggestion-11791518071788.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T04:06:10Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "TCS reported strong Q2 results, leading to a 5% share price increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "TCS reported strong Q2 results, leading to a 5% share price increase.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Consultancy Services",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208786,9 +208785,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6912059,
-    "news_picked_today": 369,
-    "news_dropped_today": 5007
+    "news_seen_today": 6982838,
+    "news_picked_today": 372,
+    "news_dropped_today": 5028
   },
   "book_momentum": {
     "live_count": 8,
