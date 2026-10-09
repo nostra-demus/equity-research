@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-09T08:53:13Z",
+  "generated_at": "2026-10-09T08:56:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-230",
+      "headline": "C&D PROPERTY (02156): DISCLOSEABLE AND CONNECTED TRANSACTION ACQUISITION OF 100% EQUITY INTERESTS IN LIANFA PROPERTY AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900294.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T08:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Acquisition of 100% equity interest in Lianfa Property.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition of 100% equity interest in Lianfa Property.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "C&D PROPERTY",
+          "ticker": "02156",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-221",
       "headline": "SEPC Limited: We hereby informed the Exchange of the press release titled \"SEPC Limited MD Signs Rs. 854.57 Crore Contract with SAIL-IISCO Steel Plant at Contract Signing Ceremony in Burnpur; Consolidated Order Book Crosses Rs. 10,000 Crores\". Detailed letter is enclosed.",
@@ -1234,6 +1283,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-229",
+      "headline": "BRIGHT FUTURE (01351): (I) PROPOSED SHARE CONSOLIDATION; (II) PROPOSED INCREASE IN AUTHORISED SHARE CAPITAL; (III) PROPOSED RIGHTS ISSUE ON THE BASIS OF THREE (3) RIGHTS SHARES FOR EVERY ONE (1) CONSOLIDATED SHARE HELD ON THE RECORD DATE ON A NON-UNDERWRITTEN BASIS; AND (IV) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900316.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T08:45:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Proposed rights issue and share consolidation are significant capital structure changes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Proposed rights issue and share consolidation are significant capital structure changes.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BRIGHT FUTURE",
+          "ticker": "01351",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-225",
       "headline": "MOKINGRAN (02585): PROPOSED CHANGE OF AUDITORS",
       "headline_en": null,
@@ -1865,110 +1963,6 @@
           "name": "SITC International Holdings Co., Ltd.",
           "ticker": "01308",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-007",
-      "headline": "MGH: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MGH?key=2924-03146501-2A1703227",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-08T23:56:09Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "The company has requested a trading halt, which is a significant event pending a material announcement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The company has requested a trading halt, which is a significant event pending a material announcement.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MGH",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-169",
-      "headline": "Competition authority seeks public views on Eneos Apac’s proposed acquisition of Chevron Singapore",
-      "headline_en": null,
-      "url": "https://www.straitstimes.com/business/companies-markets/competition-authority-seeks-public-views-on-eneos-apacs-proposed-acquisition-of-chevron-singapore",
-      "source_name": "The Straits Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T06:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Competition authority is reviewing Eneos Apac's proposed acquisition of Chevron Singapore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Competition authority is reviewing Eneos Apac's proposed acquisition of Chevron Singapore.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eneos Apac",
-          "ticker": null,
-          "listing_country": "SG"
-        },
-        {
-          "name": "Chevron",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -208507,9 +208501,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5911640,
-    "news_picked_today": 304,
-    "news_dropped_today": 4520
+    "news_seen_today": 5980850,
+    "news_picked_today": 308,
+    "news_dropped_today": 4540
   },
   "book_momentum": {
     "live_count": 8,
