@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T01:07:37Z",
+  "generated_at": "2026-10-09T01:09:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -1684,6 +1684,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-045",
+      "headline": "Notice of Data Security Incident",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/notice-of-data-security-incident-302903069.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-09T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "A data security incident represents an operational and reputational risk for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "A data security incident represents an operational and reputational risk for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "cybersecurity",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unknown",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-028",
       "headline": "A Glimpse Inside Gaza Shows How Israel’s Military Footprint Is Expanding",
       "headline_en": null,
@@ -1879,55 +1928,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-037",
-      "headline": "Mankind Pharma Limited: board meeting 26-Oct-2026 — Board Meeting Intimation",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_21117_WebXMLFile_20261008_172351116.xml",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-08T11:53:53Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Routine board meeting notification for October 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Routine board meeting notification for October 2026.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mankind Pharma Limited",
-          "ticker": "MANKIND",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -166983,76 +166983,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-e0fd057ceca0",
-      "idea_version": "IDEAV-9883cb5211945f80",
-      "idea_version_started_at": "2026-10-07T20:55:35Z",
-      "ticker": "ADTX",
-      "company": "Aditxt, Inc.",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has received a delisting notification from the exchange, signaling severe distress and potential loss of liquidity.",
-      "why_now": "The SEC filing was processed today, October 7, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e2c49687f5e4"
-      ],
-      "primary_source_event_id": "EVT-e2c49687f5e4",
-      "source_headlines": [
-        "25-NSE - Aditxt, Inc. (0001726711) (Subject)"
-      ],
-      "source_headline": "25-NSE - Aditxt, Inc. (0001726711) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1726711/000135445726000962/0001354457-26-000962-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-07T13:08:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T20:55:35Z",
-      "updated_at": "2026-10-07T20:55:35Z",
-      "decay_at": "2026-10-09T01:08:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-abba7b974651",
       "idea_version": "IDEAV-1abbc0066baafdd2",
       "idea_version_started_at": "2026-10-08T22:59:17Z",
@@ -169947,6 +169877,76 @@
       "surfaced_at": "2026-10-07T01:37:33Z",
       "updated_at": "2026-10-07T01:37:33Z",
       "decay_at": "2026-10-08T12:09:43Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-e0fd057ceca0",
+      "idea_version": "IDEAV-9883cb5211945f80",
+      "idea_version_started_at": "2026-10-07T20:55:35Z",
+      "ticker": "ADTX",
+      "company": "Aditxt, Inc.",
+      "exchange": "OTC Markets",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has received a delisting notification from the exchange, signaling severe distress and potential loss of liquidity.",
+      "why_now": "The SEC filing was processed today, October 7, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e2c49687f5e4"
+      ],
+      "primary_source_event_id": "EVT-e2c49687f5e4",
+      "source_headlines": [
+        "25-NSE - Aditxt, Inc. (0001726711) (Subject)"
+      ],
+      "source_headline": "25-NSE - Aditxt, Inc. (0001726711) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1726711/000135445726000962/0001354457-26-000962-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T13:08:14Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T20:55:35Z",
+      "updated_at": "2026-10-07T20:55:35Z",
+      "decay_at": "2026-10-09T01:08:14Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -173070,9 +173070,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 568,
+    "total_count": 569,
     "shown_count": 500,
-    "hidden_count": 68,
+    "hidden_count": 69,
     "side_counts": {
       "long": {
         "total_count": 299,
@@ -173080,9 +173080,9 @@
         "hidden_count": 49
       },
       "short": {
-        "total_count": 269,
+        "total_count": 270,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 20
       }
     },
     "retention": {
@@ -173101,6 +173101,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-e0fd057ceca0",
+        "idea_version": "IDEAV-9883cb5211945f80",
+        "idea_version_started_at": "2026-10-07T20:55:35Z",
+        "ticker": "ADTX",
+        "company": "Aditxt, Inc.",
+        "exchange": "OTC Markets",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has received a delisting notification from the exchange, signaling severe distress and potential loss of liquidity.",
+        "why_now": "The SEC filing was processed today, October 7, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e2c49687f5e4"
+        ],
+        "primary_source_event_id": "EVT-e2c49687f5e4",
+        "source_headlines": [
+          "25-NSE - Aditxt, Inc. (0001726711) (Subject)"
+        ],
+        "source_headline": "25-NSE - Aditxt, Inc. (0001726711) (Subject)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1726711/000135445726000962/0001354457-26-000962-index.htm",
+        "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-07T13:08:14Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-07T20:55:35Z",
+        "updated_at": "2026-10-07T20:55:35Z",
+        "decay_at": "2026-10-09T01:08:14Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-09T01:08:14Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-850cc3e2123d",
         "idea_version": "IDEAV-f1b28979f3548f01",
@@ -210246,86 +210319,12 @@
         "archived_at": "2026-09-15T18:56:28Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-50f379c78b21",
-        "idea_version": "IDEAV-cc2ba786d316c153",
-        "idea_version_started_at": "2026-09-12T16:36:23Z",
-        "ticker": "NVDA",
-        "company": "Nvidia",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The use of AI tools by sanctioned entities like Iran and Houthi rebels to develop weapons systems could lead to increased regulatory scrutiny and potential restrictions on AI technology providers.",
-        "why_now": "This news about AI use in weapons development was reported on September 12, 2026.",
-        "conviction": 45,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "macro_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-65517c222bac"
-        ],
-        "primary_source_event_id": "EVT-65517c222bac",
-        "source_headlines": [
-          "Iran and Houthi rebels used Anthropic's Claude AI to target US warships and build hypersonic missiles — Houthi rebels also used the bot to code ballistic missile guidance systems"
-        ],
-        "source_headline": "Iran and Houthi rebels used Anthropic's Claude AI to target US warships and build hypersonic missiles — Houthi rebels also used the bot to code ballistic missile guidance systems",
-        "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/iran-and-houthi-rebels-used-anthropics-claude-ai-to-target-us-warships-and-build-hypersonic-missiles-houthi-rebels-also-used-the-bot-to-code-ballistic-missile-guidance-systems",
-        "source_name": "Tom's Hardware",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-12T15:03:10Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-12T14:03:36Z",
-        "updated_at": "2026-09-12T16:36:23Z",
-        "decay_at": "2026-09-14T03:03:10Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-15T18:56:28Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1442,
-    "live_count": 29,
+    "live_count": 28,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210344,9 +210343,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 749794,
-    "news_picked_today": 44,
-    "news_dropped_today": 580
+    "news_seen_today": 767063,
+    "news_picked_today": 45,
+    "news_dropped_today": 603
   },
   "book_momentum": {
     "live_count": 8,
