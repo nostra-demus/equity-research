@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T02:25:56Z",
+  "generated_at": "2026-10-09T02:27:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-074",
@@ -1806,6 +1806,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-075",
+      "headline": "Raymond James Upgrades Unity Software to Outperform from Market Perform",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/raymond-james-upgrades-unity-software-outperform-market-perform",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T01:59:13Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Raymond James upgraded Unity Software to Outperform, signaling improved analyst sentiment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Raymond James upgraded Unity Software to Outperform, signaling improved analyst sentiment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Unity Software",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-063",
       "headline": "Jefferies Upgrades Royal Caribbean Cruises to Buy from Hold",
       "headline_en": null,
@@ -1896,55 +1945,6 @@
           "name": "Jio Financial Services Limited",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-073",
-      "headline": "MNA: Brigham Nurses Seek Compromise to Avert Strike While Protecting Patient Care Quality; MGB Makes Minimal Movement and Ends Talks",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/mna-brigham-nurses-seek-compromise-to-avert-strike-while-protecting-patient-care-quality-mgb-makes-minimal-movement-and-ends-talks-302903175.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-09T01:46:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Nurses at Brigham and Women's Hospital are seeking to avert a strike after negotiations with Mass General Brigham stalled.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Nurses at Brigham and Women's Hospital are seeking to avert a strike after negotiations with Mass General Brigham stalled.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mass General Brigham",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -209931,9 +209931,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1571339,
-    "news_picked_today": 81,
-    "news_dropped_today": 1239
+    "news_seen_today": 1605173,
+    "news_picked_today": 83,
+    "news_dropped_today": 1261
   },
   "book_momentum": {
     "live_count": 8,
