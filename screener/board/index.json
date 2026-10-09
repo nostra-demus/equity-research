@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-09T10:51:03Z",
+  "generated_at": "2026-10-09T10:55:02Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-298",
+      "headline": "HANG YICK HLDGS (01894): ANNOUNCEMENT PRE-CONDITIONAL VOLUNTARY CASH PARTIAL OFFER BY RAINBOW CAPITAL (HK) LIMITED FOR AND ON BEHALF OF MR. NGAI WA PING TO ACQUIRE 30,000,000 SHARES IN HANG YICK HOLDINGS COMPANY LIMITED (OTHER THAN THOSE ALREADY OWNED BY MR. NGAI WA PING AND PARTIES ACTING IN CONCERT WITH HIM) SATISFACTION OF PRE-CONDITION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900879.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T10:44:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "A voluntary cash partial offer for 30 million shares has satisfied its pre-conditions, signaling a move toward acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A voluntary cash partial offer for 30 million shares has satisfied its pre-conditions, signaling a move toward acquisition.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hang Yick Holdings",
+          "ticker": "01894",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-273",
       "headline": "Offer to Buy – Acquisition Window (Takeover) for PREMIER EXPLOSIVES LTD – Live Activities Schedule",
@@ -683,6 +732,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-299",
+      "headline": "Delta Cuts Profit Outlook as Surging Fuel Prices Hit Airlines",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-09/delta-cuts-profit-outlook-as-juiced-up-fuel-prices-hit-airlines",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T10:33:33Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Delta Air Lines cut its profit outlook due to rising fuel costs, a direct impact on earnings expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delta Air Lines cut its profit outlook due to rising fuel costs, a direct impact on earnings expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delta Air Lines",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1858,104 +1956,6 @@
         {
           "name": "RSUN PPT",
           "ticker": "01996",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-255",
-      "headline": "CHINA MERCHANTS (00133): INVESTMENT IN XIHE SUPERCONDUCTING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900360.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T08:57:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "China Merchants is making a strategic investment in Xihe Superconducting, indicating a new business expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "China Merchants is making a strategic investment in Xihe Superconducting, indicating a new business expansion.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CHINA MERCHANTS",
-          "ticker": "00133",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-245",
-      "headline": "DETAI NEWENERGY (00559): QUARTERLY UPDATES ON RESUMPTION PROGRESS AND CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900268.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T08:35:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Company remains suspended from trading with no clear path to resumption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Company remains suspended from trading with no clear path to resumption.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Detai New Energy",
-          "ticker": "00559",
           "listing_country": "CN"
         }
       ],
@@ -208782,9 +208782,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7721335,
-    "news_picked_today": 438,
-    "news_dropped_today": 5514
+    "news_seen_today": 7744885,
+    "news_picked_today": 441,
+    "news_dropped_today": 5535
   },
   "book_momentum": {
     "live_count": 8,
