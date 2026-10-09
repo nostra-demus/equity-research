@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T18:14:45Z",
+  "generated_at": "2026-10-09T18:19:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-406",
@@ -1527,6 +1527,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-430",
+      "headline": "Tata Motors raises Iveco takeover offer to €14.40 per share, rules out further increase",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/business/companies/tata-motors-raises-iveco-takeover-offer-to-e14-40-per-share-rules-out-further-increase-20008842.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T18:05:59Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Tata Motors increased its takeover offer for Iveco to €14.40 per share and stated it will not raise the bid further.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors increased its takeover offer for Iveco to €14.40 per share and stated it will not raise the bid further.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-420",
       "headline": "Delta Air Lines cuts 2026 earnings forecast, Q3 profit misses analyst estimates, shares dip 1.72%",
       "headline_en": null,
@@ -1569,60 +1618,6 @@
           "name": "Delta Air Lines",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-416",
-      "headline": "Tata Motors raises Iveco takeover offer to €14.40 per share",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/tata-motors-raises-iveco-takeover-offer-to-1440-per-share/article71565633.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T17:26:52Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Tata Motors increased its takeover offer for Iveco to €14.40 per share.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Tata Motors increased its takeover offer for Iveco to €14.40 per share.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Motors",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Iveco",
-          "ticker": null,
-          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -209022,9 +209017,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13782003,
-    "news_picked_today": 916,
-    "news_dropped_today": 8588
+    "news_seen_today": 13878387,
+    "news_picked_today": 919,
+    "news_dropped_today": 8609
   },
   "book_momentum": {
     "live_count": 8,
