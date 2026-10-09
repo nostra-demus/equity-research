@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T02:30:30Z",
+  "generated_at": "2026-10-09T02:36:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-074",
@@ -340,6 +340,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-077",
+      "headline": "NMR: Trading Halt [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NMR?key=2924-03146579-2A1703258",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T02:30:49Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Trading halt pending a price-sensitive announcement indicates a material event is forthcoming.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Trading halt pending a price-sensitive announcement indicates a material event is forthcoming.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NMR",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1230,6 +1279,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-076",
+      "headline": "BGA: Change in substantial holding",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BGA?key=2924-03146580-3A703773",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T02:31:44Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Change in substantial holding indicates a shift in major shareholder position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Change in substantial holding indicates a shift in major shareholder position.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BGA",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-025",
       "headline": "FAST RETAIL-DRS (06288): EXCHANGE NOTICE - RESUMPTION OF TRADING",
       "headline_en": null,
@@ -1847,104 +1945,6 @@
           "name": "Unity Software",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-063",
-      "headline": "Jefferies Upgrades Royal Caribbean Cruises to Buy from Hold",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/jefferies-upgrades-royal-caribbean-cruises-buy-hold",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T01:29:24Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Jefferies upgraded Royal Caribbean Cruises to Buy from Hold, indicating a shift in analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Jefferies upgraded Royal Caribbean Cruises to Buy from Hold, indicating a shift in analyst expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Royal Caribbean Cruises",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-069",
-      "headline": "Jio Financial Services Limited: board meeting 15-Oct-2026 — Board Meeting Intimation",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_22295_WebXMLFile_20261008_165310774.xml",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-08T11:23:12Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Routine board meeting intimation for Jio Financial Services.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 66,
-      "triage_reason": "Routine board meeting intimation for Jio Financial Services.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jio Financial Services Limited",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -209931,9 +209931,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1639011,
-    "news_picked_today": 85,
-    "news_dropped_today": 1283
+    "news_seen_today": 1723462,
+    "news_picked_today": 87,
+    "news_dropped_today": 1329
   },
   "book_momentum": {
     "live_count": 8,
