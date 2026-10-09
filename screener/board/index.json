@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-09T14:22:39Z",
+  "generated_at": "2026-10-09T14:26:40Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-372",
+      "headline": "Premier Energies Limited: Premier Energies Limited has informed the Exchange regarding a press release dated October 09, 2026, titled \"Premier Energies Secures New Orders Worth ₹ 4,001 Crore in Q2 FY 2027\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PEL2024_09102026191736_SE_Intimation_-_Press_Release_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T13:50:01Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Premier Energies secured new orders worth ₹ 4,001 crore in Q2 FY 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Premier Energies secured new orders worth ₹ 4,001 crore in Q2 FY 2027.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Premier Energies Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-371",
       "headline": "Ideaforge Technology Limited: Ideaforge Technology Limited has entered into loan agreement dated October 09, 2026, with Technology Development Board for availing loan of Rs. 151 Crores (One Hundred and Fifty-One Crores) in tranches for YETI - Heavy lift long range autonomous aerial logistics vehicle",
@@ -1913,55 +1962,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-123",
-      "headline": "Uniqlo operator projects 7th straight record profit for current fiscal year",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/retail/uniqlo-operator-projects-7th-straight-record-profit-for-current-fiscal-year",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T03:23:33Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Fast Retailing (Uniqlo) projects a 7th consecutive record profit, signaling strong operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Fast Retailing (Uniqlo) projects a 7th consecutive record profit, signaling strong operational performance.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fast Retailing",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209217,9 +209217,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10523345,
-    "news_picked_today": 678,
-    "news_dropped_today": 6954
+    "news_seen_today": 10571340,
+    "news_picked_today": 680,
+    "news_dropped_today": 6976
   },
   "book_momentum": {
     "live_count": 8,
