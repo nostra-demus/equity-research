@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T00:18:01Z",
+  "generated_at": "2026-10-09T00:21:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -198,6 +198,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-011",
+      "headline": "MX1: MX1 - Convertible Note Funding Update",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MX1?key=2924-03146509-3A703755",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T00:14:54Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "MX1 announced an update regarding its convertible note funding.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "MX1 announced an update regarding its convertible note funding.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MX1",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-009",
       "headline": "SC TO-I/A - Medtronic plc (0001613103) (Subject)",
       "headline_en": null,
@@ -247,6 +296,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-013",
+      "headline": "Introduction of Credit Risk-o-Meter as an additional disclosure mechanism for debt securities.",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261008-23/20261008-23.pdf",
+      "source_name": "BSE India — Notices (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-08T12:20:23Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "The BSE introduced a Credit Risk-o-Meter for debt securities, increasing disclosure requirements for the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "The BSE introduced a Credit Risk-o-Meter for debt securities, increasing disclosure requirements for the sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-006",
       "headline": "RAFFLESINTERIOR (01376): VOLUNTARY ANNOUNCEMENT - BOARD RESOLUTIONS CONCERNING CERTAIN MEDIA REPORTS AND POSTS",
       "headline_en": null,
@@ -291,6 +383,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-012",
+      "headline": "SCHEDULE 13G - Powerus Corp (0002009312) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2009312/000110465926114548/0001104659-26-114548-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-08T12:22:05Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "A Schedule 13G filing indicates a change in significant shareholding for Powerus Corp.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "A Schedule 13G filing indicates a change in significant shareholding for Powerus Corp.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Powerus Corp",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208845,7 +208986,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3376,
+    "inbox_unconsumed": 3379,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -208854,9 +208995,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 157718,
-    "news_picked_today": 10,
-    "news_dropped_today": 134
+    "news_seen_today": 192734,
+    "news_picked_today": 13,
+    "news_dropped_today": 155
   },
   "book_momentum": {
     "live_count": 8,
