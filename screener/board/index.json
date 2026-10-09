@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T09:21:40Z",
+  "generated_at": "2026-10-09T09:26:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-230",
@@ -929,6 +929,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-245",
+      "headline": "DETAI NEWENERGY (00559): QUARTERLY UPDATES ON RESUMPTION PROGRESS AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900268.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T08:35:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Company remains suspended from trading with no clear path to resumption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Company remains suspended from trading with no clear path to resumption.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Detai New Energy",
+          "ticker": "00559",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1913,55 +1962,6 @@
           "name": "FB Multiasset",
           "ticker": "03427",
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-150",
-      "headline": "4DS: Appointment of Managing Director & CEO [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.4DS?key=2924-03146701-6A1348516",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T06:05:05Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "4DS Memory has appointed a new Managing Director and CEO.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "4DS Memory has appointed a new Managing Director and CEO.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "4DS Memory",
-          "ticker": null,
-          "listing_country": "AU"
         }
       ],
       "size_bucket": "small",
@@ -166528,76 +166528,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7c6921220f81",
-      "idea_version": "IDEAV-2311ef024b312cd4",
-      "idea_version_started_at": "2026-10-08T08:41:14Z",
-      "ticker": "AVGO",
-      "company": "Broadcom",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $50 billion financing plan for OpenAI chips underscores Broadcom's critical role as a custom silicon provider in the AI infrastructure build-out.",
-      "why_now": "The report surfaced on October 7, 2026, highlighting a massive expansion in the company's addressable market.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e8348f272268"
-      ],
-      "primary_source_event_id": "EVT-e8348f272268",
-      "source_headlines": [
-        "Broadcom Plans $50 Billion Financing for OpenAI Chips, WSJ Says"
-      ],
-      "source_headline": "Broadcom Plans $50 Billion Financing for OpenAI Chips, WSJ Says",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-07/broadcom-plans-50-billion-financing-for-openai-chips-wsj-says",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-07T21:25:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T08:41:14Z",
-      "updated_at": "2026-10-08T08:41:14Z",
-      "decay_at": "2026-10-09T09:25:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-0448efa62005",
       "idea_version": "IDEAV-7ee6d2c60eb4072e",
       "idea_version_started_at": "2026-10-09T09:10:35Z",
@@ -169298,6 +169228,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-7c6921220f81",
+      "idea_version": "IDEAV-2311ef024b312cd4",
+      "idea_version_started_at": "2026-10-08T08:41:14Z",
+      "ticker": "AVGO",
+      "company": "Broadcom",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "A $50 billion financing plan for OpenAI chips underscores Broadcom's critical role as a custom silicon provider in the AI infrastructure build-out.",
+      "why_now": "The report surfaced on October 7, 2026, highlighting a massive expansion in the company's addressable market.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 66,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e8348f272268"
+      ],
+      "primary_source_event_id": "EVT-e8348f272268",
+      "source_headlines": [
+        "Broadcom Plans $50 Billion Financing for OpenAI Chips, WSJ Says"
+      ],
+      "source_headline": "Broadcom Plans $50 Billion Financing for OpenAI Chips, WSJ Says",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-07/broadcom-plans-50-billion-financing-for-openai-chips-wsj-says",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T21:25:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T08:41:14Z",
+      "updated_at": "2026-10-08T08:41:14Z",
+      "decay_at": "2026-10-09T09:25:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-850cc3e2123d",
       "idea_version": "IDEAV-f1b28979f3548f01",
       "idea_version_started_at": "2026-10-07T20:26:28Z",
@@ -171372,14 +171372,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 500,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
-        "total_count": 279,
+        "total_count": 280,
         "shown_count": 250,
-        "hidden_count": 29
+        "hidden_count": 30
       },
       "short": {
         "total_count": 262,
@@ -171403,6 +171403,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7c6921220f81",
+        "idea_version": "IDEAV-2311ef024b312cd4",
+        "idea_version_started_at": "2026-10-08T08:41:14Z",
+        "ticker": "AVGO",
+        "company": "Broadcom",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "A $50 billion financing plan for OpenAI chips underscores Broadcom's critical role as a custom silicon provider in the AI infrastructure build-out.",
+        "why_now": "The report surfaced on October 7, 2026, highlighting a massive expansion in the company's addressable market.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 66,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e8348f272268"
+        ],
+        "primary_source_event_id": "EVT-e8348f272268",
+        "source_headlines": [
+          "Broadcom Plans $50 Billion Financing for OpenAI Chips, WSJ Says"
+        ],
+        "source_headline": "Broadcom Plans $50 Billion Financing for OpenAI Chips, WSJ Says",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-10-07/broadcom-plans-50-billion-financing-for-openai-chips-wsj-says",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-07T21:25:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-08T08:41:14Z",
+        "updated_at": "2026-10-08T08:41:14Z",
+        "decay_at": "2026-10-09T09:25:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-09T09:25:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c156981826c5",
         "idea_version": "IDEAV-9e6a398130a16f71",
@@ -199473,79 +199546,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-144e3c4da420",
-        "idea_version": "IDEAV-af27fc5a7e34fb6c",
-        "idea_version_started_at": "2026-09-26T21:35:18Z",
-        "ticker": "NOC",
-        "company": "Northrop Grumman Corporation",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Northrop Grumman received long-lead funding for 67 APG-85 radars for F-35s, securing future revenue from a key defense program.",
-        "why_now": "The funding was received on September 25, 2026, providing a fresh catalyst for the stock.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 60,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 18,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-267ff94a3682"
-        ],
-        "primary_source_event_id": "EVT-267ff94a3682",
-        "source_headlines": [
-          "Northrop Grumman Receives Long-Lead Funding for 67 APG-85 Radars for F-35s"
-        ],
-        "source_headline": "Northrop Grumman Receives Long-Lead Funding for 67 APG-85 Radars for F-35s",
-        "source_url": "https://www.defensedaily.com/northrop-grumman-receives-long-lead-funding-for-67-apg-85-radars-for-f-35s/air-force/",
-        "source_name": "Defense Daily",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-25T20:37:37Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-26T13:43:44Z",
-        "updated_at": "2026-09-26T21:35:18Z",
-        "decay_at": "2026-09-27T08:37:37Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-29T03:33:02Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-111ec83cfb59",
         "idea_version": "IDEAV-a9aa0b416610b566",
         "idea_version_started_at": "2026-09-25T05:48:29Z",
@@ -208623,7 +208623,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1450,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -208642,9 +208642,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6353001,
-    "news_picked_today": 330,
-    "news_dropped_today": 4686
+    "news_seen_today": 6445805,
+    "news_picked_today": 332,
+    "news_dropped_today": 4804
   },
   "book_momentum": {
     "live_count": 8,
