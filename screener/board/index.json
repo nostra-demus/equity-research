@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T04:17:09Z",
+  "generated_at": "2026-10-09T04:30:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-074",
@@ -166681,6 +166681,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-9252653c3692",
+      "idea_version": "IDEAV-290b92d4608851ec",
+      "idea_version_started_at": "2026-10-09T04:30:18Z",
+      "ticker": "LITE",
+      "company": "Lumentum Holdings Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has secured sold-out capacity for its optical components through 2029, providing high revenue visibility and potential for margin expansion due to supply-demand tightness.",
+      "why_now": "The CEO confirmed the 2029 capacity backlog on 2026-10-09, signaling a multi-year demand floor.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c43e3c578f30"
+      ],
+      "primary_source_event_id": "EVT-c43e3c578f30",
+      "source_headlines": [
+        "Lumentum CEO: Opto-Parts Capacity Sold Out to 2029"
+      ],
+      "source_headline": "Lumentum CEO: Opto-Parts Capacity Sold Out to 2029",
+      "source_url": "https://www.bloomberg.com/news/videos/2026-10-09/lumentum-ceo-opto-parts-capacity-sold-out-to-2029-video",
+      "source_name": "Bloomberg",
+      "materiality_max": 87,
+      "newest_source_at": "2026-10-09T01:27:47Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T04:30:18Z",
+      "updated_at": "2026-10-09T04:30:18Z",
+      "decay_at": "2026-10-10T13:27:47Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-ebfbd0cbbc7c",
       "idea_version": "IDEAV-a458d90141a3fd2e",
       "idea_version_started_at": "2026-10-09T00:14:06Z",
@@ -169302,146 +169372,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-545ce98f7a04",
-      "idea_version": "IDEAV-bf8c9158af1b7cff",
-      "idea_version_started_at": "2026-10-06T04:16:10Z",
-      "ticker": "NEE",
-      "company": "NextEra Energy",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The $67 billion acquisition of Dominion Energy is facing significant political headwinds in Virginia, increasing the likelihood of a deal collapse or costly regulatory concessions.",
-      "why_now": "The political backlash was reported on 2026-10-06, creating immediate uncertainty regarding the deal's completion.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f9041ced5c97"
-      ],
-      "primary_source_event_id": "EVT-f9041ced5c97",
-      "source_headlines": [
-        "NextEra’s $67bn Dominion takeover faces political backlash in Virginia"
-      ],
-      "source_headline": "NextEra’s $67bn Dominion takeover faces political backlash in Virginia",
-      "source_url": "https://www.ft.com/content/70308419-20a2-4236-a03e-346b4626997b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T04:00:17Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T04:16:10Z",
-      "updated_at": "2026-10-06T04:16:10Z",
-      "decay_at": "2026-10-07T16:00:17Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-9d2b0a080e02",
-      "idea_version": "IDEAV-a495b1b5c3462a91",
-      "idea_version_started_at": "2026-10-06T04:37:12Z",
-      "ticker": "KOTAKBANK.NS",
-      "company": "Kotak Mahindra Bank",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The bank reported a 25% year-over-year increase in net profit and a 23% rise in deposits for Q2.",
-      "why_now": "The Q2 earnings report was released today, driving immediate stock price movement.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-88006062f273"
-      ],
-      "primary_source_event_id": "EVT-88006062f273",
-      "source_headlines": [
-        "Kotak Mahindra Bank shares jump 4% as Q2 net advances rise 25% YoY, deposits up 23%"
-      ],
-      "source_headline": "Kotak Mahindra Bank shares jump 4% as Q2 net advances rise 25% YoY, deposits up 23%",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/kotak-mahindra-bank-shares-in-focus-as-q2-net-advances-rise-25-yoy-deposits-up-23/articleshow/134722284.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 93,
-      "newest_source_at": "2026-10-06T03:49:47Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T04:37:12Z",
-      "updated_at": "2026-10-06T04:37:12Z",
-      "decay_at": "2026-10-07T15:49:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-3a9ccd3353ea",
       "idea_version": "IDEAV-999273f9675a3d1b",
       "idea_version_started_at": "2026-10-07T17:29:03Z",
@@ -169506,76 +169436,6 @@
       "surfaced_at": "2026-10-06T23:13:15Z",
       "updated_at": "2026-10-07T17:29:03Z",
       "decay_at": "2026-10-08T02:53:23Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-0cca54205613",
-      "idea_version": "IDEAV-5b91ffb89954394e",
-      "idea_version_started_at": "2026-10-06T04:37:12Z",
-      "ticker": "ADANIPOWER.NS",
-      "company": "Adani Power",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Adani Power signed an agreement for a 770 MW hydropower project, indicating significant capital expenditure and future capacity expansion.",
-      "why_now": "The pact was signed today, signaling a new project initiative.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-77861894703e"
-      ],
-      "primary_source_event_id": "EVT-77861894703e",
-      "source_headlines": [
-        "Adani Power, Bhutan’s DGPC sign pact for 770 MW Chamkharchhu-I hydropower project"
-      ],
-      "source_headline": "Adani Power, Bhutan’s DGPC sign pact for 770 MW Chamkharchhu-I hydropower project",
-      "source_url": "https://www.thehindubusinessline.com/companies/adani-power-bhutans-dgpc-sign-pact-for-770-mw-chamkharchhu-i-hydropower-project/article71549898.ece",
-      "source_name": "The Hindu BusinessLine",
-      "materiality_max": 89,
-      "newest_source_at": "2026-10-06T04:02:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T04:37:12Z",
-      "updated_at": "2026-10-06T04:37:12Z",
-      "decay_at": "2026-10-07T16:02:04Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171169,79 +171029,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-b58f99259bd4",
-      "idea_version": "IDEAV-74c601e3cdeba589",
-      "idea_version_started_at": "2026-10-06T10:47:22Z",
-      "ticker": "TREN",
-      "company": "Trent Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Q2 revenue rose 23% YoY to Rs 5,788 crore, a beat that drove the stock to a 10% upper circuit on fresh earnings momentum.",
-      "why_now": "Q2 results released 2026-10-06.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7000cdacd205"
-      ],
-      "primary_source_event_id": "EVT-7000cdacd205",
-      "source_headlines": [
-        "Trent shares hit 10% upper circuit after Q2 revenue rises 23% YoY to Rs 5,788 crore. Should you buy, sell or hold?"
-      ],
-      "source_headline": "Trent shares hit 10% upper circuit after Q2 revenue rises 23% YoY to Rs 5,788 crore. Should you buy, sell or hold?",
-      "source_url": "https://economictimes.indiatimes.com/markets/stocks/news/trent-in-focus-after-q2-revenue-rises-23-to-rs-5788-crore-buy-sell-or-hold-the-stock/articleshow/134721903.cms",
-      "source_name": "The Economic Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T03:16:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T10:47:22Z",
-      "updated_at": "2026-10-06T10:47:22Z",
-      "decay_at": "2026-10-07T15:16:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-e7732ac33bb3",
       "idea_version": "IDEAV-8fa5739d6dd92c77",
       "idea_version_started_at": "2026-10-06T10:47:22Z",
@@ -171308,78 +171095,6 @@
       "surfaced_at": "2026-10-06T10:47:22Z",
       "updated_at": "2026-10-06T10:47:22Z",
       "decay_at": "2026-10-07T18:53:47Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-2bb195a65ac7",
-      "idea_version": "IDEAV-f0f319b188bead94",
-      "idea_version_started_at": "2026-10-06T03:52:03Z",
-      "ticker": "BDX",
-      "company": "Becton Dickinson",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $3 billion capital investment in domestic manufacturing capacity is expected to improve long-term margins and supply chain resilience for medical products.",
-      "why_now": "The announcement was made on 2026-10-06, signaling immediate strategic expansion.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-98e743717cec"
-      ],
-      "primary_source_event_id": "EVT-98e743717cec",
-      "source_headlines": [
-        "Trump says Becton Dickinson to invest $3 billion to expand US medical product manufacturing"
-      ],
-      "source_headline": "Trump says Becton Dickinson to invest $3 billion to expand US medical product manufacturing",
-      "source_url": "https://www.reuters.com/world/trump-says-becton-dickinson-invest-3-billion-expand-us-medical-product-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T03:41:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T03:52:03Z",
-      "updated_at": "2026-10-06T03:52:03Z",
-      "decay_at": "2026-10-07T15:41:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171523,78 +171238,6 @@
       "surfaced_at": "2026-10-07T03:42:33Z",
       "updated_at": "2026-10-07T03:42:33Z",
       "decay_at": "2026-10-08T15:02:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-bb113d4666c7",
-      "idea_version": "IDEAV-16095ccd3c16d796",
-      "idea_version_started_at": "2026-10-06T04:16:10Z",
-      "ticker": "066570",
-      "company": "LG Electronics",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured a 5 trillion won contract for AIDC cooling systems, providing a significant revenue tailwind from the growing data center infrastructure market.",
-      "why_now": "The contract was announced on 2026-10-06, providing a clear catalyst for earnings growth.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8efebdf57af1"
-      ],
-      "primary_source_event_id": "EVT-8efebdf57af1",
-      "source_headlines": [
-        "LG Electronics Lands Up to 5 Trillion Won North America AIDC Cooling Deal"
-      ],
-      "source_headline": "LG Electronics Lands Up to 5 Trillion Won North America AIDC Cooling Deal",
-      "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=278232",
-      "source_name": "Business Korea — All English Articles",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-06T04:01:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T04:16:10Z",
-      "updated_at": "2026-10-06T04:16:10Z",
-      "decay_at": "2026-10-07T16:01:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171817,79 +171460,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-0a1283616e19",
-      "idea_version": "IDEAV-60ab8984e7ab1234",
-      "idea_version_started_at": "2026-10-06T04:37:12Z",
-      "ticker": "BT.L",
-      "company": "BT Group",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "BT's acquisition of TalkTalk is facing significant regulatory scrutiny, which could delay or block the deal, negatively impacting BT's strategic goals and potentially TalkTalk's standalone value.",
-      "why_now": "The article highlights current regulatory hurdles for the proposed M&A transaction.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "pair_trade",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e707c712a21f"
-      ],
-      "primary_source_event_id": "EVT-e707c712a21f",
-      "source_headlines": [
-        "BT’s swoop on TalkTalk has regulators over a barrel"
-      ],
-      "source_headline": "BT’s swoop on TalkTalk has regulators over a barrel",
-      "source_url": "https://www.ft.com/content/309a7685-e488-44f4-ad76-4247b7f8bb5b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 91,
-      "newest_source_at": "2026-10-06T04:00:27Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T04:37:12Z",
-      "updated_at": "2026-10-06T04:37:12Z",
-      "decay_at": "2026-10-07T16:00:27Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-684ad4aa3e76",
       "idea_version": "IDEAV-8301f39fbc9bd8a6",
       "idea_version_started_at": "2026-10-07T04:19:01Z",
@@ -172036,150 +171606,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5221d487238d",
-      "idea_version": "IDEAV-274f9971490f7569",
-      "idea_version_started_at": "2026-10-06T04:37:12Z",
-      "ticker": "ETISALAT.AE",
-      "company": "Etisalat",
-      "exchange": "ADX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Etisalat is launching a strategic project to more than double its international connectivity capacity to 500 Tbps by 2030, implying substantial future investment and growth.",
-      "why_now": "The strategic project launch was announced today.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-7c6e450a6899"
-      ],
-      "primary_source_event_id": "EVT-7c6e450a6899",
-      "source_headlines": [
-        "etisalat launches strategic project to boost international connectivity to more than 500 Tbps by 2030"
-      ],
-      "source_headline": "etisalat launches strategic project to boost international connectivity to more than 500 Tbps by 2030",
-      "source_url": "https://economymiddleeast.com/news/etisalat-launches-strategic-project-to-boost-international-connectivity-to-more-than-500-tbps-by-2030/?utm_source=rss&utm_medium=rss&utm_campaign=etisalat-launches-strategic-project-to-boost-international-connectivity-to-more-than-500-tbps-by-2030",
-      "source_name": "Economy Middle East",
-      "materiality_max": 89,
-      "newest_source_at": "2026-10-06T04:07:03Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T04:37:12Z",
-      "updated_at": "2026-10-06T04:37:12Z",
-      "decay_at": "2026-10-07T16:07:03Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3e068ec8e73f",
-      "idea_version": "IDEAV-01304566a587cf84",
-      "idea_version_started_at": "2026-10-06T03:52:03Z",
-      "ticker": "3695",
-      "company": "GMO Research & AI",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The theft of nearly 1 million member records creates significant legal, reputational, and remediation costs that will weigh on near-term earnings.",
-      "why_now": "The breach was reported on 2026-10-06, and the market has not yet fully priced the operational impact.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d828386a820f"
-      ],
-      "primary_source_event_id": "EVT-d828386a820f",
-      "source_headlines": [
-        "URGENT: Japan's GMO Research & AI says up to 948,500 member records stolen"
-      ],
-      "source_headline": "URGENT: Japan's GMO Research & AI says up to 948,500 member records stolen",
-      "source_url": "https://english.kyodonews.net/articles/-/87302",
-      "source_name": "Kyodo News (Japan Wire)",
-      "materiality_max": 89,
-      "newest_source_at": "2026-10-06T02:47:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T03:52:03Z",
-      "updated_at": "2026-10-06T03:52:03Z",
-      "decay_at": "2026-10-07T14:47:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-e6d71eff9a0a",
       "idea_version": "IDEAV-675a26130750bd55",
       "idea_version_started_at": "2026-10-07T02:53:31Z",
@@ -172262,33 +171688,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 559,
+    "total_count": 550,
     "shown_count": 500,
-    "hidden_count": 59,
+    "hidden_count": 50,
     "side_counts": {
       "long": {
-        "total_count": 292,
+        "total_count": 286,
         "shown_count": 250,
-        "hidden_count": 42
+        "hidden_count": 36
       },
       "short": {
-        "total_count": 267,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 14
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 856,
-      "oldest_retained_at": "2026-09-12T16:37:09Z",
+      "evicted_count": 865,
+      "oldest_retained_at": "2026-09-13T02:53:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 567,
-          "oldest_retained_at": "2026-09-24T02:52:54Z"
+          "evicted_count": 573,
+          "oldest_retained_at": "2026-09-24T15:11:06Z"
         },
         "short": {
-          "evicted_count": 289,
-          "oldest_retained_at": "2026-09-12T16:37:09Z"
+          "evicted_count": 292,
+          "oldest_retained_at": "2026-09-13T02:53:00Z"
         }
       }
     },
@@ -176082,8 +175508,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-07T16:07:03Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T04:30:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -176155,8 +175581,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-07T16:02:04Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T04:30:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -176230,8 +175656,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-07T16:01:52Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T04:30:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -176306,8 +175732,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-07T16:00:27Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T04:30:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -176379,8 +175805,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-07T16:00:17Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T04:30:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -176452,8 +175878,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-07T15:49:47Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T04:30:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -176527,8 +175953,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-07T15:41:58Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T04:30:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -176603,8 +176029,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-07T15:16:14Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T04:30:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -176678,8 +176104,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-07T14:47:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T04:30:28Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -209513,8 +208939,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1442,
-    "live_count": 26,
+    "surfaced_total": 1443,
+    "live_count": 27,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -209533,9 +208959,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2613303,
+    "news_seen_today": 2749743,
     "news_picked_today": 167,
-    "news_dropped_today": 2161
+    "news_dropped_today": 2233
   },
   "book_momentum": {
     "live_count": 8,
