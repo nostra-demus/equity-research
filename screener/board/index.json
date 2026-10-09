@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T21:53:38Z",
+  "generated_at": "2026-10-09T22:11:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-431",
@@ -168748,78 +168748,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-26f859b2a348",
-      "idea_version": "IDEAV-00839b718ba53ef4",
-      "idea_version_started_at": "2026-10-08T10:33:41Z",
-      "ticker": "KRX",
-      "company": "Kingspan",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces a €40 million EU fine for providing misleading data regarding a past acquisition, which will directly impact net income and potentially damage regulatory standing.",
-      "why_now": "The fine was announced today, October 8, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-0fa5bb769b31"
-      ],
-      "primary_source_event_id": "EVT-0fa5bb769b31",
-      "source_headlines": [
-        "Kingspan hit with €40 million EU fine for misleading data on Slovenian deal"
-      ],
-      "source_headline": "Kingspan hit with €40 million EU fine for misleading data on Slovenian deal",
-      "source_url": "https://www.reuters.com/world/kingspan-hit-with-40-million-eu-fine-misleading-data-slovenian-deal-2026-10-08/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T09:58:52Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T10:33:41Z",
-      "updated_at": "2026-10-08T10:33:41Z",
-      "decay_at": "2026-10-09T21:58:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a98d17bf56cf",
       "idea_version": "IDEAV-6ca23660cd3ce8cd",
       "idea_version_started_at": "2026-10-09T06:05:27Z",
@@ -170152,6 +170080,78 @@
       "surfaced_at": "2026-10-07T20:55:35Z",
       "updated_at": "2026-10-07T20:55:35Z",
       "decay_at": "2026-10-09T01:08:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-26f859b2a348",
+      "idea_version": "IDEAV-00839b718ba53ef4",
+      "idea_version_started_at": "2026-10-08T10:33:41Z",
+      "ticker": "KRX",
+      "company": "Kingspan",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a €40 million EU fine for providing misleading data regarding a past acquisition, which will directly impact net income and potentially damage regulatory standing.",
+      "why_now": "The fine was announced today, October 8, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0fa5bb769b31"
+      ],
+      "primary_source_event_id": "EVT-0fa5bb769b31",
+      "source_headlines": [
+        "Kingspan hit with €40 million EU fine for misleading data on Slovenian deal"
+      ],
+      "source_headline": "Kingspan hit with €40 million EU fine for misleading data on Slovenian deal",
+      "source_url": "https://www.reuters.com/world/kingspan-hit-with-40-million-eu-fine-misleading-data-slovenian-deal-2026-10-08/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T09:58:52Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T10:33:41Z",
+      "updated_at": "2026-10-08T10:33:41Z",
+      "decay_at": "2026-10-09T21:58:52Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171606,9 +171606,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 537,
     "shown_count": 500,
-    "hidden_count": 36,
+    "hidden_count": 37,
     "side_counts": {
       "long": {
         "total_count": 273,
@@ -171616,9 +171616,9 @@
         "hidden_count": 23
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -171637,6 +171637,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-26f859b2a348",
+        "idea_version": "IDEAV-00839b718ba53ef4",
+        "idea_version_started_at": "2026-10-08T10:33:41Z",
+        "ticker": "KRX",
+        "company": "Kingspan",
+        "exchange": "LSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company faces a €40 million EU fine for providing misleading data regarding a past acquisition, which will directly impact net income and potentially damage regulatory standing.",
+        "why_now": "The fine was announced today, October 8, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-0fa5bb769b31"
+        ],
+        "primary_source_event_id": "EVT-0fa5bb769b31",
+        "source_headlines": [
+          "Kingspan hit with €40 million EU fine for misleading data on Slovenian deal"
+        ],
+        "source_headline": "Kingspan hit with €40 million EU fine for misleading data on Slovenian deal",
+        "source_url": "https://www.reuters.com/world/kingspan-hit-with-40-million-eu-fine-misleading-data-slovenian-deal-2026-10-08/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-08T09:58:52Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-08T10:33:41Z",
+        "updated_at": "2026-10-08T10:33:41Z",
+        "decay_at": "2026-10-09T21:58:52Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-09T21:58:52Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d837632c1545",
         "idea_version": "IDEAV-e4436fe4626d600f",
@@ -208779,87 +208854,12 @@
         "archived_at": "2026-09-16T11:53:56Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-da1862708a71",
-        "idea_version": "IDEAV-bdf5dbe1ba14f119",
-        "idea_version_started_at": "2026-09-13T11:45:45Z",
-        "ticker": "02513",
-        "company": "Z.AI",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The concurrent issuance of new shares and a massive RMB 20.14 billion convertible bond creates significant equity dilution and balance sheet leverage concerns.",
-        "why_now": "The official exchange filing was released on 2026-09-13.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-17f1554c21aa"
-        ],
-        "primary_source_event_id": "EVT-17f1554c21aa",
-        "source_headlines": [
-          "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE"
-        ],
-        "source_headline": "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300025.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T10:13:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T11:45:45Z",
-        "updated_at": "2026-09-13T11:45:45Z",
-        "decay_at": "2026-09-14T22:13:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-16T11:53:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1466,
-    "live_count": 40,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -208878,9 +208878,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 17029070,
-    "news_picked_today": 1050,
-    "news_dropped_today": 10398
+    "news_seen_today": 17304605,
+    "news_picked_today": 1053,
+    "news_dropped_today": 10515
   },
   "book_momentum": {
     "live_count": 8,
