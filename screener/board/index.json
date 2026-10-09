@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T00:25:48Z",
+  "generated_at": "2026-10-09T00:29:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -763,6 +763,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-023",
+      "headline": "HD Hyundai to Buy Goltens to Expand Aftermarket Maintenance Market",
+      "headline_en": null,
+      "url": "https://maritime-executive.com/article/hd-hyundai-to-buy-goltens-to-expand-aftermarket-maintenance-market",
+      "source_name": "Maritime Executive",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-10-08T23:55:20Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "HD Hyundai is acquiring Goltens to expand its aftermarket maintenance capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 58,
+      "triage_reason": "HD Hyundai is acquiring Goltens to expand its aftermarket maintenance capabilities.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -33,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "official_data",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HD Hyundai",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209414,7 +209463,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3388,
+    "inbox_unconsumed": 3389,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209423,9 +209472,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 227716,
-    "news_picked_today": 22,
-    "news_dropped_today": 194
+    "news_seen_today": 280096,
+    "news_picked_today": 23,
+    "news_dropped_today": 217
   },
   "book_momentum": {
     "live_count": 8,
