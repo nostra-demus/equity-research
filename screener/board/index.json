@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-09T15:25:00Z",
+  "generated_at": "2026-10-09T15:35:48Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-390",
+      "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Intimation of the Meeting of the Suspended Board of Directors with the Resolution Professional (RP) (Management Committee) pursuant to Regulation 29(1)(a) of SEBI (Listing Obligations & Disclosure Requirements) Regulations, 2015 (Listing Regulations)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DPSCLTD_09102026205202_IntimationofManagement_BoardMeeting29102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T15:22:18Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "DPSC Limited is undergoing a Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "DPSC Limited is undergoing a Corporate Insolvency Resolution Process, indicating severe financial distress.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DPSC Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-389",
       "headline": "S-4 - Plus Automation, Inc. (0002086744) (Filer)",
@@ -1894,55 +1943,6 @@
         "size": -1,
         "recency": 5,
         "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oxford Metrics",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-218",
-      "headline": "Oxford Metrics shares sink on profit warning as entertainment and research demand weakens",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/oxford-metrics-shares-sink-on-profit-warning-as-entertainment-and-research-demand-weakens/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T07:13:20Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Oxford Metrics issued a profit warning due to weakening demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Oxford Metrics issued a profit warning due to weakening demand.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -209009,9 +209009,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11416402,
-    "news_picked_today": 757,
-    "news_dropped_today": 7379
+    "news_seen_today": 11563627,
+    "news_picked_today": 763,
+    "news_dropped_today": 7397
   },
   "book_momentum": {
     "live_count": 8,
