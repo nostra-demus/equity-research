@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T09:39:46Z",
+  "generated_at": "2026-10-09T09:44:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-250",
@@ -1081,6 +1081,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-253",
+      "headline": "SHANGHAI XNG (03666): ADDITIONAL RESUMPTION GUIDANCE AND CONTINUED SUSPENSION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900615.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T09:36:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Shanghai XNG remains suspended from trading and has received additional resumption guidance, indicating ongoing regulatory or financial distress.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Shanghai XNG remains suspended from trading and has received additional resumption guidance, indicating ongoing regulatory or financial distress.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SHANGHAI XNG",
+          "ticker": "03666",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-245",
       "headline": "DETAI NEWENERGY (00559): QUARTERLY UPDATES ON RESUMPTION PROGRESS AND CONTINUED SUSPENSION OF TRADING",
       "headline_en": null,
@@ -1913,55 +1962,6 @@
           "name": "NMR",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-039",
-      "headline": "424B3 - 1st FRANKLIN FINANCIAL CORP (0000038723) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/38723/000162828026065397/0001628280-26-065397-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B3 (Prospectus)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-08T11:50:46Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "A prospectus filing (424B3) indicates a potential M&A event or significant financial transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "A prospectus filing (424B3) indicates a potential M&A event or significant financial transaction.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "1st FRANKLIN FINANCIAL CORP",
-          "ticker": "0000038723",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -208642,9 +208642,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6678151,
-    "news_picked_today": 348,
-    "news_dropped_today": 4908
+    "news_seen_today": 6747985,
+    "news_picked_today": 353,
+    "news_dropped_today": 4927
   },
   "book_momentum": {
     "live_count": 8,
