@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T00:44:13Z",
+  "generated_at": "2026-10-09T00:47:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -580,6 +580,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-027",
+      "headline": "425 - Medtronic plc (0001613103) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1613103/000162828026065402/0001628280-26-065402-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-08T12:04:13Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Standard M&A communication filing for Medtronic, no specific deal details provided.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Standard M&A communication filing for Medtronic, no specific deal details provided.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Medtronic plc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209611,7 +209660,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3392,
+    "inbox_unconsumed": 3393,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209620,9 +209669,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 454674,
-    "news_picked_today": 26,
-    "news_dropped_today": 334
+    "news_seen_today": 506946,
+    "news_picked_today": 27,
+    "news_dropped_today": 357
   },
   "book_momentum": {
     "live_count": 8,
