@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T15:59:55Z",
+  "generated_at": "2026-10-09T16:04:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-390",
@@ -1374,6 +1374,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-395",
+      "headline": "Vodafone raises cost savings target for UK unit to £1bn",
+      "headline_en": null,
+      "url": "https://www.datacenterdynamics.com/en/news/vodafone-raises-cost-savings-target-for-uk-unit-to-1bn/",
+      "source_name": "DataCenterDynamics",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T15:58:05Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Vodafone increased its UK unit cost savings target by £1bn, directly impacting margin expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Vodafone increased its UK unit cost savings target by £1bn, directly impacting margin expectations.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vodafone",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-394",
       "headline": "Persistent Systems Secures 94.04% Stake In Nagarro After Takeover Offer",
       "headline_en": null,
@@ -1918,55 +1967,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-233",
-      "headline": "JD.com’s $2.5 billion Ceconomy takeover moves closer to EU approval",
-      "headline_en": null,
-      "url": "https://technode.com/2026/10/09/jd-coms-2-5-billion-ceconomy-takeover-moves-closer-to-eu-approval/",
-      "source_name": "TechNode",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T08:52:53Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "JD.com's $2.5 billion acquisition of Ceconomy is nearing regulatory approval.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "JD.com's $2.5 billion acquisition of Ceconomy is nearing regulatory approval.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JD.com",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209014,9 +209014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11927821,
-    "news_picked_today": 784,
-    "news_dropped_today": 7544
+    "news_seen_today": 11976415,
+    "news_picked_today": 790,
+    "news_dropped_today": 7562
   },
   "book_momentum": {
     "live_count": 8,
