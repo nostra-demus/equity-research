@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T01:15:37Z",
+  "generated_at": "2026-10-09T01:19:26Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -684,6 +684,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-048",
+      "headline": "For Walmart, Replacing Humans With Robots Is a Multibillion-Dollar Struggle",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/logistics/walmart-automation-robots-warehouses-65f016b2?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T01:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Walmart faces significant operational challenges and costs in its multi-billion dollar automation strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Walmart faces significant operational challenges and costs in its multi-billion dollar automation strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Walmart",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-026",
       "headline": "OpenAI caught Russians and Iranians using ChatGPT for influence campaigns",
       "headline_en": null,
@@ -778,6 +827,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-047",
+      "headline": "Nvidia-backed Aussie AI firm Firmus withdraws historic IPO, citing market volatility",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/10/09/nvidia-ai-firmus-ipo-.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T01:02:38Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Firmus has withdrawn its IPO, signaling a failure to execute a major capital-raising event due to market conditions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Firmus has withdrawn its IPO, signaling a failure to execute a major capital-raising event due to market conditions.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Firmus",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1402,6 +1500,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-049",
+      "headline": "Jim Chalmers delays ATO’s controversial ban on credit card payments following business outcry",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/australia-news/2026/oct/09/chalmers-delays-controversial-credit-card-ban-business-tax",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T00:45:19Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "The Australian government has delayed a controversial regulatory ban on credit card payments, providing relief to the business sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "The Australian government has delayed a controversial regulatory ban on credit card payments, providing relief to the business sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-015",
       "headline": "Review of provisions related to International Securities Identification Number (ISIN) for debt securities issued on private placement basis.",
       "headline_en": null,
@@ -1777,157 +1918,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-028",
-      "headline": "A Glimpse Inside Gaza Shows How Israel’s Military Footprint Is Expanding",
-      "headline_en": null,
-      "url": "https://www.wsj.com/world/middle-east/a-glimpse-inside-gaza-shows-how-israels-military-footprint-is-expanding-ecdb8834?mod=rss_worldnews",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "The expansion of Israel's military footprint in Gaza represents a significant geopolitical escalation in the Middle East.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "The expansion of Israel's military footprint in Gaza represents a significant geopolitical escalation in the Middle East.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -43,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-041",
-      "headline": "Hitachi Joins Anthropic’s Critical Infrastructure Defense Program",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261008940707/en/Hitachi-Joins-Anthropic%E2%80%99s-Critical-Infrastructure-Defense-Program/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
-      "source_name": "Business Wire — Product/Service News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-09T00:32:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Hitachi joined Anthropic's critical infrastructure defense program, indicating a strategic partnership in AI security.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "Hitachi joined Anthropic's critical infrastructure defense program, indicating a strategic partnership in AI security.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hitachi",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-016",
-      "headline": "Araceli Biosciences und Ginkgo Bioworks ermöglichen die zelluläre Bildgebung in großem Maßstab für das „Lab-in-the-Loop\"-System von Nebula",
-      "headline_en": "Araceli Biosciences and Ginkgo Bioworks enable large-scale cellular imaging for Nebula's \"Lab-in-the-Loop\" system",
-      "url": "https://www.prnewswire.com/news-releases/araceli-biosciences-und-ginkgo-bioworks-ermoglichen-die-zellulare-bildgebung-in-groWem-maWstab-fur-das-lab-in-the-loop-system-von-nebula-302903121.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-09T00:06:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Ginkgo Bioworks and Araceli Biosciences announced a partnership to enable large-scale cellular imaging.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 46,
-      "triage_reason": "Ginkgo Bioworks and Araceli Biosciences announced a partnership to enable large-scale cellular imaging.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ginkgo Bioworks",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Araceli Biosciences",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210343,9 +210333,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 853237,
-    "news_picked_today": 46,
-    "news_dropped_today": 650
+    "news_seen_today": 870467,
+    "news_picked_today": 49,
+    "news_dropped_today": 671
   },
   "book_momentum": {
     "live_count": 8,
