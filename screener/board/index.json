@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T15:39:56Z",
+  "generated_at": "2026-10-09T15:57:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-390",
@@ -1374,6 +1374,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-394",
+      "headline": "Persistent Systems Secures 94.04% Stake In Nagarro After Takeover Offer",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/persistent-systems-secures-94-04-stake-in-nagarro-after-takeover-offer-12163052#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T15:32:46Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Persistent Systems secured a 94.04% stake in Nagarro following a takeover offer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Persistent Systems secured a 94.04% stake in Nagarro following a takeover offer.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Persistent Systems",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Nagarro",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-388",
       "headline": "EA Turns to Egan-Jones Rating as Angry Bondholders Claim Default",
       "headline_en": null,
@@ -1913,55 +1967,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-205",
-      "headline": "UK's Oxford Metrics warns about annual loss on entertainment industry spending cuts",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/uk/uks-oxford-metrics-warns-about-annual-loss-entertainment-industry-spending-cuts-2026-10-09/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T07:57:57Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Oxford Metrics issued a profit warning citing annual losses due to spending cuts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Oxford Metrics issued a profit warning citing annual losses due to spending cuts.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Oxford Metrics",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209009,9 +209014,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11588239,
-    "news_picked_today": 765,
-    "news_dropped_today": 7419
+    "news_seen_today": 11903534,
+    "news_picked_today": 781,
+    "news_dropped_today": 7523
   },
   "book_momentum": {
     "live_count": 8,
