@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T04:38:10Z",
+  "generated_at": "2026-10-09T04:56:09Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-074",
@@ -341,6 +341,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-144",
+      "headline": "Mirza International Limited: Mirza International Limited has informed the Exchange about Acquisition",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/MIRZAINT_09102026101539_Letter_to_SE_19102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T04:45:52Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Mirza International Limited has announced an acquisition, which is a material corporate development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Mirza International Limited has announced an acquisition, which is a material corporate development.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mirza International Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1034,6 +1083,61 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-146",
+      "headline": "Competition authority seeks public views on Eneos Apac’s proposed acquisition of Chevron Singapore",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/competition-authority-seeks-public-views-eneos-apacs-proposed-acquisition-chevron-singapore",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T04:41:01Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "The competition authority is reviewing Eneos Apac's proposed acquisition of Chevron Singapore, a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "The competition authority is reviewing Eneos Apac's proposed acquisition of Chevron Singapore, a significant M&A event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Eneos Apac",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Chevron Singapore",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1876,105 +1980,6 @@
           "name": "Frasers Property",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-033",
-      "headline": "Cantor Fitzgerald faces Senate Democrat’s probe over Tether ties",
-      "headline_en": null,
-      "url": "https://cointelegraph.com/news/cantor-fitzgerald-faces-senate-democrats-probe-over-tether-ties?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source_name": "Cointelegraph",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T00:46:27Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "A Senate probe into Cantor Fitzgerald's ties to Tether introduces significant regulatory and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "A Senate probe into Cantor Fitzgerald's ties to Tether introduces significant regulatory and reputational risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cantor Fitzgerald",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-031",
-      "headline": "Amerx Initiates Coverage of CrowdStrike Holdings with Underweight Rating",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/amerx-initiates-coverage-crowdstrike-holdings-underweight-rating",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T00:22:13Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Amerx initiated coverage on CrowdStrike with an Underweight rating, signaling a negative outlook from an analyst.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Amerx initiated coverage on CrowdStrike with an Underweight rating, signaling a negative outlook from an analyst.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CrowdStrike Holdings",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -168039,77 +168044,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-af4308e96a78",
-      "idea_version": "IDEAV-282b700c2f8a316e",
-      "idea_version_started_at": "2026-10-07T20:26:28Z",
-      "ticker": "JSWSTEEL",
-      "company": "JSW Steel Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The early redemption of $500M in notes due 2027 reduces interest expense and improves the company's balance sheet leverage profile.",
-      "why_now": "The filing was released today, October 7, 2026, signaling management's confidence in liquidity and debt management.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-be192d950d38"
-      ],
-      "primary_source_event_id": "EVT-be192d950d38",
-      "source_headlines": [
-        "JSW Steel Limited: Early redemption of US$500,000,000, 3.95% Notes due 2027"
-      ],
-      "source_headline": "JSW Steel Limited: Early redemption of US$500,000,000, 3.95% Notes due 2027",
-      "source_url": "https://nsearchives.nseindia.com/corporate/jessydenny_07102026221350_Redemption_of_Notes.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-07T16:44:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T20:26:28Z",
-      "updated_at": "2026-10-07T20:26:28Z",
-      "decay_at": "2026-10-09T04:44:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-48fab202d92b",
       "idea_version": "IDEAV-65c5e22efadad95c",
       "idea_version_started_at": "2026-10-07T20:55:35Z",
@@ -169718,6 +169652,77 @@
       "surfaced_at": "2026-10-05T23:00:55Z",
       "updated_at": "2026-10-07T16:37:47Z",
       "decay_at": "2026-10-08T02:57:12Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-af4308e96a78",
+      "idea_version": "IDEAV-282b700c2f8a316e",
+      "idea_version_started_at": "2026-10-07T20:26:28Z",
+      "ticker": "JSWSTEEL",
+      "company": "JSW Steel Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The early redemption of $500M in notes due 2027 reduces interest expense and improves the company's balance sheet leverage profile.",
+      "why_now": "The filing was released today, October 7, 2026, signaling management's confidence in liquidity and debt management.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-be192d950d38"
+      ],
+      "primary_source_event_id": "EVT-be192d950d38",
+      "source_headlines": [
+        "JSW Steel Limited: Early redemption of US$500,000,000, 3.95% Notes due 2027"
+      ],
+      "source_headline": "JSW Steel Limited: Early redemption of US$500,000,000, 3.95% Notes due 2027",
+      "source_url": "https://nsearchives.nseindia.com/corporate/jessydenny_07102026221350_Redemption_of_Notes.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-07T16:44:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T20:26:28Z",
+      "updated_at": "2026-10-07T20:26:28Z",
+      "decay_at": "2026-10-09T04:44:02Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171688,14 +171693,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 550,
+    "total_count": 551,
     "shown_count": 500,
-    "hidden_count": 50,
+    "hidden_count": 51,
     "side_counts": {
       "long": {
-        "total_count": 286,
+        "total_count": 287,
         "shown_count": 250,
-        "hidden_count": 36
+        "hidden_count": 37
       },
       "short": {
         "total_count": 264,
@@ -171719,6 +171724,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-af4308e96a78",
+        "idea_version": "IDEAV-282b700c2f8a316e",
+        "idea_version_started_at": "2026-10-07T20:26:28Z",
+        "ticker": "JSWSTEEL",
+        "company": "JSW Steel Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The early redemption of $500M in notes due 2027 reduces interest expense and improves the company's balance sheet leverage profile.",
+        "why_now": "The filing was released today, October 7, 2026, signaling management's confidence in liquidity and debt management.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-be192d950d38"
+        ],
+        "primary_source_event_id": "EVT-be192d950d38",
+        "source_headlines": [
+          "JSW Steel Limited: Early redemption of US$500,000,000, 3.95% Notes due 2027"
+        ],
+        "source_headline": "JSW Steel Limited: Early redemption of US$500,000,000, 3.95% Notes due 2027",
+        "source_url": "https://nsearchives.nseindia.com/corporate/jessydenny_07102026221350_Redemption_of_Notes.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-07T16:44:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-07T20:26:28Z",
+        "updated_at": "2026-10-07T20:26:28Z",
+        "decay_at": "2026-10-09T04:44:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-09T04:44:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-875480fa9405",
         "idea_version": "IDEAV-c24530fc35c6493c",
@@ -199715,79 +199794,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-ae01fb457408",
-        "idea_version": "IDEAV-d4aa05ccec8dbcdb",
-        "idea_version_started_at": "2026-09-26T21:35:18Z",
-        "ticker": "BASFY",
-        "company": "BASF SE",
-        "exchange": "OQX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "BASF is reportedly working on the acquisition of Evonik, which could expand its market share and operational synergies in the chemicals sector.",
-        "why_now": "News of the potential acquisition broke on September 25, 2026, causing a significant reaction in shares.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-46e2e3a8d65a"
-        ],
-        "primary_source_event_id": "EVT-46e2e3a8d65a",
-        "source_headlines": [
-          "Chemicals: BASF is working on the acquisition of Evonik – shares react significantly"
-        ],
-        "source_headline": "Chemie: BASF arbeitet an Übernahme von Evonik – Aktien reagieren deutlich",
-        "source_url": "https://www.handelsblatt.com/unternehmen/industrie/chemie-basf-arbeitet-an-uebernahme-von-evonik/100257452.html",
-        "source_name": "Handelsblatt",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-25T19:41:40Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-26T13:43:44Z",
-        "updated_at": "2026-09-26T21:35:18Z",
-        "decay_at": "2026-09-27T07:41:40Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-28T20:17:00Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-111ec83cfb59",
         "idea_version": "IDEAV-a9aa0b416610b566",
         "idea_version_started_at": "2026-09-25T05:48:29Z",
@@ -208940,7 +208946,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1443,
-    "live_count": 27,
+    "live_count": 26,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -208959,9 +208965,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2836866,
-    "news_picked_today": 168,
-    "news_dropped_today": 2352
+    "news_seen_today": 3027251,
+    "news_picked_today": 171,
+    "news_dropped_today": 2493
   },
   "book_momentum": {
     "live_count": 8,
