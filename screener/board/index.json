@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T01:27:39Z",
+  "generated_at": "2026-10-09T01:29:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -1733,6 +1733,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-054",
+      "headline": "NFL urges Supreme Court to decide who should regulate prediction markets",
+      "headline_en": null,
+      "url": "https://www.cbsnews.com/news/nfl-supreme-court-prediction-market-case/",
+      "source_name": "CBS MoneyWatch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T00:30:56Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Legal dispute regarding the regulation of prediction markets, impacting the emerging betting/fintech sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Legal dispute regarding the regulation of prediction markets, impacting the emerging betting/fintech sector.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-022",
       "headline": "Plans for Sydney’s controversial new public square in doubt after NSW government intervention",
       "headline_en": null,
@@ -1869,55 +1912,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-017",
-      "headline": "Innovent Announces Phase 3 RESTORE-3 Study of SYCUME® (Teprotumumab N01 Injection) Met Primary Endpoint in Inactive Thyroid Eye Disease",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/innovent-announces-phase-3-restore-3-study-of-sycume-teprotumumab-n01-injection-met-primary-endpoint-in-inactive-thyroid-eye-disease-302902606.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-09T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Innovent announced that its Phase 3 RESTORE-3 study for SYCUME met its primary endpoint, a significant clinical milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Innovent announced that its Phase 3 RESTORE-3 study for SYCUME met its primary endpoint, a significant clinical milestone.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Innovent Biologics",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209903,9 +209897,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 973742,
-    "news_picked_today": 52,
-    "news_dropped_today": 692
+    "news_seen_today": 990965,
+    "news_picked_today": 54,
+    "news_dropped_today": 714
   },
   "book_momentum": {
     "live_count": 8,
