@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T00:14:25Z",
+  "generated_at": "2026-10-09T00:18:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -198,6 +198,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-009",
+      "headline": "SC TO-I/A - Medtronic plc (0001613103) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1613103/000162828026065406/0001628280-26-065406-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-08T12:24:31Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Medtronic filed an amendment to a tender offer, which is a routine corporate action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Medtronic filed an amendment to a tender offer, which is a routine corporate action.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Medtronic plc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-006",
       "headline": "RAFFLESINTERIOR (01376): VOLUNTARY ANNOUNCEMENT - BOARD RESOLUTIONS CONCERNING CERTAIN MEDIA REPORTS AND POSTS",
       "headline_en": null,
@@ -288,6 +337,55 @@
           "name": "ROBOSENSE",
           "ticker": "02498",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-010",
+      "headline": "SCHEDULE 13G - Customers Bancorp, Inc. (0001488813) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1488813/000093687226000020/0000936872-26-000020-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-08T12:24:31Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Routine Schedule 13G filing indicating a change in institutional ownership.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Routine Schedule 13G filing indicating a change in institutional ownership.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Customers Bancorp, Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mid",
@@ -208747,7 +208845,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3374,
+    "inbox_unconsumed": 3376,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -208756,9 +208854,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 140196,
-    "news_picked_today": 8,
-    "news_dropped_today": 112
+    "news_seen_today": 157718,
+    "news_picked_today": 10,
+    "news_dropped_today": 134
   },
   "book_momentum": {
     "live_count": 8,
