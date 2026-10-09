@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T01:50:30Z",
+  "generated_at": "2026-10-09T01:59:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -1609,6 +1609,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-063",
+      "headline": "Jefferies Upgrades Royal Caribbean Cruises to Buy from Hold",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/jefferies-upgrades-royal-caribbean-cruises-buy-hold",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T01:29:24Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Jefferies upgraded Royal Caribbean Cruises to Buy from Hold, indicating a shift in analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 67,
+      "triage_reason": "Jefferies upgraded Royal Caribbean Cruises to Buy from Hold, indicating a shift in analyst expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Royal Caribbean Cruises",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-014",
       "headline": "Exemption from the requirement of mandatory merchant banker appointment for debt issued through private placement by certain listed issuers.",
       "headline_en": null,
@@ -1848,87 +1897,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261009-049",
-      "headline": "Jim Chalmers delays ATO’s controversial ban on credit card payments following business outcry",
+      "inbox_id": "INB-20261009-064",
+      "headline": "JP Morgan Upgrades Pacira BioSciences to Neutral from Underweight",
       "headline_en": null,
-      "url": "https://www.theguardian.com/australia-news/2026/oct/09/chalmers-delays-controversial-credit-card-ban-business-tax",
-      "source_name": "The Guardian — World news",
+      "url": "https://www.nasdaq.com/articles/jp-morgan-upgrades-pacira-biosciences-neutral-underweight",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-10-09T00:45:19Z",
+      "found_at": "2026-10-09T01:25:18Z",
       "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "The Australian government has delayed a controversial regulatory ban on credit card payments, providing relief to the business sector.",
+      "prelim_note": "JP Morgan upgraded Pacira BioSciences to Neutral from Underweight, reflecting a change in analyst outlook.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 61,
-      "triage_reason": "The Australian government has delayed a controversial regulatory ban on credit card payments, providing relief to the business sector.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-015",
-      "headline": "Review of provisions related to International Securities Identification Number (ISIN) for debt securities issued on private placement basis.",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/downloads/UploadDocs/Notices/20261008-21/20261008-21.pdf",
-      "source_name": "BSE India — Notices (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-08T12:19:19Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "SEBI updated ISIN provisions for private placement of debt securities, affecting issuance procedures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "SEBI updated ISIN provisions for private placement of debt securities, affecting issuance procedures.",
-      "region": "IN",
+      "triage_reason": "JP Morgan upgraded Pacira BioSciences to Neutral from Underweight, reflecting a change in analyst outlook.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 45,
       "rank_factors": {
         "materiality": 45,
-        "source_tier": 8,
-        "scope": 2,
+        "source_tier": 0,
+        "scope": 6,
         "event": 4,
-        "size": 0,
-        "recency": 1,
+        "size": 1,
+        "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mid"
       },
       "event_types": [
-        "regulatory"
+        "management"
       ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pacira BioSciences",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209914,9 +209926,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1213814,
-    "news_picked_today": 63,
-    "news_dropped_today": 873
+    "news_seen_today": 1316394,
+    "news_picked_today": 65,
+    "news_dropped_today": 943
   },
   "book_momentum": {
     "live_count": 8,
