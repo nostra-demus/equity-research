@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T02:45:29Z",
+  "generated_at": "2026-10-09T02:49:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-074",
@@ -242,6 +242,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-078",
+      "headline": "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding 'Statement of the Company regarding the announcement by the US Government on the Permanent Labor Certification Program'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TCS_CORPCS_09102026080757_SE_TCS_Statement_f.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T02:38:19Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "TCS issued a statement regarding US government changes to the Permanent Labor Certification Program, which may impact operational costs or talent mobility.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "TCS issued a statement regarding US government changes to the Permanent Labor Certification Program, which may impact operational costs or talent mobility.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Consultancy Services",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1899,55 +1948,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-075",
-      "headline": "Raymond James Upgrades Unity Software to Outperform from Market Perform",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/raymond-james-upgrades-unity-software-outperform-market-perform",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T01:59:13Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Raymond James upgraded Unity Software to Outperform, signaling improved analyst sentiment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "Raymond James upgraded Unity Software to Outperform, signaling improved analyst sentiment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unity Software",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209503,9 +209503,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1807877,
-    "news_picked_today": 87,
-    "news_dropped_today": 1353
+    "news_seen_today": 1824793,
+    "news_picked_today": 89,
+    "news_dropped_today": 1399
   },
   "book_momentum": {
     "live_count": 8,
