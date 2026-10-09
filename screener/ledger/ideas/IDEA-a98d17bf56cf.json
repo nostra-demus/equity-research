@@ -1,25 +1,25 @@
 {
-  "idea_id": "IDEA-a4a2b51d29e2",
-  "idea_version": "IDEAV-2911f15d4ca2cd46",
-  "idea_version_started_at": "2026-10-06T10:47:22Z",
-  "ticker": "WIENER.AT",
-  "company": "Wienerberger AG",
-  "exchange": "Vienna",
+  "idea_id": "IDEA-a98d17bf56cf",
+  "idea_version": "IDEAV-6ca23660cd3ce8cd",
+  "idea_version_started_at": "2026-10-09T06:05:27Z",
+  "ticker": "PL3",
+  "company": "PL3",
+  "exchange": "ASX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "short",
+  "direction": "long",
   "pair_with": null,
-  "reason": "The company cut its forecast again, signalling continued weakness in building materials demand and repeated downward revisions to earnings.",
-  "why_now": "Forecast cut 2026-10-06.",
-  "conviction": 55,
+  "reason": "The company reported significant positive pump test results from Well 8, indicating improved production potential for their assets.",
+  "why_now": "The results were released in a price-sensitive filing on 2026-10-09.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
-    "evidence": 14,
-    "impact": 21,
+    "evidence": 25,
+    "impact": 19,
     "specificity": 7,
     "timing": 10,
     "expression": 0,
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -49,26 +48,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-9f5f6b8e33e5"
+    "EVT-01cd6217a6ac"
   ],
-  "primary_source_event_id": "EVT-9f5f6b8e33e5",
+  "primary_source_event_id": "EVT-01cd6217a6ac",
   "source_headlines": [
-    "Building materials group Wienerberger cuts its forecast again"
+    "PL3: Significant Pump Test Results from Well 8 Correction [price-sensitive]"
   ],
-  "source_headline": "Baustoffkonzern Wienerberger kappt erneut die Prognose",
-  "source_url": "https://www.reuters.com/de/firma/baustoffkonzern-wienerberger-kappt-erneut-die-prognose-2026-10-06/",
-  "source_name": "Reuters — Latest, next page (news sitemap)",
-  "materiality_max": 100,
-  "newest_source_at": "2026-10-06T05:53:45Z",
+  "source_headline": "PL3: Significant Pump Test Results from Well 8 Correction [price-sensitive]",
+  "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PL3?key=2924-03146543-3A703763",
+  "source_name": "ASX (Australia Exchange Filing)",
+  "materiality_max": 95,
+  "newest_source_at": "2026-10-09T00:55:34Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-10-06T10:47:22Z",
-  "updated_at": "2026-10-06T10:47:22Z",
-  "decay_at": "2026-10-07T17:53:45Z",
+  "surfaced_at": "2026-10-09T06:05:27Z",
+  "updated_at": "2026-10-09T06:05:27Z",
+  "decay_at": "2026-10-10T12:55:34Z",
   "status": "live",
   "promoted_signal_id": null
 }
