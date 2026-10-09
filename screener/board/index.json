@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T00:47:25Z",
+  "generated_at": "2026-10-09T00:49:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -291,6 +291,50 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-029",
+      "headline": "FTC Secures Fair Pricing Protections by Taking Action Against Major Wholesale T-Shirt Distributors",
+      "headline_en": null,
+      "url": "https://www.ftc.gov/news-events/news/press-releases/2026/10/ftc-secures-fair-pricing-protections-taking-action-against-major-wholesale-t-shirt-distributors",
+      "source_name": "Federal Trade Commission (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-08T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "The FTC is taking enforcement action against wholesale distributors for anti-competitive pricing practices.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The FTC is taking enforcement action against wholesale distributors for anti-competitive pricing practices.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1199,6 +1243,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-028",
+      "headline": "A Glimpse Inside Gaza Shows How Israel’s Military Footprint Is Expanding",
+      "headline_en": null,
+      "url": "https://www.wsj.com/world/middle-east/a-glimpse-inside-gaza-shows-how-israels-military-footprint-is-expanding-ecdb8834?mod=rss_worldnews",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "The expansion of Israel's military footprint in Gaza represents a significant geopolitical escalation in the Middle East.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "The expansion of Israel's military footprint in Gaza represents a significant geopolitical escalation in the Middle East.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209660,7 +209747,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3393,
+    "inbox_unconsumed": 3395,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209669,9 +209756,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 506946,
-    "news_picked_today": 27,
-    "news_dropped_today": 357
+    "news_seen_today": 524364,
+    "news_picked_today": 29,
+    "news_dropped_today": 379
   },
   "book_momentum": {
     "live_count": 8,
