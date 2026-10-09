@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T01:59:41Z",
+  "generated_at": "2026-10-09T02:03:29Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -340,6 +340,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-065",
+      "headline": "BEML Limited: BEML Limited has informed the Exchange about Awarding of order(s)/contract(s)",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BEML_09102026071209_intimation_nse_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T01:42:58Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "BEML Limited has been awarded a new contract, which is a positive operational development.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "BEML Limited has been awarded a new contract, which is a positive operational development.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BEML Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1892,55 +1941,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-064",
-      "headline": "JP Morgan Upgrades Pacira BioSciences to Neutral from Underweight",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/jp-morgan-upgrades-pacira-biosciences-neutral-underweight",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T01:25:18Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "JP Morgan upgraded Pacira BioSciences to Neutral from Underweight, reflecting a change in analyst outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "JP Morgan upgraded Pacira BioSciences to Neutral from Underweight, reflecting a change in analyst outlook.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pacira BioSciences",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209926,9 +209926,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1316394,
-    "news_picked_today": 65,
-    "news_dropped_today": 943
+    "news_seen_today": 1333469,
+    "news_picked_today": 66,
+    "news_dropped_today": 966
   },
   "book_momentum": {
     "live_count": 8,
