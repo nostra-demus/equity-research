@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T01:02:32Z",
+  "generated_at": "2026-10-09T01:04:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -1580,6 +1580,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-041",
+      "headline": "Hitachi Joins Anthropic’s Critical Infrastructure Defense Program",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20261008940707/en/Hitachi-Joins-Anthropic%E2%80%99s-Critical-Infrastructure-Defense-Program/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire — Product/Service News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-09T00:32:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Hitachi joined Anthropic's critical infrastructure defense program, indicating a strategic partnership in AI security.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Hitachi joined Anthropic's critical infrastructure defense program, indicating a strategic partnership in AI security.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hitachi",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-016",
       "headline": "Araceli Biosciences und Ginkgo Bioworks ermöglichen die zelluläre Bildgebung in großem Maßstab für das „Lab-in-the-Loop\"-System von Nebula",
       "headline_en": "Araceli Biosciences and Ginkgo Bioworks enable large-scale cellular imaging for Nebula's \"Lab-in-the-Loop\" system",
@@ -1629,6 +1683,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-040",
+      "headline": "获Sam Altman支持的Meanwhile融资3,750万美元，亚洲、欧洲及中东家庭纷纷选择比特币人寿保险",
+      "headline_en": "Meanwhile, backed by Sam Altman, raises 37.5 million USD as families in Asia, Europe, and the Middle East choose bitcoin life insurance",
+      "url": "http://www.businesswire.com/news/home/20261008894201/zh-CN/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Funding News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-09T00:04:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Meanwhile raised 37.5 million USD in funding to expand its bitcoin life insurance business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 43,
+      "triage_reason": "Meanwhile raised 37.5 million USD in funding to expand its bitcoin life insurance business.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meanwhile",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210183,7 +210286,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3404,
+    "inbox_unconsumed": 3406,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -210192,9 +210295,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 697987,
-    "news_picked_today": 39,
-    "news_dropped_today": 537
+    "news_seen_today": 715280,
+    "news_picked_today": 41,
+    "news_dropped_today": 559
   },
   "book_momentum": {
     "live_count": 8,
