@@ -1,29 +1,29 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-13T23:54:45Z",
+  "archived_at": "2026-10-09T01:25:45Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-054ed290ea3b",
-    "idea_version": "IDEAV-a010346fc878e3bb",
-    "idea_version_started_at": "2026-09-11T02:58:52Z",
-    "ticker": "01548",
-    "company": "GenScript Biotech",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-ec8c1228de91",
+    "idea_version": "IDEAV-bf0f35f98c4f9d06",
+    "idea_version_started_at": "2026-10-06T01:46:49Z",
+    "ticker": "8601",
+    "company": "Daiwa Securities Group",
+    "exchange": "TSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company is executing a share placement under a general mandate, which will dilute existing shareholders and typically exerts downward pressure on the stock price in the near term.",
-    "why_now": "The filing was released on 2026-09-10, making the dilution event immediate and actionable.",
-    "conviction": 65,
+    "reason": "The company is facing potential reputational damage and regulatory scrutiny following unauthorized access that may have leaked customer data.",
+    "why_now": "The data breach risk was reported on October 6, 2026, posing immediate downside risk to customer trust and operational costs.",
+    "conviction": 50,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 14,
+      "evidence": 14,
+      "impact": 16,
       "specificity": 7,
       "timing": 10,
       "expression": 0,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-d275f5255e58"
+      "EVT-1fec3620ca13"
     ],
-    "primary_source_event_id": "EVT-d275f5255e58",
+    "primary_source_event_id": "EVT-1fec3620ca13",
     "source_headlines": [
-      "GENSCRIPT BIO (01548): PLACING OF NEW SHARES UNDER THE GENERAL MANDATE"
+      "Daiwa Securities' customer data may have leaked due to unauthorized access"
     ],
-    "source_headline": "GENSCRIPT BIO (01548): PLACING OF NEW SHARES UNDER THE GENERAL MANDATE",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0911/2026091100069.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
-    "materiality_max": 91,
-    "newest_source_at": "2026-09-10T23:32:00Z",
+    "source_headline": "Daiwa Securities' customer data may have leaked due to unauthorized access",
+    "source_url": "https://mainichi.jp/english/articles/20261006/p2g/00m/0bu/010000c",
+    "source_name": "The Mainichi",
+    "materiality_max": 87,
+    "newest_source_at": "2026-10-06T00:30:08Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-11T02:58:52Z",
-    "updated_at": "2026-09-11T02:58:52Z",
-    "decay_at": "2026-09-12T11:32:00Z",
+    "surfaced_at": "2026-10-06T01:46:49Z",
+    "updated_at": "2026-10-06T01:46:49Z",
+    "decay_at": "2026-10-07T12:30:08Z",
     "status": "live",
     "promoted_signal_id": null
   }
