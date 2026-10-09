@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T09:10:53Z",
+  "generated_at": "2026-10-09T09:13:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-230",
@@ -1233,6 +1233,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-239",
+      "headline": "Aritzia Forecasts Q3 Revenue Growth, Raises FY27 Outlook As Q2 Results Jump",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/aritzia-forecasts-q3-revenue-growth-raises-fy27-outlook-q2-results-jump",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T08:52:59Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Company reported strong Q2 results and raised FY27 guidance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Company reported strong Q2 results and raised FY27 guidance.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aritzia",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-141",
       "headline": "TCS shares surge 5% after D-Street cheers strong Q2 results - Should you book profit or invest more? Experts' suggestion",
       "headline_en": null,
@@ -1911,56 +1961,6 @@
       "companies": [
         {
           "name": "Mumbai Firms",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-066",
-      "headline": "US sanctions two Mumbai firms and five Indians over alleged Iran oil trade",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/news/us-sanctions-two-mumbai-firms-and-five-indians-over-alleged-iran-oil-trade/article71562408.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T01:55:04Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "The US government imposed sanctions on two Mumbai-based firms for alleged involvement in Iran oil trade, creating significant legal and operational risk for the entities involved.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "The US government imposed sanctions on two Mumbai-based firms for alleged involvement in Iran oil trade, creating significant legal and operational risk for the entities involved.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mumbai firms",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -208643,9 +208643,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6236150,
-    "news_picked_today": 312,
-    "news_dropped_today": 4608
+    "news_seen_today": 6282902,
+    "news_picked_today": 320,
+    "news_dropped_today": 4648
   },
   "book_momentum": {
     "live_count": 8,
