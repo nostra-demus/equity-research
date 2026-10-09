@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-ebfbd0cbbc7c",
+  "idea_version": "IDEAV-a458d90141a3fd2e",
+  "idea_version_started_at": "2026-10-09T00:14:06Z",
+  "ticker": "MSFT",
+  "company": "Microsoft",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "A freeze on green cards for IT firms increases labor costs and operational friction for high-skill talent acquisition, directly impacting margins.",
+  "why_now": "The administration's policy shift was reported on October 8, 2026.",
+  "conviction": 50,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 61,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 15,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "policy_conditional",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-95578ceceebe"
+  ],
+  "primary_source_event_id": "EVT-95578ceceebe",
+  "source_headlines": [
+    "Trump administration freezes green cards for Microsoft, IT firms, probes universities"
+  ],
+  "source_headline": "Trump administration freezes green cards for Microsoft, IT firms, probes universities",
+  "source_url": "https://www.businesstimes.com.sg/international/trump-administration-freezes-green-cards-microsoft-it-firms-probes-universities",
+  "source_name": "The Business Times (Singapore)",
+  "materiality_max": 83,
+  "newest_source_at": "2026-10-08T23:51:02Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-09T00:14:06Z",
+  "updated_at": "2026-10-09T00:14:06Z",
+  "decay_at": "2026-10-10T11:51:02Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

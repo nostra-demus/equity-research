@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T00:12:53Z",
+  "generated_at": "2026-10-09T00:14:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -165112,6 +165112,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-ebfbd0cbbc7c",
+      "idea_version": "IDEAV-a458d90141a3fd2e",
+      "idea_version_started_at": "2026-10-09T00:14:06Z",
+      "ticker": "MSFT",
+      "company": "Microsoft",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A freeze on green cards for IT firms increases labor costs and operational friction for high-skill talent acquisition, directly impacting margins.",
+      "why_now": "The administration's policy shift was reported on October 8, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-95578ceceebe"
+      ],
+      "primary_source_event_id": "EVT-95578ceceebe",
+      "source_headlines": [
+        "Trump administration freezes green cards for Microsoft, IT firms, probes universities"
+      ],
+      "source_headline": "Trump administration freezes green cards for Microsoft, IT firms, probes universities",
+      "source_url": "https://www.businesstimes.com.sg/international/trump-administration-freezes-green-cards-microsoft-it-firms-probes-universities",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 83,
+      "newest_source_at": "2026-10-08T23:51:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T00:14:06Z",
+      "updated_at": "2026-10-09T00:14:06Z",
+      "decay_at": "2026-10-10T11:51:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-485c669a88ce",
       "idea_version": "IDEAV-06239fe61967f059",
       "idea_version_started_at": "2026-10-08T21:44:30Z",
@@ -167245,76 +167315,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-41f871048ef0",
-      "idea_version": "IDEAV-d881e5e1a428d88d",
-      "idea_version_started_at": "2026-10-05T23:32:47Z",
-      "ticker": "ORCL",
-      "company": "Oracle Corporation",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A data breach involving 20 million records creates substantial litigation risk, regulatory scrutiny, and potential reputational damage to the firm's cloud and health data business.",
-      "why_now": "The breach was reported on 2026-10-05, and the scale of the compromise suggests significant future legal and remediation costs.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-08f447a7192f"
-      ],
-      "primary_source_event_id": "EVT-08f447a7192f",
-      "source_headlines": [
-        "Oracle 2025 Health Breach Compromised Data of 20 Million People"
-      ],
-      "source_headline": "Oracle 2025 Health Breach Compromised Data of 20 Million People",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-05/oracle-2025-health-breach-compromised-data-of-20-million-people",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T23:09:19Z",
-      "prior_coverage": {
-        "has_run": true,
-        "latest_run": "analyses/ORCL_2026-08-14",
-        "latest_decision": "Watchlist",
-        "data_pool_present": true
-      },
-      "surfaced_at": "2026-10-05T23:32:47Z",
-      "updated_at": "2026-10-05T23:32:47Z",
-      "decay_at": "2026-10-07T11:09:19Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-850cc3e2123d",
       "idea_version": "IDEAV-f1b28979f3548f01",
       "idea_version_started_at": "2026-10-07T20:26:28Z",
@@ -168359,76 +168359,6 @@
       "surfaced_at": "2026-10-07T01:37:33Z",
       "updated_at": "2026-10-07T01:37:33Z",
       "decay_at": "2026-10-08T12:09:43Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-a10eefcd2440",
-      "idea_version": "IDEAV-26cd2b03882c573b",
-      "idea_version_started_at": "2026-10-06T01:22:08Z",
-      "ticker": "VLO",
-      "company": "Valero Energy Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The Trump administration's order to ease limits on a variety of diesel should reduce input costs and increase demand for refiners like Valero Energy.",
-      "why_now": "President Trump signed the order today, October 6, 2026, creating an immediate positive policy shift for diesel producers.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 62,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 16,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f7b565779663"
-      ],
-      "primary_source_event_id": "EVT-f7b565779663",
-      "source_headlines": [
-        "Trump Signs Order to Ease Limits on Diesel Variety to Curb Costs"
-      ],
-      "source_headline": "Trump Signs Order to Ease Limits on Diesel Variety to Curb Costs",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-06/trump-signs-order-to-ease-limits-on-diesel-variety-to-curb-costs",
-      "source_name": "Bloomberg",
-      "materiality_max": 81,
-      "newest_source_at": "2026-10-06T00:00:22Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T01:22:08Z",
-      "updated_at": "2026-10-06T01:22:08Z",
-      "decay_at": "2026-10-07T12:00:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170243,78 +170173,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-5253ff98b1df",
-      "idea_version": "IDEAV-671fc7f5e19034cf",
-      "idea_version_started_at": "2026-10-06T00:37:28Z",
-      "ticker": "SCP",
-      "company": "Shopping Centres Australasia Property Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has entered a trading halt pending a strategic review, which typically precedes a significant corporate action or asset transaction.",
-      "why_now": "The trading halt is active as of 2026-10-05, making this a live event-driven situation.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "price and market expectations",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "unknown",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1216eb49ccd0"
-      ],
-      "primary_source_event_id": "EVT-1216eb49ccd0",
-      "source_headlines": [
-        "SCP: Trading Halt [price-sensitive]"
-      ],
-      "source_headline": "SCP: Trading Halt [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SCP?key=2924-03144810-3A703400",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-05T23:59:30Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T00:37:28Z",
-      "updated_at": "2026-10-06T00:37:28Z",
-      "decay_at": "2026-10-07T11:59:30Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-ee428476df74",
       "idea_version": "IDEAV-cbfa3857d567820b",
       "idea_version_started_at": "2026-10-07T04:37:41Z",
@@ -171397,78 +171255,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-80b3bd3d074b",
-      "idea_version": "IDEAV-0bacb70bdd94776f",
-      "idea_version_started_at": "2026-10-06T00:37:28Z",
-      "ticker": "TRENT",
-      "company": "Trent Ltd",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported multi-quarter high revenue growth in Q2, indicating strong operational momentum and market share gains in the Indian retail sector.",
-      "why_now": "The news was released on 2026-10-06, providing a fresh catalyst for price discovery.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5edcd264ada0"
-      ],
-      "primary_source_event_id": "EVT-5edcd264ada0",
-      "source_headlines": [
-        "Trent shares in focus after multi-quarter high revenue growth in Q2"
-      ],
-      "source_headline": "Trent shares in focus after multi-quarter high revenue growth in Q2",
-      "source_url": "https://www.cnbctv18.com/market/trent-share-price-q2-business-update-revenue-growth-reaction-zudio-westside-cagr-guidance-buy-sell-target-20005202.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 78,
-      "newest_source_at": "2026-10-06T00:07:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T00:37:28Z",
-      "updated_at": "2026-10-06T00:37:28Z",
-      "decay_at": "2026-10-07T12:07:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-45846ae89987",
       "idea_version": "IDEAV-8f9c2f3f0ac99a08",
       "idea_version_started_at": "2026-10-06T02:52:28Z",
@@ -171696,33 +171482,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 572,
+    "total_count": 568,
     "shown_count": 500,
-    "hidden_count": 72,
+    "hidden_count": 68,
     "side_counts": {
       "long": {
-        "total_count": 302,
+        "total_count": 299,
         "shown_count": 250,
-        "hidden_count": 52
+        "hidden_count": 49
       },
       "short": {
-        "total_count": 270,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 20
+        "hidden_count": 19
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 840,
-      "oldest_retained_at": "2026-09-12T01:16:50Z",
+      "evicted_count": 844,
+      "oldest_retained_at": "2026-09-12T02:02:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 557,
-          "oldest_retained_at": "2026-09-23T20:42:26Z"
+          "evicted_count": 560,
+          "oldest_retained_at": "2026-09-23T22:49:38Z"
         },
         "short": {
-          "evicted_count": 283,
-          "oldest_retained_at": "2026-09-12T01:16:50Z"
+          "evicted_count": 284,
+          "oldest_retained_at": "2026-09-12T02:02:00Z"
         }
       }
     },
@@ -176862,8 +176648,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-07T12:07:05Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T00:14:10Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -176935,8 +176721,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-07T12:00:22Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T00:14:10Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177010,8 +176796,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-07T11:59:30Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T00:14:10Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -177083,8 +176869,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-07T11:09:19Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T00:14:10Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -208950,8 +208736,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1441,
-    "live_count": 28,
+    "surfaced_total": 1442,
+    "live_count": 29,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -208970,7 +208756,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 122674,
+    "news_seen_today": 140196,
     "news_picked_today": 8,
     "news_dropped_today": 112
   },
