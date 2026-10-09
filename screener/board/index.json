@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T21:36:16Z",
+  "generated_at": "2026-10-09T21:40:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-431",
@@ -1630,6 +1630,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-439",
+      "headline": "GTCR, Elliott in advanced talks to acquire CCC Intelligent Solutions, Bloomberg News reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/technology/gtcr-elliott-advanced-talks-acquire-ccc-intelligent-solutions-bloomberg-news-2026-10-09/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T21:15:19Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "GTCR and Elliott are in advanced talks to acquire CCC Intelligent Solutions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GTCR and Elliott are in advanced talks to acquire CCC Intelligent Solutions.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CCC Intelligent Solutions",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-434",
       "headline": "New York permanently bars Celsius founder Mashinsky in $35M fraud settlement",
       "headline_en": null,
@@ -1920,56 +1969,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-401",
-      "headline": "Coca Cola looking to sell Costa Coffee eight years after £4bn takeover",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16196381/Coca-Cola-looking-sell-Costa-Coffee-eight-years-4bn-takeover.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T16:05:33Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Coca-Cola is reportedly exploring a sale of Costa Coffee, which it previously acquired for £4bn.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Coca-Cola is reportedly exploring a sale of Costa Coffee, which it previously acquired for £4bn.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "strategic_review",
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Coca-Cola Company",
-          "ticker": "KO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208809,9 +208808,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16728120,
-    "news_picked_today": 1039,
-    "news_dropped_today": 10313
+    "news_seen_today": 16778270,
+    "news_picked_today": 1041,
+    "news_dropped_today": 10335
   },
   "book_momentum": {
     "live_count": 8,
