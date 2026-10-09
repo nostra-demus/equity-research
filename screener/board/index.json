@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T13:03:29Z",
+  "generated_at": "2026-10-09T13:07:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-307",
@@ -876,6 +876,55 @@
           "name": "CARMEN CENTURY",
           "ticker": "00612",
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-327",
+      "headline": "Evolution Metals & Technologies Corp. Raises Fiscal 2026 Revenue Guidance 62% at Midpoint to 11 Million and Reaffirms 460 Million Fiscal 2027 Outlook",
+      "headline_en": null,
+      "url": "https://markets.businessinsider.com/news/stocks/evolution-metals-technologies-corp-raises-fiscal-2026-revenue-guidance-62-at-midpoint-to-11-million-and-reaffirms-460-million-fiscal-2027-outlook-1036612227",
+      "source_name": "Business Insider",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T12:40:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Evolution Metals & Technologies Corp. raised its fiscal 2026 revenue guidance by 62% to 11 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Evolution Metals & Technologies Corp. raised its fiscal 2026 revenue guidance by 62% to 11 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Evolution Metals & Technologies Corp.",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
@@ -1910,55 +1959,6 @@
         {
           "name": "CSSC SHIPPING",
           "ticker": "03877",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-305",
-      "headline": "DATANG POWER (00991): ANNOUNCEMENT CONNECTED TRANSACTION CAPITAL INCREASE AGREEMENT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900909.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T10:53:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Datang Power entered into a connected transaction for a capital increase agreement, representing a strategic capital allocation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Datang Power entered into a connected transaction for a capital increase agreement, representing a strategic capital allocation.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DATANG POWER",
-          "ticker": "00991",
           "listing_country": "CN"
         }
       ],
@@ -209074,9 +209074,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9516025,
-    "news_picked_today": 576,
-    "news_dropped_today": 6480
+    "news_seen_today": 9539775,
+    "news_picked_today": 584,
+    "news_dropped_today": 6496
   },
   "book_momentum": {
     "live_count": 8,
