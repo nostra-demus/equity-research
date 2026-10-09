@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-09T08:36:40Z",
+  "generated_at": "2026-10-09T08:39:26Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-221",
+      "headline": "SEPC Limited: We hereby informed the Exchange of the press release titled \"SEPC Limited MD Signs Rs. 854.57 Crore Contract with SAIL-IISCO Steel Plant at Contract Signing Ceremony in Burnpur; Consolidated Order Book Crosses Rs. 10,000 Crores\". Detailed letter is enclosed.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SHRIRAMEPC_09102026131017_SE_INTIMATION_WITH_PRESS_RELEASE_SAIL_CONTRACT.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T07:40:36Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "SEPC Limited signed a contract worth 854.57 crore rupees.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEPC Limited signed a contract worth 854.57 crore rupees.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SEPC Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-074",
       "headline": "[TSE]Decision on Delisting, etc.: Shinko Shoji Co.,Ltd.",
@@ -149,6 +198,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-218",
+      "headline": "Oxford Metrics shares sink on profit warning as entertainment and research demand weakens",
+      "headline_en": null,
+      "url": "https://ukinvestormagazine.co.uk/oxford-metrics-shares-sink-on-profit-warning-as-entertainment-and-research-demand-weakens/",
+      "source_name": "UK Investor Magazine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T07:13:20Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Oxford Metrics issued a profit warning due to weakening demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Oxford Metrics issued a profit warning due to weakening demand.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oxford Metrics",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-215",
+      "headline": "Aditya Birla arm seeks $1.5 billion in rupee loans to buy Shell arm Solenergi, bankers say",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/renewables/aditya-birla-arm-seeks-1-5-billion-in-rupee-loans-to-buy-shell-arm-solenergi-bankers-say/articleshow/134816775.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T06:48:35Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Aditya Birla subsidiary is seeking $1.5 billion in loans to acquire Shell's Solenergi unit.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aditya Birla subsidiary is seeking $1.5 billion in loans to acquire Shell's Solenergi unit.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Aditya Birla",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-210",
       "headline": "Hexagon To Buy Rocscience For $535 Mln",
       "headline_en": null,
@@ -239,60 +386,6 @@
           "name": "DCC Energy",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-165",
-      "headline": "Aditya Birla Renewables seeks $1.5 bn in rupee loans to buy Shell arm Solenergi, bankers say",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/aditya-birla-renewables-seeks-15-bn-in-rupee-loans-to-buy-shell-arm-solenergi-bankers-say/article71562800.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T06:17:42Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Aditya Birla Renewables is seeking $1.5 billion in loans to acquire Shell's Solenergi unit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aditya Birla Renewables is seeking $1.5 billion in loans to acquire Shell's Solenergi unit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aditya Birla Renewables",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Shell",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -1882,115 +1975,6 @@
           "name": "Evergrande",
           "ticker": null,
           "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-124",
-      "headline": "PAG said in exclusive talks with liquidators for Evergrande unit, Bloomberg News reports",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/asia-pacific/pag-said-exclusive-talks-with-liquidators-evergrande-unit-bloomberg-news-reports-2026-10-09/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T03:22:35Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "PAG is in exclusive talks to acquire a unit of the distressed Evergrande Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "PAG is in exclusive talks to acquire a unit of the distressed Evergrande Group.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Evergrande Group",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-079",
-      "headline": "US suspends Microsoft, Infosys, Wipro, and other tech firms from green-card programme: ‘Stop defrauding American worker’",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/us-news/us-suspends-infosys-tcs-wipro-hcl-cognizant-microsoft-adobe-from-labour-certification-programme-here-s-why-11791472878646.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T02:48:12Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "The US government has suspended several major tech firms from the green-card program, creating significant operational and recruitment risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "The US government has suspended several major tech firms from the green-card program, creating significant operational and recruitment risk.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Microsoft",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Infosys",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Wipro",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -208828,9 +208812,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5750614,
-    "news_picked_today": 281,
-    "news_dropped_today": 4423
+    "news_seen_today": 5796426,
+    "news_picked_today": 292,
+    "news_dropped_today": 4436
   },
   "book_momentum": {
     "live_count": 8,
