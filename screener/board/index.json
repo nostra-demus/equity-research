@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T21:34:51Z",
+  "generated_at": "2026-10-09T21:36:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-431",
@@ -166184,75 +166184,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-8e38ef15bf4e",
-      "idea_version": "IDEAV-2c8838573c8b1c21",
-      "idea_version_started_at": "2026-10-08T22:24:36Z",
-      "ticker": "RTX",
-      "company": "RTX Corp",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company was awarded a $6.3 billion multi-year contract for SM-3 interceptors, providing significant long-term revenue certainty.",
-      "why_now": "The contract award was announced by the Department of War on October 8, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 77,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f37e621f988a"
-      ],
-      "primary_source_event_id": "EVT-f37e621f988a",
-      "source_headlines": [
-        "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors"
-      ],
-      "source_headline": "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors",
-      "source_url": "https://www.war.gov/News/Releases/Release/Article/4622796/department-of-war-awards-63-billion-multi-year-contract-to-rtxs-raytheon-for-sm/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T21:00:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T22:24:36Z",
-      "updated_at": "2026-10-08T22:24:36Z",
-      "decay_at": "2026-10-10T09:00:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-68b7ef008d69",
       "idea_version": "IDEAV-e84b2a6934191978",
       "idea_version_started_at": "2026-10-09T13:56:13Z",
@@ -166389,6 +166320,75 @@
       "surfaced_at": "2026-10-09T13:03:03Z",
       "updated_at": "2026-10-09T19:14:31Z",
       "decay_at": "2026-10-11T05:31:54Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8e38ef15bf4e",
+      "idea_version": "IDEAV-133a5e7ea51d1b75",
+      "idea_version_started_at": "2026-10-09T21:35:48Z",
+      "ticker": "RTX",
+      "company": "RTX Corp",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a $6.3 billion multi-year contract for SM-3 interceptors, providing long-term revenue visibility and backlog growth.",
+      "why_now": "The contract award was announced by the Department of War on October 8, 2026.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 73,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f37e621f988a"
+      ],
+      "primary_source_event_id": "EVT-f37e621f988a",
+      "source_headlines": [
+        "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors"
+      ],
+      "source_headline": "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors",
+      "source_url": "https://www.war.gov/News/Releases/Release/Article/4622796/department-of-war-awards-63-billion-multi-year-contract-to-rtxs-raytheon-for-sm/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T21:00:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T22:24:36Z",
+      "updated_at": "2026-10-09T21:35:48Z",
+      "decay_at": "2026-10-10T09:00:08Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -167166,6 +167166,293 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-091e1bf47c6d",
+      "idea_version": "IDEAV-1dfa4ec8012e1698",
+      "idea_version_started_at": "2026-10-09T21:35:48Z",
+      "ticker": "01203",
+      "company": "Guangnan (Holdings)",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling deteriorating margins or revenue headwinds that will likely pressure the stock price.",
+      "why_now": "The profit warning was filed on October 9, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-939e94de7057"
+      ],
+      "primary_source_event_id": "EVT-939e94de7057",
+      "source_headlines": [
+        "GUANGNAN (HOLD) (01203): Profit Warning"
+      ],
+      "source_headline": "GUANGNAN (HOLD) (01203): Profit Warning",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900675.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-09T09:49:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T12:39:29Z",
+      "updated_at": "2026-10-09T21:35:48Z",
+      "decay_at": "2026-10-10T21:49:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-2e6c75dccccc",
+      "idea_version": "IDEAV-44834fda20d44e8a",
+      "idea_version_started_at": "2026-10-09T21:35:48Z",
+      "ticker": "ATZ",
+      "company": "Aritzia",
+      "exchange": "TSX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company raised its guidance driven by strong U.S. sales momentum, suggesting better-than-expected top-line growth and margin expansion.",
+      "why_now": "The guidance update was reported on October 8, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-81470be06949"
+      ],
+      "primary_source_event_id": "EVT-81470be06949",
+      "source_headlines": [
+        "Aritzia Lifts Guidance as U.S. Sales Support Higher Profit, Revenue"
+      ],
+      "source_headline": "Aritzia Lifts Guidance as U.S. Sales Support Higher Profit, Revenue",
+      "source_url": "https://www.wsj.com/business/retail/aritzia-lifts-guidance-as-u-s-sales-support-higher-profit-revenue-202583d7?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T20:54:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T21:44:30Z",
+      "updated_at": "2026-10-09T21:35:48Z",
+      "decay_at": "2026-10-10T08:54:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-9db64567877d",
+      "idea_version": "IDEAV-7a3dc06c70fdf879",
+      "idea_version_started_at": "2026-10-09T21:35:48Z",
+      "ticker": "TCS",
+      "company": "Tata Consultancy Services",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "TCS reported a 15% rise in net profit to ₹13,884 crore, beating market estimates and demonstrating strong international growth.",
+      "why_now": "The Q2 results were released on October 8, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a7e86d1dd6be",
+        "EVT-f53160387bce"
+      ],
+      "primary_source_event_id": "EVT-a7e86d1dd6be",
+      "source_headlines": [
+        "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding a press release dated October 8, 2026, titled \"International Growth and Strategic Wins Underpin TCS Q2\".",
+        "TCS Q2 Results: Net profit rises 15% to ₹13,884 crore, beats estimates"
+      ],
+      "source_headline": "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding a press release dated October 8, 2026, titled \"International Growth and Strategic Wins Underpin TCS Q2\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TCS_CORPCS_08102026154325_PressReleaseletter.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T16:16:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T12:13:45Z",
+      "updated_at": "2026-10-09T21:35:48Z",
+      "decay_at": "2026-10-10T04:16:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-c67e8a0a9181",
+      "idea_version": "IDEAV-ae3b6a7f13f02557",
+      "idea_version_started_at": "2026-10-09T21:35:48Z",
+      "ticker": "00179",
+      "company": "Johnson Electric Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A profit warning indicates significant earnings pressure, likely due to weakening demand or cost inflation in their industrial components business.",
+      "why_now": "The profit warning was filed on October 9, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-cde7390361fd"
+      ],
+      "primary_source_event_id": "EVT-cde7390361fd",
+      "source_headlines": [
+        "JOHNSON ELEC H (00179): Profit Warning"
+      ],
+      "source_headline": "JOHNSON ELEC H (00179): Profit Warning",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900757.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-09T10:16:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T13:03:03Z",
+      "updated_at": "2026-10-09T21:35:48Z",
+      "decay_at": "2026-10-10T22:16:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-3060680a62c4",
       "idea_version": "IDEAV-362c44231412b331",
       "idea_version_started_at": "2026-10-09T20:52:38Z",
@@ -167664,148 +167951,6 @@
       "surfaced_at": "2026-10-09T13:03:03Z",
       "updated_at": "2026-10-09T13:03:03Z",
       "decay_at": "2026-10-10T23:16:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-c67e8a0a9181",
-      "idea_version": "IDEAV-73d5db7f33a07c37",
-      "idea_version_started_at": "2026-10-09T13:03:03Z",
-      "ticker": "00179",
-      "company": "Johnson Electric Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling deteriorating margins or revenue growth that will likely lead to downward earnings revisions.",
-      "why_now": "The profit warning was filed on 2026-10-09, making the negative outlook immediate.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-cde7390361fd"
-      ],
-      "primary_source_event_id": "EVT-cde7390361fd",
-      "source_headlines": [
-        "JOHNSON ELEC H (00179): Profit Warning"
-      ],
-      "source_headline": "JOHNSON ELEC H (00179): Profit Warning",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900757.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T10:16:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T13:03:03Z",
-      "updated_at": "2026-10-09T13:03:03Z",
-      "decay_at": "2026-10-10T22:16:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-091e1bf47c6d",
-      "idea_version": "IDEAV-5053d1fb5bbb7890",
-      "idea_version_started_at": "2026-10-09T12:39:29Z",
-      "ticker": "01203",
-      "company": "Guangnan (Hold)",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a formal profit warning, signaling a significant decline in profitability that is not yet reflected in historical valuation multiples.",
-      "why_now": "The filing was released on 2026-10-09, providing a fresh catalyst for a repricing of the stock.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-939e94de7057"
-      ],
-      "primary_source_event_id": "EVT-939e94de7057",
-      "source_headlines": [
-        "GUANGNAN (HOLD) (01203): Profit Warning"
-      ],
-      "source_headline": "GUANGNAN (HOLD) (01203): Profit Warning",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900675.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T09:49:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T12:39:29Z",
-      "updated_at": "2026-10-09T12:39:29Z",
-      "decay_at": "2026-10-10T21:49:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -168387,151 +168532,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2e6c75dccccc",
-      "idea_version": "IDEAV-530e79248dd5c7e2",
-      "idea_version_started_at": "2026-10-08T21:44:30Z",
-      "ticker": "ATZ",
-      "company": "Aritzia",
-      "exchange": "TSX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its financial guidance, citing strong U.S. sales performance as the primary driver for higher profit and revenue.",
-      "why_now": "The updated guidance was reported on October 8, 2026.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-81470be06949"
-      ],
-      "primary_source_event_id": "EVT-81470be06949",
-      "source_headlines": [
-        "Aritzia Lifts Guidance as U.S. Sales Support Higher Profit, Revenue"
-      ],
-      "source_headline": "Aritzia Lifts Guidance as U.S. Sales Support Higher Profit, Revenue",
-      "source_url": "https://www.wsj.com/business/retail/aritzia-lifts-guidance-as-u-s-sales-support-higher-profit-revenue-202583d7?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T20:54:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T21:44:30Z",
-      "updated_at": "2026-10-08T21:44:30Z",
-      "decay_at": "2026-10-10T08:54:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-9db64567877d",
-      "idea_version": "IDEAV-5d842226fa214dab",
-      "idea_version_started_at": "2026-10-08T19:43:19Z",
-      "ticker": "TCS",
-      "company": "Tata Consultancy Services Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 15% rise in net profit to ₹13,884 crore, exceeding market expectations and signaling strong international growth.",
-      "why_now": "The Q2 earnings results were released on October 8, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a7e86d1dd6be",
-        "EVT-f53160387bce"
-      ],
-      "primary_source_event_id": "EVT-a7e86d1dd6be",
-      "source_headlines": [
-        "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding a press release dated October 8, 2026, titled \"International Growth and Strategic Wins Underpin TCS Q2\".",
-        "TCS Q2 Results: Net profit rises 15% to ₹13,884 crore, beats estimates"
-      ],
-      "source_headline": "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding a press release dated October 8, 2026, titled \"International Growth and Strategic Wins Underpin TCS Q2\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TCS_CORPCS_08102026154325_PressReleaseletter.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T16:16:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T12:13:45Z",
-      "updated_at": "2026-10-08T19:43:19Z",
-      "decay_at": "2026-10-10T04:16:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7470585394f5",
       "idea_version": "IDEAV-ffc4a9332af08053",
       "idea_version_started_at": "2026-10-08T16:19:11Z",
@@ -168813,78 +168813,6 @@
       "surfaced_at": "2026-10-08T10:33:41Z",
       "updated_at": "2026-10-08T10:33:41Z",
       "decay_at": "2026-10-09T21:58:52Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-a5928bf09a1d",
-      "idea_version": "IDEAV-cee404a50949d919",
-      "idea_version_started_at": "2026-10-08T10:33:41Z",
-      "ticker": "INSECTICID",
-      "company": "Insecticides India",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company cut its FY27 growth outlook due to weak monsoon conditions negatively impacting demand for its agrochemical products.",
-      "why_now": "The guidance cut was announced today, October 8, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "commodity_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-40106fb923e2"
-      ],
-      "primary_source_event_id": "EVT-40106fb923e2",
-      "source_headlines": [
-        "Insecticides India cuts FY27 growth outlook as weak monsoon hits agrochemical demand"
-      ],
-      "source_headline": "Insecticides India cuts FY27 growth outlook as weak monsoon hits agrochemical demand",
-      "source_url": "https://www.cnbctv18.com/business/companies/insecticides-india-cuts-fy27-growth-outlook-weak-monsoon-expects-premium-products-support-h2-el-nino-q2-earnings-weather-conditions-rains-20007628.htm",
-      "source_name": "CNBC-TV18",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T09:35:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T10:33:41Z",
-      "updated_at": "2026-10-08T10:33:41Z",
-      "decay_at": "2026-10-09T21:35:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -169597,76 +169525,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-07f356ae2f72",
-      "idea_version": "IDEAV-685d83b96b5f9738",
-      "idea_version_started_at": "2026-10-07T18:07:00Z",
-      "ticker": "MRVL",
-      "company": "Marvell Technology",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company raised its FY2028 revenue outlook to $20 billion, signaling stronger-than-expected demand for its AI-related semiconductor products.",
-      "why_now": "The guidance update was released on October 6, 2026, providing a fresh catalyst for re-rating.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-eea8fac841cc"
-      ],
-      "primary_source_event_id": "EVT-eea8fac841cc",
-      "source_headlines": [
-        "Stock Market Today, Oct. 6: Marvell Stock Is Up as the Company Raises FY2028 Revenue Outlook to $20 Billion"
-      ],
-      "source_headline": "Stock Market Today, Oct. 6: Marvell Stock Is Up as the Company Raises FY2028 Revenue Outlook to $20 Billion",
-      "source_url": "https://www.nasdaq.com/articles/stock-market-today-oct-6-marvell-stock-company-raises-fy2028-revenue-outlook-20-billion",
-      "source_name": "Nasdaq",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T21:30:04Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T23:57:28Z",
-      "updated_at": "2026-10-07T18:07:00Z",
-      "decay_at": "2026-10-08T09:30:04Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-30c2e14a4fb4",
       "idea_version": "IDEAV-1ae410afa4d1f8d0",
       "idea_version_started_at": "2026-10-07T16:37:47Z",
@@ -169941,146 +169799,6 @@
       "surfaced_at": "2026-10-07T20:26:28Z",
       "updated_at": "2026-10-07T20:26:28Z",
       "decay_at": "2026-10-08T23:38:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-5fc26901c29d",
-      "idea_version": "IDEAV-3db29a9ec98416a6",
-      "idea_version_started_at": "2026-10-07T17:29:03Z",
-      "ticker": "BKH",
-      "company": "Black Hills Corp",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company is committing to a $1.8 billion capital expenditure project to provide power infrastructure for a Google data center, which will drive long-term regulated rate base growth.",
-      "why_now": "The investment plan was announced on 2026-10-06.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-94efc385854d"
-      ],
-      "primary_source_event_id": "EVT-94efc385854d",
-      "source_headlines": [
-        "Black Hills plans $1.8 billion investment to power Google's data center"
-      ],
-      "source_headline": "Black Hills plans $1.8 billion investment to power Google's data center",
-      "source_url": "https://www.reuters.com/business/energy/black-hills-plans-18-billion-investment-power-googles-data-center-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T21:11:44Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T00:42:27Z",
-      "updated_at": "2026-10-07T17:29:03Z",
-      "decay_at": "2026-10-08T09:11:44Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-6620ff045c07",
-      "idea_version": "IDEAV-00105b23d1457dbd",
-      "idea_version_started_at": "2026-10-07T01:07:10Z",
-      "ticker": "FICO",
-      "company": "Fair Isaac Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A 15% workforce reduction driven by AI-restructuring is expected to significantly expand operating margins by replacing human labor with automated processes.",
-      "why_now": "The restructuring plan was announced on October 6, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-da977be1d70e"
-      ],
-      "primary_source_event_id": "EVT-da977be1d70e",
-      "source_headlines": [
-        "FICO cuts workforce by 15% in AI-driven restructuring"
-      ],
-      "source_headline": "FICO cuts workforce by 15% in AI-driven restructuring",
-      "source_url": "https://www.reuters.com/business/world-at-work/fico-cuts-workforce-by-15-ai-driven-restructuring-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T21:23:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T01:07:10Z",
-      "updated_at": "2026-10-07T01:07:10Z",
-      "decay_at": "2026-10-08T09:23:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170369,77 +170087,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-b07e95090e8c",
-      "idea_version": "IDEAV-12eeb52aaffdf41b",
-      "idea_version_started_at": "2026-10-07T18:07:00Z",
-      "ticker": "FICO",
-      "company": "Fair Isaac Corporation",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A 15% workforce reduction in an AI-driven restructuring suggests significant operational headwinds or a pivot to mitigate declining margins.",
-      "why_now": "The restructuring announcement occurred on October 6, 2026.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-da977be1d70e"
-      ],
-      "primary_source_event_id": "EVT-da977be1d70e",
-      "source_headlines": [
-        "FICO cuts workforce by 15% in AI-driven restructuring"
-      ],
-      "source_headline": "FICO cuts workforce by 15% in AI-driven restructuring",
-      "source_url": "https://www.reuters.com/business/world-at-work/fico-cuts-workforce-by-15-ai-driven-restructuring-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T21:23:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T18:07:00Z",
-      "updated_at": "2026-10-07T18:07:00Z",
-      "decay_at": "2026-10-08T09:23:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-67f596a2a4df",
       "idea_version": "IDEAV-718b024ba90f160f",
       "idea_version_started_at": "2026-10-08T10:33:41Z",
@@ -170506,6 +170153,78 @@
       "surfaced_at": "2026-10-08T10:33:41Z",
       "updated_at": "2026-10-08T10:33:41Z",
       "decay_at": "2026-10-09T20:57:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-a5928bf09a1d",
+      "idea_version": "IDEAV-cee404a50949d919",
+      "idea_version_started_at": "2026-10-08T10:33:41Z",
+      "ticker": "INSECTICID",
+      "company": "Insecticides India",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company cut its FY27 growth outlook due to weak monsoon conditions negatively impacting demand for its agrochemical products.",
+      "why_now": "The guidance cut was announced today, October 8, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-40106fb923e2"
+      ],
+      "primary_source_event_id": "EVT-40106fb923e2",
+      "source_headlines": [
+        "Insecticides India cuts FY27 growth outlook as weak monsoon hits agrochemical demand"
+      ],
+      "source_headline": "Insecticides India cuts FY27 growth outlook as weak monsoon hits agrochemical demand",
+      "source_url": "https://www.cnbctv18.com/business/companies/insecticides-india-cuts-fy27-growth-outlook-weak-monsoon-expects-premium-products-support-h2-el-nino-q2-earnings-weather-conditions-rains-20007628.htm",
+      "source_name": "CNBC-TV18",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T09:35:12Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T10:33:41Z",
+      "updated_at": "2026-10-08T10:33:41Z",
+      "decay_at": "2026-10-09T21:35:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171816,14 +171535,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 538,
+    "total_count": 535,
     "shown_count": 500,
-    "hidden_count": 38,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
-        "total_count": 275,
+        "total_count": 272,
         "shown_count": 250,
-        "hidden_count": 25
+        "hidden_count": 22
       },
       "short": {
         "total_count": 263,
@@ -171833,20 +171552,95 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 885,
-      "oldest_retained_at": "2026-09-13T20:06:23Z",
+      "evicted_count": 889,
+      "oldest_retained_at": "2026-09-13T20:19:31Z",
       "side_counts": {
         "long": {
-          "evicted_count": 590,
-          "oldest_retained_at": "2026-09-26T01:41:00Z"
+          "evicted_count": 593,
+          "oldest_retained_at": "2026-09-26T10:49:16Z"
         },
         "short": {
-          "evicted_count": 295,
-          "oldest_retained_at": "2026-09-13T20:06:23Z"
+          "evicted_count": 296,
+          "oldest_retained_at": "2026-09-13T20:19:31Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-a5928bf09a1d",
+        "idea_version": "IDEAV-cee404a50949d919",
+        "idea_version_started_at": "2026-10-08T10:33:41Z",
+        "ticker": "INSECTICID",
+        "company": "Insecticides India",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company cut its FY27 growth outlook due to weak monsoon conditions negatively impacting demand for its agrochemical products.",
+        "why_now": "The guidance cut was announced today, October 8, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "commodity_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-40106fb923e2"
+        ],
+        "primary_source_event_id": "EVT-40106fb923e2",
+        "source_headlines": [
+          "Insecticides India cuts FY27 growth outlook as weak monsoon hits agrochemical demand"
+        ],
+        "source_headline": "Insecticides India cuts FY27 growth outlook as weak monsoon hits agrochemical demand",
+        "source_url": "https://www.cnbctv18.com/business/companies/insecticides-india-cuts-fy27-growth-outlook-weak-monsoon-expects-premium-products-support-h2-el-nino-q2-earnings-weather-conditions-rains-20007628.htm",
+        "source_name": "CNBC-TV18",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-08T09:35:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-08T10:33:41Z",
+        "updated_at": "2026-10-08T10:33:41Z",
+        "decay_at": "2026-10-09T21:35:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-09T21:35:12Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-67f596a2a4df",
         "idea_version": "IDEAV-718b024ba90f160f",
@@ -174438,8 +174232,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-08T09:30:04Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T21:36:02Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -174511,8 +174305,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-08T09:23:15Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T21:36:02Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -174585,8 +174379,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-08T09:23:15Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T21:36:02Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -174658,8 +174452,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-08T09:11:44Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-09T21:36:02Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -208991,86 +208785,12 @@
         "archived_at": "2026-09-16T11:53:56Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-8d1552f59ea8",
-        "idea_version": "IDEAV-97db41660754a5bd",
-        "idea_version_started_at": "2026-09-13T16:50:02Z",
-        "ticker": "0309",
-        "company": "XH News Media",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company has received a formal winding-up petition, which typically precedes liquidation and renders equity value highly speculative or zero.",
-        "why_now": "Inside information filing released on September 13, 2026.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-dac3667e4fc3"
-        ],
-        "primary_source_event_id": "EVT-dac3667e4fc3",
-        "source_headlines": [
-          "XH NEWS MEDIA (00309): INSIDE INFORMATION WINDING-UP PETITION"
-        ],
-        "source_headline": "XH NEWS MEDIA (00309): INSIDE INFORMATION WINDING-UP PETITION",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300007.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T10:03:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T16:50:02Z",
-        "updated_at": "2026-09-13T16:50:02Z",
-        "decay_at": "2026-09-14T22:03:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-16T10:05:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1465,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
