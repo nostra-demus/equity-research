@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T01:09:25Z",
+  "generated_at": "2026-10-09T01:15:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -389,6 +389,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-046",
+      "headline": "FRG: Estimated Special Distribution Details [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FRG?key=2924-03146554-2A1703249",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T01:10:09Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Frigidair (FRG) announced a special distribution to shareholders, which directly impacts capital allocation and shareholder returns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Frigidair (FRG) announced a special distribution to shareholders, which directly impacts capital allocation and shareholder returns.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Frigidair",
+          "ticker": "FRG",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1879,55 +1928,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-040",
-      "headline": "获Sam Altman支持的Meanwhile融资3,750万美元，亚洲、欧洲及中东家庭纷纷选择比特币人寿保险",
-      "headline_en": "Meanwhile, backed by Sam Altman, raises 37.5 million USD as families in Asia, Europe, and the Middle East choose bitcoin life insurance",
-      "url": "http://www.businesswire.com/news/home/20261008894201/zh-CN/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
-      "source_name": "Business Wire — Funding News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-09T00:04:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Meanwhile raised 37.5 million USD in funding to expand its bitcoin life insurance business.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Meanwhile raised 37.5 million USD in funding to expand its bitcoin life insurance business.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Meanwhile",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210343,9 +210343,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 767063,
-    "news_picked_today": 45,
-    "news_dropped_today": 603
+    "news_seen_today": 853237,
+    "news_picked_today": 46,
+    "news_dropped_today": 650
   },
   "book_momentum": {
     "live_count": 8,
