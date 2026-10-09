@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-09T16:49:32Z",
+  "generated_at": "2026-10-09T16:51:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-406",
+      "headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated October 09, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) Voluntary TotalitarianTender Offer for all the common shares of Iveco Group N.V.\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TMLCOMMERCIAL_09102026220615_IVECOPROCT.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T16:45:27Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Tata Motors' subsidiary has launched a voluntary tender offer to acquire Iveco Group N.V.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors' subsidiary has launched a voluntary tender offer to acquire Iveco Group N.V.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco Group N.V.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-390",
       "headline": "DPSC Limited: DPSC Limited has informed the Exchange about Corporate Insolvency Resolution Process-Intimation of the Meeting of the Suspended Board of Directors with the Resolution Professional (RP) (Management Committee) pursuant to Regulation 29(1)(a) of SEBI (Listing Obligations & Disclosure Requirements) Regulations, 2015 (Listing Regulations)",
@@ -1901,55 +1955,6 @@
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Delta Air Lines",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-299",
-      "headline": "Delta Cuts Profit Outlook as Surging Fuel Prices Hit Airlines",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-09/delta-cuts-profit-outlook-as-juiced-up-fuel-prices-hit-airlines",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T10:33:33Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Delta Air Lines cut its profit outlook due to rising fuel costs, a direct impact on earnings expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Delta Air Lines cut its profit outlook due to rising fuel costs, a direct impact on earnings expectations.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
@@ -209014,9 +209019,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12604709,
-    "news_picked_today": 844,
-    "news_dropped_today": 7892
+    "news_seen_today": 12652725,
+    "news_picked_today": 847,
+    "news_dropped_today": 7913
   },
   "book_momentum": {
     "live_count": 8,
