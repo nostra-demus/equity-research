@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T08:56:48Z",
+  "generated_at": "2026-10-09T09:02:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-230",
@@ -193,6 +193,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-233",
+      "headline": "JD.com’s $2.5 billion Ceconomy takeover moves closer to EU approval",
+      "headline_en": null,
+      "url": "https://technode.com/2026/10/09/jd-coms-2-5-billion-ceconomy-takeover-moves-closer-to-eu-approval/",
+      "source_name": "TechNode",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T08:52:53Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "JD.com's $2.5 billion acquisition of Ceconomy is nearing regulatory approval.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "JD.com's $2.5 billion acquisition of Ceconomy is nearing regulatory approval.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JD.com",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1917,55 +1966,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-140",
-      "headline": "SITC (01308): NOTICE OF BOARD MEETING AND PROPOSED DECLARATION OF A SPECIAL DIVIDEND",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900121.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T04:02:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "SITC is proposing a special dividend, which is a direct capital return to shareholders.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "SITC is proposing a special dividend, which is a direct capital return to shareholders.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SITC International Holdings Co., Ltd.",
-          "ticker": "01308",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208501,9 +208501,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5980850,
-    "news_picked_today": 308,
-    "news_dropped_today": 4540
+    "news_seen_today": 6119926,
+    "news_picked_today": 312,
+    "news_dropped_today": 4584
   },
   "book_momentum": {
     "live_count": 8,
