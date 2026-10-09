@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-09T09:26:14Z",
+  "generated_at": "2026-10-09T09:28:49Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-246",
+      "headline": "AEON STORES (00984): (1) VERY SUBSTANTIAL ACQUISITION IN RELATION TO THE NEW LEASE AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900511.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T09:17:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Aeon Stores announced a very substantial acquisition related to a new lease, requiring shareholder approval.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Aeon Stores announced a very substantial acquisition related to a new lease, requiring shareholder approval.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AEON STORES (HONG KONG) CO., LIMITED",
+          "ticker": "00984",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-230",
       "headline": "C&D PROPERTY (02156): DISCLOSEABLE AND CONNECTED TRANSACTION ACQUISITION OF 100% EQUITY INTERESTS IN LIANFA PROPERTY AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
@@ -1916,55 +1965,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-227",
-      "headline": "FB MULTIASSET (03427): ANNOUNCEMENT AND NOTICE OF TERMINATION, DEAUTHORISATION AND DELISTING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900191.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T08:31:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Termination and delisting of a fund is a material event for investors.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Termination and delisting of a fund is a material event for investors.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FB Multiasset",
-          "ticker": "03427",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208642,9 +208642,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6445805,
-    "news_picked_today": 332,
-    "news_dropped_today": 4804
+    "news_seen_today": 6515456,
+    "news_picked_today": 336,
+    "news_dropped_today": 4824
   },
   "book_momentum": {
     "live_count": 8,
