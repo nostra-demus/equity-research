@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T12:13:05Z",
+  "generated_at": "2026-10-09T12:16:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-307",
@@ -1719,6 +1719,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-311",
+      "headline": "Persistent Systems Limited: Persistent Systems Limited has informed the Exchange regarding 'Update on Voluntary Public Takeover Offer made by Persistent Systems Limited to the shareholders of Nagarro SE'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PERSISTENTUSER1_09102026173743_PSLUpdateonVoluntaryPublicTakeoverOfferofNagarroSigned.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T12:07:49Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Persistent Systems provides an update on its voluntary public takeover offer for Nagarro SE.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Persistent Systems provides an update on its voluntary public takeover offer for Nagarro SE.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Persistent Systems",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Nagarro SE",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-244",
       "headline": "CGN POWER (01816): DISCLOSEABLE TRANSACTION - SUPPLEMENT TO AND PROGRESS OF ESTABLISHMENT OF JOINT VENTURE",
       "headline_en": null,
@@ -1910,56 +1964,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-294",
-      "headline": "CAPITAL REALM (00204): RESUMPTION GUIDANCE AND DELISTING FRAMEWORK UNDER THE LISTING RULES; AND QUARTELY UPDATE ANNOUNCEMENT",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900845.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T10:39:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Capital Realm is facing delisting risk and has received resumption guidance from the HKEX.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Capital Realm is facing delisting risk and has received resumption guidance from the HKEX.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory",
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CAPITAL REALM",
-          "ticker": "00204",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208785,9 +208789,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9018711,
-    "news_picked_today": 510,
-    "news_dropped_today": 6162
+    "news_seen_today": 9042299,
+    "news_picked_today": 516,
+    "news_dropped_today": 6180
   },
   "book_momentum": {
     "live_count": 8,
