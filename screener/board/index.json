@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T00:41:10Z",
+  "generated_at": "2026-10-09T00:44:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -291,6 +291,56 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-026",
+      "headline": "OpenAI caught Russians and Iranians using ChatGPT for influence campaigns",
+      "headline_en": null,
+      "url": "https://www.npr.org/2026/10/08/nx-s1-5995576/openai-russia-iran-influence-operations-chatgpt",
+      "source_name": "NPR — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T00:25:15Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "OpenAI identified and disrupted state-sponsored influence campaigns using its platform, highlighting ongoing regulatory and operational risks.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "OpenAI identified and disrupted state-sponsored influence campaigns using its platform, highlighting ongoing regulatory and operational risks.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209561,7 +209611,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3391,
+    "inbox_unconsumed": 3392,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209570,9 +209620,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 419777,
-    "news_picked_today": 25,
-    "news_dropped_today": 311
+    "news_seen_today": 454674,
+    "news_picked_today": 26,
+    "news_dropped_today": 334
   },
   "book_momentum": {
     "live_count": 8,
