@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T16:59:48Z",
+  "generated_at": "2026-10-09T17:04:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-406",
@@ -1428,55 +1428,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261009-405",
-      "headline": "VOLUNTARY TOTALITARIAN TENDER OFFER FOR ALL OF THE COMMON SHARES OF IVECO GROUP N.V. INCREASE IN THE PRICE OF THE OFFER TO EURO 14.40 PER COMMON SHARE",
-      "headline_en": null,
-      "url": "https://markets.businessinsider.com/news/stocks/voluntary-totalitarian-tender-offer-for-all-of-the-common-shares-of-iveco-group-n-v-increase-in-the-price-of-the-offer-to-euro-14-40-per-common-share-1036613066",
-      "source_name": "Business Insider",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T16:15:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Increased tender offer price to 14.40 Euro per share for Iveco Group.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Increased tender offer price to 14.40 Euro per share for Iveco Group.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Iveco Group N.V.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261009-401",
       "headline": "Coca Cola looking to sell Costa Coffee eight years after £4bn takeover",
       "headline_en": null,
@@ -1970,6 +1921,55 @@
           "name": "Delta Air Lines",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-408",
+      "headline": "Iveco Group welcomes the increase of the offer price of the voluntary totalitarian tender offer for all its common shares launched by TML CV Holdings B.V.",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/10/09/3378293/0/en/iveco-group-welcomes-the-increase-of-the-offer-price-of-the-voluntary-totalitarian-tender-offer-for-all-its-common-shares-launched-by-tml-cv-holdings-b-v.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-09T16:51:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Iveco Group announced an increase in the offer price for the tender offer for its common shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Iveco Group announced an increase in the offer price for the tender offer for its common shares.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": -36,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Iveco Group",
+          "ticker": null,
+          "listing_country": "IT"
         }
       ],
       "size_bucket": "large",
@@ -209019,7 +209019,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12748730,
+    "news_seen_today": 12796788,
     "news_picked_today": 851,
     "news_dropped_today": 7981
   },
