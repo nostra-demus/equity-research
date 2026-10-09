@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T17:25:00Z",
+  "generated_at": "2026-10-09T17:36:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-406",
@@ -1428,6 +1428,109 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-416",
+      "headline": "Tata Motors raises Iveco takeover offer to €14.40 per share",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/tata-motors-raises-iveco-takeover-offer-to-1440-per-share/article71565633.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T17:26:52Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Tata Motors increased its takeover offer for Iveco to €14.40 per share.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tata Motors increased its takeover offer for Iveco to €14.40 per share.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Motors",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Iveco",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-419",
+      "headline": "Netflix Layoffs: 850 Jobs At Risk As Streaming Giant Plans Major Restructuring",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/netflix-layoffs-850-jobs-at-risk-as-streaming-giant-plans-major-restructuring-12163559#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T17:25:44Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Netflix is planning a major restructuring involving 850 job cuts.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Netflix is planning a major restructuring involving 850 job cuts.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Netflix",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-413",
       "headline": "Delta Cuts Profit Outlook as Surging Fuel Costs Tighten Grip",
       "headline_en": null,
@@ -1872,104 +1975,6 @@
           "name": "JBS",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-327",
-      "headline": "Evolution Metals & Technologies Corp. Raises Fiscal 2026 Revenue Guidance 62% at Midpoint to 11 Million and Reaffirms 460 Million Fiscal 2027 Outlook",
-      "headline_en": null,
-      "url": "https://markets.businessinsider.com/news/stocks/evolution-metals-technologies-corp-raises-fiscal-2026-revenue-guidance-62-at-midpoint-to-11-million-and-reaffirms-460-million-fiscal-2027-outlook-1036612227",
-      "source_name": "Business Insider",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T12:40:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Evolution Metals & Technologies Corp. raised its fiscal 2026 revenue guidance by 62% to 11 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Evolution Metals & Technologies Corp. raised its fiscal 2026 revenue guidance by 62% to 11 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Evolution Metals & Technologies Corp.",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-324",
-      "headline": "Delta Air cuts profit forecast as US$6 billion fuel-cost surge outweighs fare gains",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/companies-markets/transport-logistics/delta-air-cuts-profit-forecast-us6-billion-fuel-cost-surge-outweighs-fare-gains",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T12:38:13Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Delta Air Lines cut its profit forecast due to a 6 billion fuel-cost surge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Delta Air Lines cut its profit forecast due to a 6 billion fuel-cost surge.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Delta Air Lines",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -209019,9 +209024,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13060878,
-    "news_picked_today": 875,
-    "news_dropped_today": 8149
+    "news_seen_today": 13228943,
+    "news_picked_today": 885,
+    "news_dropped_today": 8187
   },
   "book_momentum": {
     "live_count": 8,
