@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T18:31:10Z",
+  "generated_at": "2026-10-09T18:31:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-406",
@@ -166745,6 +166745,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-f8d21dcf8212",
+      "idea_version": "IDEAV-958d650b31683146",
+      "idea_version_started_at": "2026-10-09T18:31:26Z",
+      "ticker": "VOD",
+      "company": "Vodafone Group Plc",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company increased its cost-savings target for its UK operations to £1 billion, which should directly improve operating margins and free cash flow conversion.",
+      "why_now": "The announcement was made on 2026-10-09, providing a fresh catalyst for margin expansion expectations.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-94385a58c36d"
+      ],
+      "primary_source_event_id": "EVT-94385a58c36d",
+      "source_headlines": [
+        "Vodafone raises cost savings target for UK unit to £1bn"
+      ],
+      "source_headline": "Vodafone raises cost savings target for UK unit to £1bn",
+      "source_url": "https://www.datacenterdynamics.com/en/news/vodafone-raises-cost-savings-target-for-uk-unit-to-1bn/",
+      "source_name": "DataCenterDynamics",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-09T15:58:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T18:31:26Z",
+      "updated_at": "2026-10-09T18:31:26Z",
+      "decay_at": "2026-10-11T03:58:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0448efa62005",
       "idea_version": "IDEAV-7ee6d2c60eb4072e",
       "idea_version_started_at": "2026-10-09T09:10:35Z",
@@ -169734,76 +169804,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-add212649783",
-      "idea_version": "IDEAV-1f1aac3bac245d0e",
-      "idea_version_started_at": "2026-10-06T21:25:08Z",
-      "ticker": "MCK",
-      "company": "McKesson Corporation",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "McKesson, in partnership with CD&R, is taking infusion therapy provider Option Care private in a $5.8 billion deal, which could enhance its market position in healthcare services.",
-      "why_now": "The deal to take Option Care private was announced today, October 6, 2026, providing a clear catalyst for McKesson.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5be02316cda3"
-      ],
-      "primary_source_event_id": "EVT-5be02316cda3",
-      "source_headlines": [
-        "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal"
-      ],
-      "source_headline": "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal",
-      "source_url": "https://www.reuters.com/legal/transactional/mckesson-cdr-buy-infusion-therapy-provider-option-care-health-58-billion-deal-2026-10-06/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-06T14:57:12Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-06T18:52:33Z",
-      "updated_at": "2026-10-06T21:25:08Z",
-      "decay_at": "2026-10-08T02:57:12Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-7c6921220f81",
       "idea_version": "IDEAV-2311ef024b312cd4",
       "idea_version_started_at": "2026-10-08T08:41:14Z",
@@ -171741,14 +171741,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 539,
+    "total_count": 538,
     "shown_count": 500,
-    "hidden_count": 39,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 276,
+        "total_count": 275,
         "shown_count": 250,
-        "hidden_count": 26
+        "hidden_count": 25
       },
       "short": {
         "total_count": 263,
@@ -171758,12 +171758,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 883,
+      "evicted_count": 884,
       "oldest_retained_at": "2026-09-13T20:06:23Z",
       "side_counts": {
         "long": {
-          "evicted_count": 588,
-          "oldest_retained_at": "2026-09-25T20:04:00Z"
+          "evicted_count": 589,
+          "oldest_retained_at": "2026-09-26T00:01:20Z"
         },
         "short": {
           "evicted_count": 295,
@@ -174659,6 +174659,79 @@
         "audit_only": true
       },
       {
+        "idea_id": "IDEA-add212649783",
+        "idea_version": "IDEAV-1f1aac3bac245d0e",
+        "idea_version_started_at": "2026-10-06T21:25:08Z",
+        "ticker": "MCK",
+        "company": "McKesson Corporation",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "McKesson, in partnership with CD&R, is taking infusion therapy provider Option Care private in a $5.8 billion deal, which could enhance its market position in healthcare services.",
+        "why_now": "The deal to take Option Care private was announced today, October 6, 2026, providing a clear catalyst for McKesson.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5be02316cda3"
+        ],
+        "primary_source_event_id": "EVT-5be02316cda3",
+        "source_headlines": [
+          "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal"
+        ],
+        "source_headline": "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal",
+        "source_url": "https://www.reuters.com/legal/transactional/mckesson-cdr-buy-infusion-therapy-provider-option-care-health-58-billion-deal-2026-10-06/",
+        "source_name": "Reuters — Latest (news sitemap)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-06T14:57:12Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-06T18:52:33Z",
+        "updated_at": "2026-10-06T21:25:08Z",
+        "decay_at": "2026-10-08T02:57:12Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-09T18:31:29Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
         "idea_id": "IDEA-0aed650e01e7",
         "idea_version": "IDEAV-d9d84e51cae8bb87",
         "idea_version_started_at": "2026-10-07T16:37:47Z",
@@ -174730,79 +174803,6 @@
         "stale": true,
         "archived_at": "2026-10-09T15:15:27Z",
         "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-add212649783",
-        "idea_version": "IDEAV-1f1aac3bac245d0e",
-        "idea_version_started_at": "2026-10-06T21:25:08Z",
-        "ticker": "MCK",
-        "company": "McKesson Corporation",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "McKesson, in partnership with CD&R, is taking infusion therapy provider Option Care private in a $5.8 billion deal, which could enhance its market position in healthcare services.",
-        "why_now": "The deal to take Option Care private was announced today, October 6, 2026, providing a clear catalyst for McKesson.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 67,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5be02316cda3"
-        ],
-        "primary_source_event_id": "EVT-5be02316cda3",
-        "source_headlines": [
-          "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal"
-        ],
-        "source_headline": "McKesson, CD&R to take infusion therapy provider Option Care private in $5.8 billion deal",
-        "source_url": "https://www.reuters.com/legal/transactional/mckesson-cdr-buy-infusion-therapy-provider-option-care-health-58-billion-deal-2026-10-06/",
-        "source_name": "Reuters — Latest (news sitemap)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-06T14:57:12Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-06T18:52:33Z",
-        "updated_at": "2026-10-06T21:25:08Z",
-        "decay_at": "2026-10-08T02:57:12Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-08T02:57:12Z",
-        "archive_reason": "expired",
         "audit_only": true
       },
       {
@@ -208997,8 +208997,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1462,
-    "live_count": 39,
+    "surfaced_total": 1463,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
