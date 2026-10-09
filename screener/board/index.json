@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T02:54:14Z",
+  "generated_at": "2026-10-09T02:58:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-074",
@@ -1338,6 +1338,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-080",
+      "headline": "BDM: Acknowledgement and Remediation of ASX LR10.1 Breach [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.BDM?key=2924-03146587-6A1348472",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T02:46:54Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "The company acknowledged a breach of ASX Listing Rule 10.1, which relates to transactions with related parties, indicating potential governance or compliance issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 78,
+      "triage_reason": "The company acknowledged a breach of ASX Listing Rule 10.1, which relates to transactions with related parties, indicating potential governance or compliance issues.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BDM",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-011",
       "headline": "MX1: MX1 - Convertible Note Funding Update",
       "headline_en": null,
@@ -1909,55 +1958,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-006",
-      "headline": "RAFFLESINTERIOR (01376): VOLUNTARY ANNOUNCEMENT - BOARD RESOLUTIONS CONCERNING CERTAIN MEDIA REPORTS AND POSTS",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900017.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "The company is issuing a voluntary announcement to address media reports, which is a routine corporate communication.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 67,
-      "triage_reason": "The company is issuing a voluntary announcement to address media reports, which is a routine corporate communication.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RAFFLESINTERIOR",
-          "ticker": "01376",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209513,9 +209513,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1892199,
-    "news_picked_today": 90,
-    "news_dropped_today": 1446
+    "news_seen_today": 1925899,
+    "news_picked_today": 91,
+    "news_dropped_today": 1469
   },
   "book_momentum": {
     "live_count": 8,
