@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T20:36:12Z",
+  "generated_at": "2026-10-09T20:39:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-431",
@@ -1630,6 +1630,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-436",
+      "headline": "PepsiCo CFO touts cost discipline, slashes guidance",
+      "headline_en": null,
+      "url": "https://www.cfodive.com/news/pepsico-cfo-touts-cost-discipline-slashes-guidance-beverage-pricing/832649/",
+      "source_name": "CFO Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T19:11:50Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "PepsiCo CFO announced a guidance cut due to cost discipline challenges.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PepsiCo CFO announced a guidance cut due to cost discipline challenges.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PepsiCo",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-430",
       "headline": "Tata Motors raises Iveco takeover offer to €14.40 per share, rules out further increase",
       "headline_en": null,
@@ -1918,60 +1967,6 @@
           "name": "Vodafone",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-394",
-      "headline": "Persistent Systems Secures 94.04% Stake In Nagarro After Takeover Offer",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/business/persistent-systems-secures-94-04-stake-in-nagarro-after-takeover-offer-12163052#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T15:32:46Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Persistent Systems secured a 94.04% stake in Nagarro following a takeover offer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Persistent Systems secured a 94.04% stake in Nagarro following a takeover offer.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Persistent Systems",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Nagarro",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -209167,9 +209162,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 15835296,
-    "news_picked_today": 1005,
-    "news_dropped_today": 9795
+    "news_seen_today": 15884424,
+    "news_picked_today": 1007,
+    "news_dropped_today": 9817
   },
   "book_momentum": {
     "live_count": 8,
