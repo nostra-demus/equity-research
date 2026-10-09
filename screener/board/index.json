@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T07:03:54Z",
+  "generated_at": "2026-10-09T08:27:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-074",
@@ -193,6 +193,55 @@
       "companies": [
         {
           "name": "Apple",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-198",
+      "headline": "American Express Gets $350 Mln Fine For Lapses In Anti-money Laundering Compliance Program",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/american-express-gets-350-mln-fine-lapses-anti-money-laundering-compliance-program",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T05:59:57Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "American Express was fined $350 million for anti-money laundering compliance lapses.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "American Express was fined $350 million for anti-money laundering compliance lapses.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "American Express",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1945,55 +1994,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-046",
-      "headline": "FRG: Estimated Special Distribution Details [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FRG?key=2924-03146554-2A1703249",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T01:10:09Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Frigidair (FRG) announced a special distribution to shareholders, which directly impacts capital allocation and shareholder returns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Frigidair (FRG) announced a special distribution to shareholders, which directly impacts capital allocation and shareholder returns.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Frigidair",
-          "ticker": "FRG",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208828,9 +208828,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4227679,
-    "news_picked_today": 257,
-    "news_dropped_today": 4351
+    "news_seen_today": 5612630,
+    "news_picked_today": 266,
+    "news_dropped_today": 4366
   },
   "book_momentum": {
     "live_count": 8,
