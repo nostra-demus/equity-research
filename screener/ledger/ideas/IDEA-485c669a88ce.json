@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-485c669a88ce",
-  "idea_version": "IDEAV-253a35fe54dbed93",
-  "idea_version_started_at": "2026-10-09T20:52:38Z",
+  "idea_version": "IDEAV-90f4792b4029a5e4",
+  "idea_version_started_at": "2026-10-09T23:48:51Z",
   "ticker": "AXP",
   "company": "American Express",
   "exchange": "NYSE",
@@ -11,11 +11,11 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "The OCC imposed a $350 million civil money penalty, which will directly impact near-term earnings and highlights potential regulatory friction in their compliance operations.",
-  "why_now": "The penalty was announced by the OCC on 2026-10-08.",
+  "reason": "The OCC assessed a $350 million civil money penalty against American Express, which will directly impact its earnings and cash flow.",
+  "why_now": "The penalty was announced yesterday, October 8, 2026, making this a recent and material financial hit.",
   "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 60,
+  "trade_score": 74,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 25,
@@ -30,7 +30,6 @@
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
-    "priced-in risk",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -42,7 +41,7 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "priced",
+  "priced_in": "room",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
@@ -65,7 +64,7 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-08T21:44:30Z",
-  "updated_at": "2026-10-09T20:52:38Z",
+  "updated_at": "2026-10-09T23:48:51Z",
   "decay_at": "2026-10-10T08:30:00Z",
   "status": "live",
   "promoted_signal_id": null
