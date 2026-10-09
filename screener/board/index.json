@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-10-08T23:55:00Z",
+  "generated_at": "2026-10-09T00:02:56Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-002",
+      "headline": "Huge News for Uber Stock Investors as it Makes Multibillion Dollar Acquisition",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/10/08/huge-news-for-uber-stock-investors-as-it-makes-mul/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T23:25:56Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Uber is making a multibillion dollar acquisition, which is a major capital allocation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber is making a multibillion dollar acquisition, which is a major capital allocation event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-001",
+      "headline": "Trump administration freezes green cards for Microsoft, IT firms, probes universities",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/international/trump-administration-freezes-green-cards-microsoft-it-firms-probes-universities",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-08T23:51:02Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "The Trump administration is freezing green cards for IT firms and probing universities, which creates significant operational and hiring risk for the tech sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The Trump administration is freezing green cards for IT firms and probing universities, which creates significant operational and hiring risk for the tech sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Microsoft",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261008-689",
       "headline": "TZL: Business and Funding Update [price-sensitive]",
@@ -208618,7 +208716,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3367,
+    "inbox_unconsumed": 3369,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -208627,9 +208725,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8816872,
-    "news_picked_today": 1569,
-    "news_dropped_today": 12375
+    "news_seen_today": 17557,
+    "news_picked_today": 2,
+    "news_dropped_today": 22
   },
   "book_momentum": {
     "live_count": 8,
