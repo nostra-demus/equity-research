@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-09T13:56:39Z",
+  "generated_at": "2026-10-09T14:01:39Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-355",
+      "headline": "Persistent Systems Limited: Persistent Systems Limited has informed the Exchange regarding a press release dated October 09, 2026, titled \"Persistent Secures Strong Majority Stake\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/PERSISTENTUSER1_09102026190022_PSLPressReleaseOctober92026sd.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T13:30:33Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Persistent Systems announced securing a strong majority stake in an acquisition, indicating inorganic growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Persistent Systems announced securing a strong majority stake in an acquisition, indicating inorganic growth.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Persistent Systems Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-337",
       "headline": "SecUR Credentials Limited: Members of the Exchange are hereby informed about the compulsory delisting of Equity Shares of SecUR Credentials Limited w.e.f. October 16, 2026 in terms of Regulation 32(1) of Securities and Exchange Board of India (Delisting of Equity Shares) Regulations, 2021, Section 21A of the Securities Contract (Regulations) Act, 1956, Securities Contract (Regulations) Rules, 1957 and Bye-Laws and Regulations of National Stock Exchange of India Limited (\"Exchange\").",
@@ -928,6 +977,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-345",
+      "headline": "Can Fin Homes Q2 Results: Net profit rises 9% to ₹275 crore as NII climbs 7%",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/can-fin-homes-share-price-q2-results-net-profit-rises-9-to-rs-275-crore-as-nii-climbs-7-20008730.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T13:50:50Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Can Fin Homes reported a 9% rise in net profit to ₹275 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Can Fin Homes reported a 9% rise in net profit to ₹275 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Can Fin Homes",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1862,109 +1960,6 @@
           "name": "Uber",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-311",
-      "headline": "Persistent Systems Limited: Persistent Systems Limited has informed the Exchange regarding 'Update on Voluntary Public Takeover Offer made by Persistent Systems Limited to the shareholders of Nagarro SE'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/PERSISTENTUSER1_09102026173743_PSLUpdateonVoluntaryPublicTakeoverOfferofNagarroSigned.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T12:07:49Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Persistent Systems provides an update on its voluntary public takeover offer for Nagarro SE.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Persistent Systems provides an update on its voluntary public takeover offer for Nagarro SE.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Persistent Systems",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Nagarro SE",
-          "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-244",
-      "headline": "CGN POWER (01816): DISCLOSEABLE TRANSACTION - SUPPLEMENT TO AND PROGRESS OF ESTABLISHMENT OF JOINT VENTURE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900226.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T08:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "The company disclosed a supplement to and progress regarding the establishment of a joint venture.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company disclosed a supplement to and progress regarding the establishment of a joint venture.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CGN POWER",
-          "ticker": "01816",
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "mega",
@@ -209153,9 +209148,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10137544,
-    "news_picked_today": 637,
-    "news_dropped_today": 6779
+    "news_seen_today": 10185910,
+    "news_picked_today": 655,
+    "news_dropped_today": 6809
   },
   "book_momentum": {
     "live_count": 8,
