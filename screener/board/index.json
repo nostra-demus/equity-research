@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T00:35:10Z",
+  "generated_at": "2026-10-09T00:41:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -389,6 +389,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-025",
+      "headline": "FAST RETAIL-DRS (06288): EXCHANGE NOTICE - RESUMPTION OF TRADING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900041.htm",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T00:33:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Fast Retailing DRS resumed trading after a temporary suspension.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 75,
+      "triage_reason": "Fast Retailing DRS resumed trading after a temporary suspension.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fast Retailing",
+          "ticker": "06288",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209512,7 +209561,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3390,
+    "inbox_unconsumed": 3391,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209521,9 +209570,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 349932,
-    "news_picked_today": 24,
-    "news_dropped_today": 264
+    "news_seen_today": 419777,
+    "news_picked_today": 25,
+    "news_dropped_today": 311
   },
   "book_momentum": {
     "live_count": 8,
