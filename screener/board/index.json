@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T00:29:09Z",
+  "generated_at": "2026-10-09T00:35:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -720,6 +720,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-024",
+      "headline": "Anup Bagchi set to become India's highest-paid bank CEO, may earn Rs 35.9 crore a year",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/anup-bagchi-set-to-become-indias-highest-paid-bank-ceo-may-earn-rs-35-9-crore-a-year/articleshow/134803148.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T00:27:53Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Anup Bagchi is set to become the highest-paid bank CEO in India with an annual compensation of Rs 35.9 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 62,
+      "triage_reason": "Anup Bagchi is set to become the highest-paid bank CEO in India with an annual compensation of Rs 35.9 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209463,7 +209512,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3389,
+    "inbox_unconsumed": 3390,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209472,9 +209521,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 280096,
-    "news_picked_today": 23,
-    "news_dropped_today": 217
+    "news_seen_today": 349932,
+    "news_picked_today": 24,
+    "news_dropped_today": 264
   },
   "book_momentum": {
     "live_count": 8,
