@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T17:04:55Z",
+  "generated_at": "2026-10-09T17:07:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-406",
@@ -1428,6 +1428,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-413",
+      "headline": "Delta Cuts Profit Outlook as Surging Fuel Costs Tighten Grip",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-10-09/delta-cuts-profit-outlook-as-fuel-costs-soar-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T16:53:57Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Delta Air Lines has cut its profit outlook due to rising fuel costs, which is a direct negative impact on financial expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delta Air Lines has cut its profit outlook due to rising fuel costs, which is a direct negative impact on financial expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delta Air Lines",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-401",
       "headline": "Coca Cola looking to sell Costa Coffee eight years after £4bn takeover",
       "headline_en": null,
@@ -1921,55 +1970,6 @@
           "name": "Delta Air Lines",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-408",
-      "headline": "Iveco Group welcomes the increase of the offer price of the voluntary totalitarian tender offer for all its common shares launched by TML CV Holdings B.V.",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/10/09/3378293/0/en/iveco-group-welcomes-the-increase-of-the-offer-price-of-the-voluntary-totalitarian-tender-offer-for-all-its-common-shares-launched-by-tml-cv-holdings-b-v.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-09T16:51:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Iveco Group announced an increase in the offer price for the tender offer for its common shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Iveco Group announced an increase in the offer price for the tender offer for its common shares.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": -36,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Iveco Group",
-          "ticker": null,
-          "listing_country": "IT"
         }
       ],
       "size_bucket": "large",
@@ -209019,9 +209019,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12820841,
-    "news_picked_today": 856,
-    "news_dropped_today": 8000
+    "news_seen_today": 12844870,
+    "news_picked_today": 863,
+    "news_dropped_today": 8017
   },
   "book_momentum": {
     "live_count": 8,
