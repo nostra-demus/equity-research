@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T11:21:37Z",
+  "generated_at": "2026-10-09T11:24:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-301",
@@ -1768,6 +1768,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261009-305",
+      "headline": "DATANG POWER (00991): ANNOUNCEMENT CONNECTED TRANSACTION CAPITAL INCREASE AGREEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900909.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T10:53:00Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Datang Power entered into a connected transaction for a capital increase agreement, representing a strategic capital allocation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Datang Power entered into a connected transaction for a capital increase agreement, representing a strategic capital allocation.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DATANG POWER",
+          "ticker": "00991",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261009-294",
       "headline": "CAPITAL REALM (00204): RESUMPTION GUIDANCE AND DELISTING FRAMEWORK UNDER THE LISTING RULES; AND QUARTELY UPDATE ANNOUNCEMENT",
       "headline_en": null,
@@ -1911,55 +1960,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-253",
-      "headline": "SHANGHAI XNG (03666): ADDITIONAL RESUMPTION GUIDANCE AND CONTINUED SUSPENSION OF TRADING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900615.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T09:36:00Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Shanghai XNG remains suspended from trading and has received additional resumption guidance, indicating ongoing regulatory or financial distress.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Shanghai XNG remains suspended from trading and has received additional resumption guidance, indicating ongoing regulatory or financial distress.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SHANGHAI XNG",
-          "ticker": "03666",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208785,9 +208785,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8170239,
-    "news_picked_today": 467,
-    "news_dropped_today": 5701
+    "news_seen_today": 8217617,
+    "news_picked_today": 471,
+    "news_dropped_today": 5721
   },
   "book_momentum": {
     "live_count": 8,
