@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-10-09T18:31:42Z",
+  "generated_at": "2026-10-09T18:35:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-431",
+      "headline": "ECA2026-726 - Information Regarding the Business Combination of Armada Acquisition Corp. II (XRPN/W/U) and Evernorth Holdings, Inc.",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-726",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T21:00:30Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Armada Acquisition Corp. II is proceeding with its business combination with Evernorth Holdings, Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Armada Acquisition Corp. II is proceeding with its business combination with Evernorth Holdings, Inc.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Armada Acquisition Corp. II",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Evernorth Holdings, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-406",
       "headline": "Tata Motors Limited: Tata Motors Limited has informed the Exchange regarding a press release dated October 09, 2026, titled \"TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly TML Commercial Vehicles Limited) Voluntary TotalitarianTender Offer for all the common shares of Iveco Group N.V.\".",
@@ -1921,55 +1975,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-367",
-      "headline": "Delta Air cuts profit forecast as $6-billion fuel-cost surge outweighs fare gains",
-      "headline_en": null,
-      "url": "https://www.theglobeandmail.com/business/article-delta-air-results-profit-forecast-fuel-costs/",
-      "source_name": "The Globe and Mail",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T14:09:02Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Delta Air cut its profit forecast due to a 6 billion USD fuel-cost surge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Delta Air cut its profit forecast due to a 6 billion USD fuel-cost surge.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Delta Air",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209017,9 +209022,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13998864,
-    "news_picked_today": 924,
-    "news_dropped_today": 8700
+    "news_seen_today": 14071215,
+    "news_picked_today": 925,
+    "news_dropped_today": 8723
   },
   "book_momentum": {
     "live_count": 8,
