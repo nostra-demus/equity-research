@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-09T14:56:57Z",
+  "generated_at": "2026-10-09T15:00:16Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261009-389",
+      "headline": "S-4 - Plus Automation, Inc. (0002086744) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2086744/000119312526418671/0001193125-26-418671-index.htm",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-09T14:43:59Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "Filing of an S-4 registration statement indicates a formal M&A or exchange offer process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Filing of an S-4 registration statement indicates a formal M&A or exchange offer process.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Plus Automation, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-382",
       "headline": "S-4 - Texas Ventures Acquisition III Corp (0002033991) (Filer)",
@@ -1913,55 +1962,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-215",
-      "headline": "Aditya Birla arm seeks $1.5 billion in rupee loans to buy Shell arm Solenergi, bankers say",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/renewables/aditya-birla-arm-seeks-1-5-billion-in-rupee-loans-to-buy-shell-arm-solenergi-bankers-say/articleshow/134816775.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T06:48:35Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Aditya Birla subsidiary is seeking $1.5 billion in loans to acquire Shell's Solenergi unit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Aditya Birla subsidiary is seeking $1.5 billion in loans to acquire Shell's Solenergi unit.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Aditya Birla",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209217,9 +209217,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11051987,
-    "news_picked_today": 721,
-    "news_dropped_today": 7199
+    "news_seen_today": 11076237,
+    "news_picked_today": 722,
+    "news_dropped_today": 7222
   },
   "book_momentum": {
     "live_count": 8,
