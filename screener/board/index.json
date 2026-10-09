@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T01:04:25Z",
+  "generated_at": "2026-10-09T01:07:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -95,6 +95,153 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-044",
+      "headline": "SCHEDULE 13D/A - D. E. SHAW & CO, L.P. (0001009268) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1009268/000110465926114792/0001104659-26-114792-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-09T00:59:21Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership or intent by D. E. Shaw & Co., L.P.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership or intent by D. E. Shaw & Co., L.P.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "D. E. Shaw & Co., L.P.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-042",
+      "headline": "PL3: Significant Pump Test Results from Well 8 Correction [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PL3?key=2924-03146543-3A703763",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T00:55:34Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "The company reported significant pump test results from Well 8, which directly impacts resource valuation and operational success.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "The company reported significant pump test results from Well 8, which directly impacts resource valuation and operational success.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PL3",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-043",
+      "headline": "SCHEDULE 13D/A - Gossamer Bio, Inc. (0001728117) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1728117/000110465926114792/0001104659-26-114792-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-09T00:59:21Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "A Schedule 13D/A filing indicates a change in significant ownership or intent for Gossamer Bio, Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "A Schedule 13D/A filing indicates a change in significant ownership or intent for Gossamer Bio, Inc.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Gossamer Bio, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1781,104 +1928,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-038",
-      "headline": "Mankind Pharma Limited",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/MANKIND1_08102026172210_IntimationofBoardMeeting_sd.pdf",
-      "source_name": "NSE India — Board Meetings (RSS)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-08T11:52:42Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Routine board meeting notification.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Routine board meeting notification.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mankind Pharma Limited",
-          "ticker": "MANKIND",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-036",
-      "headline": "Cyient Limited: board meeting 22-Oct-2026 — Board Meeting Intimation",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/xbrl/PRIOR_INTIMATION_1702_WebXMLFile_20261008_172636822.xml",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-08T11:56:38Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Routine board meeting notification for October 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 40,
-      "triage_reason": "Routine board meeting notification for October 2026.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cyient Limited",
-          "ticker": "CYIENT",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210286,7 +210335,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3406,
+    "inbox_unconsumed": 3407,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -210295,9 +210344,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 715280,
-    "news_picked_today": 41,
-    "news_dropped_today": 559
+    "news_seen_today": 749794,
+    "news_picked_today": 44,
+    "news_dropped_today": 580
   },
   "book_momentum": {
     "live_count": 8,
