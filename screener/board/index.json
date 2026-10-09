@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T02:03:29Z",
+  "generated_at": "2026-10-09T02:07:30Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -288,6 +288,56 @@
           "name": "1st FRANKLIN FINANCIAL CORP",
           "ticker": "0000038723",
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-066",
+      "headline": "US sanctions two Mumbai firms and five Indians over alleged Iran oil trade",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/news/us-sanctions-two-mumbai-firms-and-five-indians-over-alleged-iran-oil-trade/article71562408.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T01:55:04Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "The US government imposed sanctions on two Mumbai-based firms for alleged involvement in Iran oil trade, creating significant legal and operational risk for the entities involved.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The US government imposed sanctions on two Mumbai-based firms for alleged involvement in Iran oil trade, creating significant legal and operational risk for the entities involved.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mumbai firms",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "unknown",
@@ -1892,55 +1942,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261009-052",
-      "headline": "KLV: Change of Director's Interest Notice - Alexander Gold",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.KLV?key=2924-03146557-6A1348460",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T01:16:39Z",
-      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
-      "prelim_note": "Routine director interest disclosure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Routine director interest disclosure.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "KLV",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209926,9 +209927,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1333469,
-    "news_picked_today": 66,
-    "news_dropped_today": 966
+    "news_seen_today": 1367699,
+    "news_picked_today": 67,
+    "news_dropped_today": 1013
   },
   "book_momentum": {
     "live_count": 8,
