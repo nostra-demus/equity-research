@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T13:51:15Z",
+  "generated_at": "2026-10-09T13:56:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-337",
@@ -166251,6 +166251,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-68b7ef008d69",
+      "idea_version": "IDEAV-e84b2a6934191978",
+      "idea_version_started_at": "2026-10-09T13:56:13Z",
+      "ticker": "RXO",
+      "company": "RXO, Inc.",
+      "exchange": "NYSE",
+      "direction": "pair",
+      "pair_with": "CHRW",
+      "reason": "RXO is acquiring the Coyote Logistics business from C.H. Robinson, which will consolidate market share in the freight brokerage space and improve RXO's scale and margin profile.",
+      "why_now": "The companies filed formal M&A business-combination communications on 2026-10-09.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 76,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0a2be3f21236",
+        "EVT-cc1b0e8c4ddf"
+      ],
+      "primary_source_event_id": "EVT-0a2be3f21236",
+      "source_headlines": [
+        "425 - RXO, Inc. (0001929561) (Subject)",
+        "425 - C. H. ROBINSON WORLDWIDE, INC. (0001043277) (Filed by)"
+      ],
+      "source_headline": "425 - RXO, Inc. (0001929561) (Subject)",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1929561/000119312526418400/0001193125-26-418400-index.htm",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-09T10:02:07Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T13:56:13Z",
+      "updated_at": "2026-10-09T13:56:13Z",
+      "decay_at": "2026-10-10T22:02:07Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-cde852397b1c",
       "idea_version": "IDEAV-7c3654b7e908caca",
       "idea_version_started_at": "2026-10-09T13:03:03Z",
@@ -209062,8 +209133,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1458,
-    "live_count": 37,
+    "surfaced_total": 1459,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -209082,7 +209153,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10113423,
+    "news_seen_today": 10137544,
     "news_picked_today": 637,
     "news_dropped_today": 6779
   },
