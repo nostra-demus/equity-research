@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-c67e8a0a9181",
+  "idea_version": "IDEAV-73d5db7f33a07c37",
+  "idea_version_started_at": "2026-10-09T13:03:03Z",
+  "ticker": "00179",
+  "company": "Johnson Electric Holdings",
+  "exchange": "HKEX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The company issued a profit warning, signaling deteriorating margins or revenue growth that will likely lead to downward earnings revisions.",
+  "why_now": "The profit warning was filed on 2026-10-09, making the negative outlook immediate.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 21,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-cde7390361fd"
+  ],
+  "primary_source_event_id": "EVT-cde7390361fd",
+  "source_headlines": [
+    "JOHNSON ELEC H (00179): Profit Warning"
+  ],
+  "source_headline": "JOHNSON ELEC H (00179): Profit Warning",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/1009/2026100900757.pdf",
+  "source_name": "HKEXnews (HK Exchange Filing)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-09T10:16:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-09T13:03:03Z",
+  "updated_at": "2026-10-09T13:03:03Z",
+  "decay_at": "2026-10-10T22:16:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

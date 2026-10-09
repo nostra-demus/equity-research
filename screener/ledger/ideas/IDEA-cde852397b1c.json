@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-cde852397b1c",
+  "idea_version": "IDEAV-7c3654b7e908caca",
+  "idea_version_started_at": "2026-10-09T13:03:03Z",
+  "ticker": "DAL",
+  "company": "Delta Air Lines",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "Rising fuel costs are directly compressing operating margins, forcing the company to lower its 2026 profit guidance.",
+  "why_now": "The guidance cut was announced on 2026-10-09.",
+  "conviction": 80,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 74,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 7,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-5f55dbf09eca",
+    "EVT-c8bea0d4f778"
+  ],
+  "primary_source_event_id": "EVT-5f55dbf09eca",
+  "source_headlines": [
+    "Delta Air Lines cuts 2026 forecast on fuel surge, but CEO says demand is still strong",
+    "Delta Cuts Profit Outlook as Surging Fuel Prices Hit Airlines"
+  ],
+  "source_headline": "Delta Air Lines cuts 2026 forecast on fuel surge, but CEO says demand is still strong",
+  "source_url": "https://www.cnbc.com/2026/10/09/delta-air-lines-dal-q3-2026-earnings.html",
+  "source_name": "CNBC",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-09T10:33:33Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-09T13:03:03Z",
+  "updated_at": "2026-10-09T13:03:03Z",
+  "decay_at": "2026-10-10T22:33:33Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
