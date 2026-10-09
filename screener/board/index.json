@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T00:55:46Z",
+  "generated_at": "2026-10-09T00:58:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20261009-003",
@@ -334,6 +334,56 @@
       ],
       "issuer_linkage": "sector",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261009-033",
+      "headline": "Cantor Fitzgerald faces Senate Democrat’s probe over Tether ties",
+      "headline_en": null,
+      "url": "https://cointelegraph.com/news/cantor-fitzgerald-faces-senate-democrats-probe-over-tether-ties?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source_name": "Cointelegraph",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T00:46:27Z",
+      "sweep_file": "screener/inbox/2026-10-09_sweep.json",
+      "prelim_note": "A Senate probe into Cantor Fitzgerald's ties to Tether introduces significant regulatory and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "A Senate probe into Cantor Fitzgerald's ties to Tether introduces significant regulatory and reputational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cantor Fitzgerald",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -209845,7 +209895,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3397,
+    "inbox_unconsumed": 3398,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209854,9 +209904,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 593929,
-    "news_picked_today": 32,
-    "news_dropped_today": 424
+    "news_seen_today": 628647,
+    "news_picked_today": 33,
+    "news_dropped_today": 447
   },
   "book_momentum": {
     "live_count": 8,
