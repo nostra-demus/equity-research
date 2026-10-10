@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T01:02:36Z",
+  "generated_at": "2026-10-10T01:07:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-002",
@@ -224,6 +224,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-010",
+      "headline": "BrandPilot AI Announces Closing of Previously Announced Debt Settlement | BPAIF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/BPAIF/brand-pilot-ai-announces-closing-of-previously-announced-debt-qc01jpv8opyc.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-10T00:03:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "BrandPilot AI has settled debt, improving its balance sheet position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "BrandPilot AI has settled debt, improving its balance sheet position.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BrandPilot AI",
+          "ticker": "BPAIF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208997,7 +209046,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3416,
+    "inbox_unconsumed": 3417,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209006,9 +209055,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 893441,
-    "news_picked_today": 9,
-    "news_dropped_today": 591
+    "news_seen_today": 988904,
+    "news_picked_today": 10,
+    "news_dropped_today": 638
   },
   "book_momentum": {
     "live_count": 8,
