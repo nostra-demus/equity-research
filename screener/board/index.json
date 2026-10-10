@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T01:15:38Z",
+  "generated_at": "2026-10-10T01:23:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-002",
@@ -45,6 +45,154 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-018",
+      "headline": "Japan's Kobe Steel eyes India M&A to lift compressor production: executive",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/companies/japan-s-kobe-steel-eyes-india-m-a-to-lift-compressor-production-executive",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:21:11Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Kobe Steel is actively pursuing M&A in India to expand compressor production capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Kobe Steel is actively pursuing M&A in India to expand compressor production capacity.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kobe Steel",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-023",
+      "headline": "TDK weighs sale of hard-drive head unit, but regulatory OK uncertain",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/business-deals/tdk-weighs-sale-of-hard-drive-head-unit-but-regulatory-ok-uncertain",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:21:11Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "TDK is exploring the potential sale of its hard-drive head unit, though regulatory hurdles remain.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "TDK is exploring the potential sale of its hard-drive head unit, though regulatory hurdles remain.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TDK",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-015",
+      "headline": "TCS withholds quarterly bonuses for senior staff after missing performance targets",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/tcs-withholds-quarterly-bonuses-for-senior-staff-after-missing-performance-targets/article71566947.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T00:28:08Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "TCS is withholding quarterly bonuses for senior staff due to missed performance targets, signaling internal cost-control measures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "TCS is withholding quarterly bonuses for senior staff due to missed performance targets, signaling internal cost-control measures.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Consultancy Services",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-011",
       "headline": "US hits International Criminal Court with sweeping sanctions as part of drive to dismantle tribunal",
       "headline_en": null,
@@ -83,6 +231,60 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-016",
+      "headline": "Honda to sell Thai-built Mitsubishi pickup under own brand in Southeast Asia",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/automobiles/honda-to-sell-thai-built-mitsubishi-pickup-under-own-brand-in-southeast-asia",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:21:11Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Honda will sell Thai-built Mitsubishi pickups under its own brand, expanding its product portfolio in Southeast Asia.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Honda will sell Thai-built Mitsubishi pickups under its own brand, expanding its product portfolio in Southeast Asia.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honda Motor",
+          "ticker": null,
+          "listing_country": "JP"
+        },
+        {
+          "name": "Mitsubishi Motors",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -137,6 +339,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-020",
+      "headline": "Tariffs targeting China's Temu, Shein shrink US small parcel deliveries",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/economy/trade-war/trump-tariffs/tariffs-targeting-china-s-temu-shein-shrink-us-small-parcel-deliveries",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:21:11Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "US tariffs are directly impacting the delivery volumes of major e-commerce platforms Temu and Shein.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "US tariffs are directly impacting the delivery volumes of major e-commerce platforms Temu and Shein.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Temu",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Shein",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-008",
       "headline": "Siemens Energy India Limited: Siemens Energy India Limited has informed the Exchange about Pendency of Litigation(s)/dispute(s) or the outcome impacting the Company",
       "headline_en": null,
@@ -186,6 +442,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-021",
+      "headline": "Fujitsu to set up US quantum computing research center in New Mexico",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/technology/fujitsu-to-set-up-us-quantum-computing-research-center-in-new-mexico",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:21:11Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Fujitsu is expanding its R&D footprint by establishing a quantum computing research center in the US.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Fujitsu is expanding its R&D footprint by establishing a quantum computing research center in the US.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fujitsu",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-007",
       "headline": "Trump announces deal for Russian diesel as Zelensky calls it a gift to Putin",
       "headline_en": null,
@@ -222,6 +527,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-022",
+      "headline": "Japan's DOGE to 'step up' spending review, eyeing EV subsidies, health checks",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/politics/japan-s-doge-to-step-up-spending-review-eyeing-ev-subsidies-health-checks",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:21:11Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Japan's DOGE department is reviewing subsidies for EVs and health checks, creating potential policy risk for affected sectors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 66,
+      "triage_reason": "Japan's DOGE department is reviewing subsidies for EVs and health checks, creating potential policy risk for affected sectors.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -327,6 +675,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-017",
+      "headline": "Once China's most valuable stock, liquor maker Kweichow Moutai down 43% from peak",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/food-beverage/once-china-s-most-valuable-stock-liquor-maker-kweichow-moutai-down-43-from-peak",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:21:11Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Kweichow Moutai has declined 43% from its peak, reflecting long-term valuation adjustment rather than a new material event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Kweichow Moutai has declined 43% from its peak, reflecting long-term valuation adjustment rather than a new material event.",
+      "region": "CN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kweichow Moutai",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-006",
       "headline": "Live updates: Trump rallies voters in upstate New York after Putin diesel deal announcement",
       "headline_en": null,
@@ -414,6 +811,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-019",
+      "headline": "Japan machine tool order backlog hits all-time high on AI demand",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/business-trends/japan-machine-tool-order-backlog-hits-all-time-high-on-ai-demand",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:21:11Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Japan's machine tool order backlog reached an all-time high, signaling strong industrial demand driven by AI.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "Japan's machine tool order backlog reached an all-time high, signaling strong industrial demand driven by AI.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": -26,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -167177,76 +167617,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8c352967472b",
-      "idea_version": "IDEAV-5c0dfa8b6f6509f8",
-      "idea_version_started_at": "2026-10-08T14:29:57Z",
-      "ticker": "EMA",
-      "company": "Emera",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Acquiring a company for $10 billion typically requires significant debt issuance or equity dilution, which often pressures the acquirer's stock price in the near term.",
-      "why_now": "The acquisition announcement occurred on 2026-10-08.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-76dc69ffdde1"
-      ],
-      "primary_source_event_id": "EVT-76dc69ffdde1",
-      "source_headlines": [
-        "Emera to Acquire Canadian Utilities for $10B"
-      ],
-      "source_headline": "Emera to Acquire Canadian Utilities for $10B",
-      "source_url": "https://www.rigzone.com/news/emera_to_acquire_canadian_utilities_for_10b-08-oct-2026-184801-article/?rss=true",
-      "source_name": "Rigzone",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T13:18:28Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T17:12:46Z",
-      "updated_at": "2026-10-08T14:29:57Z",
-      "decay_at": "2026-10-10T01:18:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5057424de03d",
       "idea_version": "IDEAV-e30529bd3537e1b9",
       "idea_version_started_at": "2026-10-09T14:15:15Z",
@@ -169955,6 +170325,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-8c352967472b",
+      "idea_version": "IDEAV-5c0dfa8b6f6509f8",
+      "idea_version_started_at": "2026-10-08T14:29:57Z",
+      "ticker": "EMA",
+      "company": "Emera",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Acquiring a company for $10 billion typically requires significant debt issuance or equity dilution, which often pressures the acquirer's stock price in the near term.",
+      "why_now": "The acquisition announcement occurred on 2026-10-08.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-76dc69ffdde1"
+      ],
+      "primary_source_event_id": "EVT-76dc69ffdde1",
+      "source_headlines": [
+        "Emera to Acquire Canadian Utilities for $10B"
+      ],
+      "source_headline": "Emera to Acquire Canadian Utilities for $10B",
+      "source_url": "https://www.rigzone.com/news/emera_to_acquire_canadian_utilities_for_10b-08-oct-2026-184801-article/?rss=true",
+      "source_name": "Rigzone",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T13:18:28Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-07T17:12:46Z",
+      "updated_at": "2026-10-08T14:29:57Z",
+      "decay_at": "2026-10-10T01:18:28Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-c156981826c5",
       "idea_version": "IDEAV-9e6a398130a16f71",
       "idea_version_started_at": "2026-10-08T03:53:00Z",
@@ -171966,9 +172406,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 534,
+    "total_count": 535,
     "shown_count": 500,
-    "hidden_count": 34,
+    "hidden_count": 35,
     "side_counts": {
       "long": {
         "total_count": 272,
@@ -171976,9 +172416,9 @@
         "hidden_count": 22
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -171997,6 +172437,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8c352967472b",
+        "idea_version": "IDEAV-5c0dfa8b6f6509f8",
+        "idea_version_started_at": "2026-10-08T14:29:57Z",
+        "ticker": "EMA",
+        "company": "Emera",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "Acquiring a company for $10 billion typically requires significant debt issuance or equity dilution, which often pressures the acquirer's stock price in the near term.",
+        "why_now": "The acquisition announcement occurred on 2026-10-08.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 67,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-76dc69ffdde1"
+        ],
+        "primary_source_event_id": "EVT-76dc69ffdde1",
+        "source_headlines": [
+          "Emera to Acquire Canadian Utilities for $10B"
+        ],
+        "source_headline": "Emera to Acquire Canadian Utilities for $10B",
+        "source_url": "https://www.rigzone.com/news/emera_to_acquire_canadian_utilities_for_10b-08-oct-2026-184801-article/?rss=true",
+        "source_name": "Rigzone",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-08T13:18:28Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-07T17:12:46Z",
+        "updated_at": "2026-10-08T14:29:57Z",
+        "decay_at": "2026-10-10T01:18:28Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-10T01:18:28Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-790093145eaa",
         "idea_version": "IDEAV-b7d8c650422f7266",
@@ -209141,86 +209654,12 @@
         "archived_at": "2026-09-16T13:29:06Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-02b343ab33c5",
-        "idea_version": "IDEAV-0bd573bc6f75f01a",
-        "idea_version_started_at": "2026-09-13T12:24:53Z",
-        "ticker": "GEHC",
-        "company": "GE HealthCare Technologies Inc.",
-        "exchange": "NASDAQ",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is in advanced talks to acquire Sofie Biosciences for approximately $1 billion, which will likely pressure near-term margins and cash flow due to integration costs and acquisition premium.",
-        "why_now": "The deal talks were reported by the Financial Times on September 13, 2026, indicating an imminent official announcement or transaction milestone.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 6,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-4b3ff767bb59",
-          "EVT-46a2aebd5c00"
-        ],
-        "primary_source_event_id": "EVT-4b3ff767bb59",
-        "source_headlines": [
-          "GE HealthCare in talks over $1bn deal for maker of cancer scan chemicals",
-          "GE HealthCare in talks over possible $1 billion deal for Sofie Biosciences, FT reports"
-        ],
-        "source_headline": "GE HealthCare in talks over $1bn deal for maker of cancer scan chemicals",
-        "source_url": "https://www.ft.com/content/21b663e4-60ee-4937-a561-5b0f505676a2?syn-25a6b1a6=1",
-        "source_name": "Financial Times",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T11:19:07Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T12:24:53Z",
-        "updated_at": "2026-09-13T12:24:53Z",
-        "decay_at": "2026-09-14T23:19:07Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-16T11:53:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1466,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -209230,7 +209669,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3421,
+    "inbox_unconsumed": 3430,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209239,9 +209678,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1108100,
-    "news_picked_today": 14,
-    "news_dropped_today": 706
+    "news_seen_today": 1179452,
+    "news_picked_today": 23,
+    "news_dropped_today": 769
   },
   "book_momentum": {
     "live_count": 8,
