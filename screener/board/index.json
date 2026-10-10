@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T11:37:42Z",
+  "generated_at": "2026-10-10T11:58:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -168675,76 +168675,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-ebfbd0cbbc7c",
-      "idea_version": "IDEAV-a458d90141a3fd2e",
-      "idea_version_started_at": "2026-10-09T00:14:06Z",
-      "ticker": "MSFT",
-      "company": "Microsoft",
-      "exchange": "NASDAQ",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A freeze on green cards for IT firms increases labor costs and operational friction for high-skill talent acquisition, directly impacting margins.",
-      "why_now": "The administration's policy shift was reported on October 8, 2026.",
-      "conviction": 50,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 61,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "policy_conditional",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-95578ceceebe"
-      ],
-      "primary_source_event_id": "EVT-95578ceceebe",
-      "source_headlines": [
-        "Trump administration freezes green cards for Microsoft, IT firms, probes universities"
-      ],
-      "source_headline": "Trump administration freezes green cards for Microsoft, IT firms, probes universities",
-      "source_url": "https://www.businesstimes.com.sg/international/trump-administration-freezes-green-cards-microsoft-it-firms-probes-universities",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 83,
-      "newest_source_at": "2026-10-08T23:51:02Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T00:14:06Z",
-      "updated_at": "2026-10-09T00:14:06Z",
-      "decay_at": "2026-10-10T11:51:02Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9a15ea504d7b",
       "idea_version": "IDEAV-5902d95c838a1182",
       "idea_version_started_at": "2026-10-10T03:44:38Z",
@@ -171458,6 +171388,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-ebfbd0cbbc7c",
+      "idea_version": "IDEAV-a458d90141a3fd2e",
+      "idea_version_started_at": "2026-10-09T00:14:06Z",
+      "ticker": "MSFT",
+      "company": "Microsoft",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A freeze on green cards for IT firms increases labor costs and operational friction for high-skill talent acquisition, directly impacting margins.",
+      "why_now": "The administration's policy shift was reported on October 8, 2026.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 61,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-95578ceceebe"
+      ],
+      "primary_source_event_id": "EVT-95578ceceebe",
+      "source_headlines": [
+        "Trump administration freezes green cards for Microsoft, IT firms, probes universities"
+      ],
+      "source_headline": "Trump administration freezes green cards for Microsoft, IT firms, probes universities",
+      "source_url": "https://www.businesstimes.com.sg/international/trump-administration-freezes-green-cards-microsoft-it-firms-probes-universities",
+      "source_name": "The Business Times (Singapore)",
+      "materiality_max": 83,
+      "newest_source_at": "2026-10-08T23:51:02Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T00:14:06Z",
+      "updated_at": "2026-10-09T00:14:06Z",
+      "decay_at": "2026-10-10T11:51:02Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-97e320120234",
       "idea_version": "IDEAV-862b6f87de0fce2c",
       "idea_version_started_at": "2026-10-08T16:19:11Z",
@@ -172828,9 +172828,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 529,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
         "total_count": 266,
@@ -172838,9 +172838,9 @@
         "hidden_count": 16
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -172859,6 +172859,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-ebfbd0cbbc7c",
+        "idea_version": "IDEAV-a458d90141a3fd2e",
+        "idea_version_started_at": "2026-10-09T00:14:06Z",
+        "ticker": "MSFT",
+        "company": "Microsoft",
+        "exchange": "NASDAQ",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A freeze on green cards for IT firms increases labor costs and operational friction for high-skill talent acquisition, directly impacting margins.",
+        "why_now": "The administration's policy shift was reported on October 8, 2026.",
+        "conviction": 50,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 61,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 15,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "policy_conditional",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-95578ceceebe"
+        ],
+        "primary_source_event_id": "EVT-95578ceceebe",
+        "source_headlines": [
+          "Trump administration freezes green cards for Microsoft, IT firms, probes universities"
+        ],
+        "source_headline": "Trump administration freezes green cards for Microsoft, IT firms, probes universities",
+        "source_url": "https://www.businesstimes.com.sg/international/trump-administration-freezes-green-cards-microsoft-it-firms-probes-universities",
+        "source_name": "The Business Times (Singapore)",
+        "materiality_max": 83,
+        "newest_source_at": "2026-10-08T23:51:02Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-09T00:14:06Z",
+        "updated_at": "2026-10-09T00:14:06Z",
+        "decay_at": "2026-10-10T11:51:02Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-10T11:51:02Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-fa6392f0b5c2",
         "idea_version": "IDEAV-a6ebf1e67fe280ec",
@@ -209995,88 +210068,12 @@
         "archived_at": "2026-09-17T09:58:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-06721dd3bc7b",
-        "idea_version": "IDEAV-326a6ebb15cfc2b9",
-        "idea_version_started_at": "2026-09-13T22:07:30Z",
-        "ticker": "UCA",
-        "company": "United Cooperative Assurance",
-        "exchange": null,
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A Riyadh court has accepted the application for the company's liquidation proceedings.",
-        "why_now": "The court accepted the liquidation application on September 13, 2026.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "price and market expectations",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "unknown",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c4188219bded"
-        ],
-        "primary_source_event_id": "EVT-c4188219bded",
-        "source_headlines": [
-          "‎Riyadh court accepts application for UCA’s liquidation proceedings"
-        ],
-        "source_headline": "‎Riyadh court accepts application for UCA’s liquidation proceedings",
-        "source_url": "https://www.argaam.com/en/article/articledetail/id/1936041",
-        "source_name": "Argaam — Main News (English)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T17:29:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T22:07:30Z",
-        "updated_at": "2026-09-13T22:07:30Z",
-        "decay_at": "2026-09-15T05:29:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:07:03Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1478,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210095,9 +210092,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8425715,
-    "news_picked_today": 247,
-    "news_dropped_today": 5753
+    "news_seen_today": 8609214,
+    "news_picked_today": 248,
+    "news_dropped_today": 5920
   },
   "book_momentum": {
     "live_count": 8,
