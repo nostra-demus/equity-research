@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T23:52:48Z",
+  "generated_at": "2026-10-10T23:55:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -420,6 +420,60 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-262",
+      "headline": "Mahindra to sell majority stake in aerospace subsidiary to Brazil's Embraer for Rs 5,100 crore",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/transportation/airlines-/-aviation/mahindra-to-sell-51-stake-in-aerospace-subsidiary-to-brazils-embraer-for-rs-5100-crore/articleshow/134856278.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T14:36:15Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Mahindra is selling a majority stake in its aerospace subsidiary to Embraer for Rs 5,100 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mahindra is selling a majority stake in its aerospace subsidiary to Embraer for Rs 5,100 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahindra",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Embraer",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1852,55 +1906,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-212",
-      "headline": "Pemex Needs Nearly $110 Billion to Hit Mexico's Output Targets",
-      "headline_en": null,
-      "url": "https://oilprice.com/Energy/Crude-Oil/Pemex-Needs-Nearly-110-Billion-to-Hit-Mexicos-Output-Targets.html",
-      "source_name": "OilPrice.com",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T21:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Pemex requires nearly $110 billion in capital to meet production targets, highlighting severe financial and operational strain.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Pemex requires nearly $110 billion in capital to meet production targets, highlighting severe financial and operational strain.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Pemex",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210142,9 +210147,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13793146,
-    "news_picked_today": 680,
-    "news_dropped_today": 12016
+    "news_seen_today": 13812463,
+    "news_picked_today": 683,
+    "news_dropped_today": 12037
   },
   "book_momentum": {
     "live_count": 8,
