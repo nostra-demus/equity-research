@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T01:59:19Z",
+  "generated_at": "2026-10-10T02:05:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-031",
@@ -812,6 +812,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-042",
+      "headline": "Tarmat Limited: Tarmat Limited has informed the Exchange about change in Management",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TARMAT_09102026122712_BSENSE.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T06:57:32Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Tarmat Limited announced a change in management.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Tarmat Limited announced a change in management.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tarmat Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1837,55 +1886,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-036",
-      "headline": "Battery X Metals Reports Estimated Driving Range Increase of Approximately 101 Kilometers Following a Single-Electric-Vehicle Performance Evaluation of Next-Generation Patent-Pending Lithium-Ion Battery Rebalancing Technology | BATXF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/BATXF/battery-x-metals-reports-estimated-driving-range-increase-of-paer6s4rlcpp.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-10T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "The company reported a technical performance improvement in its battery technology, which could impact future commercial viability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "The company reported a technical performance improvement in its battery technology, which could impact future commercial viability.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Battery X Metals",
-          "ticker": "BATXF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210057,9 +210057,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1558372,
-    "news_picked_today": 41,
-    "news_dropped_today": 1015
+    "news_seen_today": 1629064,
+    "news_picked_today": 42,
+    "news_dropped_today": 1062
   },
   "book_momentum": {
     "live_count": 8,
