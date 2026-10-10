@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T04:14:23Z",
+  "generated_at": "2026-10-10T04:18:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-031",
@@ -175,6 +175,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-071",
+      "headline": "ACL: Becoming a substantial holder",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ACL?key=2924-03146742-3A703798",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T06:41:45Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "A new substantial holder has been disclosed for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "A new substantial holder has been disclosed for the company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ACL",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1316,6 +1365,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-069",
+      "headline": "Propshare Titania SM REIT - IPO (Second scheme of the Property Share Investment Trust) (544462)",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/465d4765-e16f-4573-aca4-723e6936b78d.pdf",
+      "source_name": "BSE India — Corporate Announcements (RSS)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-10T04:01:31Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Propshare Titania SM REIT is launching an IPO for its second scheme.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Propshare Titania SM REIT is launching an IPO for its second scheme.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Propshare Titania SM REIT",
+          "ticker": "544462",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-070",
+      "headline": "Bajaj Finance Limited: Bajaj Finance Limited has informed the Exchange regarding allotment of 51000 securities pursuant to Non Convertible Securities at its meeting held on October 09, 2026",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BAJFINANCE_09102026121406_REG30_Allotment_intimation_T7.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T06:44:37Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Bajaj Finance allotted 51,000 non-convertible securities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "Bajaj Finance allotted 51,000 non-convertible securities.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bajaj Finance Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-021",
       "headline": "Fujitsu to set up US quantum computing research center in New Mexico",
       "headline_en": null,
@@ -1735,141 +1882,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-026",
-      "headline": "4 - Rabinowitz Matthew (0001646382) (Reporting)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1646382/000164638226000022/0001646382-26-000022-index.htm",
-      "source_name": "SEC EDGAR — Latest Form 4 (Insider Transactions)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-10-10T01:25:05Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Routine SEC Form 4 filing for insider transaction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "Routine SEC Form 4 filing for insider transaction.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Matthew Rabinowitz",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-056",
-      "headline": "Bread, laban, chips: How UAE food makers view new caps",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/retail/bread-laban-chips-how-uae-food-makers-view-new-caps-1.500704736",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T02:00:00Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "New price caps on food items in the UAE will impact margins for local food manufacturers.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 61,
-      "triage_reason": "New price caps on food items in the UAE will impact margins for local food manufacturers.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-066",
-      "headline": "Oil and gas production disrupted as Hurricane Isaias barrels towards Gulf",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/f7d90625-0d78-44b2-927f-d63f4dbc5e8d?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T03:37:15Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Hurricane Isaias is causing supply disruptions to oil and gas production in the Gulf of Mexico.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "Hurricane Isaias is causing supply disruptions to oil and gas production in the Gulf of Mexico.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169324,79 +169336,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-9db64567877d",
-      "idea_version": "IDEAV-7a3dc06c70fdf879",
-      "idea_version_started_at": "2026-10-09T21:35:48Z",
-      "ticker": "TCS",
-      "company": "Tata Consultancy Services",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "TCS reported a 15% rise in net profit to ₹13,884 crore, beating market estimates and demonstrating strong international growth.",
-      "why_now": "The Q2 results were released on October 8, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a7e86d1dd6be",
-        "EVT-f53160387bce"
-      ],
-      "primary_source_event_id": "EVT-a7e86d1dd6be",
-      "source_headlines": [
-        "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding a press release dated October 8, 2026, titled \"International Growth and Strategic Wins Underpin TCS Q2\".",
-        "TCS Q2 Results: Net profit rises 15% to ₹13,884 crore, beats estimates"
-      ],
-      "source_headline": "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding a press release dated October 8, 2026, titled \"International Growth and Strategic Wins Underpin TCS Q2\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/TCS_CORPCS_08102026154325_PressReleaseletter.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T16:16:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T12:13:45Z",
-      "updated_at": "2026-10-09T21:35:48Z",
-      "decay_at": "2026-10-10T04:16:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-567e2c9bb7a6",
       "idea_version": "IDEAV-b400278b4ef17d14",
       "idea_version_started_at": "2026-10-09T19:14:31Z",
@@ -171611,6 +171550,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-9db64567877d",
+      "idea_version": "IDEAV-7a3dc06c70fdf879",
+      "idea_version_started_at": "2026-10-09T21:35:48Z",
+      "ticker": "TCS",
+      "company": "Tata Consultancy Services",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "TCS reported a 15% rise in net profit to ₹13,884 crore, beating market estimates and demonstrating strong international growth.",
+      "why_now": "The Q2 results were released on October 8, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a7e86d1dd6be",
+        "EVT-f53160387bce"
+      ],
+      "primary_source_event_id": "EVT-a7e86d1dd6be",
+      "source_headlines": [
+        "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding a press release dated October 8, 2026, titled \"International Growth and Strategic Wins Underpin TCS Q2\".",
+        "TCS Q2 Results: Net profit rises 15% to ₹13,884 crore, beats estimates"
+      ],
+      "source_headline": "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding a press release dated October 8, 2026, titled \"International Growth and Strategic Wins Underpin TCS Q2\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/TCS_CORPCS_08102026154325_PressReleaseletter.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T16:16:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T12:13:45Z",
+      "updated_at": "2026-10-09T21:35:48Z",
+      "decay_at": "2026-10-10T04:16:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-7470585394f5",
       "idea_version": "IDEAV-ffc4a9332af08053",
       "idea_version_started_at": "2026-10-08T16:19:11Z",
@@ -172840,14 +172852,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 29,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       },
       "short": {
         "total_count": 263,
@@ -172871,6 +172883,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-9db64567877d",
+        "idea_version": "IDEAV-7a3dc06c70fdf879",
+        "idea_version_started_at": "2026-10-09T21:35:48Z",
+        "ticker": "TCS",
+        "company": "Tata Consultancy Services",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "TCS reported a 15% rise in net profit to ₹13,884 crore, beating market estimates and demonstrating strong international growth.",
+        "why_now": "The Q2 results were released on October 8, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a7e86d1dd6be",
+          "EVT-f53160387bce"
+        ],
+        "primary_source_event_id": "EVT-a7e86d1dd6be",
+        "source_headlines": [
+          "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding a press release dated October 8, 2026, titled \"International Growth and Strategic Wins Underpin TCS Q2\".",
+          "TCS Q2 Results: Net profit rises 15% to ₹13,884 crore, beats estimates"
+        ],
+        "source_headline": "Tata Consultancy Services Limited: Tata Consultancy Services Limited has informed the Exchange regarding a press release dated October 8, 2026, titled \"International Growth and Strategic Wins Underpin TCS Q2\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/TCS_CORPCS_08102026154325_PressReleaseletter.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-08T16:16:37Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-08T12:13:45Z",
+        "updated_at": "2026-10-09T21:35:48Z",
+        "decay_at": "2026-10-10T04:16:37Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-10T04:16:37Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-97e320120234",
         "idea_version": "IDEAV-862b6f87de0fce2c",
@@ -200719,81 +200807,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-095be317c3a2",
-        "idea_version": "IDEAV-53344850a0822e27",
-        "idea_version_started_at": "2026-09-27T05:04:56Z",
-        "ticker": "KPLM.SI",
-        "company": "Keppel Corporation Limited",
-        "exchange": "SGX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Keppel is discussing a potential deal for M1, which could expand its telecommunications infrastructure and services portfolio.",
-        "why_now": "The news explicitly states that Keppel and Starhub are discussing a deal for M1 as of September 27, 2026.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-118137460992"
-        ],
-        "primary_source_event_id": "EVT-118137460992",
-        "source_headlines": [
-          "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week"
-        ],
-        "source_headline": "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week",
-        "source_url": "https://www.straitstimes.com/business/companies-markets/keppel-starhub-discuss-potential-m1-deal-grab-execs-buy-shares-after-stock-falls-markets-this-week",
-        "source_name": "The Straits Times",
-        "materiality_max": 91,
-        "newest_source_at": "2026-09-27T04:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T05:04:56Z",
-        "updated_at": "2026-09-27T05:04:56Z",
-        "decay_at": "2026-09-28T16:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T04:07:33Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-759cf3b531e6",
         "idea_version": "IDEAV-a1be9d10a405ae28",
         "idea_version_started_at": "2026-09-27T04:44:42Z",
@@ -210096,7 +210109,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1471,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210115,9 +210128,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3508072,
-    "news_picked_today": 73,
-    "news_dropped_today": 2159
+    "news_seen_today": 3553696,
+    "news_picked_today": 76,
+    "news_dropped_today": 2204
   },
   "book_momentum": {
     "live_count": 8,
