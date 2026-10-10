@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T16:28:43Z",
+  "generated_at": "2026-10-10T16:31:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -1834,6 +1834,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-179",
+      "headline": "Cloudflare acquires Deno to improve its Workers programming model",
+      "headline_en": null,
+      "url": "https://techcrunch.com/2026/10/10/cloudflare-acquires-deno-to-improve-its-workers-programming-model/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T16:25:42Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Cloudflare is acquiring Deno to enhance its serverless computing platform, which is a strategic product expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Cloudflare is acquiring Deno to enhance its serverless computing platform, which is a strategic product expansion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cloudflare",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-051",
       "headline": "Bookoff, JR East each report 6 mil customer records leak in newest breach",
       "headline_en": null,
@@ -1878,56 +1927,6 @@
         },
         {
           "name": "East Japan Railway Company",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-018",
-      "headline": "Japan's Kobe Steel eyes India M&A to lift compressor production: executive",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/companies/japan-s-kobe-steel-eyes-india-m-a-to-lift-compressor-production-executive",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T01:21:11Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Kobe Steel is actively pursuing M&A in India to expand compressor production capacity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Kobe Steel is actively pursuing M&A in India to expand compressor production capacity.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kobe Steel",
           "ticker": null,
           "listing_country": "JP"
         }
@@ -210243,9 +210242,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11107524,
-    "news_picked_today": 300,
-    "news_dropped_today": 8388
+    "news_seen_today": 11142068,
+    "news_picked_today": 301,
+    "news_dropped_today": 8411
   },
   "book_momentum": {
     "live_count": 8,
