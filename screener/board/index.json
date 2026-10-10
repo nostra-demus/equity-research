@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T05:04:01Z",
+  "generated_at": "2026-10-10T05:05:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-073",
@@ -1647,6 +1647,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-091",
+      "headline": "Fairchem Organics Limited: board meeting 22-Oct-2026 — Financial Results",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/FAIRCHEMOR1_10102026103007_Intimation_Board_Meet_22102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-10T05:00:29Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The company has scheduled a board meeting to approve financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "The company has scheduled a board meeting to approve financial results.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fairchem Organics Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-084",
       "headline": "Adnoc secures Thailand LNG supply deal",
       "headline_en": null,
@@ -1833,56 +1882,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-083",
-      "headline": "EGA to receive first Guinea bauxite post-settlement",
-      "headline_en": null,
-      "url": "https://www.meed.com/ega-to-receive-first-shipment-of-guinean-bauxite-after-settlement",
-      "source_name": "MEED — UAE",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T04:36:51Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Emirates Global Aluminium is receiving its first shipment of Guinea bauxite following the settlement of a dispute.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Emirates Global Aluminium is receiving its first shipment of Guinea bauxite following the settlement of a dispute.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Emirates Global Aluminium",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210129,9 +210128,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4114608,
-    "news_picked_today": 103,
-    "news_dropped_today": 2681
+    "news_seen_today": 4136488,
+    "news_picked_today": 104,
+    "news_dropped_today": 2704
   },
   "book_momentum": {
     "live_count": 8,
