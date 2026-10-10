@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T20:56:29Z",
+  "generated_at": "2026-10-10T20:59:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -1287,6 +1287,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-207",
+      "headline": "Saudi Arabia Suspends Riyadh Airport Operations After Attack",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-10/saudi-arabia-suspends-operations-at-riyadh-airport-after-attack",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T16:47:10Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Suspension of airport operations due to an attack is a major operational and security disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Suspension of airport operations due to an attack is a major operational and security disruption.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Riyadh Airport",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-208",
+      "headline": "Saudi Arabia's King Khalid International Airport temporarily halts operations",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/gulf/saudi/saudi-arabias-king-khalid-international-airport-temporarily-halts-operations-1.500705951",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T16:46:56Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Temporary halt of operations at King Khalid International Airport due to security concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Temporary halt of operations at King Khalid International Airport due to security concerns.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 3,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "King Khalid International Airport",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-050",
       "headline": "‘I want to thank President Putin’, Trump says after agreeing to lift sanctions on Russian diesel – as it happened",
       "headline_en": null,
@@ -1775,104 +1873,6 @@
       "launched_signal_id": null,
       "triage_score": 93,
       "triage_reason": "Avenue Supermarts reported Q2 financial results, which are material for assessing the company's performance and analyst expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avenue Supermarts",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-144",
-      "headline": "Apple cuts iPhone 18 Pro orders due to soft demand",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/apple-cuts-iphone-18-pro-orders-due-to-soft-demand/article71567514.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T08:58:12Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Apple is reducing production orders for its iPhone 18 Pro due to weaker than expected consumer demand.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Apple is reducing production orders for its iPhone 18 Pro due to weaker than expected consumer demand.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-087",
-      "headline": "Avenue Supermarts (DMart) Q2 results live: Earnings, revenue, profit updates",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/avenue-supermarts-earnings-d-mart-q2-results-today-live-news-updates-10-october-2026/article71567080.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T04:32:56Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Avenue Supermarts is reporting Q2 earnings, which is a primary source event for financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Avenue Supermarts is reporting Q2 earnings, which is a primary source event for financial performance.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -210290,9 +210290,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12860914,
-    "news_picked_today": 445,
-    "news_dropped_today": 10739
+    "news_seen_today": 12877268,
+    "news_picked_today": 451,
+    "news_dropped_today": 10757
   },
   "book_momentum": {
     "live_count": 8,
