@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T03:59:18Z",
+  "generated_at": "2026-10-10T04:04:23Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-031",
@@ -129,6 +129,49 @@
       },
       "event_types": [
         "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-067",
+      "headline": "President Trump Hails 'Big Deal' With Putin On Russian Diesel Supplies As Zelenskyy Warns Sanctions Relief Could Prolong Ukraine War | Video",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/world/president-trump-hails-big-deal-with-putin-on-russian-diesel-supplies-as-zelenskyy-warns-sanctions-relief-could-prolong-ukraine-war-video",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T03:22:37Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "A potential deal between the US and Russia regarding diesel supplies and sanctions relief represents a major geopolitical shift with significant implications for global energy markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "A potential deal between the US and Russia regarding diesel supplies and sanctions relief represents a major geopolitical shift with significant implications for global energy markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -1833,55 +1876,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-014",
-      "headline": "Annu Projects Limited: Annu Projects Limited has informed the Exchange about General Updates regarding regarding the change of Corporate Identification Number (CIN) pursuant to listing of Equity shares at September 02, 2026.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ANNU2025_09102026124454_AnnouncementCINChangeListingStatus.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T07:15:56Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Annu Projects Limited updated its Corporate Identification Number following the listing of its equity shares.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Annu Projects Limited updated its Corporate Identification Number following the listing of its equity shares.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Annu Projects Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -168838,77 +168832,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-97e320120234",
-      "idea_version": "IDEAV-862b6f87de0fce2c",
-      "idea_version_started_at": "2026-10-08T16:19:11Z",
-      "ticker": "PCRX",
-      "company": "Pacira BioSciences",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Viatris is acquiring the company for $1.7 billion, providing a clear exit premium for shareholders.",
-      "why_now": "The buyout was announced on 2026-10-08.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-63c539c0fd3b"
-      ],
-      "primary_source_event_id": "EVT-63c539c0fd3b",
-      "source_headlines": [
-        "Viatris boosts pain drug portfolio with $1.7B buyout of Pacira"
-      ],
-      "source_headline": "Viatris boosts pain drug portfolio with $1.7B buyout of Pacira",
-      "source_url": "https://www.biopharmadive.com/news/viatris-pacira-acquire-pain-drug-zilretto-exparel/832481/",
-      "source_name": "BioPharma Dive",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T16:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T13:35:02Z",
-      "updated_at": "2026-10-08T16:19:11Z",
-      "decay_at": "2026-10-10T04:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-9a15ea504d7b",
       "idea_version": "IDEAV-5902d95c838a1182",
       "idea_version_started_at": "2026-10-10T03:44:38Z",
@@ -171410,6 +171333,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-97e320120234",
+      "idea_version": "IDEAV-862b6f87de0fce2c",
+      "idea_version_started_at": "2026-10-08T16:19:11Z",
+      "ticker": "PCRX",
+      "company": "Pacira BioSciences",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Viatris is acquiring the company for $1.7 billion, providing a clear exit premium for shareholders.",
+      "why_now": "The buyout was announced on 2026-10-08.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-63c539c0fd3b"
+      ],
+      "primary_source_event_id": "EVT-63c539c0fd3b",
+      "source_headlines": [
+        "Viatris boosts pain drug portfolio with $1.7B buyout of Pacira"
+      ],
+      "source_headline": "Viatris boosts pain drug portfolio with $1.7B buyout of Pacira",
+      "source_url": "https://www.biopharmadive.com/news/viatris-pacira-acquire-pain-drug-zilretto-exparel/832481/",
+      "source_name": "BioPharma Dive",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T16:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T13:35:02Z",
+      "updated_at": "2026-10-08T16:19:11Z",
+      "decay_at": "2026-10-10T04:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-4ba039a627fc",
       "idea_version": "IDEAV-efc4f2805b65c377",
       "idea_version_started_at": "2026-10-08T05:28:22Z",
@@ -172852,14 +172846,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 529,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       },
       "short": {
         "total_count": 263,
@@ -172883,6 +172877,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-97e320120234",
+        "idea_version": "IDEAV-862b6f87de0fce2c",
+        "idea_version_started_at": "2026-10-08T16:19:11Z",
+        "ticker": "PCRX",
+        "company": "Pacira BioSciences",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Viatris is acquiring the company for $1.7 billion, providing a clear exit premium for shareholders.",
+        "why_now": "The buyout was announced on 2026-10-08.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 60,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-63c539c0fd3b"
+        ],
+        "primary_source_event_id": "EVT-63c539c0fd3b",
+        "source_headlines": [
+          "Viatris boosts pain drug portfolio with $1.7B buyout of Pacira"
+        ],
+        "source_headline": "Viatris boosts pain drug portfolio with $1.7B buyout of Pacira",
+        "source_url": "https://www.biopharmadive.com/news/viatris-pacira-acquire-pain-drug-zilretto-exparel/832481/",
+        "source_name": "BioPharma Dive",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-08T16:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-08T13:35:02Z",
+        "updated_at": "2026-10-08T16:19:11Z",
+        "decay_at": "2026-10-10T04:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-10T04:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-c59cbad8d027",
         "idea_version": "IDEAV-84e3072f0ca2e2b5",
@@ -200732,81 +200800,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-1984ced61a06",
-        "idea_version": "IDEAV-696d0108e6efed2f",
-        "idea_version_started_at": "2026-09-27T04:44:42Z",
-        "ticker": "K30.SI",
-        "company": "Keppel Corporation Limited",
-        "exchange": "SGX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Keppel is in discussions regarding a potential deal for M1, which could represent a strategic acquisition.",
-        "why_now": "The discussions were reported on September 27, 2026.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-118137460992"
-        ],
-        "primary_source_event_id": "EVT-118137460992",
-        "source_headlines": [
-          "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week"
-        ],
-        "source_headline": "Keppel, Starhub discuss M1 deal; Grab execs buy shares after stock falls: Markets this week",
-        "source_url": "https://www.straitstimes.com/business/companies-markets/keppel-starhub-discuss-potential-m1-deal-grab-execs-buy-shares-after-stock-falls-markets-this-week",
-        "source_name": "The Straits Times",
-        "materiality_max": 91,
-        "newest_source_at": "2026-09-27T04:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T04:44:42Z",
-        "updated_at": "2026-09-27T04:44:42Z",
-        "decay_at": "2026-09-28T16:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T04:07:33Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-759cf3b531e6",
         "idea_version": "IDEAV-a1be9d10a405ae28",
         "idea_version_started_at": "2026-09-27T04:44:42Z",
@@ -210109,7 +210102,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1471,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210128,9 +210121,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3256098,
-    "news_picked_today": 69,
-    "news_dropped_today": 2043
+    "news_seen_today": 3324978,
+    "news_picked_today": 70,
+    "news_dropped_today": 2066
   },
   "book_momentum": {
     "live_count": 8,
