@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T03:54:16Z",
+  "generated_at": "2026-10-10T03:59:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-031",
@@ -1746,6 +1746,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-066",
+      "headline": "Oil and gas production disrupted as Hurricane Isaias barrels towards Gulf",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/f7d90625-0d78-44b2-927f-d63f4dbc5e8d?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T03:37:15Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Hurricane Isaias is causing supply disruptions to oil and gas production in the Gulf of Mexico.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "Hurricane Isaias is causing supply disruptions to oil and gas production in the Gulf of Mexico.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-038",
       "headline": "JR Kyushu lines fully restored 74 days after Kumamoto quake in late July",
       "headline_en": null,
@@ -1834,55 +1877,6 @@
       "companies": [
         {
           "name": "Annu Projects Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-034",
-      "headline": "RITES Limited: RITES Limited has informed the Exchange about ESG Rating assigned by CRISIL ESG Ratings & Analytics Limited",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/RITES_09102026124055_CRISIL_Intimation_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T07:15:38Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "The company received an ESG rating, which is a standard disclosure and not a material financial event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "The company received an ESG rating, which is a standard disclosure and not a material financial event.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "RITES Limited",
           "ticker": null,
           "listing_country": "IN"
         }
@@ -210134,9 +210128,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3210094,
-    "news_picked_today": 65,
-    "news_dropped_today": 1999
+    "news_seen_today": 3256098,
+    "news_picked_today": 69,
+    "news_dropped_today": 2043
   },
   "book_momentum": {
     "live_count": 8,
