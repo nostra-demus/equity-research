@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T00:58:36Z",
+  "generated_at": "2026-10-10T01:02:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-002",
@@ -310,6 +310,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-009",
+      "headline": "CCE: Change of Director's Interest Notice",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CCE?key=2924-03146763-6A1348566",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T07:18:05Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Routine disclosure of a change in a director's interest in the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 46,
+      "triage_reason": "Routine disclosure of a change in a director's interest in the company.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carnegie Clean Energy",
+          "ticker": "CCE",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208948,7 +208997,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3415,
+    "inbox_unconsumed": 3416,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -208957,9 +209006,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 821477,
-    "news_picked_today": 8,
-    "news_dropped_today": 472
+    "news_seen_today": 893441,
+    "news_picked_today": 9,
+    "news_dropped_today": 591
   },
   "book_momentum": {
     "live_count": 8,
