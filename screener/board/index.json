@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T13:27:53Z",
+  "generated_at": "2026-10-10T14:15:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -95,6 +95,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-171",
+      "headline": "PepsiCo cuts outlook as its home-market problem deepens",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/pepsico-cuts-outlook-as-its-home-market-problem-deepens",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T14:08:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "PepsiCo cut its full-year outlook due to weakening performance in its home market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PepsiCo cut its full-year outlook due to weakening performance in its home market.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PepsiCo",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-173",
+      "headline": "D-Mart Q2 Results: Profit Rises 8.5% To ₹743 Cr",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/d-mart-q2-results-profit-rises-85-to-743-cr",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T12:45:04Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "D-Mart reported a Q2 profit of ₹743 Cr, an 8.5% increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "D-Mart reported a Q2 profit of ₹743 Cr, an 8.5% increase.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avenue Supermarts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -968,6 +1066,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-174",
+      "headline": "Signatureglobal (India) Limited: Signatureglobal (India) Limited has informed the Exchange regarding a press release dated October 10, 2026, titled \"Signature Global Reports Pre-Sales of INR 18.3 Billion in Q2FY27; Collections Jump 51% QoQ to INR 10.1 Billion\".",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SGLOBAL_10102026185842_PressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-10T13:29:18Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Signatureglobal reported Q2 pre-sales of INR 18.3 Billion and a 51% QoQ jump in collections.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Signatureglobal reported Q2 pre-sales of INR 18.3 Billion and a 51% QoQ jump in collections.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Signatureglobal (India) Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-107",
       "headline": "Akme Fintrade (India) Limited: Akme Fintrade (India) Limited has informed the Exchange about issue of 50 Crores Non Convertible Debentures (NCD).",
       "headline_en": null,
@@ -1786,153 +1933,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-090",
-      "headline": "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/AVANTEL_10102026101310_OrderIntimation10102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-10T04:43:39Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Avantel Limited announced the receipt of new orders/contracts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Avantel Limited announced the receipt of new orders/contracts.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avantel Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-023",
-      "headline": "TDK weighs sale of hard-drive head unit, but regulatory OK uncertain",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/business-deals/tdk-weighs-sale-of-hard-drive-head-unit-but-regulatory-ok-uncertain",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T01:21:11Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "TDK is exploring the potential sale of its hard-drive head unit, though regulatory hurdles remain.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "TDK is exploring the potential sale of its hard-drive head unit, though regulatory hurdles remain.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TDK",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-167",
-      "headline": "Flydubai Hijack Attempt: NIA Files FIR Under Anti-Hijacking Act, UAPA; Probes Terror Conspiracy",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/india/flydubai-hijack-attempt-nia-files-fir-under-anti-hijacking-act-uapa-probes-terror-conspiracy",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T12:07:09Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "The NIA has filed an FIR regarding a hijack attempt involving Flydubai, indicating a significant security and operational risk event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "The NIA has filed an FIR regarding a hijack attempt involving Flydubai, indicating a significant security and operational risk event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Flydubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169978,78 +169978,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-cb6310225f0b",
-      "idea_version": "IDEAV-8cb611a3f82876e7",
-      "idea_version_started_at": "2026-10-09T06:05:27Z",
-      "ticker": "8141",
-      "company": "Shinko Shoji Co., Ltd.",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The Tokyo Stock Exchange has initiated delisting procedures for the company, signaling severe financial or governance distress.",
-      "why_now": "The official delisting decision was announced on 2026-10-09.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-50dc8f12dfe2"
-      ],
-      "primary_source_event_id": "EVT-50dc8f12dfe2",
-      "source_headlines": [
-        "[TSE]Decision on Delisting, etc.: Shinko Shoji Co.,Ltd."
-      ],
-      "source_headline": "[TSE]Decision on Delisting, etc.: Shinko Shoji Co.,Ltd.",
-      "source_url": "https://www.jpx.co.jp/english/news/1023/20261009-11.html",
-      "source_name": "Japan Exchange Group (JPX) — Market News",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T02:05:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T06:05:27Z",
-      "updated_at": "2026-10-09T06:05:27Z",
-      "decay_at": "2026-10-10T14:05:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3060680a62c4",
       "idea_version": "IDEAV-0df0bbb86ffb0f4c",
       "idea_version_started_at": "2026-10-10T13:14:35Z",
@@ -170473,77 +170401,6 @@
       "surfaced_at": "2026-10-10T08:29:45Z",
       "updated_at": "2026-10-10T08:29:45Z",
       "decay_at": "2026-10-11T18:05:29Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-1d2ec78f4706",
-      "idea_version": "IDEAV-bbff5588962bcb2a",
-      "idea_version_started_at": "2026-10-09T05:42:02Z",
-      "ticker": "BEML",
-      "company": "BEML Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has secured a new commercial contract, which directly bolsters its order backlog and future revenue recognition.",
-      "why_now": "The exchange filing on 2026-10-09 confirms the award, providing immediate fundamental support.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-8a1f9dedaa84"
-      ],
-      "primary_source_event_id": "EVT-8a1f9dedaa84",
-      "source_headlines": [
-        "BEML Limited: BEML Limited has informed the Exchange about Awarding of order(s)/contract(s)"
-      ],
-      "source_headline": "BEML Limited: BEML Limited has informed the Exchange about Awarding of order(s)/contract(s)",
-      "source_url": "https://nsearchives.nseindia.com/corporate/BEML_09102026071209_intimation_nse_signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 90,
-      "newest_source_at": "2026-10-09T01:42:58Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T05:42:02Z",
-      "updated_at": "2026-10-09T05:42:02Z",
-      "decay_at": "2026-10-10T13:42:58Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171895,6 +171752,78 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-cb6310225f0b",
+      "idea_version": "IDEAV-8cb611a3f82876e7",
+      "idea_version_started_at": "2026-10-09T06:05:27Z",
+      "ticker": "8141",
+      "company": "Shinko Shoji Co., Ltd.",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Tokyo Stock Exchange has initiated delisting procedures for the company, signaling severe financial or governance distress.",
+      "why_now": "The official delisting decision was announced on 2026-10-09.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-50dc8f12dfe2"
+      ],
+      "primary_source_event_id": "EVT-50dc8f12dfe2",
+      "source_headlines": [
+        "[TSE]Decision on Delisting, etc.: Shinko Shoji Co.,Ltd."
+      ],
+      "source_headline": "[TSE]Decision on Delisting, etc.: Shinko Shoji Co.,Ltd.",
+      "source_url": "https://www.jpx.co.jp/english/news/1023/20261009-11.html",
+      "source_name": "Japan Exchange Group (JPX) — Market News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-09T02:05:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T06:05:27Z",
+      "updated_at": "2026-10-09T06:05:27Z",
+      "decay_at": "2026-10-10T14:05:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-abba7b974651",
       "idea_version": "IDEAV-1abbc0066baafdd2",
       "idea_version_started_at": "2026-10-08T22:59:17Z",
@@ -172895,6 +172824,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": true
+    },
+    {
+      "idea_id": "IDEA-1d2ec78f4706",
+      "idea_version": "IDEAV-bbff5588962bcb2a",
+      "idea_version_started_at": "2026-10-09T05:42:02Z",
+      "ticker": "BEML",
+      "company": "BEML Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has secured a new commercial contract, which directly bolsters its order backlog and future revenue recognition.",
+      "why_now": "The exchange filing on 2026-10-09 confirms the award, providing immediate fundamental support.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-8a1f9dedaa84"
+      ],
+      "primary_source_event_id": "EVT-8a1f9dedaa84",
+      "source_headlines": [
+        "BEML Limited: BEML Limited has informed the Exchange about Awarding of order(s)/contract(s)"
+      ],
+      "source_headline": "BEML Limited: BEML Limited has informed the Exchange about Awarding of order(s)/contract(s)",
+      "source_url": "https://nsearchives.nseindia.com/corporate/BEML_09102026071209_intimation_nse_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 90,
+      "newest_source_at": "2026-10-09T01:42:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T05:42:02Z",
+      "updated_at": "2026-10-09T05:42:02Z",
+      "decay_at": "2026-10-10T13:42:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     }
   ],
   "ideas_archive": {
@@ -172907,19 +172907,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 266,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 17
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -172938,6 +172938,155 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-cb6310225f0b",
+        "idea_version": "IDEAV-8cb611a3f82876e7",
+        "idea_version_started_at": "2026-10-09T06:05:27Z",
+        "ticker": "8141",
+        "company": "Shinko Shoji Co., Ltd.",
+        "exchange": "TSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The Tokyo Stock Exchange has initiated delisting procedures for the company, signaling severe financial or governance distress.",
+        "why_now": "The official delisting decision was announced on 2026-10-09.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-50dc8f12dfe2"
+        ],
+        "primary_source_event_id": "EVT-50dc8f12dfe2",
+        "source_headlines": [
+          "[TSE]Decision on Delisting, etc.: Shinko Shoji Co.,Ltd."
+        ],
+        "source_headline": "[TSE]Decision on Delisting, etc.: Shinko Shoji Co.,Ltd.",
+        "source_url": "https://www.jpx.co.jp/english/news/1023/20261009-11.html",
+        "source_name": "Japan Exchange Group (JPX) — Market News",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-09T02:05:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-09T06:05:27Z",
+        "updated_at": "2026-10-09T06:05:27Z",
+        "decay_at": "2026-10-10T14:05:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-10T14:05:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-1d2ec78f4706",
+        "idea_version": "IDEAV-bbff5588962bcb2a",
+        "idea_version_started_at": "2026-10-09T05:42:02Z",
+        "ticker": "BEML",
+        "company": "BEML Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has secured a new commercial contract, which directly bolsters its order backlog and future revenue recognition.",
+        "why_now": "The exchange filing on 2026-10-09 confirms the award, providing immediate fundamental support.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 15,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-8a1f9dedaa84"
+        ],
+        "primary_source_event_id": "EVT-8a1f9dedaa84",
+        "source_headlines": [
+          "BEML Limited: BEML Limited has informed the Exchange about Awarding of order(s)/contract(s)"
+        ],
+        "source_headline": "BEML Limited: BEML Limited has informed the Exchange about Awarding of order(s)/contract(s)",
+        "source_url": "https://nsearchives.nseindia.com/corporate/BEML_09102026071209_intimation_nse_signed.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 90,
+        "newest_source_at": "2026-10-09T01:42:58Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-09T05:42:02Z",
+        "updated_at": "2026-10-09T05:42:02Z",
+        "decay_at": "2026-10-10T13:42:58Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-10T13:42:58Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-9252653c3692",
         "idea_version": "IDEAV-290b92d4608851ec",
@@ -200626,79 +200775,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-888b01b644ef",
-        "idea_version": "IDEAV-2b246912960862a3",
-        "idea_version_started_at": "2026-09-27T10:13:26Z",
-        "ticker": "RIOT",
-        "company": "Riot Platforms",
-        "exchange": "NASDAQ",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Repaying $200 million in debt and releasing collateral improves the company's balance sheet flexibility and reduces interest expense, lowering its financial risk profile.",
-        "why_now": "The debt repayment was confirmed on 2026-09-27, signaling an immediate improvement in liquidity.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 16,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-7298605bbe21"
-        ],
-        "primary_source_event_id": "EVT-7298605bbe21",
-        "source_headlines": [
-          "Riot Platforms repays $200M credit facility, releases collateral"
-        ],
-        "source_headline": "Riot Platforms repays $200M credit facility, releases collateral",
-        "source_url": "https://cointelegraph.com/news/riot-platforms-repays-200m-credit-facility-releases-collateral?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-        "source_name": "Cointelegraph",
-        "materiality_max": 89,
-        "newest_source_at": "2026-09-27T09:57:19Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T10:13:26Z",
-        "updated_at": "2026-09-27T10:13:26Z",
-        "decay_at": "2026-09-28T21:57:19Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T10:14:48Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-8b18351c452b",
         "idea_version": "IDEAV-74cc105ed3b65696",
         "idea_version_started_at": "2026-09-27T09:54:29Z",
@@ -210069,88 +210145,12 @@
         "archived_at": "2026-09-17T09:58:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-d671968eea99",
-        "idea_version": "IDEAV-fb87869fb0ffed48",
-        "idea_version_started_at": "2026-09-13T18:51:17Z",
-        "ticker": "8190",
-        "company": "United Cooperative Assurance",
-        "exchange": "TADAWUL",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The Riyadh court has formally accepted an application for the company's liquidation, signaling a total loss of equity value for shareholders.",
-        "why_now": "The court's acceptance of the liquidation application was announced on 2026-09-13.",
-        "conviction": 95,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "balance_sheet_survival",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-c4188219bded"
-        ],
-        "primary_source_event_id": "EVT-c4188219bded",
-        "source_headlines": [
-          "‎Riyadh court accepts application for UCA’s liquidation proceedings"
-        ],
-        "source_headline": "‎Riyadh court accepts application for UCA’s liquidation proceedings",
-        "source_url": "https://www.argaam.com/en/article/articledetail/id/1936041",
-        "source_name": "Argaam — Main News (English)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T17:29:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T18:51:17Z",
-        "updated_at": "2026-09-13T18:51:17Z",
-        "decay_at": "2026-09-15T05:29:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1481,
-    "live_count": 39,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210169,9 +210169,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9475298,
-    "news_picked_today": 268,
-    "news_dropped_today": 6740
+    "news_seen_today": 10002044,
+    "news_picked_today": 274,
+    "news_dropped_today": 7238
   },
   "book_momentum": {
     "live_count": 8,
