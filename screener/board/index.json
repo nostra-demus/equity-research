@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T11:07:42Z",
+  "generated_at": "2026-10-10T11:26:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -1790,6 +1790,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-162",
+      "headline": "Nat Habit raises ₹142 crore in a Series C funding round led by Trident Growth Partners",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/nat-habit-raises-142-crore-in-a-series-c-funding-round-led-by-trident-growth-partners/article71567824.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T11:13:08Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Nat Habit raised 142 crore in Series C funding, indicating growth capital injection.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Nat Habit raised 142 crore in Series C funding, indicating growth capital injection.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nat Habit",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-155",
       "headline": "Palestinian groups urge int'l action against prisoner death penalty law",
       "headline_en": null,
@@ -1848,49 +1897,6 @@
       "triage_score": 86,
       "triage_reason": "India has implemented new restrictions on dollar demand to defend the rupee, indicating significant currency pressure and policy intervention.",
       "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-011",
-      "headline": "US hits International Criminal Court with sweeping sanctions as part of drive to dismantle tribunal",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20261010/p2g/00m/0in/004000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T01:00:08Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "The US imposing sanctions on the International Criminal Court represents a significant geopolitical escalation and regulatory risk for international legal frameworks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "The US imposing sanctions on the International Criminal Court represents a significant geopolitical escalation and regulatory risk for international legal frameworks.",
-      "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -210083,9 +210089,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8095502,
-    "news_picked_today": 244,
-    "news_dropped_today": 5492
+    "news_seen_today": 8311566,
+    "news_picked_today": 245,
+    "news_dropped_today": 5659
   },
   "book_momentum": {
     "live_count": 8,
