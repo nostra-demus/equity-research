@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T13:03:53Z",
+  "generated_at": "2026-10-10T13:15:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -168332,6 +168332,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0c529d942ea8",
+      "idea_version": "IDEAV-1dbda0fa72470143",
+      "idea_version_started_at": "2026-10-10T13:14:35Z",
+      "ticker": "GOOGL",
+      "company": "Alphabet Inc.",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Alphabet reported 82% growth in cloud revenue to $24.8 billion, signaling that its cloud segment is becoming a primary growth engine that could drive multiple expansion.",
+      "why_now": "The revenue figures were reported on October 10, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 67,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-36939d86961e"
+      ],
+      "primary_source_event_id": "EVT-36939d86961e",
+      "source_headlines": [
+        "Sundar Pichai Reported Alphabet's Cloud Revenue Grew 82% to $24.8 Billion Last Quarter, With the Gemini App Reaching 950 Million Monthly Users. Is Google Cloud Becoming a Bigger Growth Driver Than Search?"
+      ],
+      "source_headline": "Sundar Pichai Reported Alphabet's Cloud Revenue Grew 82% to $24.8 Billion Last Quarter, With the Gemini App Reaching 950 Million Monthly Users. Is Google Cloud Becoming a Bigger Growth Driver Than Search?",
+      "source_url": "https://www.nasdaq.com/articles/sundar-pichai-reported-alphabets-cloud-revenue-grew-82-248-billion-last-quarter-gemini-app",
+      "source_name": "Nasdaq",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-10T09:49:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T13:14:35Z",
+      "updated_at": "2026-10-10T13:14:35Z",
+      "decay_at": "2026-10-11T21:49:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1a38d7aae72f",
       "idea_version": "IDEAV-d488798321a83992",
       "idea_version_started_at": "2026-10-10T00:19:59Z",
@@ -168543,16 +168613,16 @@
     },
     {
       "idea_id": "IDEA-0448efa62005",
-      "idea_version": "IDEAV-7ee6d2c60eb4072e",
-      "idea_version_started_at": "2026-10-09T09:10:35Z",
+      "idea_version": "IDEAV-13728e6a91cbd6d2",
+      "idea_version_started_at": "2026-10-10T13:14:35Z",
       "ticker": "AAPL",
-      "company": "Apple",
+      "company": "Apple Inc.",
       "exchange": "NASDAQ",
       "direction": "short",
       "pair_with": null,
-      "reason": "A reduction in iPhone 18 Pro production orders indicates weaker-than-expected consumer demand, which will negatively impact revenue and margins for the hardware segment.",
-      "why_now": "The report of order cuts surfaced on 2026-10-09.",
-      "conviction": 70,
+      "reason": "A reduction in iPhone 18 Pro production orders indicates weaker-than-expected consumer demand, which will negatively impact near-term revenue and margin expectations.",
+      "why_now": "The report of order cuts surfaced on October 10, 2026.",
+      "conviction": 65,
       "conviction_basis": "pre_edge_proxy",
       "trade_score": 65,
       "trade_score_basis": "event_driven_v3",
@@ -168586,17 +168656,17 @@
       "origin_type": "wire",
       "source_themes": [],
       "source_event_ids": [
-        "EVT-cc178822e460"
+        "EVT-1e6cffb4cec4"
       ],
-      "primary_source_event_id": "EVT-cc178822e460",
+      "primary_source_event_id": "EVT-1e6cffb4cec4",
       "source_headlines": [
-        "Apple cuts iPhone 18 Pro orders due to soft demand, Nikkei Asia reports"
+        "Apple cuts iPhone 18 Pro orders due to soft demand"
       ],
-      "source_headline": "Apple cuts iPhone 18 Pro orders due to soft demand, Nikkei Asia reports",
-      "source_url": "https://www.reuters.com/business/retail-consumer/apple-cuts-iphone-18-pro-orders-due-soft-demand-nikkei-asia-reports-2026-10-09/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T06:05:45Z",
+      "source_headline": "Apple cuts iPhone 18 Pro orders due to soft demand",
+      "source_url": "https://www.thehindubusinessline.com/info-tech/apple-cuts-iphone-18-pro-orders-due-to-soft-demand/article71567514.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 93,
+      "newest_source_at": "2026-10-10T08:58:12Z",
       "prior_coverage": {
         "has_run": false,
         "latest_run": null,
@@ -168604,8 +168674,8 @@
         "data_pool_present": false
       },
       "surfaced_at": "2026-10-09T09:10:35Z",
-      "updated_at": "2026-10-09T09:10:35Z",
-      "decay_at": "2026-10-10T18:05:45Z",
+      "updated_at": "2026-10-10T13:14:35Z",
+      "decay_at": "2026-10-11T20:58:12Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -168746,6 +168816,77 @@
       "surfaced_at": "2026-10-10T03:44:38Z",
       "updated_at": "2026-10-10T03:44:38Z",
       "decay_at": "2026-10-11T13:21:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-1a9e59915c16",
+      "idea_version": "IDEAV-3ebc623c9db33d1a",
+      "idea_version_started_at": "2026-10-10T13:14:35Z",
+      "ticker": "VIVIANA",
+      "company": "Viviana Power Tech Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured a significant turnkey contract worth Rs 466.7 crore, which provides a clear boost to its order book and future revenue visibility.",
+      "why_now": "The contract was officially disclosed in an exchange filing on October 10, 2026.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1238fd222825"
+      ],
+      "primary_source_event_id": "EVT-1238fd222825",
+      "source_headlines": [
+        "Viviana Power Tech Limited: Viviana Power Tech Limited has informed the Exchange about receiving a new turnkey contract aggregating to Rs. 466,73,61,738.00 (Rupees Four Hundred Sixty-Six Crore Seventy-Three Lakh Sixty-One Thousand Seven Hundred Thirty-Eight Only), inclusive of taxes, from existing client M/s. Madhya Gujarat Vij Company Limited (MGVCL)."
+      ],
+      "source_headline": "Viviana Power Tech Limited: Viviana Power Tech Limited has informed the Exchange about receiving a new turnkey contract aggregating to Rs. 466,73,61,738.00 (Rupees Four Hundred Sixty-Six Crore Seventy-Three Lakh Sixty-One Thousand Seven Hundred Thirty-Eight Only), inclusive of taxes, from existing client M/s. Madhya Gujarat Vij Company Limited (MGVCL).",
+      "source_url": "https://nsearchives.nseindia.com/corporate/VIVIANA_10102026133007_VIVIANA__Intimation_of_Receiving_Order_MGVCL_10102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-10T08:00:22Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T13:14:35Z",
+      "updated_at": "2026-10-10T13:14:35Z",
+      "decay_at": "2026-10-11T20:00:22Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -169973,6 +170114,148 @@
       "surfaced_at": "2026-10-09T06:05:27Z",
       "updated_at": "2026-10-09T06:05:27Z",
       "decay_at": "2026-10-10T14:05:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3060680a62c4",
+      "idea_version": "IDEAV-0df0bbb86ffb0f4c",
+      "idea_version_started_at": "2026-10-10T13:14:35Z",
+      "ticker": "KEC",
+      "company": "KEC International Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured new transmission and distribution orders worth Rs 1,014 crore, strengthening its project pipeline.",
+      "why_now": "The order win was disclosed in an exchange filing on October 10, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9356d4c5d54e"
+      ],
+      "primary_source_event_id": "EVT-9356d4c5d54e",
+      "source_headlines": [
+        "KEC International Limited: KEC Secures New T&D Orders of Rs. 1,014 crores in India"
+      ],
+      "source_headline": "KEC International Limited: KEC Secures New T&D Orders of Rs. 1,014 crores in India",
+      "source_url": "https://nsearchives.nseindia.com/corporate/KEC_10102026144951_PressRelease.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 96,
+      "newest_source_at": "2026-10-10T09:20:44Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T19:43:19Z",
+      "updated_at": "2026-10-10T13:14:35Z",
+      "decay_at": "2026-10-11T21:20:44Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-e708b709e5cc",
+      "idea_version": "IDEAV-7abc0febf61e7c39",
+      "idea_version_started_at": "2026-10-10T13:14:35Z",
+      "ticker": "SHILPAMED",
+      "company": "Shilpa Medicare Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The receipt of Europe GMP approval for the Jadcherla unit allows the company to export pharmaceutical products to the European market, expanding its addressable revenue base.",
+      "why_now": "The approval was announced via an exchange filing on October 10, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-37996e1a05dd"
+      ],
+      "primary_source_event_id": "EVT-37996e1a05dd",
+      "source_headlines": [
+        "Shilpa Medicare Limited: Shilpa Medicare Limited has informed the Exchange about \"Europe GMP Approval of Shilpa Medicare Ltd. Unit 4, Jadcherla, Telangana.\""
+      ],
+      "source_headline": "Shilpa Medicare Limited: Shilpa Medicare Limited has informed the Exchange about \"Europe GMP Approval of Shilpa Medicare Ltd. Unit 4, Jadcherla, Telangana.\"",
+      "source_url": "https://nsearchives.nseindia.com/corporate/SHILPAMED_10102026131737_Intimationagisgmp.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 93,
+      "newest_source_at": "2026-10-10T07:48:03Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T13:14:35Z",
+      "updated_at": "2026-10-10T13:14:35Z",
+      "decay_at": "2026-10-11T19:48:03Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171254,76 +171537,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-850cc3e2123d",
-      "idea_version": "IDEAV-f1b28979f3548f01",
-      "idea_version_started_at": "2026-10-07T20:26:28Z",
-      "ticker": "CVE",
-      "company": "Cenovus Energy Inc.",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "Cenovus is acquiring Athabasca Oil for $4B, which expands its oil sands asset base and increases production capacity.",
-      "why_now": "The deal was announced today, October 7, 2026, providing an immediate catalyst for consolidation in the energy sector.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5d88a5fea193"
-      ],
-      "primary_source_event_id": "EVT-5d88a5fea193",
-      "source_headlines": [
-        "Cenovus to Buy Athabasca in Deal Worth $4B"
-      ],
-      "source_headline": "Cenovus to Buy Athabasca in Deal Worth $4B",
-      "source_url": "https://www.rigzone.com/news/cenovus_to_buy_athabasca_in_deal_worth_4b-07-oct-2026-184791-article/?rss=true",
-      "source_name": "Rigzone",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-07T11:38:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T20:26:28Z",
-      "updated_at": "2026-10-07T20:26:28Z",
-      "decay_at": "2026-10-08T23:38:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-ebfbd0cbbc7c",
       "idea_version": "IDEAV-a458d90141a3fd2e",
       "idea_version_started_at": "2026-10-09T00:14:06Z",
@@ -171537,76 +171750,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-e0fd057ceca0",
-      "idea_version": "IDEAV-9883cb5211945f80",
-      "idea_version_started_at": "2026-10-07T20:55:35Z",
-      "ticker": "ADTX",
-      "company": "Aditxt, Inc.",
-      "exchange": "OTC Markets",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has received a delisting notification from the exchange, signaling severe distress and potential loss of liquidity.",
-      "why_now": "The SEC filing was processed today, October 7, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 60,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e2c49687f5e4"
-      ],
-      "primary_source_event_id": "EVT-e2c49687f5e4",
-      "source_headlines": [
-        "25-NSE - Aditxt, Inc. (0001726711) (Subject)"
-      ],
-      "source_headline": "25-NSE - Aditxt, Inc. (0001726711) (Subject)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1726711/000135445726000962/0001354457-26-000962-index.htm",
-      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-07T13:08:14Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T20:55:35Z",
-      "updated_at": "2026-10-07T20:55:35Z",
-      "decay_at": "2026-10-09T01:08:14Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-2e6c75dccccc",
       "idea_version": "IDEAV-ab7b55e2c36052ff",
       "idea_version_started_at": "2026-10-10T00:19:59Z",
@@ -171673,77 +171816,6 @@
       "surfaced_at": "2026-10-08T21:44:30Z",
       "updated_at": "2026-10-10T00:19:59Z",
       "decay_at": "2026-10-10T08:54:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-3060680a62c4",
-      "idea_version": "IDEAV-1640e8d9508a4ad1",
-      "idea_version_started_at": "2026-10-09T23:48:51Z",
-      "ticker": "KEC",
-      "company": "KEC International Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "KEC International won new orders totaling Rs. 1,030 crores, which will contribute positively to its revenue and order book.",
-      "why_now": "The new orders were announced yesterday, October 8, 2026, providing a fresh catalyst for the company's future performance.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-90f1e6d6110c"
-      ],
-      "primary_source_event_id": "EVT-90f1e6d6110c",
-      "source_headlines": [
-        "KEC International Limited: KEC International wins New Orders of Rs. 1,030 crores"
-      ],
-      "source_headline": "KEC International Limited: KEC International wins New Orders of Rs. 1,030 crores",
-      "source_url": "https://nsearchives.nseindia.com/corporate/KEC_08102026205717_PressRelease.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T15:27:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T19:43:19Z",
-      "updated_at": "2026-10-09T23:48:51Z",
-      "decay_at": "2026-10-10T03:27:48Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -172835,33 +172907,33 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 527,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 27,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 15
       },
       "short": {
-        "total_count": 263,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 12
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 911,
-      "oldest_retained_at": "2026-09-14T03:03:10Z",
+      "evicted_count": 913,
+      "oldest_retained_at": "2026-09-14T04:16:27Z",
       "side_counts": {
         "long": {
-          "evicted_count": 608,
+          "evicted_count": 609,
           "oldest_retained_at": "2026-09-27T07:41:40Z"
         },
         "short": {
-          "evicted_count": 303,
-          "oldest_retained_at": "2026-09-14T03:03:10Z"
+          "evicted_count": 304,
+          "oldest_retained_at": "2026-09-14T04:16:27Z"
         }
       }
     },
@@ -173675,80 +173747,6 @@
         "feedback": null,
         "stale": true,
         "archived_at": "2026-10-10T03:45:44Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-3060680a62c4",
-        "idea_version": "IDEAV-1640e8d9508a4ad1",
-        "idea_version_started_at": "2026-10-09T23:48:51Z",
-        "ticker": "KEC",
-        "company": "KEC International Limited",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "KEC International won new orders totaling Rs. 1,030 crores, which will contribute positively to its revenue and order book.",
-        "why_now": "The new orders were announced yesterday, October 8, 2026, providing a fresh catalyst for the company's future performance.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-90f1e6d6110c"
-        ],
-        "primary_source_event_id": "EVT-90f1e6d6110c",
-        "source_headlines": [
-          "KEC International Limited: KEC International wins New Orders of Rs. 1,030 crores"
-        ],
-        "source_headline": "KEC International Limited: KEC International wins New Orders of Rs. 1,030 crores",
-        "source_url": "https://nsearchives.nseindia.com/corporate/KEC_08102026205717_PressRelease.pdf",
-        "source_name": "BSE / NSE Exchange Filing",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-08T15:27:48Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-08T19:43:19Z",
-        "updated_at": "2026-10-09T23:48:51Z",
-        "decay_at": "2026-10-10T03:27:48Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T03:27:48Z",
         "archive_reason": "expired",
         "audit_only": true
       },
@@ -175007,8 +175005,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-09T01:08:14Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-10T13:14:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -175080,8 +175078,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-08T23:38:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-10T13:14:51Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -200703,6 +200701,81 @@
         "audit_only": true
       },
       {
+        "idea_id": "IDEA-86d9ffa1d53a",
+        "idea_version": "IDEAV-593e260e415fa823",
+        "idea_version_started_at": "2026-09-27T09:14:56Z",
+        "ticker": "2222.SR",
+        "company": "Saudi Aramco",
+        "exchange": "Tadawul",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The creation of a dedicated gas unit signals a strategic pivot to capture higher margins from the growing global demand for liquefied natural gas and domestic industrial gas expansion.",
+        "why_now": "The report of hiring advisers indicates the formal initiation of the restructuring process as of September 27, 2026.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-37c18310533d"
+        ],
+        "primary_source_event_id": "EVT-37c18310533d",
+        "source_headlines": [
+          "‎Saudi Aramco reportedly hires adviser to set up gas unit"
+        ],
+        "source_headline": "‎Saudi Aramco reportedly hires adviser to set up gas unit",
+        "source_url": "https://www.argaam.com/en/article/articledetail/id/1939206",
+        "source_name": "Argaam — Main News (English)",
+        "materiality_max": 93,
+        "newest_source_at": "2026-09-27T09:16:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T09:14:56Z",
+        "updated_at": "2026-09-27T09:14:56Z",
+        "decay_at": "2026-09-28T21:14:56Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-30T09:32:54Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
         "idea_id": "IDEA-6c58cb4974e1",
         "idea_version": "IDEAV-79e979236eccb460",
         "idea_version_started_at": "2026-09-27T08:58:59Z",
@@ -210078,8 +210151,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1478,
-    "live_count": 36,
+    "surfaced_total": 1481,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210098,9 +210171,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9253264,
+    "news_seen_today": 9346751,
     "news_picked_today": 264,
-    "news_dropped_today": 6552
+    "news_dropped_today": 6624
   },
   "book_momentum": {
     "live_count": 8,
