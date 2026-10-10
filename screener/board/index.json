@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T08:30:08Z",
+  "generated_at": "2026-10-10T08:36:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-106",
@@ -1753,6 +1753,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-136",
+      "headline": "Heritage Foods Limited: Heritage Foods Limited has informed the Exchange regarding 'Update on acquisition of 5.60% equity share capital of Heritage Novandie Foods Limited'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/HERITGFOOD_10102026130500_Update.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-10T07:35:41Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Heritage Foods is increasing its stake in its subsidiary Heritage Novandie Foods by 5.60%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Heritage Foods is increasing its stake in its subsidiary Heritage Novandie Foods by 5.60%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Heritage Foods Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-134",
       "headline": "RBI's rupee defence: Special dollar window for oil firms, tighter forex derivative rules",
       "headline_en": null,
@@ -1830,49 +1879,6 @@
       },
       "event_types": [
         "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-097",
-      "headline": "Nord Stream trial: How German police followed the evidence - to Ukraine",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/c317ke5ngrq7o?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — World",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T04:51:57Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "German police investigation links the Nord Stream sabotage to Ukraine, potentially escalating geopolitical tensions and energy security concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "German police investigation links the Nord Stream sabotage to Ukraine, potentially escalating geopolitical tensions and energy security concerns.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -210262,9 +210268,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6494563,
-    "news_picked_today": 179,
-    "news_dropped_today": 4261
+    "news_seen_today": 6543549,
+    "news_picked_today": 184,
+    "news_dropped_today": 4304
   },
   "book_momentum": {
     "live_count": 8,
