@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T00:20:24Z",
+  "generated_at": "2026-10-10T00:24:39Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-002",
@@ -40,6 +40,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-003",
+      "headline": "‘We have all of those elements’ in India, says BP CEO Meg O’Neill as firm weighs oil and gas bids under Samudra Manthan scheme",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/we-have-all-of-those-elements-in-india-says-bp-ceo-meg-oneill-as-firm-weighs-oil-and-gas-bids-under-samudra-manthan-scheme/articleshow/134841254.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Woodside Energy CEO Meg O'Neill confirmed the company is evaluating oil and gas bids in India under the Samudra Manthan scheme.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 63,
+      "triage_reason": "Woodside Energy CEO Meg O'Neill confirmed the company is evaluating oil and gas bids in India under the Samudra Manthan scheme.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Woodside Energy",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -208677,7 +208726,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3409,
+    "inbox_unconsumed": 3410,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -208686,9 +208735,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 266602,
-    "news_picked_today": 2,
-    "news_dropped_today": 190
+    "news_seen_today": 339238,
+    "news_picked_today": 3,
+    "news_dropped_today": 213
   },
   "book_momentum": {
     "live_count": 8,
