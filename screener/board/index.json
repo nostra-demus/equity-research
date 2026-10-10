@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-10T08:59:34Z",
+  "generated_at": "2026-10-10T09:02:22Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261010-143",
+      "headline": "Viviana Power Tech Limited: Viviana Power Tech Limited has informed the Exchange about receiving a new turnkey contract aggregating to Rs. 466,73,61,738.00 (Rupees Four Hundred Sixty-Six Crore Seventy-Three Lakh Sixty-One Thousand Seven Hundred Thirty-Eight Only), inclusive of taxes, from existing client M/s. Madhya Gujarat Vij Company Limited (MGVCL).",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/VIVIANA_10102026133007_VIVIANA__Intimation_of_Receiving_Order_MGVCL_10102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-10T08:00:22Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The company secured a new turnkey contract worth approximately Rs 466.7 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company secured a new turnkey contract worth approximately Rs 466.7 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Viviana Power Tech Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261010-106",
       "headline": "Tata Motors raises Iveco takeover offer price to 14.40 euro per share",
@@ -1840,55 +1889,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-136",
-      "headline": "Heritage Foods Limited: Heritage Foods Limited has informed the Exchange regarding 'Update on acquisition of 5.60% equity share capital of Heritage Novandie Foods Limited'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/HERITGFOOD_10102026130500_Update.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-10T07:35:41Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Heritage Foods is increasing its stake in its subsidiary Heritage Novandie Foods by 5.60%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Heritage Foods is increasing its stake in its subsidiary Heritage Novandie Foods by 5.60%.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Heritage Foods Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -168288,75 +168288,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-8e38ef15bf4e",
-      "idea_version": "IDEAV-a799751771b43cc4",
-      "idea_version_started_at": "2026-10-10T00:19:59Z",
-      "ticker": "RTX",
-      "company": "RTX Corp",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The award of a $6.3 billion multi-year contract for SM-3 interceptors provides significant long-term revenue visibility and cash flow support.",
-      "why_now": "The contract was officially announced on 2026-10-08, and the market is currently digesting the impact of this multi-year backlog addition.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 73,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f37e621f988a"
-      ],
-      "primary_source_event_id": "EVT-f37e621f988a",
-      "source_headlines": [
-        "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors"
-      ],
-      "source_headline": "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors",
-      "source_url": "https://www.war.gov/News/Releases/Release/Article/4622796/department-of-war-awards-63-billion-multi-year-contract-to-rtxs-raytheon-for-sm/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T21:00:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T22:24:36Z",
-      "updated_at": "2026-10-10T00:19:59Z",
-      "decay_at": "2026-10-10T09:00:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-1a38d7aae72f",
       "idea_version": "IDEAV-d488798321a83992",
       "idea_version_started_at": "2026-10-10T00:19:59Z",
@@ -171285,6 +171216,75 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-8e38ef15bf4e",
+      "idea_version": "IDEAV-a799751771b43cc4",
+      "idea_version_started_at": "2026-10-10T00:19:59Z",
+      "ticker": "RTX",
+      "company": "RTX Corp",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The award of a $6.3 billion multi-year contract for SM-3 interceptors provides significant long-term revenue visibility and cash flow support.",
+      "why_now": "The contract was officially announced on 2026-10-08, and the market is currently digesting the impact of this multi-year backlog addition.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 73,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f37e621f988a"
+      ],
+      "primary_source_event_id": "EVT-f37e621f988a",
+      "source_headlines": [
+        "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors"
+      ],
+      "source_headline": "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors",
+      "source_url": "https://www.war.gov/News/Releases/Release/Article/4622796/department-of-war-awards-63-billion-multi-year-contract-to-rtxs-raytheon-for-sm/",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T21:00:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T22:24:36Z",
+      "updated_at": "2026-10-10T00:19:59Z",
+      "decay_at": "2026-10-10T09:00:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-8c352967472b",
       "idea_version": "IDEAV-5c0dfa8b6f6509f8",
       "idea_version_started_at": "2026-10-08T14:29:57Z",
@@ -173004,14 +173004,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 528,
+    "total_count": 529,
     "shown_count": 500,
-    "hidden_count": 28,
+    "hidden_count": 29,
     "side_counts": {
       "long": {
-        "total_count": 265,
+        "total_count": 266,
         "shown_count": 250,
-        "hidden_count": 15
+        "hidden_count": 16
       },
       "short": {
         "total_count": 263,
@@ -173035,6 +173035,78 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-8e38ef15bf4e",
+        "idea_version": "IDEAV-a799751771b43cc4",
+        "idea_version_started_at": "2026-10-10T00:19:59Z",
+        "ticker": "RTX",
+        "company": "RTX Corp",
+        "exchange": "NYSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The award of a $6.3 billion multi-year contract for SM-3 interceptors provides significant long-term revenue visibility and cash flow support.",
+        "why_now": "The contract was officially announced on 2026-10-08, and the market is currently digesting the impact of this multi-year backlog addition.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 73,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f37e621f988a"
+        ],
+        "primary_source_event_id": "EVT-f37e621f988a",
+        "source_headlines": [
+          "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors"
+        ],
+        "source_headline": "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors",
+        "source_url": "https://www.war.gov/News/Releases/Release/Article/4622796/department-of-war-awards-63-billion-multi-year-contract-to-rtxs-raytheon-for-sm/",
+        "source_name": "U.S. Department of War (formerly DoD) — News Releases",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-08T21:00:08Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-08T22:24:36Z",
+        "updated_at": "2026-10-10T00:19:59Z",
+        "decay_at": "2026-10-10T09:00:08Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-10T09:00:08Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-2e6c75dccccc",
         "idea_version": "IDEAV-ab7b55e2c36052ff",
@@ -200877,81 +200949,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-5b777a88d829",
-        "idea_version": "IDEAV-54af01524dbdaf02",
-        "idea_version_started_at": "2026-09-27T05:04:56Z",
-        "ticker": "MC.PA",
-        "company": "LVMH Moët Hennessy Louis Vuitton SE",
-        "exchange": "EPA",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "LVMH is entering stake sale talks with Giorgio Armani, which could lead to an acquisition and further strengthen its luxury brand portfolio and market share.",
-        "why_now": "Armani is kicking off stake sale talks with LVMH and L'Oreal as of September 27, 2026, indicating a live M&A catalyst.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-beff6feaf733"
-        ],
-        "primary_source_event_id": "EVT-beff6feaf733",
-        "source_headlines": [
-          "Armani to kick off stake sale talks with LVMH and L'Oreal"
-        ],
-        "source_headline": "Armani to kick off stake sale talks with LVMH and L'Oreal",
-        "source_url": "https://www.thehindubusinessline.com/companies/armani-to-kick-off-stake-sale-talks-with-lvmh-and-loreal/article71515221.ece",
-        "source_name": "The Hindu BusinessLine",
-        "materiality_max": 96,
-        "newest_source_at": "2026-09-27T04:30:17Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T05:04:56Z",
-        "updated_at": "2026-09-27T05:04:56Z",
-        "decay_at": "2026-09-28T16:30:17Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T05:19:35Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-5f19e42d97dc",
         "idea_version": "IDEAV-0c7ffde149793fa2",
         "idea_version_started_at": "2026-09-27T04:44:42Z",
@@ -210255,7 +210252,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1478,
-    "live_count": 41,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210274,9 +210271,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6785782,
-    "news_picked_today": 209,
-    "news_dropped_today": 4471
+    "news_seen_today": 6817700,
+    "news_picked_today": 215,
+    "news_dropped_today": 4489
   },
   "book_momentum": {
     "live_count": 8,
