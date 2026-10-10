@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T12:28:42Z",
+  "generated_at": "2026-10-10T12:32:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -1790,6 +1790,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-167",
+      "headline": "Flydubai Hijack Attempt: NIA Files FIR Under Anti-Hijacking Act, UAPA; Probes Terror Conspiracy",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/india/flydubai-hijack-attempt-nia-files-fir-under-anti-hijacking-act-uapa-probes-terror-conspiracy",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T12:07:09Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The NIA has filed an FIR regarding a hijack attempt involving Flydubai, indicating a significant security and operational risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The NIA has filed an FIR regarding a hijack attempt involving Flydubai, indicating a significant security and operational risk event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-047",
       "headline": "Barclays initiates coverage of RTX with an Overweight rating",
       "headline_en": null,
@@ -1883,55 +1932,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-162",
-      "headline": "Nat Habit raises ₹142 crore in a Series C funding round led by Trident Growth Partners",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/nat-habit-raises-142-crore-in-a-series-c-funding-round-led-by-trident-growth-partners/article71567824.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T11:13:08Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Nat Habit raised 142 crore in Series C funding, indicating growth capital injection.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Nat Habit raised 142 crore in Series C funding, indicating growth capital injection.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nat Habit",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210098,9 +210098,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8882472,
-    "news_picked_today": 255,
-    "news_dropped_today": 6153
+    "news_seen_today": 8949667,
+    "news_picked_today": 258,
+    "news_dropped_today": 6198
   },
   "book_momentum": {
     "live_count": 8,
