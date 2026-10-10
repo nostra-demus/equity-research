@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T02:30:12Z",
+  "generated_at": "2026-10-10T02:36:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-031",
@@ -903,6 +903,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-058",
+      "headline": "COFE Tech receives new backing from Phoenix Venture Partners",
+      "headline_en": null,
+      "url": "http://wamda.com/2026/10/cofe-tech-receives-new-backing-phoenix-venture-partners",
+      "source_name": "Wamda",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T02:33:37Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "COFE Tech received new funding from Phoenix Venture Partners, indicating capital infusion for the private company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "COFE Tech received new funding from Phoenix Venture Partners, indicating capital infusion for the private company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "COFE Tech",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-044",
       "headline": "UFLEX Limited: UFLEX Limited has informed the Exchange about Credit Rating",
       "headline_en": null,
@@ -1524,6 +1573,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-056",
+      "headline": "Bread, laban, chips: How UAE food makers view new caps",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/retail/bread-laban-chips-how-uae-food-makers-view-new-caps-1.500704736",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "New price caps on food items in the UAE will impact margins for local food manufacturers.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "New price caps on food items in the UAE will impact margins for local food manufacturers.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-038",
       "headline": "JR Kyushu lines fully restored 74 days after Kumamoto quake in late July",
       "headline_en": null,
@@ -1714,6 +1806,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-057",
+      "headline": "Missed off-plan payments in Dubai? Here's what your developer can legally do",
+      "headline_en": null,
+      "url": "https://www.khaleejtimes.com/uae/missed-off-plan-payments-dubai-developer-legally-do",
+      "source_name": "Khaleej Times — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T02:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Clarification on legal rights regarding missed off-plan payments in Dubai provides regulatory context for real estate developers and investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 56,
+      "triage_reason": "Clarification on legal rights regarding missed off-plan payments in Dubai provides regulatory context for real estate developers and investors.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-046",
       "headline": "Flydubai investigation: 7 findings that change what we know about attempted terror attack",
       "headline_en": null,
@@ -1756,147 +1891,6 @@
           "name": "Flydubai",
           "ticker": null,
           "listing_country": "AE"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-017",
-      "headline": "Once China's most valuable stock, liquor maker Kweichow Moutai down 43% from peak",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/food-beverage/once-china-s-most-valuable-stock-liquor-maker-kweichow-moutai-down-43-from-peak",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T01:21:11Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Kweichow Moutai has declined 43% from its peak, reflecting long-term valuation adjustment rather than a new material event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Kweichow Moutai has declined 43% from its peak, reflecting long-term valuation adjustment rather than a new material event.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kweichow Moutai",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-006",
-      "headline": "Live updates: Trump rallies voters in upstate New York after Putin diesel deal announcement",
-      "headline_en": null,
-      "url": "https://thehill.com/homenews/administration/6138003-live-update-trump-vance-midterm-elections/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T00:14:19Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "A reported deal involving Russian diesel supply to the US indicates a major shift in energy trade policy and geopolitical alignment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "A reported deal involving Russian diesel supply to the US indicates a major shift in energy trade policy and geopolitical alignment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-035",
-      "headline": "Edge Total Intelligence Announces Amended and Restated Q2 2026 Financial Statements and MD&A | UNFYF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/UNFYF/edge-total-intelligence-announces-amended-and-restated-q2-2026-itpdy2dd5brj.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-10T00:59:00Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "The company is restating its Q2 2026 financial statements, which indicates potential accounting issues.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "The company is restating its Q2 2026 financial statements, which indicates potential accounting issues.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "accounting_restatement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "accounting_restatement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Edge Total Intelligence",
-          "ticker": "UNFYF",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -210071,9 +210065,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1980807,
-    "news_picked_today": 54,
-    "news_dropped_today": 1338
+    "news_seen_today": 2004144,
+    "news_picked_today": 60,
+    "news_dropped_today": 1380
   },
   "book_momentum": {
     "live_count": 8,
