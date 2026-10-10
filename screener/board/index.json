@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T09:11:33Z",
+  "generated_at": "2026-10-10T09:14:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-143",
@@ -558,6 +558,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-146",
+      "headline": "Shilpa Medicare Limited: Shilpa Medicare Limited has informed the Exchange about \"Europe GMP Approval of Shilpa Medicare Ltd. Unit 4, Jadcherla, Telangana.\"",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SHILPAMED_10102026131737_Intimationagisgmp.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-10T07:48:03Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Shilpa Medicare received Europe GMP approval for its Unit 4 facility, which is a material regulatory milestone for export operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Shilpa Medicare received Europe GMP approval for its Unit 4 facility, which is a material regulatory milestone for export operations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "regulatory",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shilpa Medicare Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1835,60 +1885,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-016",
-      "headline": "Honda to sell Thai-built Mitsubishi pickup under own brand in Southeast Asia",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/automobiles/honda-to-sell-thai-built-mitsubishi-pickup-under-own-brand-in-southeast-asia",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T01:21:11Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Honda will sell Thai-built Mitsubishi pickups under its own brand, expanding its product portfolio in Southeast Asia.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Honda will sell Thai-built Mitsubishi pickups under its own brand, expanding its product portfolio in Southeast Asia.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Honda Motor",
-          "ticker": null,
-          "listing_country": "JP"
-        },
-        {
-          "name": "Mitsubishi Motors",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210271,9 +210267,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6944078,
-    "news_picked_today": 216,
-    "news_dropped_today": 4584
+    "news_seen_today": 6975562,
+    "news_picked_today": 218,
+    "news_dropped_today": 4606
   },
   "book_momentum": {
     "live_count": 8,
