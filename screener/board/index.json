@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T12:32:53Z",
+  "generated_at": "2026-10-10T12:38:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -1010,6 +1010,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-168",
+      "headline": "Bhandari Hosiery Exports Limited: Bhandari Hosiery Exports Limited has informed the Exchange about Resignation of Director/KMP/SMP",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/BHANDARI_ROID_100168_KMP_Doc.zip",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-10T12:31:39Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The resignation of a Director or Key Managerial Personnel is a material governance event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The resignation of a Director or Key Managerial Personnel is a material governance event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bhandari Hosiery Exports Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-153",
       "headline": "Kesoram Industries Limited: Kesoram Industries Limited has informed the Exchange regarding Resignation of Mr Samir Kumar Ray as Chief Financial Officer of the company w.e.f. January 02, 2027.",
       "headline_en": null,
@@ -1880,55 +1929,6 @@
           "name": "RTX",
           "ticker": null,
           "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-015",
-      "headline": "TCS withholds quarterly bonuses for senior staff after missing performance targets",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/tcs-withholds-quarterly-bonuses-for-senior-staff-after-missing-performance-targets/article71566947.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T00:28:08Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "TCS is withholding quarterly bonuses for senior staff due to missed performance targets, signaling internal cost-control measures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "TCS is withholding quarterly bonuses for senior staff due to missed performance targets, signaling internal cost-control measures.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Consultancy Services",
-          "ticker": null,
-          "listing_country": "IN"
         }
       ],
       "size_bucket": "mega",
@@ -210098,9 +210098,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8949667,
-    "news_picked_today": 258,
-    "news_dropped_today": 6198
+    "news_seen_today": 9002977,
+    "news_picked_today": 260,
+    "news_dropped_today": 6244
   },
   "book_momentum": {
     "live_count": 8,
