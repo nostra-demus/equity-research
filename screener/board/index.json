@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T05:05:54Z",
+  "generated_at": "2026-10-10T05:08:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-073",
@@ -801,6 +801,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-093",
+      "headline": "Robinhood Chain slowdown spreads from fees to trading as transactions fall more than 40%",
+      "headline_en": null,
+      "url": "https://www.coindesk.com/markets/2026/10/10/robinhood-chain-slowdown-spreads-from-fees-to-trading-as-transactions-fall-more-than-40",
+      "source_name": "CoinDesk",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T04:44:35Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Robinhood is experiencing a significant operational slowdown with transaction volumes falling by more than 40%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Robinhood is experiencing a significant operational slowdown with transaction volumes falling by more than 40%.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Robinhood",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1837,50 +1886,6 @@
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-060",
-      "headline": "China warns of countermeasures against trade protectionism under 'overcapacity' pretext",
-      "headline_en": null,
-      "url": "http://www.ecns.cn/cns-wire/2026-10-10/detail-ihfkxmcz6614960.shtml",
-      "source_name": "ECNS (China News Service, English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T05:14:13Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "China is threatening trade countermeasures against foreign protectionism, increasing geopolitical and trade risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "China is threatening trade countermeasures against foreign protectionism, increasing geopolitical and trade risk.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
