@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T09:14:34Z",
+  "generated_at": "2026-10-10T09:25:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-143",
@@ -1147,6 +1147,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-148",
+      "headline": "Adani Green Energy Limited: Adani Green Energy Limited has informed the Exchange regarding 'Provisional Operational Update: H1 FY27'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ADANIGREEN_10102026143731_Letter.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-10T09:09:43Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Adani Green Energy released its provisional operational update for H1 FY27, which provides key performance metrics ahead of full financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Adani Green Energy released its provisional operational update for H1 FY27, which provides key performance metrics ahead of full financial results.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Adani Green Energy Limited",
+          "ticker": "ADANIGREEN",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-090",
       "headline": "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
       "headline_en": null,
@@ -1842,49 +1891,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-082",
-      "headline": "RBI opens special dollar window for three state-run oil companies from October 12",
-      "headline_en": null,
-      "url": "https://www.businesstoday.in/latest/corporate/story/rbi-opens-special-dollar-window-for-three-state-run-oil-companies-from-october-12-560786-2026-10-10?utm_source=rssfeed",
-      "source_name": "Business Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T03:39:39Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "The RBI opening a special dollar window for state-run oil companies is a significant intervention to manage currency volatility and energy import costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "The RBI opening a special dollar window for state-run oil companies is a significant intervention to manage currency volatility and energy import costs.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210267,9 +210273,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6975562,
-    "news_picked_today": 218,
-    "news_dropped_today": 4606
+    "news_seen_today": 7054197,
+    "news_picked_today": 220,
+    "news_dropped_today": 4748
   },
   "book_momentum": {
     "live_count": 8,
