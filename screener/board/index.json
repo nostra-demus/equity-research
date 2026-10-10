@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T10:11:41Z",
+  "generated_at": "2026-10-10T10:14:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -706,6 +706,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-153",
+      "headline": "Kesoram Industries Limited: Kesoram Industries Limited has informed the Exchange regarding Resignation of Mr Samir Kumar Ray as Chief Financial Officer of the company w.e.f. January 02, 2027.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KESORAMIND_10102026153232_Reg30.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-10T10:02:43Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The Chief Financial Officer of Kesoram Industries Limited has resigned effective January 02, 2027.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "The Chief Financial Officer of Kesoram Industries Limited has resigned effective January 02, 2027.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "executive_exit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kesoram Industries Limited",
+          "ticker": "502810",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1854,49 +1903,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-033",
-      "headline": "Beer maker leaders may have been aware of price cartel",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/business/2026/10/10/companies/beer-maker-leaders-price-cartel/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T00:59:00Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Reports suggest leadership at major Japanese beer manufacturers may have been aware of price-fixing activities, indicating potential regulatory risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Reports suggest leadership at major Japanese beer manufacturers may have been aware of price-fixing activities, indicating potential regulatory risk.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -170013,77 +170019,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-fa6392f0b5c2",
-      "idea_version": "IDEAV-a6ebf1e67fe280ec",
-      "idea_version_started_at": "2026-10-08T22:59:17Z",
-      "ticker": "MYE",
-      "company": "Mader Group",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company won a mining services contract at Tahmoor valued at up to $240 million, expanding its operational footprint and revenue base.",
-      "why_now": "The contract award was confirmed in an exchange filing on October 8, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e249ba8f20b8"
-      ],
-      "primary_source_event_id": "EVT-e249ba8f20b8",
-      "source_headlines": [
-        "MYE: Award of Tahmoor mining services contract valued up to $240M [price-sensitive]"
-      ],
-      "source_headline": "MYE: Award of Tahmoor mining services contract valued up to $240M [price-sensitive]",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MYE?key=2924-03146390-2A1703172",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T22:13:13Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T22:59:17Z",
-      "updated_at": "2026-10-08T22:59:17Z",
-      "decay_at": "2026-10-10T10:13:13Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a98d17bf56cf",
       "idea_version": "IDEAV-6ca23660cd3ce8cd",
       "idea_version_started_at": "2026-10-09T06:05:27Z",
@@ -172142,6 +172077,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-fa6392f0b5c2",
+      "idea_version": "IDEAV-a6ebf1e67fe280ec",
+      "idea_version_started_at": "2026-10-08T22:59:17Z",
+      "ticker": "MYE",
+      "company": "Mader Group",
+      "exchange": "ASX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company won a mining services contract at Tahmoor valued at up to $240 million, expanding its operational footprint and revenue base.",
+      "why_now": "The contract award was confirmed in an exchange filing on October 8, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-e249ba8f20b8"
+      ],
+      "primary_source_event_id": "EVT-e249ba8f20b8",
+      "source_headlines": [
+        "MYE: Award of Tahmoor mining services contract valued up to $240M [price-sensitive]"
+      ],
+      "source_headline": "MYE: Award of Tahmoor mining services contract valued up to $240M [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MYE?key=2924-03146390-2A1703172",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T22:13:13Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T22:59:17Z",
+      "updated_at": "2026-10-08T22:59:17Z",
+      "decay_at": "2026-10-10T10:13:13Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-7470585394f5",
       "idea_version": "IDEAV-ffc4a9332af08053",
       "idea_version_started_at": "2026-10-08T16:19:11Z",
@@ -173012,14 +173018,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 530,
+    "total_count": 531,
     "shown_count": 500,
-    "hidden_count": 30,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       },
       "short": {
         "total_count": 263,
@@ -173043,6 +173049,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-fa6392f0b5c2",
+        "idea_version": "IDEAV-a6ebf1e67fe280ec",
+        "idea_version_started_at": "2026-10-08T22:59:17Z",
+        "ticker": "MYE",
+        "company": "Mader Group",
+        "exchange": "ASX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company won a mining services contract at Tahmoor valued at up to $240 million, expanding its operational footprint and revenue base.",
+        "why_now": "The contract award was confirmed in an exchange filing on October 8, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e249ba8f20b8"
+        ],
+        "primary_source_event_id": "EVT-e249ba8f20b8",
+        "source_headlines": [
+          "MYE: Award of Tahmoor mining services contract valued up to $240M [price-sensitive]"
+        ],
+        "source_headline": "MYE: Award of Tahmoor mining services contract valued up to $240M [price-sensitive]",
+        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MYE?key=2924-03146390-2A1703172",
+        "source_name": "ASX (Australia Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-08T22:13:13Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-08T22:59:17Z",
+        "updated_at": "2026-10-08T22:59:17Z",
+        "decay_at": "2026-10-10T10:13:13Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-10T10:13:13Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-abba7b974651",
         "idea_version": "IDEAV-1abbc0066baafdd2",
@@ -200883,81 +200963,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-a025b73a32d6",
-        "idea_version": "IDEAV-92bec4d064b6dd50",
-        "idea_version_started_at": "2026-09-27T07:14:53Z",
-        "ticker": "TATAMOTORS",
-        "company": "Tata Motors",
-        "exchange": "NSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Tata Motors' managing director stated the company aims to increase its passenger vehicle market share to 15% soon and 20% by FY31, indicating strong growth expectations for its automotive business.",
-        "why_now": "The company's MD provided updated market share guidance today, setting clear near-term and long-term targets.",
-        "conviction": 65,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f17216fe99c4"
-        ],
-        "primary_source_event_id": "EVT-f17216fe99c4",
-        "source_headlines": [
-          "Tata Motors PV eyes 15% market share soon, targets 20% by FY31, says MD Shailesh Chandra"
-        ],
-        "source_headline": "Tata Motors PV eyes 15% market share soon, targets 20% by FY31, says MD Shailesh Chandra",
-        "source_url": "https://economictimes.indiatimes.com/industry/auto/cars-uvs/tata-motors-pv-eyes-15-market-share-soon-targets-20-by-fy31-says-md-shailesh-chandra/articleshow/134515725.cms",
-        "source_name": "The Economic Times",
-        "materiality_max": 95,
-        "newest_source_at": "2026-09-27T06:18:43Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T07:14:53Z",
-        "updated_at": "2026-09-27T07:14:53Z",
-        "decay_at": "2026-09-28T18:18:43Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T06:19:47Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-5f19e42d97dc",
         "idea_version": "IDEAV-0c7ffde149793fa2",
         "idea_version_started_at": "2026-09-27T04:44:42Z",
@@ -210261,7 +210266,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1478,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210280,9 +210285,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7515860,
-    "news_picked_today": 228,
-    "news_dropped_today": 5124
+    "news_seen_today": 7546143,
+    "news_picked_today": 229,
+    "news_dropped_today": 5147
   },
   "book_momentum": {
     "live_count": 8,
