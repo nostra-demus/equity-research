@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T01:57:22Z",
+  "generated_at": "2026-10-10T01:59:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-031",
@@ -1793,6 +1793,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-041",
+      "headline": "General Mills Announces Pricing Terms, Expiration and Results of Cash Tender Offers for its Senior Notes",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20261009314327/en/General-Mills-Announces-Pricing-Terms-Expiration-and-Results-of-Cash-Tender-Offers-for-its-Senior-Notes/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Funding News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-10T01:41:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "General Mills completed cash tender offers for its senior notes, impacting its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "General Mills completed cash tender offers for its senior notes, impacting its capital structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "General Mills",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-036",
       "headline": "Battery X Metals Reports Estimated Driving Range Increase of Approximately 101 Kilometers Following a Single-Electric-Vehicle Performance Evaluation of Next-Generation Patent-Pending Lithium-Ion Battery Rebalancing Technology | BATXF Stock News",
       "headline_en": null,
@@ -1837,55 +1886,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-001",
-      "headline": "Hudson Pacific Properties Announces Expiration and Tender Results of Cash Tender Offer for Outstanding Notes",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20261009423825/en/Hudson-Pacific-Properties-Announces-Expiration-and-Tender-Results-of-Cash-Tender-Offer-for-Outstanding-Notes/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
-      "source_name": "Business Wire — Funding News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-10-09T23:39:00Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Hudson Pacific Properties completed a cash tender offer for outstanding notes, impacting its capital structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Hudson Pacific Properties completed a cash tender offer for outstanding notes, impacting its capital structure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": -36,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hudson Pacific Properties",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210057,9 +210057,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1534767,
-    "news_picked_today": 40,
-    "news_dropped_today": 992
+    "news_seen_today": 1558372,
+    "news_picked_today": 41,
+    "news_dropped_today": 1015
   },
   "book_momentum": {
     "live_count": 8,
