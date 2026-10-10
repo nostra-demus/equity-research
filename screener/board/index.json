@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T01:23:37Z",
+  "generated_at": "2026-10-10T01:27:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-002",
@@ -231,6 +231,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-025",
+      "headline": "China's Geely announces entry into Canadian auto market",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/automobiles/china-s-geely-announces-entry-into-canadian-auto-market",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:26:11Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Geely is expanding its operations into the Canadian automotive market, representing a new growth vector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Geely is expanding its operations into the Canadian automotive market, representing a new growth vector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Geely",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -486,6 +535,50 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-024",
+      "headline": "Trump Strikes Deal With Putin for Russian Diesel",
+      "headline_en": null,
+      "url": "https://www.wsj.com/politics/policy/trump-strikes-deal-with-putin-for-russian-diesel-15751436?mod=rss_worldnews",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:23:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "A deal between major global powers regarding diesel supply represents a significant geopolitical and commodity market shift.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "A deal between major global powers regarding diesel supply represents a significant geopolitical and commodity market shift.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209669,7 +209762,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3430,
+    "inbox_unconsumed": 3432,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209678,9 +209771,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1179452,
-    "news_picked_today": 23,
-    "news_dropped_today": 769
+    "news_seen_today": 1203198,
+    "news_picked_today": 25,
+    "news_dropped_today": 791
   },
   "book_momentum": {
     "live_count": 8,
