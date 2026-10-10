@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T21:02:03Z",
+  "generated_at": "2026-10-10T21:05:19Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -1662,6 +1662,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-212",
+      "headline": "Pemex Needs Nearly $110 Billion to Hit Mexico's Output Targets",
+      "headline_en": null,
+      "url": "https://oilprice.com/Energy/Crude-Oil/Pemex-Needs-Nearly-110-Billion-to-Hit-Mexicos-Output-Targets.html",
+      "source_name": "OilPrice.com",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Pemex requires nearly $110 billion in capital to meet production targets, highlighting severe financial and operational strain.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Pemex requires nearly $110 billion in capital to meet production targets, highlighting severe financial and operational strain.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pemex",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-168",
       "headline": "Bhandari Hosiery Exports Limited: Bhandari Hosiery Exports Limited has informed the Exchange about Resignation of Director/KMP/SMP",
       "headline_en": null,
@@ -1854,55 +1903,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-175",
-      "headline": "Avenue Supermarts (DMart) Q2 results Highlights: Earnings, revenue, profit updates",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/avenue-supermarts-earnings-d-mart-q2-results-today-live-news-updates-10-october-2026/article71567080.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T15:09:42Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Avenue Supermarts reported Q2 financial results, which are material for assessing the company's performance and analyst expectations.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Avenue Supermarts reported Q2 financial results, which are material for assessing the company's performance and analyst expectations.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avenue Supermarts",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210290,9 +210290,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12893580,
-    "news_picked_today": 454,
-    "news_dropped_today": 10778
+    "news_seen_today": 12917945,
+    "news_picked_today": 459,
+    "news_dropped_today": 10797
   },
   "book_momentum": {
     "live_count": 8,
