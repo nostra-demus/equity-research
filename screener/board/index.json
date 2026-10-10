@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T15:12:36Z",
+  "generated_at": "2026-10-10T15:16:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -1404,6 +1404,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-175",
+      "headline": "Avenue Supermarts (DMart) Q2 results Highlights: Earnings, revenue, profit updates",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/avenue-supermarts-earnings-d-mart-q2-results-today-live-news-updates-10-october-2026/article71567080.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T15:09:42Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Avenue Supermarts reported Q2 financial results, which are material for assessing the company's performance and analyst expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Avenue Supermarts reported Q2 financial results, which are material for assessing the company's performance and analyst expectations.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avenue Supermarts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-144",
       "headline": "Apple cuts iPhone 18 Pro orders due to soft demand",
       "headline_en": null,
@@ -1884,55 +1933,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-148",
-      "headline": "Adani Green Energy Limited: Adani Green Energy Limited has informed the Exchange regarding 'Provisional Operational Update: H1 FY27'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ADANIGREEN_10102026143731_Letter.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-10T09:09:43Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Adani Green Energy released its provisional operational update for H1 FY27, which provides key performance metrics ahead of full financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Adani Green Energy released its provisional operational update for H1 FY27, which provides key performance metrics ahead of full financial results.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Green Energy Limited",
-          "ticker": "ADANIGREEN",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210100,9 +210100,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10483772,
-    "news_picked_today": 278,
-    "news_dropped_today": 7690
+    "news_seen_today": 10521593,
+    "news_picked_today": 280,
+    "news_dropped_today": 7736
   },
   "book_momentum": {
     "live_count": 8,
