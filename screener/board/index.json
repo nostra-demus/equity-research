@@ -1,6 +1,98 @@
 {
-  "generated_at": "2026-10-09T23:53:39Z",
+  "generated_at": "2026-10-10T00:12:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261010-002",
+      "headline": "‘I want to thank President Putin’, Trump says after agreeing to lift sanctions on Russian diesel – US politics live",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/us-news/live/2026/oct/09/pentagon-fort-hood-livestream-firing-squad-execution-reaction-backlash-pete-hegseth-donald-trump-mussolini-latest-news-updates",
+      "source_name": "The Guardian — World news",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T00:00:05Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The lifting of sanctions on Russian diesel is a major geopolitical shift that will impact global energy supply and pricing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The lifting of sanctions on Russian diesel is a major geopolitical shift that will impact global energy supply and pricing.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-001",
+      "headline": "Hudson Pacific Properties Announces Expiration and Tender Results of Cash Tender Offer for Outstanding Notes",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20261009423825/en/Hudson-Pacific-Properties-Announces-Expiration-and-Tender-Results-of-Cash-Tender-Offer-for-Outstanding-Notes/?feedref=JjAwJuNHiystnCoBq_hl-Ymqj4g6qAlg7edDzhXcztJcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTUKvKXA1G4lfyVQLpVttJwGBSvR87oUDgbHejiywQBpbg==",
+      "source_name": "Business Wire — Funding News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-09T23:39:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Hudson Pacific Properties completed a cash tender offer for outstanding notes, impacting its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 43,
+      "triage_reason": "Hudson Pacific Properties completed a cash tender offer for outstanding notes, impacting its capital structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hudson Pacific Properties",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261009-431",
       "headline": "ECA2026-726 - Information Regarding the Business Combination of Armada Acquisition Corp. II (XRPN/W/U) and Evernorth Holdings, Inc.",
@@ -208798,7 +208890,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3407,
+    "inbox_unconsumed": 3409,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -208807,9 +208899,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 19006858,
-    "news_picked_today": 1082,
-    "news_dropped_today": 11470
+    "news_seen_today": 169635,
+    "news_picked_today": 2,
+    "news_dropped_today": 142
   },
   "book_momentum": {
     "live_count": 8,
