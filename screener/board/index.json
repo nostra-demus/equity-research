@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T00:29:24Z",
+  "generated_at": "2026-10-10T00:53:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-002",
@@ -36,6 +36,49 @@
       },
       "event_types": [
         "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-007",
+      "headline": "Trump announces deal for Russian diesel as Zelensky calls it a gift to Putin",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/cm1dwgr666wno?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T00:45:51Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "A deal for Russian diesel during an active conflict represents a major geopolitical shift and potential sanctions-related supply disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "A deal for Russian diesel during an active conflict represents a major geopolitical shift and potential sanctions-related supply disruption.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -22,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
       ],
       "issuer_linkage": "macro",
       "companies": [],
@@ -208855,7 +208898,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3413,
+    "inbox_unconsumed": 3414,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -208864,9 +208907,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 411793,
-    "news_picked_today": 6,
-    "news_dropped_today": 258
+    "news_seen_today": 773429,
+    "news_picked_today": 7,
+    "news_dropped_today": 425
   },
   "book_momentum": {
     "live_count": 8,
