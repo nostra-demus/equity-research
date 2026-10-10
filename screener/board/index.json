@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T08:51:17Z",
+  "generated_at": "2026-10-10T08:53:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-106",
@@ -368,6 +368,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-137",
+      "headline": "Airworthiness Directives; Rolls-Royce Deutschland Ltd & Co KG Engines",
+      "headline_en": null,
+      "url": "https://www.federalregister.gov/documents/2026/10/13/2026-20869/airworthiness-directives-rolls-royce-deutschland-ltd-and-co-kg-engines",
+      "source_name": "Federal Register — Latest Documents",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-13T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Airworthiness directive for Rolls-Royce engines indicates potential operational risk and maintenance costs for operators.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Airworthiness directive for Rolls-Royce engines indicates potential operational risk and maintenance costs for operators.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rolls-Royce",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1816,49 +1865,6 @@
       "launched_signal_id": null,
       "triage_score": 81,
       "triage_reason": "The RBI is implementing a special dollar window for oil firms and tightening forex derivative rules to defend the rupee.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-135",
-      "headline": "India central bank takes steps to support rupee, opens dollar window for oil companies",
-      "headline_en": null,
-      "url": "https://www.khaleejtimes.com/business/markets/india-central-bank-support-rupee-opens-dollar-window-oil-companies",
-      "source_name": "Khaleej Times — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T05:02:20Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "The Reserve Bank of India is taking measures to support the rupee by opening a dollar window for oil companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The Reserve Bank of India is taking measures to support the rupee by opening a dollar window for oil companies.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -210268,9 +210274,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 6689376,
-    "news_picked_today": 190,
-    "news_dropped_today": 4418
+    "news_seen_today": 6705535,
+    "news_picked_today": 192,
+    "news_dropped_today": 4440
   },
   "book_momentum": {
     "live_count": 8,
