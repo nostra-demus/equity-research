@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T04:33:35Z",
+  "generated_at": "2026-10-10T04:38:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-073",
@@ -849,6 +849,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-079",
+      "headline": "RBI moves to support rupee at 96.78, cracks down on forex derivatives",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/news/economy/indicators/rbi-moves-to-support-rupee-at-96-78-cracks-down-on-forex-derivatives/articleshow/134846784.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T03:39:58Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The RBI is intervening at a specific level (96.78) and restricting derivatives to defend the currency, affecting all forex-exposed entities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The RBI is intervening at a specific level (96.78) and restricting derivatives to defend the currency, affecting all forex-exposed entities.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-025",
       "headline": "China's Geely announces entry into Canadian auto market",
       "headline_en": null,
@@ -893,6 +937,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-082",
+      "headline": "RBI opens special dollar window for three state-run oil companies from October 12",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/rbi-opens-special-dollar-window-for-three-state-run-oil-companies-from-october-12-560786-2026-10-10?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T03:39:39Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The RBI opening a special dollar window for state-run oil companies is a significant intervention to manage currency volatility and energy import costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "The RBI opening a special dollar window for state-run oil companies is a significant intervention to manage currency volatility and energy import costs.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -996,6 +1083,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-086",
+      "headline": "Nakheel awards Dubai Islands marine works contract",
+      "headline_en": null,
+      "url": "https://www.meed.com/nakheel-awards-dubai-islands-marine-works-contract",
+      "source_name": "MEED — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T04:36:51Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Nakheel awarded a contract for marine works at Dubai Islands.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Nakheel awarded a contract for marine works at Dubai Islands.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nakheel",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1413,6 +1549,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-084",
+      "headline": "Adnoc secures Thailand LNG supply deal",
+      "headline_en": null,
+      "url": "https://www.meed.com/adnoc-secures-thailand-lng-supply-deal",
+      "source_name": "MEED — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T04:36:51Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "ADNOC has secured a commercial LNG supply agreement with Thailand to deliver natural gas.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "ADNOC has secured a commercial LNG supply agreement with Thailand to deliver natural gas.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Abu Dhabi National Oil Company",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-032",
       "headline": "Honda board had too little say in major investment decisions, chair says",
       "headline_en": null,
@@ -1555,6 +1740,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-083",
+      "headline": "EGA to receive first Guinea bauxite post-settlement",
+      "headline_en": null,
+      "url": "https://www.meed.com/ega-to-receive-first-shipment-of-guinean-bauxite-after-settlement",
+      "source_name": "MEED — UAE",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T04:36:51Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Emirates Global Aluminium is receiving its first shipment of Guinea bauxite following the settlement of a dispute.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 70,
+      "triage_reason": "Emirates Global Aluminium is receiving its first shipment of Guinea bauxite following the settlement of a dispute.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Emirates Global Aluminium",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-069",
       "headline": "Propshare Titania SM REIT - IPO (Second scheme of the Property Share Investment Trust) (544462)",
       "headline_en": null,
@@ -1648,240 +1883,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-021",
-      "headline": "Fujitsu to set up US quantum computing research center in New Mexico",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/technology/fujitsu-to-set-up-us-quantum-computing-research-center-in-new-mexico",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T01:21:11Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Fujitsu is expanding its R&D footprint by establishing a quantum computing research center in the US.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Fujitsu is expanding its R&D footprint by establishing a quantum computing research center in the US.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fujitsu",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-042",
-      "headline": "Tarmat Limited: Tarmat Limited has informed the Exchange about change in Management",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TARMAT_09102026122712_BSENSE.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T06:57:32Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Tarmat Limited announced a change in management.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Tarmat Limited announced a change in management.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tarmat Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-030",
-      "headline": "7-Eleven owner eyes European expansion after India exit",
-      "headline_en": null,
-      "url": "https://asia.nikkei.com/business/retail/7-eleven-owner-eyes-european-expansion-after-india-exit",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T01:31:10Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Seven & i Holdings is evaluating European expansion following its exit from the Indian market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Seven & i Holdings is evaluating European expansion following its exit from the Indian market.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "strategic_review",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Seven & i Holdings",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-024",
-      "headline": "Trump Strikes Deal With Putin for Russian Diesel",
-      "headline_en": null,
-      "url": "https://www.wsj.com/politics/policy/trump-strikes-deal-with-putin-for-russian-diesel-15751436?mod=rss_worldnews",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T01:23:00Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "A deal between major global powers regarding diesel supply represents a significant geopolitical and commodity market shift.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "A deal between major global powers regarding diesel supply represents a significant geopolitical and commodity market shift.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-007",
-      "headline": "Trump announces deal for Russian diesel as Zelensky calls it a gift to Putin",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/cm1dwgr666wno?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T00:45:51Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "A deal for Russian diesel during an active conflict represents a major geopolitical shift and potential sanctions-related supply disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "A deal for Russian diesel during an active conflict represents a major geopolitical shift and potential sanctions-related supply disruption.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -22,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
