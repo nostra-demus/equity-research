@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T15:22:36Z",
+  "generated_at": "2026-10-10T15:25:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -95,6 +95,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-177",
+      "headline": "Drone strike by Sudan paramilitary kills 41 near Ethiopian border, rights group says",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/c8vgx9ew571wo?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — World",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T14:49:32Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "A drone strike killing 41 people near a border is a significant escalation of conflict with potential regional instability and impact on trade routes.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A drone strike killing 41 people near a border is a significant escalation of conflict with potential regional instability and impact on trade routes.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1889,50 +1932,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-109",
-      "headline": "RBI Tightens Forex Derivative Rules, Cuts Exposure Limit To $5 Million, Introduces 20% Risk Reserve",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/business/rbi-tightens-forex-derivative-rules-cuts-exposure-limit-to-5-million-introduces-20-risk-reserve",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T06:33:19Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "The RBI tightened forex derivative rules by cutting the exposure limit to $5 million and adding a 20% risk reserve requirement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The RBI tightened forex derivative rules by cutting the exposure limit to $5 million and adding a 20% risk reserve requirement.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -169834,150 +169833,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-03b640031702",
-      "idea_version": "IDEAV-ad09f710414eead7",
-      "idea_version_started_at": "2026-10-09T08:52:52Z",
-      "ticker": "9983",
-      "company": "Fast Retailing",
-      "exchange": "TSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company projects a 7th consecutive year of record profits, signaling sustained operational efficiency and strong consumer demand.",
-      "why_now": "The guidance was released on 2026-10-09.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-441ca1cd2522"
-      ],
-      "primary_source_event_id": "EVT-441ca1cd2522",
-      "source_headlines": [
-        "Uniqlo operator projects 7th straight record profit for current fiscal year"
-      ],
-      "source_headline": "Uniqlo operator projects 7th straight record profit for current fiscal year",
-      "source_url": "https://asia.nikkei.com/business/retail/uniqlo-operator-projects-7th-straight-record-profit-for-current-fiscal-year",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T03:23:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T08:52:52Z",
-      "updated_at": "2026-10-09T08:52:52Z",
-      "decay_at": "2026-10-10T15:23:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-80213da6012c",
-      "idea_version": "IDEAV-f9bf4daa812032db",
-      "idea_version_started_at": "2026-10-09T08:52:52Z",
-      "ticker": "4543",
-      "company": "Terumo",
-      "exchange": "TSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company faces a $610 million earnings hit due to the loss of a major US customer for its plasma device, directly impacting near-term revenue and margins.",
-      "why_now": "The news of the contract loss and financial impact was reported on 2026-10-09.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c45d1328042e"
-      ],
-      "primary_source_event_id": "EVT-c45d1328042e",
-      "source_headlines": [
-        "Japan's Terumo takes $610m hit after losing US customer for plasma device"
-      ],
-      "source_headline": "Japan's Terumo takes $610m hit after losing US customer for plasma device",
-      "source_url": "https://asia.nikkei.com/business/companies/japan-s-terumo-takes-610m-hit-after-losing-us-customer-for-plasma-device",
-      "source_name": "Nikkei Asia",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T03:23:33Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T08:52:52Z",
-      "updated_at": "2026-10-09T08:52:52Z",
-      "decay_at": "2026-10-10T15:23:33Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-3060680a62c4",
       "idea_version": "IDEAV-0df0bbb86ffb0f4c",
       "idea_version_started_at": "2026-10-10T13:14:35Z",
@@ -171683,6 +171538,150 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-03b640031702",
+      "idea_version": "IDEAV-ad09f710414eead7",
+      "idea_version_started_at": "2026-10-09T08:52:52Z",
+      "ticker": "9983",
+      "company": "Fast Retailing",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company projects a 7th consecutive year of record profits, signaling sustained operational efficiency and strong consumer demand.",
+      "why_now": "The guidance was released on 2026-10-09.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-441ca1cd2522"
+      ],
+      "primary_source_event_id": "EVT-441ca1cd2522",
+      "source_headlines": [
+        "Uniqlo operator projects 7th straight record profit for current fiscal year"
+      ],
+      "source_headline": "Uniqlo operator projects 7th straight record profit for current fiscal year",
+      "source_url": "https://asia.nikkei.com/business/retail/uniqlo-operator-projects-7th-straight-record-profit-for-current-fiscal-year",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-09T03:23:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T08:52:52Z",
+      "updated_at": "2026-10-09T08:52:52Z",
+      "decay_at": "2026-10-10T15:23:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-80213da6012c",
+      "idea_version": "IDEAV-f9bf4daa812032db",
+      "idea_version_started_at": "2026-10-09T08:52:52Z",
+      "ticker": "4543",
+      "company": "Terumo",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company faces a $610 million earnings hit due to the loss of a major US customer for its plasma device, directly impacting near-term revenue and margins.",
+      "why_now": "The news of the contract loss and financial impact was reported on 2026-10-09.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c45d1328042e"
+      ],
+      "primary_source_event_id": "EVT-c45d1328042e",
+      "source_headlines": [
+        "Japan's Terumo takes $610m hit after losing US customer for plasma device"
+      ],
+      "source_headline": "Japan's Terumo takes $610m hit after losing US customer for plasma device",
+      "source_url": "https://asia.nikkei.com/business/companies/japan-s-terumo-takes-610m-hit-after-losing-us-customer-for-plasma-device",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-09T03:23:33Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T08:52:52Z",
+      "updated_at": "2026-10-09T08:52:52Z",
+      "decay_at": "2026-10-10T15:23:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-cb6310225f0b",
       "idea_version": "IDEAV-8cb611a3f82876e7",
       "idea_version_started_at": "2026-10-09T06:05:27Z",
@@ -172838,19 +172837,19 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 531,
     "shown_count": 500,
-    "hidden_count": 29,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
-        "total_count": 267,
+        "total_count": 268,
         "shown_count": 250,
-        "hidden_count": 17
+        "hidden_count": 18
       },
       "short": {
-        "total_count": 262,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 12
+        "hidden_count": 13
       }
     },
     "retention": {
@@ -172869,6 +172868,156 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-03b640031702",
+        "idea_version": "IDEAV-ad09f710414eead7",
+        "idea_version_started_at": "2026-10-09T08:52:52Z",
+        "ticker": "9983",
+        "company": "Fast Retailing",
+        "exchange": "TSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company projects a 7th consecutive year of record profits, signaling sustained operational efficiency and strong consumer demand.",
+        "why_now": "The guidance was released on 2026-10-09.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-441ca1cd2522"
+        ],
+        "primary_source_event_id": "EVT-441ca1cd2522",
+        "source_headlines": [
+          "Uniqlo operator projects 7th straight record profit for current fiscal year"
+        ],
+        "source_headline": "Uniqlo operator projects 7th straight record profit for current fiscal year",
+        "source_url": "https://asia.nikkei.com/business/retail/uniqlo-operator-projects-7th-straight-record-profit-for-current-fiscal-year",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-09T03:23:33Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-09T08:52:52Z",
+        "updated_at": "2026-10-09T08:52:52Z",
+        "decay_at": "2026-10-10T15:23:33Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-10T15:23:33Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-80213da6012c",
+        "idea_version": "IDEAV-f9bf4daa812032db",
+        "idea_version_started_at": "2026-10-09T08:52:52Z",
+        "ticker": "4543",
+        "company": "Terumo",
+        "exchange": "TSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company faces a $610 million earnings hit due to the loss of a major US customer for its plasma device, directly impacting near-term revenue and margins.",
+        "why_now": "The news of the contract loss and financial impact was reported on 2026-10-09.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c45d1328042e"
+        ],
+        "primary_source_event_id": "EVT-c45d1328042e",
+        "source_headlines": [
+          "Japan's Terumo takes $610m hit after losing US customer for plasma device"
+        ],
+        "source_headline": "Japan's Terumo takes $610m hit after losing US customer for plasma device",
+        "source_url": "https://asia.nikkei.com/business/companies/japan-s-terumo-takes-610m-hit-after-losing-us-customer-for-plasma-device",
+        "source_name": "Nikkei Asia",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-09T03:23:33Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-09T08:52:52Z",
+        "updated_at": "2026-10-09T08:52:52Z",
+        "decay_at": "2026-10-10T15:23:33Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-10T15:23:33Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-cb6310225f0b",
         "idea_version": "IDEAV-8cb611a3f82876e7",
@@ -200632,80 +200781,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-481a4b3ef631",
-        "idea_version": "IDEAV-6cfbf2b9657e3199",
-        "idea_version_started_at": "2026-09-27T10:13:26Z",
-        "ticker": "03692",
-        "company": "Hansoh Pharmaceutical Group",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The company received positive regulatory updates regarding the marketing authorization of Aumolertinib in the EU, which expands the addressable market for its core oncology product.",
-        "why_now": "The voluntary announcement was filed on 2026-09-27, providing immediate clarity on the product's European commercialization timeline.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 14,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-bce6f755c270"
-        ],
-        "primary_source_event_id": "EVT-bce6f755c270",
-        "source_headlines": [
-          "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE MARKETING AUTHORIZATION STATUS OF AUMOLERTINIB IN THE EU"
-        ],
-        "source_headline": "HANSOH PHARMA (03692): VOLUNTARY ANNOUNCEMENT - UPDATE ON THE MARKETING AUTHORIZATION STATUS OF AUMOLERTINIB IN THE EU",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700007.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 95,
-        "newest_source_at": "2026-09-27T10:08:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T10:13:26Z",
-        "updated_at": "2026-09-27T10:13:26Z",
-        "decay_at": "2026-09-28T22:08:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T10:14:48Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-8b18351c452b",
         "idea_version": "IDEAV-74cc105ed3b65696",
         "idea_version_started_at": "2026-09-27T09:54:29Z",
@@ -210003,85 +210078,12 @@
         "archived_at": "2026-09-17T09:58:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-aae3ef159f69",
-        "idea_version": "IDEAV-258508e813aac783",
-        "idea_version_started_at": "2026-09-13T20:00:11Z",
-        "ticker": "BSX",
-        "company": "Boston Scientific",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "A significant cybersecurity incident has disrupted operations and forced a downward revision of financial guidance, indicating near-term margin pressure.",
-        "why_now": "The news of the cyberattack and guidance impact broke on 2026-09-13, creating immediate downward pressure on the stock.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-9cbb62cc4daa"
-        ],
-        "primary_source_event_id": "EVT-9cbb62cc4daa",
-        "source_headlines": [
-          "Boston Scientific (BSX) Didn’t Miss on Demand or Devices. A Cyberattack Just Broke Its Guidance."
-        ],
-        "source_headline": "Boston Scientific (BSX) Didn’t Miss on Demand or Devices. A Cyberattack Just Broke Its Guidance.",
-        "source_url": "https://finance.yahoo.com/healthcare/articles/boston-scientific-bsx-didn-t-193111827.html",
-        "source_name": "Yahoo Finance",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T19:31:11Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T20:00:11Z",
-        "updated_at": "2026-09-13T20:00:11Z",
-        "decay_at": "2026-09-15T07:31:11Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1481,
-    "live_count": 37,
+    "live_count": 35,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210100,9 +210102,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10583996,
-    "news_picked_today": 282,
-    "news_dropped_today": 7782
+    "news_seen_today": 10596466,
+    "news_picked_today": 289,
+    "news_dropped_today": 7895
   },
   "book_momentum": {
     "live_count": 8,
