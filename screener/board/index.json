@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T00:53:36Z",
+  "generated_at": "2026-10-10T00:58:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-002",
@@ -39,6 +39,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-008",
+      "headline": "Siemens Energy India Limited: Siemens Energy India Limited has informed the Exchange about Pendency of Litigation(s)/dispute(s) or the outcome impacting the Company",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ENRIN_09102026125414_Reg30Ruppur91026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T07:27:36Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The company has disclosed pending litigation or disputes that may impact its operations or financial position.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "The company has disclosed pending litigation or disputes that may impact its operations or financial position.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Siemens Energy India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -168988,78 +169037,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-790093145eaa",
-      "idea_version": "IDEAV-b7d8c650422f7266",
-      "idea_version_started_at": "2026-10-08T13:35:02Z",
-      "ticker": "EZJ",
-      "company": "EasyJet",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The airline is doubling its winter flight capacity cuts, indicating that rising operational costs are severely impacting margins.",
-      "why_now": "The announcement was made today, October 8, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ba5d75b53172"
-      ],
-      "primary_source_event_id": "EVT-ba5d75b53172",
-      "source_headlines": [
-        "EasyJet doubles winter flight cuts amid rising costs"
-      ],
-      "source_headline": "EasyJet doubles winter flight cuts amid rising costs",
-      "source_url": "https://www.ft.com/content/e24cfc54-ef45-487c-a94f-948abb60dd65?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T12:54:56Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T13:35:02Z",
-      "updated_at": "2026-10-08T13:35:02Z",
-      "decay_at": "2026-10-10T00:54:56Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-a98d17bf56cf",
       "idea_version": "IDEAV-6ca23660cd3ce8cd",
       "idea_version_started_at": "2026-10-09T06:05:27Z",
@@ -170182,6 +170159,78 @@
       "surfaced_at": "2026-10-07T20:55:35Z",
       "updated_at": "2026-10-07T20:55:35Z",
       "decay_at": "2026-10-09T01:08:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-790093145eaa",
+      "idea_version": "IDEAV-b7d8c650422f7266",
+      "idea_version_started_at": "2026-10-08T13:35:02Z",
+      "ticker": "EZJ",
+      "company": "EasyJet",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The airline is doubling its winter flight capacity cuts, indicating that rising operational costs are severely impacting margins.",
+      "why_now": "The announcement was made today, October 8, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-ba5d75b53172"
+      ],
+      "primary_source_event_id": "EVT-ba5d75b53172",
+      "source_headlines": [
+        "EasyJet doubles winter flight cuts amid rising costs"
+      ],
+      "source_headline": "EasyJet doubles winter flight cuts amid rising costs",
+      "source_url": "https://www.ft.com/content/e24cfc54-ef45-487c-a94f-948abb60dd65?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T12:54:56Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T13:35:02Z",
+      "updated_at": "2026-10-08T13:35:02Z",
+      "decay_at": "2026-10-10T00:54:56Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171635,9 +171684,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 533,
+    "total_count": 534,
     "shown_count": 500,
-    "hidden_count": 33,
+    "hidden_count": 34,
     "side_counts": {
       "long": {
         "total_count": 272,
@@ -171645,9 +171694,9 @@
         "hidden_count": 22
       },
       "short": {
-        "total_count": 261,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 11
+        "hidden_count": 12
       }
     },
     "retention": {
@@ -171666,6 +171715,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-790093145eaa",
+        "idea_version": "IDEAV-b7d8c650422f7266",
+        "idea_version_started_at": "2026-10-08T13:35:02Z",
+        "ticker": "EZJ",
+        "company": "EasyJet",
+        "exchange": "LSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The airline is doubling its winter flight capacity cuts, indicating that rising operational costs are severely impacting margins.",
+        "why_now": "The announcement was made today, October 8, 2026.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-ba5d75b53172"
+        ],
+        "primary_source_event_id": "EVT-ba5d75b53172",
+        "source_headlines": [
+          "EasyJet doubles winter flight cuts amid rising costs"
+        ],
+        "source_headline": "EasyJet doubles winter flight cuts amid rising costs",
+        "source_url": "https://www.ft.com/content/e24cfc54-ef45-487c-a94f-948abb60dd65?syn-25a6b1a6=1",
+        "source_name": "Financial Times",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-08T12:54:56Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-08T13:35:02Z",
+        "updated_at": "2026-10-08T13:35:02Z",
+        "decay_at": "2026-10-10T00:54:56Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-10T00:54:56Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-26f859b2a348",
         "idea_version": "IDEAV-00839b718ba53ef4",
@@ -208809,86 +208933,12 @@
         "archived_at": "2026-09-16T11:53:56Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-140d0f792e92",
-        "idea_version": "IDEAV-c9f2072c0f774a5a",
-        "idea_version_started_at": "2026-09-13T16:50:02Z",
-        "ticker": "2513",
-        "company": "Z.AI",
-        "exchange": "HKEX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The company is executing a massive capital raise through a concurrent share placement and a $20.14 billion RMB-settled zero-coupon convertible bond issue, which creates significant equity dilution and potential hedging pressure.",
-        "why_now": "The filing was released on September 13, 2026, ahead of the market open for these specific new instruments.",
-        "conviction": 75,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 21,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-17f1554c21aa"
-        ],
-        "primary_source_event_id": "EVT-17f1554c21aa",
-        "source_headlines": [
-          "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE"
-        ],
-        "source_headline": "Z.AI (02513): (1) PLACING OF NEW H SHARES UNDER GENERAL MANDATE; AND (2) CONCURRENT PROPOSED ISSUE OF RMB20.14 BILLION U.S. DOLLAR SETTLED ZERO COUPON CONVERTIBLE BONDS DUE 2027 UNDER GENERAL MANDATE",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300025.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T10:13:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T16:50:02Z",
-        "updated_at": "2026-09-13T16:50:02Z",
-        "decay_at": "2026-09-14T22:13:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-16T11:53:56Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1466,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -208898,7 +208948,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3414,
+    "inbox_unconsumed": 3415,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -208907,9 +208957,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 773429,
-    "news_picked_today": 7,
-    "news_dropped_today": 425
+    "news_seen_today": 821477,
+    "news_picked_today": 8,
+    "news_dropped_today": 472
   },
   "book_momentum": {
     "live_count": 8,
