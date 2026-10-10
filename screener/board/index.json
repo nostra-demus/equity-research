@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T01:10:37Z",
+  "generated_at": "2026-10-10T01:12:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-002",
@@ -83,6 +83,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-013",
+      "headline": "Zetwerk eyes ₹27,000 crore IPO valuation as over 30 investors weigh anchor book",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/zetwerk-eyes-27-000-crore-ipo-valuation-as-over-30-investors-weigh-anchor-book-11791532870989.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T00:15:13Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Zetwerk is targeting a valuation of 270 billion INR for its upcoming IPO.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "Zetwerk is targeting a valuation of 270 billion INR for its upcoming IPO.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zetwerk",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -316,6 +365,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-012",
+      "headline": "Israeli drone attack wounds six in Lebanon near Syria border",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/10/10/israeli-drone-attack-wounds-six-in-lebanon-near-syria-border?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-10T00:22:52Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "An Israeli drone attack in Lebanon near the Syrian border represents a geopolitical escalation in the Middle East.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "An Israeli drone attack in Lebanon near the Syrian border represents a geopolitical escalation in the Middle East.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -43,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209089,7 +209181,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3418,
+    "inbox_unconsumed": 3420,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209098,9 +209190,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1036622,
-    "news_picked_today": 11,
-    "news_dropped_today": 661
+    "news_seen_today": 1060464,
+    "news_picked_today": 13,
+    "news_dropped_today": 683
   },
   "book_momentum": {
     "live_count": 8,
