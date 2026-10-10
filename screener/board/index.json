@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T06:18:56Z",
+  "generated_at": "2026-10-10T06:22:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-099",
@@ -662,6 +662,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-104",
+      "headline": "Capri Global Capital Limited: board meeting 14-Oct-2026 — Fund Raising",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/CGCL_10102026113520_IntimationofBoardMeeting.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-10T06:05:29Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Capri Global Capital Limited announced a board meeting to discuss fund raising.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Capri Global Capital Limited announced a board meeting to discuss fund raising.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Capri Global Capital Limited",
+          "ticker": "531595",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1826,49 +1875,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-028",
-      "headline": "US blocks green card route for Indian IT firms; why impact may be limited",
-      "headline_en": null,
-      "url": "https://www.hindustantimes.com/business/us-blocks-green-card-route-for-indian-it-firms-why-impact-may-be-limited-101791591944149.html",
-      "source_name": "Hindustan Times (Business)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T01:12:34Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "US policy change regarding green cards impacts operational costs and talent acquisition for Indian IT firms.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "US policy change regarding green cards impacts operational costs and talent acquisition for Indian IT firms.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -209755,9 +209761,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5075382,
-    "news_picked_today": 132,
-    "news_dropped_today": 3252
+    "news_seen_today": 5137038,
+    "news_picked_today": 133,
+    "news_dropped_today": 3275
   },
   "book_momentum": {
     "live_count": 8,
