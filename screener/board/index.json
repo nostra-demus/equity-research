@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T10:14:35Z",
+  "generated_at": "2026-10-10T10:17:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-154",
+      "headline": "Avenue Supermarts Q2 Results: DMart parent net profit jumps 8.5% to ₹742.98 crore, revneue up 18%",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/avenue-supermarts-q2-results-dmart-parent-net-profit-jumps-8-5-to-rs-742-98-crore-revneue-up-18-11791626484306.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T10:08:50Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Avenue Supermarts reported Q2 net profit growth of 8.5% to ₹742.98 crore and revenue growth of 18%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Avenue Supermarts reported Q2 net profit growth of 8.5% to ₹742.98 crore and revenue growth of 18%.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avenue Supermarts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1854,55 +1903,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-039",
-      "headline": "BYD reaches 150,000 commercial NEV production milestone as growth focus shifts to trucks",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/10/10/byd-150000-commercial-nev-production-focus-trucks/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T01:34:49Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "BYD reached a production milestone of 150,000 commercial new energy vehicles, signaling growth in the truck segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "BYD reached a production milestone of 150,000 commercial new energy vehicles, signaling growth in the truck segment.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BYD",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210285,9 +210285,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7546143,
-    "news_picked_today": 229,
-    "news_dropped_today": 5147
+    "news_seen_today": 7576405,
+    "news_picked_today": 230,
+    "news_dropped_today": 5170
   },
   "book_momentum": {
     "live_count": 8,
