@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T01:32:12Z",
+  "generated_at": "2026-10-10T01:42:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-031",
@@ -280,6 +280,49 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-033",
+      "headline": "Beer maker leaders may have been aware of price cartel",
+      "headline_en": null,
+      "url": "https://www.japantimes.co.jp/business/2026/10/10/companies/beer-maker-leaders-price-cartel/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T00:59:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Reports suggest leadership at major Japanese beer manufacturers may have been aware of price-fixing activities, indicating potential regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Reports suggest leadership at major Japanese beer manufacturers may have been aware of price-fixing activities, indicating potential regulatory risk.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -573,6 +616,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-032",
+      "headline": "Honda board had too little say in major investment decisions, chair says",
+      "headline_en": null,
+      "url": "https://asia.nikkei.com/business/automobiles/honda-board-had-too-little-say-in-major-investment-decisions-chair-says",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:41:11Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The chair of Honda publicly criticized the board's lack of oversight regarding major investment decisions, raising governance concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "The chair of Honda publicly criticized the board's lack of oversight regarding major investment decisions, raising governance concerns.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Honda Motor",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210045,7 +210137,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3438,
+    "inbox_unconsumed": 3440,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -210054,9 +210146,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1274392,
-    "news_picked_today": 31,
-    "news_dropped_today": 833
+    "news_seen_today": 1416566,
+    "news_picked_today": 33,
+    "news_dropped_today": 903
   },
   "book_momentum": {
     "live_count": 8,
