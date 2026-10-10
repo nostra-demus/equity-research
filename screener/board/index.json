@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T07:05:16Z",
+  "generated_at": "2026-10-10T07:06:25Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-106",
@@ -168274,6 +168274,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-03c185c28ffe",
+      "idea_version": "IDEAV-cd0c5691441766a2",
+      "idea_version_started_at": "2026-10-10T07:05:33Z",
+      "ticker": "VLO",
+      "company": "Valero Energy Corporation",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The lifting of sanctions on Russian diesel will flood the global market with supply, significantly compressing refining margins (crack spreads) for Western merchant refiners.",
+      "why_now": "The policy shift was announced on October 10, 2024, creating an immediate bearish outlook for global middle distillate pricing.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 74,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "policy_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9dcb9aab8141",
+        "EVT-574f3b41a213"
+      ],
+      "primary_source_event_id": "EVT-9dcb9aab8141",
+      "source_headlines": [
+        "‘I want to thank President Putin’, Trump says after agreeing to lift sanctions on Russian diesel – as it happened",
+        "President Trump Hails 'Big Deal' With Putin On Russian Diesel Supplies As Zelenskyy Warns Sanctions Relief Could Prolong Ukraine War | Video"
+      ],
+      "source_headline": "‘I want to thank President Putin’, Trump says after agreeing to lift sanctions on Russian diesel – as it happened",
+      "source_url": "https://www.theguardian.com/us-news/live/2026/oct/09/pentagon-fort-hood-livestream-firing-squad-execution-reaction-backlash-pete-hegseth-donald-trump-mussolini-latest-news-updates",
+      "source_name": "The Guardian — World news",
+      "materiality_max": 96,
+      "newest_source_at": "2026-10-10T03:22:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T07:05:33Z",
+      "updated_at": "2026-10-10T07:05:33Z",
+      "decay_at": "2026-10-11T15:22:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-8e38ef15bf4e",
       "idea_version": "IDEAV-a799751771b43cc4",
       "idea_version_started_at": "2026-10-10T00:19:59Z",
@@ -170270,6 +170341,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7cf547d54695",
+      "idea_version": "IDEAV-24918a5b93e8aee3",
+      "idea_version_started_at": "2026-10-10T07:05:33Z",
+      "ticker": "9020",
+      "company": "East Japan Railway Company",
+      "exchange": "TSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A massive cybersecurity breach involving 6 million customer records creates significant litigation risk and potential regulatory fines in Japan's strict data privacy environment.",
+      "why_now": "The breach was reported on October 10, 2024, and the scale of the leak (6 million records) is likely to trigger immediate reputational damage and investigative costs.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a294f061400d"
+      ],
+      "primary_source_event_id": "EVT-a294f061400d",
+      "source_headlines": [
+        "Bookoff, JR East each report 6 mil customer records leak in newest breach"
+      ],
+      "source_headline": "Bookoff, JR East each report 6 mil customer records leak in newest breach",
+      "source_url": "https://japantoday.com/category/crime/update1-bookoff-jr-east-each-report-6-mil.-customer-records-leak-in-newest-breach",
+      "source_name": "Japan Today",
+      "materiality_max": 91,
+      "newest_source_at": "2026-10-10T01:54:58Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T07:05:33Z",
+      "updated_at": "2026-10-10T07:05:33Z",
+      "decay_at": "2026-10-11T13:54:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-736a98e7fc49",
       "idea_version": "IDEAV-849e89dae03c45f4",
       "idea_version_started_at": "2026-10-10T03:24:22Z",
@@ -170552,6 +170695,78 @@
       "surfaced_at": "2026-10-10T03:24:22Z",
       "updated_at": "2026-10-10T03:24:22Z",
       "decay_at": "2026-10-11T12:28:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-2fabc4574ced",
+      "idea_version": "IDEAV-407c46ab2cdd72ca",
+      "idea_version_started_at": "2026-10-10T07:05:33Z",
+      "ticker": "1211",
+      "company": "BYD Company",
+      "exchange": "HKG",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Reaching the 150,000 commercial NEV production milestone validates the company's ability to scale beyond passenger cars into higher-margin commercial truck segments.",
+      "why_now": "The production milestone and strategic shift to trucks were confirmed on October 10, 2024, signaling a new growth vector for the company's commercial division.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-063336d1347c"
+      ],
+      "primary_source_event_id": "EVT-063336d1347c",
+      "source_headlines": [
+        "BYD reaches 150,000 commercial NEV production milestone as growth focus shifts to trucks"
+      ],
+      "source_headline": "BYD reaches 150,000 commercial NEV production milestone as growth focus shifts to trucks",
+      "source_url": "https://cnevpost.com/2026/10/10/byd-150000-commercial-nev-production-focus-trucks/",
+      "source_name": "CnEVPost",
+      "materiality_max": 85,
+      "newest_source_at": "2026-10-10T01:34:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T07:05:33Z",
+      "updated_at": "2026-10-10T07:05:33Z",
+      "decay_at": "2026-10-11T13:34:49Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -209742,8 +209957,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1471,
-    "live_count": 36,
+    "surfaced_total": 1474,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

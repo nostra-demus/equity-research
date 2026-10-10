@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-03c185c28ffe",
+  "idea_version": "IDEAV-cd0c5691441766a2",
+  "idea_version_started_at": "2026-10-10T07:05:33Z",
+  "ticker": "VLO",
+  "company": "Valero Energy Corporation",
+  "exchange": "NYSE",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "short",
+  "pair_with": null,
+  "reason": "The lifting of sanctions on Russian diesel will flood the global market with supply, significantly compressing refining margins (crack spreads) for Western merchant refiners.",
+  "why_now": "The policy shift was announced on October 10, 2024, creating an immediate bearish outlook for global middle distillate pricing.",
+  "conviction": 70,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 74,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 21,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 7,
+    "corroboration": 7,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "policy_conditional",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-9dcb9aab8141",
+    "EVT-574f3b41a213"
+  ],
+  "primary_source_event_id": "EVT-9dcb9aab8141",
+  "source_headlines": [
+    "‘I want to thank President Putin’, Trump says after agreeing to lift sanctions on Russian diesel – as it happened",
+    "President Trump Hails 'Big Deal' With Putin On Russian Diesel Supplies As Zelenskyy Warns Sanctions Relief Could Prolong Ukraine War | Video"
+  ],
+  "source_headline": "‘I want to thank President Putin’, Trump says after agreeing to lift sanctions on Russian diesel – as it happened",
+  "source_url": "https://www.theguardian.com/us-news/live/2026/oct/09/pentagon-fort-hood-livestream-firing-squad-execution-reaction-backlash-pete-hegseth-donald-trump-mussolini-latest-news-updates",
+  "source_name": "The Guardian — World news",
+  "materiality_max": 96,
+  "newest_source_at": "2026-10-10T03:22:37Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-10T07:05:33Z",
+  "updated_at": "2026-10-10T07:05:33Z",
+  "decay_at": "2026-10-11T15:22:37Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
