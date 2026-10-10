@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T22:52:21Z",
+  "generated_at": "2026-10-10T23:06:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -95,6 +95,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-234",
+      "headline": "Missile strike on Riyadh airport kills 12 and injures hundreds",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/391ddf3f-b233-41fd-819b-fcdbfb0ed010?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T22:18:05Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "A missile strike on a major international airport in Saudi Arabia represents a severe geopolitical escalation and security risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A missile strike on a major international airport in Saudi Arabia represents a severe geopolitical escalation and security risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -911,49 +954,6 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261010-223",
-      "headline": "Riyadh airport suspends operations after missile strike kills 12 and injures hundreds",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/391ddf3f-b233-41fd-819b-fcdbfb0ed010?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T22:18:05Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "A missile strike on a major international airport causing casualties is a significant geopolitical and supply chain shock.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "A missile strike on a major international airport causing casualties is a significant geopolitical and supply chain shock.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
       "inbox_id": "INB-20261010-192",
       "headline": "Riyadh airport attacked again as missile strike wounds passengers, flights diverted",
       "headline_en": null,
@@ -1035,6 +1035,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-224",
+      "headline": "Major business software company HubSpot cuts nearly 7% of workforce",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/employment/business-software-company-hubspot-layoffs-660-jobs-ai-restructuring",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T22:47:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "HubSpot is cutting 7% of its workforce, indicating a significant operational restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "HubSpot is cutting 7% of its workforce, indicating a significant operational restructuring.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HubSpot",
+          "ticker": "HUBS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1843,55 +1892,6 @@
         {
           "name": "Bhandari Hosiery Exports Limited",
           "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-153",
-      "headline": "Kesoram Industries Limited: Kesoram Industries Limited has informed the Exchange regarding Resignation of Mr Samir Kumar Ray as Chief Financial Officer of the company w.e.f. January 02, 2027.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/KESORAMIND_10102026153232_Reg30.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-10T10:02:43Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "The Chief Financial Officer of Kesoram Industries Limited has resigned effective January 02, 2027.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The Chief Financial Officer of Kesoram Industries Limited has resigned effective January 02, 2027.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kesoram Industries Limited",
-          "ticker": "502810",
           "listing_country": "IN"
         }
       ],
@@ -210208,9 +210208,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13520908,
-    "news_picked_today": 585,
-    "news_dropped_today": 11559
+    "news_seen_today": 13584272,
+    "news_picked_today": 604,
+    "news_dropped_today": 11660
   },
   "book_momentum": {
     "live_count": 8,
