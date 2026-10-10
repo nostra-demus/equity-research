@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T21:19:19Z",
+  "generated_at": "2026-10-10T21:22:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -181,6 +181,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-219",
+      "headline": "Signature Global Sales Bookings Down 9% To Rs 1,830 Crore In July-Sept Quarter",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/signature-global-sales-bookings-down-9-to-rs-1-830-crore-in-july-sept-quarter-12167186#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T15:40:57Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Signature Global reported a 9% decline in sales bookings to Rs 1,830 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Signature Global reported a 9% decline in sales bookings to Rs 1,830 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 3,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Signature Global",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1854,55 +1903,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-108",
-      "headline": "Deepak Builders & Engineers India Limited: Deepak Builders & Engineers India Limited has informed the Exchange regarding Cessation of Ms Parveen Kumari as Chief Financial Officer of the company w.e.f. October 10, 2026.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/DEEPAKBUILDERS_10102026114757_Resignation_of_CFO.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-10T06:18:07Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Cessation of the Chief Financial Officer is a significant management change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Cessation of the Chief Financial Officer is a significant management change.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Deepak Builders & Engineers India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210290,9 +210290,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13006012,
-    "news_picked_today": 483,
-    "news_dropped_today": 10893
+    "news_seen_today": 13021776,
+    "news_picked_today": 492,
+    "news_dropped_today": 10908
   },
   "book_momentum": {
     "live_count": 8,
