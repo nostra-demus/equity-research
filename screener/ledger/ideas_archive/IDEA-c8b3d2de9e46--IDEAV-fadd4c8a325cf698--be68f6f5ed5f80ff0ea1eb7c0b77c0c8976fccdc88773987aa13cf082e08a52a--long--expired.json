@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-10-10T03:24:35Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-c8b3d2de9e46",
+    "idea_version": "IDEAV-fadd4c8a325cf698",
+    "idea_version_started_at": "2026-10-07T03:42:33Z",
+    "ticker": "KLXE",
+    "company": "KLX Energy Services Holdings, Inc.",
+    "exchange": "NASDAQ",
+    "ticker_verified": true,
+    "listing_verified": true,
+    "liquidity_verified": false,
+    "listing_verification_source": "yahoo_symbol_directory",
+    "direction": "long",
+    "pair_with": null,
+    "reason": "A Schedule 13D filing by Cross Ocean Partners Management LP indicates activist involvement, which often signals potential for strategic changes to unlock shareholder value.",
+    "why_now": "The activist filing was made today, October 7, 2026, indicating a fresh catalyst for potential corporate action.",
+    "conviction": 55,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 72,
+    "trade_score_basis": "event_driven_v3",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 15,
+      "specificity": 15,
+      "timing": 10,
+      "expression": 7,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "needs_data",
+    "missing_checks": [
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "governance_turnaround",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-5a0536e324f7",
+      "EVT-8594c4da01a1"
+    ],
+    "primary_source_event_id": "EVT-5a0536e324f7",
+    "source_headlines": [
+      "SCHEDULE 13D - Cross Ocean Partners Management LP (0001752226) (Filed by)",
+      "SCHEDULE 13D - KLX Energy Services Holdings, Inc. (0001738827) (Subject)"
+    ],
+    "source_headline": "SCHEDULE 13D - Cross Ocean Partners Management LP (0001752226) (Filed by)",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1752226/000121390026107356/0001213900-26-107356-index.htm",
+    "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+    "materiality_max": 94,
+    "newest_source_at": "2026-10-07T01:56:31Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-10-07T03:42:33Z",
+    "updated_at": "2026-10-07T03:42:33Z",
+    "decay_at": "2026-10-08T13:56:31Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T02:56:57Z",
+  "generated_at": "2026-10-10T03:24:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-031",
@@ -170359,77 +170359,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7470585394f5",
-      "idea_version": "IDEAV-ffc4a9332af08053",
-      "idea_version_started_at": "2026-10-08T16:19:11Z",
-      "ticker": "POLYCAB",
-      "company": "Polycab India Limited",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company has entered a formal Corporate Insolvency Resolution Process, signaling severe financial distress and potential equity wipeout.",
-      "why_now": "The exchange filing was released on 2026-10-08, making this an immediate liquidity and solvency crisis.",
-      "conviction": 90,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 23,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-922a052e7d2c"
-      ],
-      "primary_source_event_id": "EVT-922a052e7d2c",
-      "source_headlines": [
-        "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process"
-      ],
-      "source_headline": "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process",
-      "source_url": "https://nsearchives.nseindia.com/corporate/POLYCAB_08102026204050_StockExchangeIntimationCIRPupdate08102026F.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T15:11:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T14:29:57Z",
-      "updated_at": "2026-10-08T16:19:11Z",
-      "decay_at": "2026-10-10T03:11:15Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-c59cbad8d027",
       "idea_version": "IDEAV-84e3072f0ca2e2b5",
       "idea_version_started_at": "2026-10-08T16:19:11Z",
@@ -170645,6 +170574,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-736a98e7fc49",
+      "idea_version": "IDEAV-849e89dae03c45f4",
+      "idea_version_started_at": "2026-10-10T03:24:22Z",
+      "ticker": "5406",
+      "company": "Kobe Steel",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Kobe Steel plans to pursue M&A in India to increase its compressor production capacity, which could expand its market share and revenue in a growing region.",
+      "why_now": "The company executive's statement on October 10, 2026, indicates an active strategic initiative to grow through acquisitions in India.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-465c25baadb8"
+      ],
+      "primary_source_event_id": "EVT-465c25baadb8",
+      "source_headlines": [
+        "Japan's Kobe Steel eyes India M&A to lift compressor production: executive"
+      ],
+      "source_headline": "Japan's Kobe Steel eyes India M&A to lift compressor production: executive",
+      "source_url": "https://asia.nikkei.com/business/companies/japan-s-kobe-steel-eyes-india-m-a-to-lift-compressor-production-executive",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 91,
+      "newest_source_at": "2026-10-10T01:21:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T03:24:22Z",
+      "updated_at": "2026-10-10T03:24:22Z",
+      "decay_at": "2026-10-11T13:21:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1d2ec78f4706",
       "idea_version": "IDEAV-bbff5588962bcb2a",
       "idea_version_started_at": "2026-10-09T05:42:02Z",
@@ -170710,6 +170711,223 @@
       "surfaced_at": "2026-10-09T05:42:02Z",
       "updated_at": "2026-10-09T05:42:02Z",
       "decay_at": "2026-10-10T13:42:58Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3f16c02405f0",
+      "idea_version": "IDEAV-9f1ab115389443ad",
+      "idea_version_started_at": "2026-10-10T03:24:22Z",
+      "ticker": "6762",
+      "company": "TDK",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "TDK is considering selling its hard-drive head unit, which could streamline its operations, improve profitability by divesting a non-core or underperforming asset, or unlock capital for other investments.",
+      "why_now": "The company is actively weighing this strategic review as of October 10, 2026, indicating a potential near-term corporate action.",
+      "conviction": 45,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6a66b1a8fd90"
+      ],
+      "primary_source_event_id": "EVT-6a66b1a8fd90",
+      "source_headlines": [
+        "TDK weighs sale of hard-drive head unit, but regulatory OK uncertain"
+      ],
+      "source_headline": "TDK weighs sale of hard-drive head unit, but regulatory OK uncertain",
+      "source_url": "https://asia.nikkei.com/business/business-deals/tdk-weighs-sale-of-hard-drive-head-unit-but-regulatory-ok-uncertain",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 88,
+      "newest_source_at": "2026-10-10T01:21:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T03:24:22Z",
+      "updated_at": "2026-10-10T03:24:22Z",
+      "decay_at": "2026-10-11T13:21:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-675f9fa696a1",
+      "idea_version": "IDEAV-1ca0e0c57f9c130d",
+      "idea_version_started_at": "2026-10-10T03:24:22Z",
+      "ticker": "TCS",
+      "company": "Tata Consultancy Services",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Tata Consultancy Services is withholding quarterly bonuses for senior staff, indicating it missed performance targets, which could signal weaker-than-expected earnings or margin pressure.",
+      "why_now": "The news of withheld bonuses is fresh as of October 10, 2026, suggesting immediate negative sentiment ahead of its next earnings report.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 15,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5c6c1bd91087"
+      ],
+      "primary_source_event_id": "EVT-5c6c1bd91087",
+      "source_headlines": [
+        "TCS withholds quarterly bonuses for senior staff after missing performance targets"
+      ],
+      "source_headline": "TCS withholds quarterly bonuses for senior staff after missing performance targets",
+      "source_url": "https://www.thehindubusinessline.com/info-tech/tcs-withholds-quarterly-bonuses-for-senior-staff-after-missing-performance-targets/article71566947.ece",
+      "source_name": "The Hindu BusinessLine",
+      "materiality_max": 87,
+      "newest_source_at": "2026-10-10T00:28:08Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T03:24:22Z",
+      "updated_at": "2026-10-10T03:24:22Z",
+      "decay_at": "2026-10-11T12:28:08Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-17e9f88b4b0e",
+      "idea_version": "IDEAV-f2aad2fb68e15335",
+      "idea_version_started_at": "2026-10-10T03:24:22Z",
+      "ticker": "7267",
+      "company": "Honda Motor",
+      "exchange": "TSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Honda will sell Thai-built Mitsubishi pickups under its own brand in Southeast Asia, expanding its product offering and potentially gaining market share at Mitsubishi's expense.",
+      "why_now": "This commercial strategy shift was announced on October 10, 2026, indicating a live competitive development in the Southeast Asian auto market.",
+      "conviction": 50,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "pair_trade",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-936ee565ce96"
+      ],
+      "primary_source_event_id": "EVT-936ee565ce96",
+      "source_headlines": [
+        "Honda to sell Thai-built Mitsubishi pickup under own brand in Southeast Asia"
+      ],
+      "source_headline": "Honda to sell Thai-built Mitsubishi pickup under own brand in Southeast Asia",
+      "source_url": "https://asia.nikkei.com/business/automobiles/honda-to-sell-thai-built-mitsubishi-pickup-under-own-brand-in-southeast-asia",
+      "source_name": "Nikkei Asia",
+      "materiality_max": 82,
+      "newest_source_at": "2026-10-10T01:21:11Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T03:24:22Z",
+      "updated_at": "2026-10-10T03:24:22Z",
+      "decay_at": "2026-10-11T13:21:11Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -170921,77 +171139,6 @@
       "surfaced_at": "2026-10-08T03:53:00Z",
       "updated_at": "2026-10-08T03:53:00Z",
       "decay_at": "2026-10-09T02:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c8b3d2de9e46",
-      "idea_version": "IDEAV-fadd4c8a325cf698",
-      "idea_version_started_at": "2026-10-07T03:42:33Z",
-      "ticker": "KLXE",
-      "company": "KLX Energy Services Holdings, Inc.",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A Schedule 13D filing by Cross Ocean Partners Management LP indicates activist involvement, which often signals potential for strategic changes to unlock shareholder value.",
-      "why_now": "The activist filing was made today, October 7, 2026, indicating a fresh catalyst for potential corporate action.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 72,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 15,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5a0536e324f7",
-        "EVT-8594c4da01a1"
-      ],
-      "primary_source_event_id": "EVT-5a0536e324f7",
-      "source_headlines": [
-        "SCHEDULE 13D - Cross Ocean Partners Management LP (0001752226) (Filed by)",
-        "SCHEDULE 13D - KLX Energy Services Holdings, Inc. (0001738827) (Subject)"
-      ],
-      "source_headline": "SCHEDULE 13D - Cross Ocean Partners Management LP (0001752226) (Filed by)",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1752226/000121390026107356/0001213900-26-107356-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "materiality_max": 94,
-      "newest_source_at": "2026-10-07T01:56:31Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T03:42:33Z",
-      "updated_at": "2026-10-07T03:42:33Z",
-      "decay_at": "2026-10-08T13:56:31Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -171484,6 +171631,77 @@
       "surfaced_at": "2026-10-07T20:55:35Z",
       "updated_at": "2026-10-07T20:55:35Z",
       "decay_at": "2026-10-09T01:08:14Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7470585394f5",
+      "idea_version": "IDEAV-ffc4a9332af08053",
+      "idea_version_started_at": "2026-10-08T16:19:11Z",
+      "ticker": "POLYCAB",
+      "company": "Polycab India Limited",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has entered a formal Corporate Insolvency Resolution Process, signaling severe financial distress and potential equity wipeout.",
+      "why_now": "The exchange filing was released on 2026-10-08, making this an immediate liquidity and solvency crisis.",
+      "conviction": 90,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 23,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-922a052e7d2c"
+      ],
+      "primary_source_event_id": "EVT-922a052e7d2c",
+      "source_headlines": [
+        "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+      ],
+      "source_headline": "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+      "source_url": "https://nsearchives.nseindia.com/corporate/POLYCAB_08102026204050_StockExchangeIntimationCIRPupdate08102026F.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-08T15:11:15Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T14:29:57Z",
+      "updated_at": "2026-10-08T16:19:11Z",
+      "decay_at": "2026-10-10T03:11:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -172350,78 +172568,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-30544aec4eac",
-      "idea_version": "IDEAV-78dcd0b979c43ba2",
-      "idea_version_started_at": "2026-10-07T04:19:01Z",
-      "ticker": "RCOM",
-      "company": "Reliance Communications",
-      "exchange": "NSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The Department of Telecommunications has terminated the company's spectrum licenses, effectively halting its core operational capacity and ability to generate revenue.",
-      "why_now": "The termination is effective immediately as of October 7, 2026.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f15a0e365cc1"
-      ],
-      "primary_source_event_id": "EVT-f15a0e365cc1",
-      "source_headlines": [
-        "Reliance Communications Spectrum Terminated By DoT With Immediate Effect. Here's Why"
-      ],
-      "source_headline": "Reliance Communications Spectrum Terminated By DoT With Immediate Effect. Here's Why",
-      "source_url": "https://www.ndtvprofit.com/markets/reliance-communications-shares-today-spectrum-terminated-by-dot-with-immediate-effect-heres-why-12148820#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-07T02:21:48Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T04:19:01Z",
-      "updated_at": "2026-10-07T04:19:01Z",
-      "decay_at": "2026-10-08T14:21:48Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-ee428476df74",
       "idea_version": "IDEAV-cbfa3857d567820b",
       "idea_version_started_at": "2026-10-07T04:37:41Z",
@@ -172487,78 +172633,6 @@
       "surfaced_at": "2026-10-07T04:37:41Z",
       "updated_at": "2026-10-07T04:37:41Z",
       "decay_at": "2026-10-08T16:19:32Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-b7b9a3ca82be",
-      "idea_version": "IDEAV-104ab8f51e976f39",
-      "idea_version_started_at": "2026-10-07T03:42:33Z",
-      "ticker": "OCBC",
-      "company": "OCBC Bank",
-      "exchange": null,
-      "direction": "short",
-      "pair_with": null,
-      "reason": "OCBC's shares slid 5.2%, wiping S$7 billion off its value, indicating a significant negative market reaction to recent news, likely related to earnings or guidance.",
-      "why_now": "The sharp decline in share price and value occurred today, October 7, 2026, suggesting a fresh negative catalyst that may not be fully priced in.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-1e85e08d0c29"
-      ],
-      "primary_source_event_id": "EVT-1e85e08d0c29",
-      "source_headlines": [
-        "S$7 billion wiped off OCBC value as shares slide 5.2% in heavy trade"
-      ],
-      "source_headline": "S$7 billion wiped off OCBC value as shares slide 5.2% in heavy trade",
-      "source_url": "https://www.businesstimes.com.sg/companies-markets/s7-billion-wiped-ocbc-value-shares-slide-5-2-heavy-trade",
-      "source_name": "The Business Times (Singapore)",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-07T03:02:15Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-07T03:42:33Z",
-      "updated_at": "2026-10-07T03:42:33Z",
-      "decay_at": "2026-10-08T15:02:15Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -172793,37 +172867,111 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 529,
+    "total_count": 527,
     "shown_count": 500,
-    "hidden_count": 29,
+    "hidden_count": 27,
     "side_counts": {
       "long": {
-        "total_count": 266,
+        "total_count": 265,
         "shown_count": 250,
-        "hidden_count": 16
+        "hidden_count": 15
       },
       "short": {
-        "total_count": 263,
+        "total_count": 262,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 12
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 899,
-      "oldest_retained_at": "2026-09-13T22:54:26Z",
+      "evicted_count": 902,
+      "oldest_retained_at": "2026-09-14T01:37:53Z",
       "side_counts": {
         "long": {
-          "evicted_count": 600,
+          "evicted_count": 601,
           "oldest_retained_at": "2026-09-27T02:14:46Z"
         },
         "short": {
-          "evicted_count": 299,
-          "oldest_retained_at": "2026-09-13T22:54:26Z"
+          "evicted_count": 301,
+          "oldest_retained_at": "2026-09-14T01:37:53Z"
         }
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7470585394f5",
+        "idea_version": "IDEAV-ffc4a9332af08053",
+        "idea_version_started_at": "2026-10-08T16:19:11Z",
+        "ticker": "POLYCAB",
+        "company": "Polycab India Limited",
+        "exchange": "NSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company has entered a formal Corporate Insolvency Resolution Process, signaling severe financial distress and potential equity wipeout.",
+        "why_now": "The exchange filing was released on 2026-10-08, making this an immediate liquidity and solvency crisis.",
+        "conviction": 90,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 23,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-922a052e7d2c"
+        ],
+        "primary_source_event_id": "EVT-922a052e7d2c",
+        "source_headlines": [
+          "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process"
+        ],
+        "source_headline": "Polycab India Limited: Polycab India Limited has informed the Exchange about Corporate Insolvency Resolution Process",
+        "source_url": "https://nsearchives.nseindia.com/corporate/POLYCAB_08102026204050_StockExchangeIntimationCIRPupdate08102026F.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-08T15:11:15Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-08T14:29:57Z",
+        "updated_at": "2026-10-08T16:19:11Z",
+        "decay_at": "2026-10-10T03:11:15Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-10T03:11:15Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-8c352967472b",
         "idea_version": "IDEAV-5c0dfa8b6f6509f8",
@@ -174825,8 +174973,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-08T15:02:15Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-10T03:24:35Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -174900,8 +175048,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-08T14:21:48Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-10T03:24:35Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -174974,8 +175122,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-08T13:56:31Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-10T03:24:35Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -209968,85 +210116,12 @@
         "archived_at": "2026-09-17T09:58:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-69441c9f6035",
-        "idea_version": "IDEAV-3864d3d0cf90ad00",
-        "idea_version_started_at": "2026-09-13T12:04:53Z",
-        "ticker": "BABA",
-        "company": "Alibaba",
-        "exchange": "NYSE",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "Alibaba is implicated in Chinese military research using US frontier AI models, which could lead to significant regulatory scrutiny, sanctions, or reputational damage.",
-        "why_now": "The report detailing Alibaba's involvement was published on September 13, 2026, making this a live regulatory and operational risk.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "policy_conditional",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-745b2b326a6d"
-        ],
-        "primary_source_event_id": "EVT-745b2b326a6d",
-        "source_headlines": [
-          "Chinese military researchers and tech giants caught using Claude — US frontier model, coded 16 air-defense suppression tools targeting Taiwan, drafted anti-torpedo specs, and fed 151 million training queries to Alibaba"
-        ],
-        "source_headline": "Chinese military researchers and tech giants caught using Claude — US frontier model, coded 16 air-defense suppression tools targeting Taiwan, drafted anti-torpedo specs, and fed 151 million training queries to Alibaba",
-        "source_url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/chinese-military-researchers-and-tech-giants-caught-using-claude-us-frontier-model-coded-16-air-defense-suppression-tools-targeting-taiwan-drafted-anti-torpedo-specs-and-fed-151-million-training-queries-to-alibaba",
-        "source_name": "Tom's Hardware",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-13T12:00:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-13T12:04:53Z",
-        "updated_at": "2026-09-13T12:04:53Z",
-        "decay_at": "2026-09-15T00:00:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-16T13:29:06Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1466,
-    "live_count": 37,
+    "surfaced_total": 1470,
+    "live_count": 40,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210065,9 +210140,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2353047,
+    "news_seen_today": 2702173,
     "news_picked_today": 62,
-    "news_dropped_today": 1498
+    "news_dropped_today": 1738
   },
   "book_momentum": {
     "live_count": 8,
