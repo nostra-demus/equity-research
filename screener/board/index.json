@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T11:30:43Z",
+  "generated_at": "2026-10-10T11:37:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -95,6 +95,55 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-163",
+      "headline": "DMart Q2 results: Avenue Supermarts Net Profit Rises 8% to Rs 804 Crore, Misses Estimates",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/dmart-q2-results-avenue-supermarts-net-profit-rises-8-to-rs-804-crore-misses-estimates-12165921#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T11:14:45Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Avenue Supermarts reported a net profit of Rs 804 crore, missing analyst estimates.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Avenue Supermarts reported a net profit of Rs 804 crore, missing analyst estimates.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avenue Supermarts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1854,49 +1903,6 @@
       "triage_score": 86,
       "triage_reason": "Geopolitical escalation regarding prisoner death penalty laws in the Palestinian territories increases regional instability risk.",
       "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-119",
-      "headline": "India unveils tough curbs on dollar demand to defend rupee",
-      "headline_en": null,
-      "url": "https://www.emirates247.com/business/india-unveils-rbi-curbs-on-dollar-demand-to-defend-rupee-shifts-oil-firms-fx-buys-and-tightens-hedging-rules/6569",
-      "source_name": "Emirates 24|7 — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T06:20:00Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "India has implemented new restrictions on dollar demand to defend the rupee, indicating significant currency pressure and policy intervention.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "India has implemented new restrictions on dollar demand to defend the rupee, indicating significant currency pressure and policy intervention.",
-      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -210089,9 +210095,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8354532,
-    "news_picked_today": 246,
-    "news_dropped_today": 5682
+    "news_seen_today": 8425715,
+    "news_picked_today": 247,
+    "news_dropped_today": 5753
   },
   "book_momentum": {
     "live_count": 8,
