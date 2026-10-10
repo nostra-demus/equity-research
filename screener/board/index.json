@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T17:29:57Z",
+  "generated_at": "2026-10-10T17:50:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -1066,6 +1066,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-191",
+      "headline": "CFTC Draws the Line Between Prediction Markets and Gambling in New Rules",
+      "headline_en": null,
+      "url": "https://decrypt.co/380635/cftc-draws-line-prediction-markets-and-gambling-new-rules",
+      "source_name": "Decrypt — Crypto News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T17:01:03Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The CFTC drawing a line between prediction markets and gambling in new rules could have significant regulatory implications for companies operating in the prediction market space.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The CFTC drawing a line between prediction markets and gambling in new rules could have significant regulatory implications for companies operating in the prediction market space.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-050",
       "headline": "‘I want to thank President Putin’, Trump says after agreeing to lift sanctions on Russian diesel – as it happened",
       "headline_en": null,
@@ -1872,55 +1915,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-179",
-      "headline": "Cloudflare acquires Deno to improve its Workers programming model",
-      "headline_en": null,
-      "url": "https://techcrunch.com/2026/10/10/cloudflare-acquires-deno-to-improve-its-workers-programming-model/",
-      "source_name": "TechCrunch",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T16:25:42Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Cloudflare is acquiring Deno to enhance its serverless computing platform, which is a strategic product expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Cloudflare is acquiring Deno to enhance its serverless computing platform, which is a strategic product expansion.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cloudflare",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210230,9 +210224,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11541030,
-    "news_picked_today": 329,
-    "news_dropped_today": 8911
+    "news_seen_today": 11701407,
+    "news_picked_today": 341,
+    "news_dropped_today": 9163
   },
   "book_momentum": {
     "live_count": 8,
