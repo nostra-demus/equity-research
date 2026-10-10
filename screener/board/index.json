@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T23:47:47Z",
+  "generated_at": "2026-10-10T23:50:40Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -320,6 +320,60 @@
           "name": "Jefferies Financial Group",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-260",
+      "headline": "Mahindra & Mahindra announces sale of 51% stake in Novavayu Aerospace to Embraer",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/corporate/story/mahindra-mahindra-announces-sale-of-51-stake-in-novavayu-aerospace-to-embraer-560832-2026-10-10?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T14:56:46Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Mahindra & Mahindra is selling a majority stake in its aerospace subsidiary, which is a significant divestiture.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mahindra & Mahindra is selling a majority stake in its aerospace subsidiary, which is a significant divestiture.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 2,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mahindra & Mahindra",
+          "ticker": null,
+          "listing_country": "IN"
+        },
+        {
+          "name": "Embraer",
+          "ticker": null,
+          "listing_country": "BR"
         }
       ],
       "size_bucket": "large",
@@ -1847,55 +1901,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-168",
-      "headline": "Bhandari Hosiery Exports Limited: Bhandari Hosiery Exports Limited has informed the Exchange about Resignation of Director/KMP/SMP",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BHANDARI_ROID_100168_KMP_Doc.zip",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-10T12:31:39Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "The resignation of a Director or Key Managerial Personnel is a material governance event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "The resignation of a Director or Key Managerial Personnel is a material governance event.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "executive_exit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "executive_exit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bhandari Hosiery Exports Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210137,9 +210142,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13773661,
-    "news_picked_today": 645,
-    "news_dropped_today": 11931
+    "news_seen_today": 13780228,
+    "news_picked_today": 672,
+    "news_dropped_today": 12000
   },
   "book_momentum": {
     "live_count": 8,
