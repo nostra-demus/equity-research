@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T04:39:01Z",
+  "generated_at": "2026-10-10T04:42:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-073",
@@ -182,6 +182,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-087",
+      "headline": "Avenue Supermarts (DMart) Q2 results live: Earnings, revenue, profit updates",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/companies/avenue-supermarts-earnings-d-mart-q2-results-today-live-news-updates-10-october-2026/article71567080.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T04:32:56Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Avenue Supermarts is reporting Q2 earnings, which is a primary source event for financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Avenue Supermarts is reporting Q2 earnings, which is a primary source event for financial performance.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avenue Supermarts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1834,55 +1883,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-070",
-      "headline": "Bajaj Finance Limited: Bajaj Finance Limited has informed the Exchange regarding allotment of 51000 securities pursuant to Non Convertible Securities at its meeting held on October 09, 2026",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/BAJFINANCE_09102026121406_REG30_Allotment_intimation_T7.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-10-09T06:44:37Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Bajaj Finance allotted 51,000 non-convertible securities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 69,
-      "triage_reason": "Bajaj Finance allotted 51,000 non-convertible securities.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bajaj Finance Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210129,9 +210129,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3781208,
-    "news_picked_today": 95,
-    "news_dropped_today": 2449
+    "news_seen_today": 3803776,
+    "news_picked_today": 99,
+    "news_dropped_today": 2493
   },
   "book_momentum": {
     "live_count": 8,
