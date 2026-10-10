@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T20:19:27Z",
+  "generated_at": "2026-10-10T20:27:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -168932,6 +168932,82 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-2b9840c4ba25",
+      "idea_version": "IDEAV-45fed6cbdf30df16",
+      "idea_version_started_at": "2026-10-10T20:26:49Z",
+      "ticker": "OIL",
+      "company": "United States Oil Fund",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Geopolitical instability in Saudi Arabia, specifically targeting critical infrastructure like Riyadh airport, threatens regional oil supply chains and increases the risk premium on crude oil prices.",
+      "why_now": "The attack occurred on 2026-10-10 and resulted in the immediate suspension of operations at a major regional transit hub, creating an immediate supply-side fear premium.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 23,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 10,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "commodity_conditional",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-2b83f336105e",
+        "EVT-f4e6340ec246",
+        "EVT-d8ceda0bbb61"
+      ],
+      "primary_source_event_id": "EVT-f4e6340ec246",
+      "source_headlines": [
+        "Riyadh airport suspends operations after missile strike injures dozens",
+        "Riyadh airport attacked again as missile strike wounds passengers, flights diverted",
+        "Saudi Arabia Closes Riyadh Airport After Dozens Hurt in Houthi Missile Attack"
+      ],
+      "source_headline": "Riyadh airport suspends operations after missile strike injures dozens",
+      "source_url": "https://www.ft.com/content/391ddf3f-b233-41fd-819b-fcdbfb0ed010?syn-25a6b1a6=1",
+      "source_name": "Financial Times — Middle East",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-10T19:12:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T20:26:49Z",
+      "updated_at": "2026-10-10T20:26:49Z",
+      "decay_at": "2026-10-12T07:12:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-1a9e59915c16",
       "idea_version": "IDEAV-3ebc623c9db33d1a",
       "idea_version_started_at": "2026-10-10T13:14:35Z",
@@ -170930,76 +171006,6 @@
       "surfaced_at": "2026-10-07T17:12:46Z",
       "updated_at": "2026-10-08T14:29:57Z",
       "decay_at": "2026-10-10T01:18:28Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
-      "idea_id": "IDEA-c156981826c5",
-      "idea_version": "IDEAV-9e6a398130a16f71",
-      "idea_version_started_at": "2026-10-08T03:53:00Z",
-      "ticker": "PAH3.DE",
-      "company": "Porsche AG",
-      "exchange": "XETRA",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Massive workforce reductions of 9,000 jobs and management cuts indicate deep operational distress, while a 20% price hike risks significant volume loss in a competitive luxury market.",
-      "why_now": "The restructuring plan was reported on 2026-10-07.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 67,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f5cfc3d9c19e"
-      ],
-      "primary_source_event_id": "EVT-f5cfc3d9c19e",
-      "source_headlines": [
-        "Layoff news: Porsche to terminate 9,000 jobs, management positions face 40% cuts; car prices to go up 20%"
-      ],
-      "source_headline": "Layoff news: Porsche to terminate 9,000 jobs, management positions face 40% cuts; car prices to go up 20%",
-      "source_url": "https://www.livemint.com/companies/news/layoff-news-porsche-to-terminate-9-000-jobs-management-positions-face-40-cuts-car-prices-to-go-up-20-11791395563763.html",
-      "source_name": "Mint",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-07T18:02:25Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T03:53:00Z",
-      "updated_at": "2026-10-08T03:53:00Z",
-      "decay_at": "2026-10-09T06:02:25Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -173018,9 +173024,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 532,
+    "total_count": 531,
     "shown_count": 500,
-    "hidden_count": 32,
+    "hidden_count": 31,
     "side_counts": {
       "long": {
         "total_count": 268,
@@ -173028,23 +173034,23 @@
         "hidden_count": 18
       },
       "short": {
-        "total_count": 264,
+        "total_count": 263,
         "shown_count": 250,
-        "hidden_count": 14
+        "hidden_count": 13
       }
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 916,
-      "oldest_retained_at": "2026-09-14T20:09:46Z",
+      "evicted_count": 917,
+      "oldest_retained_at": "2026-09-14T22:03:00Z",
       "side_counts": {
         "long": {
           "evicted_count": 610,
           "oldest_retained_at": "2026-09-27T08:37:37Z"
         },
         "short": {
-          "evicted_count": 306,
-          "oldest_retained_at": "2026-09-14T20:09:46Z"
+          "evicted_count": 307,
+          "oldest_retained_at": "2026-09-14T22:03:00Z"
         }
       }
     },
@@ -175421,8 +175427,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-09T06:02:25Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-10T20:26:53Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -210264,8 +210270,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1486,
-    "live_count": 37,
+    "surfaced_total": 1487,
+    "live_count": 38,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210284,7 +210290,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12633652,
+    "news_seen_today": 12676438,
     "news_picked_today": 394,
     "news_dropped_today": 10526
   },
