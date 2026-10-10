@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T01:42:37Z",
+  "generated_at": "2026-10-10T01:48:37Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-031",
@@ -1143,6 +1143,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-034",
+      "headline": "RITES Limited: RITES Limited has informed the Exchange about ESG Rating assigned by CRISIL ESG Ratings & Analytics Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/RITES_09102026124055_CRISIL_Intimation_signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T07:15:38Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The company received an ESG rating, which is a standard disclosure and not a material financial event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "The company received an ESG rating, which is a standard disclosure and not a material financial event.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "RITES Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-017",
       "headline": "Once China's most valuable stock, liquor maker Kweichow Moutai down 43% from peak",
       "headline_en": null,
@@ -1229,6 +1278,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-035",
+      "headline": "Edge Total Intelligence Announces Amended and Restated Q2 2026 Financial Statements and MD&A | UNFYF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/UNFYF/edge-total-intelligence-announces-amended-and-restated-q2-2026-itpdy2dd5brj.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-10T00:59:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The company is restating its Q2 2026 financial statements, which indicates potential accounting issues.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "The company is restating its Q2 2026 financial statements, which indicates potential accounting issues.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "accounting_restatement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "accounting_restatement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Edge Total Intelligence",
+          "ticker": "UNFYF",
+          "listing_country": "US"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1500,6 +1598,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-037",
+      "headline": "Trump names commentator Katie Zacharia of his media company as next White House press secretary",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/world/trump-names-commentator-katie-zacharia-of-his-media-company-as-next-white-house-press-secretary",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T00:53:02Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Appointment of a press secretary is a political event with limited direct impact on the company's financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 45,
+      "triage_reason": "Appointment of a press secretary is a political event with limited direct impact on the company's financial performance.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trump Media & Technology Group",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-036",
+      "headline": "Battery X Metals Reports Estimated Driving Range Increase of Approximately 101 Kilometers Following a Single-Electric-Vehicle Performance Evaluation of Next-Generation Patent-Pending Lithium-Ion Battery Rebalancing Technology | BATXF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/BATXF/battery-x-metals-reports-estimated-driving-range-increase-of-paer6s4rlcpp.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-10-10T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The company reported a technical performance improvement in its battery technology, which could impact future commercial viability.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "The company reported a technical performance improvement in its battery technology, which could impact future commercial viability.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": -36,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Battery X Metals",
+          "ticker": "BATXF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210137,7 +210333,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3440,
+    "inbox_unconsumed": 3444,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -210146,9 +210342,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1416566,
-    "news_picked_today": 33,
-    "news_dropped_today": 903
+    "news_seen_today": 1463866,
+    "news_picked_today": 37,
+    "news_dropped_today": 947
   },
   "book_momentum": {
     "live_count": 8,
