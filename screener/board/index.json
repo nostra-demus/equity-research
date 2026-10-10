@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T04:04:23Z",
+  "generated_at": "2026-10-10T04:05:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-031",
@@ -489,6 +489,49 @@
       "launched_signal_id": null,
       "triage_score": 85,
       "triage_reason": "The RBI has cancelled the registration of 13 NBFCs, representing a significant regulatory enforcement action in the financial sector.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-068",
+      "headline": "10 NBFCs surrender their Certificates of Registration to the RBI",
+      "headline_en": null,
+      "url": "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63772",
+      "source_name": "Reserve Bank of India (RBI) — Press Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-10-09T06:50:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Ten non-banking financial companies have surrendered their registration certificates to the RBI, indicating a contraction in the sector or regulatory pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Ten non-banking financial companies have surrendered their registration certificates to the RBI, indicating a contraction in the sector or regulatory pressure.",
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 65,
@@ -1827,55 +1870,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-038",
-      "headline": "JR Kyushu lines fully restored 74 days after Kumamoto quake in late July",
-      "headline_en": null,
-      "url": "https://mainichi.jp/english/articles/20261010/p2g/00m/0na/019000c",
-      "source_name": "The Mainichi",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T01:49:34Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "JR Kyushu restored full operations on its lines following a 74-day disruption caused by a quake.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 60,
-      "triage_reason": "JR Kyushu restored full operations on its lines following a 74-day disruption caused by a quake.",
-      "region": "JP",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JR Kyushu",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210121,9 +210115,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3324978,
-    "news_picked_today": 70,
-    "news_dropped_today": 2066
+    "news_seen_today": 3370823,
+    "news_picked_today": 71,
+    "news_dropped_today": 2089
   },
   "book_momentum": {
     "live_count": 8,
