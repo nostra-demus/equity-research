@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T09:45:33Z",
+  "generated_at": "2026-10-10T09:48:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-143",
@@ -327,6 +327,56 @@
           "name": "Firmus",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-151",
+      "headline": "Dreamfolks Services Limited: Dreamfolks Services Limited has informed the Exchange that the Company has received a Demand cum Show Cause Notice dated November 09, 2026 from the Office of the Commissioner of CGST (Audit), Gurugram",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/DREAMFOLKS24_10102026150358_GST_OCT_09_2026_Signed.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-10T09:34:23Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Dreamfolks Services received a demand cum show cause notice from the Commissioner of CGST (Audit), indicating potential tax-related regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Dreamfolks Services received a demand cum show cause notice from the Commissioner of CGST (Audit), indicating potential tax-related regulatory risk.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dreamfolks Services Limited",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1847,50 +1897,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-079",
-      "headline": "RBI moves to support rupee at 96.78, cracks down on forex derivatives",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/economy/indicators/rbi-moves-to-support-rupee-at-96-78-cracks-down-on-forex-derivatives/articleshow/134846784.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T03:39:58Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "The RBI is intervening at a specific level (96.78) and restricting derivatives to defend the currency, affecting all forex-exposed entities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "The RBI is intervening at a specific level (96.78) and restricting derivatives to defend the currency, affecting all forex-exposed entities.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210273,9 +210279,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7255426,
-    "news_picked_today": 224,
-    "news_dropped_today": 4912
+    "news_seen_today": 7286250,
+    "news_picked_today": 225,
+    "news_dropped_today": 4935
   },
   "book_momentum": {
     "live_count": 8,
