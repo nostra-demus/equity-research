@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T12:18:54Z",
+  "generated_at": "2026-10-10T12:28:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -580,6 +580,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-165",
+      "headline": "$606 million payday! Check outgoing CEO David Zaslav's big windfall from Paramount's Warner Bros takeover",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/606-million-payday-check-outgoing-ceo-david-zaslavs-big-windfall-from-paramounts-warner-bros-takeover-11791625464356.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T12:10:38Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "The headline reports a $606 million compensation package for the CEO, which is a significant governance and capital allocation event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "The headline reports a $606 million compensation package for the CEO, which is a significant governance and capital allocation event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1883,49 +1932,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-155",
-      "headline": "Palestinian groups urge int'l action against prisoner death penalty law",
-      "headline_en": null,
-      "url": "https://www.gulf-times.com/article/735409/region/palestinian-groups-urge-intl-action-against-prisoner-death-penalty-law",
-      "source_name": "Gulf Times — Region",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T10:24:00Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Geopolitical escalation regarding prisoner death penalty laws in the Palestinian territories increases regional instability risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Geopolitical escalation regarding prisoner death penalty laws in the Palestinian territories increases regional instability risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210092,9 +210098,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8801552,
-    "news_picked_today": 253,
-    "news_dropped_today": 6083
+    "news_seen_today": 8882472,
+    "news_picked_today": 255,
+    "news_dropped_today": 6153
   },
   "book_momentum": {
     "live_count": 8,
