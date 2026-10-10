@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T19:53:18Z",
+  "generated_at": "2026-10-10T20:02:06Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -95,6 +95,49 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-202",
+      "headline": "Saudi Arabia Closes Riyadh Airport After Dozens Hurt in Houthi Missile Attack",
+      "headline_en": null,
+      "url": "https://www.wsj.com/world/middle-east/iran-backed-houthis-hit-saudi-capitals-airport-in-damaging-new-attack-d4c12236?mod=rss_worldnews",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T19:12:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "A missile attack on a major airport in Saudi Arabia represents a significant geopolitical escalation and supply chain disruption risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A missile attack on a major airport in Saudi Arabia represents a significant geopolitical escalation and supply chain disruption risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1857,55 +1900,6 @@
           "name": "Avenue Supermarts",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-075",
-      "headline": "Airtel Money debuts on LSE in biggest listing in 5 years",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/us-stocks/news/airtel-money-debuts-on-lse-in-biggest-listing-in-5-years/articleshow/134846990.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T03:56:23Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Airtel Money completed a major listing on the LSE, described as the largest in 5 years.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Airtel Money completed a major listing on the LSE, described as the largest in 5 years.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Airtel Money",
-          "ticker": null,
-          "listing_country": "GB"
         }
       ],
       "size_bucket": "large",
@@ -169875,80 +169869,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-c6ea4a8ade99",
-      "idea_version": "IDEAV-d2b6b8cd973eb130",
-      "idea_version_started_at": "2026-10-09T09:55:52Z",
-      "ticker": "OMG",
-      "company": "Oxford Metrics",
-      "exchange": "LSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning citing reduced spending in the entertainment and research sectors, which will lead to a significant shortfall in annual earnings.",
-      "why_now": "The profit warning was released today, October 9, 2026.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-20f71b78e0a3",
-        "EVT-6bf9e173d834"
-      ],
-      "primary_source_event_id": "EVT-20f71b78e0a3",
-      "source_headlines": [
-        "Oxford Metrics shares sink on profit warning as entertainment and research demand weakens",
-        "UK's Oxford Metrics warns about annual loss on entertainment industry spending cuts"
-      ],
-      "source_headline": "Oxford Metrics shares sink on profit warning as entertainment and research demand weakens",
-      "source_url": "https://ukinvestormagazine.co.uk/oxford-metrics-shares-sink-on-profit-warning-as-entertainment-and-research-demand-weakens/",
-      "source_name": "UK Investor Magazine",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T07:57:57Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T09:55:52Z",
-      "updated_at": "2026-10-09T09:55:52Z",
-      "decay_at": "2026-10-10T19:57:57Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bf715810980d",
       "idea_version": "IDEAV-b69300e15583f72b",
       "idea_version_started_at": "2026-10-10T16:24:46Z",
@@ -171795,6 +171715,80 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-c6ea4a8ade99",
+      "idea_version": "IDEAV-d2b6b8cd973eb130",
+      "idea_version_started_at": "2026-10-09T09:55:52Z",
+      "ticker": "OMG",
+      "company": "Oxford Metrics",
+      "exchange": "LSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning citing reduced spending in the entertainment and research sectors, which will lead to a significant shortfall in annual earnings.",
+      "why_now": "The profit warning was released today, October 9, 2026.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 7,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-20f71b78e0a3",
+        "EVT-6bf9e173d834"
+      ],
+      "primary_source_event_id": "EVT-20f71b78e0a3",
+      "source_headlines": [
+        "Oxford Metrics shares sink on profit warning as entertainment and research demand weakens",
+        "UK's Oxford Metrics warns about annual loss on entertainment industry spending cuts"
+      ],
+      "source_headline": "Oxford Metrics shares sink on profit warning as entertainment and research demand weakens",
+      "source_url": "https://ukinvestormagazine.co.uk/oxford-metrics-shares-sink-on-profit-warning-as-entertainment-and-research-demand-weakens/",
+      "source_name": "UK Investor Magazine",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-09T07:57:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T09:55:52Z",
+      "updated_at": "2026-10-09T09:55:52Z",
+      "decay_at": "2026-10-10T19:57:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-03b640031702",
       "idea_version": "IDEAV-ad09f710414eead7",
       "idea_version_started_at": "2026-10-09T08:52:52Z",
@@ -173024,9 +173018,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 531,
+    "total_count": 532,
     "shown_count": 500,
-    "hidden_count": 31,
+    "hidden_count": 32,
     "side_counts": {
       "long": {
         "total_count": 268,
@@ -173034,9 +173028,9 @@
         "hidden_count": 18
       },
       "short": {
-        "total_count": 263,
+        "total_count": 264,
         "shown_count": 250,
-        "hidden_count": 13
+        "hidden_count": 14
       }
     },
     "retention": {
@@ -173055,6 +173049,83 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-c6ea4a8ade99",
+        "idea_version": "IDEAV-d2b6b8cd973eb130",
+        "idea_version_started_at": "2026-10-09T09:55:52Z",
+        "ticker": "OMG",
+        "company": "Oxford Metrics",
+        "exchange": "LSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning citing reduced spending in the entertainment and research sectors, which will lead to a significant shortfall in annual earnings.",
+        "why_now": "The profit warning was released today, October 9, 2026.",
+        "conviction": 80,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 7,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-20f71b78e0a3",
+          "EVT-6bf9e173d834"
+        ],
+        "primary_source_event_id": "EVT-20f71b78e0a3",
+        "source_headlines": [
+          "Oxford Metrics shares sink on profit warning as entertainment and research demand weakens",
+          "UK's Oxford Metrics warns about annual loss on entertainment industry spending cuts"
+        ],
+        "source_headline": "Oxford Metrics shares sink on profit warning as entertainment and research demand weakens",
+        "source_url": "https://ukinvestormagazine.co.uk/oxford-metrics-shares-sink-on-profit-warning-as-entertainment-and-research-demand-weakens/",
+        "source_name": "UK Investor Magazine",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-09T07:57:57Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-09T09:55:52Z",
+        "updated_at": "2026-10-09T09:55:52Z",
+        "decay_at": "2026-10-10T19:57:57Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-10T19:57:57Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-dbb0c0af5d7a",
         "idea_version": "IDEAV-97c71e0bbb496f64",
@@ -210189,87 +210260,12 @@
         "archived_at": "2026-09-17T09:58:54Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-85576f21dc9f",
-        "idea_version": "IDEAV-5f32aeda55eb4426",
-        "idea_version_started_at": "2026-09-14T00:41:52Z",
-        "ticker": "FBR",
-        "company": "FBR Ltd",
-        "exchange": "ASX",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The opening of a Share Purchase Plan (SPP) typically creates short-term downward pressure on the stock price due to potential dilution and the offer of shares at a fixed or discounted price.",
-        "why_now": "The SPP offer booklet and letter were officially released to the market on September 14, 2026.",
-        "conviction": 50,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 11,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "priced-in risk",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "priced",
-        "thesis_type": "liquidity_positioning",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-3ef3ca11cf4b"
-        ],
-        "primary_source_event_id": "EVT-3ef3ca11cf4b",
-        "source_headlines": [
-          "FBR: Share Purchase Plan Opens - SPP Letter and Offer Booklet"
-        ],
-        "source_headline": "FBR: Share Purchase Plan Opens - SPP Letter and Offer Booklet",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FBR?key=2924-03135068-6A1343641",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 63,
-        "newest_source_at": "2026-09-14T00:00:35Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T00:41:52Z",
-        "updated_at": "2026-09-14T00:41:52Z",
-        "decay_at": "2026-09-15T12:00:35Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1486,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210288,9 +210284,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 12448678,
-    "news_picked_today": 387,
-    "news_dropped_today": 10245
+    "news_seen_today": 12511255,
+    "news_picked_today": 390,
+    "news_dropped_today": 10314
   },
   "book_momentum": {
     "live_count": 8,
