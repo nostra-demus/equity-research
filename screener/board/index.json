@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T01:12:27Z",
+  "generated_at": "2026-10-10T01:15:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-002",
@@ -273,6 +273,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-014",
+      "headline": "Annu Projects Limited: Annu Projects Limited has informed the Exchange about General Updates regarding regarding the change of Corporate Identification Number (CIN) pursuant to listing of Equity shares at September 02, 2026.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ANNU2025_09102026124454_AnnouncementCINChangeListingStatus.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-09T07:15:56Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Annu Projects Limited updated its Corporate Identification Number following the listing of its equity shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 59,
+      "triage_reason": "Annu Projects Limited updated its Corporate Identification Number following the listing of its equity shares.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Annu Projects Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -209181,7 +209230,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3420,
+    "inbox_unconsumed": 3421,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209190,9 +209239,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1060464,
-    "news_picked_today": 13,
-    "news_dropped_today": 683
+    "news_seen_today": 1108100,
+    "news_picked_today": 14,
+    "news_dropped_today": 706
   },
   "book_momentum": {
     "live_count": 8,
