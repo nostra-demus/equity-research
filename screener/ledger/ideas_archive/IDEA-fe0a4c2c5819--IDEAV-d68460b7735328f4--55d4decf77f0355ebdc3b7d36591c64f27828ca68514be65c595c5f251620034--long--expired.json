@@ -1,31 +1,31 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-28T11:25:12Z",
+  "archived_at": "2026-10-10T01:49:05Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-a70b7479699d",
-    "idea_version": "IDEAV-89abbbb1e00cfa80",
-    "idea_version_started_at": "2026-09-26T19:03:28Z",
-    "ticker": "9626",
-    "company": "Bilibili Inc.",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-fe0a4c2c5819",
+    "idea_version": "IDEAV-d68460b7735328f4",
+    "idea_version_started_at": "2026-10-07T02:20:38Z",
+    "ticker": "005930",
+    "company": "Samsung Electronics",
+    "exchange": "KRX",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "long",
     "pair_with": null,
-    "reason": "Bilibili has proposed an off-market share buy-back alongside a notice of an Extraordinary General Meeting, which will reduce outstanding share count and support equity value.",
-    "why_now": "The announcement was filed on September 25, 2026, setting up an upcoming shareholder vote at the Extraordinary General Meeting.",
+    "reason": "Samsung's $5 billion expansion in Vietnam aims to move it up the semiconductor value chain, potentially boosting future revenue and market share in a critical industry.",
+    "why_now": "The expansion news was reported on October 7, 2026, indicating a new strategic investment that will impact future growth.",
     "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
     "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
-      "impact": 19,
+      "evidence": 14,
+      "impact": 20,
       "specificity": 7,
-      "timing": 6,
+      "timing": 10,
       "expression": 0,
       "corroboration": 0,
       "learning_adjustment": 0
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -52,26 +53,26 @@
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-4169b2f0aa4b"
+      "EVT-c19172418c92"
     ],
-    "primary_source_event_id": "EVT-4169b2f0aa4b",
+    "primary_source_event_id": "EVT-c19172418c92",
     "source_headlines": [
-      "BILIBILI-W (09626): (1) PROPOSED OFF-MARKET SHARE BUY-BACK; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING"
+      "Samsung takes Vietnam up semiconductor value chain with $5bn expansion"
     ],
-    "source_headline": "BILIBILI-W (09626): (1) PROPOSED OFF-MARKET SHARE BUY-BACK; AND (2) NOTICE OF EXTRAORDINARY GENERAL MEETING",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0925/2026092500895.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
+    "source_headline": "Samsung takes Vietnam up semiconductor value chain with $5bn expansion",
+    "source_url": "https://asia.nikkei.com/business/tech/semiconductors/samsung-takes-vietnam-up-semiconductor-value-chain-with-5bn-expansion",
+    "source_name": "Nikkei Asia",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-25T10:00:00Z",
+    "newest_source_at": "2026-10-07T01:34:24Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-26T19:03:28Z",
-    "updated_at": "2026-09-26T19:03:28Z",
-    "decay_at": "2026-09-26T22:00:00Z",
+    "surfaced_at": "2026-10-07T02:20:38Z",
+    "updated_at": "2026-10-07T02:20:38Z",
+    "decay_at": "2026-10-08T13:34:24Z",
     "status": "live",
     "promoted_signal_id": null
   }
