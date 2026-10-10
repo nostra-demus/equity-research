@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T01:49:19Z",
+  "generated_at": "2026-10-10T01:57:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-031",
@@ -280,6 +280,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-039",
+      "headline": "BYD reaches 150,000 commercial NEV production milestone as growth focus shifts to trucks",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/10/10/byd-150000-commercial-nev-production-focus-trucks/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:34:49Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "BYD reached a production milestone of 150,000 commercial new energy vehicles, signaling growth in the truck segment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "BYD reached a production milestone of 150,000 commercial new energy vehicles, signaling growth in the truck segment.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BYD",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1094,6 +1143,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-038",
+      "headline": "JR Kyushu lines fully restored 74 days after Kumamoto quake in late July",
+      "headline_en": null,
+      "url": "https://mainichi.jp/english/articles/20261010/p2g/00m/0na/019000c",
+      "source_name": "The Mainichi",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:49:34Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "JR Kyushu restored full operations on its lines following a 74-day disruption caused by a quake.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 60,
+      "triage_reason": "JR Kyushu restored full operations on its lines following a 74-day disruption caused by a quake.",
+      "region": "JP",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 40,
+      "rank_factors": {
+        "materiality": 40,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JR Kyushu",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-014",
       "headline": "Annu Projects Limited: Annu Projects Limited has informed the Exchange about General Updates regarding regarding the change of Corporate Identification Number (CIN) pursuant to listing of Equity shares at September 02, 2026.",
       "headline_en": null,
@@ -1186,6 +1284,49 @@
           "listing_country": "IN"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261010-040",
+      "headline": "Rupee under pressure: SBI Research wants RBI to prioritise currency stability alongside inflation",
+      "headline_en": null,
+      "url": "https://www.businesstoday.in/latest/economy/story/rupee-under-pressure-sbi-research-wants-rbi-to-prioritise-currency-stability-alongside-inflation-560761-2026-10-10?utm_source=rssfeed",
+      "source_name": "Business Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T01:26:23Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "SBI Research is advocating for the RBI to prioritize currency stability, highlighting ongoing pressure on the Indian Rupee.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "SBI Research is advocating for the RBI to prioritize currency stability, highlighting ongoing pressure on the Indian Rupee.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -209907,7 +210048,7 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 3444,
+    "inbox_unconsumed": 3447,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -209916,9 +210057,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1463866,
-    "news_picked_today": 37,
-    "news_dropped_today": 947
+    "news_seen_today": 1534767,
+    "news_picked_today": 40,
+    "news_dropped_today": 992
   },
   "book_momentum": {
     "live_count": 8,
