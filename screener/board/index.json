@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T10:34:30Z",
+  "generated_at": "2026-10-10T10:37:42Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -1638,6 +1638,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261010-155",
+      "headline": "Palestinian groups urge int'l action against prisoner death penalty law",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/735409/region/palestinian-groups-urge-intl-action-against-prisoner-death-penalty-law",
+      "source_name": "Gulf Times — Region",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T10:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
+      "prelim_note": "Geopolitical escalation regarding prisoner death penalty laws in the Palestinian territories increases regional instability risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Geopolitical escalation regarding prisoner death penalty laws in the Palestinian territories increases regional instability risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261010-119",
       "headline": "India unveils tough curbs on dollar demand to defend rupee",
       "headline_en": null,
@@ -1854,55 +1897,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261010-093",
-      "headline": "Robinhood Chain slowdown spreads from fees to trading as transactions fall more than 40%",
-      "headline_en": null,
-      "url": "https://www.coindesk.com/markets/2026/10/10/robinhood-chain-slowdown-spreads-from-fees-to-trading-as-transactions-fall-more-than-40",
-      "source_name": "CoinDesk",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T04:44:35Z",
-      "sweep_file": "screener/inbox/2026-10-10_sweep.json",
-      "prelim_note": "Robinhood is experiencing a significant operational slowdown with transaction volumes falling by more than 40%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Robinhood is experiencing a significant operational slowdown with transaction volumes falling by more than 40%.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Robinhood",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -210285,9 +210279,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7772236,
-    "news_picked_today": 233,
-    "news_dropped_today": 5311
+    "news_seen_today": 7801961,
+    "news_picked_today": 234,
+    "news_dropped_today": 5382
   },
   "book_momentum": {
     "live_count": 8,
