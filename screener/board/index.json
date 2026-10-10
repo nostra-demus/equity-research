@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-10T21:25:28Z",
+  "generated_at": "2026-10-10T21:27:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20261010-152",
@@ -168932,6 +168932,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-cc72955eba04",
+      "idea_version": "IDEAV-67810bf50775283c",
+      "idea_version_started_at": "2026-10-10T21:26:59Z",
+      "ticker": "SIGNATURE",
+      "company": "Signature Global",
+      "exchange": "NSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company reported a 9% decline in quarterly sales bookings to Rs 1,830 crore, signaling a potential slowdown in demand or project execution within their real estate portfolio.",
+      "why_now": "The earnings report was released on 2026-10-10, providing immediate data on the company's recent sales performance.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d1c08cfd225a"
+      ],
+      "primary_source_event_id": "EVT-d1c08cfd225a",
+      "source_headlines": [
+        "Signature Global Sales Bookings Down 9% To Rs 1,830 Crore In July-Sept Quarter"
+      ],
+      "source_headline": "Signature Global Sales Bookings Down 9% To Rs 1,830 Crore In July-Sept Quarter",
+      "source_url": "https://www.ndtvprofit.com/business/signature-global-sales-bookings-down-9-to-rs-1-830-crore-in-july-sept-quarter-12167186#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-10T15:40:57Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T21:26:59Z",
+      "updated_at": "2026-10-10T21:26:59Z",
+      "decay_at": "2026-10-12T03:40:57Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-2b9840c4ba25",
       "idea_version": "IDEAV-45fed6cbdf30df16",
       "idea_version_started_at": "2026-10-10T20:26:49Z",
@@ -171152,76 +171224,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-7c6921220f81",
-      "idea_version": "IDEAV-2311ef024b312cd4",
-      "idea_version_started_at": "2026-10-08T08:41:14Z",
-      "ticker": "AVGO",
-      "company": "Broadcom",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "A $50 billion financing plan for OpenAI chips underscores Broadcom's critical role as a custom silicon provider in the AI infrastructure build-out.",
-      "why_now": "The report surfaced on October 7, 2026, highlighting a massive expansion in the company's addressable market.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 66,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-e8348f272268"
-      ],
-      "primary_source_event_id": "EVT-e8348f272268",
-      "source_headlines": [
-        "Broadcom Plans $50 Billion Financing for OpenAI Chips, WSJ Says"
-      ],
-      "source_headline": "Broadcom Plans $50 Billion Financing for OpenAI Chips, WSJ Says",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-10-07/broadcom-plans-50-billion-financing-for-openai-chips-wsj-says",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-07T21:25:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T08:41:14Z",
-      "updated_at": "2026-10-08T08:41:14Z",
-      "decay_at": "2026-10-09T09:25:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-9252653c3692",
       "idea_version": "IDEAV-290b92d4608851ec",
       "idea_version_started_at": "2026-10-09T04:30:18Z",
@@ -173024,14 +173026,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 531,
+    "total_count": 530,
     "shown_count": 500,
-    "hidden_count": 31,
+    "hidden_count": 30,
     "side_counts": {
       "long": {
-        "total_count": 268,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 17
       },
       "short": {
         "total_count": 263,
@@ -173041,12 +173043,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 917,
+      "evicted_count": 918,
       "oldest_retained_at": "2026-09-14T22:03:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 610,
-          "oldest_retained_at": "2026-09-27T08:37:37Z"
+          "evicted_count": 611,
+          "oldest_retained_at": "2026-09-27T09:00:40Z"
         },
         "short": {
           "evicted_count": 307,
@@ -175354,8 +175356,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-09T09:25:00Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-10T21:27:03Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -210270,8 +210272,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1487,
-    "live_count": 38,
+    "surfaced_total": 1488,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -210290,7 +210292,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 13045278,
+    "news_seen_today": 13053086,
     "news_picked_today": 507,
     "news_dropped_today": 10989
   },
