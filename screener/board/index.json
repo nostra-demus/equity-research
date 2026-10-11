@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-11T20:28:04Z",
+  "generated_at": "2026-10-11T20:32:38Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261011-704",
+      "headline": "Amazon in Talks to Buy AI Startup Decart for Around $7 Billion",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/amazon-in-talks-to-buy-ai-startup-decart-for-around-7-billion-9433abad?mod=pls_whats_news_us_business_f",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T20:26:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Amazon is in talks to acquire AI startup Decart for approximately $7 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Amazon is in talks to acquire AI startup Decart for approximately $7 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": "AMZN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261011-326",
       "headline": "‎MIS receives two HUMAIN work orders worth over 270% of 2025 revenue",
@@ -1900,65 +1949,6 @@
         },
         {
           "name": "Humana",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-504",
-      "headline": "Delta Falls 3% on Cut Full-Year Profit Outlook as Fuel Costs Jump 62%; United and American Airlines Slip",
-      "headline_en": null,
-      "url": "https://247wallst.com/investing/2026/10/09/delta-falls-3-on-cut-full-year-profit-outlook-as-fuel-costs-jump-62-united-and-american-airlines-slip/",
-      "source_name": "24/7 Wall St.",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T13:35:13Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Delta Air Lines cut full-year profit outlook due to a 62% jump in fuel costs, impacting the airline sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Delta Air Lines cut full-year profit outlook due to a 62% jump in fuel costs, impacting the airline sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Delta Air Lines",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "United Airlines",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "American Airlines",
           "ticker": null,
           "listing_country": "US"
         }
@@ -212428,9 +212418,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1504076,
-    "news_picked_today": 1979,
-    "news_dropped_today": 5436
+    "news_seen_today": 1504085,
+    "news_picked_today": 1984,
+    "news_dropped_today": 5440
   },
   "book_momentum": {
     "live_count": 8,
