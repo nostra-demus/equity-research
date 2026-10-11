@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T03:47:29Z",
+  "generated_at": "2026-10-11T03:51:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -246,6 +246,104 @@
           "name": "Companhia Siderurgica Nacional",
           "ticker": null,
           "listing_country": "BR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-259",
+      "headline": "GTCR and Elliott Said to Near Deal for Software Firm CCC",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-09/gtcr-and-elliott-said-to-near-deal-for-software-firm-ccc",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T20:35:17Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "GTCR and Elliott are nearing a deal to acquire software firm CCC, representing a significant M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "GTCR and Elliott are nearing a deal to acquire software firm CCC, representing a significant M&A event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CCC Intelligent Solutions",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-261",
+      "headline": "Delta slashes profit outlook as higher fuel prices bite",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/77d73223-3cfc-4892-a3c5-5502595f42d4?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T20:31:49Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Delta Air Lines slashed its profit outlook due to higher fuel costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Delta Air Lines slashed its profit outlook due to higher fuel costs.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delta Air Lines",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1873,115 +1971,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-131",
-      "headline": "Justice Department Probes TV Networks Over Suspension of Trump Press-Pool Coverage",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/media/justice-department-probes-tv-networks-over-suspension-of-trump-press-pool-coverage-a8bc65ce?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-11T00:54:00Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "The DOJ is investigating major TV networks regarding potential antitrust or regulatory violations related to press pool coverage.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "The DOJ is investigating major TV networks regarding potential antitrust or regulatory violations related to press pool coverage.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Comcast",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Disney",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Paramount Global",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-012",
-      "headline": "Vetrivel Explosives Limited, Industrial Explosives And Blasting Solutions Provider, Files DRHP With NSE Emerge",
-      "headline_en": null,
-      "url": "https://www.outlookbusiness.com/spotlight/news-wire/vetrivel-explosives-limited-industrial-explosives-and-blasting-solutions-provider-files-drhp-with-nse-emerge",
-      "source_name": "Outlook Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:50:39Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Vetrivel Explosives Limited has filed a Draft Red Herring Prospectus (DRHP) for an IPO on NSE Emerge.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Vetrivel Explosives Limited has filed a Draft Red Herring Prospectus (DRHP) for an IPO on NSE Emerge.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vetrivel Explosives Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212567,9 +212556,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 887147,
-    "news_picked_today": 493,
-    "news_dropped_today": 1499
+    "news_seen_today": 900185,
+    "news_picked_today": 501,
+    "news_dropped_today": 1515
   },
   "book_momentum": {
     "live_count": 8,
