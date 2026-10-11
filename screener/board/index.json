@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T01:01:47Z",
+  "generated_at": "2026-10-11T01:05:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-124",
@@ -137,6 +137,49 @@
         "macro_sector"
       ],
       "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-130",
+      "headline": "Ukrainian drones strike largest data center in Russia, multiple parts of 1.4 million square foot campus knocked offline",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/data-centers/second-russian-data-center-targeted-by-ukrainian-drones-in-just-two-days-as-yandex-reels-from-another-service-outage-russian-state-media-admits-that-multiple-modules-completely-taken-out",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T10:30:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A major data center in Russia was struck by drones, causing significant operational disruption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "A major data center in Russia was struck by drones, causing significant operational disruption.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1221,6 +1264,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-125",
+      "headline": "ED arrests Sadhna Group MD over money-laundering allegations: Who is Rakesh Gupta? What’s the ₹168 crore case?",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/ed-arrests-sadhna-group-md-over-money-laundering-allegations-who-is-rakesh-gupta-what-s-the-rs-168-crore-case-11791627774019.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T10:33:28Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "The Managing Director of Sadhna Group was arrested in a 168 crore money-laundering case.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "The Managing Director of Sadhna Group was arrested in a 168 crore money-laundering case.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sadhna Group",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-097",
       "headline": "Bessent has a warning for anyone helping Iran sell oil",
       "headline_en": null,
@@ -1841,104 +1933,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-036",
-      "headline": "The Wealth Company portfolio firms move towards IPOs; exit pipeline pegged at ₹1,000 crore-plus",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/the-wealth-company-portfolio-move-towards-ipos-exit-pipeline-rs-1000-crore-plus-20009122.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:14:54Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "The Wealth Company portfolio firms are preparing for IPOs with an exit pipeline valued at over ₹1,000 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "The Wealth Company portfolio firms are preparing for IPOs with an exit pipeline valued at over ₹1,000 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Wealth Company",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-037",
-      "headline": "Palmer firma un contrato con el Chelsea hasta 2034",
-      "headline_en": "Palmer signs a contract with Chelsea until 2034",
-      "url": "https://www.reuters.com/latam/deportivo/EIOSF2DTFNIWPNKVL7I66EKGMA-2026-10-10/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:08:29Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Chelsea FC signed a long-term contract with player Cole Palmer until 2034.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Chelsea FC signed a long-term contract with player Cole Palmer until 2034.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chelsea FC",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212162,9 +212156,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 244255,
-    "news_picked_today": 142,
-    "news_dropped_today": 410
+    "news_seen_today": 261568,
+    "news_picked_today": 150,
+    "news_dropped_today": 426
   },
   "book_momentum": {
     "live_count": 8,
