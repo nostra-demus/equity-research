@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-11T05:09:00Z",
+  "generated_at": "2026-10-11T05:12:54Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261011-302",
+      "headline": "DMart Q2 FY27 Results: Net Profit Falls 13.7% QoQ To ₹743 Crore; Revenue Rises 4.5%",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/dmart-q2-fy27-results-net-profit-falls-137-qoq-to-743-crore-revenue-rises-45",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T04:21:13Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Avenue Supermarts reported a 13.7% QoQ net profit decline to ₹743 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Avenue Supermarts reported a 13.7% QoQ net profit decline to ₹743 crore.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avenue Supermarts",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261011-299",
       "headline": "Inside KKR’s €22bn bet on Italy’s telecoms network",
@@ -1903,55 +1952,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-152",
-      "headline": "Billionaire Ray Dalio cashes in Down Under with $300m farms deal",
-      "headline_en": null,
-      "url": "https://www.afr.com/property/commercial/billionaire-ray-dalio-cashes-in-down-under-with-300m-farms-deal-20261011-p614ez?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-11T01:06:44Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "A billionaire investor is divesting $300 million in agricultural assets, signaling a significant capital reallocation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A billionaire investor is divesting $300 million in agricultural assets, signaling a significant capital reallocation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ray Dalio",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212536,9 +212536,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1105954,
-    "news_picked_today": 709,
-    "news_dropped_today": 2003
+    "news_seen_today": 1116373,
+    "news_picked_today": 713,
+    "news_dropped_today": 2023
   },
   "book_momentum": {
     "live_count": 8,
