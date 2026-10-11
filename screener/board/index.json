@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T02:39:41Z",
+  "generated_at": "2026-10-11T02:42:21Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -1532,6 +1532,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-202",
+      "headline": "BREAKING NEWS: Kansai Electric restarts reactor at Mihama nuclear plant in central Japan",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/87757",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T00:40:09Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Kansai Electric restarted a nuclear reactor, restoring a significant power generation asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Kansai Electric restarted a nuclear reactor, restoring a significant power generation asset.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kansai Electric",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-030",
       "headline": "Hundreds protests at FedEx Oakland over Israel arms shipments",
       "headline_en": null,
@@ -1911,55 +1960,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-120",
-      "headline": "Adani Green Energy H1 Update: Operational capacity rises 24% YoY to 20,763 MW, energy sales jump 32%",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/adani-green-energy-h1-update-operational-capacity-rises-24-yoy-to-20763-mw-energy-sales-jump-32/articleshow/134852554.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T10:52:59Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Adani Green reported a 24% YoY rise in operational capacity and a 32% jump in energy sales for H1.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Adani Green reported a 24% YoY rise in operational capacity and a 32% jump in energy sales for H1.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Adani Green Energy",
-          "ticker": "ADANIGREEN",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212326,9 +212326,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 646204,
-    "news_picked_today": 337,
-    "news_dropped_today": 1079
+    "news_seen_today": 656003,
+    "news_picked_today": 345,
+    "news_dropped_today": 1095
   },
   "book_momentum": {
     "live_count": 8,
