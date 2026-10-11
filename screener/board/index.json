@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T03:59:44Z",
+  "generated_at": "2026-10-11T04:03:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -442,6 +442,60 @@
       "companies": [
         {
           "name": "Delta Air Lines",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-270",
+      "headline": "TKO offers $2 billion for Service Properties Trust's hotel portfolio",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/tko-offers-2-billion-service-properties-trusts-hotel-portfolio-2026-10-09/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T19:54:32Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "TKO Group Holdings has made a $2 billion offer to acquire a hotel portfolio from Service Properties Trust.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TKO Group Holdings has made a $2 billion offer to acquire a hotel portfolio from Service Properties Trust.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TKO Group Holdings",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Service Properties Trust",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1885,65 +1939,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-175",
-      "headline": "Jio Platforms IPO: What does listing of Reliance Industries' company mean for Airtel, Vodafone Idea, Indus Towers share",
-      "headline_en": null,
-      "url": "https://www.livemint.com/market/stock-market-news/jio-platforms-ipo-what-does-listing-of-reliance-industries-company-means-for-airtel-vodafone-idea-indus-towers-share-11791558078789.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T06:20:15Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Potential IPO of Jio Platforms is a major capital market event affecting the competitive landscape for Indian telecom incumbents.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Potential IPO of Jio Platforms is a major capital market event affecting the competitive landscape for Indian telecom incumbents.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Reliance Industries",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Bharti Airtel",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Vodafone Idea",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212528,9 +212523,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 925670,
-    "news_picked_today": 515,
-    "news_dropped_today": 1573
+    "news_seen_today": 934080,
+    "news_picked_today": 521,
+    "news_dropped_today": 1591
   },
   "book_momentum": {
     "live_count": 8,
