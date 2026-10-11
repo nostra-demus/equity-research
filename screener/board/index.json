@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-10-11T06:08:51Z",
+  "generated_at": "2026-10-11T06:09:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20261011-326",
+      "headline": "‎MIS receives two HUMAIN work orders worth over 270% of 2025 revenue",
+      "headline_en": null,
+      "url": "https://www.argaam.com/en/article/articledetail/id/1942891",
+      "source_name": "Argaam — Company Disclosures (English)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T09:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "MIS received work orders worth over 270% of its 2025 revenue, representing a massive, quantified contract win.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MIS received work orders worth over 270% of its 2025 revenue, representing a massive, quantified contract win.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MIS",
+          "ticker": null,
+          "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20261011-302",
       "headline": "DMart Q2 FY27 Results: Net Profit Falls 13.7% QoQ To ₹743 Crore; Revenue Rises 4.5%",
@@ -1036,55 +1085,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-320",
-      "headline": "‎MIS receives HUMAIN work order worth over 135% of 2025 revenue",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1942891",
-      "source_name": "Argaam — Company Disclosures (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-11T09:24:00Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "MIS received a work order worth over 135% of its 2025 revenue, a massive contract win.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "MIS received a work order worth over 135% of its 2025 revenue, a massive contract win.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MIS",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212542,9 +212542,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1227263,
-    "news_picked_today": 813,
-    "news_dropped_today": 2307
+    "news_seen_today": 1233322,
+    "news_picked_today": 820,
+    "news_dropped_today": 2324
   },
   "book_momentum": {
     "live_count": 8,
