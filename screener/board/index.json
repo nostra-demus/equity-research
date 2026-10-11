@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T01:22:47Z",
+  "generated_at": "2026-10-11T01:24:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-124",
@@ -1471,6 +1471,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-144",
+      "headline": "AI glasses brand NIMO secures angel funding at RMB 1.5 billion valuation",
+      "headline_en": null,
+      "url": "https://technode.com/2026/10/10/ai-glasses-brand-nimo-secures-angel-funding-at-rmb-1-5-billion-valuation/",
+      "source_name": "TechNode",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T09:19:46Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "NIMO secured angel funding at a RMB 1.5 billion valuation, indicating significant investor interest in the AI glasses sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 82,
+      "triage_reason": "NIMO secured angel funding at a RMB 1.5 billion valuation, indicating significant investor interest in the AI glasses sector.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 1,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NIMO",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-135",
       "headline": "Australia plans shoot-to-kill drone laws to counter rising threats",
       "headline_en": null,
@@ -1875,66 +1924,6 @@
           "name": "Rolls-Royce",
           "ticker": null,
           "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-005",
-      "headline": "Geely Galaxy launches Cruiser 700 to take on BYD, GWM in off-road SUV market",
-      "headline_en": null,
-      "url": "https://cnevpost.com/2026/10/10/geely-galaxy-launches-cruiser-700-suv/",
-      "source_name": "CnEVPost",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T14:07:06Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Geely is launching a new model to compete directly with BYD and GWM, signaling increased competition in the SUV segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 79,
-      "triage_reason": "Geely is launching a new model to compete directly with BYD and GWM, signaling increased competition in the SUV segment.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Geely",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "BYD",
-          "ticker": null,
-          "listing_country": "CN"
-        },
-        {
-          "name": "Great Wall Motor",
-          "ticker": null,
-          "listing_country": "CN"
         }
       ],
       "size_bucket": "large",
@@ -212159,9 +212148,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 335553,
-    "news_picked_today": 186,
-    "news_dropped_today": 534
+    "news_seen_today": 346733,
+    "news_picked_today": 194,
+    "news_dropped_today": 550
   },
   "book_momentum": {
     "live_count": 8,
