@@ -1,0 +1,72 @@
+{
+  "idea_id": "IDEA-37a5121be6e7",
+  "idea_version": "IDEAV-d0910d16a32ac094",
+  "idea_version_started_at": "2026-10-11T05:19:17Z",
+  "ticker": "SYNA",
+  "company": "Synaptics",
+  "exchange": "NASDAQ",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "Cirrus Logic is reportedly bidding to acquire Synaptics, which typically forces a premium to the current trading price.",
+  "why_now": "The report surfaced on 2026-10-09, creating an immediate M&A arbitrage opportunity.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 62,
+  "trade_score_basis": "event_driven_v3",
+  "trade_score_breakdown": {
+    "evidence": 14,
+    "impact": 20,
+    "specificity": 15,
+    "timing": 6,
+    "expression": 7,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-c94c3c769054"
+  ],
+  "primary_source_event_id": "EVT-c94c3c769054",
+  "source_headlines": [
+    "Cirrus Logic Is Said to Have Bid for Synaptics After Onsemi Deal"
+  ],
+  "source_headline": "Cirrus Logic Is Said to Have Bid for Synaptics After Onsemi Deal",
+  "source_url": "https://www.bloomberg.com/news/articles/2026-10-09/cirrus-logic-is-said-to-have-bid-for-synaptics-after-onsemi-deal",
+  "source_name": "Bloomberg",
+  "materiality_max": 100,
+  "newest_source_at": "2026-10-09T23:25:37Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-10-11T05:19:17Z",
+  "updated_at": "2026-10-11T05:19:17Z",
+  "decay_at": "2026-10-11T11:25:37Z",
+  "status": "live",
+  "promoted_signal_id": null
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T05:19:03Z",
+  "generated_at": "2026-10-11T05:19:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-302",
@@ -170047,77 +170047,6 @@
   "handoffs": [],
   "ideas": [
     {
-      "idea_id": "IDEA-cde852397b1c",
-      "idea_version": "IDEAV-0dbdd518cc0ff591",
-      "idea_version_started_at": "2026-10-09T19:14:31Z",
-      "ticker": "DAL",
-      "company": "Delta Air Lines",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "Delta Air Lines is facing margin compression due to surging fuel costs and has officially lowered its 2026 earnings forecast.",
-      "why_now": "The guidance cut was released on October 9, 2026, and the stock is currently reacting to the Q3 profit miss.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 74,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 7,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-ac15919218a7",
-        "EVT-76a08ea3c64d"
-      ],
-      "primary_source_event_id": "EVT-ac15919218a7",
-      "source_headlines": [
-        "Delta Cuts Profit Outlook as Surging Fuel Costs Tighten Grip",
-        "Delta Air Lines cuts 2026 earnings forecast, Q3 profit misses analyst estimates, shares dip 1.72%"
-      ],
-      "source_headline": "Delta Cuts Profit Outlook as Surging Fuel Costs Tighten Grip",
-      "source_url": "https://www.bloomberg.com/news/videos/2026-10-09/delta-cuts-profit-outlook-as-fuel-costs-soar-video",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T17:31:54Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T13:03:03Z",
-      "updated_at": "2026-10-09T19:14:31Z",
-      "decay_at": "2026-10-11T05:31:54Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-03c185c28ffe",
       "idea_version": "IDEAV-cd0c5691441766a2",
       "idea_version_started_at": "2026-10-10T07:05:33Z",
@@ -170539,6 +170468,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-37a5121be6e7",
+      "idea_version": "IDEAV-d0910d16a32ac094",
+      "idea_version_started_at": "2026-10-11T05:19:17Z",
+      "ticker": "SYNA",
+      "company": "Synaptics",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Cirrus Logic is reportedly bidding to acquire Synaptics, which typically forces a premium to the current trading price.",
+      "why_now": "The report surfaced on 2026-10-09, creating an immediate M&A arbitrage opportunity.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 20,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c94c3c769054"
+      ],
+      "primary_source_event_id": "EVT-c94c3c769054",
+      "source_headlines": [
+        "Cirrus Logic Is Said to Have Bid for Synaptics After Onsemi Deal"
+      ],
+      "source_headline": "Cirrus Logic Is Said to Have Bid for Synaptics After Onsemi Deal",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-10-09/cirrus-logic-is-said-to-have-bid-for-synaptics-after-onsemi-deal",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-09T23:25:37Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-11T05:19:17Z",
+      "updated_at": "2026-10-11T05:19:17Z",
+      "decay_at": "2026-10-11T11:25:37Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-c60c4513384e",
       "idea_version": "IDEAV-e88b197efb452015",
       "idea_version_started_at": "2026-10-10T17:25:22Z",
@@ -170609,6 +170608,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-cde852397b1c",
+      "idea_version": "IDEAV-b9632fe3f52e6eed",
+      "idea_version_started_at": "2026-10-11T05:19:17Z",
+      "ticker": "DAL",
+      "company": "Delta Air Lines",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company has officially lowered its profit outlook due to rising fuel costs, signaling margin compression.",
+      "why_now": "The guidance cut was issued on 2026-10-09, and the market is currently adjusting to the new earnings reality.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-734046c1d31b"
+      ],
+      "primary_source_event_id": "EVT-734046c1d31b",
+      "source_headlines": [
+        "Delta slashes profit outlook as higher fuel prices bite"
+      ],
+      "source_headline": "Delta slashes profit outlook as higher fuel prices bite",
+      "source_url": "https://www.ft.com/content/77d73223-3cfc-4892-a3c5-5502595f42d4?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-09T20:31:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T13:03:03Z",
+      "updated_at": "2026-10-11T05:19:17Z",
+      "decay_at": "2026-10-11T08:31:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-9a15ea504d7b",
       "idea_version": "IDEAV-5902d95c838a1182",
       "idea_version_started_at": "2026-10-10T03:44:38Z",
@@ -170673,6 +170743,78 @@
       "surfaced_at": "2026-10-10T03:44:38Z",
       "updated_at": "2026-10-10T03:44:38Z",
       "decay_at": "2026-10-11T13:21:11Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-8e38ef15bf4e",
+      "idea_version": "IDEAV-c24533954972c069",
+      "idea_version_started_at": "2026-10-11T05:19:17Z",
+      "ticker": "RTX",
+      "company": "Raytheon",
+      "exchange": "NYSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The $6.3 billion Pentagon contract provides a significant, multi-year revenue backlog boost for the company's missile defense segment.",
+      "why_now": "The contract was announced on 2026-10-09 and represents a major, concrete capital inflow.",
+      "conviction": 80,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-0ad636401623"
+      ],
+      "primary_source_event_id": "EVT-0ad636401623",
+      "source_headlines": [
+        "Pentagon, Raytheon sign $6.3B deal to replenish US missile interceptor supply"
+      ],
+      "source_headline": "Pentagon, Raytheon sign $6.3B deal to replenish US missile interceptor supply",
+      "source_url": "https://www.defensenews.com/missile-defense/2026/10/09/pentagon-raytheon-sign-63b-deal-to-replenish-us-missile-interceptor-supply/",
+      "source_name": "Defense News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-09T20:17:18Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-08T22:24:36Z",
+      "updated_at": "2026-10-11T05:19:17Z",
+      "decay_at": "2026-10-11T08:17:18Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -172843,75 +172985,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-8e38ef15bf4e",
-      "idea_version": "IDEAV-a799751771b43cc4",
-      "idea_version_started_at": "2026-10-10T00:19:59Z",
-      "ticker": "RTX",
-      "company": "RTX Corp",
-      "exchange": "NYSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The award of a $6.3 billion multi-year contract for SM-3 interceptors provides significant long-term revenue visibility and cash flow support.",
-      "why_now": "The contract was officially announced on 2026-10-08, and the market is currently digesting the impact of this multi-year backlog addition.",
-      "conviction": 80,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 73,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f37e621f988a"
-      ],
-      "primary_source_event_id": "EVT-f37e621f988a",
-      "source_headlines": [
-        "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors"
-      ],
-      "source_headline": "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors",
-      "source_url": "https://www.war.gov/News/Releases/Release/Article/4622796/department-of-war-awards-63-billion-multi-year-contract-to-rtxs-raytheon-for-sm/",
-      "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T21:00:08Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T22:24:36Z",
-      "updated_at": "2026-10-10T00:19:59Z",
-      "decay_at": "2026-10-10T09:00:08Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-8c352967472b",
       "idea_version": "IDEAV-5c0dfa8b6f6509f8",
       "idea_version_started_at": "2026-10-08T14:29:57Z",
@@ -174982,77 +175055,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-b7df09840cec",
-      "idea_version": "IDEAV-659899b88f8fce6c",
-      "idea_version_started_at": "2026-10-08T09:52:56Z",
-      "ticker": "STEELXIND",
-      "company": "Steel Exchange India Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported a 45% YoY revenue increase to ₹340 crore in Q2 FY27, fueled by record re-bar production levels.",
-      "why_now": "The official exchange filing was released on October 8, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f892de05d339"
-      ],
-      "primary_source_event_id": "EVT-f892de05d339",
-      "source_headlines": [
-        "STEEL EXCHANGE INDIA LIMITED: STEEL EXCHANGE INDIA LIMITED has informed the Exchange regarding a press release dated October 08, 2026, titled \"Steel Exchange India Limited Clocks Approximately ₹340 Crore Revenue in Q2 FY27, up 45% YoY and 25% QoQ, Driven by Record Re-bar Production\"."
-      ],
-      "source_headline": "STEEL EXCHANGE INDIA LIMITED: STEEL EXCHANGE INDIA LIMITED has informed the Exchange regarding a press release dated October 08, 2026, titled \"Steel Exchange India Limited Clocks Approximately ₹340 Crore Revenue in Q2 FY27, up 45% YoY and 25% QoQ, Driven by Record Re-bar Production\".",
-      "source_url": "https://nsearchives.nseindia.com/corporate/STEELXIND_08102026100116_Intimation_of_Press_Release_08102026_Final_Signed.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-08T04:31:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-08T09:52:56Z",
-      "updated_at": "2026-10-08T09:52:56Z",
-      "decay_at": "2026-10-09T16:31:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-c4367824b313",
       "idea_version": "IDEAV-a31dbf1764433a93",
       "idea_version_started_at": "2026-10-08T09:52:56Z",
@@ -175349,14 +175351,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 537,
+    "total_count": 535,
     "shown_count": 499,
-    "hidden_count": 38,
+    "hidden_count": 36,
     "side_counts": {
       "long": {
-        "total_count": 269,
+        "total_count": 267,
         "shown_count": 250,
-        "hidden_count": 19
+        "hidden_count": 17
       },
       "short": {
         "total_count": 269,
@@ -175366,12 +175368,12 @@
     },
     "retention": {
       "truncated": true,
-      "evicted_count": 920,
+      "evicted_count": 921,
       "oldest_retained_at": "2026-09-14T22:03:00Z",
       "side_counts": {
         "long": {
-          "evicted_count": 613,
-          "oldest_retained_at": "2026-09-28T13:30:00Z"
+          "evicted_count": 614,
+          "oldest_retained_at": "2026-09-28T14:53:31Z"
         },
         "short": {
           "evicted_count": 307,
@@ -176942,78 +176944,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-8e38ef15bf4e",
-        "idea_version": "IDEAV-a799751771b43cc4",
-        "idea_version_started_at": "2026-10-10T00:19:59Z",
-        "ticker": "RTX",
-        "company": "RTX Corp",
-        "exchange": "NYSE",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The award of a $6.3 billion multi-year contract for SM-3 interceptors provides significant long-term revenue visibility and cash flow support.",
-        "why_now": "The contract was officially announced on 2026-10-08, and the market is currently digesting the impact of this multi-year backlog addition.",
-        "conviction": 80,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 73,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 20,
-          "specificity": 15,
-          "timing": 6,
-          "expression": 7,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-f37e621f988a"
-        ],
-        "primary_source_event_id": "EVT-f37e621f988a",
-        "source_headlines": [
-          "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors"
-        ],
-        "source_headline": "Department of War Awards $6.3 Billion Multi-Year Contract to RTX's Raytheon for SM-3 BLOCK IB Interceptors",
-        "source_url": "https://www.war.gov/News/Releases/Release/Article/4622796/department-of-war-awards-63-billion-multi-year-contract-to-rtxs-raytheon-for-sm/",
-        "source_name": "U.S. Department of War (formerly DoD) — News Releases",
-        "materiality_max": 100,
-        "newest_source_at": "2026-10-08T21:00:08Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-10-08T22:24:36Z",
-        "updated_at": "2026-10-10T00:19:59Z",
-        "decay_at": "2026-10-10T09:00:08Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-10-10T09:00:08Z",
-        "archive_reason": "expired",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-2e6c75dccccc",
         "idea_version": "IDEAV-ab7b55e2c36052ff",
         "idea_version_started_at": "2026-10-10T00:19:59Z",
@@ -178123,8 +178053,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-10-09T16:31:41Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-10-11T05:19:27Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -203743,6 +203673,80 @@
         "audit_only": true
       },
       {
+        "idea_id": "IDEA-3d659333c5c4",
+        "idea_version": "IDEAV-660bf2a694598018",
+        "idea_version_started_at": "2026-09-27T12:04:57Z",
+        "ticker": "01201",
+        "company": "Tesson Holdings",
+        "exchange": "HKEX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "Tesson Holdings' acquisition and subscription for shares of a HK target company, along with the proposed appointment of an executive director, suggests strategic expansion and potential operational improvements.",
+        "why_now": "The major transaction was announced in an HKEX filing on September 27, 2026, indicating a fresh corporate development.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-e269367aa615"
+        ],
+        "primary_source_event_id": "EVT-e269367aa615",
+        "source_headlines": [
+          "TESSON HOLDINGS (01201): MAJOR TRANSACTION (1) THE ACQUISITION OF AND SUBSCRIPTION FOR SHARES OF THE HK TARGET COMPANY INVOLVING THE ALLOTMENT AND ISSUANCE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROVISION OF FINANCIAL ASSISTANCE; AND (3) PROPOSED APPOINTMENT OF EXECUTIVE DIRECTOR"
+        ],
+        "source_headline": "TESSON HOLDINGS (01201): MAJOR TRANSACTION (1) THE ACQUISITION OF AND SUBSCRIPTION FOR SHARES OF THE HK TARGET COMPANY INVOLVING THE ALLOTMENT AND ISSUANCE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROVISION OF FINANCIAL ASSISTANCE; AND (3) PROPOSED APPOINTMENT OF EXECUTIVE DIRECTOR",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700115.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-09-27T11:46:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-09-27T12:04:57Z",
+        "updated_at": "2026-09-27T12:04:57Z",
+        "decay_at": "2026-09-28T23:46:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-09-30T13:55:34Z",
+        "archive_reason": "expired_pruned",
+        "audit_only": true
+      },
+      {
         "idea_id": "IDEA-47d6ca173e9c",
         "idea_version": "IDEAV-1b82fdb84cf4c871",
         "idea_version_started_at": "2026-09-27T12:04:57Z",
@@ -212516,8 +212520,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 1495,
-    "live_count": 37,
+    "surfaced_total": 1496,
+    "live_count": 39,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,

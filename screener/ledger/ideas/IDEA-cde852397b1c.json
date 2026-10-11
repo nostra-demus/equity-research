@@ -1,7 +1,7 @@
 {
   "idea_id": "IDEA-cde852397b1c",
-  "idea_version": "IDEAV-0dbdd518cc0ff591",
-  "idea_version_started_at": "2026-10-09T19:14:31Z",
+  "idea_version": "IDEAV-b9632fe3f52e6eed",
+  "idea_version_started_at": "2026-10-11T05:19:17Z",
   "ticker": "DAL",
   "company": "Delta Air Lines",
   "exchange": "NYSE",
@@ -11,25 +11,27 @@
   "listing_verification_source": "yahoo_symbol_directory",
   "direction": "short",
   "pair_with": null,
-  "reason": "Delta Air Lines is facing margin compression due to surging fuel costs and has officially lowered its 2026 earnings forecast.",
-  "why_now": "The guidance cut was released on October 9, 2026, and the stock is currently reacting to the Q3 profit miss.",
+  "reason": "The company has officially lowered its profit outlook due to rising fuel costs, signaling margin compression.",
+  "why_now": "The guidance cut was issued on 2026-10-09, and the market is currently adjusting to the new earnings reality.",
   "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
-  "trade_score": 74,
+  "trade_score": 60,
   "trade_score_basis": "event_driven_v3",
   "trade_score_breakdown": {
     "evidence": 14,
     "impact": 21,
     "specificity": 15,
-    "timing": 10,
+    "timing": 6,
     "expression": 7,
-    "corroboration": 7,
+    "corroboration": 0,
     "learning_adjustment": 0
   },
   "trade_readiness": "needs_data",
   "missing_checks": [
     "live liquidity",
     "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -41,24 +43,22 @@
     "basis": "not_enough_outcomes",
     "evidenceIds": []
   },
-  "priced_in": "room",
+  "priced_in": "priced",
   "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-ac15919218a7",
-    "EVT-76a08ea3c64d"
+    "EVT-734046c1d31b"
   ],
-  "primary_source_event_id": "EVT-ac15919218a7",
+  "primary_source_event_id": "EVT-734046c1d31b",
   "source_headlines": [
-    "Delta Cuts Profit Outlook as Surging Fuel Costs Tighten Grip",
-    "Delta Air Lines cuts 2026 earnings forecast, Q3 profit misses analyst estimates, shares dip 1.72%"
+    "Delta slashes profit outlook as higher fuel prices bite"
   ],
-  "source_headline": "Delta Cuts Profit Outlook as Surging Fuel Costs Tighten Grip",
-  "source_url": "https://www.bloomberg.com/news/videos/2026-10-09/delta-cuts-profit-outlook-as-fuel-costs-soar-video",
-  "source_name": "Bloomberg",
+  "source_headline": "Delta slashes profit outlook as higher fuel prices bite",
+  "source_url": "https://www.ft.com/content/77d73223-3cfc-4892-a3c5-5502595f42d4?syn-25a6b1a6=1",
+  "source_name": "Financial Times",
   "materiality_max": 100,
-  "newest_source_at": "2026-10-09T17:31:54Z",
+  "newest_source_at": "2026-10-09T20:31:49Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
@@ -66,8 +66,8 @@
     "data_pool_present": false
   },
   "surfaced_at": "2026-10-09T13:03:03Z",
-  "updated_at": "2026-10-09T19:14:31Z",
-  "decay_at": "2026-10-11T05:31:54Z",
+  "updated_at": "2026-10-11T05:19:17Z",
+  "decay_at": "2026-10-11T08:31:49Z",
   "status": "live",
   "promoted_signal_id": null
 }
