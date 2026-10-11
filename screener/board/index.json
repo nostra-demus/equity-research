@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T03:56:51Z",
+  "generated_at": "2026-10-11T03:59:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -919,6 +919,49 @@
         "operations"
       ],
       "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-267",
+      "headline": "Israeli drone strike wounds six in northeast Lebanon near Syrian border",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-drone-strike-wounds-six-northeast-lebanon-near-syrian-border",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T20:03:52Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "An Israeli drone strike in Lebanon represents a geopolitical escalation in a conflict zone.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "An Israeli drone strike in Lebanon represents a geopolitical escalation in a conflict zone.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -1901,60 +1944,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-094",
-      "headline": "Persistent to squeeze out existing Nagarro shareholders en route to become seventh-largest",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/persistent-to-squeeze-out-existing-nagarro-shareholders-en-route-to-become-seventhlargest-11791620781979.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T11:20:54Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Persistent is moving to acquire existing Nagarro shareholders as part of a consolidation strategy.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Persistent is moving to acquire existing Nagarro shareholders as part of a consolidation strategy.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Persistent Systems",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Nagarro",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -170402,76 +170391,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f8d21dcf8212",
-      "idea_version": "IDEAV-958d650b31683146",
-      "idea_version_started_at": "2026-10-09T18:31:26Z",
-      "ticker": "VOD",
-      "company": "Vodafone Group Plc",
-      "exchange": "NASDAQ",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company increased its cost-savings target for its UK operations to £1 billion, which should directly improve operating margins and free cash flow conversion.",
-      "why_now": "The announcement was made on 2026-10-09, providing a fresh catalyst for margin expansion expectations.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 65,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 7,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-94385a58c36d"
-      ],
-      "primary_source_event_id": "EVT-94385a58c36d",
-      "source_headlines": [
-        "Vodafone raises cost savings target for UK unit to £1bn"
-      ],
-      "source_headline": "Vodafone raises cost savings target for UK unit to £1bn",
-      "source_url": "https://www.datacenterdynamics.com/en/news/vodafone-raises-cost-savings-target-for-uk-unit-to-1bn/",
-      "source_name": "DataCenterDynamics",
-      "materiality_max": 100,
-      "newest_source_at": "2026-10-09T15:58:05Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-09T18:31:26Z",
-      "updated_at": "2026-10-09T18:31:26Z",
-      "decay_at": "2026-10-11T03:58:05Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-90b902d53889",
       "idea_version": "IDEAV-b0218f9c37e8e142",
       "idea_version_started_at": "2026-10-10T19:12:19Z",
@@ -173265,6 +173184,76 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f8d21dcf8212",
+      "idea_version": "IDEAV-958d650b31683146",
+      "idea_version_started_at": "2026-10-09T18:31:26Z",
+      "ticker": "VOD",
+      "company": "Vodafone Group Plc",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company increased its cost-savings target for its UK operations to £1 billion, which should directly improve operating margins and free cash flow conversion.",
+      "why_now": "The announcement was made on 2026-10-09, providing a fresh catalyst for margin expansion expectations.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 65,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 7,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-94385a58c36d"
+      ],
+      "primary_source_event_id": "EVT-94385a58c36d",
+      "source_headlines": [
+        "Vodafone raises cost savings target for UK unit to £1bn"
+      ],
+      "source_headline": "Vodafone raises cost savings target for UK unit to £1bn",
+      "source_url": "https://www.datacenterdynamics.com/en/news/vodafone-raises-cost-savings-target-for-uk-unit-to-1bn/",
+      "source_name": "DataCenterDynamics",
+      "materiality_max": 100,
+      "newest_source_at": "2026-10-09T15:58:05Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-09T18:31:26Z",
+      "updated_at": "2026-10-09T18:31:26Z",
+      "decay_at": "2026-10-11T03:58:05Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-9252653c3692",
       "idea_version": "IDEAV-290b92d4608851ec",
       "idea_version_started_at": "2026-10-09T04:30:18Z",
@@ -175352,14 +175341,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 536,
+    "total_count": 537,
     "shown_count": 499,
-    "hidden_count": 37,
+    "hidden_count": 38,
     "side_counts": {
       "long": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       },
       "short": {
         "total_count": 269,
@@ -175383,6 +175372,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f8d21dcf8212",
+        "idea_version": "IDEAV-958d650b31683146",
+        "idea_version_started_at": "2026-10-09T18:31:26Z",
+        "ticker": "VOD",
+        "company": "Vodafone Group Plc",
+        "exchange": "NASDAQ",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company increased its cost-savings target for its UK operations to £1 billion, which should directly improve operating margins and free cash flow conversion.",
+        "why_now": "The announcement was made on 2026-10-09, providing a fresh catalyst for margin expansion expectations.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 65,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 7,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-94385a58c36d"
+        ],
+        "primary_source_event_id": "EVT-94385a58c36d",
+        "source_headlines": [
+          "Vodafone raises cost savings target for UK unit to £1bn"
+        ],
+        "source_headline": "Vodafone raises cost savings target for UK unit to £1bn",
+        "source_url": "https://www.datacenterdynamics.com/en/news/vodafone-raises-cost-savings-target-for-uk-unit-to-1bn/",
+        "source_name": "DataCenterDynamics",
+        "materiality_max": 100,
+        "newest_source_at": "2026-10-09T15:58:05Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-09T18:31:26Z",
+        "updated_at": "2026-10-09T18:31:26Z",
+        "decay_at": "2026-10-11T03:58:05Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-11T03:58:05Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5057424de03d",
         "idea_version": "IDEAV-e30529bd3537e1b9",
@@ -203673,80 +203735,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-3d659333c5c4",
-        "idea_version": "IDEAV-660bf2a694598018",
-        "idea_version_started_at": "2026-09-27T12:04:57Z",
-        "ticker": "01201",
-        "company": "Tesson Holdings",
-        "exchange": "HKEX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "Tesson Holdings' acquisition and subscription for shares of a HK target company, along with the proposed appointment of an executive director, suggests strategic expansion and potential operational improvements.",
-        "why_now": "The major transaction was announced in an HKEX filing on September 27, 2026, indicating a fresh corporate development.",
-        "conviction": 55,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 19,
-          "specificity": 7,
-          "timing": 10,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-e269367aa615"
-        ],
-        "primary_source_event_id": "EVT-e269367aa615",
-        "source_headlines": [
-          "TESSON HOLDINGS (01201): MAJOR TRANSACTION (1) THE ACQUISITION OF AND SUBSCRIPTION FOR SHARES OF THE HK TARGET COMPANY INVOLVING THE ALLOTMENT AND ISSUANCE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROVISION OF FINANCIAL ASSISTANCE; AND (3) PROPOSED APPOINTMENT OF EXECUTIVE DIRECTOR"
-        ],
-        "source_headline": "TESSON HOLDINGS (01201): MAJOR TRANSACTION (1) THE ACQUISITION OF AND SUBSCRIPTION FOR SHARES OF THE HK TARGET COMPANY INVOLVING THE ALLOTMENT AND ISSUANCE OF CONSIDERATION SHARES UNDER SPECIFIC MANDATE; (2) PROVISION OF FINANCIAL ASSISTANCE; AND (3) PROPOSED APPOINTMENT OF EXECUTIVE DIRECTOR",
-        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0927/2026092700115.pdf",
-        "source_name": "HKEXnews (HK Exchange Filing)",
-        "materiality_max": 100,
-        "newest_source_at": "2026-09-27T11:46:00Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T12:04:57Z",
-        "updated_at": "2026-09-27T12:04:57Z",
-        "decay_at": "2026-09-28T23:46:00Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T13:55:34Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-47d6ca173e9c",
         "idea_version": "IDEAV-1b82fdb84cf4c871",
         "idea_version_started_at": "2026-09-27T12:04:57Z",
@@ -212521,7 +212509,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1495,
-    "live_count": 38,
+    "live_count": 37,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -212540,9 +212528,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 917224,
-    "news_picked_today": 511,
-    "news_dropped_today": 1553
+    "news_seen_today": 925670,
+    "news_picked_today": 515,
+    "news_dropped_today": 1573
   },
   "book_momentum": {
     "live_count": 8,
