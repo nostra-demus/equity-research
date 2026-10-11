@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T10:10:02Z",
+  "generated_at": "2026-10-11T10:11:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -95,6 +95,56 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-623",
+      "headline": "Ukraine Hits Third Russian Yandex Data Hub, Disrupting Services",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-11/ukraine-hits-third-russian-yandex-data-hub-disrupting-services",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T08:54:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A targeted attack on Yandex data hubs disrupts services and represents a significant operational and geopolitical risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A targeted attack on Yandex data hubs disrupts services and represents a significant operational and geopolitical risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "cybersecurity",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yandex",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1964,55 +2014,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-256",
-      "headline": "Ashton Woods leans into discipline as orders and margins slide",
-      "headline_en": null,
-      "url": "https://www.housingwire.com/articles/ashton-woods-q1-2027-earnings/",
-      "source_name": "HousingWire",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T20:53:18Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Ashton Woods reported a slide in orders and margins, indicating operational headwinds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Ashton Woods reported a slide in orders and margins, indicating operational headwinds.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ashton Woods",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212529,9 +212530,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1496177,
-    "news_picked_today": 1443,
-    "news_dropped_today": 3813
+    "news_seen_today": 1496606,
+    "news_picked_today": 1452,
+    "news_dropped_today": 3828
   },
   "book_momentum": {
     "live_count": 8,
