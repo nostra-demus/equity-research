@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T08:52:02Z",
+  "generated_at": "2026-10-11T09:00:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -1367,6 +1367,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-593",
+      "headline": "'Unacceptable’: India Condemns 'Dastardly’ Riyadh Airport Missile Strike That Killed 12",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/india/unacceptable-india-condemns-dastardly-riyadh-airport-missile-strike-that-killed-12-12168687#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T07:21:15Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A deadly missile strike on a major international airport in Riyadh is a significant geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "A deadly missile strike on a major international airport in Riyadh is a significant geopolitical escalation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-104",
       "headline": "Premier Energies secures orders worth ₹4,000 crore in Q2",
       "headline_en": null,
@@ -1964,55 +2007,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-308",
-      "headline": "Huelga en mina chilena Centinela, sin señal de reactivación de diálogo: sindicato",
-      "headline_en": "Strike at Chilean Centinela mine, no sign of dialogue resumption: union",
-      "url": "https://www.reuters.com/latam/negocio/Z76YRNBR6VPQFHRU7I7WBIQGAM-2026-10-09/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T17:19:12Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "A strike at the Centinela mine in Chile with no dialogue indicates a supply disruption for copper production.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "A strike at the Centinela mine in Chile with no dialogue indicates a supply disruption for copper production.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Antofagasta",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212600,9 +212594,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1443758,
-    "news_picked_today": 1250,
-    "news_dropped_today": 3358
+    "news_seen_today": 1453694,
+    "news_picked_today": 1261,
+    "news_dropped_today": 3395
   },
   "book_momentum": {
     "live_count": 8,
