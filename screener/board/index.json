@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T02:11:48Z",
+  "generated_at": "2026-10-11T02:14:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -195,6 +195,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-177",
+      "headline": "Premier Energies Bags ₹4,001 Crore Orders, Boosts Solar Cell And Module Capacity",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/premier-energies-bags-4001-crore-orders-boosts-solar-cell-and-module-capacity",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T05:31:38Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Premier Energies secured orders worth ₹4,001 crore and is expanding its solar cell and module capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Premier Energies secured orders worth ₹4,001 crore and is expanding its solar cell and module capacity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Premier Energies",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1334,6 +1384,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-188",
+      "headline": "Bambusa Therapeutics Files for IPO To Fund Eczema Drug Trials",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/bambusa-therapeutics-files-for-ipo-to-fund-eczema-drug-trials-12164861#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T04:41:46Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A company filing for an IPO is a significant event that can impact its capital structure and future growth prospects.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "A company filing for an IPO is a significant event that can impact its capital structure and future growth prospects.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bambusa Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-030",
       "headline": "Hundreds protests at FedEx Oakland over Israel arms shipments",
       "headline_en": null,
@@ -1858,104 +1957,6 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-022",
-      "headline": "Ronaldo provisionally suspended after national team walkout, media reports say",
-      "headline_en": null,
-      "url": "https://www.reuters.com/sports/soccer/ronaldo-provisionally-suspended-after-national-team-walkout-media-reports-say-2026-10-10/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:35:53Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Suspension of a high-profile athlete impacts team performance and commercial endorsements.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Suspension of a high-profile athlete impacts team performance and commercial endorsements.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cristiano Ronaldo",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-035",
-      "headline": "AI Express, Air India extend cancellation of Riyadh flights",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/economy/logistics/ai-express-air-india-extend-cancellation-of-riyadh-flights/article71568154.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:16:30Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Extended flight cancellations to a major regional hub disrupt operations and revenue for the airlines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "Extended flight cancellations to a major regional hub disrupt operations and revenue for the airlines.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Air India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212177,9 +212178,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 541213,
-    "news_picked_today": 272,
-    "news_dropped_today": 856
+    "news_seen_today": 551513,
+    "news_picked_today": 294,
+    "news_dropped_today": 930
   },
   "book_momentum": {
     "live_count": 8,
