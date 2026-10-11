@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T09:27:27Z",
+  "generated_at": "2026-10-11T09:31:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -1196,6 +1196,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-604",
+      "headline": "S.J.S. Enterprises Limited: S.J.S. Enterprises Limited has informed the Exchange about Capacity addition At SJS Display Electronics Pvt Ltd The Wholly Owned Subsidiary Of The Company by setting up new manufacturing facility.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/SJS_11102026145244_Reg30SJSDisplayElectronicsNewManufacturingFacility.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-10-11T09:23:32Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "S.J.S. Enterprises is expanding manufacturing capacity through its subsidiary SJS Display Electronics.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "S.J.S. Enterprises is expanding manufacturing capacity through its subsidiary SJS Display Electronics.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capex",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "S.J.S. Enterprises Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-603",
       "headline": "S.J.S. Enterprises Limited: S.J.S. Enterprises Limited has informed the Exchange about Capacity addition At Walter Pack Automotive Products India Pvt Ltd The Wholly Owned Subsidiary Of The Company",
       "headline_en": null,
@@ -1964,55 +2013,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-525",
-      "headline": "Poonawalla Fincorp’s net profit soars five times to ₹375 cr in Q2FY27",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/money-and-banking/poonawalla-fincorps-net-profit-soars-five-times-to-375-cr-in-q2fy27/article71564325.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T13:26:42Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Poonawalla Fincorp reported a 5x increase in net profit to ₹375 crore for Q2FY27.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Poonawalla Fincorp reported a 5x increase in net profit to ₹375 crore for Q2FY27.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Poonawalla Fincorp",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212529,9 +212529,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1476333,
-    "news_picked_today": 1343,
-    "news_dropped_today": 3577
+    "news_seen_today": 1478027,
+    "news_picked_today": 1349,
+    "news_dropped_today": 3595
   },
   "book_momentum": {
     "live_count": 8,
