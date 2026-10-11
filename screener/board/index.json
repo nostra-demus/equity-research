@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T04:40:55Z",
+  "generated_at": "2026-10-11T04:42:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -1176,6 +1176,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-295",
+      "headline": "Vereinigte Arabische Emirate: Wie 9/11: Vereitelter Flydubai-Absturz war laut Ermittlern geplanter Selbstmordanschlag mit klarem Ziel",
+      "headline_en": "United Arab Emirates: Like 9/11: Thwarted Flydubai crash was a planned suicide attack with a clear target, according to investigators",
+      "url": "https://www.handelsblatt.com/politik/international/flydubai-co-pilot-plante-laut-ermittlern-absturz-auf-terminal-in-tel-aviv/100261134.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T18:12:28Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A thwarted suicide attack on a commercial flight represents a severe operational and security risk for the airline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "A thwarted suicide attack on a commercial flight represents a severe operational and security risk for the airline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "flydubai",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-161",
       "headline": "Russia partially lifts diesel export ban after Putin-Trump deal to supply US, global markets",
       "headline_en": null,
@@ -1892,55 +1941,6 @@
         {
           "name": "Super Micro Computer",
           "ticker": "SMCI",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-249",
-      "headline": "Super Micro Case ‘Fixer’ Pleads Guilty to Diverting AI Servers",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-09/super-micro-case-fixer-pleads-guilty-to-diverting-ai-servers",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T21:11:31Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "A key individual involved in Super Micro's supply chain operations has pleaded guilty to diverting AI servers, indicating significant internal control and operational risks.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A key individual involved in Super Micro's supply chain operations has pleaded guilty to diverting AI servers, indicating significant internal control and operational risks.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Super Micro Computer",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -212529,9 +212529,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1029105,
-    "news_picked_today": 639,
-    "news_dropped_today": 1833
+    "news_seen_today": 1032891,
+    "news_picked_today": 648,
+    "news_dropped_today": 1848
   },
   "book_momentum": {
     "live_count": 8,
