@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T03:05:41Z",
+  "generated_at": "2026-10-11T03:08:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -197,6 +197,55 @@
           "name": "Synaptics",
           "ticker": null,
           "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-226",
+      "headline": "ATUALIZA 1 CSN negocia com grupo espanhol venda da SWT por 550 mi de euros",
+      "headline_en": "UPDATE 1 CSN negotiates sale of SWT to Spanish group for 550 million euros",
+      "url": "https://www.reuters.com/pt/negocio/JAPXWLGKKJLNVMIJKMOIZRDSHE-2026-10-09/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T22:27:25Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Negotiations for the sale of a subsidiary for 550 million euros represent a significant capital event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Negotiations for the sale of a subsidiary for 550 million euros represent a significant capital event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Companhia Siderurgica Nacional",
+          "ticker": null,
+          "listing_country": "BR"
         }
       ],
       "size_bucket": "large",
@@ -482,6 +531,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-220",
+      "headline": "UAE says Flydubai suspect intended to crash plane into Tel Aviv airport",
+      "headline_en": null,
+      "url": "https://thehill.com/policy/international/6140027-flydubai-co-pilot-ben-gurion-airport/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T22:31:03Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A report of an intentional attempt to crash a commercial airliner into an international airport represents a severe security and operational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A report of an intentional attempt to crash a commercial airliner into an international airport represents a severe security and operational risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flydubai",
+          "ticker": null,
+          "listing_country": "AE"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1008,6 +1106,55 @@
           "name": "Avenue Supermarts",
           "ticker": "DMART",
           "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-225",
+      "headline": "Super Micro contractor pleads guilty in scheme to divert AI servers with Nvidia chips to China",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/government/super-micro-contractor-pleads-guilty-scheme-divert-ai-servers-with-nvidia-chips-2026-10-09/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T22:27:32Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A contractor pleading guilty to diverting AI servers with restricted chips to China creates significant regulatory and reputational risk for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A contractor pleading guilty to diverting AI servers with restricted chips to China creates significant regulatory and reputational risk for the company.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Super Micro Computer",
+          "ticker": "SMCI",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "large",
@@ -1823,148 +1970,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-041",
-      "headline": "Familienimperium: Wesley Batista Filho erbt den weltgrößten Fleischkonzern – und dessen Skandale",
-      "headline_en": "Family empire: Wesley Batista Filho inherits the world's largest meat company – and its scandals",
-      "url": "https://www.handelsblatt.com/unternehmen/handel-konsumgueter/fleisch-batista-filho-erbt-den-weltgroessten-fleischkonzern-und-dessen-skandale/100257496.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:03:56Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Wesley Batista Filho inherits the world's largest meat company, JBS, amid ongoing scandals.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Wesley Batista Filho inherits the world's largest meat company, JBS, amid ongoing scandals.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "JBS",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-064",
-      "headline": "DMart’s Q2 profit growth trails revenue as expenses rise",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/dmarts-q2-profit-growth-trails-revenue-as-expenses-rise-11791630204915.html",
-      "source_name": "Mint",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T12:34:08Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "DMart reported Q2 profit growth trailing revenue due to rising expenses, indicating margin pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "DMart reported Q2 profit growth trailing revenue due to rising expenses, indicating margin pressure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avenue Supermarts",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-197",
-      "headline": "Canadian ransomware negotiator arrested amid FBI hacker crackdown",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/government/canadian-ransomware-negotiator-arrested-amid-fbi-hacker-crackdown-2026-10-11/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-11T02:14:27Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "The arrest of a ransomware negotiator as part of an FBI crackdown indicates increased regulatory and legal risk for cybersecurity-related services.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "The arrest of a ransomware negotiator as part of an FBI crackdown indicates increased regulatory and legal risk for cybersecurity-related services.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212331,9 +212336,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 742319,
-    "news_picked_today": 392,
-    "news_dropped_today": 1240
+    "news_seen_today": 751642,
+    "news_picked_today": 402,
+    "news_dropped_today": 1254
   },
   "book_momentum": {
     "live_count": 8,
