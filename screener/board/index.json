@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T06:52:33Z",
+  "generated_at": "2026-10-11T06:55:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -43,6 +43,55 @@
           "name": "MIS",
           "ticker": null,
           "listing_country": "SA"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-337",
+      "headline": "Suzlon investing Rs 550 crore to set up 3 AI-powered wind blade factories in Gujarat, Karnataka, Tamil Nadu",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/renewables/suzlon-investing-rs-550-crore-to-set-up-3-ai-powered-wind-blade-factories-in-gujarat-karnataka-tamil-nadu/articleshow/134866215.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T06:24:52Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Suzlon is investing Rs 550 crore to set up 3 new wind blade factories.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Suzlon is investing Rs 550 crore to set up 3 new wind blade factories.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Suzlon Energy",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "mid",
@@ -1047,6 +1096,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-339",
+      "headline": "Riyadh airport attack: UAE airlines announce Saudi route cancellations and flight changes",
+      "headline_en": null,
+      "url": "https://gulfnews.com/business/aviation/riyadh-airport-attack-uae-airlines-announce-saudi-route-cancellations-and-flight-changes-1.500706246",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T06:22:56Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Security incident at Riyadh airport causing flight cancellations and route changes for UAE airlines.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Security incident at Riyadh airport causing flight cancellations and route changes for UAE airlines.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Emirates",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Etihad Airways",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-256",
       "headline": "Ashton Woods leans into discipline as orders and margins slide",
       "headline_en": null,
@@ -1840,110 +1943,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-293",
-      "headline": "Verizon stock heads for worst day since 2002 as SpaceX U.S. network plans whack telcos",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/09/verizon-att-tmobile-stocks-spacex-network.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T18:32:37Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Verizon stock is heading for its worst day since 2002 due to SpaceX's U.S. network plans impacting telcos, suggesting a significant competitive threat and potential revenue loss.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Verizon stock is heading for its worst day since 2002 due to SpaceX's U.S. network plans impacting telcos, suggesting a significant competitive threat and potential revenue loss.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 2,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations",
-        "macro_sector"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Verizon",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-301",
-      "headline": "Premier Energies Q2 Update: Bags ₹4,001 crore orders for 2,308 MW solar cell, module supplies",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/premier-energies-share-price-q2-update-bags-rs-4001-crore-orders-for-2308-mw-solar-cell-module-supplies-20008827.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T17:41:25Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Premier Energies secured new orders worth ₹4,001 crore for 2,308 MW of solar supplies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Premier Energies secured new orders worth ₹4,001 crore for 2,308 MW of solar supplies.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Premier Energies",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212535,9 +212534,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1312280,
-    "news_picked_today": 924,
-    "news_dropped_today": 2556
+    "news_seen_today": 1317492,
+    "news_picked_today": 930,
+    "news_dropped_today": 2574
   },
   "book_momentum": {
     "live_count": 8,
