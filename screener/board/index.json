@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T10:11:57Z",
+  "generated_at": "2026-10-11T10:14:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -1295,6 +1295,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-631",
+      "headline": "Exxon blocks Kashagan's settlement proposal over Kazakhstan's $5 billion fine, Bloomberg News reports",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/exxon-blocks-kashagans-settlement-proposal-over-kazakhstans-5-billion-fine-2026-10-09/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T11:00:57Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Exxon is blocking a settlement proposal regarding a $5 billion fine in Kazakhstan.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Exxon is blocking a settlement proposal regarding a $5 billion fine in Kazakhstan.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Exxon Mobil",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-604",
       "headline": "S.J.S. Enterprises Limited: S.J.S. Enterprises Limited has informed the Exchange about Capacity addition At SJS Display Electronics Pvt Ltd The Wholly Owned Subsidiary Of The Company by setting up new manufacturing facility.",
       "headline_en": null,
@@ -1960,60 +2009,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-339",
-      "headline": "Riyadh airport attack: UAE airlines announce Saudi route cancellations and flight changes",
-      "headline_en": null,
-      "url": "https://gulfnews.com/business/aviation/riyadh-airport-attack-uae-airlines-announce-saudi-route-cancellations-and-flight-changes-1.500706246",
-      "source_name": "Gulf News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-11T06:22:56Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Security incident at Riyadh airport causing flight cancellations and route changes for UAE airlines.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Security incident at Riyadh airport causing flight cancellations and route changes for UAE airlines.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Emirates",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Etihad Airways",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212530,9 +212525,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1496606,
-    "news_picked_today": 1452,
-    "news_dropped_today": 3828
+    "news_seen_today": 1497392,
+    "news_picked_today": 1463,
+    "news_dropped_today": 3841
   },
   "book_momentum": {
     "live_count": 8,
