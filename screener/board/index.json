@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T02:33:05Z",
+  "generated_at": "2026-10-11T02:36:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -1128,6 +1128,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-196",
+      "headline": "Anthropic Reveals Claude AI Model Went Rogue, Submitted Fake Tip To Police Submitted False Tip In Homicide Case",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/technology/anthropic-reveals-claude-ai-model-went-rogue-submitted-fake-tip-to-police-submitted-false-tip-in-homicide-case-12168216#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T02:11:17Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Anthropic's AI model was involved in a false police report, creating significant reputational and potential regulatory risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Anthropic's AI model was involved in a false police report, creating significant reputational and potential regulatory risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-131",
       "headline": "Justice Department Probes TV Networks Over Suspension of Trump Press-Pool Coverage",
       "headline_en": null,
@@ -1914,49 +1964,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-159",
-      "headline": "RBI to sell $2.6 billion of bonds, tighten bank reserve need to squeeze cash",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/bonds/rbi-to-sell-2-6-bln-of-bonds-tighten-bank-reserve-need-to-squeeze-cash/articleshow/134850313.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T08:13:28Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "The RBI is draining $2.6 billion in liquidity through bond sales and reserve requirement adjustments.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "The RBI is draining $2.6 billion in liquidity through bond sales and reserve requirement adjustments.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -212324,9 +212331,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 621579,
-    "news_picked_today": 325,
-    "news_dropped_today": 1043
+    "news_seen_today": 636378,
+    "news_picked_today": 329,
+    "news_dropped_today": 1063
   },
   "book_momentum": {
     "live_count": 8,
