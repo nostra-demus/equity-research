@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T16:13:46Z",
+  "generated_at": "2026-10-11T16:22:59Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -1491,6 +1491,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-686",
+      "headline": "Oil chiefs pull out of Riyadh energy congress after airport missile strike",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/a01776ea-4a12-4195-8820-e43a885ba5fe?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T16:05:59Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Oil executives withdrawing from a major energy congress due to a missile strike signals a severe escalation in regional security risk for the energy sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Oil executives withdrawing from a major energy congress due to a missile strike signals a severe escalation in regional security risk for the energy sector.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-679",
       "headline": "72 killed in airstrike on gold mine on Sudan-Egypt border",
       "headline_en": null,
@@ -1932,49 +1975,6 @@
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-593",
-      "headline": "'Unacceptable’: India Condemns 'Dastardly’ Riyadh Airport Missile Strike That Killed 12",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/india/unacceptable-india-condemns-dastardly-riyadh-airport-missile-strike-that-killed-12-12168687#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-11T07:21:15Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "A deadly missile strike on a major international airport in Riyadh is a significant geopolitical escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "A deadly missile strike on a major international airport in Riyadh is a significant geopolitical escalation.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 0,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
