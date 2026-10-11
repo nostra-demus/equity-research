@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T02:42:21Z",
+  "generated_at": "2026-10-11T02:44:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -668,6 +668,56 @@
         },
         {
           "name": "Chipotle",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-205",
+      "headline": "Nvidia discusses boosting Reflection investment, computing deal",
+      "headline_en": null,
+      "url": "https://www.straitstimes.com/business/nvidia-discusses-boosting-reflection-investment-computing-deal",
+      "source_name": "The Straits Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T02:32:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Nvidia is discussing a potential increase in investment and a new computing deal, signaling growth and capital allocation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Nvidia is discussing a potential increase in investment and a new computing deal, signaling growth and capital allocation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
           "ticker": null,
           "listing_country": "US"
         }
@@ -1911,55 +1961,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-073",
-      "headline": "This Nuclear Stock Doesn't Need a Breakthrough. It Just Won Another $189 Million Contract Doing What It's Always Done.",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/10/10/nuclear-stock-bwxt-need-breakthrough-contract/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T12:15:00Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "The company secured a new $189 million contract, which is a material revenue-generating event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "The company secured a new $189 million contract, which is a material revenue-generating event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BWX Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212326,9 +212327,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 656003,
-    "news_picked_today": 345,
-    "news_dropped_today": 1095
+    "news_seen_today": 670629,
+    "news_picked_today": 348,
+    "news_dropped_today": 1116
   },
   "book_momentum": {
     "live_count": 8,
