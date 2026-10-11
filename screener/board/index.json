@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T00:27:47Z",
+  "generated_at": "2026-10-11T00:30:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-033",
@@ -1667,6 +1667,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-052",
+      "headline": "India-EU FTA 'An Absolute Game Changer': EU Envoy On Trade Deal, Defence Ties",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/business/india-eu-fta-an-absolute-game-changer-eu-envoy-on-trade-deal-defence-ties-12166393#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T12:53:45Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "EU envoy highlights the potential economic impact of an India-EU Free Trade Agreement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "EU envoy highlights the potential economic impact of an India-EU Free Trade Agreement.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-018",
       "headline": "Cotton Back to Mixed Midday Trade, as USDA Hikes Production",
       "headline_en": null,
@@ -1704,6 +1747,55 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-050",
+      "headline": "Akasa Air enters Rajasthan, direct flights connecting Jaipur with Mumbai, Bengaluru from Sunday",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/economy/logistics/akasa-air-enters-rajasthan-direct-flights-connecting-jaipur-with-mumbai-bengaluru-from-sunday/article71568136.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T12:55:13Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Akasa Air is expanding its network to Rajasthan with new direct flights.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 53,
+      "triage_reason": "Akasa Air is expanding its network to Rajasthan with new direct flights.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 0,
+        "recency": 2,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Akasa Air",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1790,98 +1882,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-004",
-      "headline": "Thane Crime: Anti-Corruption Bureau Arrests Bhiwandi Sarpanch For Allegedly Accepting ₹7.5 Lakh Bribe In ₹2.33-Crore Pond Project",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/thane-crime-anti-corruption-bureau-arrests-bhiwandi-sarpanch-for-allegedly-accepting-75-lakh-bribe-in-233-crore-pond-project",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T14:06:55Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Corruption arrest involving a local government official in a specific project, limited impact on broader market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Corruption arrest involving a local government official in a specific project, limited impact on broader market.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-009",
-      "headline": "Tawakkalna App surpasses 30 billion operations, with over 36.7 million users",
-      "headline_en": null,
-      "url": "https://saudigazette.com.sa/article/665283/saudi-arabia/tawakkalna-app-surpasses-30-billion-operations-with-over-367-million-users",
-      "source_name": "Saudi Gazette — Saudi Arabia / general",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:56:06Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Tawakkalna app reports high usage metrics, indicating strong operational scale for the government-backed platform.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Tawakkalna app reports high usage metrics, indicating strong operational scale for the government-backed platform.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tawakkalna",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -212106,9 +212106,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 100469,
-    "news_picked_today": 49,
-    "news_dropped_today": 143
+    "news_seen_today": 106633,
+    "news_picked_today": 52,
+    "news_dropped_today": 164
   },
   "book_momentum": {
     "live_count": 8,
