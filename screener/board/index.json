@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T01:27:28Z",
+  "generated_at": "2026-10-11T01:30:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-124",
@@ -236,6 +236,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-153",
+      "headline": "CATL signs long-term strategic deal with Seres to expand Aito battery capacity",
+      "headline_en": null,
+      "url": "https://cnevpost.com/2026/10/11/catl-deal-seres-expand-aito-battery-capacity/",
+      "source_name": "CnEVPost",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T01:17:40Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "CATL and Seres have signed a long-term strategic deal to expand battery capacity, representing a significant industrial investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "CATL and Seres have signed a long-term strategic deal to expand battery capacity, representing a significant industrial investment.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CATL",
+          "ticker": null,
+          "listing_country": "CN"
+        },
+        {
+          "name": "Seres",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-122",
       "headline": "Chey Orders Fast Gwangju Semiconductor Build",
       "headline_en": null,
@@ -334,6 +389,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-152",
+      "headline": "Billionaire Ray Dalio cashes in Down Under with $300m farms deal",
+      "headline_en": null,
+      "url": "https://www.afr.com/property/commercial/billionaire-ray-dalio-cashes-in-down-under-with-300m-farms-deal-20261011-p614ez?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T01:06:44Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A billionaire investor is divesting $300 million in agricultural assets, signaling a significant capital reallocation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A billionaire investor is divesting $300 million in agricultural assets, signaling a significant capital reallocation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ray Dalio",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1085,6 +1189,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-149",
+      "headline": "DOJ Probes TV Networks Over White House Coverage Decisions",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-11/doj-probes-tv-networks-over-white-house-coverage-decisions",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T00:38:21Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "The DOJ is investigating major TV networks regarding their editorial decisions, which could lead to regulatory or legal risk for the media sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The DOJ is investigating major TV networks regarding their editorial decisions, which could lead to regulatory or legal risk for the media sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-070",
       "headline": "Trump Administration Brings The Hammer Down On Microsoft After Vance Said The Company Laid Off “6,000 American Workers” While Getting 6,300 H-1B Visas For Foreign Workers",
       "headline_en": null,
@@ -1785,148 +1933,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-071",
-      "headline": "Nvidia reportedly halts GeForce RTX 5090 production in favor of AI data center and professional GPUs",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/pc-components/gpus/nvidia-reportedly-halts-geforce-rtx-5090-production-in-favor-of-ai-data-center-and-professional-gpus-impending-supply-drought-expected-to-drive-up-prices-rtx-5080-24gb-rumored-as-new-gaming-flagship",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T12:20:00Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Nvidia is reportedly shifting production capacity away from consumer GPUs to prioritize higher-margin AI data center hardware.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Nvidia is reportedly shifting production capacity away from consumer GPUs to prioritize higher-margin AI data center hardware.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations",
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-093",
-      "headline": "Netanyahu’s former aide alleges attempt to alter 7 October records",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/news/netanyahus-former-aide-alleges-attempt-alter-7-october-records",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T11:23:17Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Allegations regarding the alteration of official records related to the October 7 conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Allegations regarding the alteration of official records related to the October 7 conflict.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-034",
-      "headline": "Lockheed Martin unveils PAC-3 Edge interceptor designed to counter hypersonic threats",
-      "headline_en": null,
-      "url": "https://www.defensenews.com/industry/techwatch/2026/10/10/lockheed-martin-unveils-pac-3-edge-interceptor-designed-to-counter-hypersonic-threats/",
-      "source_name": "Defense News",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:18:04Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "New product launch for defense interceptors enhances the company's competitive position in the hypersonic threat market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "New product launch for defense interceptors enhances the company's competitive position in the hypersonic threat market.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 0,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lockheed Martin",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212148,9 +212154,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 357915,
-    "news_picked_today": 199,
-    "news_dropped_today": 569
+    "news_seen_today": 374603,
+    "news_picked_today": 205,
+    "news_dropped_today": 587
   },
   "book_momentum": {
     "live_count": 8,
