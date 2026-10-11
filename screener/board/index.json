@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T04:23:56Z",
+  "generated_at": "2026-10-11T04:27:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -1846,6 +1846,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-281",
+      "headline": "Kawasaki Heavy aims at 1 tril. yen in defense sales as Japan ups spending",
+      "headline_en": null,
+      "url": "https://english.kyodonews.net/articles/-/87805",
+      "source_name": "Kyodo News (Japan Wire)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T03:24:00Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Kawasaki Heavy Industries is targeting 1 trillion yen in defense sales, reflecting a major strategic shift and growth target.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Kawasaki Heavy Industries is targeting 1 trillion yen in defense sales, reflecting a major strategic shift and growth target.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kawasaki Heavy Industries",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-136",
       "headline": "Westpac’s ‘Catalyst’ program triggers job cuts, despite assurances",
       "headline_en": null,
@@ -1890,55 +1939,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-058",
-      "headline": "A $100 price hike may be all it takes to scare off iPhone buyers in this economy, as Apple reportedly slashes orders",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/10/10/apple-iphone-18-pro-orders-cut-price-hike-memory-chip-shortage/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T12:42:00Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Reports of Apple slashing orders due to price sensitivity suggest potential revenue headwinds for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "Reports of Apple slashing orders due to price sensitivity suggest potential revenue headwinds for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Apple",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212523,9 +212523,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 982856,
-    "news_picked_today": 578,
-    "news_dropped_today": 1702
+    "news_seen_today": 986808,
+    "news_picked_today": 586,
+    "news_dropped_today": 1718
   },
   "book_momentum": {
     "live_count": 8,
