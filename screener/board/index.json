@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T06:34:11Z",
+  "generated_at": "2026-10-11T06:39:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -1551,6 +1551,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-330",
+      "headline": "Suzlon Bets ₹550 Crore On 3 AI-Powered Blade Factories, 15,000 Jobs In Pipeline By 2027",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/suzlon-bets-550-crore-on-3-ai-powered-blade-factories-15000-jobs-in-pipeline-by-2027",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T06:03:46Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Suzlon announced a 550 crore rupee investment in three new manufacturing facilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Suzlon announced a 550 crore rupee investment in three new manufacturing facilities.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Suzlon Energy",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-153",
       "headline": "CATL signs long-term strategic deal with Seres to expand Aito battery capacity",
       "headline_en": null,
@@ -1891,60 +1940,6 @@
       "companies": [
         {
           "name": "Nvidia",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-024",
-      "headline": "Starbucks could acquire Chipotle in blockbuster restaurant deal",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/stocks/starbucks-could-acquire-chipotle-in-blockbuster-restaurant-deal",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-11T00:07:00Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Speculative M&A report involving two major restaurant chains.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Speculative M&A report involving two major restaurant chains.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Starbucks",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Chipotle",
           "ticker": null,
           "listing_country": "US"
         }
@@ -212541,9 +212536,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1279824,
-    "news_picked_today": 885,
-    "news_dropped_today": 2451
+    "news_seen_today": 1285419,
+    "news_picked_today": 891,
+    "news_dropped_today": 2469
   },
   "book_momentum": {
     "live_count": 8,
