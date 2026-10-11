@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T05:05:47Z",
+  "generated_at": "2026-10-11T05:09:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-299",
@@ -1372,6 +1372,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-301",
+      "headline": "Premier Energies Q2 Update: Bags ₹4,001 crore orders for 2,308 MW solar cell, module supplies",
+      "headline_en": null,
+      "url": "https://www.cnbctv18.com/market/stocks/premier-energies-share-price-q2-update-bags-rs-4001-crore-orders-for-2308-mw-solar-cell-module-supplies-20008827.htm",
+      "source_name": "CNBC-TV18",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T17:41:25Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Premier Energies secured new orders worth ₹4,001 crore for 2,308 MW of solar supplies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Premier Energies secured new orders worth ₹4,001 crore for 2,308 MW of solar supplies.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 0,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Premier Energies",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-296",
       "headline": "Nvidia weighs deeper ties with open-model developer Reflection AI through investment or computing deal",
       "headline_en": null,
@@ -1902,49 +1951,6 @@
           "listing_country": null
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-029",
-      "headline": "India detains thousands, locks down Delhi to foil election chief protest",
-      "headline_en": null,
-      "url": "https://www.emirates247.com/world/delhi-lockdown-india-detains-2000-protesters-seeking-election-chief-gyanesh-kumars-resignation/6578",
-      "source_name": "Emirates 24|7 — Flash News (general)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:25:00Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Large-scale civil unrest and government lockdowns in a major economy create significant operational and political risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Large-scale civil unrest and government lockdowns in a major economy create significant operational and political risk.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 0,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": null,
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -212530,9 +212536,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1102426,
-    "news_picked_today": 705,
-    "news_dropped_today": 1983
+    "news_seen_today": 1105954,
+    "news_picked_today": 709,
+    "news_dropped_today": 2003
   },
   "book_momentum": {
     "live_count": 8,
