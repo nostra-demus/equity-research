@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T05:22:53Z",
+  "generated_at": "2026-10-11T05:26:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-302",
@@ -1084,6 +1084,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-308",
+      "headline": "Huelga en mina chilena Centinela, sin señal de reactivación de diálogo: sindicato",
+      "headline_en": "Strike at Chilean Centinela mine, no sign of dialogue resumption: union",
+      "url": "https://www.reuters.com/latam/negocio/Z76YRNBR6VPQFHRU7I7WBIQGAM-2026-10-09/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T17:19:12Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A strike at the Centinela mine in Chile with no dialogue indicates a supply disruption for copper production.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "A strike at the Centinela mine in Chile with no dialogue indicates a supply disruption for copper production.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Antofagasta",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-304",
       "headline": "Google’s $15 billion AI data centre in India faces local resistance",
       "headline_en": null,
@@ -1191,6 +1240,49 @@
       "launched_signal_id": null,
       "triage_score": 94,
       "triage_reason": "An Israeli drone strike in Lebanon represents a geopolitical escalation in a conflict zone.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-307",
+      "headline": "Drone strike kills 30 people in Sudan’s Blue Nile region",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/10/9/drone-strike-kills-30-people-in-sudans-blue-nile-region?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-09T17:19:43Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A drone strike killing 30 people in Sudan represents a significant escalation in regional conflict.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "A drone strike killing 30 people in Sudan represents a significant escalation in regional conflict.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -1853,105 +1945,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-303",
-      "headline": "Comcast has pumped more than £250m into its new Universal theme park in Bedford",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16198685/Comcast-pumped-250m-new-Universal-theme-park-Bedford.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-11T05:00:46Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Comcast is investing over £250 million in a new Universal theme park project in Bedford.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Comcast is investing over £250 million in a new Universal theme park project in Bedford.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Comcast",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-258",
-      "headline": "CSL vaccines unit slammed over UK compliance failures",
-      "headline_en": null,
-      "url": "https://www.afr.com/companies/healthcare-and-fitness/csl-vaccines-unit-slammed-over-uk-compliance-failures-20261011-p614hc?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-11T03:29:22Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "CSL's vaccine unit faces regulatory scrutiny over compliance failures in the UK, posing potential operational and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "CSL's vaccine unit faces regulatory scrutiny over compliance failures in the UK, posing potential operational and reputational risk.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CSL",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212540,9 +212533,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1136902,
-    "news_picked_today": 728,
-    "news_dropped_today": 2080
+    "news_seen_today": 1143618,
+    "news_picked_today": 737,
+    "news_dropped_today": 2095
   },
   "book_momentum": {
     "live_count": 8,
