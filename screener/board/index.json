@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T01:41:49Z",
+  "generated_at": "2026-10-11T01:44:49Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-124",
@@ -1479,6 +1479,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-159",
+      "headline": "RBI to sell $2.6 billion of bonds, tighten bank reserve need to squeeze cash",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/markets/bonds/rbi-to-sell-2-6-bln-of-bonds-tighten-bank-reserve-need-to-squeeze-cash/articleshow/134850313.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T08:13:28Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "The RBI is draining $2.6 billion in liquidity through bond sales and reserve requirement adjustments.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "The RBI is draining $2.6 billion in liquidity through bond sales and reserve requirement adjustments.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 0,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-028",
       "headline": "Mitsubishi Motors to Supply Pickups to Honda for SE Asia",
       "headline_en": null,
@@ -1883,49 +1926,6 @@
         "size": 0,
         "recency": 5,
         "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-098",
-      "headline": "US trade deal to be finalised as 'circumstances have changed': Piyush Goyal",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/economy/foreign-trade/us-trade-deal-to-be-finalised-as-circumstances-have-changed-piyush-goyal/articleshow/134860563.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-11T00:30:00Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "The potential finalization of a US-India trade deal represents a significant shift in bilateral trade policy and economic cooperation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "The potential finalization of a US-India trade deal represents a significant shift in bilateral trade policy and economic cooperation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -212160,9 +212160,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 418675,
-    "news_picked_today": 219,
-    "news_dropped_today": 669
+    "news_seen_today": 434977,
+    "news_picked_today": 224,
+    "news_dropped_today": 688
   },
   "book_momentum": {
     "live_count": 8,
