@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T03:12:59Z",
+  "generated_at": "2026-10-11T03:16:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -869,6 +869,55 @@
       "issuer_linkage": "sector",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-229",
+      "headline": "Japan’s Sumitomo Bakelite expands China chip packaging materials output amid AI boom",
+      "headline_en": null,
+      "url": "https://www.scmp.com/tech/tech-trends/article/3370468/japans-sumitomo-bakelite-expands-china-chip-packaging-materials-output-amid-ai-boom?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-11T03:04:32Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Sumitomo Bakelite is expanding production capacity for chip packaging materials in China to meet AI-driven demand.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Sumitomo Bakelite is expanding production capacity for chip packaging materials in China to meet AI-driven demand.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sumitomo Bakelite",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1920,56 +1969,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-030",
-      "headline": "Hundreds protests at FedEx Oakland over Israel arms shipments",
-      "headline_en": null,
-      "url": "https://www.newarab.com/news/hundreds-protests-fedex-oakland-over-israel-arms-shipments",
-      "source_name": "The New Arab",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:24:50Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Protests at a major logistics hub create operational disruption and potential reputational risk for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Protests at a major logistics hub create operational disruption and potential reputational risk for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "operations",
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "FedEx",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212481,9 +212480,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 765567,
-    "news_picked_today": 409,
-    "news_dropped_today": 1271
+    "news_seen_today": 779517,
+    "news_picked_today": 414,
+    "news_dropped_today": 1290
   },
   "book_momentum": {
     "live_count": 8,
