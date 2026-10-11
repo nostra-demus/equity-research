@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T08:44:56Z",
+  "generated_at": "2026-10-11T08:48:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -1525,6 +1525,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-582",
+      "headline": "Empresa de alquiler Avolon encarga 250 aviones de Boeing y Airbus, con opción de compra de 100 más",
+      "headline_en": "Rental company Avolon orders 250 aircraft from Boeing and Airbus, with an option to purchase 100 more",
+      "url": "https://www.reuters.com/latam/negocio/R53VNBNFWFO55GTUDJMVZJVP3U-2026-10-09/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T12:25:01Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Avolon has placed a major order for 250 aircraft from Boeing and Airbus, with an option for 100 more, representing a significant capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Avolon has placed a major order for 250 aircraft from Boeing and Airbus, with an option for 100 more, representing a significant capital expenditure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Avolon",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Boeing",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Airbus",
+          "ticker": null,
+          "listing_country": "FR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-313",
       "headline": "‎MIS wins over SAR 3.44B in HUMAIN work orders",
       "headline_en": null,
@@ -1954,55 +2013,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-309",
-      "headline": "EAU dice que copiloto omaní de flydubai planeaba un atentado suicida en vuelo con destino a Tel Aviv",
-      "headline_en": "UAE says Omani co-pilot of flydubai planned a suicide attack on a flight bound for Tel Aviv",
-      "url": "https://www.reuters.com/latam/mundo/Q7MP3EYZ6NM2HORYYHBED32NXE-2026-10-09/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T17:13:00Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Allegations of a planned suicide attack by a flydubai pilot represent a severe operational and security risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Allegations of a planned suicide attack by a flydubai pilot represent a severe operational and security risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "flydubai",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212590,9 +212600,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1438622,
-    "news_picked_today": 1236,
-    "news_dropped_today": 3324
+    "news_seen_today": 1441250,
+    "news_picked_today": 1241,
+    "news_dropped_today": 3343
   },
   "book_momentum": {
     "live_count": 8,
