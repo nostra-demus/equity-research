@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T16:37:59Z",
+  "generated_at": "2026-10-11T16:57:52Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -1491,20 +1491,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20261011-688",
-      "headline": "Riyadh airport hit for second time after deadly Houthi missile attack, Saudi-led coalition says",
+      "inbox_id": "INB-20261011-692",
+      "headline": "Riyadh airport hit again after deadly Houthi missile attack, Saudi-led coalition says",
       "headline_en": null,
       "url": "https://www.theguardian.com/world/2026/oct/11/saudi-coalition-retaliation-houthi-attack-riyadh-airport",
       "source_name": "The Guardian — World news",
       "input_nature": "news_headline",
-      "found_at": "2026-10-11T16:11:14Z",
+      "found_at": "2026-10-11T16:49:05Z",
       "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "A repeated missile attack on critical infrastructure in Saudi Arabia indicates a major regional security escalation.",
+      "prelim_note": "A deadly missile attack on Riyadh airport confirms a major escalation in regional conflict.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 99,
-      "triage_reason": "A repeated missile attack on critical infrastructure in Saudi Arabia indicates a major regional security escalation.",
+      "triage_reason": "A deadly missile attack on Riyadh airport confirms a major escalation in regional conflict.",
       "region": "OTHER",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -172226,77 +172226,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6e03d8c38d33",
-      "idea_version": "IDEAV-3a933cf114501052",
-      "idea_version_started_at": "2026-10-10T08:29:45Z",
-      "ticker": "AVANTEL",
-      "company": "Avantel Limited",
-      "exchange": "NSE",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company secured new orders, which directly increases its order book and provides revenue visibility.",
-      "why_now": "The exchange filing confirming the order win was released on 2026-10-10.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 14,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-616dc86d7a44"
-      ],
-      "primary_source_event_id": "EVT-616dc86d7a44",
-      "source_headlines": [
-        "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts"
-      ],
-      "source_headline": "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
-      "source_url": "https://nsearchives.nseindia.com/corporate/AVANTEL_10102026101310_OrderIntimation10102026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 88,
-      "newest_source_at": "2026-10-10T04:43:39Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-10T08:29:45Z",
-      "updated_at": "2026-10-10T08:29:45Z",
-      "decay_at": "2026-10-11T16:43:39Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-49717d740b20",
       "idea_version": "IDEAV-58ba282a07c6b59b",
       "idea_version_started_at": "2026-10-11T03:12:42Z",
@@ -174938,6 +174867,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-6e03d8c38d33",
+      "idea_version": "IDEAV-3a933cf114501052",
+      "idea_version_started_at": "2026-10-10T08:29:45Z",
+      "ticker": "AVANTEL",
+      "company": "Avantel Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company secured new orders, which directly increases its order book and provides revenue visibility.",
+      "why_now": "The exchange filing confirming the order win was released on 2026-10-10.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 14,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-616dc86d7a44"
+      ],
+      "primary_source_event_id": "EVT-616dc86d7a44",
+      "source_headlines": [
+        "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts"
+      ],
+      "source_headline": "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
+      "source_url": "https://nsearchives.nseindia.com/corporate/AVANTEL_10102026101310_OrderIntimation10102026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 88,
+      "newest_source_at": "2026-10-10T04:43:39Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-10T08:29:45Z",
+      "updated_at": "2026-10-10T08:29:45Z",
+      "decay_at": "2026-10-11T16:43:39Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-3f16c02405f0",
       "idea_version": "IDEAV-9f1ab115389443ad",
       "idea_version_started_at": "2026-10-10T03:24:22Z",
@@ -175237,14 +175237,14 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 540,
+    "total_count": 541,
     "shown_count": 499,
-    "hidden_count": 41,
+    "hidden_count": 42,
     "side_counts": {
       "long": {
-        "total_count": 273,
+        "total_count": 274,
         "shown_count": 250,
-        "hidden_count": 23
+        "hidden_count": 24
       },
       "short": {
         "total_count": 268,
@@ -175268,6 +175268,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6e03d8c38d33",
+        "idea_version": "IDEAV-3a933cf114501052",
+        "idea_version_started_at": "2026-10-10T08:29:45Z",
+        "ticker": "AVANTEL",
+        "company": "Avantel Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company secured new orders, which directly increases its order book and provides revenue visibility.",
+        "why_now": "The exchange filing confirming the order win was released on 2026-10-10.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 14,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-616dc86d7a44"
+        ],
+        "primary_source_event_id": "EVT-616dc86d7a44",
+        "source_headlines": [
+          "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts"
+        ],
+        "source_headline": "Avantel Limited: Avantel Limited has informed the Exchange about Bagging/Receiving of orders/contracts",
+        "source_url": "https://nsearchives.nseindia.com/corporate/AVANTEL_10102026101310_OrderIntimation10102026.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 88,
+        "newest_source_at": "2026-10-10T04:43:39Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-10T08:29:45Z",
+        "updated_at": "2026-10-10T08:29:45Z",
+        "decay_at": "2026-10-11T16:43:39Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-11T16:43:39Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-94db52611a9e",
         "idea_version": "IDEAV-4f5a80724b9207a8",
@@ -203784,80 +203858,6 @@
         "audit_only": true
       },
       {
-        "idea_id": "IDEA-84d3d160ac55",
-        "idea_version": "IDEAV-d8d38b50d5b7a32f",
-        "idea_version_started_at": "2026-09-29T03:32:55Z",
-        "ticker": "INA",
-        "company": "Incitec Pivot",
-        "exchange": "ASX",
-        "direction": "long",
-        "pair_with": null,
-        "reason": "The receipt of a further revised non-binding indicative takeover offer suggests a potential premium acquisition is in progress.",
-        "why_now": "The filing was released on September 27, 2026, confirming active M&A negotiations.",
-        "conviction": 70,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 45,
-        "trade_score_basis": "event_driven_v3",
-        "trade_score_breakdown": {
-          "evidence": 25,
-          "impact": 18,
-          "specificity": 7,
-          "timing": 6,
-          "expression": 0,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "watch_only",
-        "missing_checks": [
-          "verified listed ticker",
-          "verified listing",
-          "live liquidity",
-          "dated catalyst",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "company_specific",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-a08ca4f54f6c"
-        ],
-        "primary_source_event_id": "EVT-a08ca4f54f6c",
-        "source_headlines": [
-          "INA: Receipt of further revised non-binding indicative offer [price-sensitive]"
-        ],
-        "source_headline": "INA: Receipt of further revised non-binding indicative offer [price-sensitive]",
-        "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.INA?key=2924-03140397-2A1699656",
-        "source_name": "ASX (Australia Exchange Filing)",
-        "materiality_max": 99,
-        "newest_source_at": "2026-09-27T22:31:20Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-27T03:59:15Z",
-        "updated_at": "2026-09-29T03:32:55Z",
-        "decay_at": "2026-09-29T10:31:20Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-30T23:02:25Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
-      },
-      {
         "idea_id": "IDEA-0bf3d617a214",
         "idea_version": "IDEAV-c1fc68129104d6db",
         "idea_version_started_at": "2026-09-27T22:32:28Z",
@@ -212408,7 +212408,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 1505,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -212427,9 +212427,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1503423,
-    "news_picked_today": 1826,
-    "news_dropped_today": 4936
+    "news_seen_today": 1503521,
+    "news_picked_today": 1844,
+    "news_dropped_today": 5016
   },
   "book_momentum": {
     "live_count": 8,
