@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T21:03:07Z",
+  "generated_at": "2026-10-11T21:08:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-705",
@@ -1589,6 +1589,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-707",
+      "headline": "Deadly air strike kills dozens at Sudan gold mine near Egypt border",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/10/11/deadly-air-strike-kills-dozens-at-sudan-gold-mine-near-egypt-border?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-11T20:44:17Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "A deadly air strike at a gold mine in Sudan represents a geopolitical escalation and potential supply disruption in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "A deadly air strike at a gold mine in Sudan represents a geopolitical escalation and potential supply disruption in the region.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-703",
       "headline": "Riyadh airport attacked again after Houthi missile strike that killed 12 and injured hundreds",
       "headline_en": null,
@@ -1898,56 +1941,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-253",
-      "headline": "Japan watchdog orders partial business suspension at scandal-hit Prudential",
-      "headline_en": null,
-      "url": "https://japantoday.com/category/business/update1-japan-watchdog-orders-partial-business-suspension-at-scandal-hit-prudential",
-      "source_name": "Japan Today",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-09T20:56:58Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "A partial business suspension order by a regulator against Prudential is a severe enforcement action that directly impacts operational capacity and reputation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "A partial business suspension order by a regulator against Prudential is a severe enforcement action that directly impacts operational capacity and reputation.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prudential",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212413,9 +212406,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1504164,
-    "news_picked_today": 2001,
-    "news_dropped_today": 5502
+    "news_seen_today": 1504181,
+    "news_picked_today": 2009,
+    "news_dropped_today": 5511
   },
   "book_momentum": {
     "live_count": 8,
