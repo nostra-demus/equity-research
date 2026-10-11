@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T14:19:06Z",
+  "generated_at": "2026-10-11T14:27:44Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-326",
@@ -1491,6 +1491,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-673",
+      "headline": "Hormuz attacks intensify as efforts to end war on Iran stall",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/2026/10/11/hormuz-attacks-intensify-as-efforts-to-end-war-on-iran-stall?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-10-11T14:04:32Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Intensifying attacks in the Strait of Hormuz pose a significant risk to global energy supply chains and maritime security.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Intensifying attacks in the Strait of Hormuz pose a significant risk to global energy supply chains and maritime security.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 0,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": null,
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-139",
       "headline": "Sundar Pichai Reported Alphabet's Cloud Revenue Grew 82% to $24.8 Billion Last Quarter, With the Gemini App Reaching 950 Million Monthly Users. Is Google Cloud Becoming a Bigger Growth Driver Than Search?",
       "headline_en": null,
@@ -1936,55 +1979,6 @@
           "name": "Premier Energies",
           "ticker": null,
           "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-192",
-      "headline": "MTY Food Group Inc Profit Retreats In Q3",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/mty-food-group-inc-profit-retreats-q3",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T02:24:41Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "MTY Food Group reported a retreat in Q3 profits.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "MTY Food Group reported a retreat in Q3 profits.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MTY Food Group",
-          "ticker": null,
-          "listing_country": "CA"
         }
       ],
       "size_bucket": "mid",
@@ -171377,79 +171371,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f128adef3e6c",
-      "idea_version": "IDEAV-901173219fedbaa9",
-      "idea_version_started_at": "2026-10-11T03:47:12Z",
-      "ticker": "MTY",
-      "company": "MTY Food Group Inc",
-      "exchange": "TSX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The Q3 profit retreat indicates margin compression or slowing organic growth across its portfolio of restaurant brands, suggesting potential downside to earnings expectations.",
-      "why_now": "The earnings report was released on 2026-10-10, and the market is currently digesting the negative margin trend.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "event_driven_v3",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 6,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6ac6f7dd8953"
-      ],
-      "primary_source_event_id": "EVT-6ac6f7dd8953",
-      "source_headlines": [
-        "MTY Food Group Inc Profit Retreats In Q3"
-      ],
-      "source_headline": "MTY Food Group Inc Profit Retreats In Q3",
-      "source_url": "https://www.nasdaq.com/articles/mty-food-group-inc-profit-retreats-q3",
-      "source_name": "Nasdaq",
-      "materiality_max": 98,
-      "newest_source_at": "2026-10-10T02:24:41Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-10-11T03:47:12Z",
-      "updated_at": "2026-10-11T03:47:12Z",
-      "decay_at": "2026-10-11T14:24:41Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-83598d432045",
       "idea_version": "IDEAV-9048d2887f7c6712",
       "idea_version_started_at": "2026-10-11T02:32:41Z",
@@ -174591,6 +174512,79 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-f128adef3e6c",
+      "idea_version": "IDEAV-901173219fedbaa9",
+      "idea_version_started_at": "2026-10-11T03:47:12Z",
+      "ticker": "MTY",
+      "company": "MTY Food Group Inc",
+      "exchange": "TSX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The Q3 profit retreat indicates margin compression or slowing organic growth across its portfolio of restaurant brands, suggesting potential downside to earnings expectations.",
+      "why_now": "The earnings report was released on 2026-10-10, and the market is currently digesting the negative margin trend.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "event_driven_v3",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6ac6f7dd8953"
+      ],
+      "primary_source_event_id": "EVT-6ac6f7dd8953",
+      "source_headlines": [
+        "MTY Food Group Inc Profit Retreats In Q3"
+      ],
+      "source_headline": "MTY Food Group Inc Profit Retreats In Q3",
+      "source_url": "https://www.nasdaq.com/articles/mty-food-group-inc-profit-retreats-q3",
+      "source_name": "Nasdaq",
+      "materiality_max": 98,
+      "newest_source_at": "2026-10-10T02:24:41Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-10-11T03:47:12Z",
+      "updated_at": "2026-10-11T03:47:12Z",
+      "decay_at": "2026-10-11T14:24:41Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-a98d17bf56cf",
       "idea_version": "IDEAV-6ca23660cd3ce8cd",
       "idea_version_started_at": "2026-10-09T06:05:27Z",
@@ -175248,9 +175242,9 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 541,
+    "total_count": 542,
     "shown_count": 499,
-    "hidden_count": 42,
+    "hidden_count": 43,
     "side_counts": {
       "long": {
         "total_count": 274,
@@ -175258,9 +175252,9 @@
         "hidden_count": 24
       },
       "short": {
-        "total_count": 268,
+        "total_count": 269,
         "shown_count": 250,
-        "hidden_count": 18
+        "hidden_count": 19
       }
     },
     "retention": {
@@ -175279,6 +175273,82 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f128adef3e6c",
+        "idea_version": "IDEAV-901173219fedbaa9",
+        "idea_version_started_at": "2026-10-11T03:47:12Z",
+        "ticker": "MTY",
+        "company": "MTY Food Group Inc",
+        "exchange": "TSX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The Q3 profit retreat indicates margin compression or slowing organic growth across its portfolio of restaurant brands, suggesting potential downside to earnings expectations.",
+        "why_now": "The earnings report was released on 2026-10-10, and the market is currently digesting the negative margin trend.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "event_driven_v3",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6ac6f7dd8953"
+        ],
+        "primary_source_event_id": "EVT-6ac6f7dd8953",
+        "source_headlines": [
+          "MTY Food Group Inc Profit Retreats In Q3"
+        ],
+        "source_headline": "MTY Food Group Inc Profit Retreats In Q3",
+        "source_url": "https://www.nasdaq.com/articles/mty-food-group-inc-profit-retreats-q3",
+        "source_name": "Nasdaq",
+        "materiality_max": 98,
+        "newest_source_at": "2026-10-10T02:24:41Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-10-11T03:47:12Z",
+        "updated_at": "2026-10-11T03:47:12Z",
+        "decay_at": "2026-10-11T14:24:41Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-10-11T14:24:41Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-7cf547d54695",
         "idea_version": "IDEAV-24918a5b93e8aee3",
@@ -212339,85 +212409,12 @@
         "archived_at": "2026-09-17T09:07:03Z",
         "archive_reason": "expired_pruned",
         "audit_only": true
-      },
-      {
-        "idea_id": "IDEA-a7b0cf284225",
-        "idea_version": "IDEAV-c2bbeec89ca85091",
-        "idea_version_started_at": "2026-09-14T05:51:52Z",
-        "ticker": "005930.KS",
-        "company": "Samsung Electronics Co., Ltd.",
-        "exchange": "Korea",
-        "direction": "short",
-        "pair_with": null,
-        "reason": "The rally of the Korean Won is expected to cut 21 trillion Won from Samsung Electronics' profit outlook.",
-        "why_now": "The impact of the Won's rally on profit outlook was reported today.",
-        "conviction": 60,
-        "conviction_basis": "pre_edge_proxy",
-        "trade_score": 62,
-        "trade_score_basis": "evidence_gate_v2",
-        "trade_score_breakdown": {
-          "evidence": 14,
-          "impact": 19,
-          "specificity": 15,
-          "timing": 10,
-          "expression": 6,
-          "corroboration": 0,
-          "learning_adjustment": 0
-        },
-        "trade_readiness": "needs_data",
-        "missing_checks": [
-          "live liquidity",
-          "dated catalyst",
-          "independent confirmation",
-          "live price, liquidity, and consensus"
-        ],
-        "learning": {
-          "resolved": 0,
-          "positive": 0,
-          "negative": 0,
-          "neutral": 0,
-          "adjustment": 0,
-          "basis": "not_enough_outcomes",
-          "evidenceIds": []
-        },
-        "priced_in": "room",
-        "thesis_type": "fx_rates",
-        "origin_type": "wire",
-        "source_themes": [],
-        "source_event_ids": [
-          "EVT-5166bcfbbbad"
-        ],
-        "primary_source_event_id": "EVT-5166bcfbbbad",
-        "source_headlines": [
-          "Won’s Rally Cuts 21 Trillion Won From Samsung, SK hynix Profit Outlook"
-        ],
-        "source_headline": "Won’s Rally Cuts 21 Trillion Won From Samsung, SK hynix Profit Outlook",
-        "source_url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=276855",
-        "source_name": "Business Korea — All English Articles",
-        "materiality_max": 92,
-        "newest_source_at": "2026-09-14T05:51:53Z",
-        "prior_coverage": {
-          "has_run": false,
-          "latest_run": null,
-          "latest_decision": null,
-          "data_pool_present": false
-        },
-        "surfaced_at": "2026-09-14T05:51:52Z",
-        "updated_at": "2026-09-14T05:51:52Z",
-        "decay_at": "2026-09-15T17:51:53Z",
-        "status": "expired",
-        "promoted_signal_id": null,
-        "feedback": null,
-        "stale": true,
-        "archived_at": "2026-09-17T09:58:54Z",
-        "archive_reason": "expired_pruned",
-        "audit_only": true
       }
     ]
   },
   "ideas_scorecard": {
     "surfaced_total": 1501,
-    "live_count": 31,
+    "live_count": 30,
     "promoted_total": 0,
     "machine_confirmed": 0,
     "machine_passed": 0,
@@ -212436,9 +212433,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1502969,
-    "news_picked_today": 1710,
-    "news_dropped_today": 4598
+    "news_seen_today": 1503003,
+    "news_picked_today": 1719,
+    "news_dropped_today": 4623
   },
   "book_momentum": {
     "live_count": 8,
