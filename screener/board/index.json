@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T05:04:49Z",
+  "generated_at": "2026-10-11T05:05:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-299",
@@ -1612,6 +1612,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-300",
+      "headline": "Ambani Heirs Face Tough Questions In Roadshow For Record Jio IPO",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/ambani-heirs-face-tough-questions-in-roadshow-for-record-jio-ipo-12163759#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T17:47:10Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Reliance Industries is preparing for a record IPO of its Jio unit, a major capital event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Reliance Industries is preparing for a record IPO of its Jio unit, a major capital event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-274",
       "headline": "Colombian Billionaire Jaime Gilinski Moves To Take Control Of GeoPark In $500 Million Venezuela Oil Deal",
       "headline_en": null,
@@ -1897,55 +1946,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-117",
-      "headline": "D-Mart profit rises 8.5% to ₹743 crore in Q2",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/companies/d-mart-profit-rises-85-to-743-crore-in-q2/article71567787.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T10:58:31Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Avenue Supermarts (D-Mart) reported a net profit increase of 8.5% to ₹743 crore for Q2.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Avenue Supermarts (D-Mart) reported a net profit increase of 8.5% to ₹743 crore for Q2.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avenue Supermarts",
-          "ticker": "DMART",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212530,9 +212530,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1098906,
-    "news_picked_today": 691,
-    "news_dropped_today": 1973
+    "news_seen_today": 1102426,
+    "news_picked_today": 705,
+    "news_dropped_today": 1983
   },
   "book_momentum": {
     "live_count": 8,
