@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T00:44:47Z",
+  "generated_at": "2026-10-11T00:46:48Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-033",
@@ -1497,6 +1497,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20261011-084",
+      "headline": "Palestinian president postpones legislative elections until 2027",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/palestinian-president-postpones-legislative-elections-until-2027",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-10T11:54:37Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Postponement of elections in Palestine increases political instability and regional risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 77,
+      "triage_reason": "Postponement of elections in Palestine increases political instability and regional risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20261011-038",
       "headline": "RBI may hike repo rate by 75-100 bps in current cycle as inflation persists- SBI Capital flags December hike risk",
       "headline_en": null,
@@ -1837,49 +1880,6 @@
       "triage_score": 63,
       "triage_reason": "SEBI is planning to introduce new norms for closing auctions, which will impact market microstructure and trading procedures in India.",
       "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-048",
-      "headline": "How Supreme Court justices are leaning in major 401(k) case over private funds and underperformance",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/10/10/supreme-court-case-401k-private-funds-intel.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-10T13:00:01Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "Supreme Court case regarding 401(k) private fund performance could set a precedent for asset management liability.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 63,
-      "triage_reason": "Supreme Court case regarding 401(k) private fund performance could set a precedent for asset management liability.",
-      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 55,
       "rank_factors": {
@@ -212126,9 +212126,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 167274,
-    "news_picked_today": 86,
-    "news_dropped_today": 250
+    "news_seen_today": 179236,
+    "news_picked_today": 91,
+    "news_dropped_today": 269
   },
   "book_momentum": {
     "live_count": 8,
