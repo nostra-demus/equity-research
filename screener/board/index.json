@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11T02:56:49Z",
+  "generated_at": "2026-10-11T03:01:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20261011-160",
@@ -146,6 +146,60 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20261011-212",
+      "headline": "Cirrus Logic Is Said to Have Bid for Synaptics After Onsemi Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-10-09/cirrus-logic-is-said-to-have-bid-for-synaptics-after-onsemi-deal",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-10-09T23:25:37Z",
+      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
+      "prelim_note": "Cirrus Logic is reported to have bid for Synaptics, following a previous deal with Onsemi, indicating significant M&A activity in the semiconductor space.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cirrus Logic is reported to have bid for Synaptics, following a previous deal with Onsemi, indicating significant M&A activity in the semiconductor space.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cirrus Logic",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Synaptics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1911,50 +1965,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20261011-149",
-      "headline": "DOJ Probes TV Networks Over White House Coverage Decisions",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-10-11/doj-probes-tv-networks-over-white-house-coverage-decisions",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-10-11T00:38:21Z",
-      "sweep_file": "screener/inbox/2026-10-11_sweep.json",
-      "prelim_note": "The DOJ is investigating major TV networks regarding their editorial decisions, which could lead to regulatory or legal risk for the media sector.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "The DOJ is investigating major TV networks regarding their editorial decisions, which could lead to regulatory or legal risk for the media sector.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -212321,9 +212331,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 713930,
-    "news_picked_today": 368,
-    "news_dropped_today": 1192
+    "news_seen_today": 723459,
+    "news_picked_today": 374,
+    "news_dropped_today": 1210
   },
   "book_momentum": {
     "live_count": 8,
