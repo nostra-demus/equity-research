@@ -1,28 +1,28 @@
 {
   "schema_version": "idea-archive/v1",
-  "archived_at": "2026-09-16T10:05:03Z",
+  "archived_at": "2026-10-11T11:07:52Z",
   "archive_reason": "expired_pruned",
   "snapshot": {
-    "idea_id": "IDEA-8d1552f59ea8",
-    "idea_version": "IDEAV-97db41660754a5bd",
-    "idea_version_started_at": "2026-09-13T16:50:02Z",
-    "ticker": "0309",
-    "company": "XH News Media",
-    "exchange": "HKEX",
+    "idea_id": "IDEA-26f859b2a348",
+    "idea_version": "IDEAV-00839b718ba53ef4",
+    "idea_version_started_at": "2026-10-08T10:33:41Z",
+    "ticker": "KRX",
+    "company": "Kingspan",
+    "exchange": "LSE",
     "ticker_verified": false,
     "listing_verified": false,
     "liquidity_verified": false,
     "listing_verification_source": null,
     "direction": "short",
     "pair_with": null,
-    "reason": "The company has received a formal winding-up petition, which typically precedes liquidation and renders equity value highly speculative or zero.",
-    "why_now": "Inside information filing released on September 13, 2026.",
-    "conviction": 80,
+    "reason": "The company faces a €40 million EU fine for providing misleading data regarding a past acquisition, which will directly impact net income and potentially damage regulatory standing.",
+    "why_now": "The fine was announced today, October 8, 2026.",
+    "conviction": 65,
     "conviction_basis": "pre_edge_proxy",
     "trade_score": 45,
-    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_basis": "event_driven_v3",
     "trade_score_breakdown": {
-      "evidence": 25,
+      "evidence": 14,
       "impact": 20,
       "specificity": 7,
       "timing": 10,
@@ -36,6 +36,7 @@
       "verified listing",
       "live liquidity",
       "dated catalyst",
+      "independent confirmation",
       "live price, liquidity, and consensus"
     ],
     "learning": {
@@ -48,30 +49,30 @@
       "evidenceIds": []
     },
     "priced_in": "room",
-    "thesis_type": "balance_sheet_survival",
+    "thesis_type": "company_specific",
     "origin_type": "wire",
     "source_themes": [],
     "source_event_ids": [
-      "EVT-dac3667e4fc3"
+      "EVT-0fa5bb769b31"
     ],
-    "primary_source_event_id": "EVT-dac3667e4fc3",
+    "primary_source_event_id": "EVT-0fa5bb769b31",
     "source_headlines": [
-      "XH NEWS MEDIA (00309): INSIDE INFORMATION WINDING-UP PETITION"
+      "Kingspan hit with €40 million EU fine for misleading data on Slovenian deal"
     ],
-    "source_headline": "XH NEWS MEDIA (00309): INSIDE INFORMATION WINDING-UP PETITION",
-    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0913/2026091300007.pdf",
-    "source_name": "HKEXnews (HK Exchange Filing)",
+    "source_headline": "Kingspan hit with €40 million EU fine for misleading data on Slovenian deal",
+    "source_url": "https://www.reuters.com/world/kingspan-hit-with-40-million-eu-fine-misleading-data-slovenian-deal-2026-10-08/",
+    "source_name": "Reuters — Latest (news sitemap)",
     "materiality_max": 100,
-    "newest_source_at": "2026-09-13T10:03:00Z",
+    "newest_source_at": "2026-10-08T09:58:52Z",
     "prior_coverage": {
       "has_run": false,
       "latest_run": null,
       "latest_decision": null,
       "data_pool_present": false
     },
-    "surfaced_at": "2026-09-13T16:50:02Z",
-    "updated_at": "2026-09-13T16:50:02Z",
-    "decay_at": "2026-09-14T22:03:00Z",
+    "surfaced_at": "2026-10-08T10:33:41Z",
+    "updated_at": "2026-10-08T10:33:41Z",
+    "decay_at": "2026-10-09T21:58:52Z",
     "status": "live",
     "promoted_signal_id": null
   }
